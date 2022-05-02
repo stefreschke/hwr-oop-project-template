@@ -9,9 +9,11 @@ import java.util.function.IntFunction;
 public class Sudoku {
     private Cell[][] cells;
     private final int size;
+    private final int boxSize;
 
     public Sudoku(int[][] input) {
         size = input.length;
+        boxSize = (int) Math.sqrt(size);
         cells = new Cell[size][size];
         fillCells(input);
     }
@@ -63,11 +65,11 @@ public class Sudoku {
 
     public CellGroup getBox(int boxIndex) {
         var boxCells = new ArrayList<Cell>(9);
-        int boxLatitude = boxIndex / 3;
-        int boxLongitude = boxIndex % 3;
-        for (int y = 0; y < 3; y++) {
-            for (int x = 0; x < 3; x++) {
-                boxCells.add(cells[boxLatitude * 3 + y][boxLongitude * 3 + x]);
+        int boxLatitude = boxIndex / boxSize;
+        int boxLongitude = boxIndex % boxSize;
+        for (int y = 0; y < boxSize; y++) {
+            for (int x = 0; x < boxSize; x++) {
+                boxCells.add(cells[boxLatitude * boxSize + y][boxLongitude * boxSize + x]);
             }
         }
         return new CellGroup(boxCells);
@@ -86,7 +88,7 @@ public class Sudoku {
     }
 
     private Set<CellGroup> getGroup(IntFunction<CellGroup> function) {
-        var group = new HashSet<CellGroup>(9);
+        var group = new HashSet<CellGroup>(size);
         for (int i = 0; i < size; i++) {
             group.add(function.apply(i));
         }
