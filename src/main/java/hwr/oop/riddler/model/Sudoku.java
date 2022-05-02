@@ -1,7 +1,6 @@
 package hwr.oop.riddler.model;
 
-import hwr.oop.riddler.model.component.Cell;
-import hwr.oop.riddler.model.component.CellGroup;
+import hwr.oop.riddler.model.component.*;
 
 import java.util.*;
 import java.util.function.IntFunction;
@@ -67,23 +66,23 @@ public class Sudoku {
     }
 
     public Set<CellGroup> getRows() {
-        return getGroup(this::getRow);
+        return getAllGroups(this::getRow);
     }
 
     public Set<CellGroup> getColumns() {
-        return getGroup(this::getColumn);
+        return getAllGroups(this::getColumn);
     }
 
     public Set<CellGroup> getBoxes() {
-        return getGroup(this::getBox);
+        return getAllGroups(this::getBox);
     }
 
-    private Set<CellGroup> getGroup(IntFunction<CellGroup> function) {
-        var group = new HashSet<CellGroup>(size);
+    private Set<CellGroup> getAllGroups(IntFunction<CellGroup> getGroup) {
+        var groups = new HashSet<CellGroup>(size);
         for (int i = 0; i < size; i++) {
-            group.add(function.apply(i));
+            groups.add(getGroup.apply(i));
         }
-        return group;
+        return groups;
     }
 
     public Cell getCellAt(int row, int column) {
