@@ -66,23 +66,31 @@ public class Sudoku {
     }
 
     public Set<CellGroup> getRows() {
-        return getAllGroups(this::getRow);
+        return getAllGroupsOfSameType(this::getRow);
     }
 
     public Set<CellGroup> getColumns() {
-        return getAllGroups(this::getColumn);
+        return getAllGroupsOfSameType(this::getColumn);
     }
 
     public Set<CellGroup> getBoxes() {
-        return getAllGroups(this::getBox);
+        return getAllGroupsOfSameType(this::getBox);
     }
 
-    private Set<CellGroup> getAllGroups(IntFunction<CellGroup> getGroup) {
+    private Set<CellGroup> getAllGroupsOfSameType(IntFunction<CellGroup> getGroup) {
         var groups = new HashSet<CellGroup>(size);
         for (int i = 0; i < size; i++) {
             groups.add(getGroup.apply(i));
         }
         return groups;
+    }
+
+    public Set<CellGroup> getAllCellGroups() {
+        var allCellGroups = new HashSet<CellGroup>(size*3);
+        allCellGroups.addAll(getRows());
+        allCellGroups.addAll(getColumns());
+        allCellGroups.addAll(getBoxes());
+        return allCellGroups;
     }
 
     public Cell getCellAt(int row, int column) {
