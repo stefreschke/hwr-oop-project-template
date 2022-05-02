@@ -54,15 +54,6 @@ public class Sudoku {
         return new CellGroup(column);
     }
 
-    public void print() {
-        for (Cell[] rows : cells) {
-            for (Cell cell : rows) {
-                System.out.print(cell.getValue() + " ");
-            }
-            System.out.println();
-        }
-    }
-
     public CellGroup getBox(int boxIndex) {
         var boxCells = new ArrayList<Cell>(9);
         int boxLatitude = boxIndex / boxSize;
