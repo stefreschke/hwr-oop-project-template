@@ -1,6 +1,6 @@
-# HWR OOP Lecture Project Template
+# HWR OOP Lecture Project Expense Tracker
 
-[TODO]: # (Change README.md Headline to better fit to your project!)
+[TODO]:  (Change README.md Headline to better fit to your project!)
 
 This repository contains a student project created for an ongoing lecture on object-oriented programming with Java at HWR Berlin (summer term 2022).
 
@@ -8,13 +8,13 @@ This repository contains a student project created for an ongoing lecture on obj
 
 ## Abstract
 
-[TODO]: # (Write a short description of your project.)
-[TODO]: # (State most important features.)
-[TODO]: # (State the most interesting problems you encountered during the project.)
+[TODO]:  (Write a short description of your project.)
+[TODO]:  (State most important features.)
+[TODO]:  (State the most interesting problems you encountered during the project.)
 
 ## Feature List
 
-[TODO]: # (For each feature implemented, add a row to the table!)
+[TODO]:  (For each feature implemented, add a row to the table!)
 
 | Number | Feature | Tests |
 |--------|---------|-------|
@@ -23,7 +23,7 @@ This repository contains a student project created for an ongoing lecture on obj
 
 ## Additional Dependencies
 
-[TODO]: # (For each additional dependency your project requires- Add an additional row to the table!)
+[TODO]:  (For each additional dependency your project requires- Add an additional row to the table!)
 
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
@@ -31,7 +31,7 @@ This repository contains a student project created for an ongoing lecture on obj
 
 ## Instructions
 
-[TODO]: # (Remove these instructions once you finished your fork's setup.)
+[TODO]:  (Remove these instructions once you finished your fork's setup.)
 
 Use a fork of this repository to do implement your project.
 
