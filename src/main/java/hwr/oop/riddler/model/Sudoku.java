@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.function.IntFunction;
 
 public class Sudoku {
-    private Cell[][] cells;
+    private final Cell[][] cells;
     private final int size;
     private final int boxSize;
 
