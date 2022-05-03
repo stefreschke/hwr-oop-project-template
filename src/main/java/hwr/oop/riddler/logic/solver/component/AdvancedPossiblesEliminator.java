@@ -13,7 +13,7 @@ public class AdvancedPossiblesEliminator extends SolvingComponent {
     }
 
     @Override
-    public boolean execute() {
+    public boolean execute() {/*
         for (CellGroup box : sudoku.getBoxes()) {
             for (int i = 1; i <= sudoku.getSize(); i++) {
                 Set<CellGroup> rows = new HashSet<>();
@@ -33,11 +33,11 @@ public class AdvancedPossiblesEliminator extends SolvingComponent {
                 }
                 if (removePossibleInBoxByGroupLine(sudoku, box, i, cols)) return true;
             }
-        }
+        }*/
         return false;
     }
 
-    private boolean removePossibleInBoxByGroupLine(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> groups) {
+    private boolean removePossibleInBoxByGroupLine(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> groups) {/*
         if (groups.size() == 1) {
             CellGroup group = groups.iterator().next();
             for (Cell cell : group.getCells()) {
@@ -48,11 +48,11 @@ public class AdvancedPossiblesEliminator extends SolvingComponent {
             }
         } else if (groups.size() == 3) {
             if (doStuff(sudoku, box, i, groups)) return true;
-        }
+        }*/
         return false;
     }
 
-    private boolean doStuff(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> rows) {
+    private boolean doStuff(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> rows) {/*
         //System.out.println("Do stuff in box " + Arrays.toString(box.getAllValues().toArray()));
         Set<Integer> indices = new HashSet<>();
         int level = 0;
@@ -77,7 +77,7 @@ public class AdvancedPossiblesEliminator extends SolvingComponent {
                     }
                 }
             }
-        }
+        }*/
         return false;
     }
 
