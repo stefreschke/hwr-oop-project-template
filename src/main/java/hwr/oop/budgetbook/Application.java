@@ -1,5 +1,8 @@
 package hwr.oop.budgetbook;
 
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 public class Application {
     private final int terminalLength = 150;
 
@@ -14,6 +17,19 @@ public class Application {
         System.out.println("Studiengang Dual Informatik 2021");
         printMainScreenNavigationMenu();
         System.out.println("=".repeat(terminalLength));
+    }
+
+    public int createNumberPrompt(String message) {
+        try {
+            System.out.println(message);
+            Scanner scanner = new Scanner(System.in);
+            int input = scanner.nextInt();
+            scanner.close();
+            return input;
+        } catch (InputMismatchException mismatchException) {
+            System.out.println("Diese Eingabe war nicht gültig. Verwenden Sie eine andere oder beenden Sie die Eingabe mit 0");
+            return createNumberPrompt(message);
+        }
     }
 
     private void printMainScreenNavigationMenu() {
