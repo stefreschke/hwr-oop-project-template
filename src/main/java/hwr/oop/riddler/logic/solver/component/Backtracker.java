@@ -1,5 +1,6 @@
 package hwr.oop.riddler.logic.solver.component;
 
+import hwr.oop.riddler.logic.SudokuValidator;
 import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
 
@@ -9,6 +10,7 @@ import java.util.Deque;
 public class Backtracker extends SolvingComponent {
 
     private final Deque<Sudoku> sudokuBackups = new ArrayDeque<>();
+    private final SudokuValidator validator = new SudokuValidator();
 
     public Backtracker(Sudoku sudoku) {
         super(sudoku);
@@ -16,20 +18,27 @@ public class Backtracker extends SolvingComponent {
 
     @Override
     public boolean execute() {
-        if (sudoku.isFilled())
+        if (sudoku.isFilled()) {
+            //System.out.println("jup, this sudoku is totally done, man, i swear:");
             return false;
-
-        Cell cell = getNextUnsolvedCell();
-        if (cellHasAPossibleValue(cell)) {
-            int assumedValue = getAPossibleValue(cell);
-            cell.addImpossible(assumedValue);
-            sudokuBackups.push(new Sudoku(sudoku));
-            cell.setValue(assumedValue);
-        } else {
-            backtrack();
         }
 
+        if (validator.isValid(sudoku))
+            continueSolvingWithAssumedValue();
+        else
+            backtrack();
+
         return true;
+    }
+
+    private void continueSolvingWithAssumedValue() {
+        Cell targetCell = getNextUnsolvedCell();
+        int assumedValue = getAPossibleValue(targetCell);
+
+        targetCell.addImpossible(assumedValue);
+        sudokuBackups.push(new Sudoku(sudoku));
+
+        targetCell.setValue(assumedValue);
     }
 
     private void backtrack() {
@@ -48,9 +57,5 @@ public class Backtracker extends SolvingComponent {
                 return value;
         }
         throw new IllegalStateException("empty cell has no possible values");
-    }
-
-    private boolean cellHasAPossibleValue(Cell cell) {
-        return sudoku.getSize() - cell.getImpossibles().size() > 1;
     }
 }

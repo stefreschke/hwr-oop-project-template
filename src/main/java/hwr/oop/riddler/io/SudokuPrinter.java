@@ -30,7 +30,7 @@ public class SudokuPrinter {
         builder.append("------ Solved Sudoku -------\n");
         for (CellGroup row : sudoku.getRows()) {
             for (Cell cell : row.getCells()) {
-                builder.append(cell.isFilled() ? cell.getValue() : " ");
+                builder.append(cell.isFilled() ? cell.getValue() : "_");
                 builder.append(" ");
             }
             builder.append("\n");

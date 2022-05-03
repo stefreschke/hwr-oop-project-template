@@ -18,15 +18,15 @@ public class SinglePossibleImplementor extends SolvingComponent {
     }
 
     private boolean fillCellWithOnlyPossibleValue(Cell cell) {
-        if (cell.isFilled() || cellHasMoreThanOnePossibleValue(cell))
+        if (cell.isFilled() || !cellHasOnePossibleValue(cell))
             return false;
 
         cell.setValue(onlyPossibleValue(cell));
         return true;
     }
 
-    private boolean cellHasMoreThanOnePossibleValue(Cell cell) {
-        return sudoku.getSize() - cell.getImpossibles().size() > 1;
+    private boolean cellHasOnePossibleValue(Cell cell) {
+        return sudoku.getSize() - cell.getImpossibles().size() == 1;
     }
 
     private int onlyPossibleValue(Cell cell) {

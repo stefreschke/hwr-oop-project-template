@@ -16,7 +16,7 @@ public class PossiblesEliminator extends SolvingComponent {
 
         for (CellGroup cellGroup : sudoku.getAllCellGroups()) {
             boolean removedPossibles = removePossibleCellValues(cellGroup);
-            if(removedPossibles)
+            if (removedPossibles)
                 changesWereMade = true;
         }
 

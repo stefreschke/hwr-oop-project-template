@@ -4,18 +4,19 @@ import hwr.oop.riddler.logic.solver.component.*;
 import hwr.oop.riddler.model.Sudoku;
 
 public class SudokuSolver {
+    SolvingComponent[] solvingComponents;
 
-    public Sudoku solve(Sudoku sudoku) {
-        Sudoku solution;
+    public void solve(Sudoku sudoku) {
+        solvingComponents = getSolvingComponents(sudoku);
         try {
-            solution = solveWithSteps(sudoku);
+            boolean changesWereMade = true;
+            while (changesWereMade) {
+                changesWereMade = solveWithSteps();
+            }
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(0);
-            solution = null;
         }
-
-        return solution;
     }
 
     private SolvingComponent[] getSolvingComponents(Sudoku sudoku) {
@@ -27,17 +28,13 @@ public class SudokuSolver {
         };
     }
 
-    private Sudoku solveWithSteps(Sudoku sudoku) {
-        var solvingComponents = getSolvingComponents(sudoku);
-
+    private boolean solveWithSteps() {
         for (SolvingComponent solvingComponent : solvingComponents) {
-            //System.out.println("step " + solvingStepIndex);
             boolean solvingStepMadeChanges = solvingComponent.execute();
             if (solvingStepMadeChanges) {
-                solveWithSteps(sudoku);
-                break;
+                return true;
             }
         }
-        return sudoku;
+        return false;
     }
 }

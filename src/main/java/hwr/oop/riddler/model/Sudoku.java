@@ -1,6 +1,5 @@
 package hwr.oop.riddler.model;
 
-import hwr.oop.riddler.logic.solver.SudokuSolver;
 import hwr.oop.riddler.model.component.*;
 import lombok.Getter;
 

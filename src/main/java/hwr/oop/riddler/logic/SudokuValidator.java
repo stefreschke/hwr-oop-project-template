@@ -12,10 +12,19 @@ public class SudokuValidator {
 
     public boolean isValid(Sudoku sudoku) {
         this.sudoku = sudoku;
-        return rowsAreValid() && columnsAreValid() && boxesAreValid();
+        return rowsAreValid() && columnsAreValid() && boxesAreValid() && unsolvedCellsHavePossibles();
     }
 
-    private boolean rowsAreValid(){
+    private boolean unsolvedCellsHavePossibles() {
+        int possibleValueCount = sudoku.getSize();
+        for (Cell cell : sudoku.getAllUnsolvedCells()) {
+            if (possibleValueCount - cell.getImpossibles().size() < 1)
+                return false;
+        }
+        return true;
+    }
+
+    private boolean rowsAreValid() {
         for (CellGroup row : sudoku.getRows()) {
             if (hasDuplicate(row)) {
                 return false;

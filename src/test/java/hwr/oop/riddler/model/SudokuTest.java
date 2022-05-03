@@ -52,7 +52,6 @@ class SudokuTest {
     @Test
     void sudoku_getsFirstColumnValues() {
         Set<Integer> expectedValues = Set.of(5, 9, 6);
-        System.out.println(Arrays.toString(unsolvedSudoku.getRow(0).getAllValues().toArray()));
         if (!unsolvedSudoku.getColumn(0).getAllValues().equals(expectedValues)) {
             fail();
         }
