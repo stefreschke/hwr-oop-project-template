@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+// A CellGroup is either a Row, Column, or a Box. These are treated Identically. A polymorphic implementation would
+// have lead to duplicate code.
 public class CellGroup {
 
     private final List<Cell> cells;
