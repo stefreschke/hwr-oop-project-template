@@ -3,15 +3,37 @@ package hwr.oop.riddler.logic.solver.component;
 import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
 
-public class SinglePossibleImplementor implements IterativeSudokuSolver {
+public class SinglePossibleImplementor extends SolvingComponent {
+    public SinglePossibleImplementor(Sudoku sudoku) {
+        super(sudoku);
+    }
+
     @Override
-    public boolean doSolvingStep(Sudoku sudoku) {
+    public boolean execute() {
+        boolean changesMade = false;
         for (Cell cell : sudoku.getAllCells()) {
-            if (!cell.isFilled() && cell.getPossibles().size() == 1) {
-                cell.setValue(cell.getPossibles().iterator().next());
-                return true;
-            }
+            changesMade = fillCellWithOnlyPossibleValue(cell);
         }
-        return false;
+        return changesMade;
+    }
+
+    private boolean fillCellWithOnlyPossibleValue(Cell cell) {
+        if (cell.isFilled() || cellHasMoreThanOnePossibleValue(cell))
+            return false;
+
+        cell.setValue(onlyPossibleValue(cell));
+        return true;
+    }
+
+    private boolean cellHasMoreThanOnePossibleValue(Cell cell) {
+        return sudoku.getSize() - cell.getImpossibles().size() > 1;
+    }
+
+    private int onlyPossibleValue(Cell cell) {
+        for (int value = 1; value <= sudoku.getSize(); value++) {
+            if (!cell.getImpossibles().contains(value))
+                return value;
+        }
+        throw new IllegalArgumentException("cell has no possible value");
     }
 }

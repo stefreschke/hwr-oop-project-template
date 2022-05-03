@@ -7,11 +7,15 @@ import hwr.oop.riddler.model.component.CellGroup;
 import java.util.HashSet;
 import java.util.Set;
 
-public class AdvancedPossiblesEliminator implements IterativeSudokuSolver {
+public class AdvancedPossiblesEliminator extends SolvingComponent {
+    public AdvancedPossiblesEliminator(Sudoku sudoku) {
+        super(sudoku);
+    }
+
     @Override
-    public boolean doSolvingStep(Sudoku sudoku) {
+    public boolean execute() {
         for (CellGroup box : sudoku.getBoxes()) {
-            for (int i = 1; i <= 9; i++) {
+            for (int i = 1; i <= sudoku.getSize(); i++) {
                 Set<CellGroup> rows = new HashSet<>();
                 for (Cell cell : box.getCells()) {
                     if (!cell.isFilled() && cell.getPossibles().contains(i)) {

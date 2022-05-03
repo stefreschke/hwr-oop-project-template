@@ -7,23 +7,31 @@ import hwr.oop.riddler.model.component.Cell;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-public class Backtracker implements IterativeSudokuSolver {
+public class Backtracker extends SolvingComponent {
 
-    private final Deque<Cell> backtrackingStack = new ArrayDeque<>();
+    //private final Deque<Sudoku> backtrackingStack = new ArrayDeque<>();
     private final SudokuValidator validator = new SudokuValidator();
+    private Sudoku workingCopySudoku;
+
+    public Backtracker(Sudoku sudoku) {
+        super(sudoku);
+    }
 
     @Override
-    public boolean doSolvingStep(Sudoku sudoku) {
-        Cell cell;
-        while ((cell = getNextUnsolvedCell(sudoku)) != null) {
-            cell.setAssumedValue(cell.getSingleAssumedPossible());
-            backtrackingStack.push(cell);
+    public boolean execute() {
+        boolean changesMade = false;
+        workingCopySudoku = new Sudoku(sudoku);
 
-            if (validator.isValid(sudoku) && backtrack()) {
-                return true;
+        for (Cell cell : workingCopySudoku.getAllUnsolvedCells()) {
+            if (cellHasAPossibleValue(cell)) {
+                cell.setValue(getAPossibleValue(cell));
+                changesMade = true;
             }
+            else
+                backtrack();
         }
-        return false;
+
+        return changesMade;
     }
 
     private boolean backtrack() {
@@ -45,12 +53,26 @@ public class Backtracker implements IterativeSudokuSolver {
         return false;
     }
 
-    private Cell getNextUnsolvedCell(Sudoku sudoku) {
-        var cells = sudoku.getAllCells();
-        for (int i = backtrackingStack.size(); i < cells.size(); i++) {
+    private Cell getNextUnsolvedCell() {
+        var cells = workingCopySudoku.getAllCells();
+        for (int i = currentCellIndex; i < cells.size(); i++) {
             var cell = cells.get(i);
-            if (!cell.isFilled()) return cell;
+            if (!cell.isFilled())
+                return cell;
         }
         return null;
+    }
+
+
+    private int getAPossibleValue(Cell cell) {
+        for (int value = 1; value <= sudoku.getSize(); value++) {
+            if(!cell.getImpossibles().contains(value))
+                return value;
+        }
+        throw new IllegalStateException("empty cell has no possible values");
+    }
+
+    private boolean cellHasAPossibleValue(Cell cell) {
+        return sudoku.getSize() - cell.getImpossibles().size() > 1;
     }
 }

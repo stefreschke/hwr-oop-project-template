@@ -4,16 +4,6 @@ import hwr.oop.riddler.logic.solver.component.*;
 import hwr.oop.riddler.model.Sudoku;
 
 public class SudokuSolver {
-    IterativeSudokuSolver[] solvingComponents;
-
-    public SudokuSolver() {
-        solvingComponents = new IterativeSudokuSolver[]{
-                new PossiblesEliminator(),
-                new AdvancedPossiblesEliminator(),
-                new SinglePossibleImplementor(),
-                new Backtracker()
-        };
-    }
 
     public Sudoku solve(Sudoku sudoku) {
         Sudoku solution;
@@ -28,10 +18,21 @@ public class SudokuSolver {
         return solution;
     }
 
+    private SolvingComponent[] getSolvingComponents(Sudoku sudoku) {
+        return new SolvingComponent[]{
+                new PossiblesEliminator(sudoku),
+                //new AdvancedPossiblesEliminator(), -- TODO: work on this once solver works
+                new SinglePossibleImplementor(sudoku),
+                new Backtracker(sudoku)
+        };
+    }
+
     private Sudoku solveWithSteps(Sudoku sudoku) {
-        for (IterativeSudokuSolver solvingComponent : solvingComponents) {
+        var solvingComponents = getSolvingComponents(sudoku);
+
+        for (SolvingComponent solvingComponent : solvingComponents) {
             //System.out.println("step " + solvingStepIndex);
-            boolean solvingStepMadeChanges = solvingComponent.doSolvingStep(sudoku);
+            boolean solvingStepMadeChanges = solvingComponent.execute();
             if (solvingStepMadeChanges) {
                 solveWithSteps(sudoku);
                 break;

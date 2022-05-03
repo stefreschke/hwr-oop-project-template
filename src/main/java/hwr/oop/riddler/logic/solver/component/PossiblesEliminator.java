@@ -4,24 +4,34 @@ import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
 import hwr.oop.riddler.model.component.CellGroup;
 
-import java.util.HashSet;
+public class PossiblesEliminator extends SolvingComponent {
 
-public class PossiblesEliminator implements IterativeSudokuSolver {
+    public PossiblesEliminator(Sudoku sudoku) {
+        super(sudoku);
+    }
 
-    public boolean doSolvingStep(Sudoku sudoku) {
-        var allCellGroups = new HashSet<CellGroup>();
-        allCellGroups.addAll(sudoku.getBoxes());
-        allCellGroups.addAll(sudoku.getRows());
-        allCellGroups.addAll(sudoku.getColumns());
-        for (CellGroup cellGroup : allCellGroups) {
-            for (Cell cell : cellGroup.getCells()) {
-                if (cell.getPossibles() != null) {
-                    if (cell.removeAllPossibles(cellGroup.getAllValues())) {
-                        return true;
-                    }
-                }
-            }
+    @Override
+    public boolean execute() {
+        boolean changesWereMade = false;
+
+        for (CellGroup cellGroup : sudoku.getAllCellGroups()) {
+            boolean removedPossibles = removePossibleCellValues(cellGroup);
+            if(removedPossibles)
+                changesWereMade = true;
         }
-        return false;
+
+        return changesWereMade;
+    }
+
+    private boolean removePossibleCellValues(CellGroup cellGroup) {
+        boolean foundImpossible = false;
+
+        for (Cell cell : cellGroup.getCells()) {
+            boolean addedImpossibles = cell.addImpossibles(cellGroup.getAllValues());
+            if (addedImpossibles)
+                foundImpossible = true;
+        }
+
+        return foundImpossible;
     }
 }

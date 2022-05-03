@@ -1,13 +1,16 @@
 package hwr.oop.riddler.model;
 
 import hwr.oop.riddler.model.component.*;
+import lombok.Getter;
 
 import java.util.*;
 import java.util.function.IntFunction;
 
 public class Sudoku {
     private final Cell[][] cells;
+    @Getter
     private final int size;
+    @Getter
     private final int boxSize;
 
     public Sudoku(int[][] input) {
@@ -15,6 +18,17 @@ public class Sudoku {
         boxSize = (int) Math.sqrt(size);
         cells = new Cell[size][size];
         fillCells(input);
+    }
+
+    public Sudoku(Sudoku sudoku) {
+        this.cells = new Cell[sudoku.size][sudoku.size];
+        for (int rowIndex = 0; rowIndex < sudoku.size; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < sudoku.size; columnIndex++) {
+                this.cells[rowIndex][columnIndex] = new Cell(sudoku.cells[rowIndex][columnIndex]);
+            }
+        }
+        this.size = sudoku.size;
+        this.boxSize = sudoku.boxSize;
     }
 
     private void fillCells(int[][] input) {
@@ -39,6 +53,15 @@ public class Sudoku {
             Collections.addAll(collectedCells, rows);
         }
         return collectedCells;
+    }
+
+    public List<Cell> getAllUnsolvedCells() {
+        var unsolvedCells = new ArrayList<Cell>();
+        for (Cell cell : getAllCells()) {
+            if (!cell.isFilled())
+                unsolvedCells.add(cell);
+        }
+        return unsolvedCells;
     }
 
     public CellGroup getRow(int rowIndex) {
@@ -86,7 +109,7 @@ public class Sudoku {
     }
 
     public Set<CellGroup> getAllCellGroups() {
-        var allCellGroups = new HashSet<CellGroup>(size*3);
+        var allCellGroups = new HashSet<CellGroup>(size * 3);
         allCellGroups.addAll(getRows());
         allCellGroups.addAll(getColumns());
         allCellGroups.addAll(getBoxes());
