@@ -32,6 +32,19 @@ public class Application {
         }
     }
 
+    public String createStringPrompt(String message) {
+        try {
+            System.out.println(message);
+            Scanner scanner = new Scanner(System.in);
+            String input = scanner.next();
+            scanner.close();
+            return input;
+        } catch (InputMismatchException mismatchException) {
+            System.out.println("Diese Eingabe war nicht gültig. Verwenden Sie eine andere oder beenden Sie die Eingabe mit 'exit'");
+            return createStringPrompt(message);
+        }
+    }
+
     private void printMainScreenNavigationMenu() {
         System.out.println("=".repeat(terminalLength));
         System.out.println("Geben Sie eine der folgenden Aktionen mit der jeweiligen Nummer ein und bestätigen mit Enter.");

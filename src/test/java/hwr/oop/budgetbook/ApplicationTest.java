@@ -16,4 +16,11 @@ public class ApplicationTest {
         int input = application.createNumberPrompt("Gebe eine Zahl 2 an.");
         Assertions.assertThat(input).isEqualTo(2);
     }
+
+    @Test
+    void checkIfStringPromptReturnsCorrectInputValue() {
+        Application application = new Application();
+        String input = application.createStringPrompt("Gebe eine Zahl 2 als Wort in ausschließlich kleinbuchstaben an.");
+        Assertions.assertThat(input).isEqualTo("zwei");
+    }
 }
