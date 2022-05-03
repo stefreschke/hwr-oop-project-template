@@ -1,5 +1,6 @@
 package hwr.oop.riddler.model;
 
+import hwr.oop.riddler.logic.solver.SudokuSolver;
 import hwr.oop.riddler.model.component.*;
 import lombok.Getter;
 
@@ -118,5 +119,9 @@ public class Sudoku {
 
     public Cell getCellAt(int row, int column) {
         return cells[row][column];
+    }
+
+    public boolean isFilled() {
+        return getAllUnsolvedCells().isEmpty();
     }
 }
