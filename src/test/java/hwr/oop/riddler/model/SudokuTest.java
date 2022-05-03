@@ -31,41 +31,13 @@ class SudokuTest {
     void sudoku_constructorFillsCellsCorrectly() {
         for (int rowIndex = 0; rowIndex < unsolvedSudokuArray.length; rowIndex ++) {
             for (int columnIndex = 0; columnIndex < unsolvedSudokuArray[0].length; columnIndex++) {
-                if (unsolvedSudoku.getCellAt(rowIndex, columnIndex).getValue() != unsolvedSudokuArray[rowIndex][columnIndex]) {
+                Cell cellUnderTest = unsolvedSudoku.getCellAt(rowIndex, columnIndex);
+                if (!cellUnderTest.isFilled())
+                    continue;
+                if (cellUnderTest.getValue() != unsolvedSudokuArray[rowIndex][columnIndex]) {
                     fail();
                 }
             }
-        }
-    }
-
-    @Test
-    void sudoku_getsFirstRow() {
-        int[] firstRowValues = {0, 0, 0, 9, 0, 0, 4, 0, 0};
-        CellGroup row = unsolvedSudoku.getRow(0);
-        for (int i = 0; i < 9; i++) {
-            if (row.getCells().get(i).getValue() != firstRowValues[i]) {
-                fail();
-            }
-        }
-    }
-
-    @Test
-    void sudoku_getsFirstColumn() {
-        int[] firstColumnValues = {0, 5, 9, 0, 0, 6, 0, 0, 0};
-        CellGroup row = unsolvedSudoku.getColumn(0);
-        for (int i = 0; i < 9; i++) {
-            if (row.getCells().get(i).getValue() != firstColumnValues[i]) {
-                fail();
-            }
-        }
-    }
-
-    @Test
-    void sudoku_getsFirstBox() {
-        List<Integer> firstBoxValues = List.of(0, 0, 0, 5, 0, 6, 9, 0, 0);
-        CellGroup box = unsolvedSudoku.getBox(0);
-        if (!Arrays.equals(box.getCells().stream().map(Cell::getValue).toArray(), firstBoxValues.toArray())) {
-            fail();
         }
     }
 
