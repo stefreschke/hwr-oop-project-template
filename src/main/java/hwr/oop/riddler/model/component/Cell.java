@@ -22,7 +22,8 @@ public class Cell {
 
     public Cell(Cell cell) {
         this.value = cell.value;
-        this.impossibles = new HashSet<>(cell.impossibles);
+        if(!cell.isFilled())
+            this.impossibles = new HashSet<>(cell.impossibles);
     }
 
     public boolean isFilled() {

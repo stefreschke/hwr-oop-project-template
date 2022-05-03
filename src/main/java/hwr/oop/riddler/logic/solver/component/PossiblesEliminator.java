@@ -27,6 +27,9 @@ public class PossiblesEliminator extends SolvingComponent {
         boolean foundImpossible = false;
 
         for (Cell cell : cellGroup.getCells()) {
+            if (cell.isFilled())
+                continue;
+
             boolean addedImpossibles = cell.addImpossibles(cellGroup.getAllValues());
             if (addedImpossibles)
                 foundImpossible = true;
