@@ -41,6 +41,16 @@ public class Sudoku {
         }
     }
 
+    public int[][] getIntArray() {
+        int[][] sudoku = new int[size][size];
+        for (int rowIndex = 0; rowIndex < size; rowIndex++) {
+            for (int columnIndex = 0; columnIndex < size; columnIndex++) {
+                sudoku[rowIndex][columnIndex] = cells[rowIndex][columnIndex].getValue();
+            }
+        }
+        return sudoku;
+    }
+
     public List<Cell> getAllCells() {
         var collectedCells = new ArrayList<Cell>();
         for (Cell[] rows : cells) {
