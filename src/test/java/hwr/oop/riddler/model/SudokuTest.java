@@ -2,16 +2,20 @@ package hwr.oop.riddler.model;
 
 import hwr.oop.riddler.model.component.Cell;
 import hwr.oop.riddler.model.component.CellGroup;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SudokuTest {
-    private final int[][] unsolvedSudokuArray = {
+    Sudoku unsolved;
+    Sudoku solved;
+    Sudoku unsolvedNineByNine;
+    private final int[][] unsolvedNineByNineArray = {
             {0,0,0, 9,0,0, 4,0,0},
             {5,0,6, 0,0,0, 0,0,0},
             {9,0,0, 3,0,0, 6,8,1},
@@ -24,44 +28,40 @@ class SudokuTest {
             {0,0,0, 0,9,0, 0,5,0},
             {0,5,0, 0,0,0, 0,0,2},
     };
-    private final Sudoku unsolvedSudoku = new Sudoku(unsolvedSudokuArray);
 
+    private final int[][] unsolvedFourByFourArray = {
+            {0, 1, 0, 3},
+            {3, 0, 1, 0},
+            {0, 3, 0, 1},
+            {0, 4, 0, 2},
+    };
 
-    @Test
-    void sudoku_constructorFillsCellsCorrectly() {
-        for (int rowIndex = 0; rowIndex < unsolvedSudokuArray.length; rowIndex ++) {
-            for (int columnIndex = 0; columnIndex < unsolvedSudokuArray[0].length; columnIndex++) {
-                Cell cellUnderTest = unsolvedSudoku.getCellAt(rowIndex, columnIndex);
-                if (cellUnderTest.isEmpty())
-                    continue;
-                if (cellUnderTest.getValue() != unsolvedSudokuArray[rowIndex][columnIndex]) {
-                    fail();
-                }
-            }
-        }
+    private final int[][] solvedFourByFourArray = {
+            {4, 1, 2, 3},
+            {3, 2, 1, 4},
+            {2, 3, 4, 1},
+            {1, 4, 3, 2},
+    };
+
+    @BeforeEach
+    void setup() {
+        unsolved = new Sudoku(unsolvedFourByFourArray);
+        solved = new Sudoku(solvedFourByFourArray);
+        unsolvedNineByNine = new Sudoku(unsolvedNineByNineArray);
     }
 
     @Test
-    void sudoku_getsFirstRowValues() {
-        Set<Integer> expectedValues = Set.of(9, 4);
-        if (!unsolvedSudoku.getRow(0).getAllValues().equals(expectedValues)) {
-            fail();
-        }
+    void unsolved_isFilledIsFalse() {
+        assertFalse(unsolved.isFilled());
     }
 
     @Test
-    void sudoku_getsFirstColumnValues() {
-        Set<Integer> expectedValues = Set.of(5, 9, 6);
-        if (!unsolvedSudoku.getColumn(0).getAllValues().equals(expectedValues)) {
-            fail();
-        }
+    void solved_isFilled() {
+        assertTrue(solved.isFilled());
     }
 
     @Test
-    void sudoku_getsFirstBoxValues() {
-        Set<Integer> expectedValues = Set.of(5, 9, 6);
-        if (!unsolvedSudoku.getBox(0).getAllValues().equals(expectedValues)) {
-            fail();
-        }
+    void unsolvedNineByNine_isFilledIsFalse() {
+        assertFalse(unsolvedNineByNine.isFilled());
     }
 }
