@@ -1,13 +1,12 @@
 package hwr.oop.riddler.io;
 
 import hwr.oop.riddler.model.Sudoku;
-import hwr.oop.riddler.model.component.Cell;
-import hwr.oop.riddler.model.component.CellGroup;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.util.Arrays;
 
 public class SudokuPrinter {
     private final BufferedWriter writer;
@@ -18,19 +17,21 @@ public class SudokuPrinter {
 
     public void print(Sudoku sudoku) {
         try {
-            writer.write(sudokuToString(sudoku));
+            writer.write(sudokuToString(sudoku.getIntArray()));
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private String sudokuToString(Sudoku sudoku) {
-        StringBuilder builder = new StringBuilder();
+    private String sudokuToString(int[][] sudoku) {
+        var builder = new StringBuilder();
+
+
         builder.append("------ Solved Sudoku -------\n");
-        for (CellGroup row : sudoku.getRows()) {
-            for (Cell cell : row.getCells()) {
-                builder.append(cell.isFilled() ? cell.getValue() : "_");
+        for (int[] row : sudoku) {
+            for (int value : row) {
+                builder.append((value == 0 ? "_" : value));
                 builder.append(" ");
             }
             builder.append("\n");

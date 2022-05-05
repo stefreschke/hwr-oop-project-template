@@ -50,8 +50,6 @@ public class Cell {
     }
 
     public int getValue() {
-        if (isEmpty())
-            throw new IllegalStateException("Cell is not filled");
         return value;
     }
 }
