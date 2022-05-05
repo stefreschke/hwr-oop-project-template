@@ -68,15 +68,6 @@ class CellTest {
     }
 
     @Test
-    void emptyCell_getValueFails() {
-        try {
-            emptyCell.getValue();
-            fail();
-        } catch (IllegalStateException ignore) {
-        }
-    }
-
-    @Test
     void emptyCell_canBeCopied() {
         emptyCell.addImpossibles(Set.of(1, 3, 4));
         var copy = new Cell(emptyCell);
