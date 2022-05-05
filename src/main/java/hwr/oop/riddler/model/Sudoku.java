@@ -69,11 +69,11 @@ public class Sudoku {
     }
 
     public CellGroup getRow(int rowIndex) {
-        return new CellGroup(List.of(cells[rowIndex]));
+        return new CellGroup(Set.of(cells[rowIndex]));
     }
 
     public CellGroup getColumn(int columnIndex) {
-        var column = new ArrayList<Cell>();
+        var column = new HashSet<Cell>();
         for (int rowIndex = 0; rowIndex < size; rowIndex++) {
             column.add(this.cells[rowIndex][columnIndex]);
         }
@@ -81,7 +81,7 @@ public class Sudoku {
     }
 
     public CellGroup getBox(int boxIndex) {
-        var boxCells = new ArrayList<Cell>(9);
+        var boxCells = new HashSet<Cell>(9);
         int boxLatitude = boxIndex / boxSize;
         int boxLongitude = boxIndex % boxSize;
         for (int y = 0; y < boxSize; y++) {

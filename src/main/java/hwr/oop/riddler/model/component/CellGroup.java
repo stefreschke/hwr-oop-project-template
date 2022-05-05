@@ -1,25 +1,23 @@
 package hwr.oop.riddler.model.component;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 // A CellGroup is either a Row, Column, or a Box. These are treated Identically. A polymorphic implementation would
 // have lead to duplicate code.
 public class CellGroup {
-    private final List<Cell> cells;
+    private final Set<Cell> cells;
 
-    public CellGroup(List<Cell> contents) {
-        this.cells = new ArrayList<>(contents);
+    public CellGroup(Set<Cell> contents) {
+        this.cells = new HashSet<>(contents);
     }
 
-    public List<Cell> getCells() {
+    public Set<Cell> getCells() {
         return cells;
     }
 
-    public List<Cell> getUnsolvedCells() {
-        var unsolvedCells = new ArrayList<Cell>();
+    public Set<Cell> getUnsolvedCells() {
+        var unsolvedCells = new HashSet<Cell>();
         for (Cell cell : cells) {
             if (cell.isEmpty())
                 unsolvedCells.add(cell);
