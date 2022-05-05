@@ -102,7 +102,7 @@ public class Sudoku {
         return groups;
     }
 
-    public Set<CellGroup> getAllCellGroups() {
+    public Set<CellGroup> getConcatenatedCellGroups() {
         var allCellGroups = new HashSet<CellGroup>(size * 3);
         allCellGroups.addAll(getRows());
         allCellGroups.addAll(getColumns());
