@@ -34,8 +34,10 @@ public class Cell {
     }
 
     public void setValue(int value) {
+        if (value < 1)
+            throw new IllegalArgumentException("Value must be greater than 0");
         if (this.value != 0)
-            throw new IllegalArgumentException("Value was already set");
+            throw new IllegalStateException("Value was already set");
         this.value = value;
     }
 
