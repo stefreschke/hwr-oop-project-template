@@ -8,7 +8,6 @@ import java.util.Set;
 // A CellGroup is either a Row, Column, or a Box. These are treated Identically. A polymorphic implementation would
 // have lead to duplicate code.
 public class CellGroup {
-
     private final List<Cell> cells;
 
     public CellGroup(List<Cell> contents) {
@@ -17,6 +16,15 @@ public class CellGroup {
 
     public List<Cell> getCells() {
         return cells;
+    }
+
+    public List<Cell> getUnsolvedCells() {
+        var unsolvedCells = new ArrayList<Cell>();
+        for (Cell cell : cells) {
+            if (cell.isEmpty())
+                unsolvedCells.add(cell);
+        }
+        return unsolvedCells;
     }
 
     public Set<Integer> getAllValues() {
