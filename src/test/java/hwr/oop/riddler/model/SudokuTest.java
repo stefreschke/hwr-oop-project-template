@@ -32,7 +32,7 @@ class SudokuTest {
         for (int rowIndex = 0; rowIndex < unsolvedSudokuArray.length; rowIndex ++) {
             for (int columnIndex = 0; columnIndex < unsolvedSudokuArray[0].length; columnIndex++) {
                 Cell cellUnderTest = unsolvedSudoku.getCellAt(rowIndex, columnIndex);
-                if (!cellUnderTest.isFilled())
+                if (cellUnderTest.isEmpty())
                     continue;
                 if (cellUnderTest.getValue() != unsolvedSudokuArray[rowIndex][columnIndex]) {
                     fail();

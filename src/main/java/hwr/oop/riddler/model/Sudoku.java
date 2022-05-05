@@ -58,7 +58,7 @@ public class Sudoku {
     public List<Cell> getAllUnsolvedCells() {
         var unsolvedCells = new ArrayList<Cell>();
         for (Cell cell : getAllCells()) {
-            if (!cell.isFilled())
+            if (cell.isEmpty())
                 unsolvedCells.add(cell);
         }
         return unsolvedCells;

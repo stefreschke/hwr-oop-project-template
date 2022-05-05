@@ -22,12 +22,16 @@ public class Cell {
 
     public Cell(Cell cell) {
         this.value = cell.value;
-        if(!cell.isFilled())
+        if (cell.isEmpty())
             this.impossibles = new HashSet<>(cell.impossibles);
     }
 
     public boolean isFilled() {
         return value != 0;
+    }
+
+    public boolean isEmpty() {
+        return value == 0;
     }
 
     public void setValue(int value) {
@@ -45,7 +49,7 @@ public class Cell {
     }
 
     public int getValue() {
-        if (!isFilled())
+        if (isEmpty())
             throw new IllegalStateException("Cell is not filled");
         return value;
     }
