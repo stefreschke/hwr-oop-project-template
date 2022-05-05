@@ -5,6 +5,7 @@ import hwr.oop.riddler.model.component.Cell;
 import hwr.oop.riddler.model.component.CellGroup;
 
 public class PossiblesEliminator extends SolvingComponent {
+    boolean changesWereMade;
 
     public PossiblesEliminator(Sudoku sudoku) {
         super(sudoku);
@@ -12,29 +13,20 @@ public class PossiblesEliminator extends SolvingComponent {
 
     @Override
     public boolean execute() {
-        boolean changesWereMade = false;
+        changesWereMade = false;
 
         for (CellGroup cellGroup : sudoku.getAllCellGroups()) {
-            boolean removedPossibles = removePossibleCellValues(cellGroup);
-            if (removedPossibles)
-                changesWereMade = true;
+            removePossibleCellValues(cellGroup);
         }
 
         return changesWereMade;
     }
 
-    private boolean removePossibleCellValues(CellGroup cellGroup) {
-        boolean foundImpossible = false;
-
-        for (Cell cell : cellGroup.getCells()) {
-            if (cell.isFilled())
-                continue;
-
+    private void removePossibleCellValues(CellGroup cellGroup) {
+        for (Cell cell : cellGroup.getUnsolvedCells()) {
             boolean addedImpossibles = cell.addImpossibles(cellGroup.getAllValues());
             if (addedImpossibles)
-                foundImpossible = true;
+                changesWereMade = true;
         }
-
-        return foundImpossible;
     }
 }
