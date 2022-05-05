@@ -8,16 +8,15 @@ import java.util.Set;
 
 @ToString
 public class Cell {
-    private int value;
+    private int value = 0;
     @Getter
-    private Set<Integer> impossibles;
+    private Set<Integer> impossibles = new HashSet<>();;
 
     public Cell(int value) {
         this.value = value;
     }
 
     public Cell() {
-        impossibles = new HashSet<>();
     }
 
     public Cell(Cell cell) {

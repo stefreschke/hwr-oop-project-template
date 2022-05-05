@@ -36,13 +36,7 @@ public class Sudoku {
             int[] row = input[rowIndex];
             for (int columnIndex = 0; columnIndex < size; columnIndex++) {
                 int cellValue = row[columnIndex];
-                Cell cell;
-                if (cellValue != 0) {
-                    cell = new Cell(cellValue);
-                } else {
-                    cell = new Cell();
-                }
-                cells[rowIndex][columnIndex] = cell;
+                cells[rowIndex][columnIndex] = new Cell(cellValue);
             }
         }
     }
