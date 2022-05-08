@@ -6,7 +6,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.util.Arrays;
 
 public class SudokuPrinter {
     private final BufferedWriter writer;
