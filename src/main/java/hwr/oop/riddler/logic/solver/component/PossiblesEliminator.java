@@ -9,20 +9,20 @@ public class PossiblesEliminator implements SolvingComponent {
 
     @Override
     public boolean execute(Sudoku sudoku) {
-        changesWereMade = false;
+        this.changesWereMade = false;
 
         for (CellGroup cellGroup : sudoku.getConcatenatedCellGroups()) {
             removePossibleCellValues(cellGroup);
         }
 
-        return changesWereMade;
+        return this.changesWereMade;
     }
 
     private void removePossibleCellValues(CellGroup cellGroup) {
         for (Cell cell : cellGroup.getUnsolvedCells()) {
             boolean addedImpossibles = cell.addImpossibles(cellGroup.getAllValues());
             if (addedImpossibles)
-                changesWereMade = true;
+                this.changesWereMade = true;
         }
     }
 }
