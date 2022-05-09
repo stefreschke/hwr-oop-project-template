@@ -3,7 +3,6 @@ package hwr.oop.riddler;
 import hwr.oop.riddler.io.FileConverter;
 import hwr.oop.riddler.io.SudokuPrinter;
 import hwr.oop.riddler.logic.backtrackingsolver.BacktrackingSolver;
-import hwr.oop.riddler.logic.solver.SudokuSolver;
 import hwr.oop.riddler.model.Sudoku;
 
 public class Riddler {
@@ -16,7 +15,7 @@ public class Riddler {
 
         Sudoku solvedSudoku = solver.solve(sudoku);
 
-       // new SudokuPrinter(new FileOutputStream("")).print(sudoku);
+        // new SudokuPrinter(new FileOutputStream("")).print(sudoku);
         new SudokuPrinter(System.out).print(solvedSudoku);
     }
 

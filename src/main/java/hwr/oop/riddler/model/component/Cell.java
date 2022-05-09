@@ -10,7 +10,7 @@ import java.util.Set;
 public class Cell {
     private int value = 0;
     @Getter
-    private Set<Integer> impossibles = new HashSet<>();;
+    private Set<Integer> impossibles = new HashSet<>();
 
     public Cell(int value) {
         this.value = value;

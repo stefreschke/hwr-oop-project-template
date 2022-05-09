@@ -1,6 +1,5 @@
 package hwr.oop.riddler.logic.backtrackingsolver;
 
-import hwr.oop.riddler.io.SudokuPrinter;
 import hwr.oop.riddler.logic.SudokuValidator;
 import hwr.oop.riddler.logic.backtrackingsolver.component.*;
 import hwr.oop.riddler.model.Sudoku;
@@ -30,7 +29,7 @@ public class BacktrackingSolver {
                 break;
         }
 
-        if(!validator.isValid(workingCopy)) {
+        if (!validator.isValid(workingCopy)) {
             backtrack();
             workingCopy = solve(workingCopy);
         }
