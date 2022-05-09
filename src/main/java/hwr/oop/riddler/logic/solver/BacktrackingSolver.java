@@ -1,7 +1,7 @@
-package hwr.oop.riddler.logic.backtrackingsolver;
+package hwr.oop.riddler.logic.solver;
 
 import hwr.oop.riddler.logic.SudokuValidator;
-import hwr.oop.riddler.logic.backtrackingsolver.component.*;
+import hwr.oop.riddler.logic.solver.component.*;
 import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
 

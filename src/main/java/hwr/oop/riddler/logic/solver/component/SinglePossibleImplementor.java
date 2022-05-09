@@ -3,15 +3,15 @@ package hwr.oop.riddler.logic.solver.component;
 import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
 
-public class SinglePossibleImplementor extends SolvingComponent {
-    public SinglePossibleImplementor(Sudoku sudoku) {
-        super(sudoku);
-    }
+public class SinglePossibleImplementor implements SolvingComponent {
+    private Sudoku sudoku;
 
     @Override
-    public boolean execute() {
+    public boolean execute(Sudoku sudoku) {
+        this.sudoku = sudoku;
         boolean changesMade = false;
-        for (Cell cell : sudoku.getAllCells()) {
+
+        for (Cell cell : this.sudoku.getAllCells()) {
             changesMade = fillCellWithOnlyPossibleValue(cell);
         }
         return changesMade;

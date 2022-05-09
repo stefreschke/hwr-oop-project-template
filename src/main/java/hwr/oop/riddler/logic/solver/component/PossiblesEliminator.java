@@ -4,15 +4,11 @@ import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
 import hwr.oop.riddler.model.component.CellGroup;
 
-public class PossiblesEliminator extends SolvingComponent {
+public class PossiblesEliminator implements SolvingComponent {
     boolean changesWereMade;
 
-    public PossiblesEliminator(Sudoku sudoku) {
-        super(sudoku);
-    }
-
     @Override
-    public boolean execute() {
+    public boolean execute(Sudoku sudoku) {
         changesWereMade = false;
 
         for (CellGroup cellGroup : sudoku.getConcatenatedCellGroups()) {

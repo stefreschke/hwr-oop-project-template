@@ -4,16 +4,11 @@ import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
 import hwr.oop.riddler.model.component.CellGroup;
 
-import java.util.HashSet;
 import java.util.Set;
 
-public class AdvancedPossiblesEliminator extends SolvingComponent {
-    public AdvancedPossiblesEliminator(Sudoku sudoku) {
-        super(sudoku);
-    }
-
+public class AdvancedPossiblesEliminator implements SolvingComponent {
     @Override
-    public boolean execute() {/*
+    public boolean execute(Sudoku sudoku) {/*
         for (CellGroup box : sudoku.getBoxes()) {
             for (int i = 1; i <= sudoku.getSize(); i++) {
                 Set<CellGroup> rows = new HashSet<>();
