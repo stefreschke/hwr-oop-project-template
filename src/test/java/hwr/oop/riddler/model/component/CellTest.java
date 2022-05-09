@@ -39,6 +39,16 @@ class CellTest {
     }
 
     @Test
+    void emptyCell_getValueFails() {
+        try {
+            emptyCell.getValue();
+            fail(".getValue() on an empty Cell should thow an IllegalStateException");
+        } catch (IllegalStateException ignored) {
+        }
+
+    }
+
+    @Test
     void emptyCell_assumesValue() {
         emptyCell.setValue(2);
         assertEquals(2, emptyCell.getValue());

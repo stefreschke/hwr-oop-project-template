@@ -8,7 +8,7 @@ import java.util.Set;
 
 @ToString
 public class Cell {
-    private int value = 0;
+    private int value ;
     @Getter
     private Set<Integer> impossibles = new HashSet<>();
 
@@ -50,6 +50,8 @@ public class Cell {
     }
 
     public int getValue() {
+        if (value == 0)
+            throw new IllegalStateException("empty cell has no value");
         return value;
     }
 }
