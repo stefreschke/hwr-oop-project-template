@@ -41,7 +41,7 @@ public class Sudoku {
         }
     }
 
-    public int[][] getIntArray() {
+    public int[][] getValues() {
         int[][] sudoku = new int[size][size];
         for (int rowIndex = 0; rowIndex < size; rowIndex++) {
             for (int columnIndex = 0; columnIndex < size; columnIndex++) {
@@ -52,7 +52,7 @@ public class Sudoku {
         return sudoku;
     }
 
-    public List<Cell> getAllCells() {
+    public List<Cell> getCells() {
         var collectedCells = new ArrayList<Cell>();
         for (Cell[] rows : cells) {
             Collections.addAll(collectedCells, rows);
@@ -60,9 +60,9 @@ public class Sudoku {
         return collectedCells;
     }
 
-    public List<Cell> getAllUnsolvedCells() {
+    public List<Cell> getUnsolvedCells() {
         var unsolvedCells = new ArrayList<Cell>();
-        for (Cell cell : getAllCells()) {
+        for (Cell cell : getCells()) {
             if (cell.isEmpty())
                 unsolvedCells.add(cell);
         }
@@ -126,6 +126,6 @@ public class Sudoku {
     }
 
     public boolean isFilled() {
-        return getAllUnsolvedCells().isEmpty();
+        return getUnsolvedCells().isEmpty();
     }
 }

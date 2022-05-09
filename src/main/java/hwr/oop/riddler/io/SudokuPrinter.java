@@ -16,7 +16,7 @@ public class SudokuPrinter {
 
     public void print(Sudoku sudoku) {
         try {
-            writer.write(sudokuToString(sudoku.getIntArray()));
+            writer.write(sudokuToString(sudoku.getValues()));
             writer.flush();
         } catch (IOException e) {
             e.printStackTrace();

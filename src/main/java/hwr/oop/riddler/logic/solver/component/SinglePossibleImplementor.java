@@ -11,7 +11,7 @@ public class SinglePossibleImplementor implements SolvingComponent {
         this.sudoku = sudoku;
         boolean changesMade = false;
 
-        for (Cell cell : this.sudoku.getAllCells()) {
+        for (Cell cell : this.sudoku.getCells()) {
             changesMade = fillCellWithOnlyPossibleValue(cell);
         }
         return changesMade;

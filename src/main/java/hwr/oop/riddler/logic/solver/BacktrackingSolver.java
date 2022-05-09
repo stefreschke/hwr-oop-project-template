@@ -66,7 +66,7 @@ public class BacktrackingSolver {
     }
 
     private Cell getNextUnsolvedCell() {
-        List<Cell> unsolvedCells = workingCopy.getAllUnsolvedCells();
+        List<Cell> unsolvedCells = workingCopy.getUnsolvedCells();
         return unsolvedCells.get(0);
     }
 

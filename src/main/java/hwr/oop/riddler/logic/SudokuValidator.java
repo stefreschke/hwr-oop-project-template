@@ -17,7 +17,7 @@ public class SudokuValidator {
 
     private boolean unsolvedCellsHavePossibles() {
         int possibleValueCount = sudoku.getSize();
-        for (Cell cell : sudoku.getAllUnsolvedCells()) {
+        for (Cell cell : sudoku.getUnsolvedCells()) {
             if (possibleValueCount - cell.getImpossibles().size() < 1)
                 return false;
         }
