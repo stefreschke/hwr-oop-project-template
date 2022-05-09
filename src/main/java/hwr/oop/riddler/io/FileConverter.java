@@ -10,7 +10,8 @@ public class FileConverter {
             var sudoku = new int[9][9];
             int rowIndex = 0;
             for (String line; (line = bufferedReader.readLine()) != null; ) {
-                if (line.trim().isEmpty()) continue;
+                if (line.trim().isEmpty())
+                    continue;
                 line = line.replace(" ", "");
                 line = line.replace("_", "0");
                 for (int columnIndex = 0; columnIndex < 9; columnIndex++) {

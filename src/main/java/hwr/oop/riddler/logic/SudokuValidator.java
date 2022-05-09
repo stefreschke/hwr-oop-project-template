@@ -12,32 +12,38 @@ public class SudokuValidator {
 
     public boolean isValid(Sudoku sudoku) {
         this.sudoku = sudoku;
-        return rowsAreValid() && columnsAreValid() && boxesAreValid();
+        return rowsAreValid() && columnsAreValid() && boxesAreValid() && unsolvedCellsHavePossibles();
     }
 
-    private boolean rowsAreValid(){
-        for (CellGroup row : sudoku.getRows()) {
-            if (hasDuplicate(row)) {
+    private boolean unsolvedCellsHavePossibles() {
+        int possibleValueCount = sudoku.getSize();
+        for (Cell cell : sudoku.getUnsolvedCells()) {
+            if (possibleValueCount - cell.getImpossibles().size() < 1)
                 return false;
-            }
+        }
+        return true;
+    }
+
+    private boolean rowsAreValid() {
+        for (CellGroup row : sudoku.getRows()) {
+            if (hasDuplicate(row))
+                return false;
         }
         return true;
     }
 
     private boolean columnsAreValid() {
         for (CellGroup column : sudoku.getColumns()) {
-            if (hasDuplicate(column)) {
+            if (hasDuplicate(column))
                 return false;
-            }
         }
         return true;
     }
 
     private boolean boxesAreValid() {
         for (CellGroup box : sudoku.getBoxes()) {
-            if (hasDuplicate(box)) {
+            if (hasDuplicate(box))
                 return false;
-            }
         }
         return true;
     }
@@ -46,9 +52,8 @@ public class SudokuValidator {
         Set<Integer> encounteredValues = new HashSet<>();
         for (Cell cell : testSubject.getCells()) {
             if (cell.isFilled()) {
-                if (encounteredValues.contains(cell.getValue())) {
+                if (encounteredValues.contains(cell.getValue()))
                     return true;
-                }
                 encounteredValues.add(cell.getValue());
             }
         }

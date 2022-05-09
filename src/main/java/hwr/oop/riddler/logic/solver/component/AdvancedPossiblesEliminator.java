@@ -4,14 +4,13 @@ import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
 import hwr.oop.riddler.model.component.CellGroup;
 
-import java.util.HashSet;
 import java.util.Set;
 
-public class AdvancedPossiblesEliminator implements IterativeSudokuSolver {
+public class AdvancedPossiblesEliminator implements SolvingComponent {
     @Override
-    public boolean doSolvingStep(Sudoku sudoku) {
+    public boolean execute(Sudoku sudoku) {/*
         for (CellGroup box : sudoku.getBoxes()) {
-            for (int i = 1; i <= 9; i++) {
+            for (int i = 1; i <= sudoku.getSize(); i++) {
                 Set<CellGroup> rows = new HashSet<>();
                 for (Cell cell : box.getCells()) {
                     if (!cell.isFilled() && cell.getPossibles().contains(i)) {
@@ -29,11 +28,11 @@ public class AdvancedPossiblesEliminator implements IterativeSudokuSolver {
                 }
                 if (removePossibleInBoxByGroupLine(sudoku, box, i, cols)) return true;
             }
-        }
+        }*/
         return false;
     }
 
-    private boolean removePossibleInBoxByGroupLine(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> groups) {
+    private boolean removePossibleInBoxByGroupLine(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> groups) {/*
         if (groups.size() == 1) {
             CellGroup group = groups.iterator().next();
             for (Cell cell : group.getCells()) {
@@ -44,11 +43,11 @@ public class AdvancedPossiblesEliminator implements IterativeSudokuSolver {
             }
         } else if (groups.size() == 3) {
             if (doStuff(sudoku, box, i, groups)) return true;
-        }
+        }*/
         return false;
     }
 
-    private boolean doStuff(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> rows) {
+    private boolean doStuff(Sudoku sudoku, CellGroup box, int i, Set<CellGroup> rows) {/*
         //System.out.println("Do stuff in box " + Arrays.toString(box.getAllValues().toArray()));
         Set<Integer> indices = new HashSet<>();
         int level = 0;
@@ -73,7 +72,7 @@ public class AdvancedPossiblesEliminator implements IterativeSudokuSolver {
                     }
                 }
             }
-        }
+        }*/
         return false;
     }
 

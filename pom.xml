@@ -3,13 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>hwr.oop.projects</groupId>
-    <!-- TODO Change name and description according to your project -->
-    <artifactId>project</artifactId>
+    <groupId>hwr.oop.riddler</groupId>
+    <artifactId>riddler</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-    <!-- TODO Change name and description according to your project -->
-    <name>project</name>
-    <description>project-description</description>
+    <name>Riddler</name>
+    <description>another sudoku solver</description>
     <properties>
         <!-- java -->
         <java.version>11</java.version>
@@ -46,6 +44,12 @@
             <artifactId>assertj-core</artifactId>
             <version>${assertj.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.24</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
