@@ -3,8 +3,10 @@ package hwr.oop.riddler.model.component;
 import java.util.HashSet;
 import java.util.Set;
 
-// A CellGroup is either a Row, Column, or a Box. These are treated Identically. A polymorphic implementation would
-// have lead to duplicate code.
+/**
+ * A CellGroup is either a Row, Column, or a Box. These are treated Identically. A polymorphic implementation would
+ * have lead to duplicate code.
+ */
 public class CellGroup {
     private final Set<Cell> cells;
 
