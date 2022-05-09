@@ -28,17 +28,18 @@ public class CellGroup {
     public Set<Integer> getAllValues() {
         var values = new HashSet<Integer>();
         for (Cell cell : cells) {
-            if (cell.isFilled()) {
+            if (cell.isFilled())
                 values.add(cell.getValue());
-            }
         }
         return values;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         CellGroup cellGroup = (CellGroup) o;
         return cells.equals(cellGroup.cells);
     }

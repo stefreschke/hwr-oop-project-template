@@ -20,9 +20,8 @@ public class Riddler {
     }
 
     private static String parseFilepathFromArgs(String[] args) {
-        if (args.length != 1) {
+        if (args.length != 1)
             throw new IllegalArgumentException("USAGE: java hwr.oop.riddler.Riddler [filepath]");
-        }
         return args[args.length - 1];
     }
 }

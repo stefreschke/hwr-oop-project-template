@@ -45,9 +45,8 @@ public class BacktrackingSolver {
     private boolean solveWithSteps() {
         for (SolvingComponent solvingComponent : solvingComponents) {
             boolean solvingStepMadeChanges = solvingComponent.execute(workingCopy);
-            if (solvingStepMadeChanges) {
+            if (solvingStepMadeChanges)
                 return true;
-            }
         }
         return false;
     }
