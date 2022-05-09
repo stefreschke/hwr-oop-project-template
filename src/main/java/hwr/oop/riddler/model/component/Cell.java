@@ -1,12 +1,10 @@
 package hwr.oop.riddler.model.component;
 
 import lombok.Getter;
-import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
 
-@ToString
 public class Cell {
     private int value ;
     @Getter

@@ -10,7 +10,6 @@ public class Sudoku {
     private final Cell[][] cells;
     @Getter
     private final int size;
-    @Getter
     private final int boxSize;
 
     public Sudoku(int[][] input) {
