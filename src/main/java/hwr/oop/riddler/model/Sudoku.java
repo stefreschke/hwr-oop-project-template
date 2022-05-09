@@ -60,12 +60,7 @@ public class Sudoku {
     }
 
     public List<Cell> getUnsolvedCells() {
-        var unsolvedCells = new ArrayList<Cell>();
-        for (Cell cell : getCells()) {
-            if (cell.isEmpty())
-                unsolvedCells.add(cell);
-        }
-        return unsolvedCells;
+        return getCells().stream().filter(Cell::isEmpty).toList();
     }
 
     public CellGroup getRow(int rowIndex) {
