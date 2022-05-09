@@ -12,11 +12,11 @@ public class Cell {
     @Getter
     private Set<Integer> impossibles = new HashSet<>();
 
-    public Cell(int value) {
-        this.value = value;
+    public Cell() {
     }
 
-    public Cell() {
+    public Cell(int value) {
+        this.value = value;
     }
 
     public Cell(Cell cell) {
