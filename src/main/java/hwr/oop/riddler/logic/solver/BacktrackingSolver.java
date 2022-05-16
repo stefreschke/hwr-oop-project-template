@@ -15,7 +15,6 @@ public class BacktrackingSolver {
             //new AdvancedPossiblesEliminator(), -- TODO: work on this once solver works
             new SinglePossibleImplementor(),
     };
-    private final SudokuValidator validator = new SudokuValidator();
 
     private Sudoku workingCopy;
     private final Deque<Sudoku> sudokuBackups = new ArrayDeque<>();
@@ -29,7 +28,7 @@ public class BacktrackingSolver {
                 break;
         }
 
-        if (!validator.isValid(workingCopy)) {
+        if (!new SudokuValidator(sudoku).isValid()) {
             backtrack();
             workingCopy = solve(workingCopy);
         }

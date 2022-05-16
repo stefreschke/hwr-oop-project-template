@@ -11,7 +11,7 @@ public class PossiblesEliminator implements SolvingComponent {
     public boolean execute(Sudoku sudoku) {
         this.changesWereMade = false;
 
-        for (CellGroup cellGroup : sudoku.getConcatenatedCellGroups()) {
+        for (CellGroup cellGroup : sudoku.getCellGroups()) {
             removePossibleCellValues(cellGroup);
         }
 

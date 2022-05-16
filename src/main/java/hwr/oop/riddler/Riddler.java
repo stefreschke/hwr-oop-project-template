@@ -1,17 +1,19 @@
 package hwr.oop.riddler;
 
-import hwr.oop.riddler.io.FileConverter;
+import hwr.oop.riddler.io.SudokuParser;
 import hwr.oop.riddler.io.SudokuPrinter;
 import hwr.oop.riddler.logic.solver.BacktrackingSolver;
 import hwr.oop.riddler.model.Sudoku;
 
+import java.io.File;
+
 public class Riddler {
     public static void main(String[] args) throws IllegalArgumentException {
-        var converter = new FileConverter();
+        var parser = new SudokuParser();
         var solver = new BacktrackingSolver();
 
         String filepath = parseFilepathFromArgs(args);
-        var sudoku = new Sudoku(converter.parseInputFile(filepath));
+        var sudoku = parser.parse(new File(filepath));
 
         Sudoku solvedSudoku = solver.solve(sudoku);
 

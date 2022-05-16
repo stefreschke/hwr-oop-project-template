@@ -6,46 +6,40 @@ import hwr.oop.riddler.model.component.CellGroup;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class SudokuValidator {
-    private Sudoku sudoku;
+    private final Sudoku sudoku;
 
-    public boolean isValid(Sudoku sudoku) {
+    public SudokuValidator(Sudoku sudoku) {
         this.sudoku = sudoku;
-        return rowsAreValid() && columnsAreValid() && boxesAreValid() && unsolvedCellsHavePossibles();
+    }
+
+    public boolean isValid() {
+        return cellGroupsAreValid() && unsolvedCellsHavePossibles();
+    }
+
+    public boolean isInvalid() {
+        return !isValid();
     }
 
     private boolean unsolvedCellsHavePossibles() {
-        int possibleValueCount = sudoku.getSize();
-        for (Cell cell : sudoku.getUnsolvedCells()) {
-            if (possibleValueCount - cell.getImpossibles().size() < 1)
-                return false;
-        }
-        return true;
+        return sudoku
+                .getUnsolvedCells()
+                .stream()
+                .allMatch(this::hasPossibles);
+
     }
 
-    private boolean rowsAreValid() {
-        for (CellGroup row : sudoku.getRows()) {
-            if (hasDuplicate(row))
-                return false;
-        }
-        return true;
+    private boolean cellGroupsAreValid() {
+        return sudoku
+                .getCellGroups()
+                .stream()
+                .allMatch(Predicate.not(this::hasDuplicate));
     }
 
-    private boolean columnsAreValid() {
-        for (CellGroup column : sudoku.getColumns()) {
-            if (hasDuplicate(column))
-                return false;
-        }
-        return true;
-    }
-
-    private boolean boxesAreValid() {
-        for (CellGroup box : sudoku.getBoxes()) {
-            if (hasDuplicate(box))
-                return false;
-        }
-        return true;
+    private boolean hasPossibles(Cell cell) {
+        return cell.getImpossibles().size() < sudoku.getSize();
     }
 
     private boolean hasDuplicate(CellGroup testSubject) {

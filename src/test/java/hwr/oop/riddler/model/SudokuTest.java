@@ -1,5 +1,6 @@
 package hwr.oop.riddler.model;
 
+import hwr.oop.riddler.io.SudokuParser;
 import hwr.oop.riddler.model.component.Cell;
 import hwr.oop.riddler.model.component.CellGroup;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,9 +46,10 @@ class SudokuTest {
 
     @BeforeEach
     void setup() {
-        unsolved = new Sudoku(unsolvedFourByFourArray);
-        solved = new Sudoku(solvedFourByFourArray);
-        unsolvedNineByNine = new Sudoku(unsolvedNineByNineArray);
+        SudokuParser parser = new SudokuParser();
+        unsolved = parser.parse(unsolvedFourByFourArray);
+        solved = parser.parse(solvedFourByFourArray);
+        unsolvedNineByNine = parser.parse(unsolvedNineByNineArray);
     }
 
     @Test

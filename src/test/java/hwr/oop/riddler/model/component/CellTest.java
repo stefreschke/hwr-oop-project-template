@@ -13,8 +13,8 @@ class CellTest {
 
     @BeforeEach
     void setup() {
-        filledCell = new Cell(2);
-        emptyCell = new Cell();
+        filledCell = new Cell(2, new CellPosition(0, 0));
+        emptyCell = new Cell(new CellPosition(0, 1));
     }
 
     @Test

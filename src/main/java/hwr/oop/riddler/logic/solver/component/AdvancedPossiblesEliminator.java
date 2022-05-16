@@ -3,6 +3,7 @@ package hwr.oop.riddler.logic.solver.component;
 import hwr.oop.riddler.model.Sudoku;
 import hwr.oop.riddler.model.component.Cell;
 import hwr.oop.riddler.model.component.CellGroup;
+import hwr.oop.riddler.model.component.CellGroupType;
 
 import java.util.Set;
 
@@ -77,21 +78,21 @@ public class AdvancedPossiblesEliminator implements SolvingComponent {
     }
 
     public CellGroup getBoxOfCell(Cell cell, Sudoku sudoku) {
-        for (CellGroup box : sudoku.getBoxes()) {
+        for (CellGroup box : sudoku.getCellGroups(CellGroupType.BOX)) {
             if (box.getCells().contains(cell)) return box;
         }
         return null;
     }
 
     public CellGroup getRow(Cell cell, Sudoku sudoku) {
-        for (CellGroup box : sudoku.getRows()) {
+        for (CellGroup box : sudoku.getCellGroups(CellGroupType.ROW)) {
             if (box.getCells().contains(cell)) return box;
         }
         return null;
     }
 
     public CellGroup getCol(Cell cell, Sudoku sudoku) {
-        for (CellGroup box : sudoku.getColumns()) {
+        for (CellGroup box : sudoku.getCellGroups(CellGroupType.COLUMN)) {
             if (box.getCells().contains(cell)) return box;
         }
         return null;
