@@ -9,7 +9,7 @@ public class TaskTest {
     Task task;
     @BeforeEach
     void setUp() {
-        task = new Task("vacuum", "25.05.22", "todo", "27.05.22");
+        task = new Task("vacuum", "25.05.22", "27.05.22");
     }
 
     @Test
@@ -20,11 +20,6 @@ public class TaskTest {
     @Test
     void task_getDate_returnsGivenDate() {
         assertThat(task.getDate()).isEqualTo("25.05.22");
-    }
-
-    @Test
-    void task_getKanbanLabel_returnsGivenLabel() {
-        assertThat(task.getKanbanLabel()).isEqualTo("todo");
     }
 
     @Test
