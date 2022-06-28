@@ -1,4 +1,4 @@
 package hwr.oop;
 
-public interface FieldType {
+interface FieldType {
 }

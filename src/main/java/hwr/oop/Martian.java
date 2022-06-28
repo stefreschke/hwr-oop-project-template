@@ -1,4 +1,4 @@
 package hwr.oop;
 
-public class Martian implements FieldType {
+class Martian implements FieldType {
 }

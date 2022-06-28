@@ -1,12 +1,12 @@
 package hwr.oop;
 
-public class Rover {
+class Rover {
     public Rover(Planet mars, int orientation) {
     }
 
-    public static void turnLeft() {
+    void turnLeft() {
     }
 
-    public static void turnRight() {
+    void turnRight() {
     }
 }

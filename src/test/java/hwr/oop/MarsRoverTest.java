@@ -45,7 +45,7 @@ class MarsRoverTest {
         int orientation = 0;
         Planet mars = new Planet(10);
         Rover rover = new Rover(mars, orientation);
-        Rover.turnLeft();
+        rover.turnLeft();
         Assertions.assertThat(orientation).isEqualTo(270);
     }
 
@@ -54,7 +54,7 @@ class MarsRoverTest {
         int orientation = 0;
         Planet mars = new Planet(10);
         Rover rover = new Rover(mars, orientation);
-        Rover.turnRight();
+        rover.turnRight();
         Assertions.assertThat(orientation).isEqualTo(90);
     }
 }

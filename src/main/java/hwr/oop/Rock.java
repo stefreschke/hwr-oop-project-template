@@ -1,4 +1,4 @@
 package hwr.oop;
 
-public class Rock implements FieldType {
+class Rock implements FieldType {
 }
