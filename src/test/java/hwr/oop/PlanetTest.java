@@ -7,7 +7,9 @@ public class PlanetTest {
     @Test
     void generateSamplePlanet() {
         int planetSize = 10;
-        Planet mars = new Planet(planetSize);
+        int xStartPositionRover = 4;
+        int yStartPositionRover = 4;
+        Planet mars = new Planet(planetSize, xStartPositionRover, yStartPositionRover);
         Assertions.assertThat(mars.getArea()).isEqualTo(100);
     }
 }

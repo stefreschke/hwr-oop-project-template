@@ -5,5 +5,6 @@ class Field {
     }
 
     FieldType getFieldType() {
+    return null;
     }
 }
