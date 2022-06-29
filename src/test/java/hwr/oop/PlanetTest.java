@@ -16,7 +16,6 @@ public class PlanetTest {
 
     @Test
     void generatedSamplePlanet_hasCorrectArea() {
-
         Assertions.assertThat(mars.getArea()).isEqualTo(100);
     }
 

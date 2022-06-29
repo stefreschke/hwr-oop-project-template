@@ -7,4 +7,7 @@ class Field {
     FieldType getFieldType() {
     return null;
     }
+
+    void setFieldType(FieldType fieldType) {
+    }
 }

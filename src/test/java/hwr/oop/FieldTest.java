@@ -5,6 +5,13 @@ import org.junit.jupiter.api.Test;
 
 public class FieldTest {
     @Test
+    void setFieldType_Rock() {
+        FieldType crater = new Crater();
+        FieldType rock = new Rock();
+        Field field = new Field(crater);
+        field.setFieldType(rock);
+    }
+    @Test
     void checkFieldType_forRock() {
         FieldType rock = new Rock();
         Field rockField = new Field(rock);
