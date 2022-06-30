@@ -9,7 +9,7 @@ public class FieldTest {
         FieldType crater = new Crater();
         FieldType rock = new Rock();
         Field field = new Field(crater);
-        field.setFieldType(rock);
+        field.setNewFieldType(rock);
     }
     @Test
     void checkFieldType_forRock() {

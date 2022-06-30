@@ -12,7 +12,7 @@ class Field {
     return fieldType;
     }
 
-    void setFieldType(FieldType fieldType) {
+    void setNewFieldType(FieldType fieldType) {
         this.fieldType = fieldType;
     }
 
