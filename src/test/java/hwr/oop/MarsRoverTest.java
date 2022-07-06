@@ -12,34 +12,38 @@ class MarsRoverTest {
 
     @BeforeEach
     void setup() {
-        int orientation = 0;
+        Orientation cardinalDirection = Orientation.N;
         int xStartPositionRover = 4;
         int yStartPositionRover = 4;
-        mars = new Planet(10, xStartPositionRover, yStartPositionRover);
-        marsRover = new Rover(mars, orientation, xStartPositionRover, yStartPositionRover);
+        Position roverPosition = new Position(4,4);
+        mars = new Planet(10, roverPosition);
+        marsRover = new Rover(mars, cardinalDirection, roverPosition);
     }
 
     @Test
     void turnRoverLeft() {
         marsRover.turnLeft();
-        Assertions.assertThat(marsRover.getOrientation()).isEqualTo(270);
+        Assertions.assertThat(marsRover.getOrientation()).isEqualTo(Orientation.W);
     }
 
     @Test
     void turnRoverRight() {
         marsRover.turnRight();
-        Assertions.assertThat(marsRover.getOrientation()).isEqualTo(90);
+        Assertions.assertThat(marsRover.getOrientation()).isEqualTo(Orientation.E);
     }
     @Test
     void moveRoverForward() {
         marsRover.moveForward();
-        Assertions.assertThat((marsRover.getYPosition())).isEqualTo(3);
+        int roverYPosition = marsRover.getYPosition();
+        Assertions.assertThat(roverYPosition).isEqualTo(3);
     }
     @Test
     void rotateLeft_moveBackwards() {
+        int roverXPosition = marsRover.getXPosition();
         marsRover.turnLeft();
         marsRover.moveBackward();
-        Assertions.assertThat((marsRover.getXPosition())).isEqualTo(5);
+        int roverXPosition_2 = marsRover.getXPosition();
+        Assertions.assertThat(roverXPosition_2).isEqualTo(5);
     }
 
     @Test
@@ -52,11 +56,12 @@ class MarsRoverTest {
 
     @Test
     void wrappingAtUpperRightCorner_getNewPosition() {
-        int orientation = 0;
+        Orientation cardinalDirection = Orientation.N;
         int xStartPositionRover = 9;
         int yStartPositionRover = 0;
-        mars = new Planet(10, xStartPositionRover, yStartPositionRover);
-        marsRover = new Rover(mars, orientation, xStartPositionRover, yStartPositionRover);
+        Position roverPosition = new Position(xStartPositionRover, yStartPositionRover);
+        mars = new Planet(10, roverPosition);
+        marsRover = new Rover(mars, cardinalDirection, roverPosition);
         marsRover.moveForward();
         boolean correctPosition = (marsRover.getXPosition() == 2) && (marsRover.getYPosition() == 9);
         Assertions.assertThat(correctPosition).isTrue();
@@ -64,11 +69,12 @@ class MarsRoverTest {
 
     @Test
     void wrappingAtUpperRightCorner_getNewOrientation() {
-        int orientation = 0;
+        Orientation cardinalDirection = Orientation.N;
         int xStartPositionRover = 9;
         int yStartPositionRover = 0;
-        mars = new Planet(10, xStartPositionRover, yStartPositionRover);
-        marsRover = new Rover(mars, orientation, xStartPositionRover, yStartPositionRover);
+        Position roverPosition = new Position(xStartPositionRover, yStartPositionRover);
+        mars = new Planet(10, roverPosition);
+        marsRover = new Rover(mars, cardinalDirection, roverPosition);
         marsRover.moveForward();
         Assertions.assertThat(marsRover.getOrientation()).isEqualTo(180);
     }

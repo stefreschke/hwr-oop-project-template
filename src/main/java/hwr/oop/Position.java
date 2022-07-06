@@ -7,6 +7,12 @@ class Position {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
     }
+    int getXCoordinate() {
+        return xCoordinate;
+    }
+    int getYCoordinate() {
+        return yCoordinate;
+    }
     // I don't get what's happening here, but it works. Need to find out.
     @Override
     public boolean equals(Object o) {
