@@ -43,6 +43,4 @@ class Planet {
         Field field = new Field(fieldType);
         fields.replace(position, field);
     }
-
-
 }
