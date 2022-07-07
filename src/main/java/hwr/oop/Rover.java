@@ -8,10 +8,30 @@ class Rover {
     private Orientation cardinalDirection;
     private Planet mars;
     private Position roverPosition;
+    private String roverMessage;
     public Rover(Planet mars, Orientation cardinalDirection, Position roverPosition) {
         this.cardinalDirection = cardinalDirection;
         this.mars = mars;
         this.roverPosition = roverPosition;
+    }
+
+    Orientation getOrientation() {
+
+        return cardinalDirection;
+    }
+
+    Position getRoverPosition() {
+        return roverPosition;
+    }
+
+    int getYPosition() {
+
+        return roverPosition.getYCoordinate();
+    }
+
+    int getXPosition() {
+
+        return roverPosition.getXCoordinate();
     }
 
     void turnLeft() {
@@ -44,9 +64,8 @@ class Rover {
         }
     }
 
-    Orientation getOrientation() {
-
-        return cardinalDirection;
+    String getRoverMessage() {
+        return roverMessage;
     }
 
     void roverChangeInPosition(int xChange, int yChange) {
@@ -63,41 +82,65 @@ class Rover {
             frontFieldType = mars.getFieldType(frontPosition);
             if (frontFieldType instanceof Plain) {
                 this.roverPosition = frontPosition;
+                this.roverMessage = "OK";
+            }
+            if (frontFieldType instanceof Martian) {
+                this.roverMessage = "Watch out Martian";
             }
         }
 
-        if (roverYCoordinate == 0 && cardinalDirection == Orientation.N) {
+        else if (roverYCoordinate == 0 && cardinalDirection == Orientation.N) {
             frontPosition = new Position(roverWrappedX, roverYCoordinate);
             frontFieldType = mars.getFieldType(frontPosition);
             if (frontFieldType instanceof Plain) {
                 this.roverPosition = frontPosition;
                 this.cardinalDirection = Orientation.S;
+                this.roverMessage = "OK";
+            }
+            if (frontFieldType instanceof Martian) {
+                this.roverMessage = "Watch out Martian";
             }
         }
 
-        if (roverYCoordinate == mars.getPlanetDiameter() - 1 && cardinalDirection == Orientation.S) {
+        else if (roverYCoordinate == mars.getPlanetDiameter() - 1 && cardinalDirection == Orientation.S) {
             frontPosition = new Position(roverWrappedX, roverYCoordinate);
             frontFieldType = mars.getFieldType(frontPosition);
             if (frontFieldType instanceof Plain) {
                 this.roverPosition = frontPosition;
                 this.cardinalDirection = Orientation.N;
+                this.roverMessage = "OK";
+            }
+            if (frontFieldType instanceof Martian) {
+                this.roverMessage = "Watch out Martian";
             }
         }
 
-        if (roverXCoordinate == 0 && cardinalDirection == Orientation.W) {
+        else if (roverXCoordinate == 0 && cardinalDirection == Orientation.W) {
             frontPosition = new Position(mars.getPlanetDiameter() - 1, roverYCoordinate);
             frontFieldType = mars.getFieldType(frontPosition);
             if (frontFieldType instanceof Plain) {
                 this.roverPosition = frontPosition;
+                this.roverMessage = "OK";
+            }
+            if (frontFieldType instanceof Martian) {
+                this.roverMessage = "Watch out Martian";
             }
         }
 
-        if (roverXCoordinate == mars.getPlanetDiameter() - 1 && cardinalDirection == Orientation.E) {
+        else if (roverXCoordinate == mars.getPlanetDiameter() - 1 && cardinalDirection == Orientation.E) {
             frontPosition = new Position(0, roverYCoordinate);
             frontFieldType = mars.getFieldType(frontPosition);
             if (frontFieldType instanceof Plain) {
                 this.roverPosition = frontPosition;
+                this.roverMessage = "OK";
             }
+            if (frontFieldType instanceof Martian) {
+                this.roverMessage = "Watch out Martian";
+            }
+        }
+
+        else {
+            this.roverMessage = "Error Rover Died";
         }
     }
 
@@ -120,8 +163,6 @@ class Rover {
     }
 
     void moveBackward() {
-        Position frontPosition;
-        FieldType frontFieldType;
         if (cardinalDirection == Orientation.N) {
             roverChangeInPosition(0,1);
         }
@@ -137,20 +178,6 @@ class Rover {
         else if (cardinalDirection == Orientation.W) {
             roverChangeInPosition(1, 0);
         }
-    }
-
-    Position getRoverPosition() {
-        return roverPosition;
-    }
-
-    int getYPosition() {
-
-        return roverPosition.getYCoordinate();
-    }
-
-    int getXPosition() {
-
-        return roverPosition.getXCoordinate();
     }
 
     void followRoute(String route) {

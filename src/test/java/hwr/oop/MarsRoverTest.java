@@ -49,6 +49,7 @@ class MarsRoverTest {
             Assertions.assertThat(marsRover.getOrientation()).isEqualTo(cardinalDirection);
         }
     }
+
     @Test
     void moveRoverForward() {
         marsRover.moveForward();
@@ -159,4 +160,15 @@ class MarsRoverTest {
         Assertions.assertThat(correctPosition).isTrue();
     }
 
+    @Test
+    void doesTheRoverKnowMartians_ifYesItShouldReturnWatchOutMartian() {
+        Orientation cardinalDirection = Orientation.N;
+        Position roverPosition = new Position(1,1);
+        FieldType martian = new Martian();
+        mars = new Planet(3, roverPosition);
+        marsRover = new Rover(mars, cardinalDirection, roverPosition);
+        mars.setObstacle(martian, new Position(1,0));
+        marsRover.moveForward();
+        Assertions.assertThat(marsRover.getRoverMessage()).isEqualTo("Watch out Martian");
+    }
 }
