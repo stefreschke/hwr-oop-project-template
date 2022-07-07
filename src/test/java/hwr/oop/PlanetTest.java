@@ -11,7 +11,8 @@ public class PlanetTest {
         int planetSize = 10;
         int xStartPositionRover = 4;
         int yStartPositionRover = 4;
-        mars = new Planet(planetSize, xStartPositionRover, yStartPositionRover);
+        Position roverPosition = new Position(xStartPositionRover, yStartPositionRover);
+        mars = new Planet(planetSize, roverPosition);
     }
 
     @Test
@@ -24,7 +25,8 @@ public class PlanetTest {
         FieldType rock = new Rock();
         int xPosition = 3;
         int yPosition = 3;
-        mars.setObstacle(rock, xPosition, yPosition);
-        Assertions.assertThat(mars.getFieldType(xPosition, yPosition)).isEqualTo(rock);
+        Position position = new Position(xPosition, yPosition);
+        mars.setObstacle(rock, position);
+        Assertions.assertThat(mars.getFieldType(position)).isEqualTo(rock);
     }
 }

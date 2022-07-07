@@ -5,13 +5,11 @@ import java.util.Map;
 
 class Planet {
     private int planetDiameter;
-    private int xStartPositionRover;
-    private int yStartPositionRover;
+    private Position roverPosition;
     private Map<Position, Field> fields = new HashMap<>();
-    public Planet(int planetDiameter, int xStartPositionRover, int yStartPositionRover) {
+    public Planet(int planetDiameter, Position roverPosition) {
         this.planetDiameter = planetDiameter;
-        this.xStartPositionRover = xStartPositionRover;
-        this.yStartPositionRover = yStartPositionRover;
+        this.roverPosition = roverPosition;
         generatePlainFields();
     }
 
@@ -26,23 +24,23 @@ class Planet {
         }
     }
 
+    int getPlanetDiameter() {
+        return planetDiameter;
+    }
+
     int getArea() {
 
         return planetDiameter*planetDiameter;
     }
 
-    FieldType getFieldType(int xPosition, int yPosition) {
-        Position position = new Position(xPosition, yPosition);
+    FieldType getFieldType(Position position) {
         Field field = fields.get(position);
         FieldType fieldType = field.getFieldType();
         return fieldType;
     }
 
-    void setObstacle(FieldType fieldType, int xPosition, int yPosition) {
-        Position position = new Position(xPosition, yPosition);
+    void setObstacle(FieldType fieldType, Position position) {
         Field field = new Field(fieldType);
         fields.replace(position, field);
     }
-
-
 }

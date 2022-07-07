@@ -15,7 +15,7 @@ public class FieldTest {
     void checkFieldType_forRock() {
         FieldType rock = new Rock();
         Field rockField = new Field(rock);
-        Assertions.assertThat(rockField.getFieldType()).isEqualTo(rock); //test also on equality of rockfield and rock
+        Assertions.assertThat(rockField.getFieldType()).isEqualTo(rock);
     }
 
     @Test
