@@ -1,7 +1,9 @@
 package hwr.oop;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ class MarsRoverTest {
         Orientation cardinalDirection = Orientation.N;
         int xStartPositionRover = 4;
         int yStartPositionRover = 4;
-        Position roverPosition = new Position(4,4);
+        Position roverPosition = new Position(xStartPositionRover,yStartPositionRover);
         mars = new Planet(10, roverPosition);
         marsRover = new Rover(mars, cardinalDirection, roverPosition);
     }
@@ -63,7 +65,7 @@ class MarsRoverTest {
         mars = new Planet(10, roverPosition);
         marsRover = new Rover(mars, cardinalDirection, roverPosition);
         marsRover.moveForward();
-        boolean correctPosition = (marsRover.getXPosition() == 2) && (marsRover.getYPosition() == 9);
+        boolean correctPosition = (marsRover.getXPosition() == 0) && (marsRover.getYPosition() == 0);
         Assertions.assertThat(correctPosition).isTrue();
     }
 
@@ -76,6 +78,6 @@ class MarsRoverTest {
         mars = new Planet(10, roverPosition);
         marsRover = new Rover(mars, cardinalDirection, roverPosition);
         marsRover.moveForward();
-        Assertions.assertThat(marsRover.getOrientation()).isEqualTo(180);
+        Assertions.assertThat(marsRover.getOrientation()).isEqualTo(Orientation.S);
     }
 }

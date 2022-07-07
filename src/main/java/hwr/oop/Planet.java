@@ -24,6 +24,10 @@ class Planet {
         }
     }
 
+    int getPlanetDiameter() {
+        return planetDiameter;
+    }
+
     int getArea() {
 
         return planetDiameter*planetDiameter;
