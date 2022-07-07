@@ -66,7 +66,7 @@ class MarsRoverTest {
 
     @Test
     void moveAlongRouteToDestination_getFinalPosition() {
-        String route = "ffrbllf";
+        String route = "f,f,r,b,l,l,f";
         marsRover.followRoute(route);
         boolean correctPosition = (marsRover.getXPosition() == 2) && (marsRover.getYPosition() == 2);
         Assertions.assertThat(correctPosition).isTrue();
@@ -74,7 +74,9 @@ class MarsRoverTest {
     @Test
     void roverDriveABackwardCircle_checkIfPositionsAreRight() {
         //Orientation circleRoute[] = {Orientation.E, Orientation.S, Orientation.W, Orientation.N};
-        Position circleSteps[] = {new Position(4, 5), new Position(3, 5), new Position(3, 4), new Position(4, 4)};
+        Position circleSteps[] = {new Position(4, 5), new Position(3, 5),
+                new Position(3, 4), new Position(4, 4)};
+
         for (Position currentPosition : circleSteps) {
             marsRover.moveBackward();
             marsRover.turnRight();

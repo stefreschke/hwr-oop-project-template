@@ -1,5 +1,9 @@
 package hwr.oop;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 class Rover {
     private Orientation cardinalDirection;
     private Planet mars;
@@ -149,7 +153,23 @@ class Rover {
         return roverPosition.getXCoordinate();
     }
 
-    String followRoute(String route) {
-        return "0";
+    void followRoute(String route) {
+        List<String> routeSteps = new ArrayList<>(Arrays.asList(route.split(",")));
+        for (String step: routeSteps) {
+            if (step.equals("r")) {
+                this.turnRight();
+            }
+            else if (step.equals("l")) {
+                this.turnLeft();
+            }
+
+            else if (step.equals("f")) {
+                this.moveForward();
+            }
+
+            else if (step.equals("b")) {
+                this.moveBackward();
+            }
+        }
     }
 }
