@@ -21,6 +21,7 @@ class Rover {
     }
 
     Position getRoverPosition() {
+
         return roverPosition;
     }
 
@@ -68,9 +69,18 @@ class Rover {
         return roverMessage;
     }
 
+    void detectObstacle(Position frontPosition) {
+        FieldType frontFieldType = mars.getFieldType(frontPosition);
+        if (frontFieldType instanceof Plain) {
+            this.roverMessage = "OK";
+        }
+        if (frontFieldType instanceof Martian) {
+            this.roverMessage = "Watch out Martian";
+        }
+    }
+
     void roverChangeInPosition(int xChange, int yChange) {
         Position frontPosition;
-        FieldType frontFieldType;
         int roverXCoordinate = roverPosition.getXCoordinate();
         int roverYCoordinate = roverPosition.getYCoordinate();
         int roverWrappedX = mars.getPlanetDiameter() - (roverXCoordinate + 1);
@@ -79,63 +89,43 @@ class Rover {
 
         if (xBoundaries && yBoundaries) {
             frontPosition = new Position(roverPosition.getXCoordinate() + xChange, roverPosition.getYCoordinate() + yChange);
-            frontFieldType = mars.getFieldType(frontPosition);
-            if (frontFieldType instanceof Plain) {
+            detectObstacle(frontPosition);
+            if (roverMessage.equals("OK")) {
                 this.roverPosition = frontPosition;
-                this.roverMessage = "OK";
-            }
-            if (frontFieldType instanceof Martian) {
-                this.roverMessage = "Watch out Martian";
             }
         }
 
         else if (roverYCoordinate == 0 && cardinalDirection == Orientation.N) {
             frontPosition = new Position(roverWrappedX, roverYCoordinate);
-            frontFieldType = mars.getFieldType(frontPosition);
-            if (frontFieldType instanceof Plain) {
+            detectObstacle(frontPosition);
+            if (roverMessage.equals("OK")) {
                 this.roverPosition = frontPosition;
                 this.cardinalDirection = Orientation.S;
-                this.roverMessage = "OK";
-            }
-            if (frontFieldType instanceof Martian) {
-                this.roverMessage = "Watch out Martian";
             }
         }
 
         else if (roverYCoordinate == mars.getPlanetDiameter() - 1 && cardinalDirection == Orientation.S) {
             frontPosition = new Position(roverWrappedX, roverYCoordinate);
-            frontFieldType = mars.getFieldType(frontPosition);
-            if (frontFieldType instanceof Plain) {
+            detectObstacle(frontPosition);
+            if (roverMessage.equals("OK")) {
                 this.roverPosition = frontPosition;
                 this.cardinalDirection = Orientation.N;
-                this.roverMessage = "OK";
-            }
-            if (frontFieldType instanceof Martian) {
-                this.roverMessage = "Watch out Martian";
             }
         }
 
         else if (roverXCoordinate == 0 && cardinalDirection == Orientation.W) {
             frontPosition = new Position(mars.getPlanetDiameter() - 1, roverYCoordinate);
-            frontFieldType = mars.getFieldType(frontPosition);
-            if (frontFieldType instanceof Plain) {
+            detectObstacle(frontPosition);
+            if (roverMessage.equals("OK")) {
                 this.roverPosition = frontPosition;
-                this.roverMessage = "OK";
-            }
-            if (frontFieldType instanceof Martian) {
-                this.roverMessage = "Watch out Martian";
             }
         }
 
         else if (roverXCoordinate == mars.getPlanetDiameter() - 1 && cardinalDirection == Orientation.E) {
             frontPosition = new Position(0, roverYCoordinate);
-            frontFieldType = mars.getFieldType(frontPosition);
-            if (frontFieldType instanceof Plain) {
+            detectObstacle(frontPosition);
+            if (roverMessage.equals("OK")) {
                 this.roverPosition = frontPosition;
-                this.roverMessage = "OK";
-            }
-            if (frontFieldType instanceof Martian) {
-                this.roverMessage = "Watch out Martian";
             }
         }
 
