@@ -135,6 +135,10 @@ class Rover {
         }
     }
 
+    Position getRoverPosition() {
+        return roverPosition;
+    }
+
     int getYPosition() {
 
         return roverPosition.getYCoordinate();
