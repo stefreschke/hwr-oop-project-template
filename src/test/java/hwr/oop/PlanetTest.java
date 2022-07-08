@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class PlanetTest {
     Planet mars;
+
     @BeforeEach
     void setup() {
         int planetSize = 10;

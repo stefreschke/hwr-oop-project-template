@@ -11,6 +11,7 @@ public class FieldTest {
         Field field = new Field(crater);
         field.setNewFieldType(rock);
     }
+
     @Test
     void checkFieldType_forRock() {
         FieldType rock = new Rock();

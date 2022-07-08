@@ -4,9 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 class Planet {
-    private int planetDiameter;
-    private Position roverPosition;
-    private Map<Position, Field> fields = new HashMap<>();
+    private final int planetDiameter;
+    private final Position roverPosition;
+    private final Map<Position, Field> fields = new HashMap<>();
+
     public Planet(int planetDiameter, Position roverPosition) {
         this.planetDiameter = planetDiameter;
         this.roverPosition = roverPosition;
@@ -30,7 +31,7 @@ class Planet {
 
     int getArea() {
 
-        return planetDiameter*planetDiameter;
+        return planetDiameter * planetDiameter;
     }
 
     FieldType getFieldType(Position position) {

@@ -4,12 +4,13 @@ import java.util.Objects;
 
 class Field {
     private FieldType fieldType;
+
     public Field(FieldType fieldType) {
         this.fieldType = fieldType;
     }
 
     FieldType getFieldType() {
-    return fieldType;
+        return fieldType;
     }
 
     void setNewFieldType(FieldType fieldType) {
