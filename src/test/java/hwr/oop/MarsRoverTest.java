@@ -1,6 +1,5 @@
 package hwr.oop;
 
-import org.assertj.core.api.AbstractStringAssert;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -58,7 +57,6 @@ class MarsRoverTest {
 
     @Test
     void rotateLeft_moveBackwards() {
-        int roverXPosition = marsRover.getXPosition();
         marsRover.turnLeft();
         marsRover.moveBackward();
         int roverXPosition_2 = marsRover.getXPosition();
@@ -75,7 +73,6 @@ class MarsRoverTest {
 
     @Test
     void roverDriveABackwardCircle_checkIfPositionsAreRight() {
-        //Orientation circleRoute[] = {Orientation.E, Orientation.S, Orientation.W, Orientation.N};
         Position[] circleSteps = {new Position(4, 5), new Position(3, 5),
                 new Position(3, 4), new Position(4, 4)};
 
@@ -170,16 +167,16 @@ class MarsRoverTest {
         marsRover = new Rover(mars, cardinalDirection, roverPosition);
         mars.setObstacle(martian, new Position(1, 0));
         marsRover.moveForward();
-        Assertions.assertThat(marsRover.getRoverMessage()).isEqualTo("Watch out Martian");
+        Assertions.assertThat(marsRover.getRoverStatusMessage()).isEqualTo("Watch out Martian");
     }
 
     @Test
     void roverMissionAbort_ifRoverEncountersMartian() {
         String route = "f,f,r,b,l,l,f";
         FieldType martian = new Martian();
-        mars.setObstacle(martian, new Position(4,2));
+        mars.setObstacle(martian, new Position(4, 2));
         marsRover.followRoute(route);
-        Assertions.assertThat(marsRover.getRoverMessage()).isEqualTo("Watch out Martian");
-        Assertions.assertThat(marsRover.getRoverPosition()).isEqualTo(new Position(4,3));
+        Assertions.assertThat(marsRover.getRoverStatusMessage()).isEqualTo("Watch out Martian");
+        Assertions.assertThat(marsRover.getRoverPosition()).isEqualTo(new Position(4, 3));
     }
 }

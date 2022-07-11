@@ -40,4 +40,39 @@ public class FieldTest {
         Assertions.assertThat(martianField.getFieldType()).isEqualTo(martian);
     }
 
+    @Test
+    void checkIfOverrideEqualsWorksProperly() {
+        FieldType martian = new Martian();
+        Field martianField = new Field(martian);
+        Field martianField2 = new Field(martian);
+        Assertions.assertThat(martianField).isEqualTo(martianField2);
+    }
+
+    @Test
+    void FieldNull_isNotEqualToActualField() {
+        FieldType fieldType = new Rock();
+        Field actualField = new Field(fieldType);
+        Field nullField = null;
+        boolean comparisonResult = actualField.equals(nullField);
+        Assertions.assertThat(comparisonResult).isFalse();
+    }
+
+    @Test
+    void objectIsEqualToItsSelf() {
+        FieldType fieldType = new Rock();
+        Field field = new Field(fieldType);
+        boolean comparisonResult = field.equals(field);
+        Assertions.assertThat(comparisonResult).isTrue();
+    }
+
+    @Test
+    void twoFieldTypeInstances_haveSameHashCodes() {
+        FieldType fieldType = new Rock();
+        Field rockFieldOne = new Field(fieldType);
+        Field rockFieldTwo = new Field(fieldType);
+        int hashCodeRockFieldOne = rockFieldOne.hashCode();
+        int hashCodeRockFieldTwo = rockFieldTwo.hashCode();
+        boolean hashComparisonResult = hashCodeRockFieldOne == hashCodeRockFieldTwo;
+        Assertions.assertThat(hashComparisonResult).isTrue();
+    }
 }

@@ -5,16 +5,16 @@ import java.util.Arrays;
 import java.util.List;
 
 class Rover {
-    private Orientation cardinalDirection;
     private final Planet mars;
+    private Orientation cardinalDirection;
     private Position roverPosition;
-    private String roverMessage;
+    private String roverStatusMessage;
 
     public Rover(Planet mars, Orientation cardinalDirection, Position roverPosition) {
         this.cardinalDirection = cardinalDirection;
         this.mars = mars;
         this.roverPosition = roverPosition;
-        this.roverMessage = "Start Engine";
+        this.roverStatusMessage = "Start Engine";
     }
 
     Orientation getOrientation() {
@@ -61,17 +61,17 @@ class Rover {
         }
     }
 
-    String getRoverMessage() {
-        return roverMessage;
+    String getRoverStatusMessage() {
+        return roverStatusMessage;
     }
 
     void detectObstacle(Position frontPosition) {
         FieldType frontFieldType = mars.getFieldType(frontPosition);
         if (frontFieldType instanceof Plain) {
-            this.roverMessage = "OK";
+            this.roverStatusMessage = "OK";
         }
         if (frontFieldType instanceof Martian) {
-            this.roverMessage = "Watch out Martian";
+            this.roverStatusMessage = "Watch out Martian";
         }
     }
 
@@ -82,45 +82,45 @@ class Rover {
         int roverWrappedX = mars.getPlanetDiameter() - (roverXCoordinate + 1);
         boolean xCenterBoundary = (roverXCoordinate > 0) && (roverXCoordinate < mars.getPlanetDiameter() - 1);
         boolean xLowerMargin = (roverXCoordinate == 0) && (cardinalDirection == Orientation.E);
-        boolean xUpperMargin = (roverXCoordinate == mars.getPlanetDiameter() -1) && (cardinalDirection == Orientation.W);
+        boolean xUpperMargin = (roverXCoordinate == mars.getPlanetDiameter() - 1) && (cardinalDirection == Orientation.W);
         boolean yCenterBoundary = (roverYCoordinate > 0) && (roverYCoordinate < mars.getPlanetDiameter() - 1);
         boolean yLowerMargin = (roverYCoordinate == 0) && (cardinalDirection == Orientation.S);
-        boolean yUpperMargin = (roverYCoordinate == mars.getPlanetDiameter() -1) && (cardinalDirection == Orientation.N);
+        boolean yUpperMargin = (roverYCoordinate == mars.getPlanetDiameter() - 1) && (cardinalDirection == Orientation.N);
+        boolean centerFieldEverythingIsFine = xCenterBoundary && yCenterBoundary;
+        boolean onMarginsButLookingIntoTheRightDirection = xLowerMargin || xUpperMargin || yLowerMargin || yUpperMargin;
 
-        if (xCenterBoundary && yCenterBoundary || (xLowerMargin || xUpperMargin || yLowerMargin || yUpperMargin)) {
+        if (centerFieldEverythingIsFine || onMarginsButLookingIntoTheRightDirection) {
             frontPosition = new Position(roverPosition.getXCoordinate() + xChange, roverPosition.getYCoordinate() + yChange);
             detectObstacle(frontPosition);
-            if (roverMessage.equals("OK")) {
+            if (roverStatusMessage.equals("OK")) {
                 this.roverPosition = frontPosition;
             }
         } else if (roverYCoordinate == 0 && cardinalDirection == Orientation.N) {
             frontPosition = new Position(roverWrappedX, roverYCoordinate);
             detectObstacle(frontPosition);
-            if (roverMessage.equals("OK")) {
+            if (roverStatusMessage.equals("OK")) {
                 this.roverPosition = frontPosition;
                 this.cardinalDirection = Orientation.S;
             }
         } else if (roverYCoordinate == mars.getPlanetDiameter() - 1 && cardinalDirection == Orientation.S) {
             frontPosition = new Position(roverWrappedX, roverYCoordinate);
             detectObstacle(frontPosition);
-            if (roverMessage.equals("OK")) {
+            if (roverStatusMessage.equals("OK")) {
                 this.roverPosition = frontPosition;
                 this.cardinalDirection = Orientation.N;
             }
         } else if (roverXCoordinate == 0 && cardinalDirection == Orientation.W) {
             frontPosition = new Position(mars.getPlanetDiameter() - 1, roverYCoordinate);
             detectObstacle(frontPosition);
-            if (roverMessage.equals("OK")) {
+            if (roverStatusMessage.equals("OK")) {
                 this.roverPosition = frontPosition;
             }
         } else if (roverXCoordinate == mars.getPlanetDiameter() - 1 && cardinalDirection == Orientation.E) {
             frontPosition = new Position(0, roverYCoordinate);
             detectObstacle(frontPosition);
-            if (roverMessage.equals("OK")) {
+            if (roverStatusMessage.equals("OK")) {
                 this.roverPosition = frontPosition;
             }
-        } else {
-            this.roverMessage = "Error Rover Died";
         }
     }
 
@@ -151,11 +151,10 @@ class Rover {
     void followRoute(String route) {
         List<String> routeSteps = new ArrayList<>(Arrays.asList(route.split(",")));
         for (String step : routeSteps) {
-            if (roverMessage.equals("Watch out Martian")) {
-                System.out.println(roverMessage);
+            if (roverStatusMessage.equals("Watch out Martian")) {
+                System.out.println(roverStatusMessage);
                 break;
-            }
-            else if (step.equals("r")) {
+            } else if (step.equals("r")) {
                 this.turnRight();
             } else if (step.equals("l")) {
                 this.turnLeft();

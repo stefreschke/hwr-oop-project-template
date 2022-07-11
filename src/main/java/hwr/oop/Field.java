@@ -31,6 +31,7 @@ class Field {
 
     @Override
     public int hashCode() {
+
         return Objects.hash(fieldType);
     }
 }
