@@ -68,10 +68,10 @@
                         <version>1.9.0</version>
                         <configuration>
                             <targetClasses>
-                                <param>com.your.package.root.want.to.mutate*</param>
+                                <param>hwr.oop*</param>
                             </targetClasses>
                             <targetTests>
-                                <param>com.your.package.root*</param>
+                                <param>hwr.oop*</param>
                             </targetTests>
                         </configuration>
                         <dependencies>
