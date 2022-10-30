@@ -3,7 +3,7 @@
 [TODO]: # (Change README.md Headline to better fit to your project!)
 
 This repository contains a student project created for an ongoing lecture on object-oriented
-programming with Java/Kotlin at HWR Berlin (summer term 2024).
+programming with Kotlin at HWR Berlin (summer term 2025).
 
 > :warning: This code is for educational purposes only. Do not rely on it!
 

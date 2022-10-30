@@ -1,118 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>hwr.oop.students.projects</groupId>
-  <!-- TODO Enter project name (no spaces) here! -->
-  <artifactId>TODO_ENTER_YOUR_PROJECT_NAME_HERE</artifactId>
-  <version>0.1.0</version>
-  <!-- TODO Enter project name (no spaces) here! -->
-  <name>TODO_ENTER_YOUR_PROJECT_NAME_HERE</name>
-  <!-- TODO Enter a short project description (one sentence, no spaces) here! -->
-  <description>TODO_ENTER_YOUR_PROJECT_DESCRIPTION_HERE</description>
+
+  <groupId>hwr.oop.projects</groupId>
+
+  <!-- TODO Change name and description according to your project -->
+  <artifactId>project</artifactId>
+  <packaging>jar</packaging>
+  <version>0.1.0-SNAPSHOT</version>
+
+  <!-- TODO Change name and description according to your project -->
+  <name>project</name>
+  <description>project-description</description>
+
   <properties>
-    <!-- java -->
-    <java.version>21</java.version>
-    <!-- build tool -->
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
-    <!-- testing -->
-    <surefire-plugin.version>3.2.5</surefire-plugin.version>
-    <junit.version>5.10.2</junit.version>
-    <assertj.version>3.25.3</assertj.version>
-    <pitest-maven.version>1.15.8</pitest-maven.version>
-    <pitest-junit5-plugin.version>1.2.1</pitest-junit5-plugin.version>
-    <!-- other -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <kotlin.code.style>official</kotlin.code.style>
+    <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+    <kotlin.version>2.1.10</kotlin.version>
+    <kotlin.code.style>official</kotlin.code.style>
+    <kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
+    <kotest.version>5.9.1</kotest.version>
+    <assertj-core.version>3.27.3</assertj-core.version>
+    <maven-surefire-plugin.version>2.22.2</maven-surefire-plugin.version>
+    <maven-failsafe-plugin.version>2.22.2</maven-failsafe-plugin.version>
   </properties>
 
   <repositories>
     <repository>
-      <id>central</id>
-      <name>Maven Central</name>
-      <layout>default</layout>
-      <url>https://repo1.maven.org/maven2</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
+      <id>mavenCentral</id>
+      <url>https://repo1.maven.org/maven2/</url>
     </repository>
   </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>central</id>
-      <name>Maven Central</name>
-      <layout>default</layout>
-      <url>https://repo1.maven.org/maven2</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </pluginRepository>
-  </pluginRepositories>
 
   <dependencies>
-    <!-- testing -->
     <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-engine</artifactId>
-      <version>${junit.version}</version>
+      <groupId>org.jetbrains.kotlin</groupId>
+      <artifactId>kotlin-stdlib</artifactId>
+      <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.kotest</groupId>
+      <artifactId>kotest-runner-junit5-jvm</artifactId>
+      <version>${kotest.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-api</artifactId>
-      <version>${junit.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
-      <version>${junit.version}</version>
+      <groupId>io.kotest</groupId>
+      <artifactId>kotest-assertions-core-jvm</artifactId>
+      <version>${kotest.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
-      <version>${assertj.version}</version>
+      <version>${assertj-core.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
 
-  <profiles>
-    <profile>
-      <id>build-default</id>
-      <activation>
-        <activeByDefault>true</activeByDefault>
-      </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>${surefire-plugin.version}</version>
-          </plugin>
-          <plugin>
-            <groupId>org.pitest</groupId>
-            <artifactId>pitest-maven</artifactId>
-            <version>${pitest-maven.version}</version>
-            <configuration>
-              <targetClasses>
-                <param>hwr.oop*</param>
-              </targetClasses>
-              <targetTests>
-                <param>hwr.oop*</param>
-              </targetTests>
-            </configuration>
-            <dependencies>
-              <dependency>
-                <groupId>org.pitest</groupId>
-                <artifactId>pitest-junit5-plugin</artifactId>
-                <version>${pitest-junit5-plugin.version}</version>
-              </dependency>
-            </dependencies>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-  </profiles>
+  <build>
+    <sourceDirectory>src/main/kotlin</sourceDirectory>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
+    <plugins>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <version>${kotlin.version}</version>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>test-compile</id>
+            <phase>test-compile</phase>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${maven-surefire-plugin.version}</version>
+        <configuration>
+          <systemPropertyVariables>
+            <kotest.framework.classpath.scanning.autoscan.disable>true
+            </kotest.framework.classpath.scanning.autoscan.disable>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
