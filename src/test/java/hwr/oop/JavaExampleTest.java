@@ -4,10 +4,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 // TODO Delete this placeholder test.
-class ExampleTest {
+class JavaExampleTest {
     @Test
     void get_IsTrue() {
-        Example example = new Example();
+        KotlinExample example = new KotlinExample();
         boolean result = example.get();
         Assertions.assertThat(result).isTrue();
     }
