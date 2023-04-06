@@ -5,6 +5,7 @@ public class Player {
     int currentMultiplier = 0;
     String name = "Default Player Name";
 
+
     public Player(String name, int initializedScore) {
         this.name = name;
         score = initializedScore;
@@ -18,10 +19,10 @@ public class Player {
         score = initializedScore;
     }
 
-    public void scoreAdd(int points) {
+    public int scoreAdd(int points) {
         if (points > -1) {
             score += points;
-            return;
+            return score;
         }
         throw new IllegalArgumentException("Added Points value must be 0 or higher.");
     }
@@ -41,6 +42,7 @@ public class Player {
     public String getName() {
         return this.name;
     }
+
 }
 
 
