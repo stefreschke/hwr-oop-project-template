@@ -9,11 +9,7 @@ This repository contains a student project created for an ongoing lecture on obj
 The project in this repository is a bowling game logic controller.
 Additional features include Text Mode Ansi-Colored Graphics and score tracking over multiple sessions.
 
-[TODO]: # (State the most interesting problems you encountered during the project.)
-
 ## Feature List
-
-[TODO]: # (For each feature implemented, add a row to the table!)
 
 | Number | Feature | Tests |
 |--------|---------|-------|
@@ -21,8 +17,6 @@ Additional features include Text Mode Ansi-Colored Graphics and score tracking o
 
 
 ## Additional Dependencies
-
-[TODO]: # (For each additional dependency your project requires- Add an additional row to the table!)
 
 | Number | Dependency Name | Dependency Description    | Why is it necessary?                          |
 |--------|-----------------|---------------------------|-----------------------------------------------|
