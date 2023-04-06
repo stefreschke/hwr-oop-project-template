@@ -1,4 +1,4 @@
-# HWR OOP Lecture Project Template
+# HWR OOP Lecture Project Template 
 
 [TODO]: # (Change README.md Headline to better fit to your project!)
 
