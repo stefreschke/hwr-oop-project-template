@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class GameState {
-    ArrayList<Player> players = new ArrayList<Player>();
+    ArrayList<Player> players = new ArrayList<>();
 
     int currentFrame = -1;
     int temporaryFrame = -1;
