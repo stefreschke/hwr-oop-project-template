@@ -4,8 +4,6 @@
 
 This repository contains a student project created for an ongoing lecture on object-oriented programming with Java at HWR Berlin (summer term 2022).
 
-Hello World!
-
 > :warning: This code is for educational purposes only. Do not rely on it!
 
 ## Abstract
