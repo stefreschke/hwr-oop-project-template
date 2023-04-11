@@ -1,4 +1,4 @@
-package project;
+package project.creation;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -7,12 +7,12 @@ import java.util.List;
 
 public class Project {
 
-    private String name;
+    String name;
     LocalDateTime time;
-    List<Task> tasks = new ArrayList<Task>();
+    public List<Task> tasks = new ArrayList<Task>();
     LocalDate date;
 
-    Project(String name, LocalDateTime time, LocalDate date){
+    public Project(String name, LocalDateTime time, LocalDate date){
         this.name = name;
         this.time = time;
         this.date = date;
@@ -22,5 +22,5 @@ public class Project {
     public void addTask(Task task){
         this.tasks.add(task);
     }
-
+    public void removeTask(Task task)  {this.tasks.remove(task);}
 }
