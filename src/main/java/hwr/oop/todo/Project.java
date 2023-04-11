@@ -2,6 +2,9 @@ package hwr.oop.todo;
 
 class Project {
     String title;
-    String status;
+    Task task;
+    Status status;
+    Date deadline;
+
 
 }
