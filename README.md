@@ -16,9 +16,17 @@ This repository contains a student project created for an ongoing lecture on obj
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature | Tests |
-|--------|---------|-------|
-| 1      | /       | /     |
+| Number | Feature | Tests | Responsible |
+|--------|---------|-------|-------------|
+| 1      | Tag Klasse       |      | Niklas            |
+|--------|---------|-------|-------------|
+| 2      | Hauptmenü       |      | Thomas            |
+|--------|---------|-------|-------------|
+| 3      | Task Klasse       |      | Bruno            |
+|--------|---------|-------|-------------|
+| 4      | Projekt Klasse       |      | Jason & Frauke            |
+|--------|---------|-------|-------------|
+
 
 
 ## Additional Dependencies
