@@ -1,5 +1,5 @@
 package hwr.oop.dataclasses;
 
 public enum TaskState {
-    BACKLOG, INPROGRESS, INREVIEW, DONE
+    BACKLOG, IN_PROGRESS, IN_REVIEW, DONE
 }
