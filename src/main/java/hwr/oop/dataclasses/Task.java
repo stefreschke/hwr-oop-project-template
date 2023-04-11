@@ -21,4 +21,16 @@ public abstract class Task {
     private List<TaskTag> taskTagList;
     private User creator;
     private Date createTime;
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public void setTaskState(TaskState taskState) {
+        this.taskState = taskState;
+    }
 }
