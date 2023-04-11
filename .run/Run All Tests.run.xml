@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run All Tests" type="JUnit" factoryName="JUnit">
-    <module name="project" />
+    <module name="todo" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="hwr.oop.*" />
