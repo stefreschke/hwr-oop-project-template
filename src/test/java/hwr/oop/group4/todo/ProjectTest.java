@@ -1,5 +1,6 @@
 package hwr.oop.group4.todo;
 
+import hwr.oop.group4.todo.builder.TaskBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -42,7 +43,11 @@ class ProjectTest {
         assertTrue(project.getTags().contains(myTag));
 
         var createdAt = LocalDateTime.now();
-        Task myTask = new Task("aName", "aDesc", 3, createdAt, new HashSet<>());
+        final Task myTask = new TaskBuilder().
+                setName("aName")
+                .setDescription("aDesc")
+                .setDeadline(createdAt)
+                .build();
         project.addTask(myTask);
         assertThat(project.getTasks().size()).isEqualTo(1);
         assertTrue(project.getTasks().contains(myTask));

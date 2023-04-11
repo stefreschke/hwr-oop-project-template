@@ -1,41 +1,78 @@
 package hwr.oop.group4.todo;
 
+import hwr.oop.group4.todo.builder.TaskBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class TaskTest {
 
     @Test
-    void createTask() {
-        var createdAt = LocalDateTime.now();
-        Task task = new Task("aName", "aDesc", 3, createdAt, new HashSet<>());
-        assertThat(task.getName()).isEqualTo("aName");
-        assertThat(task.getDescription()).isEqualTo("aDesc");
-        assertThat(task.getPriority()).isEqualTo(3);
-        assertThat(task.getTags().size()).isEqualTo(0);
+    void buildDefaultTask() {
+        final Task task = new TaskBuilder().build();
+
+        assertEquals("unnamed task", task.getName());
+        assertEquals("", task.getDescription());
+        assertEquals(0, task.getPriority());
+        assertNull(task.getDeadline());
+        assertEquals(0, task.getTags().size());
+        assertEquals(Status.OPEN, task.getStatus());
+    }
+
+    @Test
+    void buildTask() {
+        final LocalDateTime deadline = LocalDateTime.now().plusMonths(2);
+        final Tag testTagA = new Tag("tagA");
+        final Tag testTagB = new Tag("123");
+        final Tag testTagC = new Tag("2345");
+        final Task task = new TaskBuilder()
+                .setName("named task")
+                .setDescription("desc")
+                .setPriority(10)
+                .setDeadline(deadline)
+                .addTag(testTagA)
+                .addTags(testTagB, testTagC)
+                .build();
+
+        assertEquals( "named task", task.getName());
+        assertEquals("desc", task.getDescription());
+        assertEquals(10, task.getPriority());
+        assertEquals(deadline, task.getDeadline());
+        assertEquals(3, task.getTags().size());
+        assertTrue(task.getTags().contains(testTagA));
+        assertTrue(task.getTags().contains(testTagB));
+        assertTrue(task.getTags().contains(testTagC));
+        assertEquals(task.getStatus(), Status.OPEN);
     }
 
     @Test
     void setters() {
-        var createdAt = LocalDateTime.now();
-        Task task = new Task("aName", "aDesc", 3, createdAt, new HashSet<>());
-        task.setName("bName");
-        assertThat(task.getName()).isEqualTo("bName");
-        task.setDescription("bDesc");
-        assertThat(task.getDescription()).isEqualTo("bDesc");
+        final LocalDateTime deadline = LocalDateTime.now().plusMonths(10);
+        final Tag testTagA = new Tag("tagA");
+        final Tag testTagB = new Tag("123");
+        final Task task = new TaskBuilder().build();
+
+        task.setName("name");
+        task.setDescription("description");
         task.setPriority(4);
-        assertThat(task.getPriority()).isEqualTo(4);
-        var updatedAt = createdAt.plusDays(3);
-        task.setDeadline(updatedAt);
-        assertThat(task.getDeadline()).isEqualTo(updatedAt);
-        var myTag = new Tag("myTag");
-        task.addTag(myTag);
-        assertThat(task.getTags().size()).isEqualTo(1);
-        assertTrue(task.getTags().contains(myTag));
+        task.setDeadline(deadline);
+        task.addTag(testTagA);
+        task.addTag(testTagB);
+        task.setStatus(Status.IN_PROGRESS);
+
+        assertEquals( "name", task.getName());
+        assertEquals("description", task.getDescription());
+        assertEquals(4, task.getPriority());
+        assertEquals(deadline, task.getDeadline());
+        assertEquals(2, task.getTags().size());
+        assertTrue(task.getTags().contains(testTagA));
+        assertTrue(task.getTags().contains(testTagB));
+        assertEquals(task.getStatus(), Status.IN_PROGRESS);
+
+        task.setStatus(Status.CLOSED);
+
+        assertEquals(task.getStatus(), Status.CLOSED);
     }
 }
