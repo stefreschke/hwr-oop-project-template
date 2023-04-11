@@ -19,13 +19,9 @@ This repository contains a student project created for an ongoing lecture on obj
 | Number | Feature | Tests | Responsible |
 |--------|---------|-------|-------------|
 | 1      | Tag Klasse       |      | Niklas            |
-|--------|---------|-------|-------------|
 | 2      | Hauptmenü       |      | Thomas            |
-|--------|---------|-------|-------------|
 | 3      | Task Klasse       |      | Bruno            |
-|--------|---------|-------|-------------|
 | 4      | Projekt Klasse       |      | Jason & Frauke            |
-|--------|---------|-------|-------------|
 
 
 
