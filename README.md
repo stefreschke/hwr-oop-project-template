@@ -12,6 +12,8 @@ Starts with In-Tray -- "lose Gedanken welche keine wirklichen Tasks beinhaltet"
 
 [TODO]: # (Change README.md Headline to better fit to your project!) Done!
         # (Create Objects of project containing all features provided by prof)
+        
+> :warning: first Class Diagram added
 
 This repository contains a student project created for an ongoing lecture on object-oriented programming with Java at HWR Berlin (summer term 2022).
 
