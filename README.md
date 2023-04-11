@@ -1,6 +1,6 @@
 # HWR OOP Lecture Project Template
 
-Test
+This project is part of OOP with Paul, Benjamin, Jonas and Christian 2023
 
 [TODO]: # (Change README.md Headline to better fit to your project!)
 
