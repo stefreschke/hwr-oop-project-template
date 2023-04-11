@@ -34,4 +34,7 @@ public class Project {
     public void changeDeadline(LocalDate date){
         this.date = date;
     }
+    public LocalDate getDate() {
+        return this.date;
+    }
 }
