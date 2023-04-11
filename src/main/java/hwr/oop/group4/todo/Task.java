@@ -7,7 +7,9 @@ public class Task {
 
     private String name;
     private String description;
-    // higher value means higher priority
+    /**
+     * higher value means higher priority
+     */
     private int priority;
     private LocalDateTime deadline;
     private final Set<Tag> tags;
