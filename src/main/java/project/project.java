@@ -1,2 +1,4 @@
-package project;public class project {
+package project;
+
+public class project {
 }
