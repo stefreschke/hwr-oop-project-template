@@ -16,33 +16,33 @@ This repository contains a student project created for an ongoing lecture on obj
 
 | Number | Implemented | Feature                | Tests |
 |--------|-------------|------------------------|-------|
-| 1      | /           | Task (Todo)            | /     |
-| 2      | /           | Projekt                | /     |
-| 3      | /           | Tag                    | /     |
-| 4      | /           | Tasks im Projekt       | /     |
-| 5      | /           | Tasks mit Tag          | /     |
-| 6      | /           | Dead Lines             | /     |
-| 7      | /           | Daily Checklist        | /     |
-| 8      | /           | In Tray / Eingang      | /     |
-| 9      | /           | Kalender               | /     |
-| 10     | /           | Zeitzuordnung          | /     |
-| 11     | /           | "Someday, Maybe" Liste | /     |
-| 12     | /           | Weekly Planning        | /     |
-| 13     | /           | Weekly Review          | /     |
+| 1      | [X]         | Task (Todo)            | [X]   |
+| 2      | [X]         | Projekt                | [X]   |
+| 3      | [X]         | Tag                    | [X]   |
+| 4      | [ ]         | Tasks im Projekt       | [ ]   |
+| 5      | [ ]         | Tasks mit Tag          | [ ]   |
+| 6      | [ ]         | Dead Lines             | [ ]   |
+| 7      | [ ]         | Daily Checklist        | [ ]   |
+| 8      | [ ]         | In Tray / Eingang      | [ ]   |
+| 9      | [ ]         | Kalender               | [ ]   |
+| 10     | [ ]         | Zeitzuordnung          | [ ]   |
+| 11     | [ ]         | "Someday, Maybe" Liste | [ ]   |
+| 12     | [ ]         | Weekly Planning        | [ ]   |
+| 13     | [ ]         | Weekly Review          | [ ]   |
 
 
 ### User Interface
 
-| Number | Implemented | Feature                | Tests |
-|--------|-------------|------------------------|-------|
-| 14     | /           | Anlegen von Tasks      | /     |
-| 15     | /           | Anlegen von Projekten  | /     |
-| 16     | /           | Anlegen von Tags       | /     |
-| 17     | /           | Listen anzeigen        | /     |
-| 18     | /           | Next Task              | /     |
-| 19     | /           | Task abschließen       | /     |
-| 20     | /           | Speichern von Tasks    | /     |
-| 21     | /           | Laden von Tasks        | /     |
+| Number | Implemented | Feature               | Tests |
+|--------|-------------|-----------------------|-------|
+| 14     | [ ]         | Anlegen von Tasks     | [ ]   |
+| 15     | [ ]         | Anlegen von Projekten | [ ]   |
+| 16     | [ ]         | Anlegen von Tags      | [ ]   |
+| 17     | [ ]         | Listen anzeigen       | [ ]   |
+| 18     | [ ]         | Next Task             | [ ]   |
+| 19     | [ ]         | Task abschließen      | [ ]   |
+| 20     | [ ]         | Speichern von Tasks   | [ ]   |
+| 21     | [ ]         | Laden von Tasks       | [ ]   |
 
 
 ## Additional Dependencies
