@@ -22,5 +22,16 @@ public class Project {
     public void addTask(Task task){
         this.tasks.add(task);
     }
-    public void removeTask(Task task)  {this.tasks.remove(task);}
+    public void removeTask(Task task) {
+        this.tasks.remove(task);
+    }
+    public Project getProject(){
+        return new Project(name, time, date);
+    }
+    public void changeName(String name){
+        this.name = name;
+    }
+    public void changeDeadline(LocalDate date){
+        this.date = date;
+    }
 }
