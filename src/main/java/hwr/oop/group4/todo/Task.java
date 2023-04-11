@@ -1,5 +1,7 @@
 package hwr.oop.group4.todo;
 
+import hwr.oop.group4.todo.builder.TaskBuilder;
+
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -13,13 +15,14 @@ public class Task {
     private int priority;
     private LocalDateTime deadline;
     private final Set<Tag> tags;
+    private Status status = Status.OPEN;
 
-    public Task(String name, String description, int priority, LocalDateTime deadline, Set<Tag> tags) {
-        this.name = name;
-        this.description = description;
-        this.priority = priority;
-        this.deadline = deadline;
-        this.tags = tags;
+    public Task(TaskBuilder taskBuilder) {
+        name = taskBuilder.getName();
+        description = taskBuilder.getDescription();
+        priority = taskBuilder.getPriority();
+        deadline = taskBuilder.getDeadline();
+        tags = taskBuilder.getTags();
     }
 
     public String getName() {
@@ -60,5 +63,13 @@ public class Task {
 
     public void addTag(Tag tag) {
         tags.add(tag);
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
