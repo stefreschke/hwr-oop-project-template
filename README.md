@@ -1,25 +1,38 @@
-# HWR OOP Lecture Project Template
+# Getting Things Done - A TODO List in Java
 
-[TODO]: # (Change README.md Headline to better fit to your project!)
 
 This repository contains a student project created for an ongoing lecture on object-oriented programming with Java at HWR Berlin (summer term 2023).
 
-> :warning: This code is for educational purposes only. Do not rely on it!
+## Overview
 
-## Abstract
+### Project Description
+This project is a implementation of a TODO List according to the principles of Getting Things done (GTD).
+It focuses on Test Driven Development and the principles of Object Oriented Programming.
+The final product is a command line application that allows the user to create, edit and delete tasks and projects.
+Task rank automatically and can be sorted and grouped with tags.
+The automated ranking will also take into account what activities the user has done in the past and what activities the user has planned for the future.
+### Features
 
-[TODO]: # (Write a short description of your project.)
-[TODO]: # (State most important features.)
-[TODO]: # (State the most interesting problems you encountered during the project.)
+- ...
+### Problems
 
+- ...
 ## Feature List
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature | Tests |
-|--------|---------|-------|
-| 1      | /       | /     |
-
+| Number | Feature | Tests | Developer |
+|--------|---------|-------| --------- |
+| 1      | /       | /     | /         |
+| 2      | /       | /     | /         |
+| 3      | /       | /     | /         |
+| 4      | /       | /     | /         |
+| 5      | /       | /     | /         |
+| 6      | /       | /     | /         |
+| 7      | /       | /     | /         |
+| 8      | /       | /     | /         |
+| 9      | /       | /     | /         |
+| 10     | /       | /     | /         |
 
 ## Additional Dependencies
 
@@ -28,43 +41,19 @@ This repository contains a student project created for an ongoing lecture on obj
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
 | 1      | /               | /                      | /                    |
+| 2      | /               | /                      | /                    |
+| 3      | /               | /                      | /                    |
+| 4      | /               | /                      | /                    |
+| 5      | /               | /                      | /                    |
 
-## Instructions
-
-[TODO]: # (Remove these instructions once you finished your fork's setup.)
-
-Use a fork of this repository to do implement your project.
-
-Remember to add this repository as a second remote repository (upstream) and pull from the correct remotes.
-This is necessary, because we might apply changes to this template during the next month.
-
-The following section describes how to add multiple remote repositories to your local repository, which is cloned from the fork.
-
-### Multiple remote repositories
-
-Your local repository should have a reference to both the fork (your own remote repository) and the original remote repository.
-To configure your git remote repositories, use the `git remote` command set.
+## Running Locally
 
 1. Clone your fork and go enter the repository.
 ```
-git clone <fork-url>
-cd <created-folder>
+git clone <repo-url>
+cd <repo-folder>
 ```
-2. Now your fork is configured as primary remote repository (origin).
-Next to origin, you should add the original repository as a second remote repository (upstream).
+2. run the main
 ```
-git remote add upstream <repository-url>
-```
-3. Verify that both remotes are configured correctly.
-The following command should list both remotes: origin and upstream.
-```
-git remote -v
-```
-4. To fetch changes from all remote repositories, use:
-```
-git fetch --all
-```
-5. If there are interesting changes (in e.g. the `main` branch) to merge into your branch, use:
-```
-git pull upstream main
+cd src/main && java -jar main.jar
 ```
