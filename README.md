@@ -1,8 +1,17 @@
-# HWR OOP Lecture Project Template
+# HWR OOP Project - To-Do-List
 
 This project is part of OOP with Paul, Benjamin, Jonas and Christian 2023
 
-[TODO]: # (Change README.md Headline to better fit to your project!)
+Feaures follow the "getting things done" method
+
+Yellow - Objects, classes, other java options
+Red - Applications of project
+Green - net to know - function of "gtd"
+
+Starts with In-Tray -- "lose Gedanken welche keine wirklichen Tasks beinhaltet"
+
+[TODO]: # (Change README.md Headline to better fit to your project!) Done!
+        # (Create Objects of project containing all features provided by prof)
 
 This repository contains a student project created for an ongoing lecture on object-oriented programming with Java at HWR Berlin (summer term 2022).
 
@@ -20,7 +29,9 @@ This repository contains a student project created for an ongoing lecture on obj
 
 | Number | Feature | Tests |
 |--------|---------|-------|
-| 1      | /       | /     |
+| 1      | Task       | /     |
+| 2      | Project | /     |
+| 3      | Tags    | /     |
 
 
 ## Additional Dependencies
