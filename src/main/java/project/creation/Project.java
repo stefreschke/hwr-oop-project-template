@@ -22,5 +22,38 @@ public class Project {
     public void addTask(Task task){
         this.tasks.add(task);
     }
-    public void removeTask(Task task)  {this.tasks.remove(task);}
+    public void removeTask(Task task) {
+        this.tasks.remove(task);
+    }
+    public LocalDate getDate() {
+        return this.date;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public LocalDateTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalDateTime time) {
+        this.time = time;
+    }
+
+    public List<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(List<Task> tasks) {
+        this.tasks = tasks;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 }
