@@ -14,35 +14,35 @@ This repository contains a student project created for an ongoing lecture on obj
 
 ### Library
 
-| Number | Implemented | Feature                | Tests |
-|--------|-------------|------------------------|-------|
-| 1      | [X]         | Task (Todo)            | [X]   |
-| 2      | [X]         | Projekt                | [X]   |
-| 3      | [X]         | Tag                    | [X]   |
-| 4      | [ ]         | Tasks im Projekt       | [ ]   |
-| 5      | [ ]         | Tasks mit Tag          | [ ]   |
-| 6      | [ ]         | Dead Lines             | [ ]   |
-| 7      | [ ]         | Daily Checklist        | [ ]   |
-| 8      | [ ]         | In Tray / Eingang      | [ ]   |
-| 9      | [ ]         | Kalender               | [ ]   |
-| 10     | [ ]         | Zeitzuordnung          | [ ]   |
-| 11     | [ ]         | "Someday, Maybe" Liste | [ ]   |
-| 12     | [ ]         | Weekly Planning        | [ ]   |
-| 13     | [ ]         | Weekly Review          | [ ]   |
+| Number | Implemented        | Feature                | Tests              |
+|--------|:------------------:|------------------------|:------------------:|
+| 1      | :heavy_check_mark: | Task (Todo)            | :heavy_check_mark: |
+| 2      | :heavy_check_mark: | Projekt                | :heavy_check_mark: |
+| 3      | :heavy_check_mark: | Tag                    | :heavy_check_mark: |
+| 4      | :heavy_check_mark: | Tasks im Projekt       | :heavy_checkmark:  |
+| 5      | :heavy_check_mark: | Tasks mit Tag          | :heavy_check_mark: |
+| 6      | :heavy_check_mark: | Dead Lines             | :heavy_check_mark: |
+| 7      | :x:                | Daily Checklist        | :x:                |
+| 8      | :x:                | In Tray / Eingang      | :x:                |
+| 9      | :x:                | Kalender               | :x:                |
+| 10     | :x:                | Zeitzuordnung          | :x:                |
+| 11     | :x:                | "Someday, Maybe" Liste | :x:                |
+| 12     | :x:                | Weekly Planning        | :x:                |
+| 13     | :x:                | Weekly Review          | :x:                |
 
 
 ### User Interface
 
 | Number | Implemented | Feature               | Tests |
 |--------|-------------|-----------------------|-------|
-| 14     | [ ]         | Anlegen von Tasks     | [ ]   |
-| 15     | [ ]         | Anlegen von Projekten | [ ]   |
-| 16     | [ ]         | Anlegen von Tags      | [ ]   |
-| 17     | [ ]         | Listen anzeigen       | [ ]   |
-| 18     | [ ]         | Next Task             | [ ]   |
-| 19     | [ ]         | Task abschließen      | [ ]   |
-| 20     | [ ]         | Speichern von Tasks   | [ ]   |
-| 21     | [ ]         | Laden von Tasks       | [ ]   |
+| 14     | :x:         | Anlegen von Tasks     | :x:   |
+| 15     | :x:         | Anlegen von Projekten | :x:   |
+| 16     | :x:         | Anlegen von Tags      | :x:   |
+| 17     | :x:         | Listen anzeigen       | :x:   |
+| 18     | :x:         | Next Task             | :x:   |
+| 19     | :x:         | Task abschließen      | :x:   |
+| 20     | :x:         | Speichern von Tasks   | :x:   |
+| 21     | :x:         | Laden von Tasks       | :x:   |
 
 
 ## Additional Dependencies
