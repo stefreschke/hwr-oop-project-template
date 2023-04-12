@@ -2,25 +2,26 @@ package hwr.oop;
 
 import java.awt.event.KeyEvent;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static hwr.oop.Round.*;
 
 
 public class Game {
     Scanner gameScanner = new Scanner(System.in);
     List<Player> players = new ArrayList<>();
+    List<GameResult> gameResults = new ArrayList<>();
+    int numberOfPeople;
+    public static Throw th;
 
 
-
-    protected void gameProcess(KeyEvent e) throws Exception {
+    protected void gameProcess(KeyEvent e){
         System.out.println("How many people will play the game?");
-        int numberOfPeople = gameScanner.nextInt();
+        numberOfPeople = gameScanner.nextInt();
 
         List<String> playersNames = new ArrayList<>();
         System.out.println("Who will play?");
 
-
-        String name = gameScanner.nextLine();
+        String name;
         for(int i = 0; i<numberOfPeople; i++){
             System.out.println("Player number "+ (i+1));
             name = gameScanner.nextLine();
@@ -57,20 +58,26 @@ public class Game {
         for(int roundNumber = 0; roundNumber< 8; roundNumber++){
             for(Player player : players){
                 System.out.println(player.name+ " is playing.");
-                Round currentRound = Round.normalRound(roundNumber+1);
+                Round currentRound = normalRound(roundNumber+1);
                 player.rounds.add(currentRound);
             }
         }
         for(Player player : players){
             System.out.println(player.name+ " is playing.");
-            Round lastRound = Round.roundTen();
+            Round lastRound = roundTen();
             player.rounds.add(lastRound);
         }
+        gameResults = calculateResults(players);
+        GameResult.sortResults(gameResults);
+        for(GameResult gameResult: gameResults){
+            System.out.println(gameResult.player.name+ " "+ gameResult.endPoints);
+        }
+        System.out.println("The winner is "+ gameResults.get(0).player.name + " with "+ gameResults.get(0).player.getScore() + " points. Congratulation!");
     }
 
 
-    public List<GameResults> calculateResults(List<Player> players){
-        List<GameResults> gameResults = new ArrayList<>();
+    public List<GameResult> calculateResults(List<Player> players){
+        getExtraPointsRounds(players);
         for(Player player: players){
             int totalPoints = 0;
             for(Round round: player.rounds){
@@ -78,17 +85,15 @@ public class Game {
                     totalPoints = totalPoints + th.getPoints();
                 }
             }
-            gameResults.add(new GameResults(totalPoints, player));
+            gameResults.add(new GameResult(totalPoints, player));
         }
-        List<ExtraRoundPoints> extraRoundPoints = ExtraRoundPoints.getExtraPointsRounds(players);
-        for(ExtraRoundPoints extraRoundPoint: extraRoundPoints){
-            gameResults.add(new GameResults(extraRoundPoint.getPoints(), extraRoundPoint.player));
-        }
-
         return gameResults;
     }
+    public int getNumberOfPeople(){
+        return  numberOfPeople;
+    }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args){
         Game game = new Game();
         KeyEvent e = null;
         game.gameProcess(e);

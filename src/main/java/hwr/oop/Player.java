@@ -40,43 +40,6 @@ public class Player {
         throw new IllegalArgumentException("Added Points value must be 0 or higher.");
     }
 
-    public void calculateExtraPoints(List<Player> players){
-        List<HashMap<Player, Integer>> strikeRounds = new ArrayList<>();
-        List<HashMap<Player, Integer>> spareRounds = new ArrayList<>();
-        List<HashMap<Player, Integer>> extraPointsList = new ArrayList<>();
-
-        for(Player player: players) {
-            for (Round r : player.rounds) {
-                for (Throw th : r.throwing) {
-                    HashMap<Player, Integer> extraPoints = new HashMap<>();
-                    if (th.getState().equals(BowlingStates.STRIKE)) {
-                        extraPoints.put(player, r.roundNumber + 1);
-                        strikeRounds.add(extraPoints);
-                        extraPoints.put(player, r.roundNumber + 2);
-                        strikeRounds.add(extraPoints);
-                    }
-                    if (th.getState().equals(BowlingStates.SPARE)) {
-                        extraPoints.put(player, r.roundNumber + 1);
-                        spareRounds.add(extraPoints);
-                    }
-                }
-            }
-        }
-        for (HashMap<Player, Integer> strikeRound : strikeRounds) {
-            HashMap<Player, Integer> extraPoints = new HashMap<>();
-            for (Integer roundNumber : strikeRound.values()) {
-                int points = 0;
-                if (roundNumber.equals(r.roundNumber)) {
-                    for (Throw th : r.throwing) {
-                        points+= th.getPoints();
-                    }
-                }
-                extraPoints.put(player, points);
-                extraPointsList.add(extraPoints);
-            }
-        }
-    }
-
 }
 
 

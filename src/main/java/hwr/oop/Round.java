@@ -5,6 +5,8 @@ import lombok.Setter;
 
 import java.util.*;
 
+import static hwr.oop.Game.th;
+
 @Getter
 @Setter
 public class Round implements BowlingPins{
@@ -13,6 +15,7 @@ public class Round implements BowlingPins{
     public Integer roundNumber;
 
     public List<Throw> throwing;
+    public Integer  roundPoints;
     public Round(Integer roundNumber, List<Throw> throwing) {
         this.roundNumber = roundNumber;
         this.throwing = throwing;
@@ -43,7 +46,7 @@ public class Round implements BowlingPins{
         throwing.add(Throw.throwingB(2,countHittedPins()));
 
 
-        return new Round(roundNumber,throwing);
+        return new Round(roundNumber,throwing );
     }
 
     public static Round roundTen(){
@@ -114,15 +117,7 @@ public class Round implements BowlingPins{
     private static int countHittedPins(){
         return Collections.frequency(BowlingPins.pins,false) ;
     }
-    public int calculateRoundPoints(List<Round> round){
-        int points = 0;
-        for(Round r:round){
-            for(Throw th: r.throwing){
-                points+= th.getPoints();
-            }
-        }
-        return points;
-    }
+
     public static int getPointsByRound(int roundNumber, List<Round> rounds) {
         int points = 0;
         List<Throw> throwing= rounds.get(roundNumber).getThrowing();
@@ -131,7 +126,41 @@ public class Round implements BowlingPins{
         }
         return points;
     }
+    public static List<HashMap<Player,List<Integer>>> getExtraRounds(List<Player> players) {
+        List<HashMap<Player,List<Integer>>> extraRounds = new ArrayList<>();
+        for (Player player:players){
+            List<Integer> rounds = new ArrayList<>();
+            for (Round r : player.rounds) {
+                for (Throw th : r.throwing) {
+                    if (th.getState().equals(BowlingStates.STRIKE)) {
+                        rounds.add(r.roundNumber + 2);
+                    } else if (th.getState().equals(BowlingStates.SPARE)) {
+                        rounds.add(r.roundNumber + 1);
+                    }
+                }
+            }
+            HashMap<Player,List<Integer>> map = new HashMap<>();
+            map.put(player,rounds);
+            extraRounds.add(map);
+        }
 
+        return  extraRounds;
+    }
+
+    public static List<Player> getExtraPointsRounds(List<Player> players){
+        List<HashMap<Player,List<Integer>>> extraRounds= Round.getExtraRounds(players);
+        for(HashMap<Player,List<Integer>> extraRound:extraRounds){
+            for(Player player: extraRound.keySet()){
+                for(List<Integer> rounds: extraRound.values()){
+                    for(Integer roundNumber: rounds){
+                        th.setPoints(Round.getPointsByRound(roundNumber, player.rounds)+th.getPoints());
+                        players.add(new Player(player.name,player.rounds));
+                    }
+                }
+            }
+        }
+        return players;
+    }
 }
 
 
