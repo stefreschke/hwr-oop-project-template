@@ -23,7 +23,7 @@ This repository contains a student project created for an ongoing lecture on obj
 |   5    | :heavy_check_mark: | Tasks have Tags       | :heavy_check_mark: |
 |   6    | :heavy_check_mark: | Deadlines             | :heavy_check_mark: |
 |   7    |        :x:         | Daily Checklist       |        :x:         |
-|   8    |        :x:         | In Tray               |        :x:         |
+|   8    | :heavy_check_mark: | In Tray               | :heavy_check_mark: |
 |   9    |        :x:         | Calender              |        :x:         |
 |   10   |        :x:         | Time Allocation       |        :x:         |
 |   11   |        :x:         | "Someday, Maybe" List |        :x:         |
