@@ -1,5 +1,6 @@
 package hwr.oop.group4.todo.builder;
 
+import hwr.oop.group4.todo.Idea;
 import hwr.oop.group4.todo.Tag;
 import hwr.oop.group4.todo.Task;
 
@@ -46,6 +47,12 @@ public class TaskBuilder {
 
     public TaskBuilder addTags(Tag... tags) {
         this.tags.addAll(Arrays.asList(tags));
+        return this;
+    }
+
+    public TaskBuilder fromIdea(Idea idea) {
+        this.name = idea.getName();
+        this.description = idea.getDescription();
         return this;
     }
 
