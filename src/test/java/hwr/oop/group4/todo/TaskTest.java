@@ -48,6 +48,15 @@ class TaskTest {
     }
 
     @Test
+    void buildFromIdea() {
+        final Idea idea = new Idea("Name from idea", "name from Description");
+        final Task task = new TaskBuilder().fromIdea(idea).build();
+
+        assertEquals("Name from idea", task.getName());
+        assertEquals("name from Description", task.getDescription());
+    }
+
+    @Test
     void setters() {
         final LocalDateTime deadline = LocalDateTime.now().plusMonths(10);
         final Tag testTagA = new Tag("tagA");
