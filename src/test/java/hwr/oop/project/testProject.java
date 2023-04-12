@@ -14,44 +14,27 @@ public class testProject {
 
     @Test
     void project_canBeCreated() {
-        Task t = new Task();
-        case1.addTask(t);
-        Assertions.assertEquals(case1, case1);
-        System.out.println("project without error created");
+        Assertions.assertEquals(case1, case1); // benötigt?
     }
 
 
     @Test
     void project_setDate() {
-        Task t = new Task();
-        case2.addTask(t);
-        System.out.println(case1.getDate());
-        System.out.println(case2.getDate());
-        case2.setDate(LocalDate.now());
-        System.out.println(case1.getDate());
-        System.out.println(case2.getDate());
-        Assertions.assertEquals(case1.getDate(), case2.getDate());
-        System.out.println("changeDeadline() ran without error");
+        final LocalDate date = LocalDate.now();
+        case2.setDate(date);
+        Assertions.assertEquals(case2.getDate(), date);
     }
 
     @Test
     void project_setName() {
-        Task t = new Task();
-        case1.addTask(t);
-        System.out.println(case1.getName());
         case1.setName("ICE");
         Assertions.assertEquals("ICE", case1.getName());
-        System.out.println(case1.getName());
-        System.out.println("setName() ran without error");
     }
 
     @Test
     void project_setTime() {
-        Task t = new Task();
-        case1.addTask(t);
-        System.out.println(case1.getTime());
-        case1.setTime(LocalDateTime.now().plusDays(2));
-        Assertions.assertEquals(LocalDateTime.now().plusDays(2),case1.getTime());
-        System.out.println(case1.getTime());
+        final LocalDateTime dateTime = LocalDateTime.now().plusDays(2);
+        case1.setTime(dateTime);
+        Assertions.assertEquals(dateTime, case1.getTime());
     }
 }
