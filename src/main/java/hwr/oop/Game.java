@@ -9,7 +9,7 @@ import java.util.stream.Stream;
 public class Game {
     Scanner gameScanner = new Scanner(System.in);
     List<Player> players = new ArrayList<>();
-    List<GameResults> gameResults = new ArrayList<>();
+
 
 
     protected void gameProcess(KeyEvent e) throws Exception {
@@ -70,6 +70,7 @@ public class Game {
 
 
     public List<GameResults> calculateResults(List<Player> players){
+        List<GameResults> gameResults = new ArrayList<>();
         for(Player player: players){
             int totalPoints = 0;
             for(Round round: player.rounds){
@@ -79,6 +80,11 @@ public class Game {
             }
             gameResults.add(new GameResults(totalPoints, player));
         }
+        List<ExtraRoundPoints> extraRoundPoints = ExtraRoundPoints.getExtraPointsRounds(players);
+        for(ExtraRoundPoints extraRoundPoint: extraRoundPoints){
+            gameResults.add(new GameResults(extraRoundPoint.getPoints(), extraRoundPoint.player));
+        }
+
         return gameResults;
     }
 

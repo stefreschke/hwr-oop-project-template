@@ -114,7 +114,24 @@ public class Round implements BowlingPins{
     private static int countHittedPins(){
         return Collections.frequency(BowlingPins.pins,false) ;
     }
-    
+    public int calculateRoundPoints(List<Round> round){
+        int points = 0;
+        for(Round r:round){
+            for(Throw th: r.throwing){
+                points+= th.getPoints();
+            }
+        }
+        return points;
+    }
+    public static int getPointsByRound(int roundNumber, List<Round> rounds) {
+        int points = 0;
+        List<Throw> throwing= rounds.get(roundNumber).getThrowing();
+        for (Throw th : throwing) {
+            points+= th.getPoints();
+        }
+        return points;
+    }
+
 }
 
 

@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static java.util.stream.Collectors.groupingBy;
+
 @Getter
 @Setter
 public class Player {
@@ -43,31 +45,38 @@ public class Player {
         List<HashMap<Player, Integer>> spareRounds = new ArrayList<>();
         List<HashMap<Player, Integer>> extraPointsList = new ArrayList<>();
 
-        for(Player player: players){
-            HashMap<Player, Integer> extraPoints = new HashMap<>();
-            for (Round r: player.rounds){
-                for(Throw th: r.throwing){
-                    if(th.getState().equals(BowlingStates.STRIKE)){
-                        extraPoints.put(player, r.roundNumber);
+        for(Player player: players) {
+            for (Round r : player.rounds) {
+                for (Throw th : r.throwing) {
+                    HashMap<Player, Integer> extraPoints = new HashMap<>();
+                    if (th.getState().equals(BowlingStates.STRIKE)) {
+                        extraPoints.put(player, r.roundNumber + 1);
+                        strikeRounds.add(extraPoints);
+                        extraPoints.put(player, r.roundNumber + 2);
                         strikeRounds.add(extraPoints);
                     }
-                    if(th.getState().equals(BowlingStates.SPARE)){
-                        extraPoints.put(player, r.roundNumber);
+                    if (th.getState().equals(BowlingStates.SPARE)) {
+                        extraPoints.put(player, r.roundNumber + 1);
                         spareRounds.add(extraPoints);
                     }
                 }
             }
         }
-
-        for(HashMap<Player, Integer> strikeRound: strikeRounds){
-            for(Player player: strikeRound.keySet()){
-                for (Round r: player.rounds) {
-
+        for (HashMap<Player, Integer> strikeRound : strikeRounds) {
+            HashMap<Player, Integer> extraPoints = new HashMap<>();
+            for (Integer roundNumber : strikeRound.values()) {
+                int points = 0;
+                if (roundNumber.equals(r.roundNumber)) {
+                    for (Throw th : r.throwing) {
+                        points+= th.getPoints();
+                    }
                 }
+                extraPoints.put(player, points);
+                extraPointsList.add(extraPoints);
             }
         }
-
     }
+
 }
 
 
