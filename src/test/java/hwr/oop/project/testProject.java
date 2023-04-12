@@ -1,11 +1,10 @@
-package hwr.oop;
+package hwr.oop.project;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import project.creation.Project;
-import project.creation.Task;
+import hwr.oop.project.Project;
+import hwr.oop.task.Task;
 
-import java.sql.SQLOutput;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

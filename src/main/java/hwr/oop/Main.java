@@ -1,7 +1,7 @@
-package project.main;
+package hwr.oop;
 
-import project.creation.Project;
-import project.creation.Task;
+import hwr.oop.project.Project;
+import hwr.oop.task.Task;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
