@@ -2,37 +2,37 @@ package hwr.oop;
 
 import java.awt.event.KeyEvent;
 import java.util.*;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class Game {
-    List<Pin> pins = List.of(new Pin(1, true), new Pin(2, true), new Pin(3, true),
-            new Pin(4, true), new Pin(5, true), new Pin(6, true),
-            new Pin(7, true), new Pin(8, true), new Pin(9, true),
-            new Pin(10, true));
-
-    List<Round> rounds;
-
-    public final int pinsTotal = 10;
-    public final int lastRound = 10;
-
-    enum BowlingStates {
-        STRIKE,
-        SPARE,
-        NORMAL
-    }
-
     Scanner gameScanner = new Scanner(System.in);
-    Integer numberOfPeople;
-    List<Player> players;
+    List<Player> players = new ArrayList<>();
+    List<GameResults> gameResults = new ArrayList<>();
+
 
     protected void gameProcess(KeyEvent e) throws Exception {
         System.out.println("How many people will play the game?");
-        numberOfPeople = gameScanner.nextInt();
+        int numberOfPeople = gameScanner.nextInt();
 
+        List<String> playersNames = new ArrayList<>();
         System.out.println("Who will play?");
-        List.of(gameScanner.nextLine().split(" ")).
-                forEach((name) -> players.add(new Player(name, 0)));
+
+
+        String name = gameScanner.nextLine();
+        for(int i = 0; i<numberOfPeople; i++){
+            System.out.println("Player number "+ (i+1));
+            name = gameScanner.nextLine();
+            playersNames.add(name);
+        }
+        System.out.println(playersNames);
+
+        for(String playerName: playersNames){
+            List<Round> playerRound = new ArrayList<>();
+            players.add(new Player(playerName, playerRound));
+        }
+
 
         System.out.println("Would you like to start? Y/N");
         while (true) {
@@ -53,176 +53,40 @@ public class Game {
                 System.out.println("Type a valid character.");
             }
         }
+
+        for(int roundNumber = 0; roundNumber< 8; roundNumber++){
+            for(Player player : players){
+                System.out.println(player.name+ " is playing.");
+                Round currentRound = Round.normalRound(roundNumber+1);
+                player.rounds.add(currentRound);
+            }
+        }
+        for(Player player : players){
+            System.out.println(player.name+ " is playing.");
+            Round lastRound = Round.roundTen();
+            player.rounds.add(lastRound);
+        }
     }
 
-    protected void bowlingRound() {
-        for (int round = 1; round <= 9; round++) {
-            for (Player player : players) {
-                for (int throwsPerRound = 2; throwsPerRound > 0; throwsPerRound--) {
-                    System.out.println(player.name + " " + round + " : \n" + "Which pins did you hit in the first throw ?");
-                    String pinsHit = gameScanner.nextLine();
-                    List.of(pinsHit.split(" ")).forEach((number) ->{
-                        if (Integer.parseInt(number) == pins.get(Integer.parseInt(number) - 1).pinNumber) {
-                            pins.get(Integer.parseInt(number) - 1).standing = false;
-                        }
-                    });
-                    int countPinsFirst = (int) pins.stream().filter(pin -> !pin.standing).count();
 
-                    if (countPinsFirst == pinsTotal) {
-                        System.out.println("Strike!");
-                        player.score = player.scoreAdd(countPinsFirst);
-                        rounds.add(new Round(round, player, countPinsFirst, BowlingStates.STRIKE));
-                        break;
-                    }else{
-                        System.out.println("Pins left: " + (pinsTotal - countPinsFirst) + "\n Which pins got hit in the second throw?");
-                        List.of(pinsHit.split(" ")).forEach((number) ->{
-                            if (Integer.parseInt(number) == pins.get(Integer.parseInt(number) - 1).pinNumber) {
-                                pins.get(Integer.parseInt(number) - 1).standing = false;
-                            }
-                        });
-                        int countPinsSecond = (int) pins.stream().filter(pin -> !pin.standing).count();
-                        if ((pinsTotal - countPinsFirst) == countPinsSecond) {
-                            System.out.println("Spare!");
-                            player.score = player.scoreAdd(10);
-                            rounds.add(new Round(round, player, 10, BowlingStates.SPARE));
-                        } else {
-                            int roundPoints = pinsTotal - countPinsFirst - countPinsSecond;
-                            System.out.println(roundPoints+ " pins left.");
-                            player.score = player.scoreAdd(roundPoints);
-                            rounds.add(new Round(round, player, roundPoints, BowlingStates.NORMAL));
-                        }
-                    }
-                }
-            }
-        }
-        rounds = extraPoints(rounds);
-        for (Player player : players) {
-            System.out.println(player.name + " " + 10 + " : \n" + "Which pins did you hit in the first throw ?");
-            String pinsHit = gameScanner.nextLine();
-            List.of(pinsHit.split(" ")).forEach((number) -> {
-                if (Integer.parseInt(number) == pins.get(Integer.parseInt(number) - 1).pinNumber) {
-                    pins.get(Integer.parseInt(number) - 1).standing = false;
-                }
-            });
-            int countPinsFirst = (int) pins.stream().filter(pin -> !pin.standing).count();
-
-            if (countPinsFirst == pinsTotal) {
-                System.out.println("Strike!  \n"+ "You get two additional shots.");
-                player.score = player.scoreAdd(countPinsFirst);
-                rounds.add(new Round(lastRound, player, countPinsFirst, BowlingStates.STRIKE));
-                for(int extraRound = 1; extraRound<=2; extraRound++){
-                    System.out.println(player.name + " " + 10 + " : \n" + "Which pins did you hit in the first throw ?");
-                    pinsHit = gameScanner.nextLine();
-                    List.of(pinsHit.split(" ")).forEach((number) -> {
-                        if (Integer.parseInt(number) == pins.get(Integer.parseInt(number) - 1).pinNumber) {
-                            pins.get(Integer.parseInt(number) - 1).standing = false;
-                        }
-                    });
-                     int extraCountPins = (int) pins.stream().filter(pin -> !pin.standing).count();
-                     if(extraCountPins == pinsTotal){
-                         System.out.println("Strike!");
-                         player.score = player.scoreAdd(extraCountPins);
-                         rounds.add(new Round(lastRound+extraRound, player, extraCountPins, BowlingStates.STRIKE));
-                     }else{
-                         System.out.println("You hit "+ extraCountPins+ " pins.");
-                         player.score = player.scoreAdd(extraCountPins);
-                         rounds.add(new Round(lastRound+extraRound, player, extraCountPins, BowlingStates.NORMAL));
-                     }
-                }
-            } else {
-                System.out.println("Pins left: " + (pinsTotal - countPinsFirst) + "\n Which pins got hit in the second throw?");
-                List.of(pinsHit.split(" ")).forEach((number) -> {
-                    if (Integer.parseInt(number) == pins.get(Integer.parseInt(number) - 1).pinNumber) {
-                        pins.get(Integer.parseInt(number) - 1).standing = false;
-                    }
-                });
-                int countPinsSecond = (int) pins.stream().filter(pin -> !pin.standing).count();
-                if ((pinsTotal - countPinsFirst) == countPinsSecond) {
-                    System.out.println("Spare!  \n"+ "You get one additional shot.");
-                    player.score = player.scoreAdd(10);
-                    rounds.add(new Round(lastRound, player, 10, BowlingStates.SPARE));
-
-                    System.out.println(player.name + " " + 10 + " : \n" + "Which pins did you hit in the first throw ?");
-                    pinsHit = gameScanner.nextLine();
-                    List.of(pinsHit.split(" ")).forEach((number) -> {
-                        if (Integer.parseInt(number) == pins.get(Integer.parseInt(number) - 1).pinNumber) {
-                            pins.get(Integer.parseInt(number) - 1).standing = false;
-                        }
-                    });
-                    int extraCountPins = (int) pins.stream().filter(pin -> !pin.standing).count();
-                    if(extraCountPins == pinsTotal){
-                        System.out.println("Strike!");
-                        player.score = player.scoreAdd(extraCountPins);
-                        rounds.add(new Round(lastRound+1, player, extraCountPins, BowlingStates.STRIKE));
-                    }else{
-                        System.out.println("You hit "+ extraCountPins+ " pins.");
-                        player.score = player.scoreAdd(extraCountPins);
-                        rounds.add(new Round(lastRound+1, player, extraCountPins, BowlingStates.NORMAL));
-                    }
-                }else {
-                    int roundPoints = pinsTotal - countPinsFirst - countPinsSecond;
-                    System.out.println(roundPoints + " pins left.");
-                    player.score = player.scoreAdd(roundPoints);
-                    rounds.add(new Round(lastRound, player, roundPoints, BowlingStates.NORMAL));
-                }
-            }
-        }
-
-        int max = 0;
+    public List<GameResults> calculateResults(List<Player> players){
         for(Player player: players){
-            if(player.score > max){
-                max = player.score;
-            }
-        }
-        List<String> winnerNames = new ArrayList<>();
-        for(Player player: players){
-            if(player.score ==max){
-                winnerNames.add(player.name) ;
-            }
-        }
-
-        if(winnerNames.size() > 1){
-            System.out.println("Game over! \n"+ "It is a draw!\n" + "The winners are :"+ winnerNames+ " with "+ max+ " points.");
-        }else{
-            System.out.println("Game over! \n"+ "The winner is: " + winnerNames.get(0)+ " with "+ max+ " points.");
-        }
-
-    }
-    public List<Round> extraPoints (List<Round> rounds){
-        for(Round round:rounds){
-            if(round.state.equals(BowlingStates.STRIKE)){
-                Player p = round.player;
-                Integer r = round.round;
-
-                int times = 0;
-                for(Round round1:rounds){
-                    if(round1.player.equals(p)){
-                        if(round1.round-1 == r || round1.round-2 == r ){
-                            p.score = p.scoreAdd(round1.points);
-                            times += 1;
-                        }
-                    }if(times == 2){break;}
+            int totalPoints = 0;
+            for(Round round: player.rounds){
+                for(Throw th : round.throwing){
+                    totalPoints = totalPoints + th.getPoints();
                 }
             }
-            else if(round.state.equals(BowlingStates.SPARE)){
-                Player p = round.player;
-                Integer r = round.round;
-
-                int times = 0;
-                for(Round round1:rounds){
-                    if(round1.player.equals(p)){
-                        if(round1.round-1 == r){
-                            p.score = p.scoreAdd(round1.points);
-                            times += 1;
-                        }
-                    }if(times == 1){break;}
-                }
-            }
+            gameResults.add(new GameResults(totalPoints, player));
         }
-        return rounds;
+        return gameResults;
     }
 
-
-
+    public static void main(String[] args) throws Exception {
+        Game game = new Game();
+        KeyEvent e = null;
+        game.gameProcess(e);
+    }
+    
 }
 

@@ -1,22 +1,33 @@
 package hwr.oop;
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+@Getter
+@Setter
 public class Player {
     int score = 0;
     int currentMultiplier = 0;
     String name = "Default Player Name";
+    public List<Round> rounds;
 
-
-    public Player(String name, int initializedScore) {
+    public Player(String name, List<Round> rounds) {
         this.name = name;
-        score = initializedScore;
+        this.rounds = rounds;
     }
-
     public Player(String name) {
         this.name = name;
     }
 
-    public Player(int initializedScore) {
-        score = initializedScore;
+    public List<Round> addRound(Round addedRound){
+        rounds.add(addedRound);
+        return rounds;
     }
 
     public int scoreAdd(int points) {
@@ -27,22 +38,36 @@ public class Player {
         throw new IllegalArgumentException("Added Points value must be 0 or higher.");
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
+    public void calculateExtraPoints(List<Player> players){
+        List<HashMap<Player, Integer>> strikeRounds = new ArrayList<>();
+        List<HashMap<Player, Integer>> spareRounds = new ArrayList<>();
+        List<HashMap<Player, Integer>> extraPointsList = new ArrayList<>();
 
-    public int getScore() {
-        return this.score;
-    }
+        for(Player player: players){
+            HashMap<Player, Integer> extraPoints = new HashMap<>();
+            for (Round r: player.rounds){
+                for(Throw th: r.throwing){
+                    if(th.getState().equals(BowlingStates.STRIKE)){
+                        extraPoints.put(player, r.roundNumber);
+                        strikeRounds.add(extraPoints);
+                    }
+                    if(th.getState().equals(BowlingStates.SPARE)){
+                        extraPoints.put(player, r.roundNumber);
+                        spareRounds.add(extraPoints);
+                    }
+                }
+            }
+        }
 
-    public void updateName(String newName) {
-        this.name = newName;
-    }
+        for(HashMap<Player, Integer> strikeRound: strikeRounds){
+            for(Player player: strikeRound.keySet()){
+                for (Round r: player.rounds) {
 
-    public String getName() {
-        return this.name;
-    }
+                }
+            }
+        }
 
+    }
 }
 
 
