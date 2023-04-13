@@ -1,22 +1,19 @@
 package hwr.oop.todo;
 
 import java.util.HashMap;
-
-// TODO:
-//  - Controller testen
-//  - Tag
-//  - Project (kann ggf. von Tag erben)
+import java.util.UUID;
 
 public class TaskController {
-    private HashMap<String, Task> tasks;
+    private final HashMap<UUID, Task> tasks = new HashMap<>();
 
-    public void addTask(Task task){
-        // TODO: Generate uuid
-        String id = "id:abc";
+    public UUID addTask(Task task){
+
+        UUID id = UUID.randomUUID();
         tasks.put(id, task);
+        return id;
     }
 
-    public void getTask(Integer id){
-
+    public Task getTask(UUID id){
+      return tasks.get(id);
     }
 }
