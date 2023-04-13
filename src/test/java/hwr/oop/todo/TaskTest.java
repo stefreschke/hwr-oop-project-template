@@ -3,6 +3,9 @@ package hwr.oop.todo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class TaskTest {
 
     @Test
@@ -32,9 +35,10 @@ public class TaskTest {
         task.addTag("Homework");
         task.addTag("Important");
         Assertions.assertEquals("[Homework, Important]", task.getTags()+"");
+        Assertions.assertIterableEquals(Arrays.asList("Homework", "Important"), task.getTags());
 
         task.removeTag("Important");
         task.addTag("Birthday Present");
-        Assertions.assertEquals("[Homework, Birthday Present]", task.getTags()+"");
+        Assertions.assertIterableEquals(Arrays.asList("Homework", "Birthday Present"), task.getTags());
     }
 }
