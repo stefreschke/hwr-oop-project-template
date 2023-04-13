@@ -10,6 +10,8 @@ public class Game {
     Scanner gameScanner = new Scanner(System.in);
     List<Player> players = new ArrayList<>();
     List<GameResult> gameResults = new ArrayList<>();
+
+    List<Integer> extraRounds = new ArrayList<>();
     int numberOfPeople;
     public static Throw th;
 
@@ -31,7 +33,7 @@ public class Game {
 
         for(String playerName: playersNames){
             List<Round> playerRound = new ArrayList<>();
-            players.add(new Player(playerName, playerRound));
+            players.add(new Player(playerName, playerRound, extraRounds));
         }
 
 
@@ -60,6 +62,7 @@ public class Game {
                 System.out.println(player.name+ " is playing.");
                 Round currentRound = normalRound(roundNumber+1);
                 player.rounds.add(currentRound);
+                player.extraRounds = pl.getExtraRounds();
             }
         }
         for(Player player : players){

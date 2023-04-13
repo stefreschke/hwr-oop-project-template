@@ -2,14 +2,8 @@ package hwr.oop;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.groupingBy;
 
 @Getter
 @Setter
@@ -18,19 +12,17 @@ public class Player {
     int currentMultiplier = 0;
     String name = "Default Player Name";
     public List<Round> rounds;
+    public List<Integer> extraRounds;
 
-    public Player(String name, List<Round> rounds) {
+    public Player(String name, List<Round> rounds, List<Integer> extraRounds) {
         this.name = name;
         this.rounds = rounds;
+        this.extraRounds = extraRounds;
     }
     public Player(String name) {
         this.name = name;
     }
 
-    public List<Round> addRound(Round addedRound){
-        rounds.add(addedRound);
-        return rounds;
-    }
 
     public int scoreAdd(int points) {
         if (points > -1) {
@@ -38,6 +30,17 @@ public class Player {
             return score;
         }
         throw new IllegalArgumentException("Added Points value must be 0 or higher.");
+    }
+
+    public List<Integer> addExtraRound(Integer th, int numberOfPins){
+        if(th.equals(1) && numberOfPins == 10){
+            extraRounds.add(th+1);
+            extraRounds.add(th+2);
+        }
+        else if(th.equals(2) && numberOfPins == 10){
+            extraRounds.add(th+1);
+        }
+        return extraRounds;
     }
 
 }

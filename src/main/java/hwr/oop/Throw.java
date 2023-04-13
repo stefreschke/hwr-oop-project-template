@@ -15,6 +15,8 @@ public class Throw implements BowlingPins {
     private Integer points;
     private BowlingStates state;
 
+
+
     public Throw(Integer throwNumber, Integer points, BowlingStates state) {
         this.throwNumber = throwNumber;
         this.points = points;
@@ -28,6 +30,7 @@ public class Throw implements BowlingPins {
                 pins.forEach((pin) -> {
                     pin = true;
                 });
+
                 return new Throw(1, 10, BowlingStates.STRIKE);
             }
             System.out.println((pinsTotal - points) + " pins left.");
@@ -43,4 +46,6 @@ public class Throw implements BowlingPins {
         }
         return new Throw(throwNumber, points, BowlingStates.NORMAL);
     }
+
+
 }
