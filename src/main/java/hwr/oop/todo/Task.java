@@ -1,9 +1,13 @@
 package hwr.oop.todo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Task {
     private String title;
     private String description;
     private TaskState state;
+    private List<String> tags = new ArrayList<>();
 
     public Task(String title, String description){
         this.title = title;
@@ -37,5 +41,17 @@ public class Task {
 
     public void setState(TaskState state) {
         this.state = state;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void addTag(String tag) {
+        this.tags.add(tag);
+    }
+
+    public void removeTag(String tag) {
+        this.tags.remove(tag);
     }
 }

@@ -24,4 +24,17 @@ public class TaskTest {
         Assertions.assertEquals("Title", title);
         Assertions.assertEquals("Description", desc);
     }
+
+    @Test
+    void CanAddAndRemoveTags(){
+        Task task = new Task("Title", "Description");
+
+        task.addTag("Homework");
+        task.addTag("Important");
+        Assertions.assertEquals("[Homework, Important]", task.getTags()+"");
+
+        task.removeTag("Important");
+        task.addTag("Birthday Present");
+        Assertions.assertEquals("[Homework, Birthday Present]", task.getTags()+"");
+    }
 }
