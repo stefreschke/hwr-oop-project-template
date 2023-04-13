@@ -8,6 +8,7 @@ public class Task {
     private String description;
     private TaskState state;
     private List<String> tags = new ArrayList<>();
+    private TagController tagController = TagController.get();
 
     public Task(String title, String description){
         this.title = title;
@@ -48,6 +49,10 @@ public class Task {
     }
 
     public void addTag(String tag) {
+        List<String> knownTags = this.tagController.getTags();
+        if (!knownTags.contains(tag)){
+            tagController.createTag(tag);
+        }
         this.tags.add(tag);
     }
 
