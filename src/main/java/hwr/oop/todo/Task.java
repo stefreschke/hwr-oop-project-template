@@ -1,5 +1,8 @@
 package hwr.oop.todo;
 
+
+import java.util.Objects;
+
 public class Task {
     private String title;
     private String description;
@@ -37,5 +40,18 @@ public class Task {
 
     public void setState(TaskState state) {
         this.state = state;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return title.equals(task.title) && description.equals(task.description) && state == task.state;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, state);
     }
 }
