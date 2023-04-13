@@ -3,8 +3,6 @@ package hwr.oop.todo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collections;
-
 public class TaskTest {
 
     @Test
