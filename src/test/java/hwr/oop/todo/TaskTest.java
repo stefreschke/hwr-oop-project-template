@@ -9,8 +9,7 @@ public class TaskTest {
 
     @Test
     void CanCreateTaskWithTitle(){
-        TaskData data = new TaskData("Title");
-        Task task = new Task(data, "id:123");
+        Task task = new Task("Title");
 
         String title = task.getTitle();
 
@@ -19,8 +18,7 @@ public class TaskTest {
 
     @Test
     void CanCreateTaskWithDescription(){
-        TaskData data = new TaskData("Title", "Description");
-        Task task = new Task(data, "id:123");
+        Task task = new Task("Title", "Description");
 
         String title = task.getTitle();
         String desc = task.getDescription();
