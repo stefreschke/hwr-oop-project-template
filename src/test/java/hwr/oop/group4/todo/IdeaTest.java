@@ -3,6 +3,7 @@ package hwr.oop.group4.todo;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class IdeaTest {
 
@@ -38,5 +39,20 @@ class IdeaTest {
 
         assertEquals("new Name", idea.getName());
         assertEquals("new Desc", idea.getDescription());
+    }
+
+    @Test
+    void equals() {
+        final Idea abcIdea = new Idea("abc");
+        final Idea abcIdea2 = new Idea("abc");
+        final Idea IdeaWithDesc = new Idea("abc", "desc");
+        final Idea IdeaWithDesc2 = new Idea("abc", "desc");
+        final Idea differentIdea = new Idea("new Idea", "desc");
+
+        assertEquals(abcIdea, abcIdea2);
+        assertEquals(IdeaWithDesc, IdeaWithDesc2);
+        assertNotEquals(abcIdea, IdeaWithDesc);
+        assertNotEquals(abcIdea, IdeaWithDesc);
+        assertNotEquals(abcIdea, differentIdea);
     }
 }

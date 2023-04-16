@@ -3,6 +3,7 @@ package hwr.oop.group4.todo;
 import hwr.oop.group4.todo.builder.TaskBuilder;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.Set;
 
 public class Task {
@@ -74,5 +75,19 @@ public class Task {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return priority == task.priority && Objects.equals(name, task.name) && Objects.equals(description, task.description)
+                && Objects.equals(deadline, task.deadline) && Objects.equals(tags, task.tags) && status == task.status;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description, priority, deadline, tags, status);
     }
 }

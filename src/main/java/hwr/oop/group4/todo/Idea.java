@@ -1,5 +1,7 @@
 package hwr.oop.group4.todo;
 
+import java.util.Objects;
+
 public class Idea {
 
     private String name;
@@ -34,5 +36,18 @@ public class Idea {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Idea idea = (Idea) o;
+        return Objects.equals(name, idea.name) && Objects.equals(description, idea.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description);
     }
 }
