@@ -56,4 +56,3 @@ class IdeaTest {
         assertNotEquals(abcIdea, differentIdea);
     }
 }
-}
