@@ -57,6 +57,16 @@ class TaskTest {
     }
 
     @Test
+    void buildTaskInProject() {
+        final Project project = new Project("project", "desc");
+        final Task taskInProject = new TaskBuilder().setProject(project).build();
+        final Task taskWithoutProject = new TaskBuilder().build();
+
+        assertTrue(project.getTasks().contains(taskInProject));
+        assertFalse(project.getTasks().contains(taskWithoutProject));
+    }
+
+    @Test
     void setters() {
         final LocalDateTime deadline = LocalDateTime.now().plusMonths(10);
         final Tag testTagA = new Tag("tagA");
