@@ -1,6 +1,7 @@
 package hwr.oop.group4.todo;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Project {
@@ -11,6 +12,10 @@ public class Project {
     private final Set<Task> tasks;
     private LocalDateTime begin;
     private LocalDateTime end;
+
+    public Project(String name, String description) {
+        this(name, description, new HashSet<>(), new HashSet<>(), null, null);
+    }
 
     public Project(String name, String description, Set<Tag> tags, Set<Task> tasks, LocalDateTime begin, LocalDateTime end) {
         this.name = name;

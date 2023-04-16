@@ -23,6 +23,9 @@ public class Task {
         priority = taskBuilder.getPriority();
         deadline = taskBuilder.getDeadline();
         tags = taskBuilder.getTags();
+        if (taskBuilder.getProject() != null) {
+            taskBuilder.getProject().addTask(this);
+        }
     }
 
     public String getName() {
