@@ -26,7 +26,7 @@ This repository contains a student project created for an ongoing lecture on obj
 |   8    | :heavy_check_mark: | In Tray               | :heavy_check_mark: |
 |   9    |        :x:         | Calender              |        :x:         |
 |   10   |        :x:         | Time Allocation       |        :x:         |
-|   11   |        :x:         | "Someday, Maybe" List |        :x:         |
+|   11   | :heavy_check_mark: | "Someday, Maybe" List | :heavy_check_mark: |
 |   12   |        :x:         | Weekly Planning       |        :x:         |
 |   13   |        :x:         | Weekly Review         |        :x:         |
 
