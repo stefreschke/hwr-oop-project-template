@@ -21,7 +21,7 @@ This repository contains a student project created for an ongoing lecture on obj
 | 1      | Tag Klasse       |   ✔️   | Niklas            |
 | 2      | Hauptmenü       |    ✔️  | Thomas            |
 | 3      | Task Klasse       |      | Bruno            |
-| 4      | Projekt Klasse       |      | Jason & Frauke            |
+| 4      | Projekt Klasse       |   ✔️   | Jason & Frauke            |
 
 
 
