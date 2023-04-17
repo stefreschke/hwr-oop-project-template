@@ -6,6 +6,8 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import static org.assertj.core.api.Assertions.*;
+
 public class ToDoItemTest {
     @Test
     public void itemConstructorTest() {
@@ -14,10 +16,10 @@ public class ToDoItemTest {
         String description = item.description;
         boolean done = item.done;
         Priority priority = item.priority;
-        Assertions.assertThat(title).isEqualTo("New Item");
-        Assertions.assertThat(description).isEqualTo("");
-        Assertions.assertThat(done).isEqualTo(false);
-        Assertions.assertThat(priority).isEqualTo(Priority.LOW);
+        assertThat(title).isEqualTo("New Item");
+        assertThat(description).isEqualTo("");
+        assertThat(done).isEqualTo(false);
+        assertThat(priority).isEqualTo(Priority.LOW);
     }
     @ParameterizedTest
     @ValueSource(strings = {"Title", "New Title"})
@@ -25,7 +27,7 @@ public class ToDoItemTest {
         ToDoItem item = new ToDoItem();
         item.setTitle(title);
         String testTitle = item.title;
-        Assertions.assertThat(testTitle).isEqualTo(title);
+        assertThat(testTitle).isEqualTo(title);
     }
     @ParameterizedTest
     @ValueSource(strings = {"Description", "New Description"})
@@ -33,7 +35,7 @@ public class ToDoItemTest {
         ToDoItem item = new ToDoItem();
         item.setDescription(description);
         String testDescription = item.description;
-        Assertions.assertThat(testDescription).isEqualTo(description);
+        assertThat(testDescription).isEqualTo(description);
     }
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
@@ -41,7 +43,7 @@ public class ToDoItemTest {
         ToDoItem item = new ToDoItem();
         item.setDone(done);
         boolean testDone = item.done;
-        Assertions.assertThat(testDone).isEqualTo(done);
+        assertThat(testDone).isEqualTo(done);
     }
     @ParameterizedTest
     @EnumSource(Priority.class)
@@ -49,7 +51,7 @@ public class ToDoItemTest {
         ToDoItem item = new ToDoItem();
         item.setPriority(priority);
         Priority testPriority = item.priority;
-        Assertions.assertThat(testPriority).isEqualTo(priority);
+        assertThat(testPriority).isEqualTo(priority);
     }
 
 }
