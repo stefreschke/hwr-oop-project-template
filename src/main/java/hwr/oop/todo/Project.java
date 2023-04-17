@@ -1,41 +1,46 @@
 package hwr.oop.todo;
 
-import java.util.List;
-
 public class Project {
     private final String title;
  /*
-    private Task task;
     private List<Task> task-list;
+  */
     private Status status;
-    private Date deadline;
- */
-    public Project(String title /*,Date deadline*/) {
+    private String deadline;
+
+    public Project(String title , String condition, String deadline) {
         this.title = title;
-        // this.status = null
-        // this.deadline = deadline
+        this.status = new Status(condition);
+        // this.task-list = null;
+        this.deadline = deadline;
     }
 /*
     public addTask(Task task) {
-        project.task = task;
+        this.task-list.add(task);
     }
 
-    public getTask() {
-        return project.task;
+    public getTasklist() {
+        return this.task-list;
     }
 
-    public setStatus(Status status) {   // In Status enthalten, darum löschen?
+    public getLastTask() {
+        int pos = this.task-list.size();
+        return this.task-list.get(pos-1);
     }
-
-    public getStatus() {                // In Status enthalten, darum löschen?
-    }
-
-    public setDeadline(Date deadline) {
-        project.deadline = deadline;
-    }
-
-    public getDeadline() {
-        return project.deadline;
 */
+    public void setStatus(String status) {   // In Status enthalten, darum löschen?
+        this.status = new Status(status);
+    }
 
+    public String getStatus() {                // In Status enthalten, darum löschen?
+        return this.status.getCondition();
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
+
+    public String getDeadline() {
+        return this.deadline;
+    }
 }

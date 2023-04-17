@@ -8,15 +8,10 @@ import static org.junit.jupiter.api.Assertions.*;
 class StatusTest {
 
     @Test
-    void getCondition() {
+    void testCondition() {
         Status status = new Status("New");
         Assertions.assertThat("New").isEqualTo(status.getCondition());
-    }
-
-    @Test
-    void setCondition() {
-        Status status = new Status("");
-        status.setCondition("New");
-        Assertions.assertThat("New").isEqualTo(status.getCondition());
+        status.setCondition("New2");
+        Assertions.assertThat("New2").isEqualTo(status.getCondition());
     }
 }
