@@ -28,11 +28,11 @@ public class Project {
         return this.task-list.get(pos-1);
     }
 */
-    public void setStatus(String status) {   // In Status enthalten, darum löschen?
-        this.status = new Status(status);
+    public void setStatus(String condition) {
+        this.status = new Status(condition);
     }
 
-    public String getStatus() {                // In Status enthalten, darum löschen?
+    public String getStatus() {
         return this.status.getCondition();
     }
 
