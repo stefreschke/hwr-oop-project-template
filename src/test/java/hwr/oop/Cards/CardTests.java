@@ -41,4 +41,27 @@ public class CardTests {
 
         assertThat(count).isEqualTo(5);
     }
+
+    @Test
+    void canGetQuestionOfTopic(){
+
+
+    }
+
+    @Test
+    void canCreateCardInBoxInTopic(){
+
+     Topic topic = new Topic("German");
+     Box box = new Box();
+     Card card = new Card("?");
+
+     box.addCard(card);
+     topic.addBox(box);
+
+     Box testBox = topic.getBoxOfIndex(0);
+     Card testCard = testBox.getCardOfIndex(0);
+
+     assertThat(testBox).isEqualTo(box);
+     assertThat(testCard).isEqualTo(card);
+    }
 }
