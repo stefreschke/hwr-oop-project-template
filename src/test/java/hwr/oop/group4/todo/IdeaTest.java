@@ -2,8 +2,7 @@ package hwr.oop.group4.todo;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class IdeaTest {
 
@@ -11,34 +10,59 @@ class IdeaTest {
     void createIdea() {
         final Idea idea = new Idea("name", "desc");
 
-        assertEquals("name", idea.getName());
-        assertEquals("desc", idea.getDescription());
+        assertThat(idea.getName()).isEqualTo("name");
+        assertThat(idea.getDescription()).isEqualTo("desc");
     }
 
     @Test
     void createIdeaWithNull() {
         final Idea idea = new Idea(null);
+
+        assertThat(idea.getName()).isEqualTo("");
+    }
+    @Test
+    void createIdeaWithDesTwoNull(){
         final Idea ideaWithDesc = new Idea(null, null);
 
-        assertEquals("", idea.getName());
-        assertEquals("", idea.getDescription());
-
-        assertEquals("", ideaWithDesc.getDescription());
-        assertEquals("", ideaWithDesc.getDescription());
+        assertThat(ideaWithDesc.getName()).isEqualTo("");
+        assertThat(ideaWithDesc.getDescription()).isEqualTo("");
     }
 
     @Test
-    void equals() {
+    void equal() {
         final Idea abcIdea = new Idea("abc");
         final Idea abcIdea2 = new Idea("abc");
+
+        assertThat(abcIdea).isEqualTo(abcIdea2);
+    }
+    @Test
+    void notEqual(){
+        final Idea abcIdea = new Idea("abc");
+        final Idea differentIdea = new Idea("bdc");
+
+        assertThat(abcIdea).isNotEqualTo(differentIdea);
+    }
+    @Test
+    void equalWithDes(){
         final Idea IdeaWithDesc = new Idea("abc", "desc");
         final Idea IdeaWithDesc2 = new Idea("abc", "desc");
-        final Idea differentIdea = new Idea("new Idea", "desc");
 
-        assertEquals(abcIdea, abcIdea2);
-        assertEquals(IdeaWithDesc, IdeaWithDesc2);
-        assertNotEquals(abcIdea, IdeaWithDesc);
-        assertNotEquals(abcIdea, IdeaWithDesc);
-        assertNotEquals(abcIdea, differentIdea);
+        assertThat(IdeaWithDesc).isEqualTo(IdeaWithDesc2);
+    }
+
+    @Test
+    void notEqualWithDes(){
+        final Idea abcIdea = new Idea("abc", "des1");
+        final Idea differentIdea = new Idea("abc", "des2");
+
+        assertThat(abcIdea).isNotEqualTo(differentIdea);
+    }
+
+    @Test
+    void notEqualParameters(){
+        final Idea abcIdea = new Idea("abc");
+        final Idea differentIdea = new Idea("cde", "des2");
+
+        assertThat(abcIdea).isNotEqualTo(differentIdea);
     }
 }
