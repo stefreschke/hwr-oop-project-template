@@ -1,9 +1,9 @@
 package hwr.oop.group4.todo;
 
-import hwr.oop.group4.todo.builder.TaskBuilder;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TodoListTest {
 
@@ -33,8 +33,8 @@ class TodoListTest {
     @Test
     void loseTasks() {
         final TodoList todo = new TodoList();
-        final Task taskA = new TaskBuilder().setName("task").build();
-        final Task taskB = new TaskBuilder().setName("another task").build();
+        final Task taskA = new Task.TaskBuilder().name("task").build();
+        final Task taskB = new Task.TaskBuilder().name("another task").build();
 
         todo.addLoseTask(taskA);
         todo.addLoseTask(taskA);
