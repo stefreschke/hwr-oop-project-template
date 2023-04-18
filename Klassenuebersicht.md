@@ -1,6 +1,7 @@
 Klassenübersicht:
 
 Name: TASK
+
 Attribute: (String) Title, (Tag) Tags, (String) Description, (Date) Deadline, (Class / Enum) Status, (Class / Enum) Priority, (Boolean) isClarified
 
 Methoden:
@@ -15,6 +16,7 @@ Attribute: (String) Title
 
 
 Name: Project
+
 Attribute: (Tasks) Tasks, (String) Title, (Date) Deadline
 
 Methoden:
