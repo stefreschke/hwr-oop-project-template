@@ -9,12 +9,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ProjectTest {
 
-    private Project createProject(){
+    private Project createProject() {
         var beginAt = LocalDateTime.now();
         var endAt = LocalDateTime.now();
 
-        return new Project("myProject", "myDesc", new HashSet<>(), new HashSet<>(), beginAt , endAt );
+        return new Project("myProject", "myDesc", new HashSet<>(), new HashSet<>(), beginAt, endAt);
     }
+
     @Test
     void canGetName() {
         Project project = createProject();
@@ -23,28 +24,28 @@ class ProjectTest {
     }
 
     @Test
-    void canGetDescription(){
+    void canGetDescription() {
         Project project = createProject();
 
         assertThat(project.getDescription()).isEqualTo("myDesc");
     }
 
     @Test
-    void canGetTag(){
+    void canGetTag() {
         Project project = createProject();
 
         assertThat(project.getTags().size()).isEqualTo(0);
     }
 
     @Test
-    void canGetTasks(){
+    void canGetTasks() {
         Project project = createProject();
 
         assertThat(project.getTasks().size()).isEqualTo(0);
     }
 
     @Test
-    void  canGetTime(){
+    void canGetTime() {
         var beginAt = LocalDateTime.now();
         var endAt = LocalDateTime.now();
         Project project = new Project("myProject", "myDesc", new HashSet<>(), new HashSet<>(), beginAt, endAt);
