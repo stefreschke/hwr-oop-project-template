@@ -1,6 +1,7 @@
 package hwr.oop.task;
 
 import hwr.oop.project.Project;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -12,10 +13,14 @@ import java.time.temporal.ChronoUnit;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TaskSetterTest {
+    private final TaskBuilder taskBuilder = new TaskBuilder();
 
     @Test
     void canSetTitle() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         task.setTitle("New Title");
         String title = task.getTitle();
         assertThat(title).isEqualTo("New Title");
@@ -23,7 +28,10 @@ public class TaskSetterTest {
 
     @Test
     void canSetDescription() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         task.setDescription("New Description");
         String description = task.getDescription();
         assertThat(description).isEqualTo("New Description");
@@ -32,7 +40,10 @@ public class TaskSetterTest {
     @ParameterizedTest
     @EnumSource(TaskPriority.class)
     void canSetPriority(TaskPriority priority) {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         task.setPriority(priority);
         TaskPriority taskPriority = task.getPriority();
         assertThat(taskPriority).isEqualTo(priority);
@@ -40,43 +51,79 @@ public class TaskSetterTest {
 
     @Test
     void canSetDeadline() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         LocalDateTime testDateTime = LocalDateTime.now();
-        task.setDeadline(testDateTime);
-        LocalDateTime deadline = task.getDeadline();
+        task.setDateTimeDeadline(testDateTime);
+        LocalDateTime deadline = task.getDateTimeDeadline();
         assertThat(deadline).isEqualTo(testDateTime);
     }
 
     @Test
-    void canSetProject() {
-        final Task task = new Task("Title", "Description");
+    void canChangeProject() {
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         final Project project = new Project("Name", LocalDateTime.now(), LocalDate.now());
-        task.setProject(project);
+        task.changeProject(project);
         Project taskProject = task.getProject();
         TaskStatus taskStatus = task.getStatus();
         assertThat(taskProject).isEqualTo(project);
-        assertThat(taskStatus).isNotEqualTo(TaskStatus.IN_TRACE);
-        final Project secondProject = new Project("Project", LocalDateTime.now(), LocalDate.now());
-        task.setProject(secondProject);
-        taskProject = task.getProject();
-        assertThat(taskProject).isEqualTo(secondProject);
+        assertThat(taskStatus).isNotEqualTo(TaskStatus.IN_TRAY);
     }
 
     @Test
-    void canSetPlannedDate() {
-        final Task task = new Task("Title", "Description");
-        final LocalDateTime firstDateTime = LocalDateTime.now();
-        final LocalDateTime secondDateTime = LocalDateTime.now().plus(100, ChronoUnit.MINUTES);
-        task.setPlannedDate(firstDateTime, secondDateTime);
-        LocalDateTime startDate = task.getDatePlannedStart();
-        LocalDateTime endDate = task.getDatePlannedEnd();
-        assertThat(startDate).isEqualTo(firstDateTime);
-        assertThat(endDate).isEqualTo(secondDateTime);
+    void canChangeProjectWhenAssigned() {
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
+        final Project project = new Project("Name", LocalDateTime.now(), LocalDate.now());
+        final Project secondProject = new Project("Name", LocalDateTime.now(), LocalDate.now());
+        task.changeProject(project);
+        task.changeProject(secondProject);
+        Project taskProject = task.getProject();
+        TaskStatus taskStatus = task.getStatus();
+        assertThat(taskProject).isEqualTo(secondProject);
+        assertThat(taskStatus).isNotEqualTo(TaskStatus.IN_TRAY);
+    }
 
-        task.setPlannedDate(secondDateTime, firstDateTime);
-        startDate = task.getDatePlannedStart();
-        endDate = task.getDatePlannedEnd();
-        assertThat(startDate).isEqualTo(firstDateTime);
-        assertThat(endDate).isEqualTo(secondDateTime);
+
+    @Nested
+    class CanSetPlannedDate {
+        final TaskBuilder taskBuilder = new TaskBuilder();
+
+        @Test
+        void canSetPlannedDateInBuilder() {
+            final LocalDateTime firstDateTime = LocalDateTime.now();
+            final LocalDateTime secondDateTime = LocalDateTime.now().plus(100, ChronoUnit.MINUTES);
+            final Task task = this.taskBuilder
+                    .setTitle("Title")
+                    .setDescription("Description")
+                    .setDateTimePlanned(firstDateTime, secondDateTime)
+                    .build();
+            LocalDateTime startDate = task.getDateTimePlannedStart();
+            LocalDateTime endDate = task.getDateTimePlannedEnd();
+            assertThat(startDate).isEqualTo(firstDateTime);
+            assertThat(endDate).isEqualTo(secondDateTime);
+        }
+
+        @Test
+        void canSetPlannedDate() {
+            final LocalDateTime firstDateTime = LocalDateTime.now();
+            final LocalDateTime secondDateTime = LocalDateTime.now().plus(100, ChronoUnit.MINUTES);
+            final Task task = this.taskBuilder
+                    .setTitle("Title")
+                    .setDescription("Description")
+                    .build();
+            task.setPlannedDateTime(firstDateTime, secondDateTime);
+            LocalDateTime startDate = task.getDateTimePlannedStart();
+            LocalDateTime endDate = task.getDateTimePlannedEnd();
+            assertThat(startDate).isEqualTo(firstDateTime);
+            assertThat(endDate).isEqualTo(secondDateTime);
+        }
     }
 }

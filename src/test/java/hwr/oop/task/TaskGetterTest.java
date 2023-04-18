@@ -1,49 +1,61 @@
 package hwr.oop.task;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TaskGetterTest {
+    private final TaskBuilder taskBuilder = new TaskBuilder();
 
     @Test
     void canGetTitle() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         String taskTitle = task.getTitle();
         assertThat(taskTitle).isEqualTo("Title");
     }
 
     @Test
     void canGetDescription() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         String taskDescription = task.getDescription();
         assertThat(taskDescription).isEqualTo("Description");
     }
 
     @Test
     void canGetStatus() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         TaskStatus taskStatus = task.getStatus();
-        assertThat(taskStatus).isEqualTo(TaskStatus.IN_TRACE);
+        assertThat(taskStatus).isEqualTo(TaskStatus.IN_TRAY);
     }
 
     @Test
     void canGetPriority() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         TaskPriority priority = task.getPriority();
         assertThat(priority).isEqualTo(TaskPriority.UNDETERMINED);
     }
 
     @Test
     void canGetDateCreated() {
-        final Task task = new Task("Title", "Description");
-        LocalDateTime dateCreated = task.getDateCreated();
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
+        LocalDateTime dateCreated = task.getDateTimeCreated();
         assertThat(dateCreated).isNotNull();
     }
 }

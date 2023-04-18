@@ -4,7 +4,6 @@ import hwr.oop.project.Project;
 import hwr.oop.tag.Tag;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,25 +14,35 @@ public class Task implements TaskInterface {
     private TaskPriority priority;
     private Project project;
     private Set<Tag> tags;
-    private final LocalDateTime dateCreated;
-    private LocalDateTime dateDone;
-    private LocalDateTime datePlannedStart;
-    private LocalDateTime datePlannedEnd;
-    private LocalDateTime deadline;
+    private final LocalDateTime dateTimeCreated;
+    private LocalDateTime dateTimeDone;
+    private LocalDateTime dateTimePlannedStart;
+    private LocalDateTime dateTimePlannedEnd;
+    private LocalDateTime dateTimeDeadline;
 
-    public Task(String title, String description) {
+    protected Task(
+            String title,
+            String description,
+            LocalDateTime dateTimeDeadline,
+            TaskPriority priority,
+            LocalDateTime dateTimePlannedStart,
+            LocalDateTime dateTimePlannedEnd
+    ) {
         this.title = title;
         this.description = description;
-        this.status = TaskStatus.IN_TRACE;
-        this.priority = TaskPriority.UNDETERMINED;
+        this.dateTimeDeadline = dateTimeDeadline;
+        this.priority = priority;
+        this.dateTimePlannedStart = dateTimePlannedStart;
+        this.dateTimePlannedEnd = dateTimePlannedEnd;
+        this.status = TaskStatus.IN_TRAY;
         this.tags = new HashSet<>();
-        this.dateCreated = LocalDateTime.now();
+        this.dateTimeCreated = LocalDateTime.now();
     }
 
     // AREA: Interactions
     public void finishTask() {
         this.status = TaskStatus.DONE;
-        this.dateDone = LocalDateTime.now();
+        this.dateTimeDone = LocalDateTime.now();
     }
 
     public void addTag(Tag tag) {
@@ -51,7 +60,7 @@ public class Task implements TaskInterface {
     public void toPreviousStatus() {
         if (this.status == TaskStatus.DONE) {
             this.status = TaskStatus.IN_PROGRESS;
-            this.dateDone = null;
+            this.dateTimeDone = null;
         } else if (this.status == TaskStatus.IN_PROGRESS) {
             this.status = TaskStatus.BACKLOG;
         }
@@ -61,8 +70,19 @@ public class Task implements TaskInterface {
         if (this.project != null) {
             this.project.removeTask(this);
             this.project = null;
-            this.status = TaskStatus.IN_TRACE;
+            this.status = TaskStatus.IN_TRAY;
         }
+    }
+
+    public void changeProject(Project project) {
+        if (this.project != null) {
+            this.project.removeTask(this);
+        }
+        if (this.status == TaskStatus.IN_TRAY) {
+            this.status = TaskStatus.BACKLOG;
+        }
+        this.project = project;
+        this.project.addTask(this);
     }
 
     // AREA: Getters
@@ -90,24 +110,24 @@ public class Task implements TaskInterface {
         return this.tags;
     }
 
-    public LocalDateTime getDateCreated() {
-        return this.dateCreated;
+    public LocalDateTime getDateTimeCreated() {
+        return this.dateTimeCreated;
     }
 
-    public LocalDateTime getDateDone() {
-        return this.dateDone;
+    public LocalDateTime getDateTimeDone() {
+        return this.dateTimeDone;
     }
 
-    public LocalDateTime getDatePlannedStart() {
-        return this.datePlannedStart;
+    public LocalDateTime getDateTimePlannedStart() {
+        return this.dateTimePlannedStart;
     }
 
-    public LocalDateTime getDatePlannedEnd() {
-        return this.datePlannedEnd;
+    public LocalDateTime getDateTimePlannedEnd() {
+        return this.dateTimePlannedEnd;
     }
 
-    public LocalDateTime getDeadline() {
-        return this.deadline;
+    public LocalDateTime getDateTimeDeadline() {
+        return this.dateTimeDeadline;
     }
 
     // AREA: Setters
@@ -123,28 +143,12 @@ public class Task implements TaskInterface {
         this.priority = priority;
     }
 
-    public void setPlannedDate(LocalDateTime startDate, LocalDateTime endDate) {
-        if (startDate.isAfter(endDate)) {
-            this.datePlannedStart = endDate;
-            this.datePlannedEnd = startDate;
-        } else {
-            this.datePlannedStart = startDate;
-            this.datePlannedEnd = endDate;
-        }
+    public void setPlannedDateTime(LocalDateTime startDate, LocalDateTime endDate) {
+        this.dateTimePlannedStart = startDate;
+        this.dateTimePlannedEnd = endDate;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
-    }
-
-    public void setProject(Project project) {
-        if (this.project != null) {
-            this.project.removeTask(this);
-        }
-        if (this.status == TaskStatus.IN_TRACE) {
-            this.status = TaskStatus.BACKLOG;
-        }
-        this.project = project;
-        this.project.addTask(this);
+    public void setDateTimeDeadline(LocalDateTime dateTimeDeadline) {
+        this.dateTimeDeadline = dateTimeDeadline;
     }
 }
