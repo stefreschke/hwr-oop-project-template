@@ -135,13 +135,8 @@ public class Task implements TaskInterface {
     }
 
     public void setPlannedDate(LocalDateTime startDate, LocalDateTime endDate) {
-        if (startDate.isAfter(endDate)) {
-            this.datePlannedStart = endDate;
-            this.datePlannedEnd = startDate;
-        } else {
-            this.datePlannedStart = startDate;
-            this.datePlannedEnd = endDate;
-        }
+        this.datePlannedStart = endDate;
+        this.datePlannedEnd = startDate;
     }
 
     public void setDeadline(LocalDateTime deadline) {
