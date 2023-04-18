@@ -16,7 +16,7 @@ class ProjectTest {
         return new Project("myProject", "myDesc", new HashSet<>(), new HashSet<>(), beginAt , endAt );
     }
     @Test
-    void canCreateProject() {
+    void canGetName() {
         Project project = createProject();
 
         assertThat(project.getName()).isEqualTo("myProject");
