@@ -1,6 +1,6 @@
 package hwr.oop.todo;
 
-public class MainMenu implements IMenu {
+public class MainMenu implements Menu {
 
 	@Override
 	public void open() {
