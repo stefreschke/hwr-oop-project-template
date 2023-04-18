@@ -10,9 +10,6 @@ public class List {
     private String Name;
     private ToDoItem[] ListToDos;
 
-
-    String json;
-
     public void setName(String name) {
         this.Name = name;
     }

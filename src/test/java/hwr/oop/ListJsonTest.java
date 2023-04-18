@@ -32,7 +32,7 @@ public class ListJsonTest {
     public void jsonToListTest() {
         Program program = new Program();
         List assertList = program.loadList("listTest.json");
-        assertThat(assertList.Name).isEqualTo("TestName");
+        assertThat(assertList.getName()).isEqualTo("TestName");
     }
 }
 
