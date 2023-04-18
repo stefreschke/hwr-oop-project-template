@@ -1,6 +1,4 @@
-# HWR OOP Lecture Project Template 
-
-[TODO]: # (Change README.md Headline to better fit to your project!)
+# HWR OOP Lecture - Group 5 Project (Leitner System) 
 
 This repository contains a student project created for an ongoing lecture on object-oriented programming with Java at HWR Berlin (summer term 2022).
 
@@ -8,9 +6,18 @@ This repository contains a student project created for an ongoing lecture on obj
 
 ## Abstract
 
-[TODO]: # (Write a short description of your project.)
-[TODO]: # (State most important features.)
-[TODO]: # (State the most interesting problems you encountered during the project.)
+For our project, we are creating a library that helps implement the Leitner system for index card supported learning.
+
+The most important features of our project are:
+1. Topic and card creation.
+2. Choice between 3, 5 and 7 box systems per topic.
+3. Card history.
+4. Automatic card shuffling, drawing and box sorting.
+
+We encountered the following interesting problems: 
+1. We are dumb.
+2. We no speak the Engalise.
+
 
 ## Feature List
 
@@ -31,6 +38,7 @@ This repository contains a student project created for an ongoing lecture on obj
 
 ## Instructions
 
+Don't use this.
 [TODO]: # (Remove these instructions once you finished your fork's setup.)
 
 Use a fork of this repository to do implement your project.
