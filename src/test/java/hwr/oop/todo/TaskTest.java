@@ -31,7 +31,21 @@ public class TaskTest {
     }
 
     @Test
-    void canAddAndRemoveTags(){
+    void canAddTags(){
+        Task task = new Task("Title", "Description");
+
+        Tag homework = new Tag("Homework");
+        Tag important = new Tag("Important");
+
+        task.addTag(homework);
+        task.addTag(important);
+        assertIterableEquals(Arrays.asList(homework, important), task.getTags());
+
+
+    }
+
+    @Test
+    void canRemoveTags(){
         Task task = new Task("Title", "Description");
 
         Tag homework = new Tag("Homework");
@@ -40,10 +54,9 @@ public class TaskTest {
 
         task.addTag(homework);
         task.addTag(important);
-        assertIterableEquals(Arrays.asList(homework, important), task.getTags());
-
         task.removeTag(important);
         task.addTag(birthday);
+
         assertIterableEquals(Arrays.asList(homework, birthday), task.getTags());
     }
 
