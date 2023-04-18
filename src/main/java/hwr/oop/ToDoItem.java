@@ -7,7 +7,7 @@ public class ToDoItem {
     private boolean done;
     private Priority priority;
 
-    public ToDoItem () {
+    public ToDoItem() {
         this.title = "New Item";
         this.description = "";
         this.done = false;
