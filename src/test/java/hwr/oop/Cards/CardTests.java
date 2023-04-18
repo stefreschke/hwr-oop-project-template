@@ -27,10 +27,10 @@ public class CardTests {
     @Test
     void canGetTopicName(){
 
-        Topic box = new Topic();
-        String topic = box.getName();
+        Topic topic = new Topic("Japanese");
+        String name = topic.getName();
 
-        assertThat(topic).isEqualTo("Japanese");
+        assertThat(name).isEqualTo("Japanese");
     }
 
     @Test
