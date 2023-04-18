@@ -21,8 +21,8 @@ public interface TaskInterface {
     Set<Tag> getTags();
     LocalDateTime getDateTimeCreated();
     LocalDateTime getDateTimeDone();
-    LocalDateTime getDatePlannedStart();
-    LocalDateTime getDatePlannedEnd();
+    LocalDateTime getDateTimePlannedStart();
+    LocalDateTime getDateTimePlannedEnd();
     LocalDateTime getDateTimeDeadline();
     void setTitle(String title);
     void setDescription(String description);

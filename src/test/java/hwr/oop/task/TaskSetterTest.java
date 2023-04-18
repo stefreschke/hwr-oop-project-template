@@ -64,8 +64,8 @@ public class TaskSetterTest {
         final LocalDateTime firstDateTime = LocalDateTime.now();
         final LocalDateTime secondDateTime = LocalDateTime.now().plus(100, ChronoUnit.MINUTES);
         task.setPlannedDateTime(firstDateTime, secondDateTime);
-        LocalDateTime startDate = task.getDatePlannedStart();
-        LocalDateTime endDate = task.getDatePlannedEnd();
+        LocalDateTime startDate = task.getDateTimePlannedStart();
+        LocalDateTime endDate = task.getDateTimePlannedEnd();
         assertThat(startDate).isEqualTo(firstDateTime);
         assertThat(endDate).isEqualTo(secondDateTime);
     }

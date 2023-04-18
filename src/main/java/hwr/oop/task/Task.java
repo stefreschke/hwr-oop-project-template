@@ -108,11 +108,11 @@ public class Task implements TaskInterface {
         return this.dateTimeDone;
     }
 
-    public LocalDateTime getDatePlannedStart() {
+    public LocalDateTime getDateTimePlannedStart() {
         return this.dateTimePlannedStart;
     }
 
-    public LocalDateTime getDatePlannedEnd() {
+    public LocalDateTime getDateTimePlannedEnd() {
         return this.dateTimePlannedEnd;
     }
 
