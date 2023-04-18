@@ -6,14 +6,13 @@ import java.util.Optional;
 
 public class Task {
     public Task(Integer id, String title, String content, TaskState taskState, List<TaskTag> taskTagList, User creator,
-                LocalDate createTime, LocalDate deadline) {
+                LocalDate deadline) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.taskState = taskState;
         this.taskTagList = taskTagList;
         this.creator = creator;
-        this.createTime = createTime;
         this.deadline = deadline;
     }
 
@@ -23,7 +22,6 @@ public class Task {
     private final TaskState taskState;
     private final List<TaskTag> taskTagList;
     private final User creator;
-    private final LocalDate createTime;
     private final LocalDate deadline;
 
     public Optional<LocalDate> getDeadline() {

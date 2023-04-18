@@ -18,7 +18,7 @@ class TaskTest {
     @Test
     void getDeadline() {
         Task example = new Task(1,"Title","Content", TaskState.IN_PROGRESS,
-                null,new User("Name",12), LocalDate.now(),LocalDate.now());
+                null, new User("Name",12), LocalDate.now());
         Optional<LocalDate> result = example.getDeadline();
        result.ifPresent(localDate -> Assertions.assertThat(localDate).isBetween(LocalDate.now().minusDays(1),LocalDate.now()));
     }
@@ -26,7 +26,7 @@ class TaskTest {
    @Test
     void getId() {
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                null,new User("Name",12), LocalDate.now(),LocalDate.now());
+                null, new User("Name",12), LocalDate.now());
         Integer result = example.getId();
         Assertions.assertThat(result).isEqualTo(69);
     }
@@ -34,7 +34,7 @@ class TaskTest {
     @Test
     void getTitle() {
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                null,new User("Name",12), LocalDate.now(),LocalDate.now());
+                null, new User("Name",12), LocalDate.now());
         String result = example.getTitle();
         Assertions.assertThat(result).isEqualTo("Title");
     }
@@ -42,7 +42,7 @@ class TaskTest {
     @Test
     void getContent() {
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                null,new User("Name",12), LocalDate.now(),LocalDate.now());
+                null, new User("Name",12), LocalDate.now());
         String result = example.getContent();
         Assertions.assertThat(result).isEqualTo("Content");
     }
@@ -50,7 +50,7 @@ class TaskTest {
     @Test
     void getTaskState() {
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                null,new User("Name",12), LocalDate.now(),LocalDate.now());
+                null, new User("Name",12), LocalDate.now());
         TaskState result = example.getTaskState();
         Assertions.assertThat(result).isEqualTo(TaskState.IN_PROGRESS);
     }
@@ -60,7 +60,7 @@ class TaskTest {
         List<TaskTag> list = new ArrayList<>();
         list.add(new TaskTag("Kitchen",2));
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                list,new User("Name",12), LocalDate.now(),LocalDate.now());
+                list,new User("Name",12), LocalDate.now());
         List<TaskTag> result = example.getTaskTagList();
         Assertions.assertThat(result).isEqualTo(list);
     }
@@ -69,7 +69,7 @@ class TaskTest {
     void getCreator() {
         User user = new User("Name",12);
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                null,user, LocalDate.now(),LocalDate.now());
+                null,user, LocalDate.now());
         User result = example.getCreator();
        Assertions.assertThat(result).isEqualTo(user);
     }
