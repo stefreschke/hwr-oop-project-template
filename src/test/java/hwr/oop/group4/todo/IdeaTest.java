@@ -27,7 +27,6 @@ class IdeaTest {
         assertEquals("", ideaWithDesc.getDescription());
     }
 
-
     @Test
     void equals() {
         final Idea abcIdea = new Idea("abc");
