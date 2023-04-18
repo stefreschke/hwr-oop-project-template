@@ -19,7 +19,7 @@ public class Task {
     private final Integer id;
     private final String title;
     private final String content;
-    private final TaskState taskState;
+    private TaskState taskState;
     private final List<TaskTag> taskTagList;
     private final User creator;
     private final LocalDate deadline;
