@@ -7,8 +7,7 @@ public class Task {
     private String title;
     private String description;
     private TaskState state;
-    private List<String> tags = new ArrayList<>();
-    private TagController tagController = TagController.get();
+    private List<Tag> tags = new ArrayList<>();
 
     public Task(String title, String description){
         this.title = title;
@@ -44,19 +43,15 @@ public class Task {
         this.state = state;
     }
 
-    public List<String> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void addTag(String tag) {
-        List<String> knownTags = this.tagController.getTags();
-        if (!knownTags.contains(tag)){
-            tagController.createTag(tag);
-        }
+    public void addTag(Tag tag) {
         this.tags.add(tag);
     }
 
-    public void removeTag(String tag) {
+    public void removeTag(Tag tag) {
         this.tags.remove(tag);
     }
 }

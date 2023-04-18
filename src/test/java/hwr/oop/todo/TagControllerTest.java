@@ -14,23 +14,27 @@ public class TagControllerTest {
     }
 
     @Test
-    void CanUpdateTagController() {
-        TagController tagController = TagController.get();
-        Task task = new Task("Title", "Description");
-        task.addTag("Important");
-        task.addTag("Test");
+    void CanUpdateTagController() throws TagError {
+        TagController tagController = new TagController();
+        Tag first = new Tag("Important");
+        Tag second = new Tag("Test");
+        tagController.createTag(first);
+        tagController.createTag(second);
 
-        List<String> tagList = tagController.getTags();
-        Assertions.assertEquals(1, Collections.frequency(tagList, "Important"));
-        Assertions.assertEquals("Test", tagList.get(tagList.size() - 1));
+        List<Tag> tagList = tagController.getTags();
+        Assertions.assertEquals(1, Collections.frequency(tagList, first));
+        Assertions.assertEquals(second, tagList.get(1));
     }
 
     @Test
-    void CanDeleteTagFromController() {
-        TagController tagController = TagController.get();
-        tagController.removeTag("Important");
+    void CanDeleteTagFromController() throws TagError {
+        TagController tagController = new TagController();
+        Tag tag = new Tag("Important");
 
-        List<String> tagList = tagController.getTags();
+        tagController.createTag(tag);
+        tagController.removeTag(tag);
+
+        List<Tag> tagList = tagController.getTags();
         Assertions.assertEquals(0, Collections.frequency(tagList, "Important"));
     }
 }

@@ -5,27 +5,25 @@ import java.util.Arrays;
 import java.util.List;
 
 public class TagController {
-    private List<String> tags = new ArrayList<>();
+    private List<Tag> tags = new ArrayList<>();
     private static final TagController self = new TagController();
 
-
-    public TagController() {
-        this.tags = new ArrayList<>(Arrays.asList("Important", "Homework"));
-    }
 
     public static TagController get() {
         return self;
     }
 
-    public List<String> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void createTag(String tag) {
+    public void createTag(Tag tag) throws TagError {
+        if(tags.contains(tag)) throw new TagError("Tag already exists!");
         this.tags.add(tag);
     }
 
-    public void removeTag(String tag) {
+    public void removeTag(Tag tag) throws TagError {
+        if(!tags.contains(tag)) throw new TagError("Tag does not exists!");
         this.tags.remove(tag);
     }
 }
