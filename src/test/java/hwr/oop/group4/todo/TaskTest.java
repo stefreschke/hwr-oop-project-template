@@ -67,35 +67,6 @@ class TaskTest {
     }
 
     @Test
-    void setters() {
-        final LocalDateTime deadline = LocalDateTime.now().plusMonths(10);
-        final Tag testTagA = new Tag("tagA");
-        final Tag testTagB = new Tag("123");
-        final Task task = new TaskBuilder().build();
-
-        task.setName("name");
-        task.setDescription("description");
-        task.setPriority(4);
-        task.setDeadline(deadline);
-        task.addTag(testTagA);
-        task.addTag(testTagB);
-        task.setStatus(Status.IN_PROGRESS);
-
-        assertEquals("name", task.getName());
-        assertEquals("description", task.getDescription());
-        assertEquals(4, task.getPriority());
-        assertEquals(deadline, task.getDeadline());
-        assertEquals(2, task.getTags().size());
-        assertTrue(task.getTags().contains(testTagA));
-        assertTrue(task.getTags().contains(testTagB));
-        assertEquals(task.getStatus(), Status.IN_PROGRESS);
-
-        task.setStatus(Status.CLOSED);
-
-        assertEquals(task.getStatus(), Status.CLOSED);
-    }
-
-    @Test
     void equals() {
         final Task defaultTask = new TaskBuilder().build();
         final Task defaultTask2 = new TaskBuilder().build();

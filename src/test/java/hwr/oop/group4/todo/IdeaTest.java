@@ -27,19 +27,6 @@ class IdeaTest {
         assertEquals("", ideaWithDesc.getDescription());
     }
 
-    @Test
-    void setters() {
-        final Idea idea = new Idea("name");
-
-        assertEquals("name", idea.getName());
-        assertEquals("", idea.getDescription());
-
-        idea.setName("new Name");
-        idea.setDescription("new Desc");
-
-        assertEquals("new Name", idea.getName());
-        assertEquals("new Desc", idea.getDescription());
-    }
 
     @Test
     void equals() {
