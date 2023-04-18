@@ -1,7 +1,7 @@
 package hwr.oop.todo;
 
 public class Tag {
-    private String title;
+    private final String title;
 
     public Tag(String title) {
         this.title = title;

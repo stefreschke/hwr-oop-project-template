@@ -1,14 +1,15 @@
 package hwr.oop.todo;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.Assertions;
 
-public class TagTest {
+import static org.assertj.core.api.Assertions.assertThat;
+
+class TagTest {
     @Test
-    public void testGetTitle() {
+    void testGetTitle() {
         Tag myTag = new Tag("Beispiel-Tag");
         String title = myTag.getTitle();
-        Assertions.assertNotEquals(title, null);
+        assertThat(title).isNotNull();
     }
 
     /*
