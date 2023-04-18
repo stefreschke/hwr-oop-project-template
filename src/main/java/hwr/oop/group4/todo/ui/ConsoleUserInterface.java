@@ -1,5 +1,6 @@
 package hwr.oop.group4.todo.ui;
 
+import hwr.oop.group4.todo.Project;
 import hwr.oop.group4.todo.TodoList;
 
 import java.io.InputStream;
@@ -11,11 +12,13 @@ public class ConsoleUserInterface {
 
     private final PrintStream out;
     private final Scanner in;
+    private final ProjectUi projectUi;
     private TodoList todoList;
 
     public ConsoleUserInterface(OutputStream out, InputStream in) {
         this.out = new PrintStream(out);
         this.in = new Scanner(in);
+        projectUi = new ProjectUi(this.out, this.in);
         todoList = load();
     }
 
@@ -48,7 +51,7 @@ public class ConsoleUserInterface {
                     tasks();
                     break;
                 case "projects":
-                    projects();
+                    projectUi.menu(todoList);
                     break;
                 case "calendar":
                     calendar();
