@@ -1,6 +1,5 @@
 package hwr.oop.group4.todo;
 
-import hwr.oop.group4.todo.builder.TaskBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -58,9 +57,9 @@ class TaskTest {
 
     @Test
     void buildTaskInProject() {
+        final Project project = new Project.ProjectBuilder().name("project").description("desc").build();
         final Task taskInProject = new Task.TaskBuilder().name("task1").project(project).build();
         final Task taskWithoutProject = new Task.TaskBuilder().name("task2").build();
-        final Project project = new Project.ProjectBuilder().name("project").description("desc").build();
 
         assertTrue(project.getTasks().contains(taskInProject));
         assertFalse(project.getTasks().contains(taskWithoutProject));
