@@ -1,34 +1,34 @@
 package hwr.oop.todo;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Project {
     private final String title;
- /*
-    private List<Task> task-list;
-  */
+    private ArrayList<Task> task_list;
     private LocalDate deadline;
 
-    public Project(String title , LocalDate deadline) {
+    public Project(String title , ArrayList<Task> task_list, LocalDate deadline) {
         this.title = title;
-        // this.task-list = null;
+        this.task_list = task_list;
         this.deadline = deadline;
     }
-/*
-    public addTask(Task task) {
-        this.task-list.add(task);
+
+    public void addTask(Task task) {
+        this.task_list.add(task);
     }
 
-    public getTasklist() {
-        return this.task-list;
+    public List<Task> getTasklist() {
+        return this.task_list;
     }
 
-    public getLastTask() {
-        int pos = this.task-list.size();
-        return this.task-list.get(pos-1);
+    public Task getLastTask() {
+        int pos = this.task_list.size();
+        return this.task_list.get(pos-1);
     }
-*/
-    public String getTitle() {
+
+    public String Title() {
         return title;
     }
 

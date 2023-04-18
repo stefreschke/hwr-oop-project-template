@@ -5,29 +5,31 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.*;
 
 class ProjectTest {
     @Test
     void testProject() {
-        Assertions.assertDoesNotThrow(() -> new Project("Test", LocalDate.of(2000, 1, 1)));
+        Assertions.assertDoesNotThrow(() -> new Project("Test", null,LocalDate.of(2000, 1, 1)));
+        Project project = new Project("Test", null,LocalDate.of(2000, 1, 1));
+        assertThat(project.Title()).isEqualTo("Test");
     }
 
     @Test
-    @Disabled
-    void addTask() {
-        Project project = new Project("", LocalDate.of(2000, 1, 1));
-        /*
-        Task task = new Task("");
-        project.addTask(task);
-        Assertions.assertThat(task).isEqualTo(project.task-list.get(0));
-         */
+    void testTask() {
+        ArrayList<Task> task_list = new ArrayList<Task>();
+        Project project = new Project("", task_list, LocalDate.of(2000, 1, 1));
+
+
+        project.addTask(new Task(null,null,null,null,null, null));
+        assertThat(project.getTasklist().get(0)).isNotNull();
     }
 
     @Test
     void testDeadline() {
-        Project project = new Project("", LocalDate.of(2000, 1, 1));
+        Project project = new Project("", null, LocalDate.of(2000, 1, 1));
         assertThat(project.getDeadline()).isEqualTo(LocalDate.of(2000, 1, 1));
         LocalDate date = LocalDate.of(2024, 4, 4);
         project.setDeadline(date);
