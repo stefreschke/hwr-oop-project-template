@@ -20,11 +20,21 @@ public class Task implements TaskInterface {
     private LocalDateTime dateTimePlannedEnd;
     private LocalDateTime dateTimeDeadline;
 
-    public Task(String title, String description) {
+    protected Task(
+            String title,
+            String description,
+            LocalDateTime dateTimeDeadline,
+            TaskPriority priority,
+            LocalDateTime dateTimePlannedStart,
+            LocalDateTime dateTimePlannedEnd
+    ) {
         this.title = title;
         this.description = description;
+        this.dateTimeDeadline = dateTimeDeadline;
+        this.priority = priority;
+        this.dateTimePlannedStart = dateTimePlannedStart;
+        this.dateTimePlannedEnd = dateTimePlannedEnd;
         this.status = TaskStatus.IN_TRAY;
-        this.priority = TaskPriority.UNDETERMINED;
         this.tags = new HashSet<>();
         this.dateTimeCreated = LocalDateTime.now();
     }
@@ -134,8 +144,8 @@ public class Task implements TaskInterface {
     }
 
     public void setPlannedDateTime(LocalDateTime startDate, LocalDateTime endDate) {
-        this.dateTimePlannedStart = endDate;
-        this.dateTimePlannedEnd = startDate;
+        this.dateTimePlannedStart = startDate;
+        this.dateTimePlannedEnd = endDate;
     }
 
     public void setDateTimeDeadline(LocalDateTime dateTimeDeadline) {

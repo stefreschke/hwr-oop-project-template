@@ -12,12 +12,17 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class TaskMethodTest {
+    private final TaskBuilder taskBuilder = new TaskBuilder();
 
     @Nested
     class CanAddTags {
+        private final TaskBuilder taskBuilder = new TaskBuilder();
         @Test
         void canAddOneTag() {
-            final Task task = new Task("Title", "Description");
+            final Task task = this.taskBuilder
+                    .setTitle("Title")
+                    .setDescription("Description")
+                    .build();
             final Tag tag = new Tag();
             task.addTag(tag);
             Set<Tag> tags = task.getTags();
@@ -26,7 +31,10 @@ public class TaskMethodTest {
 
         @Test
         void onlyAddsOneTagOfTwoSameToSet() {
-            final Task task = new Task("Title", "Description");
+            final Task task = this.taskBuilder
+                    .setTitle("Title")
+                    .setDescription("Description")
+                    .build();
             final Tag tag = new Tag();
             task.addTag(tag);
             task.addTag(tag);
@@ -36,7 +44,10 @@ public class TaskMethodTest {
 
         @Test
         void canAddMultipleTags() {
-            final Task task = new Task("Title", "Description");
+            final Task task = this.taskBuilder
+                    .setTitle("Title")
+                    .setDescription("Description")
+                    .build();
             final Tag tag = new Tag();
             final Tag secondTag = new Tag();
             task.addTag(tag);
@@ -48,7 +59,10 @@ public class TaskMethodTest {
 
     @Test
     void canRemoveTags() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         final Tag tag = new Tag();
         final Tag secondTag = new Tag();
         task.addTag(tag);
@@ -60,7 +74,10 @@ public class TaskMethodTest {
 
     @Test
     void canFinishTask() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         task.finishTask();
         TaskStatus status = task.getStatus();
         LocalDateTime dateDone = task.getDateTimeDone();
@@ -70,7 +87,10 @@ public class TaskMethodTest {
 
     @Test
     void canSetToFurtherStatus() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
         task.changeProject(project);
         task.toFurtherStatus();
@@ -80,9 +100,13 @@ public class TaskMethodTest {
 
     @Nested
     class CanChangeStatus {
+        private final TaskBuilder taskBuilder = new TaskBuilder();
         @Test
         void canSetToPreviousStatusFromDone() {
-            final Task task = new Task("Title", "Description");
+            final Task task = this.taskBuilder
+                    .setTitle("Title")
+                    .setDescription("Description")
+                    .build();
             final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
             task.changeProject(project);
             task.finishTask();
@@ -95,11 +119,14 @@ public class TaskMethodTest {
 
         @Test
         void canSetToPreviousStatusFromInProgress() {
-            final Task task = new Task("Title", "Description");
+            final Task task = this.taskBuilder
+                    .setTitle("Title")
+                    .setDescription("Description")
+                    .build();
             final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
             task.changeProject(project);
             task.toFurtherStatus();
-            task.toFurtherStatus();
+            task.toPreviousStatus();
             TaskStatus status = task.getStatus();
             assertThat(status).isEqualTo(TaskStatus.BACKLOG);
         }
@@ -107,7 +134,10 @@ public class TaskMethodTest {
 
     @Test
     void canRemoveTaskFromProject() {
-        final Task task = new Task("Title", "Description");
+        final Task task = this.taskBuilder
+                .setTitle("Title")
+                .setDescription("Description")
+                .build();
         final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
         task.changeProject(project);
         task.removeFromProject();
