@@ -1,4 +1,4 @@
-package hwr.oop.group4.todo_ui;
+package hwr.oop.group4.todo.ui;
 
 import org.junit.jupiter.api.Test;
 
@@ -8,7 +8,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class ConsoleUserInterfaceTest {
 

@@ -1,4 +1,4 @@
-package hwr.oop.group4.todo_ui;
+package hwr.oop.group4.todo.ui;
 
 import java.io.InputStream;
 import java.io.OutputStream;
