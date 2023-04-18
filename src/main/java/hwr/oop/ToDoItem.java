@@ -2,10 +2,10 @@ package hwr.oop;
 
 public class ToDoItem {
 
-    public String title;
-    public String description;
-    public boolean done;
-    public Priority priority;
+    private String title;
+    private String description;
+    private boolean done;
+    private Priority priority;
 
     public ToDoItem () {
         this.title = "New Item";
@@ -31,6 +31,17 @@ public class ToDoItem {
         this.priority = priority;
     }
 
-
     // getter
+    public String getTitle() {
+        return title;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public boolean isDone() {
+        return done;
+    }
+    public Priority getPriority() {
+        return priority;
+    }
 }

@@ -12,10 +12,10 @@ public class ToDoItemTest {
     @Test
     public void itemConstructorTest() {
         ToDoItem item = new ToDoItem();
-        String title = item.title;
-        String description = item.description;
-        boolean done = item.done;
-        Priority priority = item.priority;
+        String title = item.getTitle();
+        String description = item.getDescription();
+        boolean done = item.isDone();
+        Priority priority = item.getPriority();
         assertThat(title).isEqualTo("New Item");
         assertThat(description).isEqualTo("");
         assertThat(done).isEqualTo(false);
@@ -26,7 +26,7 @@ public class ToDoItemTest {
     public void itemTitleSetterStringTest(String title) {
         ToDoItem item = new ToDoItem();
         item.setTitle(title);
-        String testTitle = item.title;
+        String testTitle = item.getTitle();
         assertThat(testTitle).isEqualTo(title);
     }
     @ParameterizedTest
@@ -34,7 +34,7 @@ public class ToDoItemTest {
     public void itemDescriptionSetterTest(String description) {
         ToDoItem item = new ToDoItem();
         item.setDescription(description);
-        String testDescription = item.description;
+        String testDescription = item.getDescription();
         assertThat(testDescription).isEqualTo(description);
     }
     @ParameterizedTest
@@ -42,7 +42,7 @@ public class ToDoItemTest {
     public void itemDoneSetterTest(boolean done) {
         ToDoItem item = new ToDoItem();
         item.setDone(done);
-        boolean testDone = item.done;
+        boolean testDone = item.isDone();
         assertThat(testDone).isEqualTo(done);
     }
     @ParameterizedTest
@@ -50,7 +50,7 @@ public class ToDoItemTest {
     public void itemPrioritySetterTest(Priority priority) {
         ToDoItem item = new ToDoItem();
         item.setPriority(priority);
-        Priority testPriority = item.priority;
+        Priority testPriority = item.getPriority();
         assertThat(testPriority).isEqualTo(priority);
     }
 
