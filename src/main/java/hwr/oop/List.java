@@ -20,22 +20,19 @@ public class List {
         return this.Name;
     }
 
-    public void writeToJSON() {
-        Gson gson = new Gson();
-        this.json = gson.toJson(this);
-        try {
-            // später kann der User seinen Speicherort selber wählen (?)
-            gson.toJson(123.45, new FileWriter("./output.json"));
+    public void writeToJSON(String fileName) {
+        //remove any file extension if present
+        if (fileName.contains(".")) {
+            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+        }
+        Gson gson = new GsonBuilder().create();
+        String json = gson.toJson(this);
+
+        try (FileWriter fileWriter = new FileWriter(fileName + ".json")) {
+            fileWriter.write(json);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    public void createToDo(String description, String title, boolean done, Priority priority) {
-        ToDoItem Todo = new ToDoItem();
-        Todo.setTitle(title);
-        Todo.setDescription(description);
-        Todo.setDone(done);
-        Todo.setPriority(priority);
-    }
 }
+
