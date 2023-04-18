@@ -2,20 +2,25 @@ package hwr.oop.todo;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class TaskTest {
+class TaskTest {
     @Test
     void createTaskTest() {
-        Task task = new Task("Water plants", new ArrayList<TaskTag>(), "Water all the plants in the living room and in the bedroom.", "2023-05-30", TaskStatus.TODO, TaskPriority.HIGH);
-        assertThat(task.title).isEqualTo("Water plants");
-        assertThat(task.tags).isEqualTo(new ArrayList<TaskTag>());
-        assertThat(task.description).isEqualTo("Water all the plants in the living room and in the bedroom.");
-        assertThat(task.deadline).isEqualTo("2023-05-30");
-        assertThat(task.status).isEqualTo(TaskStatus.TODO);
-        assertThat(task.priority).isEqualTo(TaskPriority.HIGH);
+        ArrayList<TaskTag> list = new ArrayList<>();
+        list.add(new TaskTag("phone"));
+
+        Task task = new Task("Water plants", list, "Water all the plants in the living room and in the bedroom.", LocalDate.of(2023, 05, 30), TaskStatus.TODO, TaskPriority.HIGH);
+        assertThat(task.title()).isEqualTo("Water plants");
+        assertThat(task.tags()).isEqualTo(list);
+        assertThat(task.description()).isEqualTo("Water all the plants in the living room and in the bedroom.");
+        assertThat(task.deadline()).isEqualTo(LocalDate.of(2023, 05, 30));
+        assertThat(task.status()).isEqualTo(TaskStatus.TODO);
+        assertThat(task.priority()).isEqualTo(TaskPriority.HIGH);
     }
 
 }
