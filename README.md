@@ -5,24 +5,25 @@ This repository contains a student project created for an ongoing lecture on obj
 
 ## Abstract
 
-[TODO]: Eine professionelle TodoListe
+[TODO]: A professional TodoList
 
-[TODO]: Task erstellen und löschen, variabler Taskstatus
+[TODO]: create und delete Task, variable Taskstatus
 
-[TODO]: Wir konnten nicht mehr die Readme öffnen (also ein paar von uns)
+[TODO]: We cant open the readme anymore
 
 ## Feature List
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature                      | Tests |
-|--------|------------------------------|-------|
-| 1      | Task erstellen               | /     |
-| 2      | Task löschen                 | /     |
-| 3      | Deadline zum Task hinzufügen | /     |
-| 4      | Benutzer anlegen             | /     |
-| 5      | Taskstatus verwalten         | /     |
-| 6      | Deadline verwalten           | /     |
+| Number | Feature            | Tests |
+|--------|--------------------|-------|
+| 1      | create Task        | /     |
+| 2      | delete Task        | /     |
+| 3      | Task with deadline | /     |
+| 4      | create User        | /     |
+| 5      | manage Taskstate   | /     |
+| 6      | manage Deadline    | /     |
+| 7      | implement tag      |       |
 
 
 
