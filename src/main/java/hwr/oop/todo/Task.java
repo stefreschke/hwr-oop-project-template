@@ -1,55 +1,35 @@
 package hwr.oop.todo;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
-public class Task {
-    private String title;
-    private String description;
-    private TaskState state;
-    private List<Tag> tags = new ArrayList<>();
+public class Task extends TaskData {
+    private final UUID id;
 
-    public Task(String title, String description){
-        this.title = title;
-        this.description = description;
-        this.state = TaskState.OPEN;
+    public Task(UUID uuid, String title, String description){
+        super(title, description);
+        this.id = uuid;
     }
 
-    public Task(String title) {
-        this(title, "");
+    public static Task fromData(UUID uuid, TaskData data){
+        return new Task(uuid, data.getTitle(), data.getDescription());
     }
 
-    public String getTitle() {
-        return title;
+    public UUID getId(){
+        return id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void addTag(Tag tag) {
-        this.tags.add(tag);
-    }
-
-    public void removeTag(Tag tag) {
-        this.tags.remove(tag);
-    }
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Task task = (Task) o;
-        return title.equals(task.title) && description.equals(task.description) && state == task.state;
+        return Objects.equals(id, task.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(title, description, state);
+        return Objects.hash(super.hashCode(), id);
     }
 }

@@ -3,18 +3,21 @@ package hwr.oop.todo;
 import java.util.HashMap;
 import java.util.UUID;
 
-public class TaskController {
+public class ToDoList {
     private final HashMap<UUID, Task> tasks = new HashMap<>();
 
-    public UUID addTask(Task task){
+    public Task addTask(TaskData taskData){
         UUID id = UUID.randomUUID();
+        Task task =  Task.fromData(id, taskData);
+
         tasks.put(id, task);
-        return id;
+
+        return task;
     }
 
-    public Task getTask(UUID id){
-        Task task = tasks.get(id);
-        if(task == null){
+    public TaskData getTask(UUID id){
+        TaskData taskData = tasks.get(id);
+        if(taskData == null){
             throw new ToDoListException("Task does not exist");
         }
 

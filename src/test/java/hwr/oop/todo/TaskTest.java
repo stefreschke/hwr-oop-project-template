@@ -1,78 +1,41 @@
 package hwr.oop.todo;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class TaskTest {
 
     @Test
-    void canCreateTaskWithTitle(){
-        Task task = new Task("Title");
+    void canCreateTask(){
+        UUID id = UUID.randomUUID();
+        Task task = new Task(id, "Title", "Description");
 
-        String title = task.getTitle();
-
-        assertEquals("Title", title);
+        assertEquals(id, task.getId());
+        assertEquals("Title", task.getTitle());
+        assertEquals("Description", task.getDescription());
     }
 
     @Test
-    void canCreateTaskWithDescription(){
-        Task task = new Task("Title", "Description");
+    void canCreateTaskFromTaskData(){
+        UUID id = UUID.randomUUID();
+        TaskData data = new TaskData("Title", "Description");
 
-        String title = task.getTitle();
-        String desc = task.getDescription();
+        Task task = Task.fromData(id, data);
 
-        assertEquals("Title", title);
-        assertEquals("Description", desc);
-    }
-
-    @Test
-    void canAddTags(){
-        Task task = new Task("Title", "Description");
-
-        Tag homework = new Tag("Homework");
-        Tag important = new Tag("Important");
-
-        task.addTag(homework);
-        task.addTag(important);
-        assertIterableEquals(Arrays.asList(homework, important), task.getTags());
-
-
-    }
-
-    @Test
-    void canRemoveTags(){
-        Task task = new Task("Title", "Description");
-
-        Tag homework = new Tag("Homework");
-        Tag important = new Tag("Important");
-        Tag birthday = new Tag("Birthday Present");
-
-        task.addTag(homework);
-        task.addTag(important);
-        task.removeTag(important);
-        task.addTag(birthday);
-
-        assertIterableEquals(Arrays.asList(homework, birthday), task.getTags());
-    }
-
-    @Test
-    void tasksAreEqualWithEqualTitles(){
-        Task first = new Task("First");
-        Task second = new Task("First");
-
-        assertEquals(first, second);
-        assertEquals(first.hashCode(), second.hashCode());
+        assertEquals(id, task.getId());
+        assertEquals(data.getTitle(), task.getTitle());
+        assertEquals(data.getDescription(), task.getDescription());
     }
 
     @Test
     void tasksAreEqualWithEqualContents(){
-        Task first = new Task("Title", "Description");
-        Task second = new Task("Title", "Description");
+        UUID id = UUID.randomUUID();
+        Task first = new Task(id, "First", "First");
+        Task second = new Task(id, "First", "First");
 
         assertEquals(first, second);
         assertEquals(first.hashCode(), second.hashCode());
@@ -80,10 +43,13 @@ public class TaskTest {
 
     @Test
     void tasksAreNotEqualWithDifferentContents(){
-        Task first = new Task("Title_", "Description");
-        Task second = new Task("Title", "Description");
+        UUID id = UUID.randomUUID();
+        Task first = new Task(id, "First_", "First");
+        Task second = new Task(id, "First", "First");
 
         assertNotEquals(first, second);
         assertNotEquals(first.hashCode(), second.hashCode());
     }
+
+
 }
