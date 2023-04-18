@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ListClassTest {
 
     @ParameterizedTest
-    @ValueSource(strings = {"Title", "New Title"})
+    @ValueSource(strings = {"List", "New List"})
     public void setListName(String Name) {
         List list = new List();
         list.setName(Name);
