@@ -7,15 +7,9 @@ public class TaskController {
     private final HashMap<UUID, Task> tasks = new HashMap<>();
 
     public UUID addTask(Task task){
-
-    public void addTask(Task task){
         UUID id = UUID.randomUUID();
         tasks.put(id, task);
         return id;
-    }
-
-    public List<Tag> getTags(){
-        return TagController.get().getTags();
     }
 
     public Task getTask(UUID id){
