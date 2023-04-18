@@ -1,15 +1,16 @@
 package hwr.oop.todo;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.*;
 
 class ProjectTest {
     @Test
     void createProject() {
         Project project = new Project("Test","Unknown","00.00.0000");
         System.out.println("Test, if project is created.");
-        Assertions.assertThat(project).isNotEqualTo(null);
+        assertThat(project).isNotNull();
     }
 
     @Test
@@ -26,17 +27,17 @@ class ProjectTest {
     @Test
     void testStatus(){
         Project project = new Project("","Test","");
-        Assertions.assertThat("Test").isEqualTo(project.getStatus());
+        assertThat(project.getStatus()).isEqualTo("Test");
         project.setStatus("Test2");
-        Assertions.assertThat("Test2").isEqualTo(project.getStatus());
+        assertThat(project.getStatus()).isEqualTo("Test2");
     }
 
     @Test
     void testDeadline(){
         Project project = new Project("","","00.00.0000");
-        Assertions.assertThat("00.00.0000").isEqualTo(project.getDeadline());
+        assertThat(project.getDeadline()).isEqualTo("00.00.0000");
         String date = "18.04.2023";
         project.setDeadline(date);
-        Assertions.assertThat(date).isEqualTo(project.getDeadline());
+        assertThat(date).isEqualTo(project.getDeadline());
     }
 }
