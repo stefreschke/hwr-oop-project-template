@@ -44,7 +44,7 @@ class TaskTest {
         assertTrue(task.getTags().contains(testTagA));
         assertTrue(task.getTags().contains(testTagB));
         assertTrue(task.getTags().contains(testTagC));
-        assertEquals(task.getStatus(), Status.OPEN);
+        assertEquals(Status.OPEN, task.getStatus());
     }
 
     @Test
@@ -58,7 +58,7 @@ class TaskTest {
 
     @Test
     void buildTaskInProject() {
-        final Project project = new Project("project", "desc");
+        final Project project = new Project.ProjectBuilder().name("project").description("desc").build();
         final Task taskInProject = new TaskBuilder().setName("task1").setProject(project).build();
         final Task taskWithoutProject = new TaskBuilder().setName("task2").build();
 
