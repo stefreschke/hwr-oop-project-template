@@ -1,13 +1,13 @@
 package hwr.oop.todo;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 public class TaskTag {
-    public String title;
+    private final String title;
+
     public TaskTag(String title) {
         this.title = title;
+    }
+
+    public String title() {
+        return title;
     }
 }
