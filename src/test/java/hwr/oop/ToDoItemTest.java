@@ -14,10 +14,11 @@ public class ToDoItemTest {
         ToDoItem item = new ToDoItem();
         String title = item.title;
         String description = item.description;
+        String tag = item.tag;
         boolean done = item.done;
         Priority priority = item.priority;
         assertThat(title).isEqualTo("New Item");
-        assertThat(description).isEqualTo("");
+        assertThat(description).isEqualTo("" + "\nCreated " + ToDoItem.getLocalDate());
         assertThat(done).isEqualTo(false);
         assertThat(priority).isEqualTo(Priority.LOW);
     }
@@ -36,6 +37,14 @@ public class ToDoItemTest {
         item.setDescription(description);
         String testDescription = item.description;
         assertThat(testDescription).isEqualTo(description);
+    }
+    @ParameterizedTest
+    @ValueSource(strings = {"Tag", "New Tag"})
+    public void itemTagSetterTest(String tag) {
+        ToDoItem item = new ToDoItem();
+        item.setTag(tag);
+        String testTag = item.tag;
+        assertThat(testTag).isEqualTo(tag);
     }
     @ParameterizedTest
     @ValueSource(booleans = {true, false})
