@@ -7,7 +7,7 @@ public class TodoList {
     private final List<Project> projects = new ArrayList<>();
     private final Set<Idea> inTray = new HashSet<>();
     private final Set<Task> loseTasks = new HashSet<>();
-    private final Set<Task> somedayMaybe = new HashSet<>();
+    private final Set<Project> somedayMaybe = new HashSet<Project>();
 
 
     public List<Project> getProjects() {
@@ -22,7 +22,7 @@ public class TodoList {
         return loseTasks;
     }
 
-    public Set<Task> getMaybeList() {
+    public Set<Project> getMaybeList() {
         return somedayMaybe;
     }
 
@@ -34,7 +34,7 @@ public class TodoList {
         loseTasks.add(task);
     }
 
-    public void addSomedayMaybeTask(Task task) {
+    public void addSomedayMaybeProject(Project task) {
         somedayMaybe.add(task);
     }
 

@@ -64,16 +64,16 @@ class TodoListTest {
     @Test
     void someDayMaybe() {
         final TodoList todo = new TodoList();
-        final Task taskA = new TaskBuilder().setName("task").build();
-        final Task taskB = new TaskBuilder().setName("another task").build();
+        final Project projectA = new Project("name", "desc");
+        final Project projectB = new Project("name", "desc");
 
-        todo.addSomedayMaybeTask(taskA);
-        todo.addSomedayMaybeTask(taskA);
-        todo.addSomedayMaybeTask(taskB);
+        todo.addSomedayMaybeProject(projectA);
+        todo.addSomedayMaybeProject(projectA);
+        todo.addSomedayMaybeProject(projectB);
 
         assertEquals(2, todo.getMaybeList().size());
-        assertTrue(todo.getMaybeList().contains(taskA));
-        assertTrue(todo.getMaybeList().contains(taskB));
+        assertTrue(todo.getMaybeList().contains(projectA));
+        assertTrue(todo.getMaybeList().contains(projectB));
     }
 
 }
