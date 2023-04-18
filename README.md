@@ -1,24 +1,29 @@
-# HWR OOP Lecture Project Template
-
-[TODO]: # (Change README.md Headline to better fit to your project!)
-
+# TWOTWO-List
 This repository contains a student project created for an ongoing lecture on object-oriented programming with Java at HWR Berlin (summer term 2023).
 
 > :warning: This code is for educational purposes only. Do not rely on it!
 
 ## Abstract
 
-[TODO]: # (Write a short description of your project.)
-[TODO]: # (State most important features.)
-[TODO]: # (State the most interesting problems you encountered during the project.)
+[TODO]: Eine professionelle TodoListe
+
+[TODO]: Task erstellen und löschen, variabler Taskstatus
+
+[TODO]: Wir konnten nicht mehr die Readme öffnen (also ein paar von uns)
 
 ## Feature List
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature | Tests |
-|--------|---------|-------|
-| 1      | /       | /     |
+| Number | Feature                      | Tests |
+|--------|------------------------------|-------|
+| 1      | Task erstellen               | /     |
+| 2      | Task löschen                 | /     |
+| 3      | Deadline zum Task hinzufügen | /     |
+| 4      | Benutzer anlegen             | /     |
+| 5      | Taskstatus verwalten         | /     |
+| 6      | Deadline verwalten           | /     |
+
 
 
 ## Additional Dependencies
