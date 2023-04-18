@@ -18,7 +18,10 @@ This repository contains a student project created for an ongoing lecture on obj
 
 | Number | Feature | Tests |
 |--------|---------|-------|
-| 1      | /       | /     |
+| 1      | Task Class| ✔️ |
+| 2      | Tag Class | ✔️ |
+| 3      | TodoList Class | ✔️ |
+| 4      | TagController | ✔️ |
 
 
 ## Additional Dependencies
