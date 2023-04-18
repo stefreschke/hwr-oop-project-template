@@ -1,5 +1,7 @@
 package hwr.oop.group4.todo.builder;
 
+import hwr.oop.group4.todo.Idea;
+import hwr.oop.group4.todo.Project;
 import hwr.oop.group4.todo.Tag;
 import hwr.oop.group4.todo.Task;
 
@@ -15,6 +17,7 @@ public class TaskBuilder {
     private LocalDateTime deadline = null;
     private int priority = 0;
     private final Set<Tag> tags = new HashSet<>();
+    private Project project;
 
     public TaskBuilder() {
     }
@@ -49,6 +52,17 @@ public class TaskBuilder {
         return this;
     }
 
+    public TaskBuilder setProject(Project project) {
+        this.project = project;
+        return this;
+    }
+
+    public TaskBuilder fromIdea(Idea idea) {
+        this.name = idea.getName();
+        this.description = idea.getDescription();
+        return this;
+    }
+
     public Task build() {
         return new Task(this);
     }
@@ -71,5 +85,9 @@ public class TaskBuilder {
 
     public Set<Tag> getTags() {
         return tags;
+    }
+
+    public Project getProject() {
+        return project;
     }
 }
