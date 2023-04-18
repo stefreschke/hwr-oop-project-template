@@ -29,14 +29,39 @@ classDiagram
 Tags <|-- |> Project
 Project <|-- |> Task
 Tags <|-- |> Task
-Task : setTask()
-Task : getTask()
-Task : int Projekt
-Task : int Deadlines
-Task : int Time
-Task : int CreateDate
-Task : int Status
-Task : int Tag
+Task : String title
+Task : String description
+Task : TaskStatus status
+Task : Project project
+Task : Set<Tag> tags
+Task : LocalDateTime dateCreated
+Task : LocalDateTime datDone
+Task : LocalDateTime datePlannedStart
+Task : LocalDateTime datePlannedEnd
+Task : LocalDateTime deadline
+Task : finishTask()
+Task : addTag()
+Task : removeTag()
+Task : toFurtherStatus()
+Task : toPreviousStatus()
+Task : removeFromProject()
+Task : getTitle()
+Task : getDescription()
+Task : getStatus()
+Task : getPriority()
+Task : getProject()
+Task : getTags()
+Task : getDateCreated()
+Task : getDateDone()
+Task : getDatePlannedStart()
+Task : getDatePlannedEnd()
+Task : getDeadline()
+Task : setTitle()
+Task : setDescription()
+Task : setPriority()
+Task : setPlannedDate()
+Task : setDeadline()
+Task : setProject()
 Tags : int Name
 Tags : setTag()
 Tags : getTag()
