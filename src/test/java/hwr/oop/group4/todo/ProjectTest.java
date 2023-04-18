@@ -24,39 +24,4 @@ class ProjectTest {
         assertThat(project.getBegin()).isEqualTo(beginAt);
         assertThat(project.getEnd()).isEqualTo(endAt);
     }
-
-    @Test
-    void setters() {
-        var beginAt = LocalDateTime.now();
-        var endAt = LocalDateTime.now();
-        Project project = new Project("myProject", "myDesc", new HashSet<>(), new HashSet<>(), beginAt, endAt);
-
-        project.setName("myP");
-        assertThat(project.getName()).isEqualTo("myP");
-
-        project.setDescription("myD");
-        assertThat(project.getDescription()).isEqualTo("myD");
-
-        var myTag = new Tag("myTag");
-        project.addTag(myTag);
-        assertThat(project.getTags().size()).isEqualTo(1);
-        assertTrue(project.getTags().contains(myTag));
-
-        var createdAt = LocalDateTime.now();
-        final Task myTask = new TaskBuilder().
-                setName("aName")
-                .setDescription("aDesc")
-                .setDeadline(createdAt)
-                .build();
-        project.addTask(myTask);
-        assertThat(project.getTasks().size()).isEqualTo(1);
-        assertTrue(project.getTasks().contains(myTask));
-
-        var newBeginAt = beginAt.plusDays(4);
-        var newEndAt = beginAt.plusDays(6);
-        project.setBegin(newBeginAt);
-        project.setEnd(newEndAt);
-        assertThat(project.getBegin()).isEqualTo(newBeginAt);
-        assertThat(project.getEnd()).isEqualTo(newEndAt);
-    }
 }
