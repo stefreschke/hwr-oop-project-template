@@ -7,7 +7,7 @@ public class TodoList {
     private final List<Project> projects = new ArrayList<>();
     private final Set<Idea> inTray = new HashSet<>();
     private final Set<Task> loseTasks = new HashSet<>();
-    private final Set<Task> somedayMaybe =  new HashSet<>();
+    private final Set<Task> somedayMaybe = new HashSet<>();
 
 
     public List<Project> getProjects() {
