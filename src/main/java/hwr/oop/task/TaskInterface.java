@@ -29,5 +29,4 @@ public interface TaskInterface {
     void setPriority(TaskPriority priority);
     void setPlannedDate(LocalDateTime startDate, LocalDateTime endDate);
     void setDeadline(LocalDateTime deadline);
-    void setProject(Project project);
 }

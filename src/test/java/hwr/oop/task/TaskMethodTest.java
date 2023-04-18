@@ -52,7 +52,7 @@ public class TaskMethodTest {
     void canSetToFurtherStatus() {
         final Task task = new Task("Title", "Description");
         final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
-        task.setProject(project);
+        task.changeProject(project);
         task.toFurtherStatus();
         TaskStatus status = task.getStatus();
         assertThat(status).isEqualTo(TaskStatus.IN_PROGRESS);
@@ -62,7 +62,7 @@ public class TaskMethodTest {
     void canSetToPreviousStatus() {
         final Task task = new Task("Title", "Description");
         final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
-        task.setProject(project);
+        task.changeProject(project);
         task.finishTask();
         task.toPreviousStatus();
         TaskStatus status = task.getStatus();
@@ -78,7 +78,7 @@ public class TaskMethodTest {
     void canRemoveTaskFromProject() {
         final Task task = new Task("Title", "Description");
         final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
-        task.setProject(project);
+        task.changeProject(project);
         task.removeFromProject();
         Project taskProject = task.getProject();
         TaskStatus taskStatus = task.getStatus();

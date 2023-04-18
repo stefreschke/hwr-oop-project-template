@@ -65,6 +65,17 @@ public class Task implements TaskInterface {
         }
     }
 
+    public void changeProject(Project project) {
+        if (this.project != null) {
+            this.project.removeTask(this);
+        }
+        if (this.status == TaskStatus.IN_TRACE) {
+            this.status = TaskStatus.BACKLOG;
+        }
+        this.project = project;
+        this.project.addTask(this);
+    }
+
     // AREA: Getters
     public String getTitle() {
         return this.title;
@@ -135,16 +146,5 @@ public class Task implements TaskInterface {
 
     public void setDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
-    }
-
-    public void setProject(Project project) {
-        if (this.project != null) {
-            this.project.removeTask(this);
-        }
-        if (this.status == TaskStatus.IN_TRACE) {
-            this.status = TaskStatus.BACKLOG;
-        }
-        this.project = project;
-        this.project.addTask(this);
     }
 }

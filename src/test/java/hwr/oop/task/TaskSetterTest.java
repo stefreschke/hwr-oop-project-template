@@ -48,16 +48,16 @@ public class TaskSetterTest {
     }
 
     @Test
-    void canSetProject() {
+    void canChangeProject() {
         final Task task = new Task("Title", "Description");
         final Project project = new Project("Name", LocalDateTime.now(), LocalDate.now());
-        task.setProject(project);
+        task.changeProject(project);
         Project taskProject = task.getProject();
         TaskStatus taskStatus = task.getStatus();
         assertThat(taskProject).isEqualTo(project);
         assertThat(taskStatus).isNotEqualTo(TaskStatus.IN_TRACE);
         final Project secondProject = new Project("Project", LocalDateTime.now(), LocalDate.now());
-        task.setProject(secondProject);
+        task.changeProject(secondProject);
         taskProject = task.getProject();
         assertThat(taskProject).isEqualTo(secondProject);
     }
