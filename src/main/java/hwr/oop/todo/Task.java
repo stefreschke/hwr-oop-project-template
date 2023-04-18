@@ -2,6 +2,7 @@ package hwr.oop.todo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Task {
     private String title;
@@ -53,5 +54,18 @@ public class Task {
 
     public void removeTag(Tag tag) {
         this.tags.remove(tag);
+    }
+    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return title.equals(task.title) && description.equals(task.description) && state == task.state;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, description, state);
     }
 }
