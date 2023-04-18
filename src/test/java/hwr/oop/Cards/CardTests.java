@@ -1,7 +1,8 @@
 package hwr.oop.Cards;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -10,7 +11,7 @@ public class CardTests {
     @Test
     void canGetCardQuestion(){
 
-        Card card = new Card("Hallo?");
+        Card card = new Card("Hallo?", "Yes");
         String question = card.getQuestion();
 
         assertThat(question).isEqualTo("Hallo?");
@@ -18,50 +19,24 @@ public class CardTests {
 
     @Test
     void canGetDateOfCard(){
-        Card card = new Card("Ja?");
+        Card card = new Card("Ja?", "Yes");
         String date = card.getDate();
 
         assertThat(date).isEqualTo("");
     }
 
     @Test
-    void canGetTopicName(){
+    void canGetQuestionOfCard(){
 
-        Topic topic = new Topic("Japanese");
-        String name = topic.getName();
+        Card card = new Card("Is this a test?", "Yes");
 
-        assertThat(name).isEqualTo("Japanese");
+        assertThat(card.getQuestion()).isEqualTo("Is this a test?");
     }
 
     @Test
-    void canGetLevelCountOfBox(){
+    void canGetAnswerOfCard(){
+         Card card = new Card("Is the earth flat?", "Yes");
 
-        Box box = new Box();
-        int count = box.getCount();
-
-        assertThat(count).isEqualTo(5);
-    }
-
-    @Test
-    void canGetQuestionOfTopic(){
-
-
-    }
-
-    @Test
-    void canCreateCardInBoxInTopic(){
-
-     Topic topic = new Topic("German");
-     Box box = new Box();
-     Card card = new Card("?");
-
-     box.addCard(card);
-     topic.addBox(box);
-
-     Box testBox = topic.getBoxOfIndex(0);
-     Card testCard = testBox.getCardOfIndex(0);
-
-     assertThat(testBox).isEqualTo(box);
-     assertThat(testCard).isEqualTo(card);
+         assertThat(card.getAnswer()).isEqualTo("Yes");
     }
 }
