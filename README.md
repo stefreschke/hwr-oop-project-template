@@ -80,9 +80,10 @@ Project : removeTask()
 
 | Number | Feature | Tests |
 |--------|---------|-------|
-| 1      | Task       | /     |
-| 2      | Project | Implemented     |
+| 1      | Task       | Implemented     |
+| 2      | Project | Need Improvement     |
 | 3      | Tags    | /     |
+| 4      | Database| /     |
 
 
 ## Additional Dependencies
@@ -91,4 +92,4 @@ Project : removeTask()
 
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
-| 1      | /               | /                      | /                    |
+| 1      | Tag,Project,Task               | Need Dependencies between classes                      |                     |
