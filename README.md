@@ -24,21 +24,21 @@ This repository contains a student project created for an ongoing lecture on obj
 |   6    | :heavy_check_mark: | Deadlines             | :heavy_check_mark: |
 |   7    |        :x:         | Daily Checklist       |        :x:         |
 |   8    | :heavy_check_mark: | In Tray               | :heavy_check_mark: |
-|   9    |        :x:         | Calender              |        :x:         |
-|   10   |        :x:         | Time Allocation       |        :x:         |
-|   11   | :heavy_check_mark: | "Someday, Maybe" List | :heavy_check_mark: |
-|   12   |        :x:         | Weekly Planning       |        :x:         |
-|   13   |        :x:         | Weekly Review         |        :x:         |
+|   9    |        :x:         | Time Allocation       |        :x:         |
+|   10   | :heavy_check_mark: | "Someday, Maybe" List | :heavy_check_mark: |
+|   11   |        :x:         | Weekly Planning       |        :x:         |
+|   12   |        :x:         | Weekly Review         |        :x:         |
 
 
 ### User Interface
 
 | Number | Implemented | Feature              | Tests |
 |:------:|:-----------:|----------------------|:-----:|
-|   14   |     :x:     | Creation of Tasks    |  :x:  |
-|   15   |     :x:     | Creation of Projects |  :x:  |
-|   16   |     :x:     | Creation of Tags     |  :x:  |
-|   17   |     :x:     | View Lists           |  :x:  |
+|   13   |     :x:     | Creation of Tasks    |  :x:  |
+|   14   |     :x:     | Creation of Projects |  :x:  |
+|   15   |     :x:     | Creation of Tags     |  :x:  |
+|   16   |     :x:     | View Lists           |  :x:  |
+|   17   |     :x:     | Calender             |  :x:  |
 |   18   |     :x:     | Next Task            |  :x:  |
 |   19   |     :x:     | Complete a Task      |  :x:  |
 |   20   |     :x:     | Saving of Tasks      |  :x:  |
