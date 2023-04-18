@@ -9,6 +9,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.Assertions.*;
 
 public class ToDoItemTest {
+    //Test für jede mögliche Kombination erweitern
+
     @Test
     public void itemConstructorTest() {
         ToDoItem item = new ToDoItem();
