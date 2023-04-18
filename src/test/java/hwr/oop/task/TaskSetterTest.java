@@ -42,8 +42,8 @@ public class TaskSetterTest {
     void canSetDeadline() {
         final Task task = new Task("Title", "Description");
         LocalDateTime testDateTime = LocalDateTime.now();
-        task.setDeadline(testDateTime);
-        LocalDateTime deadline = task.getDeadline();
+        task.setDateTimeDeadline(testDateTime);
+        LocalDateTime deadline = task.getDateTimeDeadline();
         assertThat(deadline).isEqualTo(testDateTime);
     }
 
@@ -67,13 +67,13 @@ public class TaskSetterTest {
         final Task task = new Task("Title", "Description");
         final LocalDateTime firstDateTime = LocalDateTime.now();
         final LocalDateTime secondDateTime = LocalDateTime.now().plus(100, ChronoUnit.MINUTES);
-        task.setPlannedDate(firstDateTime, secondDateTime);
+        task.setPlannedDateTime(firstDateTime, secondDateTime);
         LocalDateTime startDate = task.getDatePlannedStart();
         LocalDateTime endDate = task.getDatePlannedEnd();
         assertThat(startDate).isEqualTo(firstDateTime);
         assertThat(endDate).isEqualTo(secondDateTime);
 
-        task.setPlannedDate(secondDateTime, firstDateTime);
+        task.setPlannedDateTime(secondDateTime, firstDateTime);
         startDate = task.getDatePlannedStart();
         endDate = task.getDatePlannedEnd();
         assertThat(startDate).isEqualTo(firstDateTime);

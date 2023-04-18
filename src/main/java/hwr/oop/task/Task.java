@@ -4,7 +4,6 @@ import hwr.oop.project.Project;
 import hwr.oop.tag.Tag;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,11 +14,11 @@ public class Task implements TaskInterface {
     private TaskPriority priority;
     private Project project;
     private Set<Tag> tags;
-    private final LocalDateTime dateCreated;
-    private LocalDateTime dateDone;
-    private LocalDateTime datePlannedStart;
-    private LocalDateTime datePlannedEnd;
-    private LocalDateTime deadline;
+    private final LocalDateTime dateTimeCreated;
+    private LocalDateTime dateTimeDone;
+    private LocalDateTime dateTimePlannedStart;
+    private LocalDateTime dateTimePlannedEnd;
+    private LocalDateTime dateTimeDeadline;
 
     public Task(String title, String description) {
         this.title = title;
@@ -27,13 +26,13 @@ public class Task implements TaskInterface {
         this.status = TaskStatus.IN_TRACE;
         this.priority = TaskPriority.UNDETERMINED;
         this.tags = new HashSet<>();
-        this.dateCreated = LocalDateTime.now();
+        this.dateTimeCreated = LocalDateTime.now();
     }
 
     // AREA: Interactions
     public void finishTask() {
         this.status = TaskStatus.DONE;
-        this.dateDone = LocalDateTime.now();
+        this.dateTimeDone = LocalDateTime.now();
     }
 
     public void addTag(Tag tag) {
@@ -51,7 +50,7 @@ public class Task implements TaskInterface {
     public void toPreviousStatus() {
         if (this.status == TaskStatus.DONE) {
             this.status = TaskStatus.IN_PROGRESS;
-            this.dateDone = null;
+            this.dateTimeDone = null;
         } else if (this.status == TaskStatus.IN_PROGRESS) {
             this.status = TaskStatus.BACKLOG;
         }
@@ -101,24 +100,24 @@ public class Task implements TaskInterface {
         return this.tags;
     }
 
-    public LocalDateTime getDateCreated() {
-        return this.dateCreated;
+    public LocalDateTime getDateTimeCreated() {
+        return this.dateTimeCreated;
     }
 
-    public LocalDateTime getDateDone() {
-        return this.dateDone;
+    public LocalDateTime getDateTimeDone() {
+        return this.dateTimeDone;
     }
 
     public LocalDateTime getDatePlannedStart() {
-        return this.datePlannedStart;
+        return this.dateTimePlannedStart;
     }
 
     public LocalDateTime getDatePlannedEnd() {
-        return this.datePlannedEnd;
+        return this.dateTimePlannedEnd;
     }
 
-    public LocalDateTime getDeadline() {
-        return this.deadline;
+    public LocalDateTime getDateTimeDeadline() {
+        return this.dateTimeDeadline;
     }
 
     // AREA: Setters
@@ -134,12 +133,12 @@ public class Task implements TaskInterface {
         this.priority = priority;
     }
 
-    public void setPlannedDate(LocalDateTime startDate, LocalDateTime endDate) {
-        this.datePlannedStart = endDate;
-        this.datePlannedEnd = startDate;
+    public void setPlannedDateTime(LocalDateTime startDate, LocalDateTime endDate) {
+        this.dateTimePlannedStart = endDate;
+        this.dateTimePlannedEnd = startDate;
     }
 
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
+    public void setDateTimeDeadline(LocalDateTime dateTimeDeadline) {
+        this.dateTimeDeadline = dateTimeDeadline;
     }
 }

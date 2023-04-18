@@ -43,7 +43,7 @@ public class TaskMethodTest {
         final Task task = new Task("Title", "Description");
         task.finishTask();
         TaskStatus status = task.getStatus();
-        LocalDateTime dateDone = task.getDateDone();
+        LocalDateTime dateDone = task.getDateTimeDone();
         assertThat(status).isEqualTo(TaskStatus.DONE);
         assertThat(dateDone).isNotNull();
     }
@@ -66,7 +66,7 @@ public class TaskMethodTest {
         task.finishTask();
         task.toPreviousStatus();
         TaskStatus status = task.getStatus();
-        LocalDateTime dateDone = task.getDateDone();
+        LocalDateTime dateDone = task.getDateTimeDone();
         assertThat(status).isEqualTo(TaskStatus.IN_PROGRESS);
         assertThat(dateDone).isNull();
         task.toPreviousStatus();

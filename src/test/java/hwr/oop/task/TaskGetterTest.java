@@ -1,10 +1,6 @@
 package hwr.oop.task;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import java.time.LocalDateTime;
 
@@ -43,7 +39,7 @@ public class TaskGetterTest {
     @Test
     void canGetDateCreated() {
         final Task task = new Task("Title", "Description");
-        LocalDateTime dateCreated = task.getDateCreated();
+        LocalDateTime dateCreated = task.getDateTimeCreated();
         assertThat(dateCreated).isNotNull();
     }
 }

@@ -19,14 +19,14 @@ public interface TaskInterface {
     TaskPriority getPriority();
     Project getProject();
     Set<Tag> getTags();
-    LocalDateTime getDateCreated();
-    LocalDateTime getDateDone();
+    LocalDateTime getDateTimeCreated();
+    LocalDateTime getDateTimeDone();
     LocalDateTime getDatePlannedStart();
     LocalDateTime getDatePlannedEnd();
-    LocalDateTime getDeadline();
+    LocalDateTime getDateTimeDeadline();
     void setTitle(String title);
     void setDescription(String description);
     void setPriority(TaskPriority priority);
-    void setPlannedDate(LocalDateTime startDate, LocalDateTime endDate);
-    void setDeadline(LocalDateTime deadline);
+    void setPlannedDateTime(LocalDateTime startDate, LocalDateTime endDate);
+    void setDateTimeDeadline(LocalDateTime dateTimeDeadline);
 }
