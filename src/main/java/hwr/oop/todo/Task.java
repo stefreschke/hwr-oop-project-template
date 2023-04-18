@@ -1,12 +1,14 @@
 package hwr.oop.todo;
 
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Task {
     private String title;
     private String description;
     private TaskState state;
+    private List<Tag> tags = new ArrayList<>();
 
     public Task(String title, String description){
         this.title = title;
@@ -42,6 +44,18 @@ public class Task {
         this.state = state;
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
+    }
+
+    public void removeTag(Tag tag) {
+        this.tags.remove(tag);
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
