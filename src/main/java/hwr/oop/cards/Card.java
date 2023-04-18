@@ -1,8 +1,10 @@
-package hwr.oop.Cards;
+package hwr.oop.cards;
+
+import java.time.LocalDate;
 
 public class Card {
-    private String question;
-    private String answer;
+    private final String question;
+    private final String answer;
 
     public Card(String question, String answer){
 
@@ -13,8 +15,8 @@ public class Card {
         return question;
     }
 
-    public String getDate() {
-        return "";
+    public LocalDate getDate() {
+        return null;
     }
 
     public String getAnswer() {

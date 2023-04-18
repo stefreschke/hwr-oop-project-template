@@ -1,8 +1,8 @@
-package hwr.oop.Cards;
+package hwr.oop.cards;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -20,9 +20,11 @@ public class CardTests {
     @Test
     void canGetDateOfCard(){
         Card card = new Card("Ja?", "Yes");
-        String date = card.getDate();
+        LocalDate date = card.getDate();
+        LocalDate now = LocalDate.now();
 
-        assertThat(date).isEqualTo("");
+
+        assertThat(date).isEqualTo(now);
     }
 
     @Test
@@ -30,7 +32,8 @@ public class CardTests {
 
         Card card = new Card("Is this a test?", "Yes");
 
-        assertThat(card.getQuestion()).isEqualTo("Is this a test?");
+        String question = card.getQuestion();
+        assertThat(question).isEqualTo("Is this a test?");
     }
 
     @Test

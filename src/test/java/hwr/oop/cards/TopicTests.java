@@ -1,4 +1,4 @@
-package hwr.oop.Cards;
+package hwr.oop.cards;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -6,7 +6,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TopicTests {
+class TopicTests {
     @Test
     void canGetTopicName(){
 
@@ -21,7 +21,7 @@ public class TopicTests {
 
         Topic topic = new Topic("Spanish", 3);
 
-        assertThat(topic.getActiveBox()).isEqualTo(0);
+        assertThat(topic.getActiveBox()).isZero();
     }
 
     @Test

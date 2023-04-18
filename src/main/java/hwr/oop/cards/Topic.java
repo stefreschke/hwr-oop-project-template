@@ -1,4 +1,4 @@
-package hwr.oop.Cards;
+package hwr.oop.cards;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class Topic {
         boxList = new ArrayList<Box>();
 
         for (int i = 0; i < amount; i++){
-            
+
             boxList.add(new Box());
         }
 

@@ -1,4 +1,4 @@
-package hwr.oop.Cards;
+package hwr.oop.cards;
 
 import java.util.ArrayList;
 

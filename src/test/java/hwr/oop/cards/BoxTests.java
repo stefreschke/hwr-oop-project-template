@@ -1,4 +1,4 @@
-package hwr.oop.Cards;
+package hwr.oop.cards;
 
 public class BoxTests {
 }
