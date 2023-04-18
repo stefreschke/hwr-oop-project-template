@@ -1,10 +1,12 @@
 package hwr.oop.dataclasses;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
-public abstract class Task {
-    public Task(Integer id, String title, String content, TaskState taskState, List<TaskTag> taskTagList, User creator, Date createTime) {
+public class Task {
+    public Task(Integer id, String title, String content, TaskState taskState, List<TaskTag> taskTagList, User creator,
+                LocalDate createTime, LocalDate deadline) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -12,25 +14,43 @@ public abstract class Task {
         this.taskTagList = taskTagList;
         this.creator = creator;
         this.createTime = createTime;
+        this.deadline = deadline;
     }
 
-    private Integer id;
-    private String title;
-    private String content;
-    private TaskState taskState;
-    private List<TaskTag> taskTagList;
-    private User creator;
-    private Date createTime;
+    private final Integer id;
+    private final String title;
+    private final String content;
+    private final TaskState taskState;
+    private final List<TaskTag> taskTagList;
+    private final User creator;
+    private final LocalDate createTime;
+    private final LocalDate deadline;
 
-    public void setTitle(String title) {
-        this.title = title;
+    public Optional<LocalDate> getDeadline() {
+        return Optional.ofNullable(deadline);
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public Integer getId() {
+        return id;
     }
 
-    public void setTaskState(TaskState taskState) {
-        this.taskState = taskState;
+    public String getTitle() {
+        return title;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public TaskState getTaskState() {
+        return taskState;
+    }
+
+    public List<TaskTag> getTaskTagList() {
+        return taskTagList;
+    }
+
+    public User getCreator() {
+        return creator;
     }
 }

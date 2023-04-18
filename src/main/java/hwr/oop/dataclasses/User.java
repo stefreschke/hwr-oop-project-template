@@ -6,6 +6,6 @@ public class User {
         this.id = id;
     }
 
-    private String name;
-    private Integer id;
+    private final String name;
+    private final Integer id;
 }
