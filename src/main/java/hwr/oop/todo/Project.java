@@ -1,16 +1,16 @@
 package hwr.oop.todo;
 
+import java.time.LocalDate;
+
 public class Project {
     private final String title;
  /*
     private List<Task> task-list;
   */
-    private Status status;
-    private String deadline;
+    private LocalDate deadline;
 
-    public Project(String title , String condition, String deadline) {
+    public Project(String title , LocalDate deadline) {
         this.title = title;
-        this.status = new Status(condition);
         // this.task-list = null;
         this.deadline = deadline;
     }
@@ -28,19 +28,17 @@ public class Project {
         return this.task-list.get(pos-1);
     }
 */
-    public void setStatus(String condition) {
-        this.status = new Status(condition);
+    public String getTitle() {
+        return title;
     }
 
-    public String getStatus() {
-        return this.status.getCondition();
-    }
-
-    public void setDeadline(String deadline) {
+    public void setDeadline(LocalDate deadline) {
         this.deadline = deadline;
     }
 
-    public String getDeadline() {
+    public LocalDate getDeadline() {
         return this.deadline;
     }
+
+
 }

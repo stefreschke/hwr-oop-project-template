@@ -1,22 +1,23 @@
 package hwr.oop.todo;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
 
 class ProjectTest {
     @Test
-    void createProject() {
-        Project project = new Project("Test","Unknown","00.00.0000");
-        System.out.println("Test, if project is created.");
-        assertThat(project).isNotNull();
+    void testProject() {
+        Assertions.assertDoesNotThrow(() -> new Project("Test",LocalDate.of(2000,1,1)));
     }
 
     @Test
     @Disabled
     void addTask(){
-        Project project = new Project("","","");
+        Project project = new Project("",LocalDate.of(2000,1,1));
         /*
         Task task = new Task("");
         project.addTask(task);
@@ -25,18 +26,10 @@ class ProjectTest {
     }
 
     @Test
-    void testStatus(){
-        Project project = new Project("","Test","");
-        assertThat(project.getStatus()).isEqualTo("Test");
-        project.setStatus("Test2");
-        assertThat(project.getStatus()).isEqualTo("Test2");
-    }
-
-    @Test
     void testDeadline(){
-        Project project = new Project("","","00.00.0000");
+        Project project = new Project("",null);
         assertThat(project.getDeadline()).isEqualTo("00.00.0000");
-        String date = "18.04.2023";
+        LocalDate date = LocalDate.of(2024, 4, 4);
         project.setDeadline(date);
         assertThat(date).isEqualTo(project.getDeadline());
     }
