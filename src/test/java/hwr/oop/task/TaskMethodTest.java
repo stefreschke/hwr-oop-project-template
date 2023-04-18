@@ -83,6 +83,6 @@ public class TaskMethodTest {
         Project taskProject = task.getProject();
         TaskStatus taskStatus = task.getStatus();
         assertThat(taskProject).isNull();
-        assertThat(taskStatus).isEqualTo(TaskStatus.IN_TRACE);
+        assertThat(taskStatus).isEqualTo(TaskStatus.IN_TRAY);
     }
 }

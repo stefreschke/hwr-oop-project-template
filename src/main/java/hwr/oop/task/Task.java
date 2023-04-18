@@ -23,7 +23,7 @@ public class Task implements TaskInterface {
     public Task(String title, String description) {
         this.title = title;
         this.description = description;
-        this.status = TaskStatus.IN_TRACE;
+        this.status = TaskStatus.IN_TRAY;
         this.priority = TaskPriority.UNDETERMINED;
         this.tags = new HashSet<>();
         this.dateTimeCreated = LocalDateTime.now();
@@ -60,7 +60,7 @@ public class Task implements TaskInterface {
         if (this.project != null) {
             this.project.removeTask(this);
             this.project = null;
-            this.status = TaskStatus.IN_TRACE;
+            this.status = TaskStatus.IN_TRAY;
         }
     }
 
@@ -68,7 +68,7 @@ public class Task implements TaskInterface {
         if (this.project != null) {
             this.project.removeTask(this);
         }
-        if (this.status == TaskStatus.IN_TRACE) {
+        if (this.status == TaskStatus.IN_TRAY) {
             this.status = TaskStatus.BACKLOG;
         }
         this.project = project;

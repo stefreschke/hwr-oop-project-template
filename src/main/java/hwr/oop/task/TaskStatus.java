@@ -1,7 +1,7 @@
 package hwr.oop.task;
 
 public enum TaskStatus {
-    IN_TRACE,
+    IN_TRAY,
     BACKLOG,
     IN_PROGRESS,
     DONE

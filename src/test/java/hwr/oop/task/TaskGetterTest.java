@@ -26,7 +26,7 @@ public class TaskGetterTest {
     void canGetStatus() {
         final Task task = new Task("Title", "Description");
         TaskStatus taskStatus = task.getStatus();
-        assertThat(taskStatus).isEqualTo(TaskStatus.IN_TRACE);
+        assertThat(taskStatus).isEqualTo(TaskStatus.IN_TRAY);
     }
 
     @Test
