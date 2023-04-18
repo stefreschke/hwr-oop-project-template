@@ -36,7 +36,7 @@ public class ToDoItemTest {
     public void itemDescriptionSetterTest(String description) {
         ToDoItem item = new ToDoItem();
         item.setDescription(description);
-        String testDescription = item.description;
+        String testDescription = item.description; // getter schreiben
         assertThat(testDescription).isEqualTo(description);
     }
     @ParameterizedTest

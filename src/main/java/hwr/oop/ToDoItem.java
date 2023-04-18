@@ -2,10 +2,10 @@ package hwr.oop;
 
 public class ToDoItem {
 
-    public String title;
-    public String description;
-    public boolean done;
-    public Priority priority;
+    private String title;
+    private String description;
+    private boolean done;
+    private Priority priority;
 
     public ToDoItem () {
         this.title = "New Item";
