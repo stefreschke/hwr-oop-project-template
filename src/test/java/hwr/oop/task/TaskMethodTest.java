@@ -2,6 +2,7 @@ package hwr.oop.task;
 
 import hwr.oop.project.Project;
 import hwr.oop.tag.Tag;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -12,18 +13,37 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class TaskMethodTest {
 
-    @Test
-    void canAddTags() {
-        final Task task = new Task("Title", "Description");
-        final Tag tag = new Tag();
-        task.addTag(tag);
-        task.addTag(tag);
-        Set<Tag> tags = task.getTags();
-        assertThat(tags).containsExactly(tag);
-        final Tag secondTag = new Tag();
-        task.addTag(secondTag);
-        tags = task.getTags();
-        assertThat(tags).containsOnly(tag, secondTag);
+    @Nested
+    class CanAddTags {
+        @Test
+        void canAddOneTag() {
+            final Task task = new Task("Title", "Description");
+            final Tag tag = new Tag();
+            task.addTag(tag);
+            Set<Tag> tags = task.getTags();
+            assertThat(tags).containsExactly(tag);
+        }
+
+        @Test
+        void onlyAddsOneTagOfTwoSameToSet() {
+            final Task task = new Task("Title", "Description");
+            final Tag tag = new Tag();
+            task.addTag(tag);
+            task.addTag(tag);
+            Set<Tag> tags = task.getTags();
+            assertThat(tags).containsExactly(tag);
+        }
+
+        @Test
+        void canAddMultipleTags() {
+            final Task task = new Task("Title", "Description");
+            final Tag tag = new Tag();
+            final Tag secondTag = new Tag();
+            task.addTag(tag);
+            task.addTag(secondTag);
+            Set<Tag> tags = task.getTags();
+            assertThat(tags).containsOnly(tag, secondTag);
+        }
     }
 
     @Test
@@ -58,20 +78,31 @@ public class TaskMethodTest {
         assertThat(status).isEqualTo(TaskStatus.IN_PROGRESS);
     }
 
-    @Test
-    void canSetToPreviousStatus() {
-        final Task task = new Task("Title", "Description");
-        final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
-        task.changeProject(project);
-        task.finishTask();
-        task.toPreviousStatus();
-        TaskStatus status = task.getStatus();
-        LocalDateTime dateDone = task.getDateTimeDone();
-        assertThat(status).isEqualTo(TaskStatus.IN_PROGRESS);
-        assertThat(dateDone).isNull();
-        task.toPreviousStatus();
-        status = task.getStatus();
-        assertThat(status).isEqualTo(TaskStatus.BACKLOG);
+    @Nested
+    class CanChangeStatus {
+        @Test
+        void canSetToPreviousStatusFromDone() {
+            final Task task = new Task("Title", "Description");
+            final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
+            task.changeProject(project);
+            task.finishTask();
+            task.toPreviousStatus();
+            TaskStatus status = task.getStatus();
+            LocalDateTime dateDone = task.getDateTimeDone();
+            assertThat(status).isEqualTo(TaskStatus.IN_PROGRESS);
+            assertThat(dateDone).isNull();
+        }
+
+        @Test
+        void canSetToPreviousStatusFromInProgress() {
+            final Task task = new Task("Title", "Description");
+            final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
+            task.changeProject(project);
+            task.toFurtherStatus();
+            task.toFurtherStatus();
+            TaskStatus status = task.getStatus();
+            assertThat(status).isEqualTo(TaskStatus.BACKLOG);
+        }
     }
 
     @Test

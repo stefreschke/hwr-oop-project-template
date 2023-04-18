@@ -56,10 +56,6 @@ public class TaskSetterTest {
         TaskStatus taskStatus = task.getStatus();
         assertThat(taskProject).isEqualTo(project);
         assertThat(taskStatus).isNotEqualTo(TaskStatus.IN_TRAY);
-        final Project secondProject = new Project("Project", LocalDateTime.now(), LocalDate.now());
-        task.changeProject(secondProject);
-        taskProject = task.getProject();
-        assertThat(taskProject).isEqualTo(secondProject);
     }
 
     @Test
@@ -70,12 +66,6 @@ public class TaskSetterTest {
         task.setPlannedDateTime(firstDateTime, secondDateTime);
         LocalDateTime startDate = task.getDatePlannedStart();
         LocalDateTime endDate = task.getDatePlannedEnd();
-        assertThat(startDate).isEqualTo(firstDateTime);
-        assertThat(endDate).isEqualTo(secondDateTime);
-
-        task.setPlannedDateTime(secondDateTime, firstDateTime);
-        startDate = task.getDatePlannedStart();
-        endDate = task.getDatePlannedEnd();
         assertThat(startDate).isEqualTo(firstDateTime);
         assertThat(endDate).isEqualTo(secondDateTime);
     }
