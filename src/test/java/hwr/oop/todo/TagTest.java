@@ -3,43 +3,48 @@ package hwr.oop.todo;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class TagTest {
 
     @Test
-    public void CanCreateTagWithNameOnly(){
+    public void canCreateTagWithNameOnly(){
         Tag tag = new Tag("Name");
-        Assertions.assertEquals("Name", tag.getName());
+        assertEquals("Name", tag.getName());
     }
 
     @Test
-    public void CanCreateTagWithDescription(){
+    public void canCreateTagWithDescription(){
         Tag tag = new Tag("Name", "Description");
-        Assertions.assertEquals("Name", tag.getName());
-        Assertions.assertEquals("Description", tag.getDescription());
+        assertEquals("Name", tag.getName());
+        assertEquals("Description", tag.getDescription());
     }
 
     @Test
-    void TagsAreEqualWithEqualTitles(){
+    void tagsAreEqualWithEqualTitles(){
         Tag first = new Tag("First");
         Tag second = new Tag("First");
 
-        Assertions.assertEquals(first, second);
+        assertEquals(first, second);
+        assertEquals(first.hashCode(), second.hashCode());
     }
 
     @Test
-    void TagsAreEqualWithEqualContents(){
+    void tagsAreEqualWithEqualContents(){
         Tag first = new Tag("Name", "Description");
         Tag second = new Tag("Name", "Description");
 
-        Assertions.assertEquals(first, second);
+        assertEquals(first, second);
+        assertEquals(first.hashCode(), second.hashCode());
     }
 
     @Test
-    void TagsAreNotEqualWithDifferentContents(){
+    void tagsAreNotEqualWithDifferentContents(){
         Tag first = new Tag("Name_", "Description");
         Tag second = new Tag("Name", "Description");
 
-        Assertions.assertNotEquals(first, second);
+        assertNotEquals(first, second);
+        assertNotEquals(first.hashCode(), second.hashCode());
     }
 
 }

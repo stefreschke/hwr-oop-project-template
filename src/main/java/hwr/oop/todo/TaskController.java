@@ -13,6 +13,11 @@ public class TaskController {
     }
 
     public Task getTask(UUID id){
-      return tasks.get(id);
+        Task task = tasks.get(id);
+        if(task == null){
+            throw new ToDoListException("Task does not exist");
+        }
+
+        return tasks.get(id);
     }
 }

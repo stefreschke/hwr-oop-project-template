@@ -24,24 +24,8 @@ public class Task {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public TaskState getState() {
-        return state;
-    }
-
-    public void setState(TaskState state) {
-        this.state = state;
     }
 
     public List<Tag> getTags() {

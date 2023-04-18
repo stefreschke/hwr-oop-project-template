@@ -6,30 +6,32 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 public class TaskTest {
 
     @Test
-    void CanCreateTaskWithTitle(){
+    void canCreateTaskWithTitle(){
         Task task = new Task("Title");
 
         String title = task.getTitle();
 
-        Assertions.assertEquals("Title", title);
+        assertEquals("Title", title);
     }
 
     @Test
-    void CanCreateTaskWithDescription(){
+    void canCreateTaskWithDescription(){
         Task task = new Task("Title", "Description");
 
         String title = task.getTitle();
         String desc = task.getDescription();
 
-        Assertions.assertEquals("Title", title);
-        Assertions.assertEquals("Description", desc);
+        assertEquals("Title", title);
+        assertEquals("Description", desc);
     }
 
     @Test
-    void CanAddAndRemoveTags(){
+    void canAddAndRemoveTags(){
         Task task = new Task("Title", "Description");
 
         Tag homework = new Tag("Homework");
@@ -38,10 +40,37 @@ public class TaskTest {
 
         task.addTag(homework);
         task.addTag(important);
-        Assertions.assertIterableEquals(Arrays.asList(homework, important), task.getTags());
+        assertIterableEquals(Arrays.asList(homework, important), task.getTags());
 
         task.removeTag(important);
         task.addTag(birthday);
-        Assertions.assertIterableEquals(Arrays.asList(homework, birthday), task.getTags());
+        assertIterableEquals(Arrays.asList(homework, birthday), task.getTags());
+    }
+
+    @Test
+    void tasksAreEqualWithEqualTitles(){
+        Task first = new Task("First");
+        Task second = new Task("First");
+
+        assertEquals(first, second);
+        assertEquals(first.hashCode(), second.hashCode());
+    }
+
+    @Test
+    void tasksAreEqualWithEqualContents(){
+        Task first = new Task("Title", "Description");
+        Task second = new Task("Title", "Description");
+
+        assertEquals(first, second);
+        assertEquals(first.hashCode(), second.hashCode());
+    }
+
+    @Test
+    void tasksAreNotEqualWithDifferentContents(){
+        Task first = new Task("Title_", "Description");
+        Task second = new Task("Title", "Description");
+
+        assertNotEquals(first, second);
+        assertNotEquals(first.hashCode(), second.hashCode());
     }
 }

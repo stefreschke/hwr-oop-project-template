@@ -1,7 +1,6 @@
 package hwr.oop.todo;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class TagController {
@@ -17,13 +16,13 @@ public class TagController {
         return tags;
     }
 
-    public void createTag(Tag tag) throws TagError {
-        if(tags.contains(tag)) throw new TagError("Tag already exists!");
+    public void createTag(Tag tag) {
+        if(tags.contains(tag)) throw new TagException("Tag already exists!");
         this.tags.add(tag);
     }
 
-    public void removeTag(Tag tag) throws TagError {
-        if(!tags.contains(tag)) throw new TagError("Tag does not exists!");
+    public void removeTag(Tag tag) {
+        if(!tags.contains(tag)) throw new TagException("Tag does not exists!");
         this.tags.remove(tag);
     }
 }

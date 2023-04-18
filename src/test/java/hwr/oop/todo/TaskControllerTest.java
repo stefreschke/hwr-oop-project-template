@@ -3,31 +3,35 @@ package hwr.oop.todo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
+import java.util.Optional;
 import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskControllerTest {
 
     @Test
-    void CanStoreTask () {
+    void canStoreTask () {
         TaskController testController = new TaskController();
         Task task = new Task("Title");
 
         UUID id = testController.addTask(task);
 
-        Assertions.assertEquals(task, testController.getTask(id));
-
+        assertEquals(task, testController.getTask(id));
     }
 
     @Test
-    void CannotRetrieveTaskWithNonExistingID () {
+    void cannotRetrieveTaskWithNonExistingID () {
         TaskController testController = new TaskController();
         UUID id = UUID.randomUUID();
 
-        Assertions.assertNull(testController.getTask(id));
+        assertThrows(ToDoListException.class, () -> {
+            testController.getTask(id);
+        });
     }
 
     @Test
-    void CanStoreMultipleTasks () {
+    void canStoreMultipleTasks () {
         TaskController testController = new TaskController();
         Task task1 = new Task("Title");
         Task task2 = new Task("Title2");
@@ -35,6 +39,6 @@ public class TaskControllerTest {
         UUID id1 = testController.addTask(task1);
         UUID id2 = testController.addTask(task2);
 
-        Assertions.assertNotEquals(id1, id2);
+        assertNotEquals(id1, id2);
     }
 }

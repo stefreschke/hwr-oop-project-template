@@ -6,15 +6,18 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class TagControllerTest {
     @Test
-    void CanGetTagController(){
+    void canGetTagController(){
         TagController tagController = TagController.get();
         Assertions.assertNotNull(tagController);
     }
 
     @Test
-    void CanUpdateTagController() throws TagError {
+    void canUpdateTagController() {
         TagController tagController = new TagController();
         Tag first = new Tag("Important");
         Tag second = new Tag("Test");
@@ -22,12 +25,12 @@ public class TagControllerTest {
         tagController.createTag(second);
 
         List<Tag> tagList = tagController.getTags();
-        Assertions.assertEquals(1, Collections.frequency(tagList, first));
-        Assertions.assertEquals(second, tagList.get(1));
+        assertEquals(1, Collections.frequency(tagList, first));
+        assertEquals(second, tagList.get(1));
     }
 
     @Test
-    void CanDeleteTagFromController() throws TagError {
+    void canDeleteTagFromController(){
         TagController tagController = new TagController();
         Tag tag = new Tag("Important");
 
@@ -35,6 +38,29 @@ public class TagControllerTest {
         tagController.removeTag(tag);
 
         List<Tag> tagList = tagController.getTags();
-        Assertions.assertEquals(0, Collections.frequency(tagList, "Important"));
+        assertEquals(0, Collections.frequency(tagList, "Important"));
+    }
+
+    @Test
+    void cannotRemoveTagThatDoesNotExist(){
+        TagController controller = new TagController();
+        Tag tag = new Tag("Name");
+
+        assertThrows(TagException.class, () -> {
+            controller.removeTag(tag);
+        });
+    }
+
+    @Test
+    void cannotCreateTagThatAlreadyExists(){
+        TagController controller = new TagController();
+        Tag first = new Tag("Name");
+        Tag second = new Tag("Name");
+
+        controller.createTag(first);
+
+        assertThrows(TagException.class, () -> {
+            controller.createTag(second);
+        });
     }
 }
