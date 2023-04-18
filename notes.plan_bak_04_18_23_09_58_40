@@ -1,0 +1,95 @@
+{
+  "version": "0.8.0-alpha.8.1",
+  "pan": {
+    "X": -95.999985,
+    "Y": -63.999992
+  },
+  "zoom": 1.2923740148544312,
+  "currentPage": 0,
+  "properties": {
+    "CacheDirectory": ""
+  },
+  "pages": [
+    {
+      "id": 0,
+      "pan": {
+        "X": -95.999985,
+        "Y": -63.999992
+      },
+      "zoom": 1.2923740148544312,
+      "cards": [
+        {
+          "id": 0,
+          "rect": {
+            "X": -448,
+            "Y": -288,
+            "W": 256,
+            "H": 32
+          },
+          "collapsed": "CollapsedNone",
+          "uncollapsedSizeX": 256,
+          "uncollapsedSizeY": 32,
+          "contents": "Note",
+          "properties": {
+            "description": "Meine To-Do's",
+            "filepath": ""
+          }
+        },
+        {
+          "id": 1,
+          "rect": {
+            "X": 32,
+            "Y": -288,
+            "W": 256,
+            "H": 32
+          },
+          "collapsed": "CollapsedNone",
+          "uncollapsedSizeX": 256,
+          "uncollapsedSizeY": 32,
+          "contents": "Note",
+          "properties": {
+            "description": "Nikla's ToDo",
+            "filepath": ""
+          }
+        },
+        {
+          "id": 2,
+          "rect": {
+            "X": -448,
+            "Y": -192,
+            "W": 288,
+            "H": 256
+          },
+          "collapsed": "CollapsedNone",
+          "uncollapsedSizeX": 288,
+          "uncollapsedSizeY": 256,
+          "contents": "Checkbox",
+          "properties": {
+            "checked": false,
+            "description": "Hauptmenü in Konsole zum Ausführen von Aktionen\n-\u003e Task ersellen\n-\u003e Projekt erstellen\n-\u003e Alles anzeigen\n    -\u003e mit Filter",
+            "filepath": ""
+          }
+        },
+        {
+          "id": 3,
+          "rect": {
+            "X": 32,
+            "Y": -192,
+            "W": 288,
+            "H": 192
+          },
+          "collapsed": "CollapsedNone",
+          "uncollapsedSizeX": 288,
+          "uncollapsedSizeY": 192,
+          "contents": "Checkbox",
+          "properties": {
+            "checked": false,
+            "description": "Tasks im Speicher anlegen\n-\u003e Projektklasse, die weiß welche Tasks zu dem Projek gehören",
+            "filepath": ""
+          }
+        }
+      ]
+    }
+  ],
+  "savedimages": {}
+}
