@@ -7,12 +7,12 @@ import java.util.Set;
 
 public class Project {
 
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
     private final Set<Tag> tags;
     private final Set<Task> tasks;
-    private LocalDateTime begin;
-    private LocalDateTime end;
+    private final LocalDateTime begin;
+    private final LocalDateTime end;
 
     private Project(String name, String description, Set<Tag> tags, Set<Task> tasks, LocalDateTime begin, LocalDateTime end) {
         this.name = name;
@@ -27,17 +27,11 @@ public class Project {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 
     public Set<Tag> getTags() {
         return tags;
@@ -59,16 +53,8 @@ public class Project {
         return begin;
     }
 
-    public void setBegin(LocalDateTime begin) {
-        this.begin = begin;
-    }
-
     public LocalDateTime getEnd() {
         return end;
-    }
-
-    public void setEnd(LocalDateTime end) {
-        this.end = end;
     }
 
     public static class ProjectBuilder {
