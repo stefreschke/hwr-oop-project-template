@@ -57,7 +57,7 @@ class TaskTest {
 
     @Test
     void buildTaskInProject() {
-        final Project project = new Project("project", "desc");
+        final Project project = new Project.ProjectBuilder().name("project").description("desc").build();
         final Task taskInProject = new Task.TaskBuilder().name("task1").project(project).build();
         final Task taskWithoutProject = new Task.TaskBuilder().name("task2").build();
 

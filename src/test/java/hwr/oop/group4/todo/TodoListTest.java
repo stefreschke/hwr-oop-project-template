@@ -48,8 +48,9 @@ class TodoListTest {
     @Test
     void projects() {
         final TodoList todo = new TodoList();
-        final Project projectA = new Project("name", "desc");
-        final Project projectB = new Project("name", "desc");
+
+        final Project projectA = new Project.ProjectBuilder().name("name").description("desc").build();
+        final Project projectB = new Project.ProjectBuilder().name("name").description("desc").build();
 
         todo.addProject(projectA);
         todo.addProject(projectA);
@@ -64,8 +65,8 @@ class TodoListTest {
     @Test
     void someDayMaybe() {
         final TodoList todo = new TodoList();
-        final Project projectA = new Project("name", "desc");
-        final Project projectB = new Project("name", "desc");
+        final Project projectA = new Project.ProjectBuilder().name("name").description("desc").build();
+        final Project projectB = new Project.ProjectBuilder().name("name").description("desc").build();
 
         todo.addSomedayMaybeProject(projectA);
         todo.addSomedayMaybeProject(projectA);
