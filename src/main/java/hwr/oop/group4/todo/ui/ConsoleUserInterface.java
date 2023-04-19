@@ -5,7 +5,7 @@ import hwr.oop.group4.todo.TodoList;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -26,7 +26,7 @@ public class ConsoleUserInterface {
     }
 
     public void mainMenu() {
-        Map<String, String> options = new HashMap<>();
+        Map<String, String> options = new LinkedHashMap<>();
         options.put("intray",   "");
         options.put("tasks",    "");
         options.put("projects", "");
