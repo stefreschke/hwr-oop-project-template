@@ -1,18 +1,20 @@
 package hwr.oop.group4.todo;
 
+import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
+
 import java.util.Objects;
 
 public class Idea {
 
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
 
     public Idea(String name, String description) {
-        if (name == null) {
-            name = "";
+        if (name == null || name.isBlank()) {
+            throw new TodoRuntimeException("Ideas need non blank names.");
         }
         if (description == null) {
-            description = "";
+            throw new TodoRuntimeException("Description should not be null.");
         }
         this.name = name;
         this.description = description;
@@ -26,16 +28,8 @@ public class Idea {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override
