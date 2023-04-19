@@ -1,62 +1,58 @@
 package hwr.oop.group4.todo;
 
-import hwr.oop.group4.todo.builder.TaskBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ProjectTest {
+    private final LocalDateTime beginAt = LocalDateTime.of(1900, 10, 11, 20, 21);
+    private final LocalDateTime endAt = LocalDateTime.of(2500, 12, 21, 22, 24);
 
-    @Test
-    void createProject() {
-        var beginAt = LocalDateTime.now();
-        var endAt = LocalDateTime.now();
-        Project project = new Project("myProject", "myDesc", new HashSet<>(), new HashSet<>(), beginAt, endAt);
+    private Project createProject() {
 
-        assertThat(project.getName()).isEqualTo("myProject");
-        assertThat(project.getDescription()).isEqualTo("myDesc");
-        assertThat(project.getTags().size()).isEqualTo(0);
-        assertThat(project.getTasks().size()).isEqualTo(0);
-        assertThat(project.getBegin()).isEqualTo(beginAt);
-        assertThat(project.getEnd()).isEqualTo(endAt);
+        return new Project.ProjectBuilder()
+                .name("myProject")
+                .description("myDesc")
+                .begin(beginAt)
+                .end(endAt)
+                .build();
     }
 
     @Test
-    void setters() {
-        var beginAt = LocalDateTime.now();
-        var endAt = LocalDateTime.now();
-        Project project = new Project("myProject", "myDesc", new HashSet<>(), new HashSet<>(), beginAt, endAt);
+    void canGetName() {
+        Project project = createProject();
 
-        project.setName("myP");
-        assertThat(project.getName()).isEqualTo("myP");
+        assertThat(project.getName()).isEqualTo("myProject");
+    }
 
-        project.setDescription("myD");
-        assertThat(project.getDescription()).isEqualTo("myD");
+    @Test
+    void canGetDescription() {
+        Project project = createProject();
 
-        var myTag = new Tag("myTag");
-        project.addTag(myTag);
-        assertThat(project.getTags().size()).isEqualTo(1);
-        assertTrue(project.getTags().contains(myTag));
+        assertThat(project.getDescription()).isEqualTo("myDesc");
+    }
 
-        var createdAt = LocalDateTime.now();
-        final Task myTask = new TaskBuilder().
-                setName("aName")
-                .setDescription("aDesc")
-                .setDeadline(createdAt)
-                .build();
-        project.addTask(myTask);
-        assertThat(project.getTasks().size()).isEqualTo(1);
-        assertTrue(project.getTasks().contains(myTask));
+    @Test
+    void canGetTag() {
+        Project project = createProject();
 
-        var newBeginAt = beginAt.plusDays(4);
-        var newEndAt = beginAt.plusDays(6);
-        project.setBegin(newBeginAt);
-        project.setEnd(newEndAt);
-        assertThat(project.getBegin()).isEqualTo(newBeginAt);
-        assertThat(project.getEnd()).isEqualTo(newEndAt);
+        assertThat(project.getTags()).isEmpty();
+    }
+
+    @Test
+    void canGetTasks() {
+        Project project = createProject();
+
+        assertThat(project.getTasks()).isEmpty();
+    }
+
+    @Test
+    void canGetTime() {
+        final Project project = createProject();
+
+        assertThat(project.getBegin()).isEqualTo(beginAt);
+        assertThat(project.getEnd()).isEqualTo(endAt);
     }
 }

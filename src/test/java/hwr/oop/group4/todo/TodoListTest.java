@@ -1,9 +1,9 @@
 package hwr.oop.group4.todo;
 
-import hwr.oop.group4.todo.builder.TaskBuilder;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class TodoListTest {
 
@@ -33,8 +33,8 @@ class TodoListTest {
     @Test
     void loseTasks() {
         final TodoList todo = new TodoList();
-        final Task taskA = new TaskBuilder().setName("task").build();
-        final Task taskB = new TaskBuilder().setName("another task").build();
+        final Task taskA = new Task.TaskBuilder().name("task").build();
+        final Task taskB = new Task.TaskBuilder().name("another task").build();
 
         todo.addLoseTask(taskA);
         todo.addLoseTask(taskA);
@@ -48,8 +48,9 @@ class TodoListTest {
     @Test
     void projects() {
         final TodoList todo = new TodoList();
-        final Project projectA = new Project("name", "desc");
-        final Project projectB = new Project("name", "desc");
+
+        final Project projectA = new Project.ProjectBuilder().name("name").description("desc").build();
+        final Project projectB = new Project.ProjectBuilder().name("name").description("desc").build();
 
         todo.addProject(projectA);
         todo.addProject(projectA);
@@ -64,16 +65,16 @@ class TodoListTest {
     @Test
     void someDayMaybe() {
         final TodoList todo = new TodoList();
-        final Task taskA = new TaskBuilder().setName("task").build();
-        final Task taskB = new TaskBuilder().setName("another task").build();
+        final Project projectA = new Project.ProjectBuilder().name("name").description("desc").build();
+        final Project projectB = new Project.ProjectBuilder().name("name").description("desc").build();
 
-        todo.addSomedayMaybeTask(taskA);
-        todo.addSomedayMaybeTask(taskA);
-        todo.addSomedayMaybeTask(taskB);
+        todo.addSomedayMaybeProject(projectA);
+        todo.addSomedayMaybeProject(projectA);
+        todo.addSomedayMaybeProject(projectB);
 
         assertEquals(2, todo.getMaybeList().size());
-        assertTrue(todo.getMaybeList().contains(taskA));
-        assertTrue(todo.getMaybeList().contains(taskB));
+        assertTrue(todo.getMaybeList().contains(projectA));
+        assertTrue(todo.getMaybeList().contains(projectB));
     }
 
 }

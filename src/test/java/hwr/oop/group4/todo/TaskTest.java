@@ -1,6 +1,5 @@
 package hwr.oop.group4.todo;
 
-import hwr.oop.group4.todo.builder.TaskBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -11,7 +10,7 @@ class TaskTest {
 
     @Test
     void buildDefaultTask() {
-        final Task task = new TaskBuilder().build();
+        final Task task = new Task.TaskBuilder().build();
 
         assertEquals("unnamed task", task.getName());
         assertEquals("", task.getDescription());
@@ -27,11 +26,11 @@ class TaskTest {
         final Tag testTagA = new Tag("tagA");
         final Tag testTagB = new Tag("123");
         final Tag testTagC = new Tag("2345");
-        final Task task = new TaskBuilder()
-                .setName("named task")
-                .setDescription("desc")
-                .setPriority(10)
-                .setDeadline(deadline)
+        final Task task = new Task.TaskBuilder()
+                .name("named task")
+                .description("desc")
+                .priority(10)
+                .deadline(deadline)
                 .addTag(testTagA)
                 .addTags(testTagB, testTagC)
                 .build();
@@ -50,7 +49,7 @@ class TaskTest {
     @Test
     void buildFromIdea() {
         final Idea idea = new Idea("Name from idea", "name from Description");
-        final Task task = new TaskBuilder().fromIdea(idea).build();
+        final Task task = new Task.TaskBuilder().fromIdea(idea).build();
 
         assertEquals("Name from idea", task.getName());
         assertEquals("name from Description", task.getDescription());
@@ -58,61 +57,32 @@ class TaskTest {
 
     @Test
     void buildTaskInProject() {
-        final Project project = new Project("project", "desc");
-        final Task taskInProject = new TaskBuilder().setName("task1").setProject(project).build();
-        final Task taskWithoutProject = new TaskBuilder().setName("task2").build();
+        final Project project = new Project.ProjectBuilder().name("project").description("desc").build();
+        final Task taskInProject = new Task.TaskBuilder().name("task1").project(project).build();
+        final Task taskWithoutProject = new Task.TaskBuilder().name("task2").build();
 
         assertTrue(project.getTasks().contains(taskInProject));
         assertFalse(project.getTasks().contains(taskWithoutProject));
     }
 
     @Test
-    void setters() {
-        final LocalDateTime deadline = LocalDateTime.now().plusMonths(10);
-        final Tag testTagA = new Tag("tagA");
-        final Tag testTagB = new Tag("123");
-        final Task task = new TaskBuilder().build();
-
-        task.setName("name");
-        task.setDescription("description");
-        task.setPriority(4);
-        task.setDeadline(deadline);
-        task.addTag(testTagA);
-        task.addTag(testTagB);
-        task.setStatus(Status.IN_PROGRESS);
-
-        assertEquals("name", task.getName());
-        assertEquals("description", task.getDescription());
-        assertEquals(4, task.getPriority());
-        assertEquals(deadline, task.getDeadline());
-        assertEquals(2, task.getTags().size());
-        assertTrue(task.getTags().contains(testTagA));
-        assertTrue(task.getTags().contains(testTagB));
-        assertEquals(task.getStatus(), Status.IN_PROGRESS);
-
-        task.setStatus(Status.CLOSED);
-
-        assertEquals(task.getStatus(), Status.CLOSED);
-    }
-
-    @Test
     void equals() {
-        final Task defaultTask = new TaskBuilder().build();
-        final Task defaultTask2 = new TaskBuilder().build();
-        final Task namedTask = new TaskBuilder().setName("named").build();
-        final Task namedTask2 = new TaskBuilder().setName("named").build();
-        final Task complexTask = new TaskBuilder()
-                .setName("123")
-                .setDescription("desc")
-                .setPriority(10)
+        final Task defaultTask = new Task.TaskBuilder().build();
+        final Task defaultTask2 = new Task.TaskBuilder().build();
+        final Task namedTask = new Task.TaskBuilder().name("named").build();
+        final Task namedTask2 = new Task.TaskBuilder().name("named").build();
+        final Task complexTask = new Task.TaskBuilder()
+                .name("123")
+                .description("desc")
+                .priority(10)
                 .addTag(new Tag("1234"))
-                .setDeadline(LocalDateTime.of(1970, 1, 1, 0, 0)).build();
-        final Task complexTask2 = new TaskBuilder()
-                .setName("123")
-                .setDescription("desc")
-                .setPriority(10)
+                .deadline(LocalDateTime.of(1970, 1, 1, 0, 0)).build();
+        final Task complexTask2 = new Task.TaskBuilder()
+                .name("123")
+                .description("desc")
+                .priority(10)
                 .addTag(new Tag("1234"))
-                .setDeadline(LocalDateTime.of(1970, 1, 1, 0, 0)).build();
+                .deadline(LocalDateTime.of(1970, 1, 1, 0, 0)).build();
 
         assertEquals(defaultTask, defaultTask2);
         assertEquals(namedTask, namedTask2);

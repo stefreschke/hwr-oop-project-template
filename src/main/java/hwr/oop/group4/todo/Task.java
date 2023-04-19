@@ -1,8 +1,8 @@
 package hwr.oop.group4.todo;
 
-import hwr.oop.group4.todo.builder.TaskBuilder;
-
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -18,14 +18,14 @@ public class Task {
     private final Set<Tag> tags;
     private Status status = Status.OPEN;
 
-    public Task(TaskBuilder taskBuilder) {
-        name = taskBuilder.getName();
-        description = taskBuilder.getDescription();
-        priority = taskBuilder.getPriority();
-        deadline = taskBuilder.getDeadline();
-        tags = taskBuilder.getTags();
-        if (taskBuilder.getProject() != null) {
-            taskBuilder.getProject().addTask(this);
+    private Task(String name, String description, LocalDateTime deadline, int priority, Set<Tag> tags, Project project) {
+        this.name = name;
+        this.description = description;
+        this.deadline = deadline;
+        this.priority = priority;
+        this.tags = tags;
+        if (project != null) {
+            project.addTask(this);
         }
     }
 
@@ -90,4 +90,63 @@ public class Task {
     public int hashCode() {
         return Objects.hash(name, description, priority, deadline, tags, status);
     }
+
+    public static class TaskBuilder {
+
+        private String name = "unnamed task";
+        private String description = "";
+        private LocalDateTime deadline = null;
+        private int priority = 0;
+        private final Set<Tag> tags = new HashSet<>();
+        private Project project;
+
+        public TaskBuilder() {
+        }
+
+        public TaskBuilder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public TaskBuilder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public TaskBuilder deadline(LocalDateTime deadline) {
+            this.deadline = deadline;
+            return this;
+        }
+
+        public TaskBuilder priority(int priority) {
+            this.priority = priority;
+            return this;
+        }
+
+        public TaskBuilder addTag(Tag tag) {
+            tags.add(tag);
+            return this;
+        }
+
+        public TaskBuilder addTags(Tag... tags) {
+            this.tags.addAll(Arrays.asList(tags));
+            return this;
+        }
+
+        public TaskBuilder project(Project project) {
+            this.project = project;
+            return this;
+        }
+
+        public TaskBuilder fromIdea(Idea idea) {
+            this.name = idea.getName();
+            this.description = idea.getDescription();
+            return this;
+        }
+
+        public Task build() {
+            return new Task(name, description, deadline, priority, tags, project);
+        }
+    }
+
 }
