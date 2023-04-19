@@ -3,6 +3,7 @@ package hwr.oop.group4.todo.ui;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -174,6 +175,74 @@ public class DialogHelperTest {
                 "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
                 "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
                 "Answer y/Y/yes or n/N/no (leave empty for: no): ");
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    // getYesNoFromUser()
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    @Test
+    void canReturnDefaultValue() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\n\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+        DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
+
+        LocalDateTime returnValue = dialogHelper.getLocalDateTimeFromUser("When is today?", true);
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(returnValue.getYear()).isEqualTo(LocalDateTime.now().getYear());
+        assertThat(returnValue.getMonth()).isEqualTo(LocalDateTime.now().getMonth());
+        assertThat(returnValue.getDayOfMonth()).isEqualTo(LocalDateTime.now().getDayOfMonth());
+
+        assertThat(output).isEqualTo("When is today?\n" +
+                "The current date/time will be used if you leave this empty.\n" +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
+                "The current date/time will be used if you leave this empty.\n" +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
+                "The current date/time will be used if you leave this empty.\n" +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': ");
+    }
+
+    @Test
+    void canAcceptDate() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("a\n12.15.2023\n12.12.2012\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+        DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
+
+        LocalDateTime returnValue = dialogHelper.getLocalDateTimeFromUser("When is today?", false);
+        String output = retrieveResultFrom(outputStream);
+
+        LocalDateTime expected = LocalDateTime.of(2012,12,12,12,12);
+        assertThat(returnValue.getYear()).isEqualTo(expected.getYear());
+        assertThat(returnValue.getMonth()).isEqualTo(expected.getMonth());
+        assertThat(returnValue.getDayOfMonth()).isEqualTo(expected.getDayOfMonth());
+
+        assertThat(output).isEqualTo("When is today?\n" +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': ");
+    }
+
+    @Test
+    void canAcceptDateWithTime() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("a\n12..2023\n12.12.2012 12:13\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+        DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
+
+        LocalDateTime returnValue = dialogHelper.getLocalDateTimeFromUser("When is today?", false);
+        String output = retrieveResultFrom(outputStream);
+
+        LocalDateTime expected = LocalDateTime.of(2012,12,12,12,13);
+        assertThat(returnValue.getYear()).isEqualTo(expected.getYear());
+        assertThat(returnValue.getMonth()).isEqualTo(expected.getMonth());
+        assertThat(returnValue.getDayOfMonth()).isEqualTo(expected.getDayOfMonth());
+        assertThat(returnValue.getHour()).isEqualTo(expected.getHour());
+        assertThat(returnValue.getMinute()).isEqualTo(expected.getMinute());
+
+        assertThat(output).isEqualTo("When is today?\n" +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': ");
     }
 
 }

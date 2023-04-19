@@ -1,6 +1,11 @@
 package hwr.oop.group4.todo.ui;
 
 import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -75,4 +80,31 @@ public class DialogHelper {
             }
         }
     }
+
+    public LocalDateTime getLocalDateTimeFromUser(String question, boolean useNowAsDefault) {
+        while (true) {
+            out.println(question);
+            if (useNowAsDefault) {
+                out.println("The current date/time will be used if you leave this empty.");
+            }
+            out.print("Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': ");
+            String input = in.nextLine();
+
+            if (input.equals("")) {
+                return LocalDateTime.now();
+            }
+
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm");
+                return LocalDateTime.parse(input, formatter);
+            } catch (DateTimeParseException ignore) { }
+
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu");
+                LocalDate localDate = LocalDate.parse(input, formatter);
+                return LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
+            } catch (DateTimeParseException ignore) { }
+        }
+    }
+
 }
