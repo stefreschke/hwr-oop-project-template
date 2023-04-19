@@ -41,6 +41,7 @@ public class ProjectUi {
                     listProjects();
                     break;
                 case "new":
+                    newProject();
                     break;
                 case "tasks":
                     break;
@@ -78,4 +79,23 @@ public class ProjectUi {
         tags.stream().forEach(tag -> stringBuilder.append(tag.getName()));
         return stringBuilder.toString();
     }
+
+    private void newProject() {
+        out.print("Enter a name:        ");
+        String name = in.nextLine();
+        out.print("Enter a description: ");
+        String desc = in.nextLine();
+        LocalDateTime begin = dialogHelper.getLocalDateTimeFromUser("When should the project begin?", true);
+        LocalDateTime end = dialogHelper.getLocalDateTimeFromUser("When should the project end?", false);
+
+        Project project = new Project.ProjectBuilder()
+                .name(name)
+                .description(desc)
+                .begin(begin)
+                .end(end)
+                .build();
+
+        todoList.addProject(project);
+    }
+
 }
