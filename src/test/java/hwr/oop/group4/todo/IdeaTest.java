@@ -17,12 +17,18 @@ class IdeaTest {
     }
 
     @Test
-    void createIdeaWithNull() {
+    void createIdeaWithNameNull() {
         assertThatThrownBy(() -> new Idea(null)).isInstanceOf(TodoRuntimeException.class);
     }
+
     @Test
-    void createIdeaWithDesTwoNull(){
-        assertThatThrownBy(() -> new Idea(null, null)).isInstanceOf(TodoRuntimeException.class);
+    void createIdeaWithDescNull(){
+        assertThatThrownBy(() -> new Idea("valid name", null)).isInstanceOf(TodoRuntimeException.class);
+    }
+
+    @Test
+    void createIdeaWithNameBlank() {
+        assertThatThrownBy(() -> new Idea("    ")).isInstanceOf(TodoRuntimeException.class);
     }
 
     @Test
