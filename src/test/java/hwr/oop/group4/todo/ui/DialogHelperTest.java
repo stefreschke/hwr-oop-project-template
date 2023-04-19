@@ -20,6 +20,9 @@ public class DialogHelperTest {
         return new ByteArrayInputStream(inputInBytes);
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    // getValidIdFromUser()
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
     @Test
     void canGetId() {
         Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\n4\n"));
@@ -35,6 +38,9 @@ public class DialogHelperTest {
                 "This is a prompt.");
     }
 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    // getMenuSelectionFromUser()
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
     @Test
     void canPrintAMenu() {
         Scanner inputStream = new Scanner(createInputStreamForInput("a\nadd\n"));
@@ -56,6 +62,105 @@ public class DialogHelperTest {
                 "                           add - add something\n" +
                 "                        delete - delete something\n" +
                 "input> input> ");
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    // getYesNoFromUser()
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Test
+    void canGetDefaultYes() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\n\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+        DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
+
+        boolean returnValue = dialogHelper.getYesNoFromUser("To be, or not to be?", true);
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(returnValue).isEqualTo(true);
+        assertThat(output).isEqualTo("To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): ");
+    }
+
+    @Test
+    void canGetDefaultNo() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\n\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+        DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
+
+        boolean returnValue = dialogHelper.getYesNoFromUser("To be, or not to be?", false);
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(returnValue).isEqualTo(false);
+        assertThat(output).isEqualTo("To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): ");
+    }
+
+    @Test
+    void canGetNo() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\nNO\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+        DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
+
+        boolean returnValue = dialogHelper.getYesNoFromUser("To be, or not to be?", true);
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(returnValue).isEqualTo(false);
+        assertThat(output).isEqualTo("To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): ");
+    }
+
+    @Test
+    void canGetYes() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\nyes\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+        DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
+
+        boolean returnValue = dialogHelper.getYesNoFromUser("To be, or not to be?", false);
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(returnValue).isEqualTo(true);
+        assertThat(output).isEqualTo("To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): ");
+    }
+
+    @Test
+    void canGetN() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\nn\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+        DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
+
+        boolean returnValue = dialogHelper.getYesNoFromUser("To be, or not to be?", true);
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(returnValue).isEqualTo(false);
+        assertThat(output).isEqualTo("To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): ");
+    }
+
+    @Test
+    void canGetY() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\nY\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+        DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
+
+        boolean returnValue = dialogHelper.getYesNoFromUser("To be, or not to be?", false);
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(returnValue).isEqualTo(true);
+        assertThat(output).isEqualTo("To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): ");
     }
 
 }

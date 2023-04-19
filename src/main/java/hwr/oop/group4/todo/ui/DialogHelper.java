@@ -50,4 +50,24 @@ public class DialogHelper {
         return input;
     }
 
+    public boolean getYesNoFromUser(String question, boolean defaultValue) {
+        String defaultValueString = (defaultValue) ? "yes" : "no";
+        while (true) {
+            out.println(question);
+            out.print("Answer y/Y/yes or n/N/no (leave empty for: " + defaultValueString + "): ");
+            String input = in.nextLine();
+
+            if (input.equals("")) {
+                return defaultValue;
+            }
+
+            input = input.toLowerCase();
+            if (input.equals("y") || input.equals("yes")) {
+                return true;
+            }
+            if (input.equals("n") || input.equals("no")) {
+                return false;
+            }
+        }
+    }
 }
