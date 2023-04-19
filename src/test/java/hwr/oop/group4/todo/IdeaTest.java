@@ -38,6 +38,7 @@ class IdeaTest {
 
         assertThat(abcIdea).isEqualTo(abcIdea2);
     }
+
     @Test
     void notEqual(){
         final Idea abcIdea = new Idea("abc");
@@ -45,6 +46,7 @@ class IdeaTest {
 
         assertThat(abcIdea).isNotEqualTo(differentIdea);
     }
+
     @Test
     void equalWithDes(){
         final Idea IdeaWithDesc = new Idea("abc", "desc");
