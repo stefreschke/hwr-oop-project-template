@@ -36,6 +36,8 @@ public class ProjectUi {
 
         while (true) {
             String input = dialogHelper.getMenuSelectionFromUser("Projects Menu", "projects> ", options);
+            int size = todoList.getProjects().size();
+            Integer id;
             switch (input) {
                 case "list":
                     listProjects();
@@ -44,10 +46,17 @@ public class ProjectUi {
                     newProject();
                     break;
                 case "tasks":
+                    // TODO: call upcoming TaskUi
                     break;
                 case "edit":
                     break;
                 case "remove":
+                    id = dialogHelper.getValidIdFromUser("Enter the ID of the project you wish to remove: ", size);
+                    if (id == null) {
+                        out.println("There are no projects to remove.");
+                    } else {
+                        removeProject(id);
+                    }
                     break;
                 case "quit":
                     return;
@@ -96,6 +105,14 @@ public class ProjectUi {
                 .build();
 
         todoList.addProject(project);
+    }
+
+    private void removeProject(int id) {
+        String projectName = todoList.getProjects().get(id).getName();
+        String confirmation = "Do you really want to remove " + projectName + "?";
+        if (dialogHelper.getYesNoFromUser(confirmation, false)) {
+            // TODO: delete a Project
+        }
     }
 
 }
