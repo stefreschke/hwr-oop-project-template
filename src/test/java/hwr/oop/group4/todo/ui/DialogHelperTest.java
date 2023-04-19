@@ -225,7 +225,7 @@ public class DialogHelperTest {
 
     @Test
     void canAcceptDateWithTime() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n12..2023\n12.12.2012 12:13\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("\n12..2023\n12.12.2012 12:13\n"));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 

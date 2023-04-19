@@ -90,7 +90,7 @@ public class DialogHelper {
             out.print("Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': ");
             String input = in.nextLine();
 
-            if (input.equals("")) {
+            if (useNowAsDefault && input.equals("")) {
                 return LocalDateTime.now();
             }
 
