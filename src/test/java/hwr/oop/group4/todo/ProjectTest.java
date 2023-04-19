@@ -7,10 +7,10 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProjectTest {
+    private final LocalDateTime beginAt = LocalDateTime.of(1900, 10, 11, 20, 21);
+    private final LocalDateTime endAt = LocalDateTime.of(2500, 12, 21, 22, 24);
 
     private Project createProject() {
-        final LocalDateTime beginAt = LocalDateTime.of(1900, 10, 11, 20, 21);
-        final LocalDateTime endAt = LocalDateTime.of(2500, 12, 21, 22, 24);
 
         return new Project.ProjectBuilder()
                 .name("myProject")
@@ -50,8 +50,6 @@ class ProjectTest {
 
     @Test
     void canGetTime() {
-        final LocalDateTime beginAt = LocalDateTime.of(1900, 10, 11, 20, 21);
-        final LocalDateTime endAt = LocalDateTime.of(2500, 12, 21, 22, 24);
         final Project project = createProject();
 
         assertThat(project.getBegin()).isEqualTo(beginAt);

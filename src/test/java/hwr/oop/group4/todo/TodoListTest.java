@@ -68,7 +68,6 @@ class TodoListTest {
         final Project projectA = new Project.ProjectBuilder().name("name").description("desc").build();
         final Project projectB = new Project.ProjectBuilder().name("name").description("desc").build();
 
-
         todo.addSomedayMaybeProject(projectA);
         todo.addSomedayMaybeProject(projectA);
         todo.addSomedayMaybeProject(projectB);
