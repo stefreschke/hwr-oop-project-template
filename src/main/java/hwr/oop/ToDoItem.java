@@ -3,43 +3,48 @@ package hwr.oop;
 import java.time.LocalDate;
 
 public class ToDoItem {
-
-    public String title;
-    public String description;
-    public String tag;
-    public boolean done;
-    public Priority priority;
-
-    public ToDoItem () {
-        this.title = "New Item";
-        this.description = "" + "\nCreated " + getLocalDate();
-        this.tag = "";
-        this.done = false;
-        this.priority = Priority.LOW;
+    public int getId() {
+        return id;
     }
 
-    // setter
-    void setTitle(String title) {
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+    private final int id;
+    private final String title;
+    private final String description;
+    private final String tag;
+    private final boolean done;
+    private final Priority priority;
+
+    public ToDoItem (int id, String title, String description, String tag, boolean done, Priority priority) {
+        this.id = id;
         this.title = title;
-    }
-
-    void setDescription(String description) {
-        this.description = description;
-    }
-    void setTag(String tag) {
+        this.description = description + "\nCreated " + getLocalDate();
         this.tag = tag;
-    }
-
-    void setDone(boolean done) {
         this.done = done;
-    }
-
-    void setPriority(Priority priority) {
         this.priority = priority;
     }
 
+    // setter
 
-    // getter
     static String getLocalDate() {
         return LocalDate.now().toString();
     }
