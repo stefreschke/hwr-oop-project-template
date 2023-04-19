@@ -25,6 +25,35 @@ public class ProjectUi {
     public void menu(TodoList todoList) {
         this.todoList = todoList;
         listProjects();
+
+        Map<String, String> options = new LinkedHashMap<>();
+        options.put("list",   "List all projects.");
+        options.put("new",    "Add a new project.");
+        options.put("tasks",  "Open the task menu for a project.");
+        options.put("edit",   "Edit the attributes of a project.");
+        options.put("remove", "Remove a project.");
+        options.put("quit",   "Quit to the previous menu.");
+
+        while (true) {
+            String input = dialogHelper.getMenuSelectionFromUser("Projects Menu", "projects> ", options);
+            switch (input) {
+                case "list":
+                    listProjects();
+                    break;
+                case "new":
+                    break;
+                case "tasks":
+                    break;
+                case "edit":
+                    break;
+                case "remove":
+                    break;
+                case "quit":
+                    return;
+                default:
+                    break;
+            }
+        }
     }
 
     private void listProjects() {
