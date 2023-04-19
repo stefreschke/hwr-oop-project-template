@@ -14,8 +14,12 @@ public class DialogHelper {
         this.in = in;
     }
 
-    public int getValidIdFromUser(String prompt, int maxId) {
-        Integer id = null;
+    public Integer getValidIdFromUser(String prompt, int size) {
+        if (size == 0) {
+            return null;
+        }
+
+        Integer id;
         do {
             out.print(prompt);
             String input = in.nextLine();
@@ -23,8 +27,8 @@ public class DialogHelper {
             try {
                 id = Integer.valueOf(input);
 
-                if (id < 0 || id > maxId) {
-                    out.println("Invalid index. (Must be between 0 and " + maxId + ")");
+                if (id < 0 || id >= size) {
+                    out.println("Invalid index. (Must be between (inclusive) 0 and " + (size-1) + ")");
                     id = null;
                 }
             } catch (NumberFormatException e) {
@@ -32,6 +36,7 @@ public class DialogHelper {
                 id = null;
             }
         } while (id == null);
+
         return id;
     }
 

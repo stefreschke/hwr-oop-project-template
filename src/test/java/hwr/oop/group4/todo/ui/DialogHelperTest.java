@@ -34,8 +34,21 @@ public class DialogHelperTest {
 
         assertThat(returnValue).isEqualTo(4);
         assertThat(output).isEqualTo("This is a prompt.Invalid index. (Must be a number)\n" +
-                "This is a prompt.Invalid index. (Must be between 0 and 12)\n" +
+                "This is a prompt.Invalid index. (Must be between (inclusive) 0 and 11)\n" +
                 "This is a prompt.");
+    }
+
+    @Test
+    void canRecognizeEdgeCase() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\n0\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+        DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
+
+        Integer returnValue = dialogHelper.getValidIdFromUser("This is a prompt.", 0);
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(returnValue).isEqualTo(null);
+        assertThat(output).isEqualTo("");
     }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +63,7 @@ public class DialogHelperTest {
         String message = "This is a message.";
         String inputPrefix = "input> ";
 
-        Map<String, String> options = new HashMap<String, String>();
+        Map<String, String> options = new HashMap<>();
         options.put("add", "add something");
         options.put("delete", "delete something");
 
