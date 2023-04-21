@@ -132,4 +132,97 @@ class ConsoleUserInterfaceTest {
                 "main> ");
     }
 
+    @Test
+    void canOpenIntrayMenu() {
+        InputStream inputStream = createInputStreamForInput("\nintray\nquit\n");
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ConsoleUserInterface ui = new ConsoleUserInterface(outputStream, inputStream);
+        ui.mainMenu();
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "Do you want to load from a file? (Otherwise create an empty todo list)\n" +
+                        "Answer y/Y/yes or n/N/no (leave empty for: no): Main Menu\n" +
+                        "                        intray - \n" +
+                        "                         tasks - \n" +
+                        "                      projects - \n" +
+                        "                      calendar - \n" +
+                        "                          load - \n" +
+                        "                          save - \n" +
+                        "                          quit - Quit the program.\n" +
+                        "main> Main Menu\n" +
+                        "                        intray - \n" +
+                        "                         tasks - \n" +
+                        "                      projects - \n" +
+                        "                      calendar - \n" +
+                        "                          load - \n" +
+                        "                          save - \n" +
+                        "                          quit - Quit the program.\n" +
+                        "main> ");
+    }
+
+    @Test
+    void canOpenTasksMenu() {
+        InputStream inputStream = createInputStreamForInput("\ntasks\nquit\n");
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ConsoleUserInterface ui = new ConsoleUserInterface(outputStream, inputStream);
+        ui.mainMenu();
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "Do you want to load from a file? (Otherwise create an empty todo list)\n" +
+                        "Answer y/Y/yes or n/N/no (leave empty for: no): Main Menu\n" +
+                        "                        intray - \n" +
+                        "                         tasks - \n" +
+                        "                      projects - \n" +
+                        "                      calendar - \n" +
+                        "                          load - \n" +
+                        "                          save - \n" +
+                        "                          quit - Quit the program.\n" +
+                        "main> Main Menu\n" +
+                        "                        intray - \n" +
+                        "                         tasks - \n" +
+                        "                      projects - \n" +
+                        "                      calendar - \n" +
+                        "                          load - \n" +
+                        "                          save - \n" +
+                        "                          quit - Quit the program.\n" +
+                        "main> ");
+    }
+
+    @Test
+    void canOpenCalendarMenu() {
+        InputStream inputStream = createInputStreamForInput("\ncalendar\nquit\n");
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ConsoleUserInterface ui = new ConsoleUserInterface(outputStream, inputStream);
+        ui.mainMenu();
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "Do you want to load from a file? (Otherwise create an empty todo list)\n" +
+                        "Answer y/Y/yes or n/N/no (leave empty for: no): Main Menu\n" +
+                        "                        intray - \n" +
+                        "                         tasks - \n" +
+                        "                      projects - \n" +
+                        "                      calendar - \n" +
+                        "                          load - \n" +
+                        "                          save - \n" +
+                        "                          quit - Quit the program.\n" +
+                        "main> Main Menu\n" +
+                        "                        intray - \n" +
+                        "                         tasks - \n" +
+                        "                      projects - \n" +
+                        "                      calendar - \n" +
+                        "                          load - \n" +
+                        "                          save - \n" +
+                        "                          quit - Quit the program.\n" +
+                        "main> ");
+    }
+
 }
