@@ -130,12 +130,6 @@ public class ProjectUi {
     private void editProject(int id) {
         Project project = todoList.getProjects().get(id);
 
-        out.println("Name:        " + project.getName());
-        out.println("Description: " + project.getDescription());
-        out.println("Tags:        " + concatTagsToString(project.getTags()));
-        out.println("Begin:       " + project.getBegin().format(DateTimeFormatter.ofPattern("dd.MM.yyyy - HH:mm")));
-        out.println("End:         " + project.getEnd().format(DateTimeFormatter.ofPattern("dd.MM.yyyy - HH:mm")));
-
         Map<String, String> options = new LinkedHashMap<>();
         options.put("name",  "");
         options.put("desc",  "");
@@ -145,6 +139,12 @@ public class ProjectUi {
         options.put("quit",  "Quit to the previous menu.");
 
         while (true) {
+            out.println("Name:        " + project.getName());
+            out.println("Description: " + project.getDescription());
+            out.println("Tags:        " + concatTagsToString(project.getTags()));
+            out.println("Begin:       " + project.getBegin().format(DateTimeFormatter.ofPattern("dd.MM.yyyy - HH:mm")));
+            out.println("End:         " + project.getEnd().format(DateTimeFormatter.ofPattern("dd.MM.yyyy - HH:mm")));
+
             String input = dialogHelper.getMenuSelectionFromUser("Edit a project.", "projects> edit> ", options);
 
             // TODO: edit the project
