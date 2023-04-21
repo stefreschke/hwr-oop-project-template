@@ -17,7 +17,4 @@ public class GameState {
         gameStartTime = Instant.now();
     }
 
-    public void addPlayer(String name) {
-        players.add(new Player(name));
-    }
 }
