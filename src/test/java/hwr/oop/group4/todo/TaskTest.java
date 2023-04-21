@@ -5,46 +5,106 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class TaskTest {
-
     @Test
     void buildDefaultTask() {
         final Task task = new TaskBuilder().build();
 
-        assertEquals("unnamed task", task.getName());
-        assertEquals("", task.getDescription());
-        assertEquals(0, task.getPriority());
-        assertNull(task.getDeadline());
-        assertEquals(0, task.getTags().size());
-        assertEquals(Status.OPEN, task.getStatus());
+        assertThat(task.getDeadline()).isNull();
     }
 
     @Test
-    void buildTask() {
-        final LocalDateTime deadline = LocalDateTime.now().plusMonths(2);
-        final Tag testTagA = new Tag("tagA");
-        final Tag testTagB = new Tag("123");
-        final Tag testTagC = new Tag("2345");
-        final Task task = new TaskBuilder()
-                .setName("named task")
-                .setDescription("desc")
-                .setPriority(10)
-                .setDeadline(deadline)
-                .addTag(testTagA)
-                .addTags(testTagB, testTagC)
-                .build();
+    void equalName() {
+        final Task task = new TaskBuilder().build();
 
-        assertEquals("named task", task.getName());
-        assertEquals("desc", task.getDescription());
-        assertEquals(10, task.getPriority());
-        assertEquals(deadline, task.getDeadline());
-        assertEquals(3, task.getTags().size());
-        assertTrue(task.getTags().contains(testTagA));
-        assertTrue(task.getTags().contains(testTagB));
-        assertTrue(task.getTags().contains(testTagC));
-        assertEquals(task.getStatus(), Status.OPEN);
+        assertThat("unnamed task").isEqualTo(task.getName());
+    }
+
+    @Test
+    void getPriority() {
+        final Task task = new TaskBuilder().build();
+
+        assertThat(0).isEqualTo(task.getPriority());
+    }
+
+    @Test
+    void getTags() {
+        final Task task = new TaskBuilder().build();
+
+        assertThat(0).isEqualTo(task.getTags().size());
+    }
+
+    @Test
+    void getDescription() {
+        final Task task = new TaskBuilder().build();
+
+        assertThat("").isEqualTo(task.getDescription());
+    }
+
+    @Test
+    void getStatus() {
+        final Task task = new TaskBuilder().build();
+
+        assertThat(Status.OPEN).isEqualTo(task.getStatus());
+    }
+
+    @Test
+    void getNameFrom() {
+        Task task = new TaskBuilder().setName("named task").build();
+
+        assertThat(task.getName()).isEqualTo("named task");
+    }
+
+    @Test
+    void getDescFrom() {
+        Task task = new TaskBuilder().setDescription("desc").build();
+
+        assertThat(task.getDescription()).isEqualTo("desc");
+    }
+
+    @Test
+    void getPriorityFrom() {
+        Task task = new TaskBuilder().setPriority(10).build();
+
+        assertThat(task.getPriority()).isEqualTo(10);
+    }
+
+    @Test
+    void canAddOneTag() {
+        final Tag tag = new Tag("tagA");
+        final Task task = new TaskBuilder().addTag(tag).build();
+
+        assertThat(task.getTags()).contains(tag);
+        assertThat(task.getTags().size()).isEqualTo(1);
+    }
+
+    @Test
+    void canAddMoreTags() {
+        final Tag tag = new Tag("tagA");
+        final Tag tag2 = new Tag("tagB");
+        final Task task = new TaskBuilder().addTags(tag, tag2).build();
+
+        assertThat(task.getTags()).contains(tag);
+        assertThat(task.getTags()).contains(tag2);
+    }
+
+    @Test
+    void canGetTagsSize() {
+        final Tag tag = new Tag("tagA");
+        final Tag tag2 = new Tag("tagB");
+        final Task task = new TaskBuilder().addTags(tag, tag2).build();
+
+        assertThat(task.getTags().size()).isEqualTo(2);
+    }
+
+    @Test
+    void getDeadline() {
+        final LocalDateTime deadline = LocalDateTime.now().plusMonths(2);
+        final Task task = new TaskBuilder().setDeadline(deadline).build();
+
+        assertThat(task.getDeadline()).isEqualTo(deadline);
     }
 
     @Test
@@ -52,26 +112,49 @@ class TaskTest {
         final Idea idea = new Idea("Name from idea", "name from Description");
         final Task task = new TaskBuilder().fromIdea(idea).build();
 
-        assertEquals("Name from idea", task.getName());
-        assertEquals("name from Description", task.getDescription());
+        assertThat(task.getName()). isEqualTo("Name from idea");
+        assertThat(task.getDescription()).isEqualTo("name from Description");
     }
 
     @Test
     void buildTaskInProject() {
         final Project project = new Project("project", "desc");
         final Task taskInProject = new TaskBuilder().setName("task1").setProject(project).build();
-        final Task taskWithoutProject = new TaskBuilder().setName("task2").build();
 
-        assertTrue(project.getTasks().contains(taskInProject));
-        assertFalse(project.getTasks().contains(taskWithoutProject));
+        assertThat(project.getTasks()).contains(taskInProject);
+
     }
 
     @Test
-    void equals() {
+    void buildTaskNotInProject() {
+        final Project project = new Project("project", "desc");
+        final Task taskWithoutProject = new TaskBuilder().setName("task2").build();
+
+        assertThat(project.getTasks()).doesNotContain(taskWithoutProject);
+    }
+
+    @Test
+    void compareTwoSimpleTasks() {
         final Task defaultTask = new TaskBuilder().build();
         final Task defaultTask2 = new TaskBuilder().build();
-        final Task namedTask = new TaskBuilder().setName("named").build();
-        final Task namedTask2 = new TaskBuilder().setName("named").build();
+        final Task dtask = new TaskBuilder().setName("name").build();
+
+        assertThat(defaultTask).isEqualTo(defaultTask2);
+        assertThat(defaultTask).isNotEqualTo(dtask);
+    }
+
+    @Test
+    void compareStatusNotEqual() {
+        final Task defaultTask = new TaskBuilder().build();
+        final Task defaultTask2 = new TaskBuilder().build();
+        defaultTask2.setStatus(Status.CLOSED);
+
+        assertThat(defaultTask).isNotEqualTo(defaultTask2);
+    }
+
+    @Test
+    void compareTwoComplexTasks() {
+        final  Task task = new TaskBuilder().setName("Hallo!").build();
         final Task complexTask = new TaskBuilder()
                 .setName("123")
                 .setDescription("desc")
@@ -85,17 +168,8 @@ class TaskTest {
                 .addTag(new Tag("1234"))
                 .setDeadline(LocalDateTime.of(1970, 1, 1, 0, 0)).build();
 
-        assertEquals(defaultTask, defaultTask2);
-        assertEquals(namedTask, namedTask2);
-        assertEquals(complexTask, complexTask2);
-
-        complexTask2.setStatus(Status.CLOSED);
-
-        assertNotEquals(defaultTask, namedTask);
-        assertNotEquals(defaultTask, complexTask);
-        assertNotEquals(defaultTask, complexTask2);
-        assertNotEquals(namedTask, complexTask);
-        assertNotEquals(namedTask, complexTask2);
-        assertNotEquals(complexTask, complexTask2);
+        assertThat(complexTask).isEqualTo(complexTask2);
+        assertThat(complexTask).isNotEqualTo(task);
     }
+
 }
