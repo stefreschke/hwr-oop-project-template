@@ -34,7 +34,7 @@ class ConsoleControllerTest {
         final Optional<String> input = consoleController.input(List.of("pre1", "pre2", "3"), "prompt");
         final String output = retrieveResultFrom(outputStream);
         assertThat(output).isEqualTo("prompt" + System.lineSeparator() + "pre1/pre2/3:> ");
-        assertThat(input).contains("test input");
+        assertThat(input).hasValue("test input");
     }
 
     @Test
@@ -46,7 +46,7 @@ class ConsoleControllerTest {
         final Optional<String> input = consoleController.input(List.of("pre1", "pre2", "3"));
         final String output = retrieveResultFrom(outputStream);
         assertThat(output).isEqualTo("pre1/pre2/3:> ");
-        assertThat(input).contains("test input");
+        assertThat(input).hasValue("test input");
     }
 
     @Test
@@ -56,7 +56,6 @@ class ConsoleControllerTest {
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
         final Optional<String> input = consoleController.input(List.of(""));
-        final String output = retrieveResultFrom(outputStream);
         assertThat(input).isEmpty();
     }
 
