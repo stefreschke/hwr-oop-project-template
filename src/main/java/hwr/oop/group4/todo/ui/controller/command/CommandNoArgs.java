@@ -1,7 +1,6 @@
 package hwr.oop.group4.todo.ui.controller.command;
 
 import java.util.Collection;
-import java.util.List;
 
 public class CommandNoArgs implements Command {
 
