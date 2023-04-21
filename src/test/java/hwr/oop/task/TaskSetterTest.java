@@ -1,12 +1,12 @@
 package hwr.oop.task;
 
 import hwr.oop.project.Project;
+import hwr.oop.project.ProjectBuilder;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -67,7 +67,7 @@ public class TaskSetterTest {
                 .setTitle("Title")
                 .setDescription("Description")
                 .build();
-        final Project project = new Project("Name", LocalDateTime.now(), LocalDate.now());
+        final Project project = new ProjectBuilder().build();
         task.changeProject(project);
         Project taskProject = task.getProject();
         TaskStatus taskStatus = task.getStatus();
@@ -81,8 +81,8 @@ public class TaskSetterTest {
                 .setTitle("Title")
                 .setDescription("Description")
                 .build();
-        final Project project = new Project("Name", LocalDateTime.now(), LocalDate.now());
-        final Project secondProject = new Project("Name", LocalDateTime.now(), LocalDate.now());
+        final Project project = new ProjectBuilder().build();
+        final Project secondProject = new ProjectBuilder().build();
         task.changeProject(project);
         task.changeProject(secondProject);
         Project taskProject = task.getProject();
