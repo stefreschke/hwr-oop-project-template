@@ -440,4 +440,37 @@ public class ProjectUiTest {
                 "projects> ");
     }
 
+    @Test
+    void canOpenTaskMenu() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("tasks\nquit\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ui.menu(getExampleTodoList(true));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
+                        "====================================================================================\n" +
+                        " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
+                        " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
+                        "Projects Menu\n" +
+                        "                          list - List all projects.\n" +
+                        "                           new - Add a new project.\n" +
+                        "                         tasks - Open the task menu for a project.\n" +
+                        "                          edit - Edit the attributes of a project.\n" +
+                        "                        remove - Remove a project.\n" +
+                        "                          quit - Quit to the previous menu.\n" +
+                        "projects> " +
+                        "Projects Menu\n" +
+                        "                          list - List all projects.\n" +
+                        "                           new - Add a new project.\n" +
+                        "                         tasks - Open the task menu for a project.\n" +
+                        "                          edit - Edit the attributes of a project.\n" +
+                        "                        remove - Remove a project.\n" +
+                        "                          quit - Quit to the previous menu.\n" +
+                        "projects> ");
+    }
+
 }
