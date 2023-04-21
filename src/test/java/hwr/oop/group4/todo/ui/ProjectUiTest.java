@@ -186,4 +186,139 @@ public class ProjectUiTest {
                 "projects> ");
     }
 
+    @Test
+    void cannotEditEmptyProjectList() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("edit\nquit\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ui.menu(getExampleTodoList(false));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+        "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
+                "====================================================================================\n" +
+                "Projects Menu\n" +
+                "                          list - List all projects.\n" +
+                "                           new - Add a new project.\n" +
+                "                         tasks - Open the task menu for a project.\n" +
+                "                          edit - Edit the attributes of a project.\n" +
+                "                        remove - Remove a project.\n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> There are no projects to edit.\n" +
+                "Projects Menu\n" +
+                "                          list - List all projects.\n" +
+                "                           new - Add a new project.\n" +
+                "                         tasks - Open the task menu for a project.\n" +
+                "                          edit - Edit the attributes of a project.\n" +
+                "                        remove - Remove a project.\n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> ");
+    }
+
+    @Test
+    void canEditProject() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("edit\n1\nname\ndesc\ntags\nbegin\nend\nquit\nquit\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ui.menu(getExampleTodoList(true));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
+                "====================================================================================\n" +
+                " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
+                " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
+                "Projects Menu\n" +
+                "                          list - List all projects.\n" +
+                "                           new - Add a new project.\n" +
+                "                         tasks - Open the task menu for a project.\n" +
+                "                          edit - Edit the attributes of a project.\n" +
+                "                        remove - Remove a project.\n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> Enter the ID of the project you wish to edit: Name:        proj\n" +
+                "Description: qwer\n" +
+                "Tags:        \n" +
+                "Begin:       22.12.2003 - 05:45\n" +
+                "End:         10.01.2014 - 12:12\n" +
+                "Edit a project.\n" +
+                "                          name - \n" +
+                "                          desc - \n" +
+                "                          tags - \n" +
+                "                         begin - \n" +
+                "                           end - \n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> edit> Name:        proj\n" +
+                "Description: qwer\n" +
+                "Tags:        \n" +
+                "Begin:       22.12.2003 - 05:45\n" +
+                "End:         10.01.2014 - 12:12\n" +
+                "Edit a project.\n" +
+                "                          name - \n" +
+                "                          desc - \n" +
+                "                          tags - \n" +
+                "                         begin - \n" +
+                "                           end - \n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> edit> Name:        proj\n" +
+                "Description: qwer\n" +
+                "Tags:        \n" +
+                "Begin:       22.12.2003 - 05:45\n" +
+                "End:         10.01.2014 - 12:12\n" +
+                "Edit a project.\n" +
+                "                          name - \n" +
+                "                          desc - \n" +
+                "                          tags - \n" +
+                "                         begin - \n" +
+                "                           end - \n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> edit> Name:        proj\n" +
+                "Description: qwer\n" +
+                "Tags:        \n" +
+                "Begin:       22.12.2003 - 05:45\n" +
+                "End:         10.01.2014 - 12:12\n" +
+                "Edit a project.\n" +
+                "                          name - \n" +
+                "                          desc - \n" +
+                "                          tags - \n" +
+                "                         begin - \n" +
+                "                           end - \n" +
+                "                          quit - Quit to the previous menu.\n" +
+        "projects> edit> Name:        proj\n" +
+        "Description: qwer\n" +
+        "Tags:        \n" +
+        "Begin:       22.12.2003 - 05:45\n" +
+        "End:         10.01.2014 - 12:12\n" +
+        "Edit a project.\n" +
+                "                          name - \n" +
+                "                          desc - \n" +
+                "                          tags - \n" +
+                "                         begin - \n" +
+                "                           end - \n" +
+                "                          quit - Quit to the previous menu.\n" +
+        "projects> edit> Name:        proj\n" +
+        "Description: qwer\n" +
+        "Tags:        \n" +
+        "Begin:       22.12.2003 - 05:45\n" +
+        "End:         10.01.2014 - 12:12\n" +
+        "Edit a project.\n" +
+                "                          name - \n" +
+                "                          desc - \n" +
+                "                          tags - \n" +
+                "                         begin - \n" +
+                "                           end - \n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> edit> Projects Menu\n" +
+                "                          list - List all projects.\n" +
+                "                           new - Add a new project.\n" +
+                "                         tasks - Open the task menu for a project.\n" +
+                "                          edit - Edit the attributes of a project.\n" +
+                "                        remove - Remove a project.\n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> ");
+    }
+
 }
