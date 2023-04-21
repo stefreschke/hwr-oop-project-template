@@ -29,15 +29,23 @@ public class Round {
     static final Scanner gameScanner = new Scanner(System.in);
     public static List<Integer> extraRounds = new ArrayList<>();
 
-    public Round playRound(int points, int th){
-        playedState = game.setState(th, points);
+    public Round playRound(BowlingStates state, Player player){
         Round currentRound;
-        if (playedState.equals(BowlingStates.STRIKE)) {
+        playedState= state;
+        if (state.equals(BowlingStates.STRIKE)) {
+            System.out.println("Strike! " + 10 + " points added");
+            player.extraRounds.add(roundNumber + 1);
+            player.extraRounds.add(roundNumber + 2);
+            player.currentPoints += 10;
             currentRound = new Round(roundNumber, 10);
-        } else {
-            roundPoints += points;
-            playedState = game.setState(th,(pinsTotal-roundPoints));
-            currentRound = new Round(roundNumber, roundPoints);
+        } else if(state.equals(BowlingStates.SPARE)){
+            System.out.println("Spare! " + 10 + " points added");
+            player.extraRounds.add(roundNumber + 1);
+            currentRound = new Round(roundNumber, 10);
+            player.currentPoints += 10;
+        }
+        else{
+            currentRound = new Round(roundNumber, player.currentPoints);
         }
         return currentRound;
     }

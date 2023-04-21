@@ -42,52 +42,48 @@ public class Game {
                 System.out.println("Round " + roundNumber + "  " + player.name + " is playing." + "\n They have " +
                         player.currentPoints + " points.\n First throw");
                 int points =countPoints(convertArray(gameScanner.nextLine()));
-                Round currentRound= new Round(roundNumber, points);
-                currentRound.playRound(1, points);
+                Round currentRound= new Round(roundNumber, player.currentPoints);
+                currentRound.playRound(setState(1, points), player);
                 if(currentRound.getPlayedState().equals(BowlingStates.STRIKE)){
-                    System.out.println("Strike! " + 10 + " points added");
-                    player.extraRounds.add(roundNumber + 1);player.extraRounds.add(roundNumber + 2);
+                    player.rounds.add(currentRound);
+                    continue;
                 }else{
                     points +=countPoints(convertArray(gameScanner.nextLine()));
-                    currentRound = currentRound.playRound(2, points);
+                    currentRound = currentRound.playRound(setState(2, points), player);
                     if(currentRound.getPlayedState().equals(BowlingStates.SPARE)){
-                        System.out.println("Spare! " + 10 + " points added");
                         player.extraRounds.add(roundNumber + 1);
                     }else{
+                        player.currentPoints += currentRound.roundPoints;
                         System.out.println((pinsTotal - currentRound.getRoundPoints()) + " pins left. "+ points + " points added");
                     }
                 }
                 player.rounds.add(currentRound);
-                player.currentPoints += currentRound.roundPoints;
             }
         }
         for (Player player : players) {
-            Round lastRound = new Round(10, 0);
             System.out.println("Last round! "+player.name+" is playing " + "\n Round 10" + "\n Which pins did you hit in the first throw ?");
             int points  = countPoints(convertArray(gameScanner.nextLine()));
-            lastRound.playRound(points,1);
-            if (lastRound.getPlayedState().equals(BowlingStates.STRIKE)) {
+            BowlingStates state = setState(1, points);
+            if (state.equals(BowlingStates.STRIKE)) {
                 System.out.println(player.name+" has two additional throws.");
-                points = 0;
                 for(int th= 0; th<2; th++){
                     System.out.println("Throw number "+ (th+1));
                     points += countPoints(convertArray(gameScanner.nextLine()));
-                    lastRound.playRound(points, (th+1));
-                    player.rounds.add(lastRound);
                 }
             }else{
-                System.out.println("Pins left: " + (pinsTotal-lastRound.roundPoints) + "\n Which pins got hit in the second throw?");
+                System.out.println("Pins left: " + (pinsTotal-points) + "\n Which pins got hit in the second throw?");
                 points += countPoints(convertArray(gameScanner.nextLine()));
-                lastRound.playRound(points,2);
-                if(lastRound.getPlayedState().equals(BowlingStates.SPARE)){
+                state = setState(2, points);
+                if(state.equals(BowlingStates.SPARE)){
                     System.out.println("Spare!You have one additional throw");
-                    lastRound.playRound(countPoints(convertArray(gameScanner.nextLine())),1);
-                    player.rounds.add(lastRound);
+                    points += countPoints(convertArray(gameScanner.nextLine()));
                 }else{
-                    System.out.println((pinsTotal - lastRound.getRoundPoints()) + " pins left. "+ lastRound.roundPoints + " points added");
+                    System.out.println((pinsTotal - points) + " pins left. "+ points + " points added");
                 }
             }
+            Round lastRound = new Round(points, 10);
             player.rounds.add(lastRound);
+            player.currentPoints += points;
         }
         for (Player player : players) {
             player.calculatePlayerResults(player);

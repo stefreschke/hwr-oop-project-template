@@ -3,6 +3,8 @@ package hwr.oop;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class RoundTest {
@@ -13,6 +15,7 @@ public class RoundTest {
     private  final Round strikeRound = new Round(roundNumber, allPins);
     private  final Round spareRound = new Round(roundNumber, allPins);
 
+
     @Test
     void newRoundTest() {
         Round testRound = new Round(roundNumber, points);
@@ -22,18 +25,31 @@ public class RoundTest {
 
     @Test
     void normalRoundTest() {
-        final int firstThrow = 1;
-        Round normalTestRound = round.playRound(points, firstThrow);
+        final BowlingStates normalState = BowlingStates.NORMAL;
+        final BowlingStates spareState = BowlingStates.SPARE;
+        final BowlingStates strikeState = BowlingStates.STRIKE;
+
+        Player player = new Player("Anna",points, new ArrayList<>(), new ArrayList<>());
+        final List<Integer> extraStrikeRounds = List.of(2,3);
+        final List<Integer> extraSpareRounds = List.of(2, 3, 2);
+
+        Round normalTestRound = round.playRound(normalState, player);
         Assertions.assertThat(normalTestRound.getRoundNumber()).isEqualTo(round.getRoundNumber());
         Assertions.assertThat(normalTestRound.getRoundPoints()).isEqualTo(round.getRoundPoints());
+        Assertions.assertThat(player.extraRounds).isNullOrEmpty();
+        Assertions.assertThat(player.currentPoints).isEqualTo(5);
 
-        Round strikeTestRound = round.playRound(allPins, firstThrow);
-        Assertions.assertThat(strikeTestRound.getRoundNumber()).isEqualTo(strikeRound.getRoundNumber());
-        Assertions.assertThat(strikeTestRound.getRoundPoints()).isEqualTo(strikeRound.getRoundPoints());
-
-        final int secondThrow = 2;
-        Round spareTestRound = round.playRound(allPins, secondThrow);
-        Assertions.assertThat(spareTestRound.getRoundNumber()).isEqualTo(spareRound.getRoundNumber());
+        Round strikeTestRound = round.playRound(strikeState, player);
+        Assertions.assertThat(strikeTestRound.getRoundNumber()).isEqualTo(spareRound.getRoundNumber());
         Assertions.assertThat(strikeTestRound.getRoundPoints()).isEqualTo(spareRound.getRoundPoints());
+        Assertions.assertThat(player.extraRounds).containsExactlyInAnyOrderElementsOf(extraStrikeRounds);
+        Assertions.assertThat(player.currentPoints).isEqualTo(points+allPins);
+
+        Round spareTestRound = round.playRound(spareState, player);
+        Assertions.assertThat(spareTestRound.getRoundNumber()).isEqualTo(strikeRound.getRoundNumber());
+        Assertions.assertThat(spareTestRound.getRoundPoints()).isEqualTo(strikeRound.getRoundPoints());
+        Assertions.assertThat(player.extraRounds).containsExactlyInAnyOrderElementsOf(extraSpareRounds);
+        Assertions.assertThat(player.currentPoints).isEqualTo(points+allPins+allPins);
+
     }
 }
