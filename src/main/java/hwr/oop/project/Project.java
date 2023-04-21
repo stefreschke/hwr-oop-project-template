@@ -2,60 +2,61 @@ package hwr.oop.project;
 
 import hwr.oop.task.Task;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Project {
+    private String title;
+    private String description;
+    private final LocalDateTime dateTimeCreated;
+    private LocalDateTime dateTimeDeadline;
+    private Set<Task> tasks = new HashSet<>();
 
-    String name;
-    LocalDateTime time;
-    public List<Task> tasks = new ArrayList<Task>();
-    LocalDate date;
-
-    public Project(String name, LocalDateTime time, LocalDate date){
-        this.name = name;
-        this.time = time;
-        this.date = date;
+    protected Project(String title, String description, LocalDateTime deadline) {
+        this.title = title;
+        this.description = description;
+        this.dateTimeDeadline = deadline;
+        this.dateTimeCreated = LocalDateTime.now();
     }
 
-
-    public void addTask(Task task){
+    public void addTask(Task task) {
         this.tasks.add(task);
     }
+
     public void removeTask(Task task) {
         this.tasks.remove(task);
     }
-    public LocalDate getDate() {
-        return this.date;
+
+    public void changeTitle(String title) {
+        this.title = title;
     }
 
-    public String getName() {
-        return name;
+    public void changeDescription(String description) {
+        this.description = description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void changeDeadline(LocalDateTime deadline) {
+        this.dateTimeDeadline = deadline;
     }
 
-    public LocalDateTime getTime() {
-        return time;
+    public String getTitle() {
+        return this.title;
     }
 
-    public void setTime(LocalDateTime time) {
-        this.time = time;
+    public String getDescription() {
+        return this.description;
     }
 
-    public List<Task> getTasks() {
-        return tasks;
+    public LocalDateTime getDateTimeCreated() {
+        return this.dateTimeCreated;
     }
 
-    public void setTasks(List<Task> tasks) {
-        this.tasks = tasks;
+    public LocalDateTime getDeadline() {
+        return this.dateTimeDeadline;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public Set<Task> getTasks() {
+        return this.tasks;
     }
 }

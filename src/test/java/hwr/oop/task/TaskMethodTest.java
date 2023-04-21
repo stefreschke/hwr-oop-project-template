@@ -1,11 +1,11 @@
 package hwr.oop.task;
 
 import hwr.oop.project.Project;
+import hwr.oop.project.ProjectBuilder;
 import hwr.oop.tag.Tag;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -91,7 +91,7 @@ public class TaskMethodTest {
                 .setTitle("Title")
                 .setDescription("Description")
                 .build();
-        final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
+        final Project project = new ProjectBuilder().build();
         task.changeProject(project);
         task.toFurtherStatus();
         TaskStatus status = task.getStatus();
@@ -107,7 +107,7 @@ public class TaskMethodTest {
                     .setTitle("Title")
                     .setDescription("Description")
                     .build();
-            final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
+            final Project project = new ProjectBuilder().build();
             task.changeProject(project);
             task.finishTask();
             task.toPreviousStatus();
@@ -123,7 +123,7 @@ public class TaskMethodTest {
                     .setTitle("Title")
                     .setDescription("Description")
                     .build();
-            final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
+            final Project project = new ProjectBuilder().build();
             task.changeProject(project);
             task.toFurtherStatus();
             task.toPreviousStatus();
@@ -138,7 +138,7 @@ public class TaskMethodTest {
                 .setTitle("Title")
                 .setDescription("Description")
                 .build();
-        final Project project = new Project("Project", LocalDateTime.now(), LocalDate.now());
+        final Project project = new ProjectBuilder().build();
         task.changeProject(project);
         task.removeFromProject();
         Project taskProject = task.getProject();
