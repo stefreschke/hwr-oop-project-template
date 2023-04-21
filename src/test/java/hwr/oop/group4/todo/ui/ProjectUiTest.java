@@ -321,4 +321,123 @@ public class ProjectUiTest {
                 "projects> ");
     }
 
+    @Test
+    void cannotRemoveEmptyProjectList() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("remove\nquit\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ui.menu(getExampleTodoList(false));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
+                        "====================================================================================\n" +
+                        "Projects Menu\n" +
+                        "                          list - List all projects.\n" +
+                        "                           new - Add a new project.\n" +
+                        "                         tasks - Open the task menu for a project.\n" +
+                        "                          edit - Edit the attributes of a project.\n" +
+                        "                        remove - Remove a project.\n" +
+                        "                          quit - Quit to the previous menu.\n" +
+                        "projects> There are no projects to remove.\n" +
+                        "Projects Menu\n" +
+                        "                          list - List all projects.\n" +
+                        "                           new - Add a new project.\n" +
+                        "                         tasks - Open the task menu for a project.\n" +
+                        "                          edit - Edit the attributes of a project.\n" +
+                        "                        remove - Remove a project.\n" +
+                        "                          quit - Quit to the previous menu.\n" +
+                        "projects> ");
+    }
+
+    @Test
+    void canRejectRemovalOfProject() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("remove\n1\n\nlist\nquit\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ui.menu(getExampleTodoList(true));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
+                        "====================================================================================\n" +
+                        " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
+                        " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
+                        "Projects Menu\n" +
+                        "                          list - List all projects.\n" +
+                        "                           new - Add a new project.\n" +
+                        "                         tasks - Open the task menu for a project.\n" +
+                        "                          edit - Edit the attributes of a project.\n" +
+                        "                        remove - Remove a project.\n" +
+                        "                          quit - Quit to the previous menu.\n" +
+                        "projects> Enter the ID of the project you wish to remove: Do you really want to remove proj?\n" +
+                        "Answer y/Y/yes or n/N/no (leave empty for: no): Projects Menu\n" +
+                        "                          list - List all projects.\n" +
+                        "                           new - Add a new project.\n" +
+                        "                         tasks - Open the task menu for a project.\n" +
+                        "                          edit - Edit the attributes of a project.\n" +
+                        "                        remove - Remove a project.\n" +
+                        "                          quit - Quit to the previous menu.\n" +
+                        "projects> ID | Name            | Description                    | Tags       | Begin  | End   \n" +
+                        "====================================================================================\n" +
+                        " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
+                        " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
+                        "Projects Menu\n" +
+                        "                          list - List all projects.\n" +
+                        "                           new - Add a new project.\n" +
+                        "                         tasks - Open the task menu for a project.\n" +
+                        "                          edit - Edit the attributes of a project.\n" +
+                        "                        remove - Remove a project.\n" +
+                        "                          quit - Quit to the previous menu.\n" +
+                        "projects> ");
+    }
+
+    @Test
+    void canRemoveProject() {
+        Scanner inputStream = new Scanner(createInputStreamForInput("remove\n1\ny\nlist\nquit\n"));
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ui.menu(getExampleTodoList(true));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+        "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
+                "====================================================================================\n" +
+                " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
+                " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
+                "Projects Menu\n" +
+                "                          list - List all projects.\n" +
+                "                           new - Add a new project.\n" +
+                "                         tasks - Open the task menu for a project.\n" +
+                "                          edit - Edit the attributes of a project.\n" +
+                "                        remove - Remove a project.\n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> Enter the ID of the project you wish to remove: Do you really want to remove proj?\n" +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): Projects Menu\n" +
+                "                          list - List all projects.\n" +
+                "                           new - Add a new project.\n" +
+                "                         tasks - Open the task menu for a project.\n" +
+                "                          edit - Edit the attributes of a project.\n" +
+                "                        remove - Remove a project.\n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> ID | Name            | Description                    | Tags       | Begin  | End   \n" +
+                "====================================================================================\n" +
+                " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
+                " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
+                "Projects Menu\n" +
+                "                          list - List all projects.\n" +
+                "                           new - Add a new project.\n" +
+                "                         tasks - Open the task menu for a project.\n" +
+                "                          edit - Edit the attributes of a project.\n" +
+                "                        remove - Remove a project.\n" +
+                "                          quit - Quit to the previous menu.\n" +
+                "projects> ");
+    }
+
 }
