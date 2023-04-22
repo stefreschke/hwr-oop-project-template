@@ -28,51 +28,79 @@ Features follow the "getting things done" method
 classDiagram
 Tags <|-- |> Project
 Project <|-- |> Task
-Tags <|-- |> Task
-Task : String title
-Task : String description
-Task : TaskStatus status
-Task : Project project
-Task : Set<Tag> tags
-Task : LocalDateTime dateCreated
-Task : LocalDateTime datDone
-Task : LocalDateTime datePlannedStart
-Task : LocalDateTime datePlannedEnd
-Task : LocalDateTime deadline
-Task : finishTask()
-Task : addTag()
-Task : removeTag()
-Task : toFurtherStatus()
-Task : toPreviousStatus()
-Task : removeFromProject()
-Task : getTitle()
-Task : getDescription()
-Task : getStatus()
-Task : getPriority()
-Task : getProject()
-Task : getTags()
-Task : getDateCreated()
-Task : getDateDone()
-Task : getDatePlannedStart()
-Task : getDatePlannedEnd()
-Task : getDeadline()
-Task : setTitle()
-Task : setDescription()
-Task : setPriority()
-Task : setPlannedDate()
-Task : setDeadline()
-Task : setProject()
-Tags : int Name
-Tags : setTag()
-Tags : getTag()
-Project : int CreateDate
-Project : int TaskList
-Project : int Name
-Project : int Deadline
-Project : setProject()
-Project : getProject()
-Project : addTask()
-Project : removeTask()
+Tags <|-- Task
+Task <|-- TaskBuilder
+Project <|-- ProjectBuilder
+TaskBuilder : - String title
+TaskBuilder : - String description
+TaskBuilder : - LocalDateTime dateTimeDeadline
+TaskBuilder : - TaskPriority priority
+TaskBuilder : - LocalDateTime dateTimePlannedStart
+TaskBuilder : - LocalDateTime dateTimePlannedEnd
+TaskBuilder : + setTitle(String title)
+TaskBuilder : + setDescription(String description)
+TaskBuilder : + setDateTimeDeadline(LocalDateTime deadline)
+TaskBuilder : + setPriority(TaskPriority priority)
+TaskBuilder : + setDateTimePlannedStart(LocalDateTime startDateTime)
+TaskBuilder : + setDateTimePlannedEnd(LocalDateTime endDateTime)
+TaskBuilder : + build()
+Task : -String title
+Task : -String description
+Task : -TaskStatus status
+Task : -Project project
+Task : -Set<Tag> tags
+Task : -LocalDateTime dateTimeCreated
+Task : -LocalDateTime dateTimeDone
+Task : -LocalDateTime dateTimePlannedStart
+Task : -LocalDateTime dateTimePlannedEnd
+Task : -LocalDateTime deadline
+Task : +finishTask()
+Task : +addTag(Tag tag)
+Task : +removeTag(Tag tag)
+Task : +toFurtherStatus()
+Task : +toPreviousStatus()
+Task : +removeFromProject()
+Task : +getTitle()
+Task : +getDescription()
+Task : +getStatus()
+Task : +getPriority()
+Task : +getProject()
+Task : +getTags()
+Task : +getDateCreated()
+Task : +getDateDone()
+Task : +getDatePlannedStart()
+Task : +getDatePlannedEnd()
+Task : +getDeadline()
+Task : +setTitle(String title)
+Task : +setDescription(String description)
+Task : +setPriority(TaskPriority priority)
+Task : +setPlannedDate(LocalDateTime startDate, LocalDateTime endDate)
+Task : +setDeadline(LocalDateTime deadline)
+Task : +changeProject(Project project)
+Tags : -String Name
+Tags : +getTitle()
+Project : -String title
+Project : -String description
+Project : -LocalDateTime dateTimeCreated
+Project : -LocalDateTime dateTimeDeadline
+Project : -Set<Task> tasks
+Project : +addTask(Task task)
+Project : +removeTask(Task task)
+Project : +changeTitle(String title)
+Project : +changeDescription(String description)
+Project : +changeDeadline(LocalDateTime deadline)
+Project : +getTitle()
+Project : +getDescription()
+Project : +getDateTimeCreated()
+Project : +getDeadline()
+Project : +getTasks()
+ProjectBuilder : -String title
+ProjectBuilder : -String description
+ProjectBuilder : -LocalDateTime deadline
+ProjectBuilder : +setTitle(String title)
+ProjectBuilder : +setDescription(String description)
+ProjectBuilder : +setDeadline(LocalDateTime deadline)
+ProjectBuilder : +build()
 ```
 ## Feature List
 
@@ -84,6 +112,8 @@ Project : removeTask()
 | 2      | Project | Need Improvement     |
 | 3      | Tags    | /     |
 | 4      | Database| /     |
+|5|Database Handler|/|
+|6|IO Handler|/|
 
 
 ## Additional Dependencies
