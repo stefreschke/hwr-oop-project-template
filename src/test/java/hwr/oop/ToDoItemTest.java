@@ -74,5 +74,3 @@ class ToDoItemTest {
         assertThat(testPriority).isEqualTo(Priority.HIGH);
     }
 }
-
-
