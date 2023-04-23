@@ -7,11 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameTest {
-    private final int th = 1;
-    private final int extraRoundPoints = 10;
-    private final String pinsHit ="3 5 6";
+
     private  final List<Boolean> pinsH =List.of(true,true,false,true,false,false,true,true,true,true);
-    private final int points = 3;
     private final String playerNames = "Anna Annika Friedrich";
 
     private final BowlingStates strikeState = BowlingStates.STRIKE;
@@ -19,11 +16,13 @@ public class GameTest {
 
     @Test
     void setStateTest() {
+        int th = 1;
         BowlingStates state = game.setState(th, 10);
         Assertions.assertThat(state).isEqualTo(strikeState);
     }
     @Test
     void convertArrayTest() {
+        String pinsHit = "3 5 6";
         List<Boolean> pins = game.convertArray(pinsHit);
         Assertions.assertThat(pins).containsExactlyInAnyOrderElementsOf(pinsH);
     }
@@ -56,7 +55,4 @@ public class GameTest {
         Assertions.assertThat(player.name).isEqualTo(winner.name);
         Assertions.assertThat(player.currentPoints).isEqualTo(winner.currentPoints);
     }
-
-
-
 }

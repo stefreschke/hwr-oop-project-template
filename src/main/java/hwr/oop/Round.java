@@ -29,7 +29,7 @@ public class Round {
     static final Scanner gameScanner = new Scanner(System.in);
     public static List<Integer> extraRounds = new ArrayList<>();
 
-    public Round playRound(BowlingStates state, Player player){
+    public Round playNormalRound(BowlingStates state, Player player){
         Round currentRound;
         playedState= state;
         if (state.equals(BowlingStates.STRIKE)) {
@@ -49,6 +49,18 @@ public class Round {
         }
         return currentRound;
     }
+
+    public Round playRoundTen(BowlingStates state, Integer points){
+        Round lastRound;
+        if (state.equals(BowlingStates.STRIKE) ||state.equals(BowlingStates.SPARE)) {
+            lastRound = new Round(10, (10+points));
+        }
+        else{
+            lastRound = new Round(10, points);
+        }
+        return lastRound;
+    }
+
 }
 
 
