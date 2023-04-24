@@ -7,11 +7,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class List {
-    public String Name;
+    private String Name;
+    private ToDoItem[] ListToDos;
+
+
     String json;
 
     public void setName(String name) {
         this.Name = name;
+    }
+    public String getName() {
+        return this.Name;
     }
 
     public void writeToJSON() {
@@ -23,5 +29,13 @@ public class List {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void createToDo(String description, String title, boolean done, Priority priority) {
+        ToDoItem Todo = new ToDoItem();
+        Todo.setTitle(title);
+        Todo.setDescription(description);
+        Todo.setDone(done);
+        Todo.setPriority(priority);
     }
 }
