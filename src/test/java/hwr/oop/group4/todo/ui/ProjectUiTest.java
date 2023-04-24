@@ -44,7 +44,7 @@ public class ProjectUiTest {
 
     @Test
     void canListProjects() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("list\nquit\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("list" + System.lineSeparator() + "quit" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
@@ -53,34 +53,34 @@ public class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                "====================================================================================\n" +
-                " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                "Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                "====================================================================================\n" +
-                " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                "Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
+                "ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                "====================================================================================" + System.lineSeparator() +
+                " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                "Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                "====================================================================================" + System.lineSeparator() +
+                " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                "Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
                 "projects> ");
     }
 
     @Test
     void canCreateNewProject() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("new\nPeter\nParker\n12.12.2023\n24.12.2023\nno\nlist\nquit\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("new" + System.lineSeparator() + "Peter" + System.lineSeparator() + "Parker" + System.lineSeparator() + "12.12.2023" + System.lineSeparator() + "24.12.2023" + System.lineSeparator() + "no" + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
@@ -89,46 +89,46 @@ public class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-            "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                    "====================================================================================\n" +
-                    " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                    " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                    "Projects Menu\n" +
-                    "                          list - List all projects.\n" +
-                    "                           new - Add a new project.\n" +
-                    "                         tasks - Open the task menu for a project.\n" +
-                    "                          edit - Edit the attributes of a project.\n" +
-                    "                        remove - Remove a project.\n" +
-                    "                          quit - Quit to the previous menu.\n" +
-                    "projects> Enter a name:        Enter a description: When should the project begin?\n" +
-                    "The current date/time will be used if you leave this empty.\n" +
-                    "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When should the project end?\n" +
-                    "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': Do you want to open the edit menu to further customize the new project?\n" +
-                    "Answer y/Y/yes or n/N/no (leave empty for: no): Projects Menu\n" +
-                    "                          list - List all projects.\n" +
-                    "                           new - Add a new project.\n" +
-                    "                         tasks - Open the task menu for a project.\n" +
-                    "                          edit - Edit the attributes of a project.\n" +
-                    "                        remove - Remove a project.\n" +
-                    "                          quit - Quit to the previous menu.\n" +
-                    "projects> ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                    "====================================================================================\n" +
-                    " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                    " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                    " 2 |           Peter |                         Parker |            | 12.12. | 24.12.\n" +
-                    "Projects Menu\n" +
-                    "                          list - List all projects.\n" +
-                    "                           new - Add a new project.\n" +
-                    "                         tasks - Open the task menu for a project.\n" +
-                    "                          edit - Edit the attributes of a project.\n" +
-                    "                        remove - Remove a project.\n" +
-                    "                          quit - Quit to the previous menu.\n" +
+            "ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                    "====================================================================================" + System.lineSeparator() +
+                    " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                    " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                    "Projects Menu" + System.lineSeparator() +
+                    "                          list - List all projects." + System.lineSeparator() +
+                    "                           new - Add a new project." + System.lineSeparator() +
+                    "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                    "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                    "                        remove - Remove a project." + System.lineSeparator() +
+                    "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                    "projects> Enter a name:        Enter a description: When should the project begin?" + System.lineSeparator() +
+                    "The current date/time will be used if you leave this empty." + System.lineSeparator() +
+                    "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When should the project end?" + System.lineSeparator() +
+                    "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': Do you want to open the edit menu to further customize the new project?" + System.lineSeparator() +
+                    "Answer y/Y/yes or n/N/no (leave empty for: no): Projects Menu" + System.lineSeparator() +
+                    "                          list - List all projects." + System.lineSeparator() +
+                    "                           new - Add a new project." + System.lineSeparator() +
+                    "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                    "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                    "                        remove - Remove a project." + System.lineSeparator() +
+                    "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                    "projects> ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                    "====================================================================================" + System.lineSeparator() +
+                    " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                    " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                    " 2 |           Peter |                         Parker |            | 12.12. | 24.12." + System.lineSeparator() +
+                    "Projects Menu" + System.lineSeparator() +
+                    "                          list - List all projects." + System.lineSeparator() +
+                    "                           new - Add a new project." + System.lineSeparator() +
+                    "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                    "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                    "                        remove - Remove a project." + System.lineSeparator() +
+                    "                          quit - Quit to the previous menu." + System.lineSeparator() +
                     "projects> ");
     }
 
     @Test
     void canCreateNewProjectAndEdit() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("new\nPeter\nParker\n12.12.2023\n24.12.2023\nyes\nquit\nlist\nquit\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("new" + System.lineSeparator() + "Peter" + System.lineSeparator() + "Parker" + System.lineSeparator() + "12.12.2023" + System.lineSeparator() + "24.12.2023" + System.lineSeparator() + "yes" + System.lineSeparator() + "quit" + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
@@ -137,58 +137,58 @@ public class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-        "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                "====================================================================================\n" +
-                " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                "Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> Enter a name:        Enter a description: When should the project begin?\n" +
-                "The current date/time will be used if you leave this empty.\n" +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When should the project end?\n" +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': Do you want to open the edit menu to further customize the new project?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: no): Name:        Peter\n" +
-                "Description: Parker\n" +
-                "Tags:        \n" +
-                "Begin:       12.12.2023 - 00:00\n" +
-                "End:         24.12.2023 - 00:00\n" +
-                "Edit a project.\n" +
-                "                          name - \n" +
-                "                          desc - \n" +
-                "                          tags - \n" +
-                "                         begin - \n" +
-                "                           end - \n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> edit> Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                "====================================================================================\n" +
-                " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                " 2 |           Peter |                         Parker |            | 12.12. | 24.12.\n" +
-                "Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
+        "ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                "====================================================================================" + System.lineSeparator() +
+                " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                "Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> Enter a name:        Enter a description: When should the project begin?" + System.lineSeparator() +
+                "The current date/time will be used if you leave this empty." + System.lineSeparator() +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When should the project end?" + System.lineSeparator() +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': Do you want to open the edit menu to further customize the new project?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): Name:        Peter" + System.lineSeparator() +
+                "Description: Parker" + System.lineSeparator() +
+                "Tags:        " + System.lineSeparator() +
+                "Begin:       12.12.2023 - 00:00" + System.lineSeparator() +
+                "End:         24.12.2023 - 00:00" + System.lineSeparator() +
+                "Edit a project." + System.lineSeparator() +
+                "                          name - " + System.lineSeparator() +
+                "                          desc - " + System.lineSeparator() +
+                "                          tags - " + System.lineSeparator() +
+                "                         begin - " + System.lineSeparator() +
+                "                           end - " + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> edit> Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                "====================================================================================" + System.lineSeparator() +
+                " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                " 2 |           Peter |                         Parker |            | 12.12. | 24.12." + System.lineSeparator() +
+                "Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
                 "projects> ");
     }
 
     @Test
     void cannotEditEmptyProjectList() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("edit\nquit\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("edit" + System.lineSeparator() + "quit" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
@@ -197,29 +197,29 @@ public class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-        "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                "====================================================================================\n" +
-                "Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> There are no projects to edit.\n" +
-                "Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
+        "ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                "====================================================================================" + System.lineSeparator() +
+                "Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> There are no projects to edit." + System.lineSeparator() +
+                "Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
                 "projects> ");
     }
 
     @Test
     void canEditProject() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("edit\n1\nname\ndesc\ntags\nbegin\nend\nquit\nquit\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("edit" + System.lineSeparator() + "1" + System.lineSeparator() + "name" + System.lineSeparator() + "desc" + System.lineSeparator() + "tags" + System.lineSeparator() + "begin" + System.lineSeparator() + "end" + System.lineSeparator() + "quit" + System.lineSeparator() + "quit" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
@@ -228,102 +228,102 @@ public class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                "====================================================================================\n" +
-                " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                "Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> Enter the ID of the project you wish to edit: Name:        proj\n" +
-                "Description: qwer\n" +
-                "Tags:        \n" +
-                "Begin:       22.12.2003 - 05:45\n" +
-                "End:         10.01.2014 - 12:12\n" +
-                "Edit a project.\n" +
-                "                          name - \n" +
-                "                          desc - \n" +
-                "                          tags - \n" +
-                "                         begin - \n" +
-                "                           end - \n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> edit> Name:        proj\n" +
-                "Description: qwer\n" +
-                "Tags:        \n" +
-                "Begin:       22.12.2003 - 05:45\n" +
-                "End:         10.01.2014 - 12:12\n" +
-                "Edit a project.\n" +
-                "                          name - \n" +
-                "                          desc - \n" +
-                "                          tags - \n" +
-                "                         begin - \n" +
-                "                           end - \n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> edit> Name:        proj\n" +
-                "Description: qwer\n" +
-                "Tags:        \n" +
-                "Begin:       22.12.2003 - 05:45\n" +
-                "End:         10.01.2014 - 12:12\n" +
-                "Edit a project.\n" +
-                "                          name - \n" +
-                "                          desc - \n" +
-                "                          tags - \n" +
-                "                         begin - \n" +
-                "                           end - \n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> edit> Name:        proj\n" +
-                "Description: qwer\n" +
-                "Tags:        \n" +
-                "Begin:       22.12.2003 - 05:45\n" +
-                "End:         10.01.2014 - 12:12\n" +
-                "Edit a project.\n" +
-                "                          name - \n" +
-                "                          desc - \n" +
-                "                          tags - \n" +
-                "                         begin - \n" +
-                "                           end - \n" +
-                "                          quit - Quit to the previous menu.\n" +
-        "projects> edit> Name:        proj\n" +
-        "Description: qwer\n" +
-        "Tags:        \n" +
-        "Begin:       22.12.2003 - 05:45\n" +
-        "End:         10.01.2014 - 12:12\n" +
-        "Edit a project.\n" +
-                "                          name - \n" +
-                "                          desc - \n" +
-                "                          tags - \n" +
-                "                         begin - \n" +
-                "                           end - \n" +
-                "                          quit - Quit to the previous menu.\n" +
-        "projects> edit> Name:        proj\n" +
-        "Description: qwer\n" +
-        "Tags:        \n" +
-        "Begin:       22.12.2003 - 05:45\n" +
-        "End:         10.01.2014 - 12:12\n" +
-        "Edit a project.\n" +
-                "                          name - \n" +
-                "                          desc - \n" +
-                "                          tags - \n" +
-                "                         begin - \n" +
-                "                           end - \n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> edit> Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
+                "ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                "====================================================================================" + System.lineSeparator() +
+                " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                "Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> Enter the ID of the project you wish to edit: Name:        proj" + System.lineSeparator() +
+                "Description: qwer" + System.lineSeparator() +
+                "Tags:        " + System.lineSeparator() +
+                "Begin:       22.12.2003 - 05:45" + System.lineSeparator() +
+                "End:         10.01.2014 - 12:12" + System.lineSeparator() +
+                "Edit a project." + System.lineSeparator() +
+                "                          name - " + System.lineSeparator() +
+                "                          desc - " + System.lineSeparator() +
+                "                          tags - " + System.lineSeparator() +
+                "                         begin - " + System.lineSeparator() +
+                "                           end - " + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> edit> Name:        proj" + System.lineSeparator() +
+                "Description: qwer" + System.lineSeparator() +
+                "Tags:        " + System.lineSeparator() +
+                "Begin:       22.12.2003 - 05:45" + System.lineSeparator() +
+                "End:         10.01.2014 - 12:12" + System.lineSeparator() +
+                "Edit a project." + System.lineSeparator() +
+                "                          name - " + System.lineSeparator() +
+                "                          desc - " + System.lineSeparator() +
+                "                          tags - " + System.lineSeparator() +
+                "                         begin - " + System.lineSeparator() +
+                "                           end - " + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> edit> Name:        proj" + System.lineSeparator() +
+                "Description: qwer" + System.lineSeparator() +
+                "Tags:        " + System.lineSeparator() +
+                "Begin:       22.12.2003 - 05:45" + System.lineSeparator() +
+                "End:         10.01.2014 - 12:12" + System.lineSeparator() +
+                "Edit a project." + System.lineSeparator() +
+                "                          name - " + System.lineSeparator() +
+                "                          desc - " + System.lineSeparator() +
+                "                          tags - " + System.lineSeparator() +
+                "                         begin - " + System.lineSeparator() +
+                "                           end - " + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> edit> Name:        proj" + System.lineSeparator() +
+                "Description: qwer" + System.lineSeparator() +
+                "Tags:        " + System.lineSeparator() +
+                "Begin:       22.12.2003 - 05:45" + System.lineSeparator() +
+                "End:         10.01.2014 - 12:12" + System.lineSeparator() +
+                "Edit a project." + System.lineSeparator() +
+                "                          name - " + System.lineSeparator() +
+                "                          desc - " + System.lineSeparator() +
+                "                          tags - " + System.lineSeparator() +
+                "                         begin - " + System.lineSeparator() +
+                "                           end - " + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+        "projects> edit> Name:        proj" + System.lineSeparator() +
+        "Description: qwer" + System.lineSeparator() +
+        "Tags:        " + System.lineSeparator() +
+        "Begin:       22.12.2003 - 05:45" + System.lineSeparator() +
+        "End:         10.01.2014 - 12:12" + System.lineSeparator() +
+        "Edit a project." + System.lineSeparator() +
+                "                          name - " + System.lineSeparator() +
+                "                          desc - " + System.lineSeparator() +
+                "                          tags - " + System.lineSeparator() +
+                "                         begin - " + System.lineSeparator() +
+                "                           end - " + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+        "projects> edit> Name:        proj" + System.lineSeparator() +
+        "Description: qwer" + System.lineSeparator() +
+        "Tags:        " + System.lineSeparator() +
+        "Begin:       22.12.2003 - 05:45" + System.lineSeparator() +
+        "End:         10.01.2014 - 12:12" + System.lineSeparator() +
+        "Edit a project." + System.lineSeparator() +
+                "                          name - " + System.lineSeparator() +
+                "                          desc - " + System.lineSeparator() +
+                "                          tags - " + System.lineSeparator() +
+                "                         begin - " + System.lineSeparator() +
+                "                           end - " + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> edit> Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
                 "projects> ");
     }
 
     @Test
     void cannotRemoveEmptyProjectList() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("remove\nquit\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("remove" + System.lineSeparator() + "quit" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
@@ -332,29 +332,29 @@ public class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                        "====================================================================================\n" +
-                        "Projects Menu\n" +
-                        "                          list - List all projects.\n" +
-                        "                           new - Add a new project.\n" +
-                        "                         tasks - Open the task menu for a project.\n" +
-                        "                          edit - Edit the attributes of a project.\n" +
-                        "                        remove - Remove a project.\n" +
-                        "                          quit - Quit to the previous menu.\n" +
-                        "projects> There are no projects to remove.\n" +
-                        "Projects Menu\n" +
-                        "                          list - List all projects.\n" +
-                        "                           new - Add a new project.\n" +
-                        "                         tasks - Open the task menu for a project.\n" +
-                        "                          edit - Edit the attributes of a project.\n" +
-                        "                        remove - Remove a project.\n" +
-                        "                          quit - Quit to the previous menu.\n" +
+                "ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                        "====================================================================================" + System.lineSeparator() +
+                        "Projects Menu" + System.lineSeparator() +
+                        "                          list - List all projects." + System.lineSeparator() +
+                        "                           new - Add a new project." + System.lineSeparator() +
+                        "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                        "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                        "                        remove - Remove a project." + System.lineSeparator() +
+                        "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                        "projects> There are no projects to remove." + System.lineSeparator() +
+                        "Projects Menu" + System.lineSeparator() +
+                        "                          list - List all projects." + System.lineSeparator() +
+                        "                           new - Add a new project." + System.lineSeparator() +
+                        "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                        "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                        "                        remove - Remove a project." + System.lineSeparator() +
+                        "                          quit - Quit to the previous menu." + System.lineSeparator() +
                         "projects> ");
     }
 
     @Test
     void canRejectRemovalOfProject() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("remove\n1\n\nlist\nquit\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("remove" + System.lineSeparator() + "1" + System.lineSeparator() + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
@@ -363,42 +363,42 @@ public class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                        "====================================================================================\n" +
-                        " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                        " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                        "Projects Menu\n" +
-                        "                          list - List all projects.\n" +
-                        "                           new - Add a new project.\n" +
-                        "                         tasks - Open the task menu for a project.\n" +
-                        "                          edit - Edit the attributes of a project.\n" +
-                        "                        remove - Remove a project.\n" +
-                        "                          quit - Quit to the previous menu.\n" +
-                        "projects> Enter the ID of the project you wish to remove: Do you really want to remove proj?\n" +
-                        "Answer y/Y/yes or n/N/no (leave empty for: no): Projects Menu\n" +
-                        "                          list - List all projects.\n" +
-                        "                           new - Add a new project.\n" +
-                        "                         tasks - Open the task menu for a project.\n" +
-                        "                          edit - Edit the attributes of a project.\n" +
-                        "                        remove - Remove a project.\n" +
-                        "                          quit - Quit to the previous menu.\n" +
-                        "projects> ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                        "====================================================================================\n" +
-                        " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                        " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                        "Projects Menu\n" +
-                        "                          list - List all projects.\n" +
-                        "                           new - Add a new project.\n" +
-                        "                         tasks - Open the task menu for a project.\n" +
-                        "                          edit - Edit the attributes of a project.\n" +
-                        "                        remove - Remove a project.\n" +
-                        "                          quit - Quit to the previous menu.\n" +
+                "ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                        "====================================================================================" + System.lineSeparator() +
+                        " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                        " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                        "Projects Menu" + System.lineSeparator() +
+                        "                          list - List all projects." + System.lineSeparator() +
+                        "                           new - Add a new project." + System.lineSeparator() +
+                        "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                        "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                        "                        remove - Remove a project." + System.lineSeparator() +
+                        "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                        "projects> Enter the ID of the project you wish to remove: Do you really want to remove proj?" + System.lineSeparator() +
+                        "Answer y/Y/yes or n/N/no (leave empty for: no): Projects Menu" + System.lineSeparator() +
+                        "                          list - List all projects." + System.lineSeparator() +
+                        "                           new - Add a new project." + System.lineSeparator() +
+                        "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                        "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                        "                        remove - Remove a project." + System.lineSeparator() +
+                        "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                        "projects> ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                        "====================================================================================" + System.lineSeparator() +
+                        " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                        " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                        "Projects Menu" + System.lineSeparator() +
+                        "                          list - List all projects." + System.lineSeparator() +
+                        "                           new - Add a new project." + System.lineSeparator() +
+                        "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                        "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                        "                        remove - Remove a project." + System.lineSeparator() +
+                        "                          quit - Quit to the previous menu." + System.lineSeparator() +
                         "projects> ");
     }
 
     @Test
     void canRemoveProject() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("remove\n1\ny\nlist\nquit\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("remove" + System.lineSeparator() + "1" + System.lineSeparator() + "y" + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
@@ -407,42 +407,42 @@ public class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-        "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                "====================================================================================\n" +
-                " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                "Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> Enter the ID of the project you wish to remove: Do you really want to remove proj?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: no): Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
-                "projects> ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                "====================================================================================\n" +
-                " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                "Projects Menu\n" +
-                "                          list - List all projects.\n" +
-                "                           new - Add a new project.\n" +
-                "                         tasks - Open the task menu for a project.\n" +
-                "                          edit - Edit the attributes of a project.\n" +
-                "                        remove - Remove a project.\n" +
-                "                          quit - Quit to the previous menu.\n" +
+        "ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                "====================================================================================" + System.lineSeparator() +
+                " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                "Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> Enter the ID of the project you wish to remove: Do you really want to remove proj?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
+                "projects> ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                "====================================================================================" + System.lineSeparator() +
+                " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                "Projects Menu" + System.lineSeparator() +
+                "                          list - List all projects." + System.lineSeparator() +
+                "                           new - Add a new project." + System.lineSeparator() +
+                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                "                        remove - Remove a project." + System.lineSeparator() +
+                "                          quit - Quit to the previous menu." + System.lineSeparator() +
                 "projects> ");
     }
 
     @Test
     void canOpenTaskMenu() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("tasks\nquit\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("tasks" + System.lineSeparator() + "quit" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
@@ -451,25 +451,25 @@ public class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                "ID | Name            | Description                    | Tags       | Begin  | End   \n" +
-                        "====================================================================================\n" +
-                        " 0 |            TEst |                           Desc |            | 12.12. | 12.12.\n" +
-                        " 1 |            proj |                           qwer |            | 22.12. | 10.01.\n" +
-                        "Projects Menu\n" +
-                        "                          list - List all projects.\n" +
-                        "                           new - Add a new project.\n" +
-                        "                         tasks - Open the task menu for a project.\n" +
-                        "                          edit - Edit the attributes of a project.\n" +
-                        "                        remove - Remove a project.\n" +
-                        "                          quit - Quit to the previous menu.\n" +
+                "ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
+                        "====================================================================================" + System.lineSeparator() +
+                        " 0 |            TEst |                           Desc |            | 12.12. | 12.12." + System.lineSeparator() +
+                        " 1 |            proj |                           qwer |            | 22.12. | 10.01." + System.lineSeparator() +
+                        "Projects Menu" + System.lineSeparator() +
+                        "                          list - List all projects." + System.lineSeparator() +
+                        "                           new - Add a new project." + System.lineSeparator() +
+                        "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                        "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                        "                        remove - Remove a project." + System.lineSeparator() +
+                        "                          quit - Quit to the previous menu." + System.lineSeparator() +
                         "projects> " +
-                        "Projects Menu\n" +
-                        "                          list - List all projects.\n" +
-                        "                           new - Add a new project.\n" +
-                        "                         tasks - Open the task menu for a project.\n" +
-                        "                          edit - Edit the attributes of a project.\n" +
-                        "                        remove - Remove a project.\n" +
-                        "                          quit - Quit to the previous menu.\n" +
+                        "Projects Menu" + System.lineSeparator() +
+                        "                          list - List all projects." + System.lineSeparator() +
+                        "                           new - Add a new project." + System.lineSeparator() +
+                        "                         tasks - Open the task menu for a project." + System.lineSeparator() +
+                        "                          edit - Edit the attributes of a project." + System.lineSeparator() +
+                        "                        remove - Remove a project." + System.lineSeparator() +
+                        "                          quit - Quit to the previous menu." + System.lineSeparator() +
                         "projects> ");
     }
 

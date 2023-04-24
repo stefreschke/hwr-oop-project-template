@@ -26,7 +26,7 @@ public class DialogHelperTest {
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     @Test
     void canGetId() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\n4\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "13" + System.lineSeparator() + "4" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -34,14 +34,14 @@ public class DialogHelperTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(returnValue).isEqualTo(4);
-        assertThat(output).isEqualTo("This is a prompt.Invalid index. (Must be a number)\n" +
-                "This is a prompt.Invalid index. (Must be between (inclusive) 0 and 11)\n" +
+        assertThat(output).isEqualTo("This is a prompt.Invalid index. (Must be a number)" + System.lineSeparator() +
+                "This is a prompt.Invalid index. (Must be between (inclusive) 0 and 11)" + System.lineSeparator() +
                 "This is a prompt.");
     }
 
     @Test
     void canRecognizeEdgeCase() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\n0\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "13" + System.lineSeparator() + "0" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -57,7 +57,7 @@ public class DialogHelperTest {
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     @Test
     void canPrintAMenu() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\nadd\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "add" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -72,9 +72,9 @@ public class DialogHelperTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(returnValue).isEqualTo("add");
-        assertThat(output).isEqualTo( "This is a message.\n" +
-                "                           add - add something\n" +
-                "                        delete - delete something\n" +
+        assertThat(output).isEqualTo( "This is a message." + System.lineSeparator() +
+                "                           add - add something" + System.lineSeparator() +
+                "                        delete - delete something" + System.lineSeparator() +
                 "input> input> ");
     }
 
@@ -83,7 +83,7 @@ public class DialogHelperTest {
     /////////////////////////////////////////////////////////////////////////////////////////////////////
     @Test
     void canGetDefaultYes() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\n\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "13" + System.lineSeparator() + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -91,15 +91,15 @@ public class DialogHelperTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(returnValue).isEqualTo(true);
-        assertThat(output).isEqualTo("To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
+        assertThat(output).isEqualTo("To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?" + System.lineSeparator() +
                 "Answer y/Y/yes or n/N/no (leave empty for: yes): ");
     }
 
     @Test
     void canGetDefaultNo() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\n\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "13" + System.lineSeparator() + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -107,15 +107,15 @@ public class DialogHelperTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(returnValue).isEqualTo(false);
-        assertThat(output).isEqualTo("To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
+        assertThat(output).isEqualTo("To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?" + System.lineSeparator() +
                 "Answer y/Y/yes or n/N/no (leave empty for: no): ");
     }
 
     @Test
     void canGetNo() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\nNO\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "13" + System.lineSeparator() + "NO" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -123,15 +123,15 @@ public class DialogHelperTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(returnValue).isEqualTo(false);
-        assertThat(output).isEqualTo("To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
+        assertThat(output).isEqualTo("To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?" + System.lineSeparator() +
                 "Answer y/Y/yes or n/N/no (leave empty for: yes): ");
     }
 
     @Test
     void canGetYes() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\nyes\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "13" + System.lineSeparator() + "yes" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -139,15 +139,15 @@ public class DialogHelperTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(returnValue).isEqualTo(true);
-        assertThat(output).isEqualTo("To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
+        assertThat(output).isEqualTo("To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?" + System.lineSeparator() +
                 "Answer y/Y/yes or n/N/no (leave empty for: no): ");
     }
 
     @Test
     void canGetN() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\nn\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "13" + System.lineSeparator() + "n" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -155,15 +155,15 @@ public class DialogHelperTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(returnValue).isEqualTo(false);
-        assertThat(output).isEqualTo("To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?\n" +
+        assertThat(output).isEqualTo("To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: yes): To be, or not to be?" + System.lineSeparator() +
                 "Answer y/Y/yes or n/N/no (leave empty for: yes): ");
     }
 
     @Test
     void canGetY() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\nY\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "13" + System.lineSeparator() + "Y" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -171,9 +171,9 @@ public class DialogHelperTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(returnValue).isEqualTo(true);
-        assertThat(output).isEqualTo("To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
-                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?\n" +
+        assertThat(output).isEqualTo("To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: no): To be, or not to be?" + System.lineSeparator() +
                 "Answer y/Y/yes or n/N/no (leave empty for: no): ");
     }
 
@@ -183,7 +183,7 @@ public class DialogHelperTest {
 
     @Test
     void canReturnDefaultValue() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n13\n\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "13" + System.lineSeparator() + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -194,18 +194,18 @@ public class DialogHelperTest {
         assertThat(returnValue.getMonth()).isEqualTo(LocalDateTime.now().getMonth());
         assertThat(returnValue.getDayOfMonth()).isEqualTo(LocalDateTime.now().getDayOfMonth());
 
-        assertThat(output).isEqualTo("When is today?\n" +
-                "The current date/time will be used if you leave this empty.\n" +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
-                "The current date/time will be used if you leave this empty.\n" +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
-                "The current date/time will be used if you leave this empty.\n" +
+        assertThat(output).isEqualTo("When is today?" + System.lineSeparator() +
+                "The current date/time will be used if you leave this empty." + System.lineSeparator() +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?" + System.lineSeparator() +
+                "The current date/time will be used if you leave this empty." + System.lineSeparator() +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?" + System.lineSeparator() +
+                "The current date/time will be used if you leave this empty." + System.lineSeparator() +
                 "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': ");
     }
 
     @Test
     void canAcceptDate() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("a\n12.15.2023\n12.12.2012\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput("a" + System.lineSeparator() + "12.15.2023" + System.lineSeparator() + "12.12.2012" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -217,15 +217,15 @@ public class DialogHelperTest {
         assertThat(returnValue.getMonth()).isEqualTo(expected.getMonth());
         assertThat(returnValue.getDayOfMonth()).isEqualTo(expected.getDayOfMonth());
 
-        assertThat(output).isEqualTo("When is today?\n" +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
+        assertThat(output).isEqualTo("When is today?" + System.lineSeparator() +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?" + System.lineSeparator() +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?" + System.lineSeparator() +
                 "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': ");
     }
 
     @Test
     void canAcceptDateWithTime() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("\n12..2023\n12.12.2012 12:13\n"));
+        Scanner inputStream = new Scanner(createInputStreamForInput(System.lineSeparator() + "12..2023" + System.lineSeparator() + "12.12.2012 12:13" + System.lineSeparator()));
         OutputStream outputStream = new ByteArrayOutputStream();
         DialogHelper dialogHelper = new DialogHelper(new PrintStream(outputStream), inputStream);
 
@@ -239,9 +239,9 @@ public class DialogHelperTest {
         assertThat(returnValue.getHour()).isEqualTo(expected.getHour());
         assertThat(returnValue.getMinute()).isEqualTo(expected.getMinute());
 
-        assertThat(output).isEqualTo("When is today?\n" +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?\n" +
+        assertThat(output).isEqualTo("When is today?" + System.lineSeparator() +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?" + System.lineSeparator() +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': When is today?" + System.lineSeparator() +
                 "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': ");
     }
 
