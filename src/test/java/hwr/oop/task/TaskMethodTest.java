@@ -23,7 +23,7 @@ public class TaskMethodTest {
                     .setTitle("Title")
                     .setDescription("Description")
                     .build();
-            final Tag tag = new Tag();
+            final Tag tag = new Tag("Title");
             task.addTag(tag);
             Set<Tag> tags = task.getTags();
             assertThat(tags).containsExactly(tag);
@@ -35,7 +35,7 @@ public class TaskMethodTest {
                     .setTitle("Title")
                     .setDescription("Description")
                     .build();
-            final Tag tag = new Tag();
+            final Tag tag = new Tag("Title");
             task.addTag(tag);
             task.addTag(tag);
             Set<Tag> tags = task.getTags();
@@ -48,8 +48,8 @@ public class TaskMethodTest {
                     .setTitle("Title")
                     .setDescription("Description")
                     .build();
-            final Tag tag = new Tag();
-            final Tag secondTag = new Tag();
+            final Tag tag = new Tag("Title");
+            final Tag secondTag = new Tag("Title");
             task.addTag(tag);
             task.addTag(secondTag);
             Set<Tag> tags = task.getTags();
@@ -63,8 +63,8 @@ public class TaskMethodTest {
                 .setTitle("Title")
                 .setDescription("Description")
                 .build();
-        final Tag tag = new Tag();
-        final Tag secondTag = new Tag();
+        final Tag tag = new Tag("Title");
+        final Tag secondTag = new Tag("Title");
         task.addTag(tag);
         task.addTag(secondTag);
         task.removeTag(secondTag);
