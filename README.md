@@ -23,8 +23,8 @@ The automated ranking will also take into account what activities the user has d
 
 | Number | Feature | Tests | Developer |
 |--------|---------|-------| --------- |
-| 1      | /       | /     | /         |
-| 2      | /       | /     | /         |
+| 1      | Save Lists to JSON          | JsonToListTest | @lukasklockenhoff |
+| 2      | Load Lists from JSON        | ListToJsonTest | @lukasklockenhoff |
 | 3      | /       | /     | /         |
 | 4      | /       | /     | /         |
 | 5      | /       | /     | /         |
@@ -40,7 +40,7 @@ The automated ranking will also take into account what activities the user has d
 
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
-| 1      | /               | /                      | /                    |
+| 1      | GSON | Googles Json Library for JAVA | Loading and Saving Lists |
 | 2      | /               | /                      | /                    |
 | 3      | /               | /                      | /                    |
 | 4      | /               | /                      | /                    |
