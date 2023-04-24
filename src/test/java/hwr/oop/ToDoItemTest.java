@@ -48,16 +48,16 @@ class ToDoItemTest {
     @Test
     void setTitleTest() {
         ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
-        item.setTitle("AssertTitle");
+        item.setTitle("Title");
         String testTitle = item.getTitle();
-        assertThat(testTitle).isEqualTo("AssertTitle");
+        assertThat(testTitle).isEqualTo("Title");
     }
     @Test
     void setDescriptionTest() {
         ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
         item.setDescription("Description");
         String testDescription = item.getDescription();
-        assertThat(testDescription).isEqualTo("Description\nCreated " + ToDoItem.getLocalDate());
+        assertThat(testDescription).isEqualTo("Description");
     }
     @Test
     void setDoneTest() {
