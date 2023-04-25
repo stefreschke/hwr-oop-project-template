@@ -64,7 +64,7 @@ public class ProjectUi {
 
             consoleController.inputOptions(List.of("projects"), List.of(
                     new Command("list", this::listProjects),
-                    new Command("new", ),
+                    new Command("new", this::newProject),
                     new Command("tasks", ),
                     new Command("edit", ),
                     new Command("remove", ),
@@ -106,13 +106,11 @@ public class ProjectUi {
         return stringBuilder.toString();
     }
 
-    private void newProject() {
-        out.print("Enter a name:        ");
-        String name = in.nextLine();
-        out.print("Enter a description: ");
-        String desc = in.nextLine();
-        LocalDateTime begin = dialogHelper.getLocalDateTimeFromUser("When should the project begin?", true);
-        LocalDateTime end = dialogHelper.getLocalDateTimeFromUser("When should the project end?", false);
+    private void newProject(Collection<Argument<?>> args) {
+        String name = consoleController.input(List.of("projects", "new", "name")).orElseThrow();
+        String desc = consoleController.input(List.of("projects", "new", "description")).orElseThrow();
+        LocalDateTime begin = consoleController.inputDate(List.of("projects", "new", "begin"));
+        LocalDateTime end = consoleController.inputDate(List.of("projects", "new", "end"));
 
         Project project = new Project.ProjectBuilder()
                 .name(name)
@@ -122,12 +120,6 @@ public class ProjectUi {
                 .build();
 
         todoList.addProject(project);
-        int newId = todoList.getProjects().indexOf(project);
-
-        String question = "Do you want to open the edit menu to further customize the new project?";
-        if (dialogHelper.getYesNoFromUser(question, false)) {
-            editProject(newId);
-        }
     }
 
     private void removeProject(int id) {
