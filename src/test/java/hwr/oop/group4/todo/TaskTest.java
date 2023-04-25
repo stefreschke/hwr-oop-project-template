@@ -111,7 +111,7 @@ class TaskTest {
         final Idea idea = new Idea("Name from idea", "name from Description");
         final Task task = new Task.TaskBuilder().fromIdea(idea).build();
 
-        assertThat(task.getName()). isEqualTo("Name from idea");
+        assertThat(task.getName()).isEqualTo("Name from idea");
         assertThat(task.getDescription()).isEqualTo("name from Description");
     }
 
@@ -146,14 +146,14 @@ class TaskTest {
     void compareStatusNotEqual() {
         final Task defaultTask = new Task.TaskBuilder().build();
         final Task defaultTask2 = new Task.TaskBuilder().build();
-        defaultTask2.setStatus(Status.CLOSED);
+        defaultTask2.closed();
 
         assertThat(defaultTask).isNotEqualTo(defaultTask2);
     }
 
     @Test
     void compareTwoComplexTasks() {
-        final  Task task = new Task.TaskBuilder().name("Hallo!").build();
+        final Task task = new Task.TaskBuilder().name("Hallo!").build();
         final Task complexTask = new Task.TaskBuilder()
                 .name("123")
                 .description("desc")
