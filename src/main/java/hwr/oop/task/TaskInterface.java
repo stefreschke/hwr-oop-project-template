@@ -24,9 +24,12 @@ public interface TaskInterface {
     LocalDateTime getDateTimePlannedStart();
     LocalDateTime getDateTimePlannedEnd();
     LocalDateTime getDateTimeDeadline();
-    void setTitle(String title);
-    void setDescription(String description);
-    void setPriority(TaskPriority priority);
-    void setPlannedDateTime(LocalDateTime startDate, LocalDateTime endDate);
-    void setDateTimeDeadline(LocalDateTime dateTimeDeadline);
+    void changeTitle(String title);
+    void changeDescription(String description);
+    void changePriority(TaskPriority priority);
+    void changePlannedDateTime(LocalDateTime startDate, LocalDateTime endDate);
+    void changeDateTimeDeadline(LocalDateTime dateTimeDeadline);
+    long getTimePlanned();
+    long getTimeUntilDeadline();
+    void changeProject(Project project);
 }
