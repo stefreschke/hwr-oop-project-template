@@ -2,7 +2,6 @@ package hwr.oop.group4.todo;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TodoListTest {
