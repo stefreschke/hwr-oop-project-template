@@ -72,7 +72,7 @@ class TodoListTest {
         todo.addSomedayMaybeProject(projectA);
         todo.addSomedayMaybeProject(projectB);
 
-        assertEquals(2, todo.getMaybeList().size());
+        assertEquals(3, todo.getMaybeList().size());
         assertTrue(todo.getMaybeList().contains(projectA));
         assertTrue(todo.getMaybeList().contains(projectB));
     }
