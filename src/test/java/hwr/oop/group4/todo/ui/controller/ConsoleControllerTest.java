@@ -112,4 +112,24 @@ class ConsoleControllerTest {
         assertThat(output).isEqualTo("Test Output Line" + System.lineSeparator());
     }
 
+    @Test
+    void inputBoolDefaultTest() {
+        final InputStream inputStream = createInputStreamForInput("");
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", true);
+        assertThat(returnValue).isTrue();
+    }
+
+    @Test
+    void inputBoolNoTest() {
+        final InputStream inputStream = createInputStreamForInput("dfjewoi" + System.lineSeparator() + "no" + System.lineSeparator());
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", true);
+        assertThat(returnValue).isFalse();
+    }
+
 }

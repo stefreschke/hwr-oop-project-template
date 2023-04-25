@@ -1,6 +1,7 @@
 package hwr.oop.group4.todo.ui.controller;
 
 import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
+import hwr.oop.group4.todo.commons.exceptions.TodoUiRuntimeException;
 import hwr.oop.group4.todo.ui.controller.command.Argument;
 import hwr.oop.group4.todo.ui.controller.command.Command;
 
@@ -53,6 +54,25 @@ public class ConsoleController {
 
     public Optional<String> input(List<String> prefixes) {
         return input(prefixes, null);
+    }
+
+    public boolean inputBool(List<String> prefixes, String prompt, boolean defaultValue) {
+        String defaultValueString = (defaultValue) ? "yes" : "no";
+        while (true) {
+            outputLine(prompt);
+            output("Answer y/Y/yes or n/N/no (leave empty for: " + defaultValueString + "): ");
+            String input = input(prefixes).orElse(defaultValueString);
+
+            if (input.isBlank()) {
+                return defaultValue;
+            }
+            if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")) {
+                return true;
+            }
+            if (input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no")) {
+                return false;
+            }
+        }
     }
 
     public Optional<String> input(List<String> prefixes, String prompt) {
