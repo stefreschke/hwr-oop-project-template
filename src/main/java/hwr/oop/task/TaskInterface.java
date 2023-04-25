@@ -32,4 +32,5 @@ public interface TaskInterface {
     long getTimePlanned();
     long getTimeUntilDeadline();
     void changeProject(Project project);
+    long getTimeOpen();
 }

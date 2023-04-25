@@ -68,6 +68,16 @@ public class Task implements TaskInterface {
         return diff.toMinutes();
     }
 
+    public long getTimeOpen() {
+        Duration durationDiff;
+        if (this.dateTimeDone == null) {
+            durationDiff = Duration.between(LocalDateTime.now(), this.dateTimeCreated);
+        } else {
+            durationDiff = Duration.between(this.dateTimeDone, this.dateTimeCreated);
+        }
+        return Math.abs(durationDiff.toMinutes());
+    }
+
     public void toPreviousStatus() {
         if (this.status == TaskStatus.DONE) {
             this.status = TaskStatus.IN_PROGRESS;
