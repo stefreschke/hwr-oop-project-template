@@ -1,8 +1,18 @@
 package hwr.oop.todo;
 
+import java.io.InputStream;
+import java.util.Scanner;
+
 public class IOController {
-    IOMenuState currentMenu = IOMenuState.MAIN;
 
+    Scanner scanner;
 
+    public IOController (InputStream in){
+        this.scanner = new Scanner(in);
+    }
+
+    public String getInput(){
+        return this.scanner.nextLine();
+    }
 
 }
