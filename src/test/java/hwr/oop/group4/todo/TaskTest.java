@@ -172,5 +172,4 @@ class TaskTest {
         assertThat(complexTask).isEqualTo(complexTask2);
         assertThat(complexTask).isNotEqualTo(task);
     }
-
 }
