@@ -21,7 +21,7 @@ public class TaskSetterTest {
                 .setTitle("Title")
                 .setDescription("Description")
                 .build();
-        task.setTitle("New Title");
+        task.changeTitle("New Title");
         String title = task.getTitle();
         assertThat(title).isEqualTo("New Title");
     }
@@ -32,7 +32,7 @@ public class TaskSetterTest {
                 .setTitle("Title")
                 .setDescription("Description")
                 .build();
-        task.setDescription("New Description");
+        task.changeDescription("New Description");
         String description = task.getDescription();
         assertThat(description).isEqualTo("New Description");
     }
@@ -44,7 +44,7 @@ public class TaskSetterTest {
                 .setTitle("Title")
                 .setDescription("Description")
                 .build();
-        task.setPriority(priority);
+        task.changePriority(priority);
         TaskPriority taskPriority = task.getPriority();
         assertThat(taskPriority).isEqualTo(priority);
     }
@@ -56,7 +56,7 @@ public class TaskSetterTest {
                 .setDescription("Description")
                 .build();
         LocalDateTime testDateTime = LocalDateTime.now();
-        task.setDateTimeDeadline(testDateTime);
+        task.changeDateTimeDeadline(testDateTime);
         LocalDateTime deadline = task.getDateTimeDeadline();
         assertThat(deadline).isEqualTo(testDateTime);
     }
@@ -119,7 +119,7 @@ public class TaskSetterTest {
                     .setTitle("Title")
                     .setDescription("Description")
                     .build();
-            task.setPlannedDateTime(firstDateTime, secondDateTime);
+            task.changePlannedDateTime(firstDateTime, secondDateTime);
             LocalDateTime startDate = task.getDateTimePlannedStart();
             LocalDateTime endDate = task.getDateTimePlannedEnd();
             assertThat(startDate).isEqualTo(firstDateTime);
