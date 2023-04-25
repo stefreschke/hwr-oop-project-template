@@ -19,7 +19,7 @@ public class Task {
     private final Integer id;
     private final String title;
     private final String content;
-    private final TaskState taskState;
+    private TaskState taskState;
     private final List<TaskTag> taskTagList;
     private final User creator;
     private final LocalDate deadline;
@@ -50,5 +50,13 @@ public class Task {
 
     public User getCreator() {
         return creator;
+    }
+
+    public void completeTask() {
+        if (taskState == TaskState.IN_PROGRESS || taskState == TaskState.IN_REVIEW) {
+            taskState = TaskState.DONE;
+        } else {
+            throw new TaskStateException("task can't be completed with taskState" + taskState.name());
+        }
     }
 }
