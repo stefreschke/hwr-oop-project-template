@@ -8,13 +8,13 @@ import java.util.Set;
 
 public class Task {
 
-    private String name;
-    private String description;
+    private final String name;
+    private final String description;
     /**
      * higher value means higher priority
      */
-    private int priority;
-    private LocalDateTime deadline;
+    private final int priority;
+    private final LocalDateTime deadline;
     private final Set<Tag> tags;
     private Status status = Status.OPEN;
 
@@ -33,32 +33,16 @@ public class Task {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public int getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
     public LocalDateTime getDeadline() {
         return deadline;
-    }
-
-    public void setDeadline(LocalDateTime deadline) {
-        this.deadline = deadline;
     }
 
     public Set<Tag> getTags() {
@@ -73,8 +57,16 @@ public class Task {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void open() {
+        status = Status.OPEN;
+    }
+
+    public void inProgress() {
+        status = Status.IN_PROGRESS;
+    }
+
+    public void closed() {
+        status = Status.CLOSED;
     }
 
     @Override
