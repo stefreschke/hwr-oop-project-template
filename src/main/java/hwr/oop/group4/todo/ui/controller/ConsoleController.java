@@ -7,6 +7,11 @@ import hwr.oop.group4.todo.ui.controller.command.Command;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class ConsoleController {
@@ -70,6 +75,28 @@ public class ConsoleController {
             if (input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no")) {
                 return false;
             }
+        }
+    }
+
+    public LocalDateTime inputDate(List<String> prefixes, String prompt) {
+        while (true) {
+            outputLine(prompt);
+            output("Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': ");
+            String input = input(prefixes).orElse("");
+
+            if (input.isBlank()) {
+                return LocalDateTime.now();
+            }
+
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm");
+                return LocalDateTime.parse(input, formatter);
+            } catch (DateTimeParseException ignore) { }
+            try {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu");
+                LocalDate localDate = LocalDate.parse(input, formatter);
+                return LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
+            } catch (DateTimeParseException ignore) { }
         }
     }
 

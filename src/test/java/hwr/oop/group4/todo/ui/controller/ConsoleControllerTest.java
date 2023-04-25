@@ -7,6 +7,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -128,6 +129,50 @@ class ConsoleControllerTest {
 
         final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", true);
         assertThat(returnValue).isFalse();
+    }
+
+    @Test
+    void inputDateDefaultTest() {
+        final InputStream inputStream = createInputStreamForInput("");
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        final LocalDateTime returnValue = consoleController.inputDate(List.of(""), "Prompt.");
+
+        LocalDateTime now = LocalDateTime.now();
+        assertThat(returnValue.getYear()).isEqualTo(now.getYear());
+        assertThat(returnValue.getMonth()).isEqualTo(now.getMonth());
+        assertThat(returnValue.getDayOfYear()).isEqualTo(now.getDayOfYear());
+    }
+
+    @Test
+    void inputDateTest() {
+        final InputStream inputStream = createInputStreamForInput("1123432" + System.lineSeparator() + "12.12.1212");
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        final LocalDateTime returnValue = consoleController.inputDate(List.of(""), "Prompt.");
+
+        LocalDateTime value = LocalDateTime.of(1212, 12, 12, 12, 12);
+        assertThat(returnValue.getYear()).isEqualTo(value.getYear());
+        assertThat(returnValue.getMonth()).isEqualTo(value.getMonth());
+        assertThat(returnValue.getDayOfYear()).isEqualTo(value.getDayOfYear());
+    }
+
+    @Test
+    void inputDateTimeTest() {
+        final InputStream inputStream = createInputStreamForInput("12.12.1212 12:12");
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        final LocalDateTime returnValue = consoleController.inputDate(List.of(""), "Prompt.");
+
+        LocalDateTime value = LocalDateTime.of(1212, 12, 12, 12, 12);
+        assertThat(returnValue.getYear()).isEqualTo(value.getYear());
+        assertThat(returnValue.getMonth()).isEqualTo(value.getMonth());
+        assertThat(returnValue.getDayOfYear()).isEqualTo(value.getDayOfYear());
+        assertThat(returnValue.getHour()).isEqualTo(value.getHour());
+        assertThat(returnValue.getMinute()).isEqualTo(value.getMinute());
     }
 
 }
