@@ -30,7 +30,7 @@ class IdeaTest {
     }
 
     @Test
-    void equal() {
+    void equalIdeas() {
         final Idea abcIdea = new Idea("abc");
         final Idea abcIdea2 = new Idea("abc");
 
@@ -38,7 +38,7 @@ class IdeaTest {
     }
 
     @Test
-    void notEqual() {
+    void notEqualIdeas() {
         final Idea abcIdea = new Idea("abc");
         final Idea differentIdea = new Idea("bdc");
 
