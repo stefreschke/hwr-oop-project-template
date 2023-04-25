@@ -131,8 +131,8 @@ public class Task {
         }
 
         public TaskBuilder fromIdea(Idea idea) {
-            this.name = idea.getName();
-            this.description = idea.getDescription();
+            this.name = idea.name();
+            this.description = idea.description();
             return this;
         }
 
