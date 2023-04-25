@@ -39,7 +39,7 @@ public class Table {
 
     private String[] getTitleRow(List<ColumnConfig> columns) {
         final List<String> titles = new ArrayList<>();
-        columns.forEach(column -> titles.add(column.getTile()));
+        columns.forEach(column -> titles.add(column.getTitle()));
         return titles.toArray(String[]::new);
     }
 
