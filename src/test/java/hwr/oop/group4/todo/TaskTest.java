@@ -118,7 +118,7 @@ class TaskTest {
     @Test
     void buildTaskInProject() {
         final Project project = new Project.ProjectBuilder().name("project").description("desc").build();
-        final Task taskInProject = new Task.TaskBuilder().name("task1").setProject(project).build();
+        final Task taskInProject = new Task.TaskBuilder().name("task1").project(project).build();
 
         assertThat(project.getTasks()).contains(taskInProject);
 
@@ -134,9 +134,9 @@ class TaskTest {
 
     @Test
     void compareTwoSimpleTasks() {
-        final Task defaultTask = new TaskBuilder().build();
-        final Task defaultTask2 = new TaskBuilder().build();
-        final Task dtask = new TaskBuilder().name("name").build();
+        final Task defaultTask = new Task.TaskBuilder().build();
+        final Task defaultTask2 = new Task.TaskBuilder().build();
+        final Task dtask = new Task.TaskBuilder().name("name").build();
 
         assertThat(defaultTask).isEqualTo(defaultTask2);
         assertThat(defaultTask).isNotEqualTo(dtask);
