@@ -9,15 +9,14 @@ public class Box {
     public Box(){
         cardList = new ArrayList<Card>();
     }
-    public int getCount() {
-        return 5;
-    }
 
     public void addCard(Card card) {
         cardList.add(card);
     }
 
-    public Card getCardOfIndex(int i) {
-        return cardList.get(i);
+
+    public ArrayList<Card> getCards() {
+
+        return cardList;
     }
 }

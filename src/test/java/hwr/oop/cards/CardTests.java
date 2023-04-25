@@ -37,7 +37,8 @@ public class CardTests {
     }
 
     @Test
-    void canGetAnswerOfCard(){
+    void
+    canGetAnswerOfCard(){
          Card card = new Card("Is the earth flat?", "Yes");
 
          assertThat(card.getAnswer()).isEqualTo("Yes");
