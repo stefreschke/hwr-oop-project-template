@@ -14,7 +14,6 @@ public class ConsoleController {
     private final PrintStream out;
     private final Scanner in;
 
-
     public ConsoleController(OutputStream out, InputStream in) {
         this.out = new PrintStream(out);
         this.in = new Scanner(in);

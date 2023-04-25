@@ -19,6 +19,7 @@ class MenuTest {
                 "  testEntry" + System.lineSeparator() +
                 "    d" + System.lineSeparator() +
                 "  entry" + System.lineSeparator() +
-                "    description"+ System.lineSeparator());
+                "    description"+ System.lineSeparator()
+        );
     }
 }

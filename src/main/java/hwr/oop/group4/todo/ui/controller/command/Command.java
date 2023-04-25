@@ -5,7 +5,6 @@ import java.util.function.Consumer;
 
 public class Command {
 
-
     private final String name;
     private final Consumer<Collection<Argument<?>>> consumer;
 

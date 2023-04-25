@@ -14,7 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ConsoleControllerTest {
 
-
     private String retrieveResultFrom(OutputStream outputStream) {
         return outputStream.toString();
     }
@@ -64,10 +63,10 @@ class ConsoleControllerTest {
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
-
         consoleController.inputOptions(List.of("pre1", "pre2"), List.of(
                 new Command("testCmd", args -> consoleController.output("test cmd"))),
-                new Command("wrong", args -> {}));
+                new Command("wrong", args -> {})
+        );
         final String output = retrieveResultFrom(outputStream);
         assertThat(output).isEqualTo("pre1/pre2:> test cmd");
     }
@@ -81,8 +80,8 @@ class ConsoleControllerTest {
         consoleController.inputOptions(List.of("pre1", "pre2"), List.of(
                         new Command("test", arguments -> {
                             consoleController.output(String.valueOf(arguments.stream()
-                                    .filter(arg -> arg.getName().equals("a")).findAny().get().getValue()));
-
+                                    .filter(arg -> arg.getName().equals("a")).findAny().get().getValue())
+                            );
                         })),
                 new Command("wrong", args -> {}));
         final String output = retrieveResultFrom(outputStream);
