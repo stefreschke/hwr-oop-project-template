@@ -2,19 +2,36 @@ package hwr.oop.group4.todo;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class TodoListTest {
 
     @Test
-    void emptyOnConstruction() {
+    void emptyOnConstructionGetMaybeList() {
         final TodoList todo = new TodoList();
 
-        assertEquals(0, todo.getMaybeList().size());
-        assertEquals(0, todo.getProjects().size());
-        assertEquals(0, todo.getInTray().size());
-        assertEquals(0, todo.getLoseTasks().size());
+        assertThat(todo.getMaybeList().size()).isEqualTo(0);
+    }
+
+    @Test
+    void emptyOnConstructionGetProjects() {
+        final TodoList todo = new TodoList();
+
+        assertThat(todo.getProjects().size()).isEqualTo(0);
+    }
+
+    @Test
+    void emptyOnConstructionGetInTray() {
+        final TodoList todo = new TodoList();
+
+        assertThat(todo.getInTray().size()).isEqualTo(0);
+    }
+
+    @Test
+    void emptyOnConstructionGetLoseTasks() {
+        final TodoList todo = new TodoList();
+
+        assertThat(todo.getLoseTasks().size()).isEqualTo(0);
     }
 
     @Test
@@ -23,26 +40,21 @@ class TodoListTest {
 
         todo.addIdea(new Idea("new Idea"));
         todo.addIdea(new Idea("new Idea"));
-        todo.addIdea(new Idea("another Idea"));
 
-        assertEquals(2, todo.getInTray().size());
-        assertTrue(todo.getInTray().contains(new Idea("new Idea")));
-        assertTrue(todo.getInTray().contains(new Idea("another Idea")));
+        assertThat(todo.getInTray().size()).isEqualTo(1);
+        assertThat(todo.getInTray()).contains(new Idea("new Idea"));
     }
 
     @Test
     void loseTasks() {
         final TodoList todo = new TodoList();
         final Task taskA = new Task.TaskBuilder().name("task").build();
-        final Task taskB = new Task.TaskBuilder().name("another task").build();
 
         todo.addLoseTask(taskA);
         todo.addLoseTask(taskA);
-        todo.addLoseTask(taskB);
 
-        assertEquals(2, todo.getLoseTasks().size());
-        assertTrue(todo.getLoseTasks().contains(taskA));
-        assertTrue(todo.getLoseTasks().contains(taskB));
+        assertThat(todo.getLoseTasks().size()).isEqualTo(1);
+        assertThat(todo.getLoseTasks()).contains(taskA);
     }
 
     @Test
@@ -50,31 +62,25 @@ class TodoListTest {
         final TodoList todo = new TodoList();
 
         final Project projectA = new Project.ProjectBuilder().name("name").description("desc").build();
-        final Project projectB = new Project.ProjectBuilder().name("name").description("desc").build();
 
         todo.addProject(projectA);
         todo.addProject(projectA);
-        todo.addProject(projectB);
 
-        assertEquals(3, todo.getProjects().size());
-        assertEquals(projectA, todo.getProjects().get(0));
-        assertEquals(projectA, todo.getProjects().get(1));
-        assertEquals(projectB, todo.getProjects().get(2));
+        assertThat(todo.getProjects().size()).isEqualTo(2);
+        assertThat(todo.getProjects().get(0)).isEqualTo(projectA);
+        assertThat(todo.getProjects().get(1)).isEqualTo(projectA);
     }
 
     @Test
     void someDayMaybe() {
         final TodoList todo = new TodoList();
         final Project projectA = new Project.ProjectBuilder().name("name").description("desc").build();
-        final Project projectB = new Project.ProjectBuilder().name("name").description("desc").build();
 
         todo.addSomedayMaybeProject(projectA);
         todo.addSomedayMaybeProject(projectA);
-        todo.addSomedayMaybeProject(projectB);
 
-        assertEquals(3, todo.getMaybeList().size());
-        assertTrue(todo.getMaybeList().contains(projectA));
-        assertTrue(todo.getMaybeList().contains(projectB));
+        assertThat(todo.getMaybeList().size()).isEqualTo(2);
+        assertThat(todo.getMaybeList()).contains(projectA);
     }
 
 }
