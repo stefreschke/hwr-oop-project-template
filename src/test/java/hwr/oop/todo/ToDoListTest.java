@@ -70,7 +70,6 @@ public class ToDoListTest {
 
     @Test
     void cannotGetProjectThatDoesNotExist(){
-        ToDoList todoList = new ToDoList();
-        assertThrows(ToDoListException.class, () -> todoList.getProject(UUID.randomUUID()));
+        ToDoList todoList = new ToDoList();assertThrows(ToDoListException.class, () -> todoList.getProject(UUID.randomUUID()));
     }
 }
