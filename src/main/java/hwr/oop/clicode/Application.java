@@ -14,12 +14,5 @@ public class Application {
     public static void main(String[] args) {
         System.out.println("we have a main class");
     }
-    public void createTask(String title, String content, User creator,LocalDate deadline){
-        Task task = new Task(getID(),title,content,TaskState.IN_PROGRESS,null,creator, LocalDate.now(),deadline);
-        taskList.add(task);
-    }
 
-    public int getID(){
-        return 0;
-    }
 }
