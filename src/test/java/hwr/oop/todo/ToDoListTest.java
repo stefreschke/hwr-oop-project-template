@@ -46,4 +46,31 @@ public class ToDoListTest {
 
         assertNotEquals(task1, task2);
     }
+    
+    @Test
+    void canCreateProject(){
+        ToDoList todoList = new ToDoList();
+        ProjectData projectData = new ProjectData("Name");
+
+        Project project = todoList.createProject(projectData);
+
+        assertEquals(projectData.getName(), project.getName());
+        assertEquals(projectData.getTaskIds(), project.getTaskIds());
+    }
+
+    @Test
+    void canGetProjectById(){
+        ToDoList todoList = new ToDoList();
+        ProjectData projectData = new ProjectData("Name");
+
+        Project project = todoList.createProject(projectData);
+
+        assertEquals(project, todoList.getProject(project.getId()));
+    }
+
+    @Test
+    void cannotGetProjectThatDoesNotExist(){
+        ToDoList todoList = new ToDoList();
+        assertThrows(ToDoListException.class, () -> todoList.getProject(UUID.randomUUID()));
+    }
 }
