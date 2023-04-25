@@ -3,7 +3,9 @@ package hwr.oop.group4.todo.ui;
 import hwr.oop.group4.todo.Project;
 import hwr.oop.group4.todo.Tag;
 import hwr.oop.group4.todo.TodoList;
+import hwr.oop.group4.todo.ui.controller.ConsoleController;
 
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,15 +13,11 @@ import java.util.*;
 
 public class ProjectUi {
 
-    private final PrintStream out;
-    private final Scanner in;
-    private final DialogHelper dialogHelper;
+    private final ConsoleController consoleController;
     private TodoList todoList;
 
-    public ProjectUi(PrintStream out, Scanner in) {
-        this.out = out;
-        this.in = in;
-        dialogHelper = new DialogHelper(out, in);
+    public ProjectUi(PrintStream out, InputStream in) {
+        consoleController = new ConsoleController(out, in);
     }
 
     public void menu(TodoList todoList) {
