@@ -55,4 +55,14 @@ public class ToDoItem {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        String doneSymbol = this.done ? "✅ " : "❌ " ;
+        return  doneSymbol + title + '\n' +
+                description + '\n' +
+                "<" + tag + ">" + ' ' +
+                priority;
+    }
+
 }

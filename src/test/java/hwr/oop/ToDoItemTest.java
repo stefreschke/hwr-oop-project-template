@@ -73,4 +73,14 @@ class ToDoItemTest {
         Priority testPriority = item.getPriority();
         assertThat(testPriority).isEqualTo(Priority.HIGH);
     }
+    @Test
+    void toStringTest() {
+        ToDoItem item = new ToDoItem(0,"Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", false, Priority.HIGH);
+        String result = item.toString();
+        System.out.println(result);
+        assertThat(result).isEqualTo("❌ " + item.getTitle() + '\n' +
+                item.getDescription() +  '\n' +
+                "<" + item.getTag() + ">" + ' ' +
+                item.getPriority());
+    }
 }
