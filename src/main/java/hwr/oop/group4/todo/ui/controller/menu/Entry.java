@@ -9,7 +9,6 @@ public class Entry {
     private final String description;
     private final Collection<EntryArgument> arguments;
 
-
     public Entry(String title, String description) {
         this(title, description, new ArrayList<>());
     }
@@ -17,6 +16,10 @@ public class Entry {
         this.title = title;
         this.description = description;
         this.arguments = arguments;
+    }
+
+    public String toString() {
+        return this.toString("");
     }
 
     public String toString(String padding) {
