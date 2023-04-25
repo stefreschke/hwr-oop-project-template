@@ -7,8 +7,8 @@ public class Table {
 
     private final String titleRowFormat;
     private final String rowFormat;
-    private final Row titleRow;
-    private final List<Row> rows = new ArrayList<>();
+    private final String[] titleRow;
+    private final List<String[]> rows = new ArrayList<>();
 
     public Table(List<ColumnConfig> columns) {
         rowFormat = getRowFormat(columns, false);
@@ -16,8 +16,8 @@ public class Table {
         titleRow = getTitleRow(columns);
     }
 
-    public void addRow(Row row) {
-        rows.add(row);
+    public void addRow(String... content) {
+        rows.add(content);
     }
 
     private String getRowFormat(List<ColumnConfig> columns, boolean leftAligned) {
@@ -37,22 +37,22 @@ public class Table {
         return rowStringBuilder.toString();
     }
 
-    private Row getTitleRow(List<ColumnConfig> columns) {
+    private String[] getTitleRow(List<ColumnConfig> columns) {
         final List<String> titles = new ArrayList<>();
         columns.forEach(column -> titles.add(column.getTile()));
-        return new Row(titles);
+        return titles.toArray(String[]::new);
     }
 
     @Override
     public String toString() {
         final StringBuilder tableStringBuilder = new StringBuilder();
-        final String titles = titleRow.toString(titleRowFormat);
+        final String titles = String.format(titleRowFormat, titleRow);
         final String underline = ("=").repeat(titles.length()-System.lineSeparator().length());
         tableStringBuilder.append(titles)
                 .append(underline)
                 .append(System.lineSeparator());
 
-        rows.forEach(row -> tableStringBuilder.append(row.toString(rowFormat)));
+        rows.forEach(row -> tableStringBuilder.append(String.format(rowFormat, row)));
 
         return tableStringBuilder.toString();
     }

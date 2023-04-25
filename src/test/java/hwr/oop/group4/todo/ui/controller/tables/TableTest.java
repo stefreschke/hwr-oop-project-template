@@ -19,10 +19,10 @@ class TableTest {
     @Test
     void tableWithRows() {
         final Table table = new Table(List.of(new ColumnConfig("id", 2), new ColumnConfig("cutOF", 2)));
-        table.addRow(new Row("1", "this text is cut of"));
-        table.addRow(new Row("2", "cut of text"));
-        table.addRow(new Row("3", "text"));
-        table.addRow(new Row("", ""));
+        table.addRow("1", "this text is cut of");
+        table.addRow("2", "cut of text");
+        table.addRow("3", "text");
+        table.addRow("", "");
 
         assertThat(table).hasToString(
                 "| id | cu |" + System.lineSeparator() +
