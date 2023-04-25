@@ -9,8 +9,7 @@ import java.io.IOException;
 public class ListJsonTest {
     @Test
     public void listToJsonTest() {
-        List assertList = new List();
-        assertList.setName("TestName");
+        List assertList = new List("myList");
         assertList.writeToJSON("listTest.mp3");
         try {
             StringBuilder jsonIn;

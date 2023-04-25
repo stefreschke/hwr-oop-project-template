@@ -1,20 +1,39 @@
 package hwr.oop;
 
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ListClassTest {
 
-    @ParameterizedTest
-    @ValueSource(strings = {"List", "New List"})
-    public void setListName(String Name) {
-        List list = new List();
-        list.setName(Name);
+    @Test
+    public void setListName() {
+        List list = new List("wrongName");
+        list.setName("rightName");
         String TestName = list.getName();
-        assertThat(TestName).isEqualTo(Name);
+        assertThat(TestName).isEqualTo("rightName");
     }
+
+    @Test
+    public void addTest() {
+        List list = new List("myList");
+        ToDoItem item = new ToDoItem(0,"Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", false, Priority.HIGH);
+        list.add(item);
+        ToDoItem[] itemList = new ToDoItem[1];
+        itemList[0] = item;
+        assertThat(list.getListToDos()).isEqualTo(itemList);
+    }
+
+    @Test
+    public void removeTest() {
+        List list = new List("myList");
+        ToDoItem item = new ToDoItem(0,"Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", false, Priority.HIGH);
+        list.add(item);
+        list.remove(0);
+        ToDoItem[] itemList = new ToDoItem[0];
+        assertThat(list.getListToDos()).isEqualTo(itemList);
+    }
+
 /*
     @ParameterizedTest
     @ValueSource(strings = {"List", "New List"})
