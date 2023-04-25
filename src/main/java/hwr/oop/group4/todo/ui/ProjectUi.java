@@ -9,6 +9,8 @@ import hwr.oop.group4.todo.ui.controller.command.Command;
 import hwr.oop.group4.todo.ui.controller.menu.Entry;
 import hwr.oop.group4.todo.ui.controller.menu.EntryArgument;
 import hwr.oop.group4.todo.ui.controller.menu.Menu;
+import hwr.oop.group4.todo.ui.controller.tables.ColumnConfig;
+import hwr.oop.group4.todo.ui.controller.tables.Table;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -71,21 +73,31 @@ public class ProjectUi {
         }
     }
 
-    private void listProjects() {
-        String format = "%2d | %15.15s | %30.30s | %10.10s | %6.6s | %6.6s%n";
+    private void listProjects(Collection<Argument<?>> args) {
         final List<Project> projects = todoList.getProjects();
-
         final int idColumnLength = Math.max((int) Math.ceil(Math.log10(projects.size()) - 2), 0);
+        final Table projectTable = new Table(List.of(
+                new ColumnConfig("ID", idColumnLength),
+                new ColumnConfig("Name", 15),
+                new ColumnConfig("Description", 30),
+                new ColumnConfig("Tags", 10),
+                new ColumnConfig("Begin", 6),
+                new ColumnConfig("End", 6)
+        ));
 
-        out.println("ID" + (" ").repeat(idColumnLength) + " | Name            | Description                    | Tags       | Begin  | End   ");
-        out.println("==" + ("=").repeat(idColumnLength) + "==================================================================================");
         for (int i = 0; i < projects.size(); i++) {
             final Project project = projects.get(i);
-            out.printf(format, i, project.getName(), project.getDescription(),
+            projectTable.addRow(
+                    String.valueOf(i),
+                    project.getName(),
+                    project.getDescription(),
                     concatTagsToString(project.getTags()),
                     project.getBegin().format(DateTimeFormatter.ofPattern("dd.MM.")),
-                    project.getEnd().format(DateTimeFormatter.ofPattern("dd.MM.")));
+                    project.getEnd().format(DateTimeFormatter.ofPattern("dd.MM."))
+            );
         }
+
+        consoleController.output(projectTable.toString());
     }
 
     private String concatTagsToString(Collection<Tag> tags) {
