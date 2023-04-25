@@ -32,7 +32,7 @@ class IdeaTest {
     }
 
     @Test
-    void equal() {
+    void equalIdeas() {
         final Idea abcIdea = new Idea("abc");
         final Idea abcIdea2 = new Idea("abc");
 
@@ -40,7 +40,7 @@ class IdeaTest {
     }
 
     @Test
-    void notEqual(){
+    void notEqualIdeas() {
         final Idea abcIdea = new Idea("abc");
         final Idea differentIdea = new Idea("bdc");
 
@@ -48,7 +48,7 @@ class IdeaTest {
     }
 
     @Test
-    void equalWithDes(){
+    void equalWithDes() {
         final Idea IdeaWithDesc = new Idea("abc", "desc");
         final Idea IdeaWithDesc2 = new Idea("abc", "desc");
 
@@ -56,7 +56,7 @@ class IdeaTest {
     }
 
     @Test
-    void notEqualWithDes(){
+    void notEqualWithDes() {
         final Idea abcIdea = new Idea("abc", "des1");
         final Idea differentIdea = new Idea("abc", "des2");
 
@@ -64,7 +64,7 @@ class IdeaTest {
     }
 
     @Test
-    void notEqualParameters(){
+    void notEqualParameters() {
         final Idea abcIdea = new Idea("abc");
         final Idea differentIdea = new Idea("cde", "des2");
 
