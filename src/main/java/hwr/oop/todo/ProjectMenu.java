@@ -3,19 +3,19 @@ package hwr.oop.todo;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class ProjectMenu extends Menu{
+public class ProjectMenu{
 
 	
 	public void openCreate()
 	{
-		clearConsole();
+		Console.clear();
 		System.out.println("What's the name of the project?");
 		
-		String newProjectName = input.next();
+		String newProjectName = Console.input.next();
 		
 		System.out.println("What's the deadline of the project? Format: YYYY-MM-DD (optional, input 'no')");
 		
-		String deadlineStr = input.next();
+		String deadlineStr = Console.input.next();
 		
 		LocalDate dealine = null;
 		

@@ -1,6 +1,6 @@
 package hwr.oop.todo;
 
-public class MainMenu extends Menu {
+public class MainMenu {
 	private final ProjectMenu projectMenu;
 	
 	public MainMenu()
@@ -18,7 +18,7 @@ public class MainMenu extends Menu {
 		System.out.println("[3] Create Tasks (quick create)");
 		System.out.println("[4] Create Task (detailed)");
 		
-		handleInput(input.nextInt());
+		handleInput(Console.input.nextInt());
 	}
 	
 	private void handleInput(int input)
