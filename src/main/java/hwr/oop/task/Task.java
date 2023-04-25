@@ -3,6 +3,7 @@ package hwr.oop.task;
 import hwr.oop.project.Project;
 import hwr.oop.tag.Tag;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -55,6 +56,26 @@ public class Task implements TaskInterface {
 
     public void toFurtherStatus() {
         if (this.status == TaskStatus.BACKLOG) this.status = TaskStatus.IN_PROGRESS;
+    }
+
+    public long getTimePlanned() {
+        Duration difference = Duration.between(this.dateTimePlannedStart, this.dateTimePlannedEnd);
+        return Math.abs(difference.toMinutes());
+    }
+
+    public long getTimeUntilDeadline() {
+        Duration diff = Duration.between(LocalDateTime.now(), this.dateTimeDeadline);
+        return diff.toMinutes();
+    }
+
+    public long getTimeOpen() {
+        Duration durationDiff;
+        if (this.dateTimeDone == null) {
+            durationDiff = Duration.between(LocalDateTime.now(), this.dateTimeCreated);
+        } else {
+            durationDiff = Duration.between(this.dateTimeDone, this.dateTimeCreated);
+        }
+        return Math.abs(durationDiff.toMinutes());
     }
 
     public void toPreviousStatus() {
@@ -131,24 +152,24 @@ public class Task implements TaskInterface {
     }
 
     // AREA: Setters
-    public void setTitle(String title) {
+    public void changeTitle(String title) {
         this.title = title;
     }
 
-    public void setDescription(String description) {
+    public void changeDescription(String description) {
         this.description = description;
     }
 
-    public void setPriority(TaskPriority priority) {
+    public void changePriority(TaskPriority priority) {
         this.priority = priority;
     }
 
-    public void setPlannedDateTime(LocalDateTime startDate, LocalDateTime endDate) {
+    public void changePlannedDateTime(LocalDateTime startDate, LocalDateTime endDate) {
         this.dateTimePlannedStart = startDate;
         this.dateTimePlannedEnd = endDate;
     }
 
-    public void setDateTimeDeadline(LocalDateTime dateTimeDeadline) {
+    public void changeDateTimeDeadline(LocalDateTime dateTimeDeadline) {
         this.dateTimeDeadline = dateTimeDeadline;
     }
 }
