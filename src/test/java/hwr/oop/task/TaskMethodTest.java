@@ -182,4 +182,23 @@ public class TaskMethodTest {
         long difference = Math.abs(durationDiff.toMinutes());
         assertThat(task.getTimePlanned()).isEqualTo(difference);
     }
+
+    @Test
+    @DisplayName("Can get time open.")
+    void canGetTimeOpen() {
+        final Task task = this.taskBuilder.build();
+        Duration durationDiff = Duration.between(LocalDateTime.now(), task.getDateTimeCreated());
+        long difference = Math.abs(durationDiff.toMinutes());
+        assertThat(task.getTimeOpen()).isEqualTo(difference);
+    }
+
+    @Test
+    @DisplayName("Can get time open when done.")
+    void canGetTimeOpenWhenDone() {
+        final Task task = this.taskBuilder.build();
+        task.finishTask();
+        Duration durationDiff = Duration.between(task.getDateTimeDone(), task.getDateTimeCreated());
+        long difference = Math.abs(durationDiff.toMinutes());
+        assertThat(task.getTimeOpen()).isEqualTo(difference);
+    }
 }
