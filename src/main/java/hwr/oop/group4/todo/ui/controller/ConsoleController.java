@@ -1,7 +1,6 @@
 package hwr.oop.group4.todo.ui.controller;
 
 import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
-import hwr.oop.group4.todo.commons.exceptions.TodoUiRuntimeException;
 import hwr.oop.group4.todo.ui.controller.command.Argument;
 import hwr.oop.group4.todo.ui.controller.command.Command;
 

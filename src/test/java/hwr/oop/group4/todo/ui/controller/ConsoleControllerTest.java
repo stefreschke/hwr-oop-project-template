@@ -1,7 +1,6 @@
 package hwr.oop.group4.todo.ui.controller;
 
-import hwr.oop.group4.todo.ui.controller.command.CommandNoArgs;
-import hwr.oop.group4.todo.ui.controller.command.CommandStandard;
+import hwr.oop.group4.todo.ui.controller.command.Command;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -67,8 +66,8 @@ class ConsoleControllerTest {
 
 
         consoleController.inputOptions(List.of("pre1", "pre2"), List.of(
-                new CommandNoArgs("testCmd", () -> consoleController.output("test cmd"))),
-                new CommandNoArgs("wrong", () -> {}));
+                new Command("testCmd", args -> consoleController.output("test cmd"))),
+                new Command("wrong", args -> {}));
         final String output = retrieveResultFrom(outputStream);
         assertThat(output).isEqualTo("pre1/pre2:> test cmd");
     }
@@ -80,12 +79,12 @@ class ConsoleControllerTest {
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
         consoleController.inputOptions(List.of("pre1", "pre2"), List.of(
-                        new CommandStandard("test", arguments -> {
+                        new Command("test", arguments -> {
                             consoleController.output(String.valueOf(arguments.stream()
                                     .filter(arg -> arg.getName().equals("a")).findAny().get().getValue()));
 
                         })),
-                new CommandNoArgs("wrong", () -> {}));
+                new Command("wrong", args -> {}));
         final String output = retrieveResultFrom(outputStream);
         assertThat(output).isEqualTo("pre1/pre2:> asd");
     }
