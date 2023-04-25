@@ -5,7 +5,28 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 public class Main {
-
+    private static int handleBadIndex(String message) {
+        System.out.println("There is nothing at that index... 🥸");
+        System.out.println("Try again? (y/n)");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String input = "";
+        try {
+            input = reader.readLine();
+        } catch (Exception e) {
+            return handleBadIndex(message);
+        }
+        if (input.equals("y")) {
+            System.out.println(message);
+            try {
+                return Integer.parseInt(reader.readLine());
+            } catch (Exception e) {
+                return handleBadIndex(message);
+            }
+        } else {
+            System.out.println("Okay, I'll leave you alone then. 👋");
+            return -1;
+        }
+    }
     private static void help() {
         System.out.println("gtd [command] [arguments]");
         System.out.println("Commands:");
@@ -78,17 +99,35 @@ public class Main {
     }
     private static void remove(List list, int index) {
         // Exception Handling for index out of bounds and invalid input
-        // zero or one indexing
-        list.remove(index);
+        int i = 0;
+        while (i == 0) {
+            try {
+                list.remove(index); // TODO: zero or one indexing ?
+                i++;
+            } catch (Exception e) {
+                index = handleBadIndex("Please enter the index of the task you want to remove.");
+                if (index == -1) return;
+            }
+        }
     }
-    private static void done(int index) { // TODO: add done method
-        System.out.println("done");
+    private static void done(List list, int index) {
+        int i = 0;
+        while (i == 0) {
+            try {
+                list.getListToDos()[index].setDone(true); // TODO: zero or one indexing ?
+                i++;
+            } catch (Exception e) {
+                 index = handleBadIndex("Please enter the index of the task you want to mark as done.");
+                 if (index == -1) return;
+            }
+        }
     }
-    private static void edit(int index) { // TODO: add done function
-        System.out.println("edit");
+
+    private static void edit(List list, int index) { // TODO: add done function
+
     }
-    private static void clear() {
-        System.out.println("clear");
+    private static void clear(List list) {
+        list.setListToDos(null);
     }
     private static void exit(List list, String LIST_FILE_PATH) {
         System.out.println("exiting...");
@@ -170,13 +209,13 @@ public class Main {
                     remove(toDoList, Integer.parseInt(commandArray[2]));
                 }
                 if (commandArray[1].equals("done")) {
-                    done(Integer.parseInt(commandArray[2]));
+                    done(toDoList, Integer.parseInt(commandArray[2]));
                 }
                 if (commandArray[1].equals("edit")) {
-                    edit(Integer.parseInt(commandArray[2]));
+                    edit(toDoList, Integer.parseInt(commandArray[2]));
                 }
                 if (commandArray[1].equals("clear")) {
-                    clear();
+                    clear(toDoList);
                 }
                 if (commandArray[1].equals("exit")) {
                     exit(toDoList, LIST_FILE_NAME);

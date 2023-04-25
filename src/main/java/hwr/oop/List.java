@@ -25,6 +25,10 @@ public class List {
     public ToDoItem[] getListToDos() {
         return this.ListToDos;
     }
+
+    public void setListToDos(ToDoItem[] listToDos) {
+        this.ListToDos = listToDos;
+    }
     public void writeToJSON(String fileName) {
         //remove any file extension if present
         if (fileName.contains(".")) {
