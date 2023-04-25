@@ -151,7 +151,7 @@ class ConsoleControllerTest {
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
-        final LocalDateTime returnValue = consoleController.inputDate(List.of(""), "Prompt.");
+        final LocalDateTime returnValue = consoleController.inputDate(List.of(""));
 
         LocalDateTime value = LocalDateTime.of(1212, 12, 12, 12, 12);
         assertThat(returnValue.getYear()).isEqualTo(value.getYear());

@@ -78,9 +78,15 @@ public class ConsoleController {
         }
     }
 
+    public LocalDateTime inputDate(List<String> prefixes) {
+        return inputDate(prefixes, null);
+    }
+
     public LocalDateTime inputDate(List<String> prefixes, String prompt) {
         while (true) {
-            outputLine(prompt);
+            if (prompt != null && !prompt.isBlank()) {
+                outputLine(prompt);
+            }
             output("Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': ");
             String input = input(prefixes).orElse("");
 
