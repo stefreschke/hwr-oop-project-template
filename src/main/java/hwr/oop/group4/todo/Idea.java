@@ -2,8 +2,6 @@ package hwr.oop.group4.todo;
 
 import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
 
-import java.util.Objects;
-
 public record Idea(String name, String description) {
 
     public Idea {
