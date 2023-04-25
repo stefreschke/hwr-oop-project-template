@@ -88,7 +88,7 @@ class TaskTest {
         assertEquals(namedTask, namedTask2);
         assertEquals(complexTask, complexTask2);
 
-        complexTask2.setStatus(Status.CLOSED);
+        complexTask2.closed();
 
         assertNotEquals(defaultTask, namedTask);
         assertNotEquals(defaultTask, complexTask);

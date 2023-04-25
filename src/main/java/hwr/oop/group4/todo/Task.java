@@ -16,7 +16,7 @@ public class Task {
     private final int priority;
     private final LocalDateTime deadline;
     private final Set<Tag> tags;
-    private final Status status = Status.OPEN;
+    private Status status = Status.OPEN;
 
     private Task(String name, String description, LocalDateTime deadline, int priority, Set<Tag> tags, Project project) {
         this.name = name;
@@ -55,6 +55,18 @@ public class Task {
 
     public Status getStatus() {
         return status;
+    }
+
+    public void open() {
+        status = Status.OPEN;
+    }
+
+    public void inProgress() {
+        status = Status.IN_PROGRESS;
+    }
+
+    public void closed() {
+        status = Status.CLOSED;
     }
 
     @Override
