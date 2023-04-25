@@ -4,12 +4,18 @@ import hwr.oop.group4.todo.Project;
 import hwr.oop.group4.todo.Tag;
 import hwr.oop.group4.todo.TodoList;
 import hwr.oop.group4.todo.ui.controller.ConsoleController;
+import hwr.oop.group4.todo.ui.controller.command.Argument;
+import hwr.oop.group4.todo.ui.controller.command.Command;
+import hwr.oop.group4.todo.ui.controller.menu.Entry;
+import hwr.oop.group4.todo.ui.controller.menu.EntryArgument;
+import hwr.oop.group4.todo.ui.controller.menu.Menu;
 
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ProjectUi {
 
@@ -32,41 +38,36 @@ public class ProjectUi {
         options.put("remove", "Remove a project.");
         options.put("quit",   "Quit to the previous menu.");
 
-        while (true) {
-            String input = dialogHelper.getMenuSelectionFromUser("Projects Menu", "projects> ", options);
-            int size = todoList.getProjects().size();
-            Integer id;
-            switch (input) {
-                case "list":
-                    listProjects();
-                    break;
-                case "new":
-                    newProject();
-                    break;
-                case "tasks":
-                    // TODO: call upcoming TaskUi
-                    break;
-                case "edit":
-                    id = dialogHelper.getValidIdFromUser("Enter the ID of the project you wish to edit: ", size);
-                    if (id == null) {
-                        out.println("There are no projects to edit.");
-                    } else {
-                        editProject(id);
-                    }
-                    break;
-                case "remove":
-                    id = dialogHelper.getValidIdFromUser("Enter the ID of the project you wish to remove: ", size);
-                    if (id == null) {
-                        out.println("There are no projects to remove.");
-                    } else {
-                        removeProject(id);
-                    }
-                    break;
-                case "quit":
-                    return;
-                default:
-                    break;
-            }
+        Menu menu = new Menu("Project Menu", "Manage your Projects!", List.of(
+                new Entry("list", "List all projects."),
+                new Entry("new",    "Add a new project."),
+                new Entry("tasks",  "Open the task menu for a project.", List.of(
+                        new EntryArgument("id", "ID of the project."))),
+                new Entry("edit",   "Edit the attributes of a project.", List.of(
+                        new EntryArgument("id", "ID of the project to be edited."),
+                        new EntryArgument("name", "Change the name of the project."),
+                        new EntryArgument("desc", "Change the description of the project."),
+                        new EntryArgument("begin", "Change the beginning of the project."),
+                        new EntryArgument("end", "Change the end of the project"),
+                        new EntryArgument("addTag", "Add a new tag."),
+                        new EntryArgument("removeTag", "Remove a tag."))),
+                new Entry("remove", "Remove a project.", List.of(
+                        new EntryArgument("id", "ID of the project to be removed."))),
+                new Entry("back",   "Returns to the previous menu.")
+        ));
+
+        AtomicBoolean shouldReturn = new AtomicBoolean(false);
+        while (!shouldReturn.get()) {
+            consoleController.output(menu.toString());
+
+            consoleController.inputOptions(List.of("projects"), List.of(
+                    new Command("list", this::listProjects),
+                    new Command("new", ),
+                    new Command("tasks", ),
+                    new Command("edit", ),
+                    new Command("remove", ),
+                    new Command("back", args -> shouldReturn.set(true))
+            ), new Command("wrongInput", args -> {}));
         }
     }
 
