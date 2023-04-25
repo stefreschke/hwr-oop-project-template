@@ -1,8 +1,8 @@
 package hwr.oop.group4.todo;
 
-import hwr.oop.group4.todo.builder.TaskBuilder;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TodoListTest {
@@ -49,7 +49,7 @@ class TodoListTest {
     @Test
     void loseTasks() {
         final TodoList todo = new TodoList();
-        final Task taskA = new TaskBuilder().setName("task").build();
+        final Task taskA = new Task.TaskBuilder().name("task").build();
 
         todo.addLoseTask(taskA);
         todo.addLoseTask(taskA);
@@ -61,7 +61,8 @@ class TodoListTest {
     @Test
     void projects() {
         final TodoList todo = new TodoList();
-        final Project projectA = new Project("name", "desc");
+
+        final Project projectA = new Project.ProjectBuilder().name("name").description("desc").build();
 
         todo.addProject(projectA);
         todo.addProject(projectA);
@@ -74,13 +75,13 @@ class TodoListTest {
     @Test
     void someDayMaybe() {
         final TodoList todo = new TodoList();
-        final Task taskA = new TaskBuilder().setName("task").build();
+        final Project projectA = new Project.ProjectBuilder().name("name").description("desc").build();
 
-        todo.addSomedayMaybeTask(taskA);
-        todo.addSomedayMaybeTask(taskA);
+        todo.addSomedayMaybeProject(projectA);
+        todo.addSomedayMaybeProject(projectA);
 
-        assertThat(todo.getMaybeList().size()).isEqualTo(1);
-        assertThat(todo.getMaybeList()).contains(taskA);
+        assertThat(todo.getMaybeList().size()).isEqualTo(2);
+        assertThat(todo.getMaybeList()).contains(projectA);
     }
 
 }

@@ -1,8 +1,10 @@
 package hwr.oop.group4.todo;
 
+import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class IdeaTest {
 
@@ -15,18 +17,18 @@ class IdeaTest {
     }
 
     @Test
-    void createIdeaWithNull() {
-        final Idea idea = new Idea(null);
-
-        assertThat(idea.getName()).isEqualTo("");
+    void createIdeaWithNameNull() {
+        assertThatThrownBy(() -> new Idea(null)).isInstanceOf(TodoRuntimeException.class);
     }
 
     @Test
-    void createIdeaWithDesTwoNull() {
-        final Idea ideaWithDesc = new Idea(null, null);
+    void createIdeaWithDescNull(){
+        assertThatThrownBy(() -> new Idea("valid name", null)).isInstanceOf(TodoRuntimeException.class);
+    }
 
-        assertThat(ideaWithDesc.getName()).isEqualTo("");
-        assertThat(ideaWithDesc.getDescription()).isEqualTo("");
+    @Test
+    void createIdeaWithNameBlank() {
+        assertThatThrownBy(() -> new Idea("    ")).isInstanceOf(TodoRuntimeException.class);
     }
 
     @Test
