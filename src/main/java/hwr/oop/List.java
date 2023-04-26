@@ -11,6 +11,10 @@ public class List {
     private String Name;
     private ToDoItem[] ListToDos;
     private String fileName;
+
+    public List(String name) {
+        this(name, null);
+    }
     public List(String name, String fileName) {
         this.Name = name;
         this.ListToDos = new ToDoItem[0];
