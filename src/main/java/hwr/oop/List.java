@@ -3,21 +3,22 @@ package hwr.oop;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.FileOutputStream;
-import java.io.File;
-import java.io.File.*;
 public class List {
     private String Name;
     private ToDoItem[] ListToDos;
-
-    public List(String name) {
+    private String fileName;
+    public List(String name, String fileName) {
         this.Name = name;
         this.ListToDos = new ToDoItem[0];
+        this.fileName = fileName;
     }
-
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
     public void setName(String name) {
         this.Name = name;
     }
@@ -31,6 +32,9 @@ public class List {
 
     public void setListToDos(ToDoItem[] listToDos) {
         this.ListToDos = listToDos;
+    }
+    public String getFileName() {
+        return this.fileName;
     }
     public void writeToJSON(String fileName) {
         //remove any file extension if present
