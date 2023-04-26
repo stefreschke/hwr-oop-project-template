@@ -35,6 +35,7 @@ public class Main {
         System.out.println("  remove [Item Index] -  remove a task");
         System.out.println("  done [Item Index]   -  mark a task as done");
         System.out.println("  edit [Item Index]   -  edit a task");
+        System.out.println("  sort                -  sort your tasks");
         System.out.println("  clear               -  clear all tasks");
         System.out.println("  exit                -  exit the program");
     }
@@ -123,9 +124,21 @@ public class Main {
         }
     }
 
-    private static void edit(List list, int index) { // TODO: add done function
+    private static void edit(List list, int index) { // TODO: add edit function
 
     }
+    private static void sortHelp() {
+        System.out.println("gtd sort [option]");
+        System.out.println("Options:");
+        System.out.println("  priority - sort by priority");
+        System.out.println("  createdAt- sort by creation date");
+        System.out.println("  dueDate  - sort by due date"); // TODO
+        System.out.println("  tag [tag]- sort by tag");
+        System.out.println("  title    - sort by title"); // TODO
+        System.out.println("  done     - sort by done"); // TODO
+        System.out.println("  help     - print this help");
+    }
+
     private static void clear(List list) {
         list.setListToDos(null);
     }
@@ -198,21 +211,40 @@ public class Main {
                     new InputStreamReader(System.in));
             String command = reader.readLine();
             String[] commandArray = command.split(" ");
-            if (commandArray[0].equals("gtd")) {
-                if (commandArray[1].equals("help")) {
+            if (commandArray[0].equalsIgnoreCase("gtd")) {
+                if (commandArray[1].equalsIgnoreCase("help")) {
                     help();
                 }
-                if (commandArray[1].equals("add")) {
+                if (commandArray[1].equalsIgnoreCase("add")) {
                     add(toDoList);
                 }
-                if (commandArray[1].equals("remove")) {
+                if (commandArray[1].equalsIgnoreCase("remove")) {
                     remove(toDoList, Integer.parseInt(commandArray[2]));
                 }
-                if (commandArray[1].equals("done")) {
+                if (commandArray[1].equalsIgnoreCase("done")) {
                     done(toDoList, Integer.parseInt(commandArray[2]));
                 }
-                if (commandArray[1].equals("edit")) {
+                if (commandArray[1].equalsIgnoreCase("edit")) {
                     edit(toDoList, Integer.parseInt(commandArray[2]));
+                }
+                if (commandArray[1].equalsIgnoreCase("sort")) {
+                    if (commandArray[2].toLowerCase().contains("prio")) {
+                        if (commandArray[3].equals("asc")) {
+                            toDoList.sortByPriority("asc");
+                        } else {
+                            toDoList.sortByPriority("desc");
+                        }
+                    } else if (commandArray[2].toLowerCase().contains("create")) {
+                        if (commandArray[3].equals("asc")) {
+                            toDoList.sortByCreatedAt("asc");
+                        } else {
+                            toDoList.sortByCreatedAt("desc");
+                        }
+                    } else if (commandArray[2].toLowerCase().contains("tag")) {
+                        toDoList.bubbleUpTag(commandArray[3]);
+                    } else if (commandArray[2].equalsIgnoreCase("help")) {
+                        sortHelp();
+                    } else sortHelp();
                 }
                 if (commandArray[1].equals("clear")) {
                     clear(toDoList);
@@ -220,6 +252,8 @@ public class Main {
                 if (commandArray[1].equals("exit")) {
                     exit(toDoList, LIST_FILE_NAME);
                     i = 0;
+                } else {
+                    System.out.println("Please enter a valid sort command");
                 }
             }
         }

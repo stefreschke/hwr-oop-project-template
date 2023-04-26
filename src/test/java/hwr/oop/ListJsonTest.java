@@ -10,6 +10,12 @@ public class ListJsonTest {
     @Test
     public void listToJsonTest() {
         List assertList = new List("myList");
+        ToDoItem item = new ToDoItem(0,"Finish Math homework", "I need to do tasks 5 - 10b.", "Uni", false, Priority.HIGH);
+        ToDoItem item2 = new ToDoItem(1,"Calculate Something", "More Math over here", "Math", false, Priority.MEDIUM);
+        ToDoItem item3 = new ToDoItem(2,"Be Amazing", "Just Do It", "Personal", false, Priority.LOW);
+        assertList.add(item);
+        assertList.add(item2);
+        assertList.add(item3);
         assertList.writeToJSON("listTest.mp3");
         try {
             StringBuilder jsonIn;
@@ -20,7 +26,7 @@ public class ListJsonTest {
                     jsonIn.append((char) character);
                 }
             }
-            assertThat(jsonIn.toString()).isEqualTo("{\"Name\":\"TestName\"}");
+            assertThat(jsonIn.toString()).isEqualTo("{\"Name\":\"myList\",\"ListToDos\":[{\"id\":0,\"title\":\"Finish Math homework\",\"description\":\"I need to do tasks 5 - 10b.\\nCreated 2023-04-26\",\"tag\":\"Uni\",\"done\":false,\"priority\":\"HIGH\"},{\"id\":1,\"title\":\"Calculate Something\",\"description\":\"More Math over here\\nCreated 2023-04-26\",\"tag\":\"Math\",\"done\":false,\"priority\":\"MEDIUM\"},{\"id\":2,\"title\":\"Be Amazing\",\"description\":\"Just Do It\\nCreated 2023-04-26\",\"tag\":\"Personal\",\"done\":false,\"priority\":\"LOW\"}]}");
         } catch (IOException e) {
             System.out.println("File not found");
         } catch (NullPointerException e) {
@@ -30,8 +36,8 @@ public class ListJsonTest {
     @Test
     public void jsonToListTest() {
         Program program = new Program();
-        List assertList = program.loadList("listTest.json");
-        assertThat(assertList.getName()).isEqualTo("TestName");
+        List assertList = program.loadList("listTest.ipynb");
+        assertThat(assertList.getName()).isEqualTo("myList");
     }
 }
 

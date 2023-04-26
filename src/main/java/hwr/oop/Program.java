@@ -9,6 +9,9 @@ public class Program {
     public List loadList(String fileName) {
         Gson gson = new Gson();
         String json;
+        if (fileName.contains(".")) {
+            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+        }
         try (FileReader reader = new FileReader(fileName + ".json")) {
             char[] buffer = new char[1024];
             int len = reader.read(buffer);
