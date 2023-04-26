@@ -9,7 +9,7 @@ class TagTest {
     @Test
     void createTag() {
         final Tag tag = new Tag("abc");
-        assertThat(tag.getName()).isEqualTo("abc");
+        assertThat(tag.name()).isEqualTo("abc");
     }
     @Test
     void equalTags(){

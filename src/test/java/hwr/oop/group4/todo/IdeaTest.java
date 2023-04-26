@@ -12,8 +12,8 @@ class IdeaTest {
     void createIdea() {
         final Idea idea = new Idea("name", "desc");
 
-        assertThat(idea.getName()).isEqualTo("name");
-        assertThat(idea.getDescription()).isEqualTo("desc");
+        assertThat(idea.name()).isEqualTo("name");
+        assertThat(idea.description()).isEqualTo("desc");
     }
 
     @Test

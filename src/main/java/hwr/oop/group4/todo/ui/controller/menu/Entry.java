@@ -29,11 +29,11 @@ public class Entry {
             entryStringBuilder.append(padding).append("  ").append(description).append(System.lineSeparator());
         }
         arguments.forEach(arg -> {
-            entryStringBuilder.append(padding).append("  ").append("-").append(arg.getName()).append(System.lineSeparator());
-            if (arg.getDescription().isBlank()) {
+            entryStringBuilder.append(padding).append("  ").append("-").append(arg.name()).append(System.lineSeparator());
+            if (arg.description().isBlank()) {
                 return;
             }
-            entryStringBuilder.append(padding).append("    ").append(arg.getDescription()).append(System.lineSeparator());
+            entryStringBuilder.append(padding).append("    ").append(arg.description()).append(System.lineSeparator());
         });
 
         return entryStringBuilder.toString();
