@@ -2,6 +2,7 @@ package hwr.oop.dataclasses;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class Task {
@@ -58,5 +59,18 @@ public class Task {
         } else {
             throw new TaskStateException("task can't be completed with taskState" + taskState.name());
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Task) {
+            return (Objects.equals(((Task) obj).id, this.id));
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, title, content, taskState, taskTagList, creator, deadline);
     }
 }
