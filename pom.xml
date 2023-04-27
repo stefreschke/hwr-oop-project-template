@@ -20,6 +20,9 @@
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <junit.version>5.6.2</junit.version>
         <assertj.version>3.20.2</assertj.version>
+        <json-unit.version>2.37.0</json-unit.version>
+        <!-- JSON -->
+        <json.version>20230227</json.version>
     </properties>
 
     <repositories>
@@ -74,14 +77,14 @@
         <dependency>
             <groupId>net.javacrumbs.json-unit</groupId>
             <artifactId>json-unit-assertj</artifactId>
-            <version>2.37.0</version>
+            <version>${json-unit.version}</version>
             <scope>test</scope>
         </dependency>
         <!-- JSON -->
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
-            <version>20230227</version>
+            <version>${json.version}</version>
         </dependency>
     </dependencies>
 
