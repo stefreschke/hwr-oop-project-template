@@ -1,5 +1,6 @@
-package hwr.oop.group4.todo;
+package hwr.oop.group4.todo.core;
 
+import hwr.oop.group4.todo.core.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;

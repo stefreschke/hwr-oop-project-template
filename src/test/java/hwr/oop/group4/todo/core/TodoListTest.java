@@ -1,5 +1,9 @@
-package hwr.oop.group4.todo;
+package hwr.oop.group4.todo.core;
 
+import hwr.oop.group4.todo.core.Idea;
+import hwr.oop.group4.todo.core.Project;
+import hwr.oop.group4.todo.core.Task;
+import hwr.oop.group4.todo.core.TodoList;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
