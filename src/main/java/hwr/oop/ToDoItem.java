@@ -23,7 +23,7 @@ public class ToDoItem {
     }
     void setDescription(String description) {
         this.description = description + "\nCreated " + getLocalDate();
-    }
+    } // TODO: FIX THIS: EVERY TIME I EDIT THE DESCRIPTION IT ADDS A NEW DATE
     void setDone(boolean done) {
         this.done = done;
     }
@@ -33,7 +33,6 @@ public class ToDoItem {
     void setTag(String tag) {
         this.tag = tag;
     }
-
     static String getLocalDate() {
         return LocalDate.now().toString();
     }
@@ -55,4 +54,18 @@ public class ToDoItem {
     public int getId() {
         return id;
     }
+
+    @Override
+    public String toString() {
+        String doneSymbol = this.done ? "✅ " : "❌ " ;
+        return  doneSymbol + title + '\n' +
+                description + '\n' +
+                "<" + tag + ">" + ' ' +
+                priority + '\n';
+    }
+
+    public String getCreatedAt() {
+        return description.substring(description.length() - 10);
+    }
+
 }
