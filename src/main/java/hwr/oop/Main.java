@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 public class Main {
-    private static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
+    private static final String CLEAR_SCREEN = "\033[H\033[2J";
+    private static void error(String message) {
+        System.out.println(ConsoleColors.RED_BOLD + message + ConsoleColors.RESET);
+    }
+    private static void success(String message) {
+        System.out.println(ConsoleColors.GREEN_BOLD + message + ConsoleColors.RESET);
     }
     private static int handleBadIndex(String message) {
-        System.out.println("There is nothing at that index... 🥸");
+        error("There is nothing at that index... 🥸");
         System.out.println("Try again? (y/n)");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String input = "";
@@ -142,7 +145,7 @@ public class Main {
                 tag,
                 false ,
                 priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH);
-        System.out.println("Task Created Successfully!");
+        success("Task Created Successfully!");
 
         list.add(toDoItem);
     }
@@ -258,9 +261,8 @@ public class Main {
         List toDoList = welcome();
         int i = 1;
         while (i != 0) {
-            clearScreen();
             list(toDoList);
-            System.out.println("Please enter a command or type 'gtd help' for more information");
+            System.out.println(ConsoleColors.BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + ConsoleColors.RESET);
             System.out.print("> ");
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(System.in));
@@ -307,10 +309,10 @@ public class Main {
                     exit(toDoList);
                     i = 0;
                 } else {
-                    help(); // TODO: Always print help ?
+                    error("Command not found.");
                 }
             } else {
-                help(); // TODO: Always print help ?
+                error("Command not found.");
             }
         }
     }
