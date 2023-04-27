@@ -2,6 +2,7 @@ package hwr.oop.group4.todo.ui;
 
 import hwr.oop.group4.todo.Project;
 import hwr.oop.group4.todo.TodoList;
+import hwr.oop.group4.todo.ui.controller.ConsoleController;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -9,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.Scanner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.in;
 
 public class ProjectUiTest {
 
@@ -44,10 +46,10 @@ public class ProjectUiTest {
 
     @Test
     void canListProjects() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("list" + System.lineSeparator() + "quit" + System.lineSeparator()));
+        InputStream inputStream = createInputStreamForInput("list" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
         ui.menu(getExampleTodoList(true));
 
         String output = retrieveResultFrom(outputStream);
@@ -80,10 +82,10 @@ public class ProjectUiTest {
 
     @Test
     void canCreateNewProject() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("new" + System.lineSeparator() + "Peter" + System.lineSeparator() + "Parker" + System.lineSeparator() + "12.12.2023" + System.lineSeparator() + "24.12.2023" + System.lineSeparator() + "no" + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator()));
+        InputStream inputStream = createInputStreamForInput("new" + System.lineSeparator() + "Peter" + System.lineSeparator() + "Parker" + System.lineSeparator() + "12.12.2023" + System.lineSeparator() + "24.12.2023" + System.lineSeparator() + "no" + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
         ui.menu(getExampleTodoList(true));
 
         String output = retrieveResultFrom(outputStream);
@@ -128,10 +130,10 @@ public class ProjectUiTest {
 
     @Test
     void canCreateNewProjectAndEdit() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("new" + System.lineSeparator() + "Peter" + System.lineSeparator() + "Parker" + System.lineSeparator() + "12.12.2023" + System.lineSeparator() + "24.12.2023" + System.lineSeparator() + "yes" + System.lineSeparator() + "quit" + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator()));
+        InputStream inputStream = createInputStreamForInput("new" + System.lineSeparator() + "Peter" + System.lineSeparator() + "Parker" + System.lineSeparator() + "12.12.2023" + System.lineSeparator() + "24.12.2023" + System.lineSeparator() + "yes" + System.lineSeparator() + "quit" + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
         ui.menu(getExampleTodoList(true));
 
         String output = retrieveResultFrom(outputStream);
@@ -188,10 +190,10 @@ public class ProjectUiTest {
 
     @Test
     void cannotEditEmptyProjectList() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("edit" + System.lineSeparator() + "quit" + System.lineSeparator()));
+        InputStream inputStream = createInputStreamForInput("edit" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
         ui.menu(getExampleTodoList(false));
 
         String output = retrieveResultFrom(outputStream);
@@ -219,10 +221,10 @@ public class ProjectUiTest {
 
     @Test
     void canEditProject() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("edit" + System.lineSeparator() + "1" + System.lineSeparator() + "name" + System.lineSeparator() + "desc" + System.lineSeparator() + "tags" + System.lineSeparator() + "begin" + System.lineSeparator() + "end" + System.lineSeparator() + "quit" + System.lineSeparator() + "quit" + System.lineSeparator()));
+        InputStream inputStream = createInputStreamForInput("edit" + System.lineSeparator() + "1" + System.lineSeparator() + "name" + System.lineSeparator() + "desc" + System.lineSeparator() + "tags" + System.lineSeparator() + "begin" + System.lineSeparator() + "end" + System.lineSeparator() + "quit" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
         ui.menu(getExampleTodoList(true));
 
         String output = retrieveResultFrom(outputStream);
@@ -323,10 +325,10 @@ public class ProjectUiTest {
 
     @Test
     void cannotRemoveEmptyProjectList() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("remove" + System.lineSeparator() + "quit" + System.lineSeparator()));
+        InputStream inputStream = createInputStreamForInput("remove" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
         ui.menu(getExampleTodoList(false));
 
         String output = retrieveResultFrom(outputStream);
@@ -354,10 +356,10 @@ public class ProjectUiTest {
 
     @Test
     void canRejectRemovalOfProject() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("remove" + System.lineSeparator() + "1" + System.lineSeparator() + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator()));
+        InputStream inputStream = createInputStreamForInput("remove" + System.lineSeparator() + "1" + System.lineSeparator() + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
         ui.menu(getExampleTodoList(true));
 
         String output = retrieveResultFrom(outputStream);
@@ -398,10 +400,10 @@ public class ProjectUiTest {
 
     @Test
     void canRemoveProject() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("remove" + System.lineSeparator() + "1" + System.lineSeparator() + "y" + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator()));
+        InputStream inputStream = createInputStreamForInput("remove" + System.lineSeparator() + "1" + System.lineSeparator() + "y" + System.lineSeparator() + "list" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
         ui.menu(getExampleTodoList(true));
 
         String output = retrieveResultFrom(outputStream);
@@ -442,10 +444,10 @@ public class ProjectUiTest {
 
     @Test
     void canOpenTaskMenu() {
-        Scanner inputStream = new Scanner(createInputStreamForInput("tasks" + System.lineSeparator() + "quit" + System.lineSeparator()));
+        InputStream inputStream = createInputStreamForInput("tasks" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ProjectUi ui = new ProjectUi(new PrintStream(outputStream), inputStream);
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
         ui.menu(getExampleTodoList(true));
 
         String output = retrieveResultFrom(outputStream);

@@ -1,5 +1,6 @@
 package hwr.oop.group4.todo.ui;
 
+import hwr.oop.group4.todo.ui.controller.ConsoleController;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -25,7 +26,7 @@ class ConsoleUserInterfaceTest {
         InputStream inputStream = createInputStreamForInput("no" + System.lineSeparator() + "load" + System.lineSeparator() + "N" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ConsoleUserInterface ui = new ConsoleUserInterface(outputStream, inputStream);
+        ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
         ui.mainMenu();
 
         String output = retrieveResultFrom(outputStream);
@@ -57,7 +58,7 @@ class ConsoleUserInterfaceTest {
         InputStream inputStream = createInputStreamForInput("yes" + System.lineSeparator() + "save" + System.lineSeparator() + "load" + System.lineSeparator() + "Y" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ConsoleUserInterface ui = new ConsoleUserInterface(outputStream, inputStream);
+        ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
         ui.mainMenu();
 
         String output = retrieveResultFrom(outputStream);
@@ -97,7 +98,7 @@ class ConsoleUserInterfaceTest {
         InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "protsch" + System.lineSeparator() + "projects" + System.lineSeparator() + "quit" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ConsoleUserInterface ui = new ConsoleUserInterface(outputStream, inputStream);
+        ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
         ui.mainMenu();
 
         String output = retrieveResultFrom(outputStream);
@@ -137,7 +138,7 @@ class ConsoleUserInterfaceTest {
         InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "intray" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ConsoleUserInterface ui = new ConsoleUserInterface(outputStream, inputStream);
+        ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
         ui.mainMenu();
 
         String output = retrieveResultFrom(outputStream);
@@ -168,7 +169,7 @@ class ConsoleUserInterfaceTest {
         InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "tasks" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ConsoleUserInterface ui = new ConsoleUserInterface(outputStream, inputStream);
+        ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
         ui.mainMenu();
 
         String output = retrieveResultFrom(outputStream);
@@ -199,7 +200,7 @@ class ConsoleUserInterfaceTest {
         InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "calendar" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
-        ConsoleUserInterface ui = new ConsoleUserInterface(outputStream, inputStream);
+        ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
         ui.mainMenu();
 
         String output = retrieveResultFrom(outputStream);
