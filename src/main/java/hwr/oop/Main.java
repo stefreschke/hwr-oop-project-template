@@ -144,7 +144,8 @@ public class Main {
                 description,
                 tag,
                 false ,
-                priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH);
+                priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH,
+                new Project(""));
         success("Task Created Successfully!");
 
         list.add(toDoItem);

@@ -6,7 +6,7 @@ public class Project {
     private String title;
 
     public Project(String title) {
-        setTitle(title);
+        this.title = title;
     }
     public void setTitle(String title) {
         this.title = title;
