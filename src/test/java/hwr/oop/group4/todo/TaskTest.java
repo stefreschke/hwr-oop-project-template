@@ -83,10 +83,11 @@ class TaskTest {
     void canAddMoreTags() {
         final Tag tag = new Tag("tagA");
         final Tag tag2 = new Tag("tagB");
+        final Tag tag3 = new Tag("tagC");
         final Task task = new Task.TaskBuilder().addTags(tag, tag2).build();
+        task.addTag(tag3);
 
-        assertThat(task.getTags()).contains(tag);
-        assertThat(task.getTags()).contains(tag2);
+        assertThat(task.getTags()).contains(tag, tag2, tag3);
     }
 
     @Test
@@ -149,6 +150,29 @@ class TaskTest {
         defaultTask2.closed();
 
         assertThat(defaultTask).isNotEqualTo(defaultTask2);
+    }
+
+    @Test
+    void addStatusOpen(){
+        final Task task = new Task.TaskBuilder().build();
+        task.open();
+
+        assertThat(task.getStatus()).isEqualTo(Status.OPEN);
+    }
+    @Test
+    void addStatusInProgress(){
+        final Task task = new Task.TaskBuilder().build();
+        task.inProgress();
+
+        assertThat(task.getStatus()).isEqualTo(Status.IN_PROGRESS);
+    }
+
+    @Test
+    void addStatusClosed(){
+        final Task task = new Task.TaskBuilder().build();
+        task.closed();
+
+        assertThat(task.getStatus()).isEqualTo(Status.CLOSED);
     }
 
     @Test
