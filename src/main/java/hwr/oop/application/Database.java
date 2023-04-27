@@ -1,13 +1,10 @@
 package hwr.oop.application;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+
 public class Database {
 
     //opens connection to database
-    public static Connection connect() {
+    public Connection connect() {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(System.getenv("DATABASE_FILE_URL"));
@@ -19,7 +16,6 @@ public class Database {
         /**
          * Connect to database
          *
-         * @param fileName the database file name (to_do_list.db)
          */
         //createNewDatabase
         public static void createNewDatabase() {
@@ -35,6 +31,14 @@ public class Database {
 
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
+            }
+        }
+
+        public void insert(String tableName, String tableCol){
+            String sql = "INSERT INTO " +tableName +;
+            try (Connection conn = this.connect();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)){
+
             }
         }
     public static void createTableTags() {
@@ -94,7 +98,6 @@ public class Database {
         }
         }
     public static void main (String []args){
-            connect();
             createNewDatabase();
             createTableTasks();
             createTableTags();
