@@ -12,12 +12,8 @@ public class IOControllerTest {
 
     @Test
     void canPrintPropmpt(){
-        //InputStream inputStream = createInputStreamForInput("TEst");
-        //OutputStream outputStream = new ByteArrayOutputStream();
-        //IOController controller = new IOController(inputStream);
-        // TODO: add printing function
-        //String output = retrieveResultFrom(outputStream);
-        //assertEquals("TEst", output);
+        IOController controller = new IOController(System.in);
+        controller.printPrompt("string");
     }
 
     @Test
