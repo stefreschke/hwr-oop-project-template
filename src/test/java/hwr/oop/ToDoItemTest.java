@@ -1,60 +1,76 @@
 package hwr.oop;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.EnumSource;
-import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-public class ToDoItemTest {
+class ToDoItemTest {
     @Test
-    public void itemConstructorTest() {
-        ToDoItem item = new ToDoItem();
-        String title = item.title;
-        String description = item.description;
-        boolean done = item.done;
-        Priority priority = item.priority;
-        assertThat(title).isEqualTo("New Item");
-        assertThat(description).isEqualTo("");
-        assertThat(done).isEqualTo(false);
-        assertThat(priority).isEqualTo(Priority.LOW);
+    void getIdTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        int result = item.getId();
+        assertThat(result).isEqualTo(0);
     }
-    @ParameterizedTest
-    @ValueSource(strings = {"Title", "New Title"})
-    public void itemTitleSetterStringTest(String title) {
-        ToDoItem item = new ToDoItem();
-        item.setTitle(title);
-        String testTitle = item.title;
-        assertThat(testTitle).isEqualTo(title);
-    }
-    @ParameterizedTest
-    @ValueSource(strings = {"Description", "New Description"})
-    public void itemDescriptionSetterTest(String description) {
-        ToDoItem item = new ToDoItem();
-        item.setDescription(description);
-        String testDescription = item.description;
-        assertThat(testDescription).isEqualTo(description);
-    }
-    @ParameterizedTest
-    @ValueSource(booleans = {true, false})
-    public void itemDoneSetterTest(boolean done) {
-        ToDoItem item = new ToDoItem();
-        item.setDone(done);
-        boolean testDone = item.done;
-        assertThat(testDone).isEqualTo(done);
-    }
-    @ParameterizedTest
-    @EnumSource(Priority.class)
-    public void itemPrioritySetterTest(Priority priority) {
-        ToDoItem item = new ToDoItem();
-        item.setPriority(priority);
-        Priority testPriority = item.priority;
-        assertThat(testPriority).isEqualTo(priority);
+    @Test
+    void getTitleTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        String result = item.getTitle();
+        assertThat(result).isEqualTo("testTitle");
     }
 
+    @Test
+    void getDescriptionTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        String result = item.getDescription();
+        assertThat(result).isEqualTo("testDesc"+ "\nCreated " + ToDoItem.getLocalDate());
+    }
+
+    @Test
+    void getTagTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        String result = item.getTag();
+        assertThat(result).isEqualTo("testTag");
+    }
+
+    @Test
+    void isDoneTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        boolean result = item.isDone();
+        assertThat(result).isEqualTo(false);
+    }
+
+    @Test
+    void getPriorityTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        Priority result = item.getPriority();
+        assertThat(result).isEqualTo(Priority.LOW);
+    }
+    @Test
+    void setTitleTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        item.setTitle("Title");
+        String testTitle = item.getTitle();
+        assertThat(testTitle).isEqualTo("Title");
+    }
+    @Test
+    void setDescriptionTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        item.setDescription("Description");
+        String testDescription = item.getDescription();
+        assertThat(testDescription).isEqualTo("Description");
+    }
+    @Test
+    void setDoneTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        item.setDone(true);
+        boolean testDone = item.isDone();
+        assertThat(testDone).isEqualTo(true);
+    }
+    @Test
+    void setPriorityTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        item.setPriority(Priority.HIGH);
+        Priority testPriority = item.getPriority();
+        assertThat(testPriority).isEqualTo(Priority.HIGH);
+    }
 }
-
-
-
