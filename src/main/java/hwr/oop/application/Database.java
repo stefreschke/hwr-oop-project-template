@@ -6,7 +6,6 @@ import java.sql.*;
 
 public class Database {
 
-    //opens connection to database
     public Connection connect() {
         Connection conn = null;
         try {
