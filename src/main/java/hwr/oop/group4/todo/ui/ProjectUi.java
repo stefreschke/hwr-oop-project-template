@@ -122,7 +122,7 @@ public class ProjectUi {
         String projectName = todoList.getProjects().get(id).getName();
         String confirmation = "Do you really want to remove " + projectName + "?";
         if (consoleController.inputBool(List.of("projects", "remove"), confirmation, false)) {
-            todoList.getProjects().remove(id.intValue());
+            todoList.removeProject(todoList.getProjects().get(id));
         }
     }
 
