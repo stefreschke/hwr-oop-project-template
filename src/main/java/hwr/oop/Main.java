@@ -309,10 +309,10 @@ public class Main {
                     exit(toDoList);
                     i = 0;
                 } else {
-                    help(); // TODO: Always print help ?
+                    error("Command not found.");
                 }
             } else {
-                help(); // TODO: Always print help ?
+                error("Command not found.");
             }
         }
     }
