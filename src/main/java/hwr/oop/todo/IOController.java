@@ -35,12 +35,12 @@ public class IOController {
         String longest = String.valueOf(options.stream().map(MenuOption::getDescription).max(Comparator.comparingInt(String::length)));
 
         StringBuilder line = new StringBuilder();
-        line.append("-".repeat(Math.max(0, (int) (longest.length() * 1.0) + 4)));
+        line.append("-".repeat(Math.max(0, (int) (longest.length() * 1.0) + 7)));
 
         System.out.println("|" + line + "|");
         for (MenuOption option : options) {
             String description = option.getDescription();
-            System.out.println("|•" + description + " ".repeat(Math.max(0, (int) (longest.length() * 1.0) + 2 - description.length())) + " |");
+            System.out.println("| "+ option.getSelectionKey()+ ") " + description + " ".repeat(Math.max(0, (int) (longest.length() * 1.0) + 2 - description.length())) + " |");
         }
         System.out.println("|" + line + "|");
         System.out.println("\u001B[32m");
