@@ -1,6 +1,9 @@
 package hwr.oop.group4.todo.core;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class TodoList {
 
@@ -37,6 +40,7 @@ public class TodoList {
     public void addLoseTask(Task task) {
         loseTasks.add(task);
     }
+
     public void removeLoseTask(Task task) {
         loseTasks.remove(task);
     }
@@ -44,6 +48,7 @@ public class TodoList {
     public void addSomedayMaybeProject(Project project) {
         somedayMaybe.add(project);
     }
+
     public void removeSomedayMaybeProject(Project project) {
         somedayMaybe.remove(project);
     }
@@ -51,6 +56,7 @@ public class TodoList {
     public void addProject(Project project) {
         projects.add(project);
     }
+
     public void removeProject(Project project) {
         projects.remove(project);
     }
