@@ -55,12 +55,12 @@ public class ProjectUi {
             consoleController.output(menu.toString());
 
             consoleController.inputOptions(List.of("projects"), List.of(
-                    new Command("list", this::listProjects),
-                    new Command("new", this::newProject),
-                    new Command("tasks", args -> {}),
-                    new Command("edit", args -> {}),
+                    new Command("list",   this::listProjects),
+                    new Command("new",    this::newProject),
+                    new Command("tasks",  args -> {}),
+                    new Command("edit",   args -> {}),
                     new Command("remove", args -> {}),
-                    new Command("back", args -> shouldReturn.set(true))
+                    new Command("back",   args -> shouldReturn.set(true))
             ), new Command("wrongInput", args -> {}));
         }
     }
