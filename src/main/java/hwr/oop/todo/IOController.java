@@ -51,15 +51,15 @@ public class IOController {
         return this.scanner.nextLine();
     }
 
-    public int getInputList(List<MenuOption> options){
+    public char getInputList(List<MenuOption> options){
         String selection = this.getInputString();
 
-        for (int i = 0; i < options.size(); i++) {
-            if (options.get(i).getSelectionKey() == selection.charAt(0)) {
-                return i;
+        for (MenuOption option : options) {
+            if (option.getSelectionKey() == selection.charAt(0)) {
+                return option.getSelectionKey();
             }
         }
-        return -1;
+        return ' ';
     }
 
     public int getInputInt(){

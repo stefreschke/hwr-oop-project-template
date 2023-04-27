@@ -49,7 +49,7 @@ public class IOControllerTest {
         List<MenuOption> options= List.of(new MenuOption('a', "Example action to test very long"), new MenuOption('b', "Example action"));
         int input = controller.getInputList(options);
 
-        assertEquals(0, input);
+        assertEquals('a', input);
     }
 
 
