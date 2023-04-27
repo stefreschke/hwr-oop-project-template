@@ -3,7 +3,6 @@ package hwr.oop.todo;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -22,12 +21,21 @@ public class IOControllerTest {
     }
 
     @Test
-    void canGetInput(){
+    void canGetInputString(){
         InputStream inputStream = createInputStreamForInput("AAA\n");
         IOController controller = new IOController(inputStream);
-        String input = controller.getInput();
+        String input = controller.getInputString();
 
         assertEquals("AAA", input);
+    }
+
+    @Test
+    void canGetInputInt(){
+        InputStream inputStream = createInputStreamForInput("3");
+        IOController controller = new IOController(inputStream);
+        int input = controller.getInputInt();
+
+        assertEquals(3, input);
     }
 
     private String retrieveResultFrom(OutputStream outputStream) {
