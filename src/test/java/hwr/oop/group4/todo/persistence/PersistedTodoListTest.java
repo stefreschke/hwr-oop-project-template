@@ -3,6 +3,8 @@ package hwr.oop.group4.todo.persistence;
 import hwr.oop.group4.todo.Project;
 import hwr.oop.group4.todo.Task;
 import hwr.oop.group4.todo.TodoList;
+import net.javacrumbs.jsonunit.assertj.JsonAssert;
+import net.javacrumbs.jsonunit.assertj.JsonAssertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +42,6 @@ class PersistedTodoListTest {
 
         // System.out.println(persistedTodoList.toString());
 
-        assertThat(persistedTodoList.toString())
-                .isEqualTo("{\"maybeList\":[],\"projects\":[{\"name\":\"project a\",\"description\":\"\",\"tasks\":[{\"name\":\"task b\",\"description\":\"description b\",\"priority\":0,\"tags\":[],\"status\":\"OPEN\"},{\"name\":\"task c\",\"description\":\"description c\",\"priority\":0,\"tags\":[],\"status\":\"OPEN\"}],\"tags\":[]}],\"inTray\":[],\"loseTasks\":[{\"name\":\"task a\",\"description\":\"description a\",\"priority\":0,\"tags\":[],\"status\":\"OPEN\"}]}");
+        JsonAssertions.assertThatJson(persistedTodoList.toString()).isEqualTo("{\"maybeList\":[],\"projects\":[{\"name\":\"project a\",\"description\":\"\",\"tasks\":[{\"name\":\"task b\",\"description\":\"description b\",\"priority\":0,\"tags\":[],\"status\":\"OPEN\"},{\"name\":\"task c\",\"description\":\"description c\",\"priority\":0,\"tags\":[],\"status\":\"OPEN\"}],\"tags\":[]}],\"inTray\":[],\"loseTasks\":[{\"name\":\"task a\",\"description\":\"description a\",\"priority\":0,\"tags\":[],\"status\":\"OPEN\"}]}");
     }
 }
