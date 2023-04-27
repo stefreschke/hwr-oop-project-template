@@ -21,7 +21,7 @@ class TopicTests {
 
         Topic topic = new Topic("Spanish", 3);
 
-        assertThat(topic.getActiveBox()).isZero();
+        assertThat(topic.getActiveBox()).isNotNull();
     }
 
     @Test

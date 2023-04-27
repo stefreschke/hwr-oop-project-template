@@ -35,7 +35,8 @@ public class Topic {
         boxList.get(0).addCard(card);
     }
 
-    public int getActiveBox() {
-        return activeBoxIndex;
+    public Box getActiveBox() {
+        return boxList.get(activeBoxIndex);
+
     }
 }

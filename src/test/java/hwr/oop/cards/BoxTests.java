@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 
 public class BoxTests {
     @Nested
@@ -39,6 +40,30 @@ public class BoxTests {
 
             assertThat(containsCard1).isEqualTo(true);
             assertThat(containsCard1).isEqualTo(true);
+        }
+
+        @Test
+        void canDrawRandomCardFromBox(){
+
+            Box box = new Box();
+
+            Card card1 = new Card("What is the smallest mammal in the world?", "The bumblebee bat.");
+            Card card2 = new Card("What is the highest-grossing movie of all time?", "Avatar, which grossed over $2.7 billion worldwide.");
+            Card card3 = new Card("What is the longest word in the English language?", "Pneumonoultramicroscopicsilicovolcanoconiosis");
+
+            box.addCard(card1);
+            box.addCard(card2);
+            box.addCard(card3);
+
+            Card testCard;
+
+            for (int i = 0; i < 3; i++){
+                testCard = box.draw();
+
+                if (!testCard.equals(card1) && !testCard.equals(card2) && !testCard.equals(card3)){
+                    fail("None of the drawn cards were the expected card.");
+                }
+            }
         }
     }
 }
