@@ -9,7 +9,7 @@ public class TagTest {
     @Test
     void canGetTitle() {
         final String title = "Title";
-        final Tag tag = new Tag(title);
+        final Tag tag = new TagBuilder().setTitle(title).build();
         assertThat(tag.getTitle()).isEqualTo(title);
     }
 }

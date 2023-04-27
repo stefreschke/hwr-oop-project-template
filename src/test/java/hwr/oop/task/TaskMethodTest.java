@@ -3,6 +3,7 @@ package hwr.oop.task;
 import hwr.oop.project.Project;
 import hwr.oop.project.ProjectBuilder;
 import hwr.oop.tag.Tag;
+import hwr.oop.tag.TagBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,7 @@ public class TaskMethodTest {
                     .setTitle("Title")
                     .setDescription("Description")
                     .build();
-            final Tag tag = new Tag("Title");
+            final Tag tag = new TagBuilder().setTitle("Title").build();
             task.addTag(tag);
             Set<Tag> tags = task.getTags();
             assertThat(tags).containsExactly(tag);
@@ -41,7 +42,7 @@ public class TaskMethodTest {
                     .setTitle("Title")
                     .setDescription("Description")
                     .build();
-            final Tag tag = new Tag("Title");
+            final Tag tag = new TagBuilder().setTitle("Title").build();
             task.addTag(tag);
             task.addTag(tag);
             Set<Tag> tags = task.getTags();
@@ -55,8 +56,8 @@ public class TaskMethodTest {
                     .setTitle("Title")
                     .setDescription("Description")
                     .build();
-            final Tag tag = new Tag("Title");
-            final Tag secondTag = new Tag("Title");
+            final Tag tag = new TagBuilder().setTitle("Title").build();
+            final Tag secondTag = new TagBuilder().setTitle("Title").build();
             task.addTag(tag);
             task.addTag(secondTag);
             Set<Tag> tags = task.getTags();
@@ -71,8 +72,8 @@ public class TaskMethodTest {
                 .setTitle("Title")
                 .setDescription("Description")
                 .build();
-        final Tag tag = new Tag("Title");
-        final Tag secondTag = new Tag("Title");
+        final Tag tag = new TagBuilder().setTitle("Title").build();
+        final Tag secondTag = new TagBuilder().setTitle("Title").build();
         task.addTag(tag);
         task.addTag(secondTag);
         task.removeTag(secondTag);
