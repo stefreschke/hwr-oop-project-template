@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+
+import static hwr.oop.ConsoleColors.BLUE_BOLD;
+import static hwr.oop.ConsoleColors.RESET;
+
 public class Main {
     private static final PrintStream out = new PrintStream(System.out);
     private static final String CLEAR_SCREEN = "\033[H\033[2J";
@@ -141,7 +145,6 @@ public class Main {
             e.printStackTrace();
         }
         ToDoItem toDoItem = new ToDoItem(
-                0, // TODO: add id assignment algorithm
                 title,
                 description,
                 tag,
@@ -288,36 +291,7 @@ public class Main {
         }
     }
 
-    private static void handleSort(List list, String[] commandArray) {
-        int nCommands = commandArray.length;
-        if (nCommands == 2) {
-            sortHelp();
-            return;
-        } else if (nCommands == 3) {
-            if (commandArray[2].equals("help")) {
-                sortHelp();
-                return;
-            } else if (commandArray[2].toLowerCase().contains("tag")) {
-                list.bubbleUpTag(commandArray[3]);
-            }
-        } else if (nCommands == 4) {
-            if (commandArray[2].toLowerCase().contains("prio")) {
-                if (commandArray[3].equals("asc")) {
-                    list.sortByPriority("asc");
-                } else {
-                    list.sortByPriority("desc");
-                }
-            } else if (commandArray[2].toLowerCase().contains("create")) {
-                if (commandArray[3].equals("asc")) {
-                    list.sortByCreatedAt("asc");
-                } else {
-                    list.sortByCreatedAt("desc");
-                }
-            }
-        }
-    }
-
-    private static void clear(List list) {
+    public static void clear(List list) {
         list.setListToDos(null);
     }
     public static void exit(List list) {
@@ -328,9 +302,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         List toDoList = welcome();
         int i = 1;
+        out.println(BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + RESET);
         while (i != 0) {
-            list(toDoList);
-            out.println(ConsoleColors.BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + ConsoleColors.RESET);
             out.print("> ");
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(System.in));
