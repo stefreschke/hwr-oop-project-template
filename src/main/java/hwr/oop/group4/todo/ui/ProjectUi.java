@@ -30,15 +30,7 @@ public class ProjectUi {
 
     public void menu(TodoList todoList) {
         this.todoList = todoList;
-        listProjects();
-
-        Map<String, String> options = new LinkedHashMap<>();
-        options.put("list",   "List all projects.");
-        options.put("new",    "Add a new project.");
-        options.put("tasks",  "Open the task menu for a project.");
-        options.put("edit",   "Edit the attributes of a project.");
-        options.put("remove", "Remove a project.");
-        options.put("quit",   "Quit to the previous menu.");
+        listProjects(null);
 
         Menu menu = new Menu("Project Menu", "Manage your Projects!", List.of(
                 new Entry("list", "List all projects."),
@@ -65,9 +57,9 @@ public class ProjectUi {
             consoleController.inputOptions(List.of("projects"), List.of(
                     new Command("list", this::listProjects),
                     new Command("new", this::newProject),
-                    new Command("tasks", ),
-                    new Command("edit", ),
-                    new Command("remove", ),
+                    new Command("tasks", args -> {}),
+                    new Command("edit", args -> {}),
+                    new Command("remove", args -> {}),
                     new Command("back", args -> shouldReturn.set(true))
             ), new Command("wrongInput", args -> {}));
         }
