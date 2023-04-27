@@ -1,24 +1,23 @@
 package hwr.oop.todo;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TaskMenuTest {
+public class ProjectMenuTest {
 
     @Test
     void hasOptions() {
-        TaskMenu menu = new TaskMenu();
+        ProjectMenu menu = new ProjectMenu();
 
         assertFalse(menu.getMenuOptions().isEmpty());
     }
 
     @Test
     void canHandleValidSelections() {
-        TaskMenu menu = new TaskMenu();
+        ProjectMenu menu = new ProjectMenu();
         List<MenuOption> options = menu.getMenuOptions();
 
         MenuOption validOption = options.get(0);
@@ -30,7 +29,7 @@ public class TaskMenuTest {
 
     @Test
     void canHandleInvalidSelections(){
-        TaskMenu menu = new TaskMenu();
+        ProjectMenu menu = new ProjectMenu();
 
         SelectionResponse response = menu.getSelectionResponse('z');
 

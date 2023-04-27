@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TaskMenu extends Menu{
-    public TaskMenu(){
-        addOption(new MenuOption( 'a', "Create task"));
-        addOption(new MenuOption('b', "Delete task"));
-        addOption(new MenuOption('c', "List all tasks"));
+public class ProjectMenu extends Menu{
+    public ProjectMenu(){
+        addOption(new MenuOption( 'a', "Create project"));
+        addOption(new MenuOption('b', "Delete project"));
+        addOption(new MenuOption('c', "List all projects"));
     }
 
     @Override

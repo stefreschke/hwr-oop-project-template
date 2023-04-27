@@ -7,18 +7,18 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TaskMenuTest {
+public class TagMenuTest {
 
     @Test
     void hasOptions() {
-        TaskMenu menu = new TaskMenu();
+        TagMenu menu = new TagMenu();
 
         assertFalse(menu.getMenuOptions().isEmpty());
     }
 
     @Test
     void canHandleValidSelections() {
-        TaskMenu menu = new TaskMenu();
+        TagMenu menu = new TagMenu();
         List<MenuOption> options = menu.getMenuOptions();
 
         MenuOption validOption = options.get(0);
@@ -30,7 +30,7 @@ public class TaskMenuTest {
 
     @Test
     void canHandleInvalidSelections(){
-        TaskMenu menu = new TaskMenu();
+        TagMenu menu = new TagMenu();
 
         SelectionResponse response = menu.getSelectionResponse('z');
 
