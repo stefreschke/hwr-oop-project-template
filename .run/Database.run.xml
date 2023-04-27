@@ -1,0 +1,22 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Database" type="Application" factoryName="Application" nameIsGenerated="true">
+    <envs>
+      <env name="DATABASE_FILE_URL" value="jdbc:sqlite:src/database/to_do_list.db" />
+      <env name="DATABASE_FILENAME" value="to_do_list" />
+      <env name="DATABASE_URL" value="jdbc:sqlite:src/database/" />
+      <env name="SQL_FILE_URL" value="src/database/sql.sql" />
+      <env name="SQL_FILENAME" value="sql" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="hwr.oop.application.Database" />
+    <module name="project" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="hwr.oop.application.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
