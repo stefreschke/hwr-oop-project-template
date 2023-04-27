@@ -1,11 +1,11 @@
 package hwr.oop.group4.todo.ui;
 
-import hwr.oop.group4.todo.Project;
-import hwr.oop.group4.todo.Tag;
-import hwr.oop.group4.todo.TodoList;
+import hwr.oop.group4.todo.core.Project;
+import hwr.oop.group4.todo.core.Tag;
+import hwr.oop.group4.todo.core.TodoList;
 import hwr.oop.group4.todo.ui.controller.ConsoleController;
-import hwr.oop.group4.todo.ui.controller.command.Argument;
 import hwr.oop.group4.todo.ui.controller.command.Command;
+import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
 import hwr.oop.group4.todo.ui.controller.menu.Entry;
 import hwr.oop.group4.todo.ui.controller.menu.EntryArgument;
 import hwr.oop.group4.todo.ui.controller.menu.Menu;
@@ -64,7 +64,7 @@ public class ProjectUi {
         }
     }
 
-    private void listProjects(Collection<Argument<?>> args) {
+    private void listProjects(Collection<CommandArgument<?>> args) {
         final List<Project> projects = todoList.getProjects();
         final int idColumnLength = Math.max((int) Math.ceil(Math.log10(projects.size()) - 2), 2);
         final Table projectTable = new Table(List.of(
@@ -93,11 +93,11 @@ public class ProjectUi {
 
     private String concatTagsToString(Collection<Tag> tags) {
         StringBuilder stringBuilder = new StringBuilder();
-        tags.stream().forEach(tag -> stringBuilder.append(tag.getName()));
+        tags.stream().forEach(tag -> stringBuilder.append(tag.name()));
         return stringBuilder.toString();
     }
 
-    private void newProject(Collection<Argument<?>> args) {
+    private void newProject(Collection<CommandArgument<?>> args) {
         String name = consoleController.input(List.of("projects", "new", "name")).orElseThrow();
         String desc = consoleController.input(List.of("projects", "new", "description")).orElseThrow();
         LocalDateTime begin = consoleController.inputDate(List.of("projects", "new", "begin"));
@@ -113,7 +113,7 @@ public class ProjectUi {
         todoList.addProject(project);
     }
 
-    private void removeProject(Collection<Argument<?>> args) {
+    private void removeProject(Collection<CommandArgument<?>> args) {
         Integer id = getId(args);
         if (id == null) {
             return;
@@ -126,8 +126,8 @@ public class ProjectUi {
         }
     }
 
-    private Integer getId(Collection<Argument<?>> args) {
-        Optional<Argument<?>> id_arg = args.stream()
+    private Integer getId(Collection<CommandArgument<?>> args) {
+        Optional<CommandArgument<?>> id_arg = args.stream()
                 .filter(arg -> arg.getName().equals("id"))
                 .findAny();
 
@@ -157,7 +157,7 @@ public class ProjectUi {
         return id;
     }
 
-    private void editProject(Collection<Argument<?>> args) {
+    private void editProject(Collection<CommandArgument<?>> args) {
         final Integer id = getId(args);
         if (id == null) {
             return;
@@ -174,14 +174,14 @@ public class ProjectUi {
             //project.desc = parameter;
         }
 
-        final Optional<Argument<?>> begin = args.stream()
+        final Optional<CommandArgument<?>> begin = args.stream()
                 .filter(argument -> argument.getName().equals("begin"))
                 .findAny();
         if (begin.isPresent()) {
             consoleController.inputDate(List.of("projects", "edit", "begin"));
         }
 
-        final Optional<Argument<?>> end = args.stream()
+        final Optional<CommandArgument<?>> end = args.stream()
                 .filter(argument -> argument.getName().equals("end"))
                 .findAny();
         if (end.isPresent()) {
@@ -199,8 +199,8 @@ public class ProjectUi {
         }
     }
 
-    private String getStringParameter(Collection<Argument<?>> args, String name) {
-        Optional<Argument<?>> arg = args.stream()
+    private String getStringParameter(Collection<CommandArgument<?>> args, String name) {
+        Optional<CommandArgument<?>> arg = args.stream()
                 .filter(argument -> argument.getName().equals(name))
                 .findAny();
 

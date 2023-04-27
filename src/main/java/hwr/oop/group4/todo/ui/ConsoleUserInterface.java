@@ -1,12 +1,11 @@
 package hwr.oop.group4.todo.ui;
 
-import hwr.oop.group4.todo.TodoList;
+import hwr.oop.group4.todo.core.TodoList;
 import hwr.oop.group4.todo.ui.controller.ConsoleController;
-import hwr.oop.group4.todo.ui.controller.command.Argument;
 import hwr.oop.group4.todo.ui.controller.command.Command;
+import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
 import hwr.oop.group4.todo.ui.controller.menu.Entry;
 import hwr.oop.group4.todo.ui.controller.menu.Menu;
-import hwr.oop.group4.todo.core.TodoList;
 
 import java.util.Collection;
 import java.util.List;
@@ -51,10 +50,10 @@ public class ConsoleUserInterface {
         }
     }
 
-    private void save(Collection<Argument<?>> args) {
+    private void save(Collection<CommandArgument<?>> args) {
     }
 
-    private void load(Collection<Argument<?>> args) {
+    private void load(Collection<CommandArgument<?>> args) {
         String question = "Do you want to load from a file? (Otherwise create an empty todo list)";
         boolean loadFromFile = consoleController.inputBool(List.of("main", "load"), question, false);
 
