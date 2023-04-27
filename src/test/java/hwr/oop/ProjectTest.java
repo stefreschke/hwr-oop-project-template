@@ -7,12 +7,18 @@ import org.junit.jupiter.params.provider.ValueSource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ProjectTest {
-    @ParameterizedTest
-    @ValueSource(strings = {"Title", "New Title"})
-    public void projectTitleSetterTest(String title) {
-        Project project = new Project();
-        project.setTitle(title);
-        String testTitle = project.title;
-        assertThat(testTitle).isEqualTo(title);
+    @Test
+    void setTitle() {
+        Project project = new Project("");
+        project.setTitle("testtitle");
+        String Testname = project.getTitle();
+        assertThat(Testname).isEqualTo("testtitle");
+    }
+
+    @Test
+    void getTitle() {
+        Project project = new Project("testtitle");
+        String Testname = project.getTitle();
+        assertThat(Testname).isEqualTo("testtitle");
     }
 }

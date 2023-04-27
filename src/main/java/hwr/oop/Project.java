@@ -3,13 +3,15 @@ package hwr.oop;
 import java.util.List;
 
 public class Project {
-    public String title;
-    public List<ToDoItem> toDoList;
+    private String title;
 
+    public Project(String title) {
+        setTitle(title);
+    }
     public void setTitle(String title) {
         this.title = title;
     }
-    public void setList(List<ToDoItem> toDoList) {
-        this.toDoList = toDoList;
+    public String getTitle() {
+        return title;
     }
 }
