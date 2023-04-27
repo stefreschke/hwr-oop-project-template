@@ -11,9 +11,9 @@ public class ListJsonTest {
     @Test
     public void listToJsonTest() {
         List assertList = new List("myList", "listTest");
-        ToDoItem item = new ToDoItem(0,"Finish Math homework", "I need to do tasks 5 - 10b.", "Uni", false, Priority.HIGH);
-        ToDoItem item2 = new ToDoItem(1,"Calculate Something", "More Math over here", "Math", false, Priority.MEDIUM);
-        ToDoItem item3 = new ToDoItem(2,"Be Amazing", "Just Do It", "Personal", false, Priority.LOW);
+        ToDoItem item = new ToDoItem(0,"Finish Math homework", "I need to do tasks 5 - 10b.", "Uni", false, Priority.HIGH, new Project(""));
+        ToDoItem item2 = new ToDoItem(1,"Calculate Something", "More Math over here", "Math", false, Priority.MEDIUM, new Project(""));
+        ToDoItem item3 = new ToDoItem(2,"Be Amazing", "Just Do It", "Personal", false, Priority.LOW, new Project(""));
         assertList.add(item);
         assertList.add(item2);
         assertList.add(item3);
