@@ -114,18 +114,31 @@ public class ProjectUi {
     }
 
     private void removeProject(Collection<Argument<?>> args) {
+        Integer id = getId(args);
+        if (id == null) {
+            return;
+        }
+
+        String projectName = todoList.getProjects().get(id).getName();
+        String confirmation = "Do you really want to remove " + projectName + "?";
+        if (consoleController.inputBool(List.of("projects", "remove"), confirmation, false)) {
+            todoList.getProjects().remove(id.intValue());
+        }
+    }
+
+    private Integer getId(Collection<Argument<?>> args) {
         Optional<Argument<?>> id_arg = args.stream()
                 .filter(arg -> arg.getName().equals("id"))
                 .findAny();
 
         if (id_arg.isEmpty()) {
             consoleController.outputLine("Error: ID Argument required.");
-            return;
+            return null;
         }
 
         if (! (id_arg.get().getValue() instanceof String)) {
             consoleController.outputLine("Error: ID Argument requires parameter.");
-            return;
+            return null;
         }
 
         int id;
@@ -133,19 +146,15 @@ public class ProjectUi {
             id = Integer.parseInt((String) id_arg.get().getValue());
         } catch (NumberFormatException e) {
             consoleController.outputLine("Error: ID is not a valid number.");
-            return;
+            return null;
         }
 
         if (id < 0 || id >= todoList.getProjects().size()) {
             consoleController.outputLine("Error: ID is invalid.");
-            return;
+            return null;
         }
 
-        String projectName = todoList.getProjects().get(id).getName();
-        String confirmation = "Do you really want to remove " + projectName + "?";
-        if (consoleController.inputBool(List.of("projects", "remove"), confirmation, false)) {
-            todoList.getProjects().remove(id);
-        }
+        return id;
     }
 
     private void editProject(int id) {
