@@ -12,11 +12,11 @@ import hwr.oop.group4.todo.ui.controller.menu.Menu;
 import hwr.oop.group4.todo.ui.controller.tables.ColumnConfig;
 import hwr.oop.group4.todo.ui.controller.tables.Table;
 
-import java.io.InputStream;
-import java.io.PrintStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ProjectUi {
@@ -36,17 +36,17 @@ public class ProjectUi {
                 new Entry("list", "List all projects."),
                 new Entry("new",    "Add a new project."),
                 new Entry("tasks",  "Open the task menu for a project.", List.of(
-                        new EntryArgument("id", "ID of the project."))),
+                        new EntryArgument("id <id>", "ID of the project."))),
                 new Entry("edit",   "Edit the attributes of a project.", List.of(
-                        new EntryArgument("id", "ID of the project to be edited."),
-                        new EntryArgument("name", "Change the name of the project."),
-                        new EntryArgument("desc", "Change the description of the project."),
+                        new EntryArgument("id <id>", "ID of the project to be edited."),
+                        new EntryArgument("name <name>", "Change the name of the project."),
+                        new EntryArgument("desc <desc>", "Change the description of the project."),
                         new EntryArgument("begin", "Change the beginning of the project."),
                         new EntryArgument("end", "Change the end of the project"),
-                        new EntryArgument("addTag", "Add a new tag."),
-                        new EntryArgument("removeTag", "Remove a tag."))),
+                        new EntryArgument("addTag <tag>", "Add a new tag."),
+                        new EntryArgument("removeTag <tag>", "Remove a tag."))),
                 new Entry("remove", "Remove a project.", List.of(
-                        new EntryArgument("id", "ID of the project to be removed."))),
+                        new EntryArgument("id <id>", "ID of the project to be removed."))),
                 new Entry("back",   "Returns to the previous menu.")
         ));
         consoleController.output(menu.toString());
@@ -57,7 +57,7 @@ public class ProjectUi {
                     new Command("list",   this::listProjects),
                     new Command("new",    this::newProject),
                     new Command("tasks",  args -> {}),
-                    new Command("edit",   args -> {}),
+                    new Command("edit",   this::editProject),
                     new Command("remove", this::removeProject),
                     new Command("back",   args -> shouldReturn.set(true))
             ), new Command("wrongInput", args -> {}));
@@ -157,44 +157,63 @@ public class ProjectUi {
         return id;
     }
 
-    private void editProject(int id) {
+    private void editProject(Collection<Argument<?>> args) {
+        final Integer id = getId(args);
+        if (id == null) {
+            return;
+        }
         Project project = todoList.getProjects().get(id);
 
-        Map<String, String> options = new LinkedHashMap<>();
-        options.put("name",  "");
-        options.put("desc",  "");
-        options.put("tags",  "");
-        options.put("begin", "");
-        options.put("end",   "");
-        options.put("quit",  "Quit to the previous menu.");
-
-        while (true) {
-            out.println("Name:        " + project.getName());
-            out.println("Description: " + project.getDescription());
-            out.println("Tags:        " + concatTagsToString(project.getTags()));
-            out.println("Begin:       " + project.getBegin().format(DateTimeFormatter.ofPattern("dd.MM.yyyy - HH:mm")));
-            out.println("End:         " + project.getEnd().format(DateTimeFormatter.ofPattern("dd.MM.yyyy - HH:mm")));
-
-            String input = dialogHelper.getMenuSelectionFromUser("Edit a project.", "projects> edit> ", options);
-
-            // TODO: edit the project
-            switch (input) {
-                case "name":
-                    break;
-                case "desc":
-                    break;
-                case "tags":
-                    break;
-                case "begin":
-                    break;
-                case "end":
-                    break;
-                case "quit":
-                    return;
-                default:
-                    break;
-            }
+        final String name = getStringParameter(args, "name");
+        if (name != null) {
+            //project.name = parameter;
         }
+
+        final String desc = getStringParameter(args, "desc");
+        if (desc != null) {
+            //project.desc = parameter;
+        }
+
+        final Optional<Argument<?>> begin = args.stream()
+                .filter(argument -> argument.getName().equals("begin"))
+                .findAny();
+        if (begin.isPresent()) {
+            consoleController.inputDate(List.of("projects", "edit", "begin"));
+        }
+
+        final Optional<Argument<?>> end = args.stream()
+                .filter(argument -> argument.getName().equals("end"))
+                .findAny();
+        if (end.isPresent()) {
+            consoleController.inputDate(List.of("projects", "edit", "end"));
+        }
+
+        final String addTag = getStringParameter(args, "addTag");
+        if (addTag != null) {
+            //project.addTAg = parameter;
+        }
+
+        final String removeTag = getStringParameter(args, "removeTag");
+        if (removeTag != null) {
+            //project.removeTAg = parameter;
+        }
+    }
+
+    private String getStringParameter(Collection<Argument<?>> args, String name) {
+        Optional<Argument<?>> arg = args.stream()
+                .filter(argument -> argument.getName().equals(name))
+                .findAny();
+
+        if (arg.isEmpty()) {
+            return null;
+        }
+
+        if (! (arg.get().getValue() instanceof String)) {
+            consoleController.outputLine("Error: " + name + " Argument requires parameter.");
+            return null;
+        }
+
+        return (String) arg.get().getValue();
     }
 
 }
