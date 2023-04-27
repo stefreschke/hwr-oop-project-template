@@ -135,13 +135,13 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ToDoItem toDoItem = new ToDoItem(
-                0, // TODO: add id assignment algorithm
+        ToDoItem toDoItem = new ToDoItem(0, // TODO: add id assignment algorithm
                 title,
                 description,
                 tag,
-                false ,
-                priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH);
+                false,
+                priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH,
+                new Project(""));
         System.out.println("Task Created Successfully!");
 
         list.add(toDoItem);
