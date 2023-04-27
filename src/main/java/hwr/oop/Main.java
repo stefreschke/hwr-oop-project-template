@@ -3,8 +3,11 @@ package hwr.oop;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.concurrent.TimeUnit;
+import java.io.PrintStream;
+import java.util.Scanner;
 public class Main {
+    private static final PrintStream out = new PrintStream(System.out);
+    private static final Scanner in = new Scanner(System.in);
     private static final String CLEAR_SCREEN = "\033[H\033[2J";
     private static void error(String message) {
         System.out.println(ConsoleColors.RED_BOLD + message + ConsoleColors.RESET);
@@ -40,24 +43,24 @@ public class Main {
         String LIST_NAME;
         List toDoList;
 
-        System.out.println("Welcome To Getting Things Done 🚀");
+        out.println("Welcome To Getting Things Done 🚀");
         Program program = new Program();
         String[] env = program.getEnvironmentVariables();
         if (env == null) {
-            System.out.println("Looks Like it is your first time using this program.");
-            System.out.println("Lets set you up first.");
-            System.out.println("Please enter a name for your list");
-            System.out.print("> ");
+            out.println("Looks Like it is your first time using this program.");
+            out.println("Lets set you up first.");
+            out.println("Please enter a name for your list");
+            out.print("> ");
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(System.in));
             LIST_NAME = reader.readLine();
-            System.out.println("Please provide a filePath to an existing .json file to Load your list from.");
-            System.out.println("If you don't have one press enter to create specify your path.");
-            System.out.print("> ");
+            out.println("Please provide a filePath to an existing .json file to Load your list from.");
+            out.println("If you don't have one press enter to create specify your path.");
+            out.print("> ");
             String filePath = reader.readLine();
             if (filePath.equals("")) {
-                System.out.println("Please enter your a path to a file to save your list to.");
-                System.out.print("> ");
+                out.println("Please enter your a path to a file to save your list to.");
+                out.print("> ");
                 LIST_FILE_NAME = reader.readLine();
                 if (LIST_FILE_NAME.contains(".")) {
                     LIST_FILE_NAME = LIST_FILE_NAME.substring(0, LIST_FILE_NAME.lastIndexOf('.'));
@@ -88,20 +91,20 @@ public class Main {
         return toDoList;
     }
     private static void help() {
-        System.out.println("gtd [command] [arguments]");
-        System.out.println("Commands:");
-        System.out.println("  help                -  print this help");
-        System.out.println("  add [Item Index]    -  add a new task");
-        System.out.println("  remove [Item Index] -  remove a task");
-        System.out.println("  done [Item Index]   -  mark a task as done");
-        System.out.println("  edit [Item Index]   -  edit a task");
-        System.out.println("  sort                -  sort your tasks");
-        System.out.println("  clear               -  clear all tasks");
-        System.out.println("  exit                -  exit the program");
+        out.println("gtd [command] [arguments]");
+        out.println("Commands:");
+        out.println("  help                -  print this help");
+        out.println("  add [Item Index]    -  add a new task");
+        out.println("  remove [Item Index] -  remove a task");
+        out.println("  done [Item Index]   -  mark a task as done");
+        out.println("  edit [Item Index]   -  edit a task");
+        out.println("  sort                -  sort your tasks");
+        out.println("  clear               -  clear all tasks");
+        out.println("  exit                -  exit the program");
     }
     private static void add(List list) {
-        System.out.println("Create a new task");
-        System.out.println("Please enter a title for your task");
+        out.println("Create a new task");
+        out.println("Please enter a title for your task");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String title = "";
         try {
@@ -109,29 +112,29 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Please enter a description for your task");
+        out.println("Please enter a description for your task");
         String description = "";
         try {
             description = reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Please enter a due date for your task");
+        out.println("Please enter a due date for your task");
         String dueDate = ""; // TODO: add date validation and add as attribute!!
         try {
             dueDate = reader.readLine(); // TODO: Exception Handling
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Please enter a priority for your task");
-        System.out.println("1 - LOW, 2 - MEDIUM, 3 - HIGH");
+        out.println("Please enter a priority for your task");
+        out.println("1 - LOW, 2 - MEDIUM, 3 - HIGH");
         int priority = -1;
         try {
             priority = Integer.parseInt(reader.readLine());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println("Add a Tag to group your tasks");
+        out.println("Add a Tag to group your tasks");
         String tag = "";
         try {
             tag = reader.readLine();
@@ -151,13 +154,13 @@ public class Main {
         list.add(toDoItem);
     }
     private static void list(List list) { // maybe redundant method
-        System.out.println(list.getName() + ":");
+        out.println(list.getName() + ":");
         ToDoItem[] toDoItems = list.getListToDos();
         if (toDoItems == null || toDoItems.length == 0) {
-            System.out.println("👀Looks Empty here... Add some tasks!");
+            out.println("👀Looks Empty here... Add some tasks!");
             return;
         }
-        for(ToDoItem toDoItem:toDoItems) System.out.println(toDoItem.toString());
+        for(ToDoItem toDoItem:toDoItems) out.println(toDoItem.toString());
     }
     private static void remove(List list, int index) {
         // Exception Handling for index out of bounds and invalid input
@@ -185,26 +188,33 @@ public class Main {
         }
     }
 
-    private static void edit(List list, int index) { // TODO: add edit function
+    private static void edit(List list, int index) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ToDoItem item = list.getListToDos()[index];
-        System.out.println("Editing task at index " + index + ":");
-        System.out.println(item.toString());
-        System.out.println("Enter new Title or press enter to skip");
+        ToDoItem item = null;
+        try {
+            item = list.getListToDos()[index];
+        } catch (Exception e) {
+            index = handleBadIndex("Please enter the index of the task you want to edit.");
+            if (index == -1) return;
+            else item = list.getListToDos()[index];
+        }
+        out.println("Editing task at index " + index + ":");
+        out.println(item.toString());
+        out.println("Enter new Title or press enter to skip");
         String title = "";
         try {
             title = reader.readLine();
             if (!title.equals("")) item.setTitle(title);
         } catch (IOException e) {
-            System.out.println("Could not read your input... skipping");
+            out.println("Could not read your input... skipping");
         }
-        System.out.println("Enter new Description or press enter to skip");
+        out.println("Enter new Description or press enter to skip");
         String description = "";
         try {
             description = reader.readLine();
             if (!description.equals("")) item.setDescription(description);
         } catch (IOException e) {
-            System.out.println("Could not read your input... skipping");
+            out.println("Could not read your input... skipping");
         }
         // System.out.println("Enter new Due Date or press enter to skip");
         // String dueDate = ""; // TODO: add date validation and add as attribute!!
@@ -214,48 +224,47 @@ public class Main {
         // } catch (IOException e) {
         //     System.out.println("Could not read your input... skipping");
         // }
-        System.out.println("Enter new Priority or press enter to skip");
-        System.out.println("1 - LOW, 2 - MEDIUM, 3 - HIGH");
-        int priority = -1;
-        try {
-            priority = Integer.parseInt(reader.readLine());
-            if (priority != -1) item.setPriority(priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH);
-        } catch (IOException e) {
-            System.out.println("Could not read your input... skipping");
+        out.println("Enter new Priority or press enter to skip");
+        out.println("1 - LOW, 2 - MEDIUM, 3 - HIGH");
+        String priority = "-1";
+        while (!priority.equals("1") && !priority.equals("2") && !priority.equals("3") && !priority.equals("")) {
+            try {
+                priority = "";
+                priority = reader.readLine();
+            } catch (IOException e) {
+                out.println("Could not read your input... skipping");
+            }
         }
-        System.out.println("Enter new Tag or press enter to skip");
+        if (!priority.equals(""))
+            item.setPriority(priority.equals("1") ? Priority.LOW : priority.equals("2") ? Priority.MEDIUM : Priority.HIGH);
+        out.println("Enter new Tag or press enter to skip");
         String tag = "";
         try {
             tag = reader.readLine();
             if (!tag.equals("")) item.setTag(tag);
         } catch (IOException e) {
-            System.out.println("Could not read your input... skipping");
+            out.println("Could not read your input... skipping");
         }
-        System.out.println("Task Edited Successfully!");
+        out.println("Task Edited Successfully!");
     }
     private static void sortHelp() {
-        System.out.println("gtd sort [option]");
-        System.out.println("Options:");
-        System.out.println("  priority - sort by priority");
-        System.out.println("  createdAt- sort by creation date");
-        System.out.println("  dueDate  - sort by due date"); // TODO
-        System.out.println("  tag [tag]- sort by tag");
-        System.out.println("  title    - sort by title"); // TODO
-        System.out.println("  done     - sort by done"); // TODO
-        System.out.println("  help     - print this help");
+        out.println("gtd sort [option]");
+        out.println("Options:");
+        out.println("  priority - sort by priority");
+        out.println("  createdAt- sort by creation date");
+        out.println("  dueDate  - sort by due date"); // TODO
+        out.println("  tag [tag]- sort by tag");
+        out.println("  title    - sort by title"); // TODO
+        out.println("  done     - sort by done"); // TODO
+        out.println("  help     - print this help");
     }
 
     private static void clear(List list) {
         list.setListToDos(null);
     }
     private static void exit(List list) {
-        System.out.println("exiting...");
+        out.println("exiting...");
         list.writeToJSON(list.getFileName());
-        try {
-            TimeUnit.SECONDS.sleep(3);
-        } catch (InterruptedException e) {
-            assert true; // do nothing
-        }
     }
 
     public static void main(String[] args) throws IOException {
@@ -263,8 +272,8 @@ public class Main {
         int i = 1;
         while (i != 0) {
             list(toDoList);
-            System.out.println(ConsoleColors.BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + ConsoleColors.RESET);
-            System.out.print("> ");
+            out.println(ConsoleColors.BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + ConsoleColors.RESET);
+            out.print("> ");
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(System.in));
             String command = reader.readLine();
@@ -281,7 +290,11 @@ public class Main {
                 } else if (commandArray[1].equalsIgnoreCase("done")) {
                     done(toDoList, Integer.parseInt(commandArray[2]));
                 } else if (commandArray[1].equalsIgnoreCase("edit")) {
-                    edit(toDoList, Integer.parseInt(commandArray[2]));
+                    try {
+                        edit(toDoList, Integer.parseInt(commandArray[2]));
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        error("Try 'gtd edit [index]'");
+                    }
                 } else if (commandArray[1].equalsIgnoreCase("sort")) {
                     try {
                         if (commandArray[2].toLowerCase().contains("prio")) {
