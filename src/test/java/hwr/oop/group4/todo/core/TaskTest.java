@@ -1,6 +1,5 @@
 package hwr.oop.group4.todo.core;
 
-import hwr.oop.group4.todo.core.*;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -19,35 +18,35 @@ class TaskTest {
     void equalName() {
         final Task task = new Task.TaskBuilder().build();
 
-        assertThat("unnamed task").isEqualTo(task.getName());
+        assertThat(task.getName()).isEqualTo("unnamed task");
     }
 
     @Test
     void getPriority() {
         final Task task = new Task.TaskBuilder().build();
 
-        assertThat(0).isEqualTo(task.getPriority());
+        assertThat(task.getPriority()).isZero();
     }
 
     @Test
     void getTags() {
         final Task task = new Task.TaskBuilder().build();
 
-        assertThat(0).isEqualTo(task.getTags().size());
+        assertThat(task.getTags()).isEmpty();
     }
 
     @Test
     void getDescription() {
         final Task task = new Task.TaskBuilder().build();
 
-        assertThat("").isEqualTo(task.getDescription());
+        assertThat(task.getDescription()).isEmpty();
     }
 
     @Test
     void getStatus() {
         final Task task = new Task.TaskBuilder().build();
 
-        assertThat(Status.OPEN).isEqualTo(task.getStatus());
+        assertThat(task.getStatus()).isEqualTo(Status.OPEN);
     }
 
     @Test
@@ -77,7 +76,7 @@ class TaskTest {
         final Task task = new Task.TaskBuilder().addTag(tag).build();
 
         assertThat(task.getTags()).contains(tag);
-        assertThat(task.getTags().size()).isEqualTo(1);
+        assertThat(task.getTags()).hasSize(1);
     }
 
     @Test
@@ -97,7 +96,7 @@ class TaskTest {
         final Tag tag2 = new Tag("tagB");
         final Task task = new Task.TaskBuilder().addTags(tag, tag2).build();
 
-        assertThat(task.getTags().size()).isEqualTo(2);
+        assertThat(task.getTags()).hasSize(2);
     }
 
     @Test
@@ -131,7 +130,7 @@ class TaskTest {
         final Project project = new Project.ProjectBuilder().name("project").description("desc").build();
         final Task taskWithoutProject = new Task.TaskBuilder().name("task2").build();
 
-        assertThat(project.getTasks()).doesNotContain(taskWithoutProject);
+        assertThat(project.getTasks()).isEmpty();
     }
 
     @Test
@@ -140,8 +139,9 @@ class TaskTest {
         final Task defaultTask2 = new Task.TaskBuilder().build();
         final Task dtask = new Task.TaskBuilder().name("name").build();
 
-        assertThat(defaultTask).isEqualTo(defaultTask2);
-        assertThat(defaultTask).isNotEqualTo(dtask);
+        assertThat(defaultTask)
+                .isEqualTo(defaultTask2)
+                .isNotEqualTo(dtask);
     }
 
     @Test
@@ -194,7 +194,8 @@ class TaskTest {
                 .deadline(LocalDateTime.of(1970, 1, 1, 0, 0))
                 .build();
 
-        assertThat(complexTask).isEqualTo(complexTask2);
-        assertThat(complexTask).isNotEqualTo(task);
+        assertThat(complexTask)
+                .isEqualTo(complexTask2)
+                .isNotEqualTo(task);
     }
 }

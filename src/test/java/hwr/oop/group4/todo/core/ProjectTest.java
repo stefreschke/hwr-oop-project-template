@@ -1,11 +1,9 @@
 package hwr.oop.group4.todo.core;
 
-import hwr.oop.group4.todo.core.Project;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ProjectTest {
@@ -73,7 +71,7 @@ class ProjectTest {
         final Project project = new Project.ProjectBuilder().addTag(tag).build();
 
         assertThat(project.getTags()).contains(tag);
-        assertThat(project.getTags().size()).isEqualTo(1);
+        assertThat(project.getTags()).hasSize(1);
     }
 
     @Test
@@ -83,7 +81,7 @@ class ProjectTest {
         final Project project = new Project.ProjectBuilder().addTag(tag, tag2).build();
 
         assertThat(project.getTags()).contains(tag, tag2);
-        assertThat(project.getTags().size()).isEqualTo(2);
+        assertThat(project.getTags()).hasSize(2);
     }
 
     @Test
@@ -92,7 +90,7 @@ class ProjectTest {
         final Project project = new Project.ProjectBuilder().addTask(task).build();
 
         assertThat(project.getTasks()).contains(task);
-        assertThat(project.getTasks().size()).isEqualTo(1);
+        assertThat(project.getTasks()).hasSize(1);
     }
 
     @Test
@@ -102,6 +100,6 @@ class ProjectTest {
         final Project project = new Project.ProjectBuilder().addTasks(task, task2).build();
 
         assertThat(project.getTasks()).contains(task, task2);
-        assertThat(project.getTasks().size()).isEqualTo(2);
+        assertThat(project.getTasks()).hasSize(2);
     }
 }
