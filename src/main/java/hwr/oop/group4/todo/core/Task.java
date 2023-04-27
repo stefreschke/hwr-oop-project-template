@@ -1,4 +1,4 @@
-package hwr.oop.group4.todo;
+package hwr.oop.group4.todo.core;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -131,8 +131,8 @@ public class Task {
         }
 
         public TaskBuilder fromIdea(Idea idea) {
-            this.name = idea.getName();
-            this.description = idea.getDescription();
+            this.name = idea.name();
+            this.description = idea.description();
             return this;
         }
 

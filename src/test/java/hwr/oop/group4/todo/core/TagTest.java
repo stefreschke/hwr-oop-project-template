@@ -1,5 +1,6 @@
-package hwr.oop.group4.todo;
+package hwr.oop.group4.todo.core;
 
+import hwr.oop.group4.todo.core.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -9,7 +10,7 @@ class TagTest {
     @Test
     void createTag() {
         final Tag tag = new Tag("abc");
-        assertThat(tag.getName()).isEqualTo("abc");
+        assertThat(tag.name()).isEqualTo("abc");
     }
     @Test
     void equalTags(){

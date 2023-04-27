@@ -6,9 +6,9 @@ import java.util.function.Consumer;
 public class Command {
 
     private final String name;
-    private final Consumer<Collection<Argument<?>>> consumer;
+    private final Consumer<Collection<CommandArgument<?>>> consumer;
 
-    public Command(String name, Consumer<Collection<Argument<?>>> consumer) {
+    public Command(String name, Consumer<Collection<CommandArgument<?>>> consumer) {
         this.name = name;
         this.consumer = consumer;
     }
@@ -17,7 +17,7 @@ public class Command {
         return name;
     }
 
-    public void call(Collection<Argument<?>> arguments) {
+    public void call(Collection<CommandArgument<?>> arguments) {
         consumer.accept(arguments);
     }
 }

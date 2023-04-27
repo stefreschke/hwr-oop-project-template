@@ -6,6 +6,7 @@ import hwr.oop.group4.todo.ui.controller.command.Argument;
 import hwr.oop.group4.todo.ui.controller.command.Command;
 import hwr.oop.group4.todo.ui.controller.menu.Entry;
 import hwr.oop.group4.todo.ui.controller.menu.Menu;
+import hwr.oop.group4.todo.core.TodoList;
 
 import java.util.Collection;
 import java.util.List;

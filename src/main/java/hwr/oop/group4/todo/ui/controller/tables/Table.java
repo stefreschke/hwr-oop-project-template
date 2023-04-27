@@ -27,9 +27,9 @@ public class Table {
             if (leftAligned) {
                 rowStringBuilder.append("-");
             }
-            rowStringBuilder.append(column.getLength())
+            rowStringBuilder.append(column.length())
                     .append(".")
-                    .append(column.getLength())
+                    .append(column.length())
                     .append("s ");
         });
         rowStringBuilder.append("|%n");
@@ -39,7 +39,7 @@ public class Table {
 
     private String[] getTitleRow(List<ColumnConfig> columns) {
         final List<String> titles = new ArrayList<>();
-        columns.forEach(column -> titles.add(column.getTile()));
+        columns.forEach(column -> titles.add(column.title()));
         return titles.toArray(String[]::new);
     }
 

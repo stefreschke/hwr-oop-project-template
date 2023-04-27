@@ -1,6 +1,7 @@
-package hwr.oop.group4.todo;
+package hwr.oop.group4.todo.core;
 
 import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
+import hwr.oop.group4.todo.core.Idea;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,8 +13,8 @@ class IdeaTest {
     void createIdea() {
         final Idea idea = new Idea("name", "desc");
 
-        assertThat(idea.getName()).isEqualTo("name");
-        assertThat(idea.getDescription()).isEqualTo("desc");
+        assertThat(idea.name()).isEqualTo("name");
+        assertThat(idea.description()).isEqualTo("desc");
     }
 
     @Test

@@ -1,20 +1,5 @@
 package hwr.oop.group4.todo.ui.controller.tables;
 
-public class ColumnConfig {
+public record ColumnConfig(String title, int length) {
 
-    private final String tile;
-    private final int length;
-
-    public ColumnConfig(String tile, int length) {
-        this.tile = tile;
-        this.length = length;
-    }
-
-    public String getTile() {
-        return tile;
-    }
-
-    public int getLength() {
-        return length;
-    }
 }
