@@ -3,17 +3,30 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 public class Database {
+
+    //opens connection to database
+    public static Connection connect() {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(System.getenv("DATABASE_FILE_URL"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
         /**
-         * Connect to a sample database
+         * Connect to database
          *
-         * @param fileName the database file name
+         * @param fileName the database file name (to_do_list.db)
          */
-        public static void createNewDatabase(String fileName) {
+        //createNewDatabase
+        public static void createNewDatabase() {
 
-            String url = "jdbc:sqlite:src/main/java/hwr/oop/database/" + fileName;
+            //url = "jdbc:sqlite:src/main/java/hwr/oop/database/" + fileName;
 
-            try (Connection conn = DriverManager.getConnection(url)) {
+            try (Connection conn = DriverManager.getConnection(System.getenv("DATABASE_FILE_URL"))) {
                 if (conn != null) {
                     DatabaseMetaData meta = conn.getMetaData();
                     System.out.println("The driver name is " + meta.getDriverName());
@@ -24,11 +37,69 @@ public class Database {
                 System.out.println(e.getMessage());
             }
         }
+    public static void createTableTags() {
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS tags (\n"
+                + "	id integer PRIMARY KEY,\n"
+                + "	name text NOT NULL,\n"
+                + "	discription text \n"
+                + ");";
 
-        /**
-         * @param args the command line arguments
-         */
-        public static void main(String[] args) {
-            createNewDatabase("to_do_list.db");
+        try (Connection conn = DriverManager.getConnection(System.getenv("DATABASE_FILE_URL"));
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
     }
+
+    public static void createTableProjects() {
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS projects (\n"
+                + "	id integer PRIMARY KEY,\n"
+                + "	name text NOT NULL,\n"
+                + "	discription text, \n"
+                + " dateTimeCreated , \n"
+                + " dateTimeDeadLine text \n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(System.getenv("DATABASE_FILE_URL"));
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public static void createTableTasks() {
+        // SQL statement for creating a new table
+        String sql = "CREATE TABLE IF NOT EXISTS tasks (\n"
+                + "	id integer PRIMARY KEY,\n"
+                + "	title text NOT NULL,\n"
+                + "	discription text, \n"
+                + " status text, \n"
+                + " dateTimeCreated text, \n"
+                + " dateTimeDone text, \n"
+                + " dateTimePlannedStart text, \n"
+                + " dateTimeDeadLine text \n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(System.getenv("DATABASE_FILE_URL"));
+             Statement stmt = conn.createStatement()) {
+            // create a new table
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        }
+    public static void main (String []args){
+            connect();
+            createNewDatabase();
+            createTableTasks();
+            createTableTags();
+            createTableProjects();
+
+    }
+}
+
