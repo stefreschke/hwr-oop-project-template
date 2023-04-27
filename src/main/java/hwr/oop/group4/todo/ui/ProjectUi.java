@@ -24,8 +24,8 @@ public class ProjectUi {
     private final ConsoleController consoleController;
     private TodoList todoList;
 
-    public ProjectUi(PrintStream out, InputStream in) {
-        consoleController = new ConsoleController(out, in);
+    public ProjectUi(ConsoleController consoleController) {
+        this.consoleController = consoleController;
     }
 
     public void menu(TodoList todoList) {

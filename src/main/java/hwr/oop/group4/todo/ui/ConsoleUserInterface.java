@@ -1,76 +1,61 @@
 package hwr.oop.group4.todo.ui;
 
 import hwr.oop.group4.todo.TodoList;
+import hwr.oop.group4.todo.ui.controller.ConsoleController;
+import hwr.oop.group4.todo.ui.controller.command.Argument;
+import hwr.oop.group4.todo.ui.controller.command.Command;
+import hwr.oop.group4.todo.ui.controller.menu.Entry;
+import hwr.oop.group4.todo.ui.controller.menu.Menu;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ConsoleUserInterface {
 
-    private final PrintStream out;
-    private final Scanner in;
-    private final DialogHelper dialogHelper;
+    private final ConsoleController consoleController;
     private final ProjectUi projectUi;
     private TodoList todoList;
 
-    public ConsoleUserInterface(OutputStream out, InputStream in) {
-        this.out = new PrintStream(out);
-        this.in = new Scanner(in);
-        dialogHelper = new DialogHelper(this.out, this.in);
-        projectUi = new ProjectUi(this.out, this.in);
-        load();
+    public ConsoleUserInterface(ConsoleController consoleController) {
+        this.consoleController = consoleController;
+        projectUi = new ProjectUi(this.consoleController);
+        load(null);
     }
 
     public void mainMenu() {
-        Map<String, String> options = new LinkedHashMap<>();
-        options.put("intray",   "");
-        options.put("tasks",    "");
-        options.put("projects", "");
-        options.put("calendar", "");
-        options.put("load",     "");
-        options.put("save",     "");
-        options.put("quit",     "Quit the program.");
+        Menu menu = new Menu("Main Menu", "Welcome to ToDo!", List.of(
+                new Entry("intray",   ""),
+                new Entry("tasks",    ""),
+                new Entry("projects", ""),
+                new Entry("calendar", ""),
+                new Entry("load",     ""),
+                new Entry("save",     ""),
+                new Entry("quit",     "Quit the program.")
+        ));
 
-        while (true) {
-            String input = dialogHelper.getMenuSelectionFromUser("Main Menu", "main> ", options);
+        AtomicBoolean shouldReturn = new AtomicBoolean(false);
+        while (!shouldReturn.get()) {
+            consoleController.output(menu.toString());
 
-            switch (input) {
-                case "intray":
-                    intray();
-                    break;
-                case "tasks":
-                    tasks();
-                    break;
-                case "projects":
-                    projectUi.menu(todoList);
-                    break;
-                case "calendar":
-                    calendar();
-                    break;
-                case "load":
-                    load();
-                    break;
-                case "save":
-                    save();
-                    break;
-                case "quit":
-                    return;
-                default:
-                    break;
-            }
+            consoleController.inputOptions(List.of("main"), List.of(
+                    new Command("intray",   args -> {}),
+                    new Command("tasks",    args -> {}),
+                    new Command("projects", args -> {}),
+                    new Command("calendar", args -> {}),
+                    new Command("load",     this::load),
+                    new Command("save",     this::save),
+                    new Command("quit",     args -> shouldReturn.set(true))
+            ), new Command("wrongInput", args -> {}));
         }
     }
 
-    private void save() {
+    private void save(Collection<Argument<?>> args) {
     }
 
-    private void load() {
+    private void load(Collection<Argument<?>> args) {
         String question = "Do you want to load from a file? (Otherwise create an empty todo list)";
-        boolean loadFromFile = dialogHelper.getYesNoFromUser(question, false);
+        boolean loadFromFile = consoleController.inputBool(List.of("main", "load"), question, false);
 
         if (loadFromFile) {
             // TODO: load from file
@@ -80,12 +65,4 @@ public class ConsoleUserInterface {
         }
     }
 
-    private void intray() {
-    }
-
-    private void tasks() {
-    }
-
-    private void calendar() {
-    }
 }
