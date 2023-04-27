@@ -2,9 +2,17 @@ package hwr.oop;
 
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ToDoItemTest {
+    @Test
+    void getLocalDateTest() {
+        String result = ToDoItem.getLocalDate();
+        System.out.println(result);
+        assertThat(result).isEqualTo(LocalDate.now().toString());
+    }
     @Test
     void getIdTest() {
         ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
@@ -73,4 +81,29 @@ class ToDoItemTest {
         Priority testPriority = item.getPriority();
         assertThat(testPriority).isEqualTo(Priority.HIGH);
     }
+    @Test
+    void setTagTest() {
+        ToDoItem item = new ToDoItem(0,"testTitle", "testDesc", "testTag", false, Priority.LOW);
+        item.setTag("Tag");
+        String testTag = item.getTag();
+        assertThat(testTag).isEqualTo("Tag");
+    }
+    @Test
+    void toStringTest() {
+        ToDoItem item = new ToDoItem(0,"Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", false, Priority.HIGH);
+        String result = item.toString();
+        System.out.println(result);
+        assertThat(result).isEqualTo("❌ " + item.getTitle() + '\n' +
+                item.getDescription() +  '\n' +
+                "<" + item.getTag() + ">" + ' ' +
+                item.getPriority());
+    }
+    @Test
+    void getCreatedAtTest() {
+        ToDoItem item = new ToDoItem(0,"Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", false, Priority.HIGH);
+        String result = item.getCreatedAt();
+        System.out.println(result);
+        assertThat(item.getDescription()).contains(result);
+    }
+
 }
