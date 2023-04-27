@@ -63,7 +63,7 @@ public class ConsoleController {
         String defaultValueString = (defaultValue) ? "yes" : "no";
         while (true) {
             outputLine(prompt);
-            output("Answer y/Y/yes or n/N/no (leave empty for: " + defaultValueString + "): ");
+            outputLine("Answer y/Y/yes or n/N/no (leave empty for: " + defaultValueString + ").");
             String input = input(prefixes).orElse(defaultValueString);
 
             if (input.isBlank()) {
