@@ -1,4 +1,4 @@
-package hwr.oop.group4.todo;
+package hwr.oop.group4.todo.core;
 
 import org.junit.jupiter.api.Test;
 
@@ -10,28 +10,28 @@ class TodoListTest {
     void emptyOnConstructionGetMaybeList() {
         final TodoList todo = new TodoList();
 
-        assertThat(todo.getMaybeList().size()).isEqualTo(0);
+        assertThat(todo.getMaybeList()).isEmpty();
     }
 
     @Test
     void emptyOnConstructionGetProjects() {
         final TodoList todo = new TodoList();
 
-        assertThat(todo.getProjects().size()).isEqualTo(0);
+        assertThat(todo.getProjects()).isEmpty();
     }
 
     @Test
     void emptyOnConstructionGetInTray() {
         final TodoList todo = new TodoList();
 
-        assertThat(todo.getInTray().size()).isEqualTo(0);
+        assertThat(todo.getInTray()).isEmpty();
     }
 
     @Test
     void emptyOnConstructionGetLoseTasks() {
         final TodoList todo = new TodoList();
 
-        assertThat(todo.getLoseTasks().size()).isEqualTo(0);
+        assertThat(todo.getLoseTasks()).isEmpty();
     }
 
     @Test
@@ -41,7 +41,7 @@ class TodoListTest {
         todo.addIdea(new Idea("new Idea"));
         todo.addIdea(new Idea("new Idea"));
 
-        assertThat(todo.getInTray().size()).isEqualTo(1);
+        assertThat(todo.getInTray()).hasSize(1);
         assertThat(todo.getInTray()).contains(new Idea("new Idea"));
     }
 
@@ -53,7 +53,7 @@ class TodoListTest {
         todo.addLoseTask(taskA);
         todo.addLoseTask(taskA);
 
-        assertThat(todo.getLoseTasks().size()).isEqualTo(1);
+        assertThat(todo.getLoseTasks()).hasSize(1);
         assertThat(todo.getLoseTasks()).contains(taskA);
     }
 
@@ -66,7 +66,7 @@ class TodoListTest {
         todo.addProject(projectA);
         todo.addProject(projectA);
 
-        assertThat(todo.getProjects().size()).isEqualTo(2);
+        assertThat(todo.getProjects()).hasSize(2);
         assertThat(todo.getProjects().get(0)).isEqualTo(projectA);
         assertThat(todo.getProjects().get(1)).isEqualTo(projectA);
     }
@@ -79,8 +79,51 @@ class TodoListTest {
         todo.addSomedayMaybeProject(projectA);
         todo.addSomedayMaybeProject(projectA);
 
-        assertThat(todo.getMaybeList().size()).isEqualTo(2);
+        assertThat(todo.getMaybeList()).hasSize(2);
         assertThat(todo.getMaybeList()).contains(projectA);
     }
 
+    @Test
+    void removeProject() {
+        final TodoList todo = new TodoList();
+        final Project project = new Project.ProjectBuilder().name("name").description("desc").build();
+
+        todo.addProject(project);
+        todo.removeProject(project);
+
+        assertThat(todo.getProjects()).isEmpty();
+    }
+
+    @Test
+    void removeProjectSomeDayMaybe() {
+        final TodoList todo = new TodoList();
+        final Project project = new Project.ProjectBuilder().name("name").description("desc").build();
+
+        todo.addSomedayMaybeProject(project);
+        todo.removeSomedayMaybeProject(project);
+
+        assertThat(todo.getMaybeList()).isEmpty();
+    }
+
+    @Test
+    void removeTask() {
+        final TodoList todo = new TodoList();
+        final Task task = new Task.TaskBuilder().name("name").description("desc").build();
+
+        todo.addLoseTask(task);
+        todo.removeLoseTask(task);
+
+        assertThat(todo.getLoseTasks()).isEmpty();
+    }
+
+    @Test
+    void removeIdea() {
+        final TodoList todo = new TodoList();
+        final Idea idea = new Idea("idea name");
+
+        todo.addIdea(idea);
+        todo.removeIdea(idea);
+
+        assertThat(todo.getInTray()).isEmpty();
+    }
 }

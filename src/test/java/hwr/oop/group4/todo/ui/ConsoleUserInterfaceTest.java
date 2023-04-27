@@ -22,11 +22,11 @@ class ConsoleUserInterfaceTest {
 
     @Test
     void constructUI() {
-        InputStream inputStream = createInputStreamForInput("ew\nnew\n");
+        InputStream inputStream = createInputStreamForInput("ew" + System.lineSeparator() + "new" + System.lineSeparator() );
         OutputStream outputStream = new ByteArrayOutputStream();
         ConsoleUserInterface ui = new ConsoleUserInterface(outputStream, inputStream);
         String output = retrieveResultFrom(outputStream);
-        assertThat(output).isEqualTo("Do want to 'load' from file or create 'new' list?\n" +
-                "Please enter 'new' or 'load'.\n");
+        assertThat(output).isEqualTo("Do want to 'load' from file or create 'new' list?"+System.lineSeparator() +
+                "Please enter 'new' or 'load'." + System.lineSeparator());
     }
 }
