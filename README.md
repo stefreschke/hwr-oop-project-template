@@ -22,6 +22,9 @@ This repository contains a student project created for an ongoing lecture on obj
 | 2      | Tag Class | ✔️ |
 | 3      | TodoList Class | ✔️ |
 | 4      | TagController | ✔️ |
+| 5      | TaskController | ✔️ |
+| 6 | Menus | ✔️|
+| 7 | Io Controller | ✔️ |
 
 
 ## Additional Dependencies
