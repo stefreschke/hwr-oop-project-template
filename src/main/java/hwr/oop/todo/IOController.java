@@ -51,6 +51,17 @@ public class IOController {
         return this.scanner.nextLine();
     }
 
+    public int getInputList(List<MenuOption> options){
+        String selection = this.getInputString();
+
+        for (int i = 0; i < options.size(); i++) {
+            if (options.get(i).getSelectionKey() == selection.charAt(0)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public int getInputInt(){
         return this.scanner.nextInt();
     }

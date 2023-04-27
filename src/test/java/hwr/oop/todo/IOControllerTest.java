@@ -18,7 +18,7 @@ public class IOControllerTest {
     }
 
     @Test
-    void canPrintPropmptList(){
+    void canPrintPromptList(){
         IOController controller = new IOController(System.in);
         List<MenuOption> options= List.of(new MenuOption('a', "Example action to test very long"), new MenuOption('b', "Example action"));
         controller.printPrompt(options);
@@ -41,6 +41,17 @@ public class IOControllerTest {
 
         assertEquals(3, input);
     }
+
+    @Test
+    void canGetInputListSelection(){
+        InputStream inputStream = createInputStreamForInput("a");
+        IOController controller = new IOController(inputStream);
+        List<MenuOption> options= List.of(new MenuOption('a', "Example action to test very long"), new MenuOption('b', "Example action"));
+        int input = controller.getInputList(options);
+
+        assertEquals(0, input);
+    }
+
 
     private String retrieveResultFrom(OutputStream outputStream) {
         String outputText = outputStream.toString();
