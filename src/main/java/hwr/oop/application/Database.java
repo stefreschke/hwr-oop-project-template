@@ -7,7 +7,7 @@ import java.sql.*;
 public class Database {
 
     public Connection connect() {
-        Connection conn = null;
+        Connection conn;
         try {
             conn = DriverManager.getConnection(System.getenv("DATABASE_FILE_URL"));
         } catch (SQLException e) {
