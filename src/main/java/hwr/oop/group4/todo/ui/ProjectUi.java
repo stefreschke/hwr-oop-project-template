@@ -49,17 +49,16 @@ public class ProjectUi {
                         new EntryArgument("id", "ID of the project to be removed."))),
                 new Entry("back",   "Returns to the previous menu.")
         ));
+        consoleController.output(menu.toString());
 
         AtomicBoolean shouldReturn = new AtomicBoolean(false);
         while (!shouldReturn.get()) {
-            consoleController.output(menu.toString());
-
             consoleController.inputOptions(List.of("projects"), List.of(
                     new Command("list",   this::listProjects),
                     new Command("new",    this::newProject),
                     new Command("tasks",  args -> {}),
                     new Command("edit",   args -> {}),
-                    new Command("remove", args -> {}),
+                    new Command("remove", this::removeProject),
                     new Command("back",   args -> shouldReturn.set(true))
             ), new Command("wrongInput", args -> {}));
         }
@@ -114,11 +113,38 @@ public class ProjectUi {
         todoList.addProject(project);
     }
 
-    private void removeProject(int id) {
+    private void removeProject(Collection<Argument<?>> args) {
+        Optional<Argument<?>> id_arg = args.stream()
+                .filter(arg -> arg.getName().equals("id"))
+                .findAny();
+
+        if (id_arg.isEmpty()) {
+            consoleController.outputLine("Error: ID Argument required.");
+            return;
+        }
+
+        if (! (id_arg.get().getValue() instanceof String)) {
+            consoleController.outputLine("Error: ID Argument requires parameter.");
+            return;
+        }
+
+        int id;
+        try {
+            id = Integer.parseInt((String) id_arg.get().getValue());
+        } catch (NumberFormatException e) {
+            consoleController.outputLine("Error: ID is not a valid number.");
+            return;
+        }
+
+        if (id < 0 || id >= todoList.getProjects().size()) {
+            consoleController.outputLine("Error: ID is invalid.");
+            return;
+        }
+
         String projectName = todoList.getProjects().get(id).getName();
         String confirmation = "Do you really want to remove " + projectName + "?";
-        if (dialogHelper.getYesNoFromUser(confirmation, false)) {
-            // TODO: delete a Project
+        if (consoleController.inputBool(List.of("projects", "remove"), confirmation, false)) {
+            todoList.getProjects().remove(id);
         }
     }
 
