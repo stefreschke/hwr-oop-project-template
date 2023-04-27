@@ -2,6 +2,7 @@ package hwr.oop.group4.todo.ui;
 
 import hwr.oop.group4.todo.core.Project;
 import hwr.oop.group4.todo.core.Tag;
+import hwr.oop.group4.todo.core.Task;
 import hwr.oop.group4.todo.core.TodoList;
 import hwr.oop.group4.todo.ui.controller.ConsoleController;
 import hwr.oop.group4.todo.ui.controller.command.Command;
@@ -163,40 +164,48 @@ public class ProjectUi {
             return;
         }
         Project project = todoList.getProjects().get(id);
+        todoList.removeProject(project);
+        Project.ProjectBuilder new_project = new Project.ProjectBuilder();
 
         final String name = getStringParameter(args, "name");
-        if (name != null) {
-            //project.name = parameter;
-        }
+        new_project.name( (name != null) ? name : project.getName() );
 
         final String desc = getStringParameter(args, "desc");
-        if (desc != null) {
-            //project.desc = parameter;
-        }
+        new_project.description( (desc != null) ? desc : project.getDescription() );
 
         final Optional<CommandArgument<?>> begin = args.stream()
                 .filter(argument -> argument.getName().equals("begin"))
                 .findAny();
         if (begin.isPresent()) {
-            consoleController.inputDate(List.of("projects", "edit", "begin"));
+            new_project.begin(consoleController.inputDate(List.of("projects", "edit", "begin")));
+        } else {
+            new_project.begin(project.getBegin());
         }
 
         final Optional<CommandArgument<?>> end = args.stream()
                 .filter(argument -> argument.getName().equals("end"))
                 .findAny();
         if (end.isPresent()) {
-            consoleController.inputDate(List.of("projects", "edit", "end"));
+            new_project.end(consoleController.inputDate(List.of("projects", "edit", "end")));
+        } else {
+            new_project.end(project.getEnd());
         }
 
         final String addTag = getStringParameter(args, "addTag");
         if (addTag != null) {
-            //project.addTAg = parameter;
+            new_project.addTag(project.getTags().toArray(new Tag[0]));
+            new_project.addTag(new Tag(addTag));
         }
 
         final String removeTag = getStringParameter(args, "removeTag");
         if (removeTag != null) {
-            //project.removeTAg = parameter;
+            Collection<Tag> tags = project.getTags();
+            tags.remove(new Tag(removeTag));
+            new_project.addTag(tags.toArray(new Tag[0]));
         }
+
+        new_project.addTasks(project.getTasks().toArray(new Task[0]));
+        todoList.addProject(new_project.build());
     }
 
     private String getStringParameter(Collection<CommandArgument<?>> args, String name) {
