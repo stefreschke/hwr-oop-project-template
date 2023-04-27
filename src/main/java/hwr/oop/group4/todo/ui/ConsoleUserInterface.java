@@ -1,6 +1,6 @@
 package hwr.oop.group4.todo.ui;
 
-import hwr.oop.group4.todo.TodoList;
+import hwr.oop.group4.todo.core.TodoList;
 
 import java.io.InputStream;
 import java.io.OutputStream;
