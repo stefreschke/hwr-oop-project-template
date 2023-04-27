@@ -59,4 +59,9 @@ public class Task {
             throw new TaskStateException("task can't be completed with taskState" + taskState.name());
         }
     }
+
+    //create a new User
+    public User createUser(String name, Integer id) {
+        return new User(name, id);
+    }
 }
