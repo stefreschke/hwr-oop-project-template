@@ -41,7 +41,7 @@ public class ConsoleUserInterface {
             consoleController.inputOptions(List.of("main"), List.of(
                     new Command("intray",   args -> {}),
                     new Command("tasks",    args -> {}),
-                    new Command("projects", args -> {}),
+                    new Command("projects", args -> projectUi.menu(todoList)),
                     new Command("calendar", args -> {}),
                     new Command("load",     this::load),
                     new Command("save",     this::save),
