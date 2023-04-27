@@ -1,5 +1,6 @@
-package hwr.oop.group4.todo;
+package hwr.oop.group4.todo.core;
 
+import hwr.oop.group4.todo.core.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
