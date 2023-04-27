@@ -128,7 +128,6 @@ class TaskTest {
     @Test
     void buildTaskNotInProject() {
         final Project project = new Project.ProjectBuilder().name("project").description("desc").build();
-        final Task taskWithoutProject = new Task.TaskBuilder().name("task2").build();
 
         assertThat(project.getTasks()).isEmpty();
     }
@@ -154,14 +153,15 @@ class TaskTest {
     }
 
     @Test
-    void addStatusOpen(){
+    void addStatusOpen() {
         final Task task = new Task.TaskBuilder().build();
         task.open();
 
         assertThat(task.getStatus()).isEqualTo(Status.OPEN);
     }
+
     @Test
-    void addStatusInProgress(){
+    void addStatusInProgress() {
         final Task task = new Task.TaskBuilder().build();
         task.inProgress();
 
@@ -169,7 +169,7 @@ class TaskTest {
     }
 
     @Test
-    void addStatusClosed(){
+    void addStatusClosed() {
         final Task task = new Task.TaskBuilder().build();
         task.closed();
 
