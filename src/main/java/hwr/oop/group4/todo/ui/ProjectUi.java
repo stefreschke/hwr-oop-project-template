@@ -67,7 +67,7 @@ public class ProjectUi {
 
     private void listProjects(Collection<Argument<?>> args) {
         final List<Project> projects = todoList.getProjects();
-        final int idColumnLength = Math.max((int) Math.ceil(Math.log10(projects.size()) - 2), 0);
+        final int idColumnLength = Math.max((int) Math.ceil(Math.log10(projects.size()) - 2), 2);
         final Table projectTable = new Table(List.of(
                 new ColumnConfig("ID", idColumnLength),
                 new ColumnConfig("Name", 15),
