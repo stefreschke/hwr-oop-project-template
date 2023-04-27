@@ -59,6 +59,16 @@ public class ToDoListTest {
     }
 
     @Test
+    void canCreateMultipleProjects(){
+        ToDoList todoList = new ToDoList();
+
+        Project project1 = todoList.createProject(new ProjectData("Project1"));
+        Project project2 = todoList.createProject(new ProjectData("Project2"));
+
+        assertNotEquals(project1, project2);
+    }
+
+    @Test
     void canGetProjectById(){
         ToDoList todoList = new ToDoList();
         ProjectData projectData = new ProjectData("Name");
