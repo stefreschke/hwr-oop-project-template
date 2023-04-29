@@ -220,4 +220,15 @@ class ConsoleControllerTest {
         assertThat(returnValue).isEqualTo(value);
     }
 
+    @Test
+    void inputDateOutputTest() {
+        final InputStream inputStream = createInputStreamForInput("");
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        consoleController.inputDate(List.of(""), "Prompt.");
+        assertThat(retrieveResultFrom(outputStream)).isEqualTo("Prompt." + System.lineSeparator() +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': :> ");
+    }
+
 }
