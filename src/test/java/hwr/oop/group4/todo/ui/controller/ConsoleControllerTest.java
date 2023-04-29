@@ -204,11 +204,8 @@ class ConsoleControllerTest {
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
         final LocalDateTime returnValue = consoleController.inputDate(List.of(""));
-
-        LocalDateTime value = LocalDateTime.of(1212, 12, 12, 12, 12);
-        assertThat(returnValue.getYear()).isEqualTo(value.getYear());
-        assertThat(returnValue.getMonth()).isEqualTo(value.getMonth());
-        assertThat(returnValue.getDayOfYear()).isEqualTo(value.getDayOfYear());
+        final LocalDateTime value = LocalDateTime.of(1212, 12, 12, 0, 0);
+        assertThat(returnValue).isEqualTo(value);
     }
 
     @Test
@@ -220,11 +217,7 @@ class ConsoleControllerTest {
         final LocalDateTime returnValue = consoleController.inputDate(List.of(""), "Prompt.");
 
         LocalDateTime value = LocalDateTime.of(1212, 12, 12, 12, 12);
-        assertThat(returnValue.getYear()).isEqualTo(value.getYear());
-        assertThat(returnValue.getMonth()).isEqualTo(value.getMonth());
-        assertThat(returnValue.getDayOfYear()).isEqualTo(value.getDayOfYear());
-        assertThat(returnValue.getHour()).isEqualTo(value.getHour());
-        assertThat(returnValue.getMinute()).isEqualTo(value.getMinute());
+        assertThat(returnValue).isEqualTo(value);
     }
 
 }
