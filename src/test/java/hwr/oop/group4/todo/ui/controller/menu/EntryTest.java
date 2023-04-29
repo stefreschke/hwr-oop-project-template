@@ -32,4 +32,15 @@ class EntryTest {
                         "    lorem ipsum" + System.lineSeparator()
         );
     }
+
+    @Test
+    void entryToStringBlankDesc() {
+        final Entry entry = new Entry("entryName", "    ",
+                List.of(new EntryArgument("a", "arg desc")));
+        assertThat(entry.toString("  ")).isEqualTo(
+                "  entryName" + System.lineSeparator() +
+                        "    -a" + System.lineSeparator() +
+                        "      arg desc" + System.lineSeparator()
+        );
+    }
 }
