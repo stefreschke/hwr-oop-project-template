@@ -1,5 +1,6 @@
 package hwr.oop.group4.todo.ui.controller;
 
+import hwr.oop.group4.todo.commons.exceptions.TodoUiRuntimeException;
 import hwr.oop.group4.todo.ui.controller.command.Command;
 import org.junit.jupiter.api.Test;
 
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class ConsoleControllerTest {
 
@@ -70,6 +72,20 @@ class ConsoleControllerTest {
         );
         final String output = retrieveResultFrom(outputStream);
         assertThat(output).isEqualTo("pre1/pre2:> test cmd");
+    }
+
+    @Test
+    void inputOptionsNoInput() {
+        final InputStream inputStream = createInputStreamForInput("");
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+        final List<String> prefixes = List.of("");
+
+        assertThatThrownBy(() -> consoleController.inputOptions(prefixes, null, null))
+                .isInstanceOf(TodoUiRuntimeException.class)
+                .hasMessage("Input is expected")
+                .hasCause(null);
+
     }
 
     @Test
