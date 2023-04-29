@@ -67,7 +67,8 @@ class ConsoleControllerTest {
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
         consoleController.inputOptions(List.of("pre1", "pre2"), List.of(
-                new Command("testCmd", args -> consoleController.output("test cmd"))),
+                new Command("notExecuted", args -> consoleController.output("isn't executed")),
+                        new Command("testCmd", args -> consoleController.output("test cmd"))),
                 new Command("wrong", args -> {})
         );
         final String output = retrieveResultFrom(outputStream);
