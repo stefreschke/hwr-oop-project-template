@@ -148,6 +148,17 @@ class ConsoleControllerTest {
     }
 
     @Test
+    void inputBoolPromptTest() {
+        final InputStream inputStream = createInputStreamForInput(System.lineSeparator());
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        consoleController.inputBool(List.of(""), "Eingabe.", true);
+        assertThat(retrieveResultFrom(outputStream)).isEqualTo("Eingabe."+ System.lineSeparator() +
+                        "Answer y/Y/yes or n/N/no (leave empty for: yes): :> ");
+    }
+
+    @Test
     void inputDateDefaultTest() {
         final InputStream inputStream = createInputStreamForInput("");
         final OutputStream outputStream = new ByteArrayOutputStream();
