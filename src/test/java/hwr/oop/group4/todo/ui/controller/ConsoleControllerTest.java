@@ -3,11 +3,14 @@ package hwr.oop.group4.todo.ui.controller;
 import hwr.oop.group4.todo.commons.exceptions.TodoUiRuntimeException;
 import hwr.oop.group4.todo.ui.controller.command.Command;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -96,11 +99,10 @@ class ConsoleControllerTest {
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
         consoleController.inputOptions(List.of("pre1", "pre2"), List.of(
-                        new Command("test", arguments -> {
-                            consoleController.output(String.valueOf(arguments.stream()
-                                    .filter(arg -> arg.name().equals("a")).findAny().get().value())
-                            );
-                        })),
+                        new Command("test", arguments ->
+                                consoleController.output(String.valueOf(arguments.stream()
+                                        .filter(arg -> arg.name().equals("a")).findAny().get().value())
+                        ))),
                 new Command("wrong", args -> {}));
         final String output = retrieveResultFrom(outputStream);
         assertThat(output).isEqualTo("pre1/pre2:> asd");
@@ -128,24 +130,48 @@ class ConsoleControllerTest {
         assertThat(output).isEqualTo("Test Output Line" + System.lineSeparator());
     }
 
-    @Test
-    void inputBoolDefaultTest() {
+    @ParameterizedTest
+    @ValueSource(booleans = {false, true})
+    void inputBoolDefaultWithNoInputTest(boolean def) {
         final InputStream inputStream = createInputStreamForInput("");
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
-        final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", true);
-        assertThat(returnValue).isTrue();
+        final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", def);
+        assertThat(returnValue).isEqualTo(def);
     }
 
-    @Test
-    void inputBoolNoTest() {
-        final InputStream inputStream = createInputStreamForInput("dfjewoi" + System.lineSeparator() + "no" + System.lineSeparator());
+    @ParameterizedTest
+    @ValueSource(booleans = {false, true})
+    void inputBoolDefaultWithBlankInputTest(boolean def) {
+        final InputStream inputStream = createInputStreamForInput("    " + System.lineSeparator());
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", def);
+        assertThat(returnValue).isEqualTo(def);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"no", "n"})
+    void inputBoolNoTest(String inputString) {
+        final InputStream inputStream = createInputStreamForInput("lorem" + System.lineSeparator() + inputString + System.lineSeparator());
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
         final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", true);
         assertThat(returnValue).isFalse();
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"yes", "y"})
+    void inputBoolYesTest(String inputString) {
+        final InputStream inputStream = createInputStreamForInput("lorem" + System.lineSeparator() + inputString + System.lineSeparator());
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", true);
+        assertThat(returnValue).isTrue();
     }
 
     @Test
@@ -167,10 +193,8 @@ class ConsoleControllerTest {
 
         final LocalDateTime returnValue = consoleController.inputDate(List.of(""), "Prompt.");
 
-        LocalDateTime now = LocalDateTime.now();
-        assertThat(returnValue.getYear()).isEqualTo(now.getYear());
-        assertThat(returnValue.getMonth()).isEqualTo(now.getMonth());
-        assertThat(returnValue.getDayOfYear()).isEqualTo(now.getDayOfYear());
+        final LocalDateTime now = LocalDateTime.now();
+        assertThat(Duration.between(returnValue, now).toSeconds()).isLessThanOrEqualTo(5);
     }
 
     @Test
