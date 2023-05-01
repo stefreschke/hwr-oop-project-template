@@ -9,13 +9,13 @@ public class Main {
     private static final PrintStream out = new PrintStream(System.out);
     private static final Scanner in = new Scanner(System.in);
     private static final String CLEAR_SCREEN = "\033[H\033[2J";
-    private static void error(String message) {
+    public static void error(String message) {
         System.out.println(ConsoleColors.RED_BOLD + message + ConsoleColors.RESET);
     }
-    private static void success(String message) {
+    public static void success(String message) {
         System.out.println(ConsoleColors.GREEN_BOLD + message + ConsoleColors.RESET);
     }
-    private static int handleBadIndex(String message) {
+    public static int handleBadIndex(String message) {
         error("There is nothing at that index... 🥸");
         System.out.println("Try again? (y/n)");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -38,7 +38,7 @@ public class Main {
         }
     }
 
-    private static List welcome() throws IOException {
+    public static List welcome() throws IOException {
         String LIST_FILE_NAME;
         String LIST_NAME;
         List toDoList;
@@ -58,7 +58,8 @@ public class Main {
             out.println("If you don't have one press enter to create specify your path.");
             out.print("> ");
             String filePath = reader.readLine();
-            if (filePath.equals("")) {
+            // if filePath is null or empty string
+            if (filePath == null || filePath.trim().equals("")) {
                 out.println("Please enter your a path to a file to save your list to.");
                 out.print("> ");
                 LIST_FILE_NAME = reader.readLine();
@@ -90,7 +91,7 @@ public class Main {
         }
         return toDoList;
     }
-    private static void help() {
+    public static void help() {
         out.println("gtd [command] [arguments]");
         out.println("Commands:");
         out.println("  help                -  print this help");
@@ -102,7 +103,7 @@ public class Main {
         out.println("  clear               -  clear all tasks");
         out.println("  exit                -  exit the program");
     }
-    private static void add(List list) {
+    public static void add(List list) {
         out.println("Create a new task");
         out.println("Please enter a title for your task");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -153,7 +154,7 @@ public class Main {
 
         list.add(toDoItem);
     }
-    private static void list(List list) { // maybe redundant method
+    public static void list(List list) { // maybe redundant method
         out.println(list.getName() + ":");
         ToDoItem[] toDoItems = list.getListToDos();
         if (toDoItems == null || toDoItems.length == 0) {
@@ -162,7 +163,7 @@ public class Main {
         }
         for(ToDoItem toDoItem:toDoItems) out.println(toDoItem.toString());
     }
-    private static void remove(List list, int index) {
+    public static void remove(List list, int index) {
         // Exception Handling for index out of bounds and invalid input
         int i = 0;
         while (i == 0) {
@@ -175,7 +176,7 @@ public class Main {
             }
         }
     }
-    private static void done(List list, int index) {
+    public static void done(List list, int index) {
         int i = 0;
         while (i == 0) {
             try {
@@ -188,7 +189,7 @@ public class Main {
         }
     }
 
-    private static void edit(List list, int index) {
+    public static void edit(List list, int index) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         ToDoItem item = null;
         try {
@@ -247,7 +248,7 @@ public class Main {
         }
         out.println("Task Edited Successfully!");
     }
-    private static void sortHelp() {
+    public static void sortHelp() {
         out.println("gtd sort [option]");
         out.println("Options:");
         out.println("  priority - sort by priority");
@@ -259,7 +260,7 @@ public class Main {
         out.println("  help     - print this help");
     }
 
-    private static void handleSort(List list, String[] commandArray) {
+    public static void handleSort(List list, String[] commandArray) {
         int nCommands = commandArray.length;
         if (nCommands == 2) {
             sortHelp();
@@ -288,10 +289,10 @@ public class Main {
         }
     }
 
-    private static void clear(List list) {
+    public static void clear(List list) {
         list.setListToDos(null);
     }
-    private static void exit(List list) {
+    public static void exit(List list) {
         out.println("exiting...");
         list.writeToJSON(list.getFileName());
     }
