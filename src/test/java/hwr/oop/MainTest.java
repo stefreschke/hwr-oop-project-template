@@ -36,7 +36,7 @@ class MyAppTest {
         assertThat(env).contains("MyList");
     }
     @Test
-    void testWelcome() throws IOException {
+    void testWelcome() {
         // Redirect standard input and output streams to memory buffers
         InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
@@ -45,7 +45,7 @@ class MyAppTest {
         String[] env = testEnvProgram.getEnvironmentVariables();
 
         try {
-            String userInput = "MyList\n" + "" +"\n" + "data.json\n";
+            String userInput = "0\n" + "" +"\n" + "data.json\n";
             System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
@@ -64,8 +64,6 @@ class MyAppTest {
                         "> " +
                         "Please enter your a path to a file to save your list to.\n" +
                         "> ";
-
-
             } else {
 
                 expectedOutput = "Welcome To Getting Things Done \uD83D\uDE80\n";
@@ -74,6 +72,192 @@ class MyAppTest {
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
 
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+    }
+
+    @Test
+    void helpTest() {
+        // Redirect standard input and output streams to memory buffers
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+
+        try {
+            System.setIn(new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+
+            Main.help();
+            // Check the program output
+            String expectedOutput;
+            expectedOutput =
+                    "gtd [command] [arguments]\n" +
+                    "Commands:\n" +
+                    "  help                -  print this help\n" +
+                    "  add [Item Index]    -  add a new task\n" +
+                    "  remove [Item Index] -  remove a task\n" +
+                    "  done [Item Index]   -  mark a task as done\n" +
+                    "  edit [Item Index]   -  edit a task\n" +
+                    "  sort                -  sort your tasks\n" +
+                    "  clear               -  clear all tasks\n" +
+                    "  exit                -  exit the program\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+    }
+
+    @Test
+    void testAdd() {
+        // Redirect standard input and output streams to memory buffers
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+        try {
+            String userInput = "Title\nDescription\n12.12.12\n3\nTag\n";
+            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+
+            List toDoList = new List("MyList");
+            Main.add(toDoList);
+            // Check the program output
+            String expectedOutput;
+            expectedOutput =
+                    "Create a new task\n" +
+                    "Please enter a title for your task\n" +
+                    "Please enter a description for your task\n" +
+                    "Please enter a due date for your task\n" +
+                    "Please enter a priority for your task\n" +
+                    "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
+                    "Add a Tag to group your tasks\n" +
+                    "\u001B[1;32mTask Created Successfully!\u001B[0m\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+            assertThat(toDoList.getListToDos()[0].getTitle()).isEqualTo("Title");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+    }
+
+    @Test
+    void testEdit() {
+        // Redirect standard input and output streams to memory buffers
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+
+        Program testEnvProgram = new Program();
+        String[] env = testEnvProgram.getEnvironmentVariables();
+
+        try {
+            String userInput = "MyList\nDescription\n3\nTag\n";
+            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+
+            List toDoList = new List("MyList");
+            toDoList.add(new ToDoItem(0, "Test", "Test", "Test", false, Priority.LOW, new Project("Test")));
+            Main.edit(toDoList, 0);
+            // Check the program output
+            String expectedOutput;
+            expectedOutput = "Editing task at index 0:\n" +
+                    "❌ Test\n" +
+                    "Test\n" +
+                    "Created " + toDoList.getListToDos()[0].getCreatedAt() + "\n" +
+                    "<Test> LOW\n\n" +
+                    "Enter new Title or press enter to skip\n" +
+                    "Enter new Description or press enter to skip\n" +
+                    "Enter new Priority or press enter to skip\n" +
+                    "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
+                    "Enter new Tag or press enter to skip\n" +
+                    "Task Edited Successfully!\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+            assertThat(toDoList.getListToDos()[0].getTitle()).isEqualTo("MyList");
+            assertThat(toDoList.getListToDos()[0].getDescription()).isEqualTo("Description" + "\n" + "Created " + toDoList.getListToDos()[0].getCreatedAt());
+            assertThat(toDoList.getListToDos()[0].getPriority()).isEqualTo(Priority.HIGH);
+            assertThat(toDoList.getListToDos()[0].getTag()).isEqualTo("Tag");
+
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+    }
+
+    @Test
+    void listTest() {
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+
+        ToDoItem[] toDoItems = new ToDoItem[2];
+        toDoItems[0] = new ToDoItem(0, "Test", "Test", "Test", false, Priority.LOW, new Project("Test"));
+        toDoItems[1] = new ToDoItem(1, "Test2", "Test2", "Test2", false, Priority.LOW, new Project("Test2"));
+
+        List toDoList = new List("MyList");
+        toDoList.setListToDos(toDoItems);
+
+        try {
+            String userInput = "MyList\n";
+            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+
+            Main.list(toDoList);
+            // Check the program output
+            String expectedOutput;
+            expectedOutput = "MyList:\n" +
+                    toDoList.getListToDos()[0].toString() + "\n" +
+                    toDoList.getListToDos()[1].toString() + "\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+    }
+
+    @Test
+    void removeTest() {
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+
+        ToDoItem[] toDoItems = new ToDoItem[2];
+        toDoItems[0] = new ToDoItem(0, "Test", "Test", "Test", false, Priority.LOW, new Project("Test"));
+        toDoItems[1] = new ToDoItem(1, "Test2", "Test2", "Test2", false, Priority.LOW, new Project("Test2"));
+
+        List toDoList = new List("MyList");
+        toDoList.setListToDos(toDoItems);
+
+        try {
+            System.setIn(new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+            assertThat(toDoList.getListToDos().length).isEqualTo(2);
+            Main.remove(toDoList, 0);
+            // Check the program output
+            String expectedOutput;
+            expectedOutput = "Task Removed Successfully!\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+            assertThat(toDoList.getListToDos().length).isEqualTo(1);
+            assertThat(toDoList.getListToDos()[0].getTitle()).isEqualTo("Test2");
         } finally {
             // Restore standard input and output streams
             System.setIn(sysInBackup);

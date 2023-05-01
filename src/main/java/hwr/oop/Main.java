@@ -168,7 +168,8 @@ public class Main {
         int i = 0;
         while (i == 0) {
             try {
-                list.remove(index); // TODO: zero or one indexing ?
+                list.remove(index);
+                out.println("Task Removed Successfully!");
                 i++;
             } catch (Exception e) {
                 index = handleBadIndex("Please enter the index of the task you want to remove.");
