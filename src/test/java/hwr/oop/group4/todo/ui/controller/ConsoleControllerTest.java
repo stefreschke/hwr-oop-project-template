@@ -81,7 +81,7 @@ class ConsoleControllerTest {
         consoleController.inputOptions(List.of("pre1", "pre2"), List.of(
                         new Command("test", arguments -> {
                             consoleController.output(String.valueOf(arguments.stream()
-                                    .filter(arg -> arg.getName().equals("a")).findAny().get().getValue())
+                                    .filter(arg -> arg.name().equals("a")).findAny().get().value())
                             );
                         })),
                 new Command("wrong", args -> {}));
