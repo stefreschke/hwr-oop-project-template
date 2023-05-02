@@ -194,4 +194,84 @@ public class ProjectUiTest {
                         "projects:> ");
     }
 
+    @Test
+    void errorcheckNoIdTest() {
+        InputStream inputStream = createInputStreamForInput("remove" + System.lineSeparator() + "back" + System.lineSeparator());
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
+        ui.menu(getExampleTodoList(true));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                        "========================================================================================" + System.lineSeparator() +
+                        "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
+                        "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
+                        projectsMenuOutput +
+                        "Error: ID Argument required." + System.lineSeparator() +
+                        "projects:> ");
+    }
+
+    @Test
+    void errorcheckNoIdParameterTest() {
+        InputStream inputStream = createInputStreamForInput("remove -id" + System.lineSeparator() + "back" + System.lineSeparator());
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
+        ui.menu(getExampleTodoList(true));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                        "========================================================================================" + System.lineSeparator() +
+                        "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
+                        "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
+                        projectsMenuOutput +
+                        "Error: ID Argument requires parameter." + System.lineSeparator() +
+                        "projects:> ");
+    }
+
+    @Test
+    void errorcheckIdParameterNotANumberTest() {
+        InputStream inputStream = createInputStreamForInput("remove -id qwer" + System.lineSeparator() + "back" + System.lineSeparator());
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
+        ui.menu(getExampleTodoList(true));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                        "========================================================================================" + System.lineSeparator() +
+                        "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
+                        "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
+                        projectsMenuOutput +
+                        "Error: ID is not a valid number." + System.lineSeparator() +
+                        "projects:> ");
+    }
+
+    @Test
+    void errorcheckIdParameterOutOfBoundsTest() {
+        InputStream inputStream = createInputStreamForInput("remove -id 3" + System.lineSeparator() + "back" + System.lineSeparator());
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
+        ui.menu(getExampleTodoList(true));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                        "========================================================================================" + System.lineSeparator() +
+                        "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
+                        "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
+                        projectsMenuOutput +
+                        "Error: ID is invalid." + System.lineSeparator() +
+                        "projects:> ");
+    }
+
 }
