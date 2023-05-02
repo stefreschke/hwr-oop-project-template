@@ -115,55 +115,55 @@ public class ProjectUi {
     }
 
     private void removeProject(Collection<CommandArgument<String>> args) {
-        Integer id = getId(args);
-        if (id == null) {
+        Optional<Integer> id = getId(args);
+        if (id.isEmpty()) {
             return;
         }
 
-        String projectName = todoList.getProjects().get(id).getName();
+        String projectName = todoList.getProjects().get(id.get()).getName();
         String confirmation = "Do you really want to remove " + projectName + "?";
         if (consoleController.inputBool(List.of("projects", "remove"), confirmation, false)) {
-            todoList.removeProject(todoList.getProjects().get(id));
+            todoList.removeProject(todoList.getProjects().get(id.get()));
         }
     }
 
-    private Integer getId(Collection<CommandArgument<String>> args) {
-        Optional<CommandArgument<String>> id_arg = args.stream()
+    private Optional<Integer> getId(Collection<CommandArgument<String>> args) {
+        Optional<CommandArgument<String>> idArg = args.stream()
                 .filter(arg -> arg.name().equals("id"))
                 .findFirst();
 
-        if (id_arg.isEmpty()) {
+        if (idArg.isEmpty()) {
             consoleController.outputLine("Error: ID Argument required.");
-            return null;
+            return Optional.empty();
         }
 
-        if (id_arg.get().value().isBlank()) {
+        if (idArg.get().value().isBlank()) {
             consoleController.outputLine("Error: ID Argument requires parameter.");
-            return null;
+            return Optional.empty();
         }
 
         int id;
         try {
-            id = Integer.parseInt(id_arg.get().value());
+            id = Integer.parseInt(idArg.get().value());
         } catch (NumberFormatException e) {
             consoleController.outputLine("Error: ID is not a valid number.");
-            return null;
+            return Optional.empty();
         }
 
         if (id < 0 || id >= todoList.getProjects().size()) {
             consoleController.outputLine("Error: ID is invalid.");
-            return null;
+            return Optional.empty();
         }
 
-        return id;
+        return Optional.of(id);
     }
 
     private void editProject(Collection<CommandArgument<String>> args) {
-        final Integer id = getId(args);
-        if (id == null) {
+        final Optional<Integer> id = getId(args);
+        if (id.isEmpty()) {
             return;
         }
-        Project project = todoList.getProjects().get(id);
+        Project project = todoList.getProjects().get(id.get());
         todoList.removeProject(project);
         Project.ProjectBuilder new_project = new Project.ProjectBuilder();
 
