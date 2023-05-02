@@ -264,4 +264,101 @@ class MyAppTest {
             System.setOut(sysOutBackup);
         }
     }
+    @Test
+    void successTest() {
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+
+        List testList = new List("Test");
+        testList.setListToDos(new ToDoItem[3]);
+
+        try {
+            System.setIn(new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+            // funktion Main.success aufrufen
+            Main.success("greatsuccess");
+            String expectedOutput;
+            // Output den du erwartest
+            expectedOutput = ConsoleColors.GREEN_BOLD + "greatsuccess" + ConsoleColors.RESET +"\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+    }
+    @Test
+    void errorTest() {
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+
+        List testList = new List("Test");
+        testList.setListToDos(new ToDoItem[3]);
+
+        try {
+            System.setIn(new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+            // funktion Main.success aufrufen
+            Main.error("nogreatsuccess");
+            String expectedOutput;
+            // Output den du erwartest
+            expectedOutput = ConsoleColors.RED_BOLD + "nogreatsuccess" + ConsoleColors.RESET + "\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+
+        }
+    }
+    @Test
+    void handleBadIndexTest() {
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+
+        List testList = new List("Test");
+        testList.setListToDos(new ToDoItem[3]);
+
+        try {
+            System.setIn(new ByteArrayInputStream("y\n1\n".getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+            int index = Main.handleBadIndex("Test Message.");
+            // Check the program output
+            String expectedOutput;
+            expectedOutput = ConsoleColors.RED_BOLD + "There is nothing at that index... \uD83E\uDD78" + ConsoleColors.RESET + "\n" +
+                    "Try again? (y/n)\n" +
+                    "Test Message.\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+            assertThat(index).isEqualTo(1);
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+        try {
+            System.setIn(new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+            int index = Main.handleBadIndex("Test Message.");
+            // Check the program output
+            String expectedOutput;
+            expectedOutput = ConsoleColors.RED_BOLD + "There is nothing at that index... \uD83E\uDD78" + ConsoleColors.RESET + "\n" +
+                    "Try again? (y/n)\n" +
+                    "Okay, I'll leave you alone then. 👋\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+            assertThat(index).isEqualTo(-1);
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+    }
+
 }
