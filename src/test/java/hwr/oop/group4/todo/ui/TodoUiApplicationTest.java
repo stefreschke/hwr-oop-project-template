@@ -27,7 +27,7 @@ class TodoUiApplicationTest {
         System.setOut(new PrintStream(outputStream));
         System.setIn(inputStream);
 
-        TodoUiApplication.main(new String[] {});
+        TodoUiApplication.main(new String[0]);
 
         System.setOut(System.out);
         System.setIn(System.in);
