@@ -130,7 +130,7 @@ public class ProjectUi {
     private Integer getId(Collection<CommandArgument<?>> args) {
         Optional<CommandArgument<?>> id_arg = args.stream()
                 .filter(arg -> arg.getName().equals("id"))
-                .findAny();
+                .findFirst();
 
         if (id_arg.isEmpty()) {
             consoleController.outputLine("Error: ID Argument required.");
@@ -175,7 +175,7 @@ public class ProjectUi {
 
         final Optional<CommandArgument<?>> begin = args.stream()
                 .filter(argument -> argument.getName().equals("begin"))
-                .findAny();
+                .findFirst();
         if (begin.isPresent()) {
             new_project.begin(consoleController.inputDate(List.of("projects", "edit", "begin")));
         } else {
@@ -184,7 +184,7 @@ public class ProjectUi {
 
         final Optional<CommandArgument<?>> end = args.stream()
                 .filter(argument -> argument.getName().equals("end"))
-                .findAny();
+                .findFirst();
         if (end.isPresent()) {
             new_project.end(consoleController.inputDate(List.of("projects", "edit", "end")));
         } else {
@@ -211,7 +211,7 @@ public class ProjectUi {
     private String getStringParameter(Collection<CommandArgument<?>> args, String name) {
         Optional<CommandArgument<?>> arg = args.stream()
                 .filter(argument -> argument.getName().equals(name))
-                .findAny();
+                .findFirst();
 
         if (arg.isEmpty()) {
             return null;
