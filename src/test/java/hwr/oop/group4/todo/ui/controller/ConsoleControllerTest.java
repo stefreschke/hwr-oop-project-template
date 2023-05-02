@@ -1,6 +1,7 @@
 package hwr.oop.group4.todo.ui.controller;
 
 import hwr.oop.group4.todo.ui.controller.command.Command;
+import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -8,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -173,6 +175,31 @@ class ConsoleControllerTest {
         assertThat(returnValue.getDayOfYear()).isEqualTo(value.getDayOfYear());
         assertThat(returnValue.getHour()).isEqualTo(value.getHour());
         assertThat(returnValue.getMinute()).isEqualTo(value.getMinute());
+    }
+
+    @Test
+    void getStringParameterTest() {
+        final InputStream inputStream = createInputStreamForInput("");
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("id", "eman"));
+        final Optional<String> returnValue = consoleController.getStringParameter(arguments, "id");
+
+        assertThat(returnValue).isNotEmpty();
+        assertThat(returnValue).get().isEqualTo("eman");
+    }
+
+    @Test
+    void getStringParameterWithInvalidNameTest() {
+        final InputStream inputStream = createInputStreamForInput("");
+        final OutputStream outputStream = new ByteArrayOutputStream();
+        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
+
+        final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("name", "eman"));
+        final Optional<String> returnValue = consoleController.getStringParameter(arguments, "id");
+
+        assertThat(returnValue).isEmpty();
     }
 
 }

@@ -1,8 +1,8 @@
 package hwr.oop.group4.todo.ui.controller;
 
 import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
-import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
 import hwr.oop.group4.todo.ui.controller.command.Command;
+import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -125,4 +125,13 @@ public class ConsoleController {
         stringBuilder.append(prefixes.get(prefixes.size()-1)).append(":> ");
         return stringBuilder.toString();
     }
+
+    public Optional<String> getStringParameter(Collection<CommandArgument<String>> args, String name) {
+        Optional<CommandArgument<String>> arg = args.stream()
+                .filter(argument -> argument.name().equals(name))
+                .findFirst();
+
+        return arg.map(CommandArgument::value);
+    }
+
 }

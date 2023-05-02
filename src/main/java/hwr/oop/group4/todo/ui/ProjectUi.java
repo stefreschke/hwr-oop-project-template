@@ -167,11 +167,11 @@ public class ProjectUi {
         todoList.removeProject(project);
         Project.ProjectBuilder new_project = new Project.ProjectBuilder();
 
-        final String name = getStringParameter(args, "name");
-        new_project.name( (name != null) ? name : project.getName() );
+        final Optional<String> name = consoleController.getStringParameter(args, "name");
+        new_project.name(name.orElseGet(project::getName));
 
-        final String desc = getStringParameter(args, "desc");
-        new_project.description( (desc != null) ? desc : project.getDescription() );
+        final Optional<String> desc = consoleController.getStringParameter(args, "desc");
+        new_project.description(desc.orElseGet(project::getDescription));
 
         final Optional<CommandArgument<String>> begin = args.stream()
                 .filter(argument -> argument.name().equals("begin"))
@@ -191,38 +191,21 @@ public class ProjectUi {
             new_project.end(project.getEnd());
         }
 
-        final String addTag = getStringParameter(args, "addTag");
-        if (addTag != null) {
+        final Optional<String> addTag = consoleController.getStringParameter(args, "addTag");
+        if (addTag.isPresent()) {
             new_project.addTag(project.getTags().toArray(new Tag[0]));
-            new_project.addTag(new Tag(addTag));
+            new_project.addTag(new Tag(addTag.get()));
         }
 
-        final String removeTag = getStringParameter(args, "removeTag");
-        if (removeTag != null) {
+        final Optional<String> removeTag = consoleController.getStringParameter(args, "removeTag");
+        if (removeTag.isPresent()) {
             Collection<Tag> tags = project.getTags();
-            tags.remove(new Tag(removeTag));
+            tags.remove(new Tag(removeTag.get()));
             new_project.addTag(tags.toArray(new Tag[0]));
         }
 
         new_project.addTasks(project.getTasks().toArray(new Task[0]));
         todoList.addProject(new_project.build());
-    }
-
-    private String getStringParameter(Collection<CommandArgument<String>> args, String name) {
-        Optional<CommandArgument<String>> arg = args.stream()
-                .filter(argument -> argument.name().equals(name))
-                .findFirst();
-
-        if (arg.isEmpty()) {
-            return null;
-        }
-
-        if (arg.get().value().isBlank()) {
-            consoleController.outputLine("Error: " + name + " Argument requires parameter.");
-            return null;
-        }
-
-        return (String) arg.get().value();
     }
 
 }
