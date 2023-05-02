@@ -94,7 +94,7 @@ public class ProjectUi {
 
     private String concatTagsToString(Collection<Tag> tags) {
         StringBuilder stringBuilder = new StringBuilder();
-        tags.stream().forEach(tag -> stringBuilder.append(tag.name()));
+        tags.forEach(tag -> stringBuilder.append(tag.name()));
         return stringBuilder.toString();
     }
 
@@ -165,47 +165,47 @@ public class ProjectUi {
         }
         Project project = todoList.getProjects().get(id.get());
         todoList.removeProject(project);
-        Project.ProjectBuilder new_project = new Project.ProjectBuilder();
+        Project.ProjectBuilder newProject = new Project.ProjectBuilder();
 
         final Optional<String> name = consoleController.getStringParameter(args, "name");
-        new_project.name(name.orElseGet(project::getName));
+        newProject.name(name.orElseGet(project::getName));
 
         final Optional<String> desc = consoleController.getStringParameter(args, "desc");
-        new_project.description(desc.orElseGet(project::getDescription));
+        newProject.description(desc.orElseGet(project::getDescription));
 
         final Optional<CommandArgument<String>> begin = args.stream()
                 .filter(argument -> argument.name().equals("begin"))
                 .findFirst();
         if (begin.isPresent()) {
-            new_project.begin(consoleController.inputDate(List.of("projects", "edit", "begin")));
+            newProject.begin(consoleController.inputDate(List.of("projects", "edit", "begin")));
         } else {
-            new_project.begin(project.getBegin());
+            newProject.begin(project.getBegin());
         }
 
         final Optional<CommandArgument<String>> end = args.stream()
                 .filter(argument -> argument.name().equals("end"))
                 .findFirst();
         if (end.isPresent()) {
-            new_project.end(consoleController.inputDate(List.of("projects", "edit", "end")));
+            newProject.end(consoleController.inputDate(List.of("projects", "edit", "end")));
         } else {
-            new_project.end(project.getEnd());
+            newProject.end(project.getEnd());
         }
 
         final Optional<String> addTag = consoleController.getStringParameter(args, "addTag");
         if (addTag.isPresent()) {
-            new_project.addTag(project.getTags().toArray(new Tag[0]));
-            new_project.addTag(new Tag(addTag.get()));
+            newProject.addTag(project.getTags().toArray(new Tag[0]));
+            newProject.addTag(new Tag(addTag.get()));
         }
 
         final Optional<String> removeTag = consoleController.getStringParameter(args, "removeTag");
         if (removeTag.isPresent()) {
             Collection<Tag> tags = project.getTags();
             tags.remove(new Tag(removeTag.get()));
-            new_project.addTag(tags.toArray(new Tag[0]));
+            newProject.addTag(tags.toArray(new Tag[0]));
         }
 
-        new_project.addTasks(project.getTasks().toArray(new Task[0]));
-        todoList.addProject(new_project.build());
+        newProject.addTasks(project.getTasks().toArray(new Task[0]));
+        todoList.addProject(newProject.build());
     }
 
 }
