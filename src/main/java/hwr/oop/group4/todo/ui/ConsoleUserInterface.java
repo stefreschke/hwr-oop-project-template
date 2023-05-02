@@ -50,10 +50,10 @@ public class ConsoleUserInterface {
         }
     }
 
-    private void save(Collection<CommandArgument<?>> args) {
+    private void save(Collection<CommandArgument<String>> args) {
     }
 
-    private void load(Collection<CommandArgument<?>> args) {
+    private void load(Collection<CommandArgument<String>> args) {
         String question = "Do you want to load from a file? (Otherwise create an empty todo list)";
         boolean loadFromFile = consoleController.inputBool(List.of("main", "load"), question, false);
 

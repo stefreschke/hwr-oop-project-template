@@ -65,7 +65,7 @@ public class ProjectUi {
         }
     }
 
-    private void listProjects(Collection<CommandArgument<?>> args) {
+    private void listProjects(Collection<CommandArgument<String>> args) {
         final List<Project> projects = todoList.getProjects();
         final int idColumnLength = Math.max((int) Math.ceil(Math.log10(projects.size()) - 2), 2);
         final Table projectTable = new Table(List.of(
@@ -98,7 +98,7 @@ public class ProjectUi {
         return stringBuilder.toString();
     }
 
-    private void newProject(Collection<CommandArgument<?>> args) {
+    private void newProject(Collection<CommandArgument<String>> args) {
         String name = consoleController.input(List.of("projects", "new", "name")).orElseThrow();
         String desc = consoleController.input(List.of("projects", "new", "description")).orElseThrow();
         LocalDateTime begin = consoleController.inputDate(List.of("projects", "new", "begin"));
@@ -114,7 +114,7 @@ public class ProjectUi {
         todoList.addProject(project);
     }
 
-    private void removeProject(Collection<CommandArgument<?>> args) {
+    private void removeProject(Collection<CommandArgument<String>> args) {
         Integer id = getId(args);
         if (id == null) {
             return;
@@ -127,9 +127,9 @@ public class ProjectUi {
         }
     }
 
-    private Integer getId(Collection<CommandArgument<?>> args) {
-        Optional<CommandArgument<?>> id_arg = args.stream()
-                .filter(arg -> arg.getName().equals("id"))
+    private Integer getId(Collection<CommandArgument<String>> args) {
+        Optional<CommandArgument<String>> id_arg = args.stream()
+                .filter(arg -> arg.name().equals("id"))
                 .findFirst();
 
         if (id_arg.isEmpty()) {
@@ -137,14 +137,14 @@ public class ProjectUi {
             return null;
         }
 
-        if (! (id_arg.get().getValue() instanceof String)) {
+        if (id_arg.get().value().isBlank()) {
             consoleController.outputLine("Error: ID Argument requires parameter.");
             return null;
         }
 
         int id;
         try {
-            id = Integer.parseInt((String) id_arg.get().getValue());
+            id = Integer.parseInt(id_arg.get().value());
         } catch (NumberFormatException e) {
             consoleController.outputLine("Error: ID is not a valid number.");
             return null;
@@ -158,7 +158,7 @@ public class ProjectUi {
         return id;
     }
 
-    private void editProject(Collection<CommandArgument<?>> args) {
+    private void editProject(Collection<CommandArgument<String>> args) {
         final Integer id = getId(args);
         if (id == null) {
             return;
@@ -173,8 +173,8 @@ public class ProjectUi {
         final String desc = getStringParameter(args, "desc");
         new_project.description( (desc != null) ? desc : project.getDescription() );
 
-        final Optional<CommandArgument<?>> begin = args.stream()
-                .filter(argument -> argument.getName().equals("begin"))
+        final Optional<CommandArgument<String>> begin = args.stream()
+                .filter(argument -> argument.name().equals("begin"))
                 .findFirst();
         if (begin.isPresent()) {
             new_project.begin(consoleController.inputDate(List.of("projects", "edit", "begin")));
@@ -182,8 +182,8 @@ public class ProjectUi {
             new_project.begin(project.getBegin());
         }
 
-        final Optional<CommandArgument<?>> end = args.stream()
-                .filter(argument -> argument.getName().equals("end"))
+        final Optional<CommandArgument<String>> end = args.stream()
+                .filter(argument -> argument.name().equals("end"))
                 .findFirst();
         if (end.isPresent()) {
             new_project.end(consoleController.inputDate(List.of("projects", "edit", "end")));
@@ -208,21 +208,21 @@ public class ProjectUi {
         todoList.addProject(new_project.build());
     }
 
-    private String getStringParameter(Collection<CommandArgument<?>> args, String name) {
-        Optional<CommandArgument<?>> arg = args.stream()
-                .filter(argument -> argument.getName().equals(name))
+    private String getStringParameter(Collection<CommandArgument<String>> args, String name) {
+        Optional<CommandArgument<String>> arg = args.stream()
+                .filter(argument -> argument.name().equals(name))
                 .findFirst();
 
         if (arg.isEmpty()) {
             return null;
         }
 
-        if (! (arg.get().getValue() instanceof String)) {
+        if (arg.get().value().isBlank()) {
             consoleController.outputLine("Error: " + name + " Argument requires parameter.");
             return null;
         }
 
-        return (String) arg.get().getValue();
+        return (String) arg.get().value();
     }
 
 }
