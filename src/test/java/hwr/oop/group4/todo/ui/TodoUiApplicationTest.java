@@ -35,16 +35,21 @@ public class TodoUiApplicationTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-            "Do you want to load from a file? (Otherwise create an empty todo list)" + System.lineSeparator() +
-            "Answer y/Y/yes or n/N/no (leave empty for: no): Main Menu" + System.lineSeparator() +
-            "                        intray - " + System.lineSeparator() +
-            "                         tasks - " + System.lineSeparator() +
-            "                      projects - " + System.lineSeparator() +
-            "                      calendar - " + System.lineSeparator() +
-            "                          load - " + System.lineSeparator() +
-            "                          save - " + System.lineSeparator() +
-            "                          quit - Quit the program." + System.lineSeparator() +
-            "main> ");
+                "Do you want to load from a file? (Otherwise create an empty todo list)" + System.lineSeparator() +
+                "Answer y/Y/yes or n/N/no (leave empty for: no)." + System.lineSeparator() +
+                "main/load:> [1m<==== Main Menu ====>[0m" + System.lineSeparator() +
+                "Welcome to ToDo!" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Commands: " + System.lineSeparator() +
+                "  intray" + System.lineSeparator() +
+                "  tasks" + System.lineSeparator() +
+                "  projects" + System.lineSeparator() +
+                "  calendar" + System.lineSeparator() +
+                "  load" + System.lineSeparator() +
+                "  save" + System.lineSeparator() +
+                "  quit" + System.lineSeparator() +
+                "    Quit the program." + System.lineSeparator() +
+                "main:> ");
     }
 
 }
