@@ -32,23 +32,23 @@ public class ConsoleColors {
         return ANSI_GREEN;
     }
 
-    public String yellow(){
+    public String yellow() {
         return ANSI_YELLOW;
     }
 
-    public String blue(){
+    public String blue() {
         return ANSI_BLUE;
     }
 
-    public String purple(){
+    public String purple() {
         return ANSI_PURPLE;
     }
 
-    public String cyan(){
+    public String cyan() {
         return ANSI_CYAN;
     }
 
-    public String white(){
+    public String white() {
         return ANSI_WHITE;
     }
 
@@ -64,23 +64,27 @@ public class ConsoleColors {
         return ANSI_GREEN_BACKGROUND;
     }
 
-    public String yellowBackground(){
+    public String yellowBackground() {
         return ANSI_YELLOW_BACKGROUND;
     }
 
-    public String blueBackground(){
+    public String blueBackground() {
         return ANSI_BLUE_BACKGROUND;
     }
 
-    public String purpleBackground(){
+    public String purpleBackground() {
         return ANSI_PURPLE_BACKGROUND;
     }
 
-    public String cyanBackground(){
+    public String cyanBackground() {
         return ANSI_CYAN_BACKGROUND;
     }
 
-    public String whiteBackground(){
+    public String whiteBackground() {
         return ANSI_WHITE_BACKGROUND;
+    }
+
+    public String reset() {
+        return ANSI_RESET;
     }
 }
