@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class ProjectUiTest {
+class ProjectUiTest {
 
     private final String projectsMenuOutput =
             "[1m<==== Project Menu ====>[0m" + System.lineSeparator() +
