@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class TodoUiApplicationTest {
+class TodoUiApplicationTest {
 
     private String retrieveResultFrom(OutputStream outputStream) {
         return outputStream.toString();
