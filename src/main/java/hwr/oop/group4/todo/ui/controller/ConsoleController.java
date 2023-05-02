@@ -127,11 +127,9 @@ public class ConsoleController {
     }
 
     public Optional<String> getStringParameter(Collection<CommandArgument<String>> args, String name) {
-        Optional<CommandArgument<String>> arg = args.stream()
+        return args.stream()
                 .filter(argument -> argument.name().equals(name))
+                .map(CommandArgument::value)
                 .findFirst();
-
-        return arg.map(CommandArgument::value);
     }
-
 }
