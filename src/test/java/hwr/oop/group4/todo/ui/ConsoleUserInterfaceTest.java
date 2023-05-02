@@ -12,6 +12,25 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class ConsoleUserInterfaceTest {
 
+    private final String loadMenuOutput =
+            "Do you want to load from a file? (Otherwise create an empty todo list)" + System.lineSeparator() +
+            "Answer y/Y/yes or n/N/no (leave empty for: no)." + System.lineSeparator() +
+            "main/load:> ";
+    private final String mainMenuOutput =
+            "[1m<==== Main Menu ====>[0m" + System.lineSeparator() +
+            "Welcome to ToDo!" + System.lineSeparator() +
+            System.lineSeparator() +
+            "Commands: " + System.lineSeparator() +
+            "  intray" + System.lineSeparator() +
+            "  tasks" + System.lineSeparator() +
+            "  projects" + System.lineSeparator() +
+            "  calendar" + System.lineSeparator() +
+            "  load" + System.lineSeparator() +
+            "  save" + System.lineSeparator() +
+            "  quit" + System.lineSeparator() +
+            "    Quit the program." + System.lineSeparator() +
+            "main:> ";
+
     private String retrieveResultFrom(OutputStream outputStream) {
         return outputStream.toString();
     }
@@ -23,15 +42,18 @@ class ConsoleUserInterfaceTest {
 
     @Test
     void canCreateNewTodoList() {
-        InputStream inputStream = createInputStreamForInput("ew" + System.lineSeparator() + "new" + System.lineSeparator() );
+        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "load" + System.lineSeparator() + "n" + System.lineSeparator() +  "quit" + System.lineSeparator() );
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
         ui.mainMenu();
 
         String output = retrieveResultFrom(outputStream);
-        assertThat(output).isEqualTo("Do want to 'load' from file or create 'new' list?"+System.lineSeparator() +
-                "Please enter 'new' or 'load'." + System.lineSeparator());
+        assertThat(output).isEqualTo(
+        loadMenuOutput +
+                mainMenuOutput +
+                loadMenuOutput +
+                mainMenuOutput);
     }
 
     @Test
@@ -45,38 +67,16 @@ class ConsoleUserInterfaceTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                "Do you want to load from a file? (Otherwise create an empty todo list)" + System.lineSeparator() +
-                        "Answer y/Y/yes or n/N/no (leave empty for: no): Main Menu" + System.lineSeparator() +
-                        "                        intray - " + System.lineSeparator() +
-                        "                         tasks - " + System.lineSeparator() +
-                        "                      projects - " + System.lineSeparator() +
-                        "                      calendar - " + System.lineSeparator() +
-                        "                          load - " + System.lineSeparator() +
-                        "                          save - " + System.lineSeparator() +
-                        "                          quit - Quit the program." + System.lineSeparator() +
-                        "main> Main Menu" + System.lineSeparator() +
-                        "                        intray - " + System.lineSeparator() +
-                        "                         tasks - " + System.lineSeparator() +
-                        "                      projects - " + System.lineSeparator() +
-                        "                      calendar - " + System.lineSeparator() +
-                        "                          load - " + System.lineSeparator() +
-                        "                          save - " + System.lineSeparator() +
-                        "                          quit - Quit the program." + System.lineSeparator() +
-                        "main> Do you want to load from a file? (Otherwise create an empty todo list)" + System.lineSeparator() +
-                        "Answer y/Y/yes or n/N/no (leave empty for: no): Main Menu" + System.lineSeparator() +
-                        "                        intray - " + System.lineSeparator() +
-                        "                         tasks - " + System.lineSeparator() +
-                        "                      projects - " + System.lineSeparator() +
-                        "                      calendar - " + System.lineSeparator() +
-                        "                          load - " + System.lineSeparator() +
-                        "                          save - " + System.lineSeparator() +
-                        "                          quit - Quit the program." + System.lineSeparator() +
-                        "main> ");
+                loadMenuOutput +
+                        mainMenuOutput +
+                        mainMenuOutput +
+                        loadMenuOutput +
+                        mainMenuOutput);
     }
 
     @Test
     void canOpenProjectsMenu() {
-        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "protsch" + System.lineSeparator() + "projects" + System.lineSeparator() + "quit" + System.lineSeparator() + "quit" + System.lineSeparator());
+        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "protsch" + System.lineSeparator() + "projects" + System.lineSeparator() + "back" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
@@ -85,33 +85,47 @@ class ConsoleUserInterfaceTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-        "Do you want to load from a file? (Otherwise create an empty todo list)" + System.lineSeparator() +
-                "Answer y/Y/yes or n/N/no (leave empty for: no): Main Menu" + System.lineSeparator() +
-                "                        intray - " + System.lineSeparator() +
-                "                         tasks - " + System.lineSeparator() +
-                "                      projects - " + System.lineSeparator() +
-                "                      calendar - " + System.lineSeparator() +
-                "                          load - " + System.lineSeparator() +
-                "                          save - " + System.lineSeparator() +
-                "                          quit - Quit the program." + System.lineSeparator() +
-                "main> main> ID | Name            | Description                    | Tags       | Begin  | End   " + System.lineSeparator() +
-                "====================================================================================" + System.lineSeparator() +
-                "Projects Menu" + System.lineSeparator() +
-                "                          list - List all projects." + System.lineSeparator() +
-                "                           new - Add a new project." + System.lineSeparator() +
-                "                         tasks - Open the task menu for a project." + System.lineSeparator() +
-                "                          edit - Edit the attributes of a project." + System.lineSeparator() +
-                "                        remove - Remove a project." + System.lineSeparator() +
-                "                          quit - Quit to the previous menu." + System.lineSeparator() +
-                "projects> Main Menu" + System.lineSeparator() +
-                "                        intray - " + System.lineSeparator() +
-                "                         tasks - " + System.lineSeparator() +
-                "                      projects - " + System.lineSeparator() +
-                "                      calendar - " + System.lineSeparator() +
-                "                          load - " + System.lineSeparator() +
-                "                          save - " + System.lineSeparator() +
-                "                          quit - Quit the program." + System.lineSeparator() +
-                "main> ");
+                loadMenuOutput +
+                        mainMenuOutput +
+                        mainMenuOutput +
+                        "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                        "========================================================================================" + System.lineSeparator() +
+                        "[1m<==== Project Menu ====>[0m" + System.lineSeparator() +
+                        "Manage your Projects!" + System.lineSeparator() +
+                        System.lineSeparator() +
+                        "Commands: " + System.lineSeparator() +
+                        "  list" + System.lineSeparator() +
+                        "    List all projects." + System.lineSeparator() +
+                        "  new" + System.lineSeparator() +
+                        "    Add a new project." + System.lineSeparator() +
+                        "  tasks" + System.lineSeparator() +
+                        "    Open the task menu for a project." + System.lineSeparator() +
+                        "    -id <id>" + System.lineSeparator() +
+                        "      ID of the project." + System.lineSeparator() +
+                        "  edit" + System.lineSeparator() +
+                        "    Edit the attributes of a project." + System.lineSeparator() +
+                        "    -id <id>" + System.lineSeparator() +
+                        "      ID of the project to be edited." + System.lineSeparator() +
+                        "    -name <name>" + System.lineSeparator() +
+                        "      Change the name of the project." + System.lineSeparator() +
+                        "    -desc <desc>" + System.lineSeparator() +
+                        "      Change the description of the project." + System.lineSeparator() +
+                        "    -begin" + System.lineSeparator() +
+                        "      Change the beginning of the project." + System.lineSeparator() +
+                        "    -end" + System.lineSeparator() +
+                        "      Change the end of the project" + System.lineSeparator() +
+                        "    -addTag <tag>" + System.lineSeparator() +
+                        "      Add a new tag." + System.lineSeparator() +
+                        "    -removeTag <tag>" + System.lineSeparator() +
+                        "      Remove a tag." + System.lineSeparator() +
+                        "  remove" + System.lineSeparator() +
+                        "    Remove a project." + System.lineSeparator() +
+                        "    -id <id>" + System.lineSeparator() +
+                        "      ID of the project to be removed." + System.lineSeparator() +
+                        "  back" + System.lineSeparator() +
+                        "    Returns to the previous menu." + System.lineSeparator() +
+                        "projects:> " +
+                        mainMenuOutput);
     }
 
     @Test
@@ -125,24 +139,9 @@ class ConsoleUserInterfaceTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                "Do you want to load from a file? (Otherwise create an empty todo list)" + System.lineSeparator() +
-                        "Answer y/Y/yes or n/N/no (leave empty for: no): Main Menu" + System.lineSeparator() +
-                        "                        intray - " + System.lineSeparator() +
-                        "                         tasks - " + System.lineSeparator() +
-                        "                      projects - " + System.lineSeparator() +
-                        "                      calendar - " + System.lineSeparator() +
-                        "                          load - " + System.lineSeparator() +
-                        "                          save - " + System.lineSeparator() +
-                        "                          quit - Quit the program." + System.lineSeparator() +
-                        "main> Main Menu" + System.lineSeparator() +
-                        "                        intray - " + System.lineSeparator() +
-                        "                         tasks - " + System.lineSeparator() +
-                        "                      projects - " + System.lineSeparator() +
-                        "                      calendar - " + System.lineSeparator() +
-                        "                          load - " + System.lineSeparator() +
-                        "                          save - " + System.lineSeparator() +
-                        "                          quit - Quit the program." + System.lineSeparator() +
-                        "main> ");
+                loadMenuOutput +
+                        mainMenuOutput +
+                        mainMenuOutput);
     }
 
     @Test
@@ -156,24 +155,9 @@ class ConsoleUserInterfaceTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                "Do you want to load from a file? (Otherwise create an empty todo list)" + System.lineSeparator() +
-                        "Answer y/Y/yes or n/N/no (leave empty for: no): Main Menu" + System.lineSeparator() +
-                        "                        intray - " + System.lineSeparator() +
-                        "                         tasks - " + System.lineSeparator() +
-                        "                      projects - " + System.lineSeparator() +
-                        "                      calendar - " + System.lineSeparator() +
-                        "                          load - " + System.lineSeparator() +
-                        "                          save - " + System.lineSeparator() +
-                        "                          quit - Quit the program." + System.lineSeparator() +
-                        "main> Main Menu" + System.lineSeparator() +
-                        "                        intray - " + System.lineSeparator() +
-                        "                         tasks - " + System.lineSeparator() +
-                        "                      projects - " + System.lineSeparator() +
-                        "                      calendar - " + System.lineSeparator() +
-                        "                          load - " + System.lineSeparator() +
-                        "                          save - " + System.lineSeparator() +
-                        "                          quit - Quit the program." + System.lineSeparator() +
-                        "main> ");
+                loadMenuOutput +
+                        mainMenuOutput +
+                        mainMenuOutput);
     }
 
     @Test
@@ -187,24 +171,9 @@ class ConsoleUserInterfaceTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                "Do you want to load from a file? (Otherwise create an empty todo list)" + System.lineSeparator() +
-                        "Answer y/Y/yes or n/N/no (leave empty for: no): Main Menu" + System.lineSeparator() +
-                        "                        intray - " + System.lineSeparator() +
-                        "                         tasks - " + System.lineSeparator() +
-                        "                      projects - " + System.lineSeparator() +
-                        "                      calendar - " + System.lineSeparator() +
-                        "                          load - " + System.lineSeparator() +
-                        "                          save - " + System.lineSeparator() +
-                        "                          quit - Quit the program." + System.lineSeparator() +
-                        "main> Main Menu" + System.lineSeparator() +
-                        "                        intray - " + System.lineSeparator() +
-                        "                         tasks - " + System.lineSeparator() +
-                        "                      projects - " + System.lineSeparator() +
-                        "                      calendar - " + System.lineSeparator() +
-                        "                          load - " + System.lineSeparator() +
-                        "                          save - " + System.lineSeparator() +
-                        "                          quit - Quit the program." + System.lineSeparator() +
-                        "main> ");
+                loadMenuOutput +
+                        mainMenuOutput +
+                        mainMenuOutput);
     }
 
 }
