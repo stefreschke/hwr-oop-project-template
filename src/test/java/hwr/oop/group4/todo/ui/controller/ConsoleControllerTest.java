@@ -186,8 +186,7 @@ class ConsoleControllerTest {
         final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("id", "eman"));
         final Optional<String> returnValue = consoleController.getStringParameter(arguments, "id");
 
-        assertThat(returnValue).isNotEmpty();
-        assertThat(returnValue).get().isEqualTo("eman");
+        assertThat(returnValue).isNotEmpty().get().isEqualTo("eman");
     }
 
     @Test

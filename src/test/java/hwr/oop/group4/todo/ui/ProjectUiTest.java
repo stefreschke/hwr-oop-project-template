@@ -61,20 +61,22 @@ class ProjectUiTest {
     private TodoList getExampleTodoList(boolean addExampleProjects) {
         TodoList todoList = new TodoList();
 
-        if (addExampleProjects) {
-            todoList.addProject(new Project.ProjectBuilder()
-                    .name("TEst")
-                    .description("Desc")
-                    .begin(LocalDateTime.of(2013, 12, 12, 15, 45))
-                    .end(LocalDateTime.of(2014, 12, 12, 12, 12))
-                    .build());
-            todoList.addProject(new Project.ProjectBuilder()
-                    .name("proj")
-                    .description("qwer")
-                    .begin(LocalDateTime.of(2003, 12, 22, 5, 45))
-                    .end(LocalDateTime.of(2014, 1, 10, 12, 12))
-                    .build());
+        if (!addExampleProjects) {
+            return todoList;
         }
+
+        todoList.addProject(new Project.ProjectBuilder()
+                .name("TEst")
+                .description("Desc")
+                .begin(LocalDateTime.of(2013, 12, 12, 15, 45))
+                .end(LocalDateTime.of(2014, 12, 12, 12, 12))
+                .build());
+        todoList.addProject(new Project.ProjectBuilder()
+                .name("proj")
+                .description("qwer")
+                .begin(LocalDateTime.of(2003, 12, 22, 5, 45))
+                .end(LocalDateTime.of(2014, 1, 10, 12, 12))
+                .build());
 
         return todoList;
     }
