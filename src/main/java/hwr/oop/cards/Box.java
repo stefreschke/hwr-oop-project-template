@@ -1,7 +1,6 @@
 package hwr.oop.cards;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Box {
 
@@ -19,11 +18,5 @@ public class Box {
     public ArrayList<Card> getCards() {
 
         return cardList;
-    }
-
-    public Card draw() {
-        Random random = new Random();
-        int index = random.nextInt(cardList.size());
-        return cardList.get(index);
     }
 }
