@@ -104,7 +104,14 @@ class ProjectUiTest {
 
     @Test
     void canCreateNewProject() {
-        InputStream inputStream = createInputStreamForInput("new" + System.lineSeparator() + "Peter" + System.lineSeparator() + "Parker" + System.lineSeparator() + "12.12.2023" + System.lineSeparator() + "24.12.2023" + System.lineSeparator() + System.lineSeparator() + "list" + System.lineSeparator() + "back" + System.lineSeparator());
+        InputStream inputStream = createInputStreamForInput("new" + System.lineSeparator() +
+                "Peter" + System.lineSeparator() +
+                "Parker" + System.lineSeparator() +
+                "12.12.2023" + System.lineSeparator() +
+                "24.12.2023" + System.lineSeparator() +
+                System.lineSeparator() +
+                "list" + System.lineSeparator() +
+                "back" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
         TodoList todoList = getExampleTodoList(false);
@@ -118,7 +125,15 @@ class ProjectUiTest {
             "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
                     "========================================================================================" + System.lineSeparator() +
                     projectsMenuOutput +
-                    "projects/new/name:> projects/new/description:> Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': projects/new/begin:> Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': projects/new/end:> projects:> projects:> | ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                    "projects/new/name:> " +
+                    "projects/new/description:> " +
+                    "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': " +
+                    "projects/new/begin:> " +
+                    "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': " +
+                    "projects/new/end:> " +
+                    "projects:> " +
+                    "projects:> " +
+                    "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
                     "========================================================================================" + System.lineSeparator() +
                     "|  0 |           Peter |                         Parker |            | 12.12. | 24.12. |" + System.lineSeparator() +
                     "projects:> ");
@@ -126,7 +141,14 @@ class ProjectUiTest {
 
     @Test
     void canEditProject() {
-        InputStream inputStream = createInputStreamForInput("edit -id 0 -name Peter -desc Lustig -addTag tv -begin -end" + System.lineSeparator() + "01.01.2022" + System.lineSeparator() + "10.10.2022" + System.lineSeparator() + "list" + System.lineSeparator() + "edit -removeTag tv -id 1" + System.lineSeparator() + "list" + System.lineSeparator() + "back" + System.lineSeparator());
+        InputStream inputStream = createInputStreamForInput(
+                "edit -id 0 -name Peter -desc Lustig -addTag tv -begin -end" + System.lineSeparator() +
+                "01.01.2022" + System.lineSeparator() +
+                "10.10.2022" + System.lineSeparator() +
+                "list" + System.lineSeparator() +
+                "edit -removeTag tv -id 1" + System.lineSeparator() +
+                "list" + System.lineSeparator() +
+                "back" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
@@ -140,11 +162,16 @@ class ProjectUiTest {
                 "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
                 "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
                 projectsMenuOutput +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': projects/edit/begin:> Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': projects/edit/end:> projects:> | ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': projects/edit/begin:> " +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': projects/edit/end:> " +
+                "projects:> " +
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
                 "========================================================================================" + System.lineSeparator() +
                 "|  0 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
                 "|  1 |           Peter |                         Lustig |         tv | 01.01. | 10.10. |" + System.lineSeparator() +
-                "projects:> projects:> | ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                "projects:> " +
+                "projects:> " +
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
                 "========================================================================================" + System.lineSeparator() +
                 "|  0 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
                 "|  1 |           Peter |                         Lustig |            | 01.01. | 10.10. |" + System.lineSeparator() +
@@ -153,7 +180,10 @@ class ProjectUiTest {
 
     @Test
     void canRemoveProject() {
-        InputStream inputStream = createInputStreamForInput("remove -id 0" + System.lineSeparator() + "y" + System.lineSeparator() + "list" + System.lineSeparator() + "back" + System.lineSeparator());
+        InputStream inputStream = createInputStreamForInput("remove -id 0" + System.lineSeparator() +
+                "y" + System.lineSeparator() +
+                "list" + System.lineSeparator() +
+                "back" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
@@ -169,7 +199,9 @@ class ProjectUiTest {
                 projectsMenuOutput +
                 "Do you really want to remove TEst?" + System.lineSeparator() +
                 "Answer y/Y/yes or n/N/no (leave empty for: no)." + System.lineSeparator() +
-                "projects/remove:> projects:> | ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                "projects/remove:> " +
+                "projects:> " +
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
                 "========================================================================================" + System.lineSeparator() +
                 "|  0 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
                 "projects:> ");
