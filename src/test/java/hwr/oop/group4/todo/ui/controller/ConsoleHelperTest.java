@@ -136,7 +136,6 @@ class ConsoleHelperTest {
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleHelper consoleHelper = new ConsoleHelper(new ConsoleController(outputStream, inputStream));
 
-        final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("id", "12"));
         final Collection<Tag> tags = List.of(new Tag("a"), new Tag("b"), new Tag("c"));
         final String returnValue = consoleHelper.concatTagsToString(tags);
 
