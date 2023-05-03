@@ -15,7 +15,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ConsoleHelperTest {
+class ConsoleHelperTest {
 
     private String retrieveResultFrom(OutputStream outputStream) {
         return outputStream.toString();
