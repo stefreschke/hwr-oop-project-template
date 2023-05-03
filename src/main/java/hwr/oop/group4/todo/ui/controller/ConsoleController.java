@@ -18,10 +18,12 @@ public class ConsoleController {
 
     private final PrintStream out;
     private final Scanner in;
+    private final ConsoleHelper consoleHelper;
 
     public ConsoleController(OutputStream out, InputStream in) {
         this.out = new PrintStream(out);
         this.in = new Scanner(in);
+        consoleHelper = new ConsoleHelper(this);
     }
 
     public void outputLine(String output) {
@@ -94,29 +96,11 @@ public class ConsoleController {
                 return LocalDateTime.now();
             }
 
-            final Optional<LocalDateTime> date = parseDate(input);
+            final Optional<LocalDateTime> date = consoleHelper.parseDate(input);
             if (date.isPresent()) {
                 return date.get();
             }
         }
-    }
-
-    public Optional<LocalDateTime> parseDate(String input) {
-        if (input.isBlank()) {
-            return  Optional.empty();
-        }
-
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm");
-            return Optional.of(LocalDateTime.parse(input, formatter));
-        } catch (DateTimeParseException ignore) { }
-        try {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu");
-            LocalDate localDate = LocalDate.parse(input, formatter);
-            return Optional.of(LocalDateTime.of(localDate, LocalTime.MIDNIGHT));
-        } catch (DateTimeParseException ignore) { }
-
-        return Optional.empty();
     }
 
     public Optional<String> input(List<String> prefixes, String prompt) {
@@ -139,10 +123,4 @@ public class ConsoleController {
         return stringBuilder.toString();
     }
 
-    public Optional<String> getStringParameter(Collection<CommandArgument<String>> args, String name) {
-        return args.stream()
-                .filter(argument -> argument.name().equals(name))
-                .map(CommandArgument::value)
-                .findFirst();
-    }
 }

@@ -5,6 +5,7 @@ import hwr.oop.group4.todo.core.Tag;
 import hwr.oop.group4.todo.core.Task;
 import hwr.oop.group4.todo.core.TodoList;
 import hwr.oop.group4.todo.ui.controller.ConsoleController;
+import hwr.oop.group4.todo.ui.controller.ConsoleHelper;
 import hwr.oop.group4.todo.ui.controller.command.Command;
 import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
 import hwr.oop.group4.todo.ui.controller.menu.Entry;
@@ -23,10 +24,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ProjectUi {
 
     private final ConsoleController consoleController;
+    private final ConsoleHelper consoleHelper;
     private TodoList todoList;
 
     public ProjectUi(ConsoleController consoleController) {
         this.consoleController = consoleController;
+        this.consoleHelper = new ConsoleHelper(this.consoleController);
     }
 
     public void menu(TodoList todoList) {
@@ -83,19 +86,13 @@ public class ProjectUi {
                     String.valueOf(i),
                     project.getName(),
                     project.getDescription(),
-                    concatTagsToString(project.getTags()),
+                    consoleHelper.concatTagsToString(project.getTags()),
                     project.getBegin().format(DateTimeFormatter.ofPattern("dd.MM.")),
                     project.getEnd().format(DateTimeFormatter.ofPattern("dd.MM."))
             );
         }
 
         consoleController.output(projectTable.toString());
-    }
-
-    private String concatTagsToString(Collection<Tag> tags) {
-        StringBuilder stringBuilder = new StringBuilder();
-        tags.forEach(tag -> stringBuilder.append(tag.name()));
-        return stringBuilder.toString();
     }
 
     private void newProject(Collection<CommandArgument<String>> args) {
@@ -115,7 +112,7 @@ public class ProjectUi {
     }
 
     private void removeProject(Collection<CommandArgument<String>> args) {
-        Optional<Integer> id = getId(args);
+        Optional<Integer> id = consoleHelper.getId(args, todoList.getProjects().size());
         if (id.isEmpty()) {
             return;
         }
@@ -127,39 +124,8 @@ public class ProjectUi {
         }
     }
 
-    private Optional<Integer> getId(Collection<CommandArgument<String>> args) {
-        Optional<CommandArgument<String>> idArg = args.stream()
-                .filter(arg -> arg.name().equals("id"))
-                .findFirst();
-
-        if (idArg.isEmpty()) {
-            consoleController.outputLine("Error: ID Argument required.");
-            return Optional.empty();
-        }
-
-        if (idArg.get().value().isBlank()) {
-            consoleController.outputLine("Error: ID Argument requires parameter.");
-            return Optional.empty();
-        }
-
-        int id;
-        try {
-            id = Integer.parseInt(idArg.get().value());
-        } catch (NumberFormatException e) {
-            consoleController.outputLine("Error: ID is not a valid number.");
-            return Optional.empty();
-        }
-
-        if (id < 0 || id >= todoList.getProjects().size()) {
-            consoleController.outputLine("Error: ID is invalid.");
-            return Optional.empty();
-        }
-
-        return Optional.of(id);
-    }
-
     private void editProject(Collection<CommandArgument<String>> args) {
-        final Optional<Integer> id = getId(args);
+        final Optional<Integer> id = consoleHelper.getId(args, todoList.getProjects().size());
         if (id.isEmpty()) {
             return;
         }
@@ -167,27 +133,27 @@ public class ProjectUi {
         todoList.removeProject(project);
         Project.ProjectBuilder newProject = new Project.ProjectBuilder();
 
-        final Optional<String> name = consoleController.getStringParameter(args, "name");
+        final Optional<String> name = consoleHelper.getStringParameter(args, "name");
         newProject.name(name.orElseGet(project::getName));
 
-        final Optional<String> desc = consoleController.getStringParameter(args, "desc");
+        final Optional<String> desc = consoleHelper.getStringParameter(args, "desc");
         newProject.description(desc.orElseGet(project::getDescription));
 
-        final Optional<String> beginParam = consoleController.getStringParameter(args, "begin");
-        final Optional<LocalDateTime> begin = consoleController.parseDate(beginParam.orElse(""));
+        final Optional<String> beginParam = consoleHelper.getStringParameter(args, "begin");
+        final Optional<LocalDateTime> begin = consoleHelper.parseDate(beginParam.orElse(""));
         newProject.begin(begin.orElseGet(project::getBegin));
 
-        final Optional<String> endParam = consoleController.getStringParameter(args, "end");
-        final Optional<LocalDateTime> end = consoleController.parseDate(endParam.orElse(""));
+        final Optional<String> endParam = consoleHelper.getStringParameter(args, "end");
+        final Optional<LocalDateTime> end = consoleHelper.parseDate(endParam.orElse(""));
         newProject.end(end.orElseGet(project::getEnd));
 
-        final Optional<String> addTag = consoleController.getStringParameter(args, "addTag");
+        final Optional<String> addTag = consoleHelper.getStringParameter(args, "addTag");
         if (addTag.isPresent()) {
             newProject.addTag(project.getTags().toArray(new Tag[0]));
             newProject.addTag(new Tag(addTag.get()));
         }
 
-        final Optional<String> removeTag = consoleController.getStringParameter(args, "removeTag");
+        final Optional<String> removeTag = consoleHelper.getStringParameter(args, "removeTag");
         if (removeTag.isPresent()) {
             Collection<Tag> tags = project.getTags();
             tags.remove(new Tag(removeTag.get()));

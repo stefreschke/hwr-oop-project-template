@@ -177,28 +177,4 @@ class ConsoleControllerTest {
         assertThat(returnValue.getMinute()).isEqualTo(value.getMinute());
     }
 
-    @Test
-    void getStringParameterTest() {
-        final InputStream inputStream = createInputStreamForInput("");
-        final OutputStream outputStream = new ByteArrayOutputStream();
-        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
-
-        final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("id", "eman"));
-        final Optional<String> returnValue = consoleController.getStringParameter(arguments, "id");
-
-        assertThat(returnValue).isNotEmpty().get().isEqualTo("eman");
-    }
-
-    @Test
-    void getStringParameterWithInvalidNameTest() {
-        final InputStream inputStream = createInputStreamForInput("");
-        final OutputStream outputStream = new ByteArrayOutputStream();
-        final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
-
-        final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("name", "eman"));
-        final Optional<String> returnValue = consoleController.getStringParameter(arguments, "id");
-
-        assertThat(returnValue).isEmpty();
-    }
-
 }
