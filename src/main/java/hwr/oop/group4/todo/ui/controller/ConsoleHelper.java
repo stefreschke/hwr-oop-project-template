@@ -28,7 +28,7 @@ public class ConsoleHelper {
 
     public Optional<LocalDateTime> parseDate(String input) {
         if (input.isBlank()) {
-            return  Optional.empty();
+            return Optional.empty();
         }
 
         try {

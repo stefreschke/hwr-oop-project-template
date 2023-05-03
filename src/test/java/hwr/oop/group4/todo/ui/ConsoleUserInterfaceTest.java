@@ -42,7 +42,8 @@ class ConsoleUserInterfaceTest {
 
     @Test
     void canCreateNewTodoList() {
-        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "load" + System.lineSeparator() + "n" + System.lineSeparator() +  "quit" + System.lineSeparator() );
+        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "load" + System.lineSeparator() +
+                "n" + System.lineSeparator() +  "quit" + System.lineSeparator() );
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
@@ -58,7 +59,8 @@ class ConsoleUserInterfaceTest {
 
     @Test
     void canLoadAndSaveTodoListFromFile() {
-        InputStream inputStream = createInputStreamForInput("yes" + System.lineSeparator() + "save" + System.lineSeparator() + "load" + System.lineSeparator() + "Y" + System.lineSeparator() + "quit" + System.lineSeparator());
+        InputStream inputStream = createInputStreamForInput("yes" + System.lineSeparator() + "save" + System.lineSeparator() +
+                "load" + System.lineSeparator() + "Y" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
@@ -76,7 +78,8 @@ class ConsoleUserInterfaceTest {
 
     @Test
     void canOpenProjectsMenu() {
-        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "protsch" + System.lineSeparator() + "projects" + System.lineSeparator() + "back" + System.lineSeparator() + "quit" + System.lineSeparator());
+        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "protsch" + System.lineSeparator() +
+                "projects" + System.lineSeparator() + "back" + System.lineSeparator() + "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
@@ -130,7 +133,8 @@ class ConsoleUserInterfaceTest {
 
     @Test
     void canOpenIntrayMenu() {
-        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "intray" + System.lineSeparator() + "quit" + System.lineSeparator());
+        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "intray" + System.lineSeparator() +
+                "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
@@ -146,7 +150,8 @@ class ConsoleUserInterfaceTest {
 
     @Test
     void canOpenTasksMenu() {
-        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "tasks" + System.lineSeparator() + "quit" + System.lineSeparator());
+        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "tasks" + System.lineSeparator() +
+                "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
@@ -162,7 +167,8 @@ class ConsoleUserInterfaceTest {
 
     @Test
     void canOpenCalendarMenu() {
-        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "calendar" + System.lineSeparator() + "quit" + System.lineSeparator());
+        InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "calendar" + System.lineSeparator() +
+                "quit" + System.lineSeparator());
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
