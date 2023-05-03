@@ -144,9 +144,7 @@ class ProjectUiTest {
     @Test
     void canEditProject() {
         InputStream inputStream = createInputStreamForInput(
-                "edit -id 0 -name Peter -desc Lustig -addTag tv -begin -end" + System.lineSeparator() +
-                "01.01.2022" + System.lineSeparator() +
-                "10.10.2022" + System.lineSeparator() +
+                "edit -id 0 -name Peter -desc Lustig -addTag tv -begin 01.01.2022 -end 10.10.2022" + System.lineSeparator() +
                 "list" + System.lineSeparator() +
                 "edit -removeTag tv -id 1" + System.lineSeparator() +
                 "list" + System.lineSeparator() +
@@ -164,8 +162,6 @@ class ProjectUiTest {
                 "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
                 "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
                 projectsMenuOutput +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': projects/edit/begin:> " +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': projects/edit/end:> " +
                 "projects:> " +
                 "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
                 "========================================================================================" + System.lineSeparator() +

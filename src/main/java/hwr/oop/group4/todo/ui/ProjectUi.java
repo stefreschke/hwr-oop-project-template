@@ -173,23 +173,13 @@ public class ProjectUi {
         final Optional<String> desc = consoleController.getStringParameter(args, "desc");
         newProject.description(desc.orElseGet(project::getDescription));
 
-        final Optional<CommandArgument<String>> begin = args.stream()
-                .filter(argument -> argument.name().equals("begin"))
-                .findFirst();
-        if (begin.isPresent()) {
-            newProject.begin(consoleController.inputDate(List.of("projects", "edit", "begin")));
-        } else {
-            newProject.begin(project.getBegin());
-        }
+        final Optional<String> beginParam = consoleController.getStringParameter(args, "begin");
+        final Optional<LocalDateTime> begin = consoleController.parseDate(beginParam.orElse(""));
+        newProject.begin(begin.orElseGet(project::getBegin));
 
-        final Optional<CommandArgument<String>> end = args.stream()
-                .filter(argument -> argument.name().equals("end"))
-                .findFirst();
-        if (end.isPresent()) {
-            newProject.end(consoleController.inputDate(List.of("projects", "edit", "end")));
-        } else {
-            newProject.end(project.getEnd());
-        }
+        final Optional<String> endParam = consoleController.getStringParameter(args, "end");
+        final Optional<LocalDateTime> end = consoleController.parseDate(endParam.orElse(""));
+        newProject.end(end.orElseGet(project::getEnd));
 
         final Optional<String> addTag = consoleController.getStringParameter(args, "addTag");
         if (addTag.isPresent()) {
