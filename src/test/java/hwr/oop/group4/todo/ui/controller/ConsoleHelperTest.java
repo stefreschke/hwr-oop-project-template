@@ -3,6 +3,8 @@ package hwr.oop.group4.todo.ui.controller;
 import hwr.oop.group4.todo.core.Tag;
 import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -104,7 +106,7 @@ class ConsoleHelperTest {
     }
 
     @Test
-    void canGetIdNoArg() {
+    void cantGetIdNoArg() {
         final InputStream inputStream = createInputStreamForInput("");
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleHelper consoleHelper = new ConsoleHelper(new ConsoleController(outputStream, inputStream));
@@ -115,38 +117,15 @@ class ConsoleHelperTest {
         assertThat(returnValue).isEmpty();
     }
 
-    @Test
-    void canGetIdNoParam() {
+    @ParameterizedTest
+    @ValueSource(strings = {"", "name", "200"})
+    void cantGetIdWrongValue(String value) {
         final InputStream inputStream = createInputStreamForInput("");
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleHelper consoleHelper = new ConsoleHelper(new ConsoleController(outputStream, inputStream));
 
-        final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("id", ""));
+        final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("id", value));
         final Optional<Integer> returnValue = consoleHelper.getId(arguments, 15);
-
-        assertThat(returnValue).isEmpty();
-    }
-
-    @Test
-    void canGetIdNoNumber() {
-        final InputStream inputStream = createInputStreamForInput("");
-        final OutputStream outputStream = new ByteArrayOutputStream();
-        final ConsoleHelper consoleHelper = new ConsoleHelper(new ConsoleController(outputStream, inputStream));
-
-        final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("id", "name"));
-        final Optional<Integer> returnValue = consoleHelper.getId(arguments, 15);
-
-        assertThat(returnValue).isEmpty();
-    }
-
-    @Test
-    void canGetIdInvalidNumber() {
-        final InputStream inputStream = createInputStreamForInput("");
-        final OutputStream outputStream = new ByteArrayOutputStream();
-        final ConsoleHelper consoleHelper = new ConsoleHelper(new ConsoleController(outputStream, inputStream));
-
-        final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("id", "12"));
-        final Optional<Integer> returnValue = consoleHelper.getId(arguments, 1);
 
         assertThat(returnValue).isEmpty();
     }
