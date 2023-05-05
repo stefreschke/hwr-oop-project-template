@@ -25,10 +25,15 @@ public class Program {
 
     public String[] getEnvironmentVariables() {
         try (FileReader reader = new FileReader("setup.csv")) {
-            char[] buffer = new char[1024];
-            int len = reader.read(buffer);
-            String csv = new String(buffer, 0, len);
-            return csv.split(",");
+            char[] buffer;
+            try {
+                buffer = new char[1024];
+                int len = reader.read(buffer);
+                String csv = new String(buffer, 0, len);
+                return csv.split(",");
+            } catch (Exception e) {
+                return null;
+            }
         } catch (IOException e) {
             return null;
         }
