@@ -70,8 +70,9 @@ class ConsoleControllerTest {
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
         consoleController.inputOptions(List.of("pre1", "pre2"), List.of(
-                new Command("notExecuted", args -> consoleController.output("isn't executed")),
-                        new Command("testCmd", args -> consoleController.output("test cmd"))),
+                        new Command("notExecuted", args -> consoleController.output("isn't executed")),
+                        new Command("testCmd", args -> consoleController.output("test cmd"))
+                ),
                 new Command("wrong", args -> {})
         );
         final String output = retrieveResultFrom(outputStream);
@@ -98,12 +99,18 @@ class ConsoleControllerTest {
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
-        consoleController.inputOptions(List.of("pre1", "pre2"), List.of(
+        consoleController.inputOptions(List.of("pre1", "pre2"),
+                List.of(
                         new Command("test", arguments ->
-                                consoleController.output(String.valueOf(arguments.stream()
-                                        .filter(arg -> arg.name().equals("a")).findAny().get().value())
-                        ))),
-                new Command("wrong", args -> {}));
+                                consoleController.output(
+                                        String.valueOf(arguments.stream()
+                                                .filter(arg -> arg.name().equals("a")).findAny().get().value())
+                                )
+                        )
+                ),
+                new Command("wrong", args -> {})
+        );
+
         final String output = retrieveResultFrom(outputStream);
         assertThat(output).isEqualTo("pre1/pre2:> asd");
     }
@@ -132,28 +139,28 @@ class ConsoleControllerTest {
 
     @ParameterizedTest
     @ValueSource(booleans = {false, true})
-    void inputBoolDefaultWithNoInputTest(boolean def) {
+    void inputBoolDefaultWithNoInputTest(boolean defaultValue) {
         final InputStream inputStream = createInputStreamForInput("");
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
-        final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", def);
-        assertThat(returnValue).isEqualTo(def);
+        final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", defaultValue);
+        assertThat(returnValue).isEqualTo(defaultValue);
     }
 
     @ParameterizedTest
     @ValueSource(booleans = {false, true})
-    void inputBoolDefaultWithBlankInputTest(boolean def) {
+    void inputBoolDefaultWithBlankInputTest(boolean defaultValue) {
         final InputStream inputStream = createInputStreamForInput("    " + System.lineSeparator());
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
-        final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", def);
-        assertThat(returnValue).isEqualTo(def);
+        final boolean returnValue = consoleController.inputBool(List.of(""), "Eingabe.", defaultValue);
+        assertThat(returnValue).isEqualTo(defaultValue);
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"no", "n"})
+    @ValueSource(strings = {"no", "n", "N"})
     void inputBoolNoTest(String inputString) {
         final InputStream inputStream = createInputStreamForInput("lorem" + System.lineSeparator() + inputString + System.lineSeparator());
         final OutputStream outputStream = new ByteArrayOutputStream();
@@ -164,7 +171,7 @@ class ConsoleControllerTest {
     }
 
     @ParameterizedTest
-    @ValueSource(strings = {"yes", "y"})
+    @ValueSource(strings = {"yes", "y", "Y"})
     void inputBoolYesTest(String inputString) {
         final InputStream inputStream = createInputStreamForInput("lorem" + System.lineSeparator() + inputString + System.lineSeparator());
         final OutputStream outputStream = new ByteArrayOutputStream();
@@ -182,7 +189,8 @@ class ConsoleControllerTest {
 
         consoleController.inputBool(List.of(""), "Eingabe.", true);
         assertThat(retrieveResultFrom(outputStream)).isEqualTo("Eingabe."+ System.lineSeparator() +
-                        "Answer y/Y/yes or n/N/no (leave empty for: yes): :> ");
+                        "Answer y/Y/yes or n/N/no (leave empty for: yes): :> "
+        );
     }
 
     @Test
@@ -191,7 +199,7 @@ class ConsoleControllerTest {
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
-        final LocalDateTime returnValue = consoleController.inputDate(List.of(""), "Prompt.");
+        final LocalDateTime returnValue = consoleController.inputDate(List.of(""), "Prompt."); // TODO: add defaultDate arg
 
         final LocalDateTime now = LocalDateTime.now();
         assertThat(Duration.between(returnValue, now).toSeconds()).isLessThanOrEqualTo(5);
@@ -228,7 +236,8 @@ class ConsoleControllerTest {
 
         consoleController.inputDate(List.of(""), "Prompt.");
         assertThat(retrieveResultFrom(outputStream)).isEqualTo("Prompt." + System.lineSeparator() +
-                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': :> ");
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': :> "
+        );
     }
 
 }
