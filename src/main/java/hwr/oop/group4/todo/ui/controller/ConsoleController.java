@@ -1,8 +1,8 @@
 package hwr.oop.group4.todo.ui.controller;
 
-import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
-import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
+import hwr.oop.group4.todo.commons.exceptions.TodoUiRuntimeException;
 import hwr.oop.group4.todo.ui.controller.command.Command;
+import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -33,7 +33,7 @@ public class ConsoleController {
     }
 
     public void inputOptions(List<String> prefixes, Collection<Command> options, Command wrongInput) {
-        final String[] input = input(prefixes).orElseThrow(() -> new TodoRuntimeException("Input is expected"))
+        final String[] input = input(prefixes).orElseThrow(() -> new TodoUiRuntimeException("Input is expected"))
                 .split("-");
         final Collection<CommandArgument<String>> arguments = new ArrayList<>();
         final String commandName = input[0].trim();
