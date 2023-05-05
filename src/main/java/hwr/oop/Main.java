@@ -288,36 +288,7 @@ public class Main {
         }
     }
 
-    private static void handleSort(List list, String[] commandArray) {
-        int nCommands = commandArray.length;
-        if (nCommands == 2) {
-            sortHelp();
-            return;
-        } else if (nCommands == 3) {
-            if (commandArray[2].equals("help")) {
-                sortHelp();
-                return;
-            } else if (commandArray[2].toLowerCase().contains("tag")) {
-                list.bubbleUpTag(commandArray[3]);
-            }
-        } else if (nCommands == 4) {
-            if (commandArray[2].toLowerCase().contains("prio")) {
-                if (commandArray[3].equals("asc")) {
-                    list.sortByPriority("asc");
-                } else {
-                    list.sortByPriority("desc");
-                }
-            } else if (commandArray[2].toLowerCase().contains("create")) {
-                if (commandArray[3].equals("asc")) {
-                    list.sortByCreatedAt("asc");
-                } else {
-                    list.sortByCreatedAt("desc");
-                }
-            }
-        }
-    }
-
-    private static void clear(List list) {
+    public static void clear(List list) {
         list.setListToDos(null);
     }
     public static void exit(List list) {
