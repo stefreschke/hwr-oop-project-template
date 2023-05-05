@@ -25,11 +25,11 @@ The automated ranking will also take into account what activities the user has d
 |--------|---------|-------| --------- |
 | 1      | Save Lists to JSON          | JsonToListTest | @lukasklockenhoff |
 | 2      | Load Lists from JSON        | ListToJsonTest | @lukasklockenhoff |
-| 3      | /       | /     | /         |
-| 4      | /       | /     | /         |
-| 5      | /       | /     | /         |
-| 6      | /       | /     | /         |
-| 7      | /       | /     | /         |
+| 3      | Edit, Remove, Add, Done       | MainTest.java     | @lukasklockenhoff |
+| 4      | Save Exit       | MainTest.java     | @lukasklockenhoff |
+| 5      | Sort      | MainTest.java, ListClassTest.java     | @lukasklockenhoff |
+| 6      | List       | MainTest.java, ListClassTest.java (toString() method)  | @lukasklockenhoff |
+| 7      | Clear       | MainTest.java     | @lukasklockenhoff |
 | 8      | /       | /     | /         |
 | 9      | /       | /     | /         |
 | 10     | /       | /     | /         |
