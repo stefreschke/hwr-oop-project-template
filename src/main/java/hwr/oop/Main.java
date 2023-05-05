@@ -270,8 +270,6 @@ public class Main {
             if (commandArray[2].equals("help")) {
                 sortHelp();
                 return;
-            } else if (commandArray[2].toLowerCase().contains("tag")) {
-                list.bubbleUpTag(commandArray[3]);
             }
         } else if (nCommands == 4) {
             if (commandArray[2].toLowerCase().contains("prio")) {
@@ -286,6 +284,11 @@ public class Main {
                 } else {
                     list.sortByCreatedAt("desc");
                 }
+            } else if (commandArray[2].toLowerCase().contains("tag")) {
+                list.bubbleUpTag(commandArray[3]);
+            } else {
+                sortHelp();
+                return;
             }
         }
     }

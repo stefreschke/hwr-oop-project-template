@@ -101,7 +101,7 @@ class ToDoItemTest {
     @Test
     void getCreatedAtTest() {
         ToDoItem item = new ToDoItem(0,"Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", false, Priority.HIGH,  new Project("test"));
-        String result = item.getCreatedAt();
+        String result = item.getCreatedAt().toString();
         System.out.println(result);
         assertThat(item.getDescription()).contains(result);
     }
