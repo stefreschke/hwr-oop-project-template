@@ -27,7 +27,7 @@ public class ListJsonTest {
                     jsonIn.append((char) character);
                 }
             }
-            String testDate = item.getCreatedAt().toString();
+            String testDate = item.getCreatedAt();
             assertThat(jsonIn.toString()).isEqualTo("{\"Name\":\"myList\",\"ListToDos\":[{\"id\":0,\"title\":\"Finish Math homework\",\"description\":\"I need to do tasks 5 - 10b.\\nCreated " + testDate + "\",\"tag\":\"Uni\",\"done\":false,\"priority\":\"HIGH\",\"project\":{\"title\":\"\"}},{\"id\":1,\"title\":\"Calculate Something\",\"description\":\"More Math over here\\nCreated " + testDate + "\",\"tag\":\"Math\",\"done\":false,\"priority\":\"MEDIUM\",\"project\":{\"title\":\"\"}},{\"id\":2,\"title\":\"Be Amazing\",\"description\":\"Just Do It\\nCreated " + testDate + "\",\"tag\":\"Personal\",\"done\":false,\"priority\":\"LOW\",\"project\":{\"title\":\"\"}}],\"fileName\":\"listTest\"}");
         } catch (IOException e) {
             System.out.println("File not found");
