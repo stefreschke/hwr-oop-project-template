@@ -43,7 +43,7 @@ class MyAppTest {
         String[] env = testEnvProgram.getEnvironmentVariables();
 
         try {
-            String userInput = "0\n" + "" +"\n" + "data.json\n";
+            String userInput = "0\n" + "\n" + "data.json\n";
             System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
@@ -68,6 +68,7 @@ class MyAppTest {
 
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
+            assertThat(toDoList).isNotNull();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
@@ -158,7 +159,6 @@ class MyAppTest {
 
         Program testEnvProgram = new Program();
         String[] env = testEnvProgram.getEnvironmentVariables();
-
         try {
             String userInput = "MyList\nDescription\n3\nTag\n";
             System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
@@ -186,6 +186,7 @@ class MyAppTest {
             assertThat(toDoList.getListToDos()[0].getDescription()).isEqualTo("Description");
             assertThat(toDoList.getListToDos()[0].getPriority()).isEqualTo(Priority.HIGH);
             assertThat(toDoList.getListToDos()[0].getTag()).isEqualTo("Tag");
+            assertThat(env).isNotNull();
 
         } finally {
             // Restore standard input and output streams
@@ -286,39 +287,23 @@ class MyAppTest {
     }
     @Test
     void successTest() {
-        InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
-
-        List testList = new List("Test");
-        testList.setListToDos(new ToDoItem[3]);
-
         try {
-            System.setIn(new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
-            // funktion Main.success aufrufen
             Main.success("greatsuccess");
             String expectedOutput;
-            // Output den du erwartest
             expectedOutput = ConsoleColors.GREEN_BOLD + "greatsuccess" + ConsoleColors.RESET +"\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
         } finally {
-            // Restore standard input and output streams
-            System.setIn(sysInBackup);
             System.setOut(sysOutBackup);
         }
     }
     @Test
     void errorTest() {
-        InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
-
-        List testList = new List("Test");
-        testList.setListToDos(new ToDoItem[3]);
-
         try {
-            System.setIn(new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
             // funktion Main.success aufrufen
@@ -329,8 +314,6 @@ class MyAppTest {
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
         } finally {
-            // Restore standard input and output streams
-            System.setIn(sysInBackup);
             System.setOut(sysOutBackup);
 
         }
@@ -339,10 +322,6 @@ class MyAppTest {
     void handleBadIndexTest() {
         InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
-
-        List testList = new List("Test");
-        testList.setListToDos(new ToDoItem[3]);
-
         try {
             System.setIn(new ByteArrayInputStream("y\n1\n".getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
@@ -469,7 +448,6 @@ class MyAppTest {
 
     @Test
     void exitTest() {
-InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
         List list = new List("MyList");
         list.setFileName("listTest.json");

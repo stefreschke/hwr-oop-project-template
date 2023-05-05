@@ -4,10 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.Scanner;
 public class Main {
     private static final PrintStream out = new PrintStream(System.out);
-    private static final Scanner in = new Scanner(System.in);
     private static final String CLEAR_SCREEN = "\033[H\033[2J";
     public static void error(String message) {
         System.out.println(ConsoleColors.RED_BOLD + message + ConsoleColors.RESET);
@@ -19,7 +17,7 @@ public class Main {
         error("There is nothing at that index... 🥸");
         System.out.println("Try again? (y/n)");
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        String input = "";
+        String input;
         try {
             input = reader.readLine();
         } catch (Exception e) {
@@ -192,7 +190,7 @@ public class Main {
 
     public static void edit(List list, int index) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        ToDoItem item = null;
+        ToDoItem item;
         try {
             item = list.getListToDos()[index];
         } catch (Exception e) {
@@ -203,7 +201,7 @@ public class Main {
         out.println("Editing task at index " + index + ":");
         out.println(item.toString());
         out.println("Enter new Title or press enter to skip");
-        String title = "";
+        String title;
         try {
             title = reader.readLine();
             if (!title.equals("")) item.setTitle(title);
@@ -211,7 +209,7 @@ public class Main {
             out.println("Could not read your input... skipping");
         }
         out.println("Enter new Description or press enter to skip");
-        String description = "";
+        String description;
         try {
             description = reader.readLine();
             if (!description.equals("")) item.setDescription(description);
@@ -240,7 +238,7 @@ public class Main {
         if (!priority.equals(""))
             item.setPriority(priority.equals("1") ? Priority.LOW : priority.equals("2") ? Priority.MEDIUM : Priority.HIGH);
         out.println("Enter new Tag or press enter to skip");
-        String tag = "";
+        String tag;
         try {
             tag = reader.readLine();
             if (!tag.equals("")) item.setTag(tag);
@@ -265,11 +263,9 @@ public class Main {
         int nCommands = commandArray.length;
         if (nCommands == 2) {
             sortHelp();
-            return;
         } else if (nCommands == 3) {
             if (commandArray[2].equals("help")) {
                 sortHelp();
-                return;
             }
         } else if (nCommands == 4) {
             if (commandArray[2].toLowerCase().contains("prio")) {
@@ -288,7 +284,6 @@ public class Main {
                 list.bubbleUpTag(commandArray[3]);
             } else {
                 sortHelp();
-                return;
             }
         }
     }
