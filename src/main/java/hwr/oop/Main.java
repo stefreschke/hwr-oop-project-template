@@ -4,6 +4,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+
+import static hwr.oop.ConsoleColors.BLUE_BOLD;
+import static hwr.oop.ConsoleColors.RESET;
+
 public class Main {
     private static final PrintStream out = new PrintStream(System.out);
     private static final String CLEAR_SCREEN = "\033[H\033[2J";
@@ -141,7 +145,6 @@ public class Main {
             e.printStackTrace();
         }
         ToDoItem toDoItem = new ToDoItem(
-                0, // TODO: add id assignment algorithm
                 title,
                 description,
                 tag,
@@ -299,9 +302,8 @@ public class Main {
     public static void main(String[] args) throws IOException {
         List toDoList = welcome();
         int i = 1;
+        out.println(BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + RESET);
         while (i != 0) {
-            list(toDoList);
-            out.println(ConsoleColors.BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + ConsoleColors.RESET);
             out.print("> ");
             BufferedReader reader = new BufferedReader(
                     new InputStreamReader(System.in));
