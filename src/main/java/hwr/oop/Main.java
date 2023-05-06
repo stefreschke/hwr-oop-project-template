@@ -134,18 +134,18 @@ public class Main {
             e.printStackTrace();
         }
         out.println("Add a Tag to group your tasks");
-        String tag = "";
+        String bucket = "";
         try {
-            tag = reader.readLine();
+            bucket = reader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
         }
         ToDoItem toDoItem = new ToDoItem(
                 title,
                 description,
-                tag,
-                priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH,
-                new Project(""));
+                bucket,
+                false ,
+                priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH);
         success("Task Created Successfully!");
         list.add(toDoItem);
         try {
@@ -241,11 +241,11 @@ public class Main {
         }
         if (!priority.equals(""))
             item.setPriority(priority.equals("1") ? Priority.LOW : priority.equals("2") ? Priority.MEDIUM : Priority.HIGH);
-        out.println("Enter new Tag or press enter to skip");
-        String tag;
+        out.println("Enter new Bucket or press enter to skip");
+        String bucket;
         try {
-            tag = reader.readLine();
-            if (!tag.equals("")) item.setTag(tag);
+            bucket = reader.readLine();
+            if (!bucket.equals("")) item.setBucket(bucket);
         } catch (IOException e) {
             out.println("Could not read your input... skipping");
         }
@@ -257,16 +257,15 @@ public class Main {
         }
     }
     public static void sortHelp() {
-        out.println(
-        "gtd sort [option]\n" +
-        "Options:\n" +
-        "  priority - sort by priority\n" +
-        "  createdAt- sort by creation date\n" +
-        "  dueDate  - sort by due date\n" + // TODO
-        "  tag [tag]- sort by tag\n" +
-        "  title    - sort by title\n" + // TODO
-        "  done     - sort by done\n" + // TODO
-        "  help     - print this help");
+        out.println("gtd sort [option]");
+        out.println("Options:");
+        out.println("  priority        - sort by priority");
+        out.println("  createdAt       - sort by creation date");
+        out.println("  dueDate         - sort by due date"); // TODO
+        out.println("  bucket [bucket] - sort by bucket"); // bucket für tag eingesetzt
+        out.println("  title           - sort by title"); // TODO
+        out.println("  done            - sort by done"); // TODO
+        out.println("  help            - print this help");
     }
 
     public static void handleSort(List list, String[] commandArray) {
@@ -290,8 +289,8 @@ public class Main {
                 } else {
                     list.sortByCreatedAt("desc");
                 }
-            } else if (commandArray[2].toLowerCase().contains("tag")) {
-                list.bubbleUpTag(commandArray[3]);
+            } else if (commandArray[2].toLowerCase().contains("bucket")) {
+                list.bubbleUpBucket(commandArray[3]);
             } else {
                 sortHelp();
             }

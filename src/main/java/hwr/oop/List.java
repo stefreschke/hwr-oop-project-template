@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-public class List { // TODO: RENAME TO ToDoList
+public class List {
     private String name;
     private ToDoItem[] listToDos;
     private String fileName;
@@ -108,10 +108,10 @@ public class List { // TODO: RENAME TO ToDoList
         }
     }
 
-    public void bubbleUpTag(String tag) {
+    public void bubbleUpBucket(String tag) {
         for (int i = this.listToDos.length-1; i >= 0; i--) {
             for (int j = this.listToDos.length-1; j > 0; j--) {
-                if (this.listToDos[j].getTag().contains(tag) && !this.listToDos[j - 1].getTag().contains(tag)) {
+                if (this.listToDos[j].getBucket().contains(tag) && !this.listToDos[j - 1].getBucket().contains(tag)) {
                     ToDoItem temp = this.listToDos[j];
                     this.listToDos[j] = this.listToDos[j - 1];
                     this.listToDos[j - 1] = temp;

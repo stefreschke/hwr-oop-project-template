@@ -246,6 +246,7 @@ class MainTest {
 
             List toDoList = new List("MyList", "editTestFile");
             toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test")));
+            toDoList.add(new ToDoItem("Test", "Test", "Test", false, Priority.LOW));
             Main.edit(toDoList, 0);
             // Check the program output
             String expectedOutput;
@@ -264,7 +265,7 @@ class MainTest {
             assertThat(toDoList.getListToDos()[0].getTitle()).isEqualTo("MyList");
             assertThat(toDoList.getListToDos()[0].getDescription()).isEqualTo("Description");
             assertThat(toDoList.getListToDos()[0].getPriority()).isEqualTo(Priority.HIGH);
-            assertThat(toDoList.getListToDos()[0].getTag()).isEqualTo("Tag");
+            assertThat(toDoList.getListToDos()[0].getBucket()).isEqualTo("Tag");
             assertThat(env).isNotNull();
 
         } finally {
@@ -280,8 +281,8 @@ class MainTest {
         PrintStream sysOutBackup = System.out;
 
         ToDoItem[] toDoItems = new ToDoItem[2];
-        toDoItems[0] = new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test"));
-        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", Priority.LOW, new Project("Test2"));
+        toDoItems[0] = new ToDoItem("Test", "Test", "Test", false, Priority.LOW);
+        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", false, Priority.LOW);
 
         List toDoList = new List("MyList");
         toDoList.setListToDos(toDoItems);
@@ -332,8 +333,8 @@ class MainTest {
         PrintStream sysOutBackup = System.out;
 
         ToDoItem[] toDoItems = new ToDoItem[2];
-        toDoItems[0] = new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test"));
-        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", Priority.LOW, new Project("Test2"));
+        toDoItems[0] = new ToDoItem("Test", "Test", "Test", false, Priority.LOW);
+        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", false, Priority.LOW);
 
         List toDoList = new List("MyList");
         toDoList.setListToDos(toDoItems);
@@ -468,7 +469,7 @@ class MainTest {
     @Test
     void doneTest() {
         List list = new List("MyList", "listTest.json");
-        list.add(new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test")));
+        list.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
         assertThat(list.getListToDos()[0].isDone()).isFalse();
         Main.done(list, 0);
         assertThat(list.getListToDos()[0].isDone()).isTrue();
@@ -506,11 +507,11 @@ class MainTest {
     void handleSortTest() {
         String[] commandArray = {"gtd", "sort", "prio", "asc"};
         List list = new List("MyList");
-        list.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM, new Project("Obstsalat")));
+        list.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM));
         list.getListToDos()[0].setCreatedAt(LocalDateTime.of(2020, 1, 1, 0, 0));
-        list.add(new ToDoItem("Cucumber", "Water", "Vegetable", Priority.LOW, new Project("Gin&Tonic")));
+        list.add(new ToDoItem("Cucumber", "Water", "Vegetable", Priority.LOW));
         list.getListToDos()[1].setCreatedAt(LocalDateTime.of(2020, 1, 2, 0, 0));
-        list.add(new ToDoItem("Banana", "Minions", "Fruit", Priority.HIGH, new Project("BananaBread")));
+        list.add(new ToDoItem("Banana", "Minions", "Fruit", Priority.HIGH));
 
         // Priority Test
         list.sortByPriority("asc");
@@ -521,7 +522,7 @@ class MainTest {
         assertThat(list.getListToDos()[0].getTitle()).isEqualTo("Apple");
         list.sortByCreatedAt("desc");
         assertThat(list.getListToDos()[0].getTitle()).isEqualTo("Banana");
-        list.bubbleUpTag(commandArray[3]);
+        list.bubbleUpBucket(commandArray[3]);
         assertThat(list.getListToDos()[0].getTitle()).isEqualTo("Banana");
     }
 
@@ -529,7 +530,7 @@ class MainTest {
     void clearTest() {
         PrintStream sysOutBackup = System.out;
         List list = new List("MyList");
-        list.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM, new Project("Obstsalat")));
+        list.add(new ToDoItem("Apple", "Computers", "Fruit", false, Priority.MEDIUM));
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
@@ -546,7 +547,7 @@ class MainTest {
         PrintStream sysOutBackup = System.out;
         List list = new List("MyList");
         list.setFileName("listTest.json");
-        list.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM, new Project("Obstsalat")));
+        list.add(new ToDoItem("Apple", "Computers", "Fruit", false, Priority.MEDIUM));
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
