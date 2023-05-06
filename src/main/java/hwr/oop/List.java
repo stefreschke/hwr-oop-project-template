@@ -11,6 +11,7 @@ public class List {
     private String name;
     private ToDoItem[] listToDos;
     private String fileName;
+    private String[] Buckets;
 
     public List(String name) {
         this(name, null);
@@ -19,6 +20,7 @@ public class List {
         this.name = name;
         this.listToDos = new ToDoItem[0];
         this.fileName = fileName;
+        this.Buckets = new String[0];
     }
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -34,12 +36,29 @@ public class List {
         return this.listToDos;
     }
 
+    public String[] getBuckets() {
+        return Buckets;
+    }
+
+    public void setBuckets(String newbucket) {
+        String[] oldbucket = this.Buckets;
+        this.Buckets = new String[Buckets.length + 1];
+        for (int i = 0; i < Buckets.length; i++) {
+            if (i < Buckets.length -1) {
+                Buckets[i] = oldbucket[i];
+            }else{
+                Buckets[i] = newbucket;
+            }
+        }
+    }
+
     public void setListToDos(ToDoItem[] listToDos) {
         this.listToDos = listToDos;
     }
     public String getFileName() {
         return this.fileName;
     }
+
     public void writeToJSON(String fileName) {
         //remove any file extension if present
         if (fileName.contains(".")) {
@@ -61,6 +80,23 @@ public class List {
             }
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void actuliseBuckets(){
+        Buckets = new String[ListToDos.length];
+        for (int i = 0; i< ListToDos.length; i++) {
+            String element = ListToDos[i].getBucket();
+            int help = 0;
+            for (int j = 0; i< Buckets.length; i++) {
+                if(Buckets[j] == element) {
+                    help++;
+                    break;
+                }
+            }
+            if(help == 0) {
+                Buckets[i] = element;
+            }
         }
     }
 

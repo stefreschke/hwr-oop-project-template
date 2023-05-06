@@ -95,18 +95,20 @@ public class Main {
     public static void help() {
         out.println("gtd [command] [arguments]");
         out.println("Commands:");
-        out.println("  help                -  print this help");
-        out.println("  add [Item Index]    -  add a new task");
-        out.println("  remove [Item Index] -  remove a task");
+        out.println("  help                            -  print this help");
+        out.println("  add [Item Index]                -  add a new task");
+        out.println("  remove [Item Index]             -  remove a task");
         out.println("  promote [Item Index]-  promote a task to a further state");
         out.println("  demote [Item Index] -  demote a task to a previous state");
         out.println("  onhold [Item Index] -  put a task on hold");
-        out.println("  done [Item Index]   -  mark a task as done");
-        out.println("  edit [Item Index]   -  edit a task");
+        out.println("  done [Item Index]               -  mark a task as done");
+        out.println("  edit [Item Index]               -  edit a task");
         out.println("  list                -  list all tasks");
-        out.println("  sort                -  sort your tasks");
-        out.println("  clear               -  clear all tasks");
-        out.println("  exit                -  exit the program");
+        out.println("  sort                            -  sort your tasks");
+        out.println("  createBucket [bucket name]      -  create a bucket for tasks");
+        out.println("  showBuckets                     -  show buckets for tasks ");
+        out.println("  clear                           -  clear all tasks");
+        out.println("  exit                            -  exit the program");
     }
     public static void add(List list) {
         out.println("Create a new task");
@@ -133,7 +135,7 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        out.println("Add a Tag to group your tasks");
+        out.println("Add a Bucket to group your tasks");
         String bucket = "";
         try {
             bucket = reader.readLine();
@@ -148,6 +150,7 @@ public class Main {
                 priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH);
         success("Task Created Successfully!");
         list.add(toDoItem);
+        list.actuliseBuckets();
         try {
             list.writeToJSON(list.getFileName());
         } catch (Exception e) {
@@ -176,6 +179,7 @@ public class Main {
                 if (index == -1) return;
             }
         }
+        list.actuliseBuckets();
                 try {
             list.writeToJSON(list.getFileName());
         } catch (Exception e) {
@@ -250,11 +254,31 @@ public class Main {
             out.println("Could not read your input... skipping");
         }
         out.println("Task Edited Successfully!");
+        list.actuliseBuckets();
                 try {
             list.writeToJSON(list.getFileName());
         } catch (Exception e) {
             out.println("Could not save your progress... please specify a file or try again.");
         }
+    }
+
+    public static void createBucket(List toDoList, String newBucket){
+        String[] BucketsArray = toDoList.getBuckets();
+        int help = 0;
+        for (int i = 0; i< BucketsArray.length; i++) {
+            if(BucketsArray[i] == newBucket){
+                out.println("Bucket allready exists!");
+                help++;
+                break;
+            }
+        }
+        if (help == 0) {
+            toDoList.setBuckets(newBucket);
+        }
+    }
+    public static void showBuckets(List ToDoList){
+        String[] BucketsArray = ToDoList.getBuckets();
+        out.println(BucketsArray);
     }
     public static void sortHelp() {
         out.println("gtd sort [option]");
@@ -338,7 +362,11 @@ public class Main {
                     list(toDoList);
                 } else if (commandArray[1].equalsIgnoreCase("sort")) {
                     handleSort(toDoList, commandArray);
-                } else if (commandArray[1].equals("clear")) {
+                } else if (commandArray[1].equalsIgnoreCase("createBucket")) {
+                    createBucket(toDoList, commandArray[2]);
+                } else if (commandArray[1].equalsIgnoreCase ("showBuckets")) {
+                    showBuckets(toDoList);
+                }else if (commandArray[1].equals("clear")) {
                     clear(toDoList);
                 } else if (commandArray[1].equalsIgnoreCase("promote")) {
                      try {

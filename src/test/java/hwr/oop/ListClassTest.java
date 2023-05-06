@@ -106,4 +106,42 @@ public class ListClassTest {
         list.sortByCreatedAt("desc");
         assertThat(list.getListToDos()).isEqualTo(sortedExpected);
     }
+
+    @Test
+    void getBucketsTest() {
+        List list = new List("myList");
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", "Uni", false, Priority.HIGH);
+        ToDoItem item2 = new ToDoItem("Calculate Something", "More Math over here", "Math", false, Priority.MEDIUM);
+        ToDoItem item3 = new ToDoItem("Be Amazing", "Just Do It", "Personal", false, Priority.LOW);
+        list.add(item);
+        list.add(item2);
+        list.add(item3);
+        list.actuliseBuckets();
+        String[] testbuckets = list.getBuckets();
+        assertThat(testbuckets[0]).isEqualTo("Uni");
+        assertThat(testbuckets[1]).isEqualTo("Math");
+        assertThat(testbuckets[2]).isEqualTo("Personal");
+    }
+    @Test
+    void actuliseBucketsTest() {
+        List list = new List("myList");
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", "Uni", false, Priority.HIGH);
+        ToDoItem item2 = new ToDoItem("Calculate Something", "More Math over here", "Math", false, Priority.MEDIUM);
+        ToDoItem item3 = new ToDoItem("Be Amazing", "Just Do It", "Personal", false, Priority.LOW);
+        list.add(item);
+        list.add(item2);
+        list.add(item3);
+        list.actuliseBuckets();
+        String[] testbuckets = list.getBuckets();
+        assertThat(testbuckets[0]).isEqualTo("Uni");
+        assertThat(testbuckets[1]).isEqualTo("Math");
+        assertThat(testbuckets[2]).isEqualTo("Personal");
+    }
+    @Test
+    void setBucketTest() {
+        List list = new List("myList");
+        list.setBuckets("Test");
+        String[] Test = list.getBuckets();
+        assertThat(Test[1]).isEqualTo("Test");
+    }
 }

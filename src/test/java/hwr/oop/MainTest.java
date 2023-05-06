@@ -99,6 +99,8 @@ class MainTest {
                     "  done [Item Index]   -  mark a task as done\n" +
                     "  edit [Item Index]   -  edit a task\n" +
                     "  list                -  list all tasks\n" +
+                    "  createBucket [bucket name]      -  create a bucket for tasks\n" +
+                    "  showBuckets                     -  show buckets for tasks \n" +
                     "  sort                -  sort your tasks\n" +
                     "  clear               -  clear all tasks\n" +
                     "  exit                -  exit the program\n";
@@ -171,7 +173,7 @@ class MainTest {
                         "Please enter a description for your task\n" +
                         "Please enter a priority for your task\n" +
                         "\u001B[1;34m1 - LOW, \u001B[1;33m2 - MEDIUM, \u001B[1;31m3 - HIGH\u001B[0m\n" +
-                        "Add a Tag to group your tasks\n" +
+                        "Add a Bucket to group your tasks\n" +
                         "\u001B[1;32mTask Created Successfully!\u001B[0m\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
@@ -258,7 +260,7 @@ class MainTest {
                     "Enter new Description or press enter to skip\n" +
                     "Enter new Priority or press enter to skip\n" +
                     "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
-                    "Enter new Tag or press enter to skip\n" +
+                    "Enter new Bucket or press enter to skip\n" +
                     "Task Edited Successfully!\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
@@ -366,8 +368,8 @@ class MainTest {
         PrintStream sysOutBackup = System.out;
 
         ToDoItem[] toDoItems = new ToDoItem[2];
-        toDoItems[0] = new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test"));
-        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", Priority.LOW, new Project("Test2"));
+        toDoItems[0] = new ToDoItem("Test", "Test", "Test", Priority.LOW);
+        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", Priority.LOW);
 
         List toDoList = new List("MyList", "removeTestFile");
         toDoList.setListToDos(toDoItems);
@@ -562,5 +564,10 @@ class MainTest {
         } finally {
             System.setOut(sysOutBackup);
         }
+    }
+
+    @Test
+    void createBucketsTest() {
+
     }
 }
