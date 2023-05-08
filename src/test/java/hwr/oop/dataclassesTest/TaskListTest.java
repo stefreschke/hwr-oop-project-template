@@ -31,7 +31,6 @@ class TaskListTest {
         tasksTmp.add(new Task(23,"","",null,null,null,null));
         TaskList taskList = new TaskList(tasksTmp);
         Assertions.assertThat(taskList.getTasks()).isEqualTo(tasksTmp);
-
     }
 
     @Test

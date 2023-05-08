@@ -1,12 +1,11 @@
 package hwr.oop.dataclassesTest;
 
 import hwr.oop.dataclasses.*;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,15 +18,15 @@ class TaskTest {
     @Test
     void getDeadline() {
         Task example = new Task(1,"Title","Content", TaskState.IN_PROGRESS,
-                null, new User("Name",12), LocalDate.now());
-        Optional<LocalDate> result = example.getDeadline();
-       result.ifPresent(localDate -> assertThat(localDate).isBetween(LocalDate.now().minusDays(1),LocalDate.now()));
+                null, new User("Name",12), LocalDateTime.now());
+        Optional<LocalDateTime> result = example.getDeadline();
+       result.ifPresent(localDate -> assertThat(localDate).isBetween(LocalDateTime.now().minusHours(1),LocalDateTime.now()));
     }
 
    @Test
     void getId() {
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                null, new User("Name",12), LocalDate.now());
+                null, new User("Name",12), LocalDateTime.now());
         Integer result = example.getId();
         assertThat(result).isEqualTo(69);
     }
@@ -35,7 +34,7 @@ class TaskTest {
     @Test
     void getTitle() {
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                null, new User("Name",12), LocalDate.now());
+                null, new User("Name",12), LocalDateTime.now());
         String result = example.getTitle();
         assertThat(result).isEqualTo("Title");
     }
@@ -43,7 +42,7 @@ class TaskTest {
     @Test
     void getContent() {
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                null, new User("Name",12), LocalDate.now());
+                null, new User("Name",12), LocalDateTime.now());
         String result = example.getContent();
         assertThat(result).isEqualTo("Content");
     }
@@ -51,7 +50,7 @@ class TaskTest {
     @Test
     void getTaskState() {
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                null, new User("Name",12), LocalDate.now());
+                null, new User("Name",12), LocalDateTime.now());
         TaskState result = example.getTaskState();
         assertThat(result).isEqualTo(TaskState.IN_PROGRESS);
     }
@@ -61,7 +60,7 @@ class TaskTest {
         List<TaskTag> list = new ArrayList<>();
         list.add(new TaskTag("Kitchen",2));
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                list, new User("Name",12), LocalDate.now());
+                list, new User("Name",12), LocalDateTime.now());
         List<TaskTag> result = example.getTaskTagList();
         assertThat(result).isEqualTo(list);
     }
@@ -70,7 +69,7 @@ class TaskTest {
     void getCreator() {
         User user = new User("Name",12);
         Task example = new Task(69,"Title","Content", TaskState.IN_PROGRESS,
-                null, user, LocalDate.now());
+                null, user, LocalDateTime.now());
         User result = example.getCreator();
        assertThat(result).isEqualTo(user);
     }
@@ -79,7 +78,7 @@ class TaskTest {
     @EnumSource(value = TaskState.class, names = {"IN_REVIEW", "IN_PROGRESS"})
     void completeTaskSuccessfully(TaskState state) {
         User user = new User("Manfred", 17);
-        Task test = new Task(1, "title", "content", state, null, user, LocalDate.now());
+        Task test = new Task(1, "title", "content", state, null, user, LocalDateTime.now());
         try {
             test.completeTask();
             assertThat(test.getTaskState()).isEqualTo(TaskState.DONE);
@@ -92,7 +91,7 @@ class TaskTest {
     @EnumSource(value = TaskState.class, names = {"IN_PROGRESS", "IN_REVIEW"}, mode = EnumSource.Mode.EXCLUDE)
     void completeTaskUnsuccessfully(TaskState state) {
         User user = new User("Manfred", 17);
-        Task test = new Task(1, "title", "content", state, null, user, LocalDate.now());
+        Task test = new Task(1, "title", "content", state, null, user, LocalDateTime.now());
         try {
             test.completeTask();
             fail("task should not be completable");

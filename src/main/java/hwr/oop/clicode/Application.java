@@ -5,7 +5,7 @@ import hwr.oop.dataclasses.TaskList;
 import hwr.oop.dataclasses.TaskState;
 import hwr.oop.dataclasses.User;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Application {
@@ -20,7 +20,7 @@ public class Application {
         return taskList.getTasks().stream().filter(task -> task.getId().equals(id)).findFirst().orElse(null);
     }
 
-    public void addTask(String title, String content, TaskState taskState, User creator, LocalDate deadline){
+    public void addTask(String title, String content, TaskState taskState, User creator, LocalDateTime deadline){
         Task tmp = new Task(0,title,content,taskState,null,creator,deadline);
         taskList.addTask(tmp);
     }
