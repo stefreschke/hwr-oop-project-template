@@ -40,7 +40,8 @@ public class ProjectUi {
                 new Entry("list", "List all projects."),
                 new Entry("new",    "Add a new project."),
                 new Entry("tasks",  "Open the task menu for a project.", List.of(
-                        new EntryArgument("id <id>", "ID of the project."))),
+                        new EntryArgument("id <id>", "ID of the project.")
+                )),
                 new Entry("edit",   "Edit the attributes of a project.", List.of(
                         new EntryArgument("id <id>", "ID of the project to be edited."),
                         new EntryArgument("name <name>", "Change the name of the project."),
@@ -48,9 +49,11 @@ public class ProjectUi {
                         new EntryArgument("begin", "Change the beginning of the project."),
                         new EntryArgument("end", "Change the end of the project"),
                         new EntryArgument("addTag <tag>", "Add a new tag."),
-                        new EntryArgument("removeTag <tag>", "Remove a tag."))),
+                        new EntryArgument("removeTag <tag>", "Remove a tag.")
+                )),
                 new Entry("remove", "Remove a project.", List.of(
-                        new EntryArgument("id <id>", "ID of the project to be removed."))),
+                        new EntryArgument("id <id>", "ID of the project to be removed.")
+                )),
                 new Entry("back",   "Returns to the previous menu.")
         ));
         consoleController.output(menu.toString());
