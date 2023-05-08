@@ -18,6 +18,7 @@ public class Entry {
         this.arguments = arguments;
     }
 
+    @Override
     public String toString() {
         return this.toString("");
     }
