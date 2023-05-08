@@ -70,13 +70,15 @@ class ProjectUiTest {
                 .description("Desc")
                 .begin(LocalDateTime.of(2013, 12, 12, 15, 45))
                 .end(LocalDateTime.of(2014, 12, 12, 12, 12))
-                .build());
+                .build()
+        );
         todoList.addProject(new Project.ProjectBuilder()
                 .name("proj")
                 .description("qwer")
                 .begin(LocalDateTime.of(2003, 12, 22, 5, 45))
                 .end(LocalDateTime.of(2014, 1, 10, 12, 12))
-                .build());
+                .build()
+        );
 
         return todoList;
     }
@@ -101,7 +103,8 @@ class ProjectUiTest {
                 "========================================================================================" + System.lineSeparator() +
                 "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
                 "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
-                "projects:> ");
+                "projects:> "
+        );
     }
 
     @Test
@@ -113,7 +116,8 @@ class ProjectUiTest {
                 "24.12.2023" + System.lineSeparator() +
                 System.lineSeparator() +
                 "list" + System.lineSeparator() +
-                "back" + System.lineSeparator());
+                "back" + System.lineSeparator()
+        );
         OutputStream outputStream = new ByteArrayOutputStream();
 
         TodoList todoList = getExampleTodoList(false);
@@ -124,21 +128,22 @@ class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-            "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
-                    "========================================================================================" + System.lineSeparator() +
-                    projectsMenuOutput +
-                    "projects/new/name:> " +
-                    "projects/new/description:> " +
-                    "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': " +
-                    "projects/new/begin:> " +
-                    "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': " +
-                    "projects/new/end:> " +
-                    "projects:> " +
-                    "projects:> " +
-                    "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
-                    "========================================================================================" + System.lineSeparator() +
-                    "|  0 |           Peter |                         Parker |            | 12.12. | 24.12. |" + System.lineSeparator() +
-                    "projects:> ");
+        "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                "========================================================================================" + System.lineSeparator() +
+                projectsMenuOutput +
+                "projects/new/name:> " +
+                "projects/new/description:> " +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': " +
+                "projects/new/begin:> " +
+                "Enter a date/time formatted as 'dd.mm.yyyy' or 'dd.mm.yyyy hh:mm': " +
+                "projects/new/end:> " +
+                "projects:> " +
+                "projects:> " +
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                "========================================================================================" + System.lineSeparator() +
+                "|  0 |           Peter |                         Parker |            | 12.12. | 24.12. |" + System.lineSeparator() +
+                "projects:> "
+        );
     }
 
     @Test
@@ -148,7 +153,8 @@ class ProjectUiTest {
                 "list" + System.lineSeparator() +
                 "edit -removeTag tv -id 1" + System.lineSeparator() +
                 "list" + System.lineSeparator() +
-                "back" + System.lineSeparator());
+                "back" + System.lineSeparator()
+        );
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
@@ -173,7 +179,8 @@ class ProjectUiTest {
                 "========================================================================================" + System.lineSeparator() +
                 "|  0 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
                 "|  1 |           Peter |                         Lustig |            | 01.01. | 10.10. |" + System.lineSeparator() +
-                "projects:> ");
+                "projects:> "
+        );
     }
 
     @Test
@@ -181,7 +188,8 @@ class ProjectUiTest {
         InputStream inputStream = createInputStreamForInput("remove -id 0" + System.lineSeparator() +
                 "y" + System.lineSeparator() +
                 "list" + System.lineSeparator() +
-                "back" + System.lineSeparator());
+                "back" + System.lineSeparator()
+        );
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
@@ -202,7 +210,8 @@ class ProjectUiTest {
                 "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
                 "========================================================================================" + System.lineSeparator() +
                 "|  0 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
-                "projects:> ");
+                "projects:> "
+        );
     }
 
     @Test
@@ -216,12 +225,13 @@ class ProjectUiTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
-                        "========================================================================================" + System.lineSeparator() +
-                        "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
-                        "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
-                        projectsMenuOutput +
-                        "projects:> ");
+        "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                "========================================================================================" + System.lineSeparator() +
+                "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
+                "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
+                projectsMenuOutput +
+                "projects:> "
+        );
     }
 
 }
