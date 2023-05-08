@@ -9,38 +9,20 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class CardTests {
 
     @Test
-    void canGetCardQuestion(){
+    public void canGetQuestion(){
 
-        Card card = new Card("Hallo?", "Yes");
-        String question = card.getQuestion();
+        Card card = new Card("What was the first item to be sold on Ebay?", "A broken laser pointer", 0);
 
-        assertThat(question).isEqualTo("Hallo?");
+        String testQuestion = card.getQuestion();
+        assertThat(testQuestion).isEqualTo("What was the first item to be sold on Ebay?");
     }
 
     @Test
-    void canGetDateOfCard(){
-        Card card = new Card("Ja?", "Yes");
-        LocalDate date = card.getDate();
-        LocalDate now = LocalDate.now();
+    public void canGetAnswer(){
 
+        Card card = new Card("What is the largest living organism on earth?", "The Great Barrier Reef", 0);
 
-        assertThat(date).isEqualTo(now);
-    }
-
-    @Test
-    void canGetQuestionOfCard(){
-
-        Card card = new Card("Is this a test?", "Yes");
-
-        String question = card.getQuestion();
-        assertThat(question).isEqualTo("Is this a test?");
-    }
-
-    @Test
-    void
-    canGetAnswerOfCard(){
-         Card card = new Card("Is the earth flat?", "Yes");
-
-         assertThat(card.getAnswer()).isEqualTo("Yes");
+        String testQuestion = card.getAnswer();
+        assertThat(testQuestion).isEqualTo("The Great Barrier Reef");
     }
 }
