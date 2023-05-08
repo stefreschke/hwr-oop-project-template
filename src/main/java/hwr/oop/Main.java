@@ -148,7 +148,6 @@ public class Main {
                 title,
                 description,
                 tag,
-                false ,
                 priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH,
                 new Project(""));
         success("Task Created Successfully!");

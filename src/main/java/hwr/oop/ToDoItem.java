@@ -11,19 +11,18 @@ public class ToDoItem {
     private String title;
     private String description;
     private String tag;
-    private boolean done;
     private Priority priority;
     private Project project;
     private String createdAt;
-
-    public ToDoItem (String title, String description, String tag, boolean done, Priority priority, Project project) {
+    private State state;
+    public ToDoItem (String title, String description, String tag, Priority priority, Project project) {
         this.title = WHITE_BOLD_BRIGHT + title + RESET;
         this.description = description;
         this.tag = CYAN_BOLD + tag + RESET;
-        this.done = done;
         this.createdAt = LocalDateTime.now().toString();
         this.priority = priority;
         this.project = project;
+        this.state = State.TODO;
     }
     void setTitle(String title) {
         this.title = WHITE_BOLD_BRIGHT + title + RESET;
@@ -32,7 +31,7 @@ public class ToDoItem {
         this.description = description;
     }
     void setDone(boolean done) {
-        this.done = done;
+        this.state = State.DONE;
     }
     void setPriority(Priority priority) {
         this.priority = priority;
@@ -55,8 +54,37 @@ public class ToDoItem {
     public String getDescription() {
         return description;
     }
+    public String getState() {
+        return state.toString();
+    }
+    public String getStateEmoji() {
+        switch (state) {
+            case DONE:
+                return "✅";
+            case TODO:
+                return "⏭️";
+            case IN_PROGRESS:
+                return "🏗️";
+            case ON_HOLD:
+                return "🕑";
+            default:
+                return "❓";
+        }
+    }
+    public String getPriorityString() {
+        switch (priority) {
+            case LOW:
+                return BLUE_BOLD + "LOW" + RESET;
+            case MEDIUM:
+                return YELLOW_BOLD + "MEDIUM" + RESET;
+            case HIGH:
+                return RED_BOLD + "HIGH" + RESET;
+            default:
+                return "❓";
+        }
+    }
     public boolean isDone() {
-        return done;
+        return state == State.DONE;
     }
     public Priority getPriority() {
         return priority;
@@ -67,17 +95,15 @@ public class ToDoItem {
     public void setCreatedAt(@org.jetbrains.annotations.NotNull LocalDateTime createdAt) {
         this.createdAt = createdAt.toString();
     }
-
     @Override
     public String toString() {
-        String doneSymbol = this.done ? "✅ " : "❌ " ;
-        String priority = (this.priority == Priority.LOW ? BLUE_BOLD : this.priority == Priority.MEDIUM ? YELLOW_BOLD : RED_BOLD) + this.priority + RESET;
-        return  doneSymbol + title + '\n' +
+        String stateSymbol = getStateEmoji() + ' ';
+        String priority = getPriorityString();
+        return  stateSymbol + title + '\n' +
                 description + '\n' +
                 "<" + tag + ">" + ' ' +
                 priority;
     }
-
     public String getCreatedAt() {
         return createdAt;
     }
