@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class FileAdapter implements LoadPersistenceAdapter, SavePersistenceAdapter {
 
-    private File file;
+    private final File file;
 
     public FileAdapter(File file) {
         this.file = file;
