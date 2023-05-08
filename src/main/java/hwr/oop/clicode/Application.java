@@ -24,4 +24,8 @@ public class Application {
         Task tmp = new Task(0,title,content,taskState,null,creator,deadline);
         taskList.addTask(tmp);
     }
+
+    public void deleteTask(Task toBeRemoved) {
+        taskList.deleteTask(toBeRemoved);
+    }
 }
