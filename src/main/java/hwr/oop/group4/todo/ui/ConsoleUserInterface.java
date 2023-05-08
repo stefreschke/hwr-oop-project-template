@@ -58,7 +58,6 @@ public class ConsoleUserInterface {
         boolean loadFromFile = consoleController.inputBool(List.of("main", "load"), question, false);
 
         if (loadFromFile) {
-            // TODO: load from file
             todoList = new TodoList();
         } else {
             todoList = new TodoList();
