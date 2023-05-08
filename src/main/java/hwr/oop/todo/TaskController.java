@@ -23,12 +23,6 @@ public class TaskController {
        return todolist.getTask(id);
     }
 
-    public Project createProject(ProjectData projectdata){
-        return todolist.createProject(projectdata);
-    }
 
-    public Project getProject(UUID id){
-        return todolist.getProject(id);
-    }
 }
 

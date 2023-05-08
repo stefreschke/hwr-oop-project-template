@@ -63,31 +63,5 @@ class TaskControllerTest {
         assertNotEquals(task1, task2);
     }
 
-    @Test
-    void canCreateProject() {
-        TaskController testController = new TaskController();
-        ProjectData projectData = new ProjectData("Name");
 
-        Project project = testController.createProject(projectData);
-
-        assertEquals(projectData.getName(), project.getName());
-        assertEquals(projectData.getTaskIds(), project.getTaskIds());
-    }
-
-
-    @Test
-    void canGetProjectById() {
-        TaskController testController = new TaskController();
-        ProjectData projectData = new ProjectData("Name");
-
-        Project project = testController.createProject(projectData);
-
-        assertEquals(project, testController.getProject(project.getId()));
-    }
-
-    @Test
-    void cannotGetProjectThatDoesNotExist() {
-        TaskController testController = new TaskController();
-        assertThrows(ToDoListException.class, () -> testController.getProject(UUID.randomUUID()));
-    }
 }
