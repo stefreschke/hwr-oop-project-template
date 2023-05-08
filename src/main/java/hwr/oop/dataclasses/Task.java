@@ -89,11 +89,6 @@ public class Task {
         }
     }
 
-<<<<<<< HEAD
-    //create a new User
-    public User createUser(String name, Integer id) {
-        return new User(name, id);
-=======
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Task) {
@@ -105,6 +100,5 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(id, title, content, taskState, taskTagList, creator, deadline);
->>>>>>> a3cc720190d4bf444bccc1ae6752d1944dc855b6
     }
 }
