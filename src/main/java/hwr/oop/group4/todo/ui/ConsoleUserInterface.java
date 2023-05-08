@@ -1,11 +1,15 @@
 package hwr.oop.group4.todo.ui;
 
 import hwr.oop.group4.todo.core.TodoList;
+import hwr.oop.group4.todo.ui.controller.ConsoleController;
+import hwr.oop.group4.todo.ui.controller.command.Command;
+import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
+import hwr.oop.group4.todo.ui.controller.menu.Entry;
+import hwr.oop.group4.todo.ui.controller.menu.Menu;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class ConsoleUserInterface {
 
@@ -35,7 +39,7 @@ public class ConsoleUserInterface {
             consoleController.output(menu.toString());
 
             consoleController.inputOptions(List.of("main"), List.of(
-                    new Command("intray",   args -> {}),
+                    new Command("intray", args -> {}),
                     new Command("tasks",    args -> {}),
                     new Command("projects", args -> projectUi.menu(todoList)),
                     new Command("calendar", args -> {}),
