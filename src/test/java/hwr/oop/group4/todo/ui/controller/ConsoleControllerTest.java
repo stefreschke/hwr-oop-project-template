@@ -199,7 +199,7 @@ class ConsoleControllerTest {
         final OutputStream outputStream = new ByteArrayOutputStream();
         final ConsoleController consoleController = new ConsoleController(outputStream, inputStream);
 
-        final LocalDateTime returnValue = consoleController.inputDate(List.of(""), "Prompt."); // TODO: add defaultDate arg
+        final LocalDateTime returnValue = consoleController.inputDate(List.of(""), "Prompt.");
 
         final LocalDateTime now = LocalDateTime.now();
         assertThat(Duration.between(returnValue, now).toSeconds()).isLessThanOrEqualTo(5);

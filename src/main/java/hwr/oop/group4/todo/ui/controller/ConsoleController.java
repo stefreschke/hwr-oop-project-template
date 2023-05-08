@@ -82,7 +82,6 @@ public class ConsoleController {
         return inputDate(prefixes, null);
     }
 
-    // TODO: add defaultDate parameter (same as defaultBoolean)
     public LocalDateTime inputDate(List<String> prefixes, String prompt) {
         while (true) {
             if (prompt != null && !prompt.isBlank()) {
@@ -95,7 +94,6 @@ public class ConsoleController {
                 return LocalDateTime.now();
             }
 
-            // TODO: fix empty catch block: e.g. information that the input format is not valid
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm");
                 return LocalDateTime.parse(input, formatter);

@@ -20,7 +20,7 @@ public class ConsoleUserInterface {
     }
 
     public void mainMenu() {
-        final String message = "Main menu:\n" + // TODO: print bold
+        final String message = "Main menu:\n" +
                 "quit\n" +
                 "save\n" +
                 "load\n" +
@@ -70,7 +70,6 @@ public class ConsoleUserInterface {
             if (input.equals("new")) {
                 return new TodoList();
             } else if (input.equals("load")) {
-                // TODO: load from file
                 return null;
             }
             out.println("Please enter 'new' or 'load'.");
