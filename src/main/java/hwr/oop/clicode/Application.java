@@ -16,6 +16,11 @@ public class Application {
         taskList = new TaskList(new ArrayList<>());
     }
 
+    //create a new User
+    public User createUser(String name, Integer id) {
+        return new User(name, id);
+    }
+
     public Task getTaskByID(Integer id){
         return taskList.getTasks().stream().filter(task -> task.getId().equals(id)).findFirst().orElse(null);
     }
