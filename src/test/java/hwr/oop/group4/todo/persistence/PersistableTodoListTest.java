@@ -7,7 +7,7 @@ import net.javacrumbs.jsonunit.core.Option;
 import org.junit.jupiter.api.Test;
 import static net.javacrumbs.jsonunit.assertj.JsonAssertions.assertThatJson;
 
-class PersistedTodoListTest {
+class PersistableTodoListTest {
 
     @Test
     void toJsonObject() {
@@ -36,7 +36,7 @@ class PersistedTodoListTest {
         todoList.addProject(projectA);
         todoList.addLoseTask(taskA);
 
-        var persistedTodoList = new PersistedTodoList(todoList);
+        var persistedTodoList = new PersistableTodoList(todoList);
 
         // System.out.println(persistedTodoList.toString());
 

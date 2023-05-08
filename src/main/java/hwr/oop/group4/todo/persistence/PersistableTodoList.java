@@ -3,10 +3,10 @@ package hwr.oop.group4.todo.persistence;
 import hwr.oop.group4.todo.core.TodoList;
 import org.json.JSONObject;
 
-public class PersistedTodoList implements Persisted {
+public class PersistableTodoList implements Persistable {
     private final TodoList todoList;
 
-    public PersistedTodoList(TodoList todoList) {
+    public PersistableTodoList(TodoList todoList) {
         this.todoList = todoList;
     }
 

@@ -13,7 +13,7 @@ public class FileAdapter implements LoadPersistenceAdapter, SavePersistenceAdapt
     }
 
     @Override
-    public void save(Persisted data) {
+    public void save(Persistable data) {
         try {
             file.createNewFile();
             FileWriter writer = new FileWriter(file);
@@ -25,7 +25,7 @@ public class FileAdapter implements LoadPersistenceAdapter, SavePersistenceAdapt
     }
 
     @Override
-    public Persisted load() {
+    public Persistable load() {
         return null;
     }
 }

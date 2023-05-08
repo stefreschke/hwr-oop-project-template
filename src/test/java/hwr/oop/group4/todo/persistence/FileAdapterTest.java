@@ -1,11 +1,9 @@
 package hwr.oop.group4.todo.persistence;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import java.io.File;
-import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -17,7 +15,7 @@ class FileAdapterTest {
 
     @Test
     void save(@TempDir Path tempDir) {
-        Persisted data = mock();
+        Persistable data = mock();
         when(data.toString()).thenReturn("demo file content");
 
         Path path = Path.of(tempDir.toString() + "/FileAdapterTest.save.txt");
