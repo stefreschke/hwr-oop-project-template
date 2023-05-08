@@ -9,82 +9,55 @@ import java.util.Scanner;
 
 public class ConsoleUserInterface {
 
-    private final PrintStream out;
-    private final Scanner in;
+    private final ConsoleController consoleController;
+    private final ProjectUi projectUi;
     private TodoList todoList;
 
-    public ConsoleUserInterface(OutputStream out, InputStream in) {
-        this.out = new PrintStream(out);
-        this.in = new Scanner(in);
-        todoList = load();
+    public ConsoleUserInterface(ConsoleController consoleController) {
+        this.consoleController = consoleController;
+        projectUi = new ProjectUi(this.consoleController);
+        load(null);
     }
 
     public void mainMenu() {
-        final String message = "Main menu:\n" +
-                "quit\n" +
-                "save\n" +
-                "load\n" +
-                "intray\n" +
-                "tasks\n" +
-                "projects\n" +
-                "calendar";
-        out.println(message);
-        while (true) {
-            String input = in.nextLine();
+        Menu menu = new Menu("Main Menu", "Welcome to ToDo!", List.of(
+                new Entry("intray",   ""),
+                new Entry("tasks",    ""),
+                new Entry("projects", ""),
+                new Entry("calendar", ""),
+                new Entry("load",     ""),
+                new Entry("save",     ""),
+                new Entry("quit",     "Quit the program.")
+        ));
 
-            switch (input) {
-                case "quit":
-                    return;
-                case "save":
-                    save();
-                    break;
-                case "load":
-                    todoList = load();
-                    break;
-                case "intray":
-                    intray();
-                    break;
-                case "tasks":
-                    tasks();
-                    break;
-                case "projects":
-                    projects();
-                    break;
-                case "calendar":
-                    calendar();
-                    break;
-                default:
-                    out.println(message);
-                    break;
-            }
+        AtomicBoolean shouldReturn = new AtomicBoolean(false);
+        while (!shouldReturn.get()) {
+            consoleController.output(menu.toString());
+
+            consoleController.inputOptions(List.of("main"), List.of(
+                    new Command("intray",   args -> {}),
+                    new Command("tasks",    args -> {}),
+                    new Command("projects", args -> projectUi.menu(todoList)),
+                    new Command("calendar", args -> {}),
+                    new Command("load",     this::load),
+                    new Command("save",     this::save),
+                    new Command("quit",     args -> shouldReturn.set(true))
+            ), new Command("wrongInput", args -> {}));
         }
     }
 
-    private void save() {
+    private void save(Collection<CommandArgument<String>> args) {
     }
 
-    private TodoList load() {
-        out.println("Do want to 'load' from file or create 'new' list?");
-        while (true) {
-            String input = in.nextLine();
-            if (input.equals("new")) {
-                return new TodoList();
-            } else if (input.equals("load")) {
-                return null;
-            }
-            out.println("Please enter 'new' or 'load'.");
+    private void load(Collection<CommandArgument<String>> args) {
+        String question = "Do you want to load from a file? (Otherwise create an empty todo list)";
+        boolean loadFromFile = consoleController.inputBool(List.of("main", "load"), question, false);
+
+        if (loadFromFile) {
+            todoList = new TodoList();
+        } else {
+            todoList = new TodoList();
         }
     }
 
-    private void intray() {
-    }
-
-    private void tasks() {
-    }
-
-    private void projects() {
-    }
-
-    private void calendar() {
-    }
 }

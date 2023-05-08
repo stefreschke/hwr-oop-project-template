@@ -189,7 +189,8 @@ class ConsoleControllerTest {
 
         consoleController.inputBool(List.of(""), "Eingabe.", true);
         assertThat(retrieveResultFrom(outputStream)).isEqualTo("Eingabe."+ System.lineSeparator() +
-                        "Answer y/Y/yes or n/N/no (leave empty for: yes): :> "
+                        "Answer y/Y/yes or n/N/no (leave empty for: yes)." + System.lineSeparator() +
+                        ":> "
         );
     }
 
