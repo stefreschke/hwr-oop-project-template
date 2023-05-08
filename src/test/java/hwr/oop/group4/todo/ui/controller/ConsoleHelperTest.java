@@ -37,7 +37,7 @@ class ConsoleHelperTest {
         final Collection<CommandArgument<String>> arguments = List.of(new CommandArgument<>("id", "eman"));
         final Optional<String> returnValue = consoleHelper.getStringParameter(arguments, "id");
 
-        assertThat(returnValue).isNotEmpty().get().isEqualTo("eman");
+        assertThat(returnValue).hasValue("eman");
     }
 
     @Test
