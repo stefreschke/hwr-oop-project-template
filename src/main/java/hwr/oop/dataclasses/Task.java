@@ -1,13 +1,13 @@
 package hwr.oop.dataclasses;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 public class Task {
     public Task(Integer id, String title, String content, TaskState taskState, List<TaskTag> taskTagList, User creator,
-                LocalDate deadline) {
+                LocalDateTime deadline) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -23,9 +23,9 @@ public class Task {
     private TaskState taskState;
     private final List<TaskTag> taskTagList;
     private final User creator;
-    private final LocalDate deadline;
+    private final LocalDateTime deadline;
 
-    public Optional<LocalDate> getDeadline() {
+    public Optional<LocalDateTime> getDeadline() {
         return Optional.ofNullable(deadline);
     }
 
