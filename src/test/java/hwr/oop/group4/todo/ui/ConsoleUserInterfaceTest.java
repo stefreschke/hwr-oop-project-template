@@ -54,13 +54,15 @@ class ConsoleUserInterfaceTest {
         loadMenuOutput +
                 mainMenuOutput +
                 loadMenuOutput +
-                mainMenuOutput);
+                mainMenuOutput
+        );
     }
 
     @Test
     void canLoadAndSaveTodoListFromFile() {
         InputStream inputStream = createInputStreamForInput("yes" + System.lineSeparator() + "save" + System.lineSeparator() +
-                "load" + System.lineSeparator() + "Y" + System.lineSeparator() + "quit" + System.lineSeparator());
+                "load" + System.lineSeparator() + "Y" + System.lineSeparator() + "quit" + System.lineSeparator()
+        );
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
@@ -69,11 +71,12 @@ class ConsoleUserInterfaceTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
+        loadMenuOutput +
+                mainMenuOutput +
+                mainMenuOutput +
                 loadMenuOutput +
-                        mainMenuOutput +
-                        mainMenuOutput +
-                        loadMenuOutput +
-                        mainMenuOutput);
+                mainMenuOutput
+        );
     }
 
     @Test
@@ -88,53 +91,55 @@ class ConsoleUserInterfaceTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                loadMenuOutput +
-                        mainMenuOutput +
-                        mainMenuOutput +
-                        "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
-                        "========================================================================================" + System.lineSeparator() +
-                        "[1m<==== Project Menu ====>[0m" + System.lineSeparator() +
-                        "Manage your Projects!" + System.lineSeparator() +
-                        System.lineSeparator() +
-                        "Commands: " + System.lineSeparator() +
-                        "  list" + System.lineSeparator() +
-                        "    List all projects." + System.lineSeparator() +
-                        "  new" + System.lineSeparator() +
-                        "    Add a new project." + System.lineSeparator() +
-                        "  tasks" + System.lineSeparator() +
-                        "    Open the task menu for a project." + System.lineSeparator() +
-                        "    -id <id>" + System.lineSeparator() +
-                        "      ID of the project." + System.lineSeparator() +
-                        "  edit" + System.lineSeparator() +
-                        "    Edit the attributes of a project." + System.lineSeparator() +
-                        "    -id <id>" + System.lineSeparator() +
-                        "      ID of the project to be edited." + System.lineSeparator() +
-                        "    -name <name>" + System.lineSeparator() +
-                        "      Change the name of the project." + System.lineSeparator() +
-                        "    -desc <desc>" + System.lineSeparator() +
-                        "      Change the description of the project." + System.lineSeparator() +
-                        "    -begin" + System.lineSeparator() +
-                        "      Change the beginning of the project." + System.lineSeparator() +
-                        "    -end" + System.lineSeparator() +
-                        "      Change the end of the project" + System.lineSeparator() +
-                        "    -addTag <tag>" + System.lineSeparator() +
-                        "      Add a new tag." + System.lineSeparator() +
-                        "    -removeTag <tag>" + System.lineSeparator() +
-                        "      Remove a tag." + System.lineSeparator() +
-                        "  remove" + System.lineSeparator() +
-                        "    Remove a project." + System.lineSeparator() +
-                        "    -id <id>" + System.lineSeparator() +
-                        "      ID of the project to be removed." + System.lineSeparator() +
-                        "  back" + System.lineSeparator() +
-                        "    Returns to the previous menu." + System.lineSeparator() +
-                        "projects:> " +
-                        mainMenuOutput);
+        loadMenuOutput +
+                mainMenuOutput +
+                mainMenuOutput +
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                "========================================================================================" + System.lineSeparator() +
+                "[1m<==== Project Menu ====>[0m" + System.lineSeparator() +
+                "Manage your Projects!" + System.lineSeparator() +
+                System.lineSeparator() +
+                "Commands: " + System.lineSeparator() +
+                "  list" + System.lineSeparator() +
+                "    List all projects." + System.lineSeparator() +
+                "  new" + System.lineSeparator() +
+                "    Add a new project." + System.lineSeparator() +
+                "  tasks" + System.lineSeparator() +
+                "    Open the task menu for a project." + System.lineSeparator() +
+                "    -id <id>" + System.lineSeparator() +
+                "      ID of the project." + System.lineSeparator() +
+                "  edit" + System.lineSeparator() +
+                "    Edit the attributes of a project." + System.lineSeparator() +
+                "    -id <id>" + System.lineSeparator() +
+                "      ID of the project to be edited." + System.lineSeparator() +
+                "    -name <name>" + System.lineSeparator() +
+                "      Change the name of the project." + System.lineSeparator() +
+                "    -desc <desc>" + System.lineSeparator() +
+                "      Change the description of the project." + System.lineSeparator() +
+                "    -begin" + System.lineSeparator() +
+                "      Change the beginning of the project." + System.lineSeparator() +
+                "    -end" + System.lineSeparator() +
+                "      Change the end of the project" + System.lineSeparator() +
+                "    -addTag <tag>" + System.lineSeparator() +
+                "      Add a new tag." + System.lineSeparator() +
+                "    -removeTag <tag>" + System.lineSeparator() +
+                "      Remove a tag." + System.lineSeparator() +
+                "  remove" + System.lineSeparator() +
+                "    Remove a project." + System.lineSeparator() +
+                "    -id <id>" + System.lineSeparator() +
+                "      ID of the project to be removed." + System.lineSeparator() +
+                "  back" + System.lineSeparator() +
+                "    Returns to the previous menu." + System.lineSeparator() +
+                "projects:> " +
+                mainMenuOutput
+        );
     }
 
     @Test
     void canOpenIntrayMenu() {
         InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "intray" + System.lineSeparator() +
-                "quit" + System.lineSeparator());
+                "quit" + System.lineSeparator()
+        );
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
@@ -143,9 +148,10 @@ class ConsoleUserInterfaceTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                loadMenuOutput +
-                        mainMenuOutput +
-                        mainMenuOutput);
+        loadMenuOutput +
+                mainMenuOutput +
+                mainMenuOutput
+        );
     }
 
     @Test
@@ -160,15 +166,17 @@ class ConsoleUserInterfaceTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                loadMenuOutput +
-                        mainMenuOutput +
-                        mainMenuOutput);
+        loadMenuOutput +
+                mainMenuOutput +
+                mainMenuOutput
+        );
     }
 
     @Test
     void canOpenCalendarMenu() {
         InputStream inputStream = createInputStreamForInput(System.lineSeparator() + "calendar" + System.lineSeparator() +
-                "quit" + System.lineSeparator());
+                "quit" + System.lineSeparator()
+        );
         OutputStream outputStream = new ByteArrayOutputStream();
 
         ConsoleUserInterface ui = new ConsoleUserInterface(new ConsoleController(outputStream, inputStream));
@@ -177,9 +185,10 @@ class ConsoleUserInterfaceTest {
         String output = retrieveResultFrom(outputStream);
 
         assertThat(output).isEqualTo(
-                loadMenuOutput +
-                        mainMenuOutput +
-                        mainMenuOutput);
+        loadMenuOutput +
+                mainMenuOutput +
+                mainMenuOutput
+        );
     }
 
 }
