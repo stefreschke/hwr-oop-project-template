@@ -10,6 +10,7 @@ public class Box {
 
     public Box(){
         learnedCardList = new ArrayList<Card>();
+        notLearnedCardList = new ArrayList<Card>();
     }
 
     public void addCard(Card card) {

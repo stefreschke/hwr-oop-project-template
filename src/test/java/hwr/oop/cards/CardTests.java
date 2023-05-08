@@ -25,4 +25,13 @@ public class CardTests {
         String testQuestion = card.getAnswer();
         assertThat(testQuestion).isEqualTo("The Great Barrier Reef");
     }
+
+    @Test
+    public void canGetId(){
+
+        Card card = new Card("Test?", "Ja!", 42);
+
+        int id = card.getId();
+        assertThat(id).isEqualTo(42);
+    }
 }
