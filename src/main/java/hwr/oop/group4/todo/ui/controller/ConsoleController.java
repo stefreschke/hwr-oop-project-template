@@ -81,6 +81,10 @@ public class ConsoleController {
     }
 
     public LocalDateTime inputDate(List<String> prefixes, String prompt) {
+        return inputDate(prefixes, prompt, LocalDateTime.now());
+    }
+
+    public LocalDateTime inputDate(List<String> prefixes, String prompt, LocalDateTime defaultValue) {
         while (true) {
             if (prompt != null && !prompt.isBlank()) {
                 outputLine(prompt);
@@ -89,7 +93,7 @@ public class ConsoleController {
             String input = input(prefixes).orElse("");
 
             if (input.isBlank()) {
-                return LocalDateTime.now();
+                return defaultValue;
             }
 
             final Optional<LocalDateTime> date = consoleHelper.parseDate(input);
