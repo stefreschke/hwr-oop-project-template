@@ -7,21 +7,19 @@ import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.*;
 
 public class ConsoleController {
 
     private final PrintStream out;
     private final Scanner in;
+    private final ConsoleHelper consoleHelper;
 
     public ConsoleController(OutputStream out, InputStream in) {
         this.out = new PrintStream(out);
         this.in = new Scanner(in);
+        consoleHelper = new ConsoleHelper(this);
     }
 
     public void outputLine(String output) {
@@ -63,7 +61,7 @@ public class ConsoleController {
         String defaultValueString = (defaultValue) ? "yes" : "no";
         while (true) {
             outputLine(prompt);
-            output("Answer y/Y/yes or n/N/no (leave empty for: " + defaultValueString + "): ");
+            outputLine("Answer y/Y/yes or n/N/no (leave empty for: " + defaultValueString + ").");
             String input = input(prefixes).orElse(defaultValueString);
 
             if (input.isBlank()) {
@@ -94,15 +92,10 @@ public class ConsoleController {
                 return LocalDateTime.now();
             }
 
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm");
-                return LocalDateTime.parse(input, formatter);
-            } catch (DateTimeParseException ignore) { }
-            try {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu");
-                LocalDate localDate = LocalDate.parse(input, formatter);
-                return LocalDateTime.of(localDate, LocalTime.MIDNIGHT);
-            } catch (DateTimeParseException ignore) { }
+            final Optional<LocalDateTime> date = consoleHelper.parseDate(input);
+            if (date.isPresent()) {
+                return date.get();
+            }
         }
     }
 
@@ -119,10 +112,11 @@ public class ConsoleController {
 
     private String buildPrefix(List<String> prefixes) {
         final StringBuilder stringBuilder = new StringBuilder();
-        for (int i=0; i<prefixes.size()-1; i++) {
+        for (int i = 0; i < prefixes.size() - 1; i++) {
             stringBuilder.append(prefixes.get(i)).append("/");
         }
-        stringBuilder.append(prefixes.get(prefixes.size()-1)).append(":> ");
+        stringBuilder.append(prefixes.get(prefixes.size() - 1)).append(":> ");
         return stringBuilder.toString();
     }
+
 }
