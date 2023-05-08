@@ -1,1 +1,1 @@
-{"Name":"Todo von Lukas","ListToDos":[{"id":0,"title":"Title","description":"Description\nCreated 2023-04-27","tag":"Tag","done":false,"priority":"LOW","project":{"title":""}}],"fileName":"data"}
+{"Name":"Todo von Lukas","ListToDos":[{"title":"\u001b[1;97mLearn Russian\u001b[0m","description":"Learn my Anki today. Finish 80 Words and find Sentences","tag":"Learn","priority":"HIGH","project":{"title":""}}],"fileName":"data"}

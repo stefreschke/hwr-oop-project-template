@@ -16,7 +16,7 @@ public class ToDoItem {
     private String createdAt;
     private State state;
     public ToDoItem (String title, String description, String tag, Priority priority, Project project) {
-        this.title = WHITE_BOLD_BRIGHT + title + RESET;
+        this.title = title;
         this.description = description;
         this.tag = CYAN_BOLD + tag + RESET;
         this.createdAt = LocalDateTime.now().toString();
@@ -25,7 +25,7 @@ public class ToDoItem {
         this.state = State.TODO;
     }
     void setTitle(String title) {
-        this.title = WHITE_BOLD_BRIGHT + title + RESET;
+        this.title = title;
     }
     void setDescription(String description) {
         this.description = description;
@@ -58,17 +58,21 @@ public class ToDoItem {
         return state.toString();
     }
     public String getStateEmoji() {
-        switch (state) {
-            case DONE:
-                return "✅";
-            case TODO:
-                return "⏭️";
-            case IN_PROGRESS:
-                return "🏗️";
-            case ON_HOLD:
-                return "🕑";
-            default:
-                return "❓";
+        try {
+            switch (state) {
+                case DONE:
+                    return "✅";
+                case TODO:
+                    return "⏭️";
+                case IN_PROGRESS:
+                    return "🏗️";
+                case ON_HOLD:
+                    return "🕑";
+                default:
+                    return "❓";
+            }
+        } catch (Exception e) {
+            return "❓";
         }
     }
     public String getPriorityString() {

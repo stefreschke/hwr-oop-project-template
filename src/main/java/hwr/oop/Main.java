@@ -101,6 +101,7 @@ public class Main {
         out.println("  remove [Item Index] -  remove a task");
         out.println("  done [Item Index]   -  mark a task as done");
         out.println("  edit [Item Index]   -  edit a task");
+        out.println("  list                -  list all tasks");
         out.println("  sort                -  sort your tasks");
         out.println("  clear               -  clear all tasks");
         out.println("  exit                -  exit the program");
@@ -151,7 +152,6 @@ public class Main {
                 priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH,
                 new Project(""));
         success("Task Created Successfully!");
-
         list.add(toDoItem);
     }
     public static void list(List list) { // maybe redundant method
@@ -325,7 +325,8 @@ public class Main {
                     } catch (ArrayIndexOutOfBoundsException e) {
                         error("Try 'gtd edit [index]'");
                     }
-
+                } else if (commandArray[1].equalsIgnoreCase("list")) {
+                    list(toDoList);
                 } else if (commandArray[1].equalsIgnoreCase("sort")) {
                     handleSort(toDoList, commandArray);
                 } else if (commandArray[1].equals("clear")) {

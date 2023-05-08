@@ -65,10 +65,16 @@ public class List {
     }
 
     public void add(ToDoItem toDoItem) {
-        ToDoItem[] newList = new ToDoItem[this.ListToDos.length + 1];
-        System.arraycopy(this.ListToDos, 0, newList, 0, this.ListToDos.length);
-        newList[newList.length - 1] = toDoItem;
-        this.ListToDos = newList;
+        if (this.ListToDos == null) {
+            this.ListToDos = new ToDoItem[1];
+            this.ListToDos[0] = toDoItem;
+            return;
+        } else {
+            ToDoItem[] newList = new ToDoItem[this.ListToDos.length + 1];
+            System.arraycopy(this.ListToDos, 0, newList, 0, this.ListToDos.length);
+            newList[newList.length - 1] = toDoItem;
+            this.ListToDos = newList;
+        }
     }
 
     public void remove(int index) {
