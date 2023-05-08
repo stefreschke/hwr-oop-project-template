@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TaskListTest {
+class TaskListTest {
     @Test
     void addTaskTest(){
         TaskList taskList = new TaskList(new ArrayList<>());
