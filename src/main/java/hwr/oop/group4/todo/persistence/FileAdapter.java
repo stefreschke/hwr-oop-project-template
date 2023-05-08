@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class FileAdapter implements PersistenceAdapter {
+public class FileAdapter implements LoadPersistenceAdapter, SavePersistenceAdapter {
 
     private File file;
 
