@@ -81,7 +81,7 @@ public class Task {
 
     //change TaskState to DONE
     public void completeTask() {
-        if (taskState == TaskState.IN_REVIEW) {
+        if (taskState == TaskState.IN_REVIEW || taskState== TaskState.IN_PROGRESS) {
             taskState = TaskState.DONE;
         } else {
             throw new TaskStateException("task can't be completed with taskState" + taskState.name());
