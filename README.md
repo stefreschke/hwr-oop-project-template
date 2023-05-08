@@ -17,7 +17,7 @@ This repository contains a student project created for an ongoing lecture on obj
 
 | Number | Feature            | Tests |
 |--------|--------------------|-------|
-| 1      | create Task        | /     |
+| 1      | create Task        | check |
 | 2      | delete Task        | /     |
 | 3      | Task with deadline | /     |
 | 4      | create User        | /     |
