@@ -1,6 +1,5 @@
 package hwr.oop.group4.todo.ui.controller;
 
-import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
 import hwr.oop.group4.todo.commons.exceptions.TodoUiRuntimeException;
 import hwr.oop.group4.todo.ui.controller.command.Command;
 import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
@@ -113,10 +112,10 @@ public class ConsoleController {
 
     private String buildPrefix(List<String> prefixes) {
         final StringBuilder stringBuilder = new StringBuilder();
-        for (int i=0; i<prefixes.size()-1; i++) {
+        for (int i = 0; i < prefixes.size() - 1; i++) {
             stringBuilder.append(prefixes.get(i)).append("/");
         }
-        stringBuilder.append(prefixes.get(prefixes.size()-1)).append(":> ");
+        stringBuilder.append(prefixes.get(prefixes.size() - 1)).append(":> ");
         return stringBuilder.toString();
     }
 
