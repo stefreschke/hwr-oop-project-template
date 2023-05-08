@@ -21,7 +21,7 @@ class FileAdapterTest {
         Path path = Path.of(tempDir.toString() + "/FileAdapterTest.save.txt");
         File file = new File(path.toUri());
 
-        FileAdapter fileAdapter = new FileAdapter(file);
+        SavePersistenceAdapter fileAdapter = new FileAdapter(file);
         fileAdapter.save(data);
 
         assertThat(Files.exists(path)).isTrue();
