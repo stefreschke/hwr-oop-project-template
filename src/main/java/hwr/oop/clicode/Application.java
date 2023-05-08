@@ -20,7 +20,6 @@ public class Application {
         return taskList.getTasks().stream().filter(task -> task.getId().equals(id)).findFirst().orElse(null);
     }
 
-
     public void addTask(String title, String content, TaskState taskState, User creator, LocalDate deadline){
         Task tmp = new Task(0,title,content,taskState,null,creator,deadline);
         taskList.addTask(tmp);

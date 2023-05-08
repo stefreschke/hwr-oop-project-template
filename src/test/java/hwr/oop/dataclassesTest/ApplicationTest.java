@@ -21,4 +21,9 @@ class ApplicationTest {
         Assertions.assertThat(testObject.getCreator()).isEqualTo(taskTmp.getCreator());
         Assertions.assertThat(testObject.getDeadline()).isEqualTo(taskTmp.getDeadline());
     }
+    @Test
+    void getTaskByIdTest(){
+        Application app = new Application();
+        Assertions.assertThat(app.getTaskByID(100)).isNull();
+    }
 }
