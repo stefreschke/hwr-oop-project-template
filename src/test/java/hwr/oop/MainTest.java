@@ -568,6 +568,36 @@ class MainTest {
 
     @Test
     void createBucketsTest() {
+        List list = new List("My List");
+        String userInput = "Title\nDescription\n12.12.12\n3\nTag\n";
+        System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+        ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outBuffer));
+        Main.add(list);
+        String[] TestBuckets = list.getBuckets();
 
+        assertThat(TestBuckets[1]).isEqualTo("Tag")
+    }
+
+    @Test
+    void showBucketsTest() {
+        List list = new List("My List");
+        String userInput = "Title\nDescription\n12.12.12\n3\nTag\n";
+        System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+        ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outBuffer));
+        Main.add(list);
+        String userInput2 = "Title\nDescription\n12.12.12\n3\nTag2\n";
+        System.setIn(new ByteArrayInputStream(userInput2.getBytes(StandardCharsets.UTF_8)));
+        ByteArrayOutputStream outBuffer2 = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outBuffer2));
+        Main.add(list);
+        String userInput3 = "Title\nDescription\n12.12.12\n3\nTag3\n";
+        System.setIn(new ByteArrayInputStream(userInput3.getBytes(StandardCharsets.UTF_8)));
+        ByteArrayOutputStream outBuffer3 = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(outBuffer3));
+        Main.add(list);
+        String[] TestBuckets = list.getBuckets();
+        assertThat(TestBuckets).isEqualTo(list.getBuckets());
     }
 }
