@@ -100,6 +100,7 @@ class MainTest {
                     "  remove [Item Index] -  remove a task\n" +
                     "  done [Item Index]   -  mark a task as done\n" +
                     "  edit [Item Index]   -  edit a task\n" +
+                    "  list                -  list all tasks\n" +
                     "  sort                -  sort your tasks\n" +
                     "  clear               -  clear all tasks\n" +
                     "  exit                -  exit the program\n";
@@ -171,9 +172,9 @@ class MainTest {
             // Check the program output
             String expectedOutput;
             expectedOutput = "Editing task at index 0:\n" +
-                    "❌ Test\n" +
+                    "⏭\uFE0F Test\n" +
                     "Test\n" +
-                    "<Test> LOW\n\n" +
+                    "<\u001B[1;36mTest\u001B[0m> \u001B[1;34mLOW\u001B[0m\n" +
                     "Enter new Title or press enter to skip\n" +
                     "Enter new Description or press enter to skip\n" +
                     "Enter new Priority or press enter to skip\n" +

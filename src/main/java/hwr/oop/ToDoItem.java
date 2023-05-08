@@ -1,10 +1,7 @@
 package hwr.oop;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import static hwr.oop.ConsoleColors.*;
 
 public class ToDoItem {
@@ -42,7 +39,7 @@ public class ToDoItem {
     void setProjectName(String project) {
         this.project.setTitle(project);
     }
-    static @NotNull String getLocalDate() {
+    static String getLocalDate() {
         return LocalDate.now().toString();
     }
     public String getTitle() {
@@ -96,7 +93,7 @@ public class ToDoItem {
     public String getProjectName() {
         return project.getTitle();
     }
-    public void setCreatedAt(@org.jetbrains.annotations.NotNull LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt.toString();
     }
     @Override
@@ -111,5 +108,50 @@ public class ToDoItem {
     public String getCreatedAt() {
         return createdAt;
     }
+    public void promote() {
+        switch (state) {
+            case TODO:
+                state = State.IN_PROGRESS;
+                break;
+            case IN_PROGRESS:
+                state = State.DONE;
+                break;
+            case ON_HOLD:
+                state = State.IN_PROGRESS;
+                break;
+            case DONE:
+                break;
+        }
+    }
+    public void demote() {
+        switch (state) {
+            case TODO:
+                break;
+            case IN_PROGRESS:
+                state = State.TODO;
+                break;
+            case ON_HOLD:
+                state = State.TODO;
+                break;
+            case DONE:
+                state = State.IN_PROGRESS;
+                break;
+        }
+    }
+
+    public void hold() {
+        switch (state) {
+            case TODO:
+                break;
+            case IN_PROGRESS:
+                state = State.ON_HOLD;
+                break;
+            case ON_HOLD:
+                break;
+            case DONE:
+                break;
+        }
+    }
+
 
 }

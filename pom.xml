@@ -77,7 +77,6 @@
             <version>2.9.0</version>
         </dependency>
     </dependencies>
-
     <profiles>
         <profile>
             <id>build-default</id>

@@ -28,7 +28,7 @@ public class ListJsonTest {
                 }
             }
             String testDate = item.getCreatedAt();
-            assertThat(jsonIn.toString()).isEqualTo("{\"Name\":\"myList\",\"ListToDos\":[{\"id\":0,\"title\":\"Finish Math homework\",\"description\":\"I need to do tasks 5 - 10b.\\nCreated " + testDate + "\",\"tag\":\"Uni\",\"done\":false,\"priority\":\"HIGH\",\"project\":{\"title\":\"\"}},{\"id\":1,\"title\":\"Calculate Something\",\"description\":\"More Math over here\\nCreated " + testDate + "\",\"tag\":\"Math\",\"done\":false,\"priority\":\"MEDIUM\",\"project\":{\"title\":\"\"}},{\"id\":2,\"title\":\"Be Amazing\",\"description\":\"Just Do It\\nCreated " + testDate + "\",\"tag\":\"Personal\",\"done\":false,\"priority\":\"LOW\",\"project\":{\"title\":\"\"}}],\"fileName\":\"listTest\"}");
+            assertThat(jsonIn.toString()).isEqualTo("{\"Name\":\"myList\",\"ListToDos\":[{\"title\":\"Finish Math homework\",\"description\":\"I need to do tasks 5 - 10b.\",\"tag\":\"\\u001b[1;36mUni\\u001b[0m\",\"priority\":\"HIGH\",\"project\":{\"title\":\"\"},\"createdAt\":\"" + item.getCreatedAt() + "\",\"state\":\"TODO\"},{\"title\":\"Calculate Something\",\"description\":\"More Math over here\",\"tag\":\"\\u001b[1;36mMath\\u001b[0m\",\"priority\":\"MEDIUM\",\"project\":{\"title\":\"\"},\"createdAt\":\"" + item2.getCreatedAt() + "\",\"state\":\"TODO\"},{\"title\":\"Be Amazing\",\"description\":\"Just Do It\",\"tag\":\"\\u001b[1;36mPersonal\\u001b[0m\",\"priority\":\"LOW\",\"project\":{\"title\":\"\"},\"createdAt\":\"" + item3.getCreatedAt() +"\",\"state\":\"TODO\"}],\"fileName\":\"listTest\"}");
         } catch (IOException e) {
             System.out.println("File not found");
         } catch (NullPointerException e) {

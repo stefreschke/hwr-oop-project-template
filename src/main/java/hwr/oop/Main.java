@@ -5,8 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 
-import static hwr.oop.ConsoleColors.BLUE_BOLD;
-import static hwr.oop.ConsoleColors.RESET;
+import static hwr.oop.ConsoleColors.*;
 
 public class Main {
     private static final PrintStream out = new PrintStream(System.out);
@@ -99,6 +98,9 @@ public class Main {
         out.println("  help                -  print this help");
         out.println("  add [Item Index]    -  add a new task");
         out.println("  remove [Item Index] -  remove a task");
+        out.println("  promote [Item Index]-  promote a task to a further state");
+        out.println("  demote [Item Index] -  demote a task to a previous state");
+        out.println("  onhold [Item Index] -  put a task on hold");
         out.println("  done [Item Index]   -  mark a task as done");
         out.println("  edit [Item Index]   -  edit a task");
         out.println("  list                -  list all tasks");
@@ -123,15 +125,8 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        out.println("Please enter a due date for your task");
-        String dueDate = ""; // TODO: add date validation and add as attribute!!
-        try {
-            dueDate = reader.readLine(); // TODO: Exception Handling
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         out.println("Please enter a priority for your task");
-        out.println("1 - LOW, 2 - MEDIUM, 3 - HIGH");
+        out.println(BLUE_BOLD + "1 - LOW, " + YELLOW_BOLD + "2 - MEDIUM, " + RED_BOLD + "3 - HIGH" + RESET);
         int priority = -1;
         try {
             priority = Integer.parseInt(reader.readLine());
@@ -153,6 +148,7 @@ public class Main {
                 new Project(""));
         success("Task Created Successfully!");
         list.add(toDoItem);
+        list.writeToJSON(list.getFileName());
     }
     public static void list(List list) { // maybe redundant method
         out.println(list.getName() + ":");
@@ -176,18 +172,20 @@ public class Main {
                 if (index == -1) return;
             }
         }
+        list.writeToJSON(list.getFileName());
     }
     public static void done(List list, int index) {
         int i = 0;
         while (i == 0) {
             try {
-                list.getListToDos()[index].setDone(true); // TODO: zero or one indexing ?
+                list.getListToDos()[index].setDone(true);
                 i++;
             } catch (Exception e) {
                  index = handleBadIndex("Please enter the index of the task you want to mark as done.");
                  if (index == -1) return;
             }
         }
+        list.writeToJSON(list.getFileName());
     }
 
     public static void edit(List list, int index) {
@@ -218,14 +216,6 @@ public class Main {
         } catch (IOException e) {
             out.println("Could not read your input... skipping");
         }
-        // System.out.println("Enter new Due Date or press enter to skip");
-        // String dueDate = ""; // TODO: add date validation and add as attribute!!
-        // try {
-        //     dueDate = reader.readLine(); // TODO: Exception Handling
-        //     if (!dueDate.equals("")) item.setDueDate(dueDate);
-        // } catch (IOException e) {
-        //     System.out.println("Could not read your input... skipping");
-        // }
         out.println("Enter new Priority or press enter to skip");
         out.println("1 - LOW, 2 - MEDIUM, 3 - HIGH");
         String priority = "-1";
@@ -248,6 +238,7 @@ public class Main {
             out.println("Could not read your input... skipping");
         }
         out.println("Task Edited Successfully!");
+        list.writeToJSON(list.getFileName());
     }
     public static void sortHelp() {
         out.println("gtd sort [option]");
@@ -289,7 +280,6 @@ public class Main {
             }
         }
     }
-
     public static void clear(List list) {
         list.setListToDos(null);
     }
@@ -297,7 +287,6 @@ public class Main {
         out.println("exiting...");
         list.writeToJSON(list.getFileName());
     }
-
     public static void main(String[] args) throws IOException {
         List toDoList = welcome();
         int i = 1;
@@ -331,6 +320,24 @@ public class Main {
                     handleSort(toDoList, commandArray);
                 } else if (commandArray[1].equals("clear")) {
                     clear(toDoList);
+                } else if (commandArray[1].equalsIgnoreCase("promote")) {
+                     try {
+                        toDoList.getListToDos()[Integer.parseInt(commandArray[2])].promote();
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        error("Try 'gtd promote [index]'");
+                     }
+                } else if (commandArray[1].equalsIgnoreCase("demote")) {
+                    try {
+                        toDoList.getListToDos()[Integer.parseInt(commandArray[2])].demote();
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        error("Try 'gtd demote [index]'");
+                    }
+                } else if (commandArray[1].equalsIgnoreCase("hold")) {
+                    try {
+                        toDoList.getListToDos()[Integer.parseInt(commandArray[2])].hold();
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        error("Try 'gtd hold [index]'");
+                    }
                 } else if (commandArray[1].equals("exit")) {
                     exit(toDoList);
                     i = 0;

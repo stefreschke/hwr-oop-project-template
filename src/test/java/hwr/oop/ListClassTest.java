@@ -88,9 +88,9 @@ public class ListClassTest {
         Program testProgram = new Program();
         List list = testProgram.loadList("sortByCreatedAtTest");
         ToDoItem[] sortedExpected = new ToDoItem[3];
-        sortedExpected[0] = list.getListToDos()[0];
+        sortedExpected[2] = list.getListToDos()[0];
         sortedExpected[1] = list.getListToDos()[2];
-        sortedExpected[2] = list.getListToDos()[1];
+        sortedExpected[0] = list.getListToDos()[1];
         list.sortByCreatedAt("asc");
         assertThat(list.getListToDos()).isEqualTo(sortedExpected);
     }
@@ -100,9 +100,9 @@ public class ListClassTest {
         Program testProgram = new Program();
         List list = testProgram.loadList("sortByCreatedAtTest");
         ToDoItem[] sortedExpected = new ToDoItem[3];
-        sortedExpected[2] = list.getListToDos()[0];
+        sortedExpected[2] = list.getListToDos()[1];
         sortedExpected[1] = list.getListToDos()[2];
-        sortedExpected[0] = list.getListToDos()[1];
+        sortedExpected[0] = list.getListToDos()[0];
         list.sortByCreatedAt("desc");
         assertThat(list.getListToDos()).isEqualTo(sortedExpected);
     }
