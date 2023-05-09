@@ -122,7 +122,7 @@ class MainTest {
         InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
         try {
-            String userInput = "Title\nDescription\n3\nTag\n";
+            String userInput = "Title\nDescription\n3\nBucket\n";
             System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
@@ -196,7 +196,7 @@ class MainTest {
         Program testEnvProgram = new Program();
         String[] env = testEnvProgram.getEnvironmentVariables();
         try {
-            String userInput = "MyList\nDescription\n3\nTag\n";
+            String userInput = "MyList\nDescription\n3\nBucket\n";
             System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
@@ -214,7 +214,7 @@ class MainTest {
                     "Enter new Description or press enter to skip\n" +
                     "Enter new Priority or press enter to skip\n" +
                     "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
-                    "Enter new Tag or press enter to skip\n" +
+                    "Enter new Bucket or press enter to skip\n" +
                     "Task Edited Successfully!\n" +
                     "Could not save your progress... please specify a file or try again.\n";
             String actualOutput = outBuffer.toString();
@@ -222,7 +222,7 @@ class MainTest {
             assertThat(toDoList.getListToDos()[0].getTitle()).isEqualTo("MyList");
             assertThat(toDoList.getListToDos()[0].getDescription()).isEqualTo("Description");
             assertThat(toDoList.getListToDos()[0].getPriority()).isEqualTo(Priority.HIGH);
-            assertThat(toDoList.getListToDos()[0].getTag()).isEqualTo("Tag");
+            assertThat(toDoList.getListToDos()[0].getBucket()).isEqualTo("Tag");
             assertThat(env).isNotNull();
 
         } finally {
@@ -267,7 +267,7 @@ class MainTest {
             assertThat(toDoList.getListToDos()[0].getTitle()).isEqualTo("MyList");
             assertThat(toDoList.getListToDos()[0].getDescription()).isEqualTo("Description");
             assertThat(toDoList.getListToDos()[0].getPriority()).isEqualTo(Priority.HIGH);
-            assertThat(toDoList.getListToDos()[0].getBucket()).isEqualTo("Tag");
+            assertThat(toDoList.getListToDos()[0].getBucket()).isEqualTo("Bucket");
             assertThat(env).isNotNull();
 
         } finally {
@@ -490,13 +490,13 @@ class MainTest {
             expectedOutput =
                     "gtd sort [option]\n" +
                     "Options:\n" +
-                    "  priority - sort by priority\n" +
-                    "  createdAt- sort by creation date\n" +
-                    "  dueDate  - sort by due date\n" +
-                    "  tag [tag]- sort by tag\n" +
-                    "  title    - sort by title\n" +
-                    "  done     - sort by done\n" +
-                    "  help     - print this help\n";
+                    "  priority        - sort by priority\n" +
+                    "  createdAt       - sort by creation date\n" +
+                    "  dueDate         - sort by due date\n" +
+                    "  bucket [Bucket] - sort by bucket\n" +
+                    "  title           - sort by title\n" +
+                    "  done            - sort by done\n" +
+                    "  help            - print this help\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
         } finally {
@@ -568,36 +568,54 @@ class MainTest {
 
     @Test
     void createBucketsTest() {
-        List list = new List("My List");
-        String userInput = "Title\nDescription\n12.12.12\n3\nTag\n";
-        System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-        ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outBuffer));
-        Main.add(list);
-        String[] TestBuckets = list.getBuckets();
+        PrintStream sysOutBackup = System.out;
+        InputStream sysInBackup = System.in;
 
-        assertThat(TestBuckets[1]).isEqualTo("Tag")
+        List list = new List("My List");
+        try {
+            String userInput = "Title\nDescription\n12.12.12\n3\nBucket\n";
+            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+            Main.add(list);
+            String[] TestBuckets = list.getBuckets();
+
+            assertThat(TestBuckets[1]).isEqualTo("Bucket");
+        }finally {
+            System.setOut(sysOutBackup);
+            System.setIn(sysInBackup);
+        }
+
     }
 
     @Test
     void showBucketsTest() {
+        PrintStream sysOutBackup = System.out;
+        InputStream sysInBackup = System.in;
+
         List list = new List("My List");
-        String userInput = "Title\nDescription\n12.12.12\n3\nTag\n";
-        System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-        ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outBuffer));
-        Main.add(list);
-        String userInput2 = "Title\nDescription\n12.12.12\n3\nTag2\n";
-        System.setIn(new ByteArrayInputStream(userInput2.getBytes(StandardCharsets.UTF_8)));
-        ByteArrayOutputStream outBuffer2 = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outBuffer2));
-        Main.add(list);
-        String userInput3 = "Title\nDescription\n12.12.12\n3\nTag3\n";
-        System.setIn(new ByteArrayInputStream(userInput3.getBytes(StandardCharsets.UTF_8)));
-        ByteArrayOutputStream outBuffer3 = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outBuffer3));
-        Main.add(list);
-        String[] TestBuckets = list.getBuckets();
-        assertThat(TestBuckets).isEqualTo(list.getBuckets());
+        try {
+            String userInput = "Title\nDescription\n12.12.12\n3\nBucket\n";
+            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+            Main.add(list);
+            String userInput2 = "Title\nDescription\n12.12.12\n3\nBucket2\n";
+            System.setIn(new ByteArrayInputStream(userInput2.getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer2 = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer2));
+            Main.add(list);
+            String userInput3 = "Title\nDescription\n12.12.12\n3\nBucket3\n";
+            System.setIn(new ByteArrayInputStream(userInput3.getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer3 = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer3));
+            Main.add(list);
+            String[] TestBuckets = list.getBuckets();
+            assertThat(TestBuckets).isEqualTo(list.getBuckets());
+        }finally {
+            System.setOut(sysOutBackup);
+            System.setIn(sysInBackup);
+        }
+
     }
 }

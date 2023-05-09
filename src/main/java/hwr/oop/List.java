@@ -144,7 +144,7 @@ public class List {
         }
     }
 
-    public void bubbleUpBucket(String tag) {
+    public void bubbleUpBucket(String bucket) {
         for (int i = this.listToDos.length-1; i >= 0; i--) {
             for (int j = this.listToDos.length-1; j > 0; j--) {
                 if (this.listToDos[j].getBucket().contains(tag) && !this.listToDos[j - 1].getBucket().contains(tag)) {
