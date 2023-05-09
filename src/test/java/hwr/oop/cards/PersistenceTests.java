@@ -11,17 +11,51 @@ public class PersistenceTests {
     @Nested
     class cardPersistence{
 
-        @Test
-        public void canSaveSingleCard(){
+        @Nested
+        class saveCardTests{
 
-            PersistenceSavePort persistenceSavePort = new PersistenceAdapter();
-            PersistenceLoadPort persistenceLoadPort = new PersistenceAdapter();
+            @Test
+            public void canSaveSingleCard(){
 
-            List<Card> cards = List.of(new Card("Question?", "Answer!"));
-            persistenceSavePort.saveCards(cards, "test");
+                PersistenceSavePort persistenceSavePort = new PersistenceAdapter();
+                PersistenceLoadPort persistenceLoadPort = new PersistenceAdapter();
 
-            Collection<Card> testCardList = persistenceLoadPort.loadCards("test");
-            Assertions.assertThat(testCardList).isEqualTo(cards);
+                List<Card> cards = List.of(new Card("Question?", "Answer!"));
+                persistenceSavePort.saveCards(cards, "test");
+
+                Collection<Card> testCardList = persistenceLoadPort.loadCards("test");
+                Assertions.assertThat(testCardList).isEqualTo(cards);
+            }
+
+            @Test
+            public void canSaveMultipleCards(){
+
+                PersistenceSavePort persistenceSavePort = new PersistenceAdapter();
+                PersistenceLoadPort persistenceLoadPort = new PersistenceAdapter();
+
+                List<Card> cards = List.of(new Card("Question?", "Answer!"), new Card("Frage?", "Antwort!"));
+                persistenceSavePort.saveCards(cards, "test");
+
+                Collection<Card> testCardList = persistenceLoadPort.loadCards("test");
+                Assertions.assertThat(testCardList).isEqualTo(cards);
+
+            }
+
+            @Test void canMakeSureToOverwriteSaves(){
+
+                PersistenceSavePort persistenceSavePort = new PersistenceAdapter();
+                PersistenceLoadPort persistenceLoadPort = new PersistenceAdapter();
+
+                List<Card> cards = List.of(new Card("Question?", "Answer!"));
+                persistenceSavePort.saveCards(cards, "test");
+
+                List<Card> cards1 = List.of(new Card("Frage?????", "Antwort!!!!!!"));
+                persistenceSavePort.saveCards(cards1, "test");
+
+                Collection<Card> testCardList = persistenceLoadPort.loadCards("test");
+                Assertions.assertThat(testCardList).isEqualTo(cards1);
+
+            }
         }
     }
 }

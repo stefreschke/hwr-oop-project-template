@@ -42,7 +42,7 @@ public class PersistenceAdapter implements PersistenceSavePort, PersistenceLoadP
     public void saveCards(Collection<Card> cards, String filename) {
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename, false));
             for (Card card : cards) {
                 writer.write(card.getQuestion() + "," + card.getAnswer() + "\n");
             }
