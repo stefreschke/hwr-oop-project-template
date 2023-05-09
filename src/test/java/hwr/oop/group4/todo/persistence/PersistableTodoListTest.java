@@ -11,21 +11,21 @@ class PersistableTodoListTest {
 
     @Test
     void toJsonObject() {
-        var todoList = new TodoList();
+        TodoList todoList = new TodoList();
 
-        var projectA = new Project.ProjectBuilder()
+        Project projectA = new Project.ProjectBuilder()
                 .name("project a")
                 .build();
 
-        var taskA = new Task.TaskBuilder()
+        Task taskA = new Task.TaskBuilder()
                 .name("task a")
                 .description("description a")
                 .build();
-        var taskB = new Task.TaskBuilder()
+        Task taskB = new Task.TaskBuilder()
                 .name("task b")
                 .description("description b")
                 .build();
-        var taskC = new Task.TaskBuilder()
+        Task taskC = new Task.TaskBuilder()
                 .name("task c")
                 .description("description c")
                 .build();
@@ -36,7 +36,7 @@ class PersistableTodoListTest {
         todoList.addProject(projectA);
         todoList.addLoseTask(taskA);
 
-        var persistedTodoList = new PersistableTodoList(todoList);
+        Persistable persistedTodoList = new PersistableTodoList(todoList);
 
         assertThatJson(persistedTodoList.exportAsString())
                 .when(Option.IGNORING_ARRAY_ORDER)
