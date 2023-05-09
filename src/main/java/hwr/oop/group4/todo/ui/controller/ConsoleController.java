@@ -19,7 +19,7 @@ public class ConsoleController {
     public ConsoleController(OutputStream out, InputStream in) {
         this.out = new PrintStream(out);
         this.in = new Scanner(in);
-        consoleHelper = new ConsoleHelper(this);
+        consoleHelper = new ConsoleHelper();
     }
 
     public void outputLine(String output) {

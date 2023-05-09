@@ -184,6 +184,30 @@ class ProjectUiTest {
     }
 
     @Test
+    void cantEditProjectWithInvalidId() {
+        InputStream inputStream = createInputStreamForInput(
+                "edit -id -name Peter -desc Lustig -addTag tv -begin 01.01.2022 -end 10.10.2022" + System.lineSeparator() +
+                        "back" + System.lineSeparator()
+        );
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
+        ui.menu(getExampleTodoList(true));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                        "========================================================================================" + System.lineSeparator() +
+                        "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
+                        "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
+                        projectsMenuOutput +
+                        "ID Argument has no parameter." + System.lineSeparator() +
+                        "projects:> "
+        );
+    }
+
+    @Test
     void canRemoveProject() {
         InputStream inputStream = createInputStreamForInput("remove -id 0" + System.lineSeparator() +
                 "y" + System.lineSeparator() +
@@ -211,6 +235,35 @@ class ProjectUiTest {
                 "========================================================================================" + System.lineSeparator() +
                 "|  0 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
                 "projects:> "
+        );
+    }
+
+    @Test
+    void cantRemoveProjectWithInvalidId() {
+        InputStream inputStream = createInputStreamForInput("remove -id" + System.lineSeparator() +
+                "list" + System.lineSeparator() +
+                "back" + System.lineSeparator()
+        );
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        ProjectUi ui = new ProjectUi(new ConsoleController(outputStream, inputStream));
+        ui.menu(getExampleTodoList(true));
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertThat(output).isEqualTo(
+                "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                        "========================================================================================" + System.lineSeparator() +
+                        "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
+                        "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
+                        projectsMenuOutput +
+                        "ID Argument has no parameter." + System.lineSeparator() +
+                        "projects:> " +
+                        "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
+                        "========================================================================================" + System.lineSeparator() +
+                        "|  0 |            TEst |                           Desc |            | 12.12. | 12.12. |" + System.lineSeparator() +
+                        "|  1 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
+                        "projects:> "
         );
     }
 
