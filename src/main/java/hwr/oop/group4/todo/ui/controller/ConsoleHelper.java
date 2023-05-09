@@ -30,14 +30,16 @@ public class ConsoleHelper {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm");
             return Optional.of(LocalDateTime.parse(input, formatter));
-        } catch (DateTimeParseException ignore) { }
+        } catch (DateTimeParseException ignore) {
+            // fall through, try next parser
+        }
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu");
             LocalDate localDate = LocalDate.parse(input, formatter);
             return Optional.of(LocalDateTime.of(localDate, LocalTime.MIDNIGHT));
-        } catch (DateTimeParseException ignore) { }
-
-        return Optional.empty();
+        } catch (DateTimeParseException ignore) {
+            return Optional.empty();
+        }
     }
 
     public Integer getId(Collection<CommandArgument<String>> args, int size) {
