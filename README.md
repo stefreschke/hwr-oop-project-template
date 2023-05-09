@@ -6,14 +6,15 @@ This repository contains a student project created for an ongoing lecture on obj
 
 ## Abstract
 
-For our project, we are creating a library that helps implement the Leitner system for index card supported learning.
+For our project, we are creating a library that helps to implement the Leitner system for index card supported learning.
 
 The most important features of our project are:
 1. Topic creation
 2. Card creation
-3. Choice between 3, 5 and 7 box systems per topic
-4. Card history
-5. Drawing a random card from boxes that need to be learned
+3. Choice between 3, 5 and 7 box systems per
+4. Drawing a random card from boxes that need to be learned
+5. Card history
+
 
 We encountered the following interesting problems:
 - objetct oriented design (especially SRP)
@@ -25,11 +26,14 @@ We encountered the following interesting problems:
 
 | Number | Feature | Tests |
 |--------|---------|-------|
-| 1      | Topic creation       | /     |
-| 2      | /       | /     |
-| 3      | /       | /     |
-| 4      | /       | /     |
-
+| 1      | Topic creation       | 1     |
+| 2      | Card creation       | 2     |
+| 3      | Box creation       | 1     |
+| 4      | Box can hold cards       | 3     |
+| 5      | Box can return random card      | 2     |
+| 6      |        | /     |
+| 7      |        | /     |
+| 8      |        | /     |
 
 
 ## Additional Dependencies
