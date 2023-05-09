@@ -6,14 +6,8 @@ import java.io.IOException;
 
 public class FileAdapter implements LoadPersistenceAdapter, SavePersistenceAdapter {
 
-    private final File file;
-
-    public FileAdapter(File file) {
-        this.file = file;
-    }
-
     @Override
-    public void save(Persistable data) {
+    public void save(Persistable data, File file) {
         try {
             file.createNewFile();
             FileWriter writer = new FileWriter(file);
@@ -25,7 +19,7 @@ public class FileAdapter implements LoadPersistenceAdapter, SavePersistenceAdapt
     }
 
     @Override
-    public Persistable load() {
+    public Persistable load(File file) {
         return null;
     }
 }
