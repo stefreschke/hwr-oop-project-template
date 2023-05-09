@@ -1,5 +1,6 @@
 package hwr.oop.group4.todo.ui;
 
+import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
 import hwr.oop.group4.todo.core.Project;
 import hwr.oop.group4.todo.core.Tag;
 import hwr.oop.group4.todo.core.Task;
@@ -29,7 +30,7 @@ public class ProjectUi {
 
     public ProjectUi(ConsoleController consoleController) {
         this.consoleController = consoleController;
-        this.consoleHelper = new ConsoleHelper(this.consoleController);
+        this.consoleHelper = new ConsoleHelper();
     }
 
     public void menu(TodoList todoList) {
@@ -115,26 +116,33 @@ public class ProjectUi {
     }
 
     private void removeProject(Collection<CommandArgument<String>> args) {
-        Optional<Integer> id = consoleHelper.getId(args, todoList.getProjects().size());
-        if (id.isEmpty()) {
+        final int id;
+        try {
+            id = consoleHelper.getId(args, todoList.getProjects().size());
+        } catch (TodoRuntimeException e) {
+            consoleController.outputLine(e.getMessage());
             return;
         }
 
-        String projectName = todoList.getProjects().get(id.get()).getName();
-        String confirmation = "Do you really want to remove " + projectName + "?";
+        final String projectName = todoList.getProjects().get(id).getName();
+        final String confirmation = "Do you really want to remove " + projectName + "?";
         if (consoleController.inputBool(List.of("projects", "remove"), confirmation, false)) {
-            todoList.removeProject(todoList.getProjects().get(id.get()));
+            todoList.removeProject(todoList.getProjects().get(id));
         }
     }
 
     private void editProject(Collection<CommandArgument<String>> args) {
-        final Optional<Integer> id = consoleHelper.getId(args, todoList.getProjects().size());
-        if (id.isEmpty()) {
+        final int id;
+        try {
+            id = consoleHelper.getId(args, todoList.getProjects().size());
+        } catch (TodoRuntimeException e) {
+            consoleController.outputLine(e.getMessage());
             return;
         }
-        Project project = todoList.getProjects().get(id.get());
+
+        final Project project = todoList.getProjects().get(id);
         todoList.removeProject(project);
-        Project.ProjectBuilder newProject = new Project.ProjectBuilder();
+        final Project.ProjectBuilder newProject = new Project.ProjectBuilder();
 
         final Optional<String> name = consoleHelper.getStringParameter(args, "name");
         newProject.name(name.orElseGet(project::getName));
