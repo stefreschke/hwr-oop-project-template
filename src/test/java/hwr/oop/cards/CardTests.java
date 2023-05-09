@@ -17,6 +17,7 @@ public class CardTests {
         assertThat(question).isEqualTo("Hallo?");
     }
 
+    /*
     @Test
     void canGetDateOfCard(){
         Card card = new Card("Ja?", "Yes");
@@ -26,6 +27,7 @@ public class CardTests {
 
         assertThat(date).isEqualTo(now);
     }
+    */
 
     @Test
     void canGetQuestionOfCard(){

@@ -48,6 +48,6 @@ class TopicTests {
     @Test
     public void canSaveTopic(){
 
-        PersistenceSavePort pa = new PersistenceAdapter();
+        PersistenceSavePort pa = new JsonPersistenceAdapter();
     }
 }

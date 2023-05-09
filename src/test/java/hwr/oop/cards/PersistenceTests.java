@@ -2,7 +2,9 @@ package hwr.oop.cards;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.TestInstance.Lifecycle;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -13,7 +15,7 @@ public class PersistenceTests {
     @Test
     void emptyPersistenceInstanceNameThrowsException(){
 
-        PersistenceAdapter pa = new PersistenceAdapter();
+        JsonPersistenceAdapter pa = new JsonPersistenceAdapter();
 
         try{
             pa.loadCards("");
@@ -32,42 +34,73 @@ public class PersistenceTests {
             @Test
             public void canSaveSingleCard(){
 
-                PersistenceSavePort persistenceSavePort = new PersistenceAdapter();
-                PersistenceLoadPort persistenceLoadPort = new PersistenceAdapter();
+                PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
+                PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
 
                 List<Card> cards = List.of(new Card("Question?", "Answer!"));
-                persistenceSavePort.saveCards(cards, "test");
+                try {
+                    persistenceSavePort.saveCards(cards, "test");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
-                Collection<Card> testCardList = persistenceLoadPort.loadCards("test");
+                Collection<Card> testCardList = null;
+                try {
+                    testCardList = persistenceLoadPort.loadCards("test");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 Assertions.assertThat(testCardList).isEqualTo(cards);
             }
 
             @Test
             public void canSaveMultipleCards(){
 
-                PersistenceSavePort persistenceSavePort = new PersistenceAdapter();
-                PersistenceLoadPort persistenceLoadPort = new PersistenceAdapter();
+                PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
+                PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
 
                 List<Card> cards = List.of(new Card("Question?", "Answer!"), new Card("Frage?", "Antwort!"));
-                persistenceSavePort.saveCards(cards, "test");
+                try {
+                    persistenceSavePort.saveCards(cards, "test");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
-                Collection<Card> testCardList = persistenceLoadPort.loadCards("test");
+                Collection<Card> testCardList = null;
+                try {
+                    testCardList = persistenceLoadPort.loadCards("test");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 Assertions.assertThat(testCardList).isEqualTo(cards);
 
             }
 
             @Test void canMakeSureToOverwriteSaves(){
 
-                PersistenceSavePort persistenceSavePort = new PersistenceAdapter();
-                PersistenceLoadPort persistenceLoadPort = new PersistenceAdapter();
+                PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
+                PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
 
                 List<Card> cards = List.of(new Card("Question?", "Answer!"));
-                persistenceSavePort.saveCards(cards, "test");
+                try {
+                    persistenceSavePort.saveCards(cards, "test");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
                 List<Card> cards1 = List.of(new Card("Frage?????", "Antwort!!!!!!"));
-                persistenceSavePort.saveCards(cards1, "test");
+                try {
+                    persistenceSavePort.saveCards(cards1, "test");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
 
-                Collection<Card> testCardList = persistenceLoadPort.loadCards("test");
+                Collection<Card> testCardList = null;
+                try {
+                    testCardList = persistenceLoadPort.loadCards("test");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 Assertions.assertThat(testCardList).isEqualTo(cards1);
 
             }
@@ -79,19 +112,43 @@ public class PersistenceTests {
             @BeforeEach
             void setUp(){
 
-                PersistenceSavePort pa = new PersistenceAdapter();
+                PersistenceSavePort pa = new JsonPersistenceAdapter();
 
                 List<Card> cards = List.of(new Card("Question?", "Answer!"), new Card("Frage?", "Antwort!"));
-                pa.saveCards(cards, "test");
+                try {
+                    pa.saveCards(cards, "test");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
 
             @Test
             void canLoadSavedContent(){
 
-                PersistenceLoadPort pa = new PersistenceAdapter();
+                PersistenceLoadPort pa = new JsonPersistenceAdapter();
 
-                Collection<Card> loadedCards = pa.loadCards("test");
+                Collection<Card> loadedCards = null;
+                try {
+                    loadedCards = pa.loadCards("test");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
                 Assertions.assertThat(loadedCards).isEqualTo(List.of(new Card("Question?", "Answer!"), new Card("Frage?", "Antwort!")));
+            }
+        }
+
+        // Just a little manual test to be able to look at the file
+        // JDK 16+ needed for this specifically
+        @AfterAll
+        static void afterAll(){
+
+            PersistenceSavePort pa = new JsonPersistenceAdapter();
+
+            List<Card> cards = List.of(new Card("Question?", "Answer!"), new Card("Frage?", "Antwort!"));
+            try {
+                pa.saveCards(cards, "manual_test");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         }
     }
