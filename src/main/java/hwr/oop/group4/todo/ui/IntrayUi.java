@@ -15,7 +15,6 @@ import hwr.oop.group4.todo.ui.controller.tables.Table;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class IntrayUi {
