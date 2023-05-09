@@ -148,7 +148,11 @@ public class Main {
                 new Project(""));
         success("Task Created Successfully!");
         list.add(toDoItem);
-        list.writeToJSON(list.getFileName());
+        try {
+            list.writeToJSON(list.getFileName());
+        } catch (Exception e) {
+            out.println("Could not save your progress... please specify a file or try again.");
+        }
     }
     public static void list(List list) { // maybe redundant method
         out.println(list.getName() + ":");
@@ -172,7 +176,11 @@ public class Main {
                 if (index == -1) return;
             }
         }
-        list.writeToJSON(list.getFileName());
+                try {
+            list.writeToJSON(list.getFileName());
+        } catch (Exception e) {
+            out.println("Could not save your progress... please specify a file or try again.");
+        }
     }
     public static void done(List list, int index) {
         int i = 0;
@@ -185,7 +193,11 @@ public class Main {
                  if (index == -1) return;
             }
         }
-        list.writeToJSON(list.getFileName());
+                try {
+            list.writeToJSON(list.getFileName());
+        } catch (Exception e) {
+            out.println("Could not save your progress... please specify a file or try again.");
+        }
     }
 
     public static void edit(List list, int index) {
@@ -238,18 +250,23 @@ public class Main {
             out.println("Could not read your input... skipping");
         }
         out.println("Task Edited Successfully!");
-        list.writeToJSON(list.getFileName());
+                try {
+            list.writeToJSON(list.getFileName());
+        } catch (Exception e) {
+            out.println("Could not save your progress... please specify a file or try again.");
+        }
     }
     public static void sortHelp() {
-        out.println("gtd sort [option]");
-        out.println("Options:");
-        out.println("  priority - sort by priority");
-        out.println("  createdAt- sort by creation date");
-        out.println("  dueDate  - sort by due date"); // TODO
-        out.println("  tag [tag]- sort by tag");
-        out.println("  title    - sort by title"); // TODO
-        out.println("  done     - sort by done"); // TODO
-        out.println("  help     - print this help");
+        out.println(
+        "gtd sort [option]\n" +
+        "Options:\n" +
+        "  priority - sort by priority\n" +
+        "  createdAt- sort by creation date\n" +
+        "  dueDate  - sort by due date\n" + // TODO
+        "  tag [tag]- sort by tag\n" +
+        "  title    - sort by title\n" + // TODO
+        "  done     - sort by done\n" + // TODO
+        "  help     - print this help");
     }
 
     public static void handleSort(List list, String[] commandArray) {
@@ -285,7 +302,11 @@ public class Main {
     }
     public static void exit(List list) {
         out.println("exiting...");
-        list.writeToJSON(list.getFileName());
+        try {
+            list.writeToJSON(list.getFileName());
+        } catch (Exception e) {
+            out.println("Could not save your progress... please specify a file or try again.");
+        }
     }
     public static void main(String[] args) throws IOException {
         List toDoList = welcome();

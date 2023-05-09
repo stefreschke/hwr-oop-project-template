@@ -99,11 +99,11 @@ public class ToDoItem {
     @Override
     public String toString() {
         String stateSymbol = getStateEmoji() + ' ';
-        String priority = getPriorityString();
+        String priorityString = getPriorityString();
         return  stateSymbol + title + '\n' +
                 description + '\n' +
                 "<" + tag + ">" + ' ' +
-                priority;
+                priorityString;
     }
     public String getCreatedAt() {
         return createdAt;

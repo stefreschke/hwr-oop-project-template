@@ -7,35 +7,35 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-public class List {
-    private String Name;
-    private ToDoItem[] ListToDos;
+public class List { // TODO: RENAME TO ToDoList
+    private String name;
+    private ToDoItem[] listToDos;
     private String fileName;
 
     public List(String name) {
         this(name, null);
     }
     public List(String name, String fileName) {
-        this.Name = name;
-        this.ListToDos = new ToDoItem[0];
+        this.name = name;
+        this.listToDos = new ToDoItem[0];
         this.fileName = fileName;
     }
     public void setFileName(String fileName) {
         this.fileName = fileName;
     }
     public void setName(String name) {
-        this.Name = name;
+        this.name = name;
     }
     public String getName() {
-        return this.Name;
+        return this.name;
     }
 
     public ToDoItem[] getListToDos() {
-        return this.ListToDos;
+        return this.listToDos;
     }
 
     public void setListToDos(ToDoItem[] listToDos) {
-        this.ListToDos = listToDos;
+        this.listToDos = listToDos;
     }
     public String getFileName() {
         return this.fileName;
@@ -65,43 +65,43 @@ public class List {
     }
 
     public void add(ToDoItem toDoItem) {
-        if (this.ListToDos == null) {
-            this.ListToDos = new ToDoItem[1];
-            this.ListToDos[0] = toDoItem;
+        if (this.listToDos == null) {
+            this.listToDos = new ToDoItem[1];
+            this.listToDos[0] = toDoItem;
             return;
         } else {
-            ToDoItem[] newList = new ToDoItem[this.ListToDos.length + 1];
-            System.arraycopy(this.ListToDos, 0, newList, 0, this.ListToDos.length);
+            ToDoItem[] newList = new ToDoItem[this.listToDos.length + 1];
+            System.arraycopy(this.listToDos, 0, newList, 0, this.listToDos.length);
             newList[newList.length - 1] = toDoItem;
-            this.ListToDos = newList;
+            this.listToDos = newList;
         }
     }
 
     public void remove(int index) {
-        ToDoItem[] newList = new ToDoItem[this.ListToDos.length - 1];
-        System.arraycopy(this.ListToDos, 0, newList, 0, index);
-        System.arraycopy(this.ListToDos, index + 1, newList, index, this.ListToDos.length - 1);
-        this.ListToDos = newList;
+        ToDoItem[] newList = new ToDoItem[this.listToDos.length - 1];
+        System.arraycopy(this.listToDos, 0, newList, 0, index);
+        System.arraycopy(this.listToDos, index + 1, newList, index, this.listToDos.length - 1);
+        this.listToDos = newList;
     }
 
     public void sortByPriority(String order) {
         if (order.equals("asc")) {
-            for (int i = 0; i < this.ListToDos.length; i++) {
-                for (int j = 0; j < this.ListToDos.length - 1; j++) {
-                    if (this.ListToDos[j].getPriority().toInt() > this.ListToDos[j + 1].getPriority().toInt()) {
-                        ToDoItem temp = this.ListToDos[j];
-                        this.ListToDos[j] = this.ListToDos[j + 1];
-                        this.ListToDos[j + 1] = temp;
+            for (int i = 0; i < this.listToDos.length; i++) {
+                for (int j = 0; j < this.listToDos.length - 1; j++) {
+                    if (this.listToDos[j].getPriority().toInt() > this.listToDos[j + 1].getPriority().toInt()) {
+                        ToDoItem temp = this.listToDos[j];
+                        this.listToDos[j] = this.listToDos[j + 1];
+                        this.listToDos[j + 1] = temp;
                     }
                 }
             }
         } else if (order.equals("desc")) {
-            for (int i = 0; i < this.ListToDos.length; i++) {
-                for (int j = 0; j < this.ListToDos.length - 1; j++) {
-                    if (this.ListToDos[j].getPriority().toInt() < this.ListToDos[j + 1].getPriority().toInt()) {
-                        ToDoItem temp = this.ListToDos[j];
-                        this.ListToDos[j] = this.ListToDos[j + 1];
-                        this.ListToDos[j + 1] = temp;
+            for (int i = 0; i < this.listToDos.length; i++) {
+                for (int j = 0; j < this.listToDos.length - 1; j++) {
+                    if (this.listToDos[j].getPriority().toInt() < this.listToDos[j + 1].getPriority().toInt()) {
+                        ToDoItem temp = this.listToDos[j];
+                        this.listToDos[j] = this.listToDos[j + 1];
+                        this.listToDos[j + 1] = temp;
                     }
                 }
             }
@@ -109,34 +109,34 @@ public class List {
     }
 
     public void bubbleUpTag(String tag) {
-        for (int i = this.ListToDos.length-1; i >= 0; i--) {
-            for (int j = this.ListToDos.length-1; j > 0; j--) {
-                if (this.ListToDos[j].getTag().contains(tag) && !this.ListToDos[j - 1].getTag().contains(tag)) {
-                    ToDoItem temp = this.ListToDos[j];
-                    this.ListToDos[j] = this.ListToDos[j - 1];
-                    this.ListToDos[j - 1] = temp;
+        for (int i = this.listToDos.length-1; i >= 0; i--) {
+            for (int j = this.listToDos.length-1; j > 0; j--) {
+                if (this.listToDos[j].getTag().contains(tag) && !this.listToDos[j - 1].getTag().contains(tag)) {
+                    ToDoItem temp = this.listToDos[j];
+                    this.listToDos[j] = this.listToDos[j - 1];
+                    this.listToDos[j - 1] = temp;
                 }
             }
         }
     }
     public void sortByCreatedAt(String order) {
         if (order.equals("asc"))
-            for (int i = 0; i < this.ListToDos.length; i++) {
-                for (int j = 0; j < this.ListToDos.length-1; j++) {
-                    if (this.ListToDos[j].getCreatedAt().compareTo(this.ListToDos[j + 1].getCreatedAt()) > 0) {
-                        ToDoItem temp = this.ListToDos[j];
-                        this.ListToDos[j] = this.ListToDos[j + 1];
-                        this.ListToDos[j + 1] = temp;
+            for (int i = 0; i < this.listToDos.length; i++) {
+                for (int j = 0; j < this.listToDos.length-1; j++) {
+                    if (this.listToDos[j].getCreatedAt().compareTo(this.listToDos[j + 1].getCreatedAt()) > 0) {
+                        ToDoItem temp = this.listToDos[j];
+                        this.listToDos[j] = this.listToDos[j + 1];
+                        this.listToDos[j + 1] = temp;
                     }
                 }
             }
         else if (order.equals("desc")) {
-            for (int i = 0; i < this.ListToDos.length; i++) {
-                for (int j = 0; j < this.ListToDos.length - 1; j++) {
-                    if (this.ListToDos[j].getCreatedAt().compareTo(this.ListToDos[j + 1].getCreatedAt()) < 0) {
-                        ToDoItem temp = this.ListToDos[j];
-                        this.ListToDos[j] = this.ListToDos[j + 1];
-                        this.ListToDos[j + 1] = temp;
+            for (int i = 0; i < this.listToDos.length; i++) {
+                for (int j = 0; j < this.listToDos.length - 1; j++) {
+                    if (this.listToDos[j].getCreatedAt().compareTo(this.listToDos[j + 1].getCreatedAt()) < 0) {
+                        ToDoItem temp = this.listToDos[j];
+                        this.listToDos[j] = this.listToDos[j + 1];
+                        this.listToDos[j + 1] = temp;
                     }
                 }
             }
