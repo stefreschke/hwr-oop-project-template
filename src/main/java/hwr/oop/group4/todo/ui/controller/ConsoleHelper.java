@@ -55,9 +55,13 @@ public class ConsoleHelper {
             throw new TodoRuntimeException("ID Argument has no parameter.");
         }
 
-        int id;
+        return parseAndValidateId(idArg.get().value(), size);
+    }
+
+    private int parseAndValidateId(String input, int size) {
+        final int id;
         try {
-            id = Integer.parseInt(idArg.get().value());
+            id = Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new TodoRuntimeException("ID parameter is not a valid number.");
         }
