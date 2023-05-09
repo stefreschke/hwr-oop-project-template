@@ -10,6 +10,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.Optional;
 
 public class ConsoleHelper {
@@ -67,8 +68,14 @@ public class ConsoleHelper {
     }
 
     public String concatTagsToString(Collection<Tag> tags) {
-        StringBuilder stringBuilder = new StringBuilder();
-        tags.forEach(tag -> stringBuilder.append(tag.name()));
+        final StringBuilder stringBuilder = new StringBuilder();
+        final Iterator<Tag> iterator =  tags.iterator();
+        while (iterator.hasNext()) {
+            stringBuilder.append(iterator.next().name());
+            if (iterator.hasNext()) {
+                stringBuilder.append(", ");
+            }
+        }
         return stringBuilder.toString();
     }
 

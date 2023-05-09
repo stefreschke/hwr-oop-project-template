@@ -131,7 +131,7 @@ class ConsoleHelperTest {
 
         final String returnValue = consoleHelper.concatTagsToString(tags);
 
-        assertThat(returnValue).isEqualTo("abc");
+        assertThat(returnValue).isEqualTo("a, b, c");
     }
 
 }
