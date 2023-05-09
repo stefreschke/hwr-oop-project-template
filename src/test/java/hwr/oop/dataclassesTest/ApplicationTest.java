@@ -1,12 +1,11 @@
 package hwr.oop.dataclassesTest;
 
-import hwr.oop.clicode.Application;
-import hwr.oop.dataclasses.Task;
-import hwr.oop.dataclasses.TaskState;
+import hwr.oop.input.Application;
+import hwr.oop.application.Task;
+import hwr.oop.application.TaskState;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 class ApplicationTest {
