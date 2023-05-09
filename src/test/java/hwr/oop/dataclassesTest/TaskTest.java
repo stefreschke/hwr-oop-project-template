@@ -99,4 +99,74 @@ class TaskTest {
             e.printStackTrace();
         }
     }
+    @Test
+    void resetTaskSuccessfullyTest() {
+        User user = new User("Manfred", 17);
+        Task test = new Task(1, "title", "content", TaskState.IN_PROGRESS, null, user, LocalDate.now());
+        try {
+            test.resetTask();
+            assertThat(test.getTaskState()).isEqualTo(TaskState.BACKLOG);
+        } catch (TaskStateException e) {
+            fail(e);
+        }
+    }
+    @ParameterizedTest
+    @EnumSource(value = TaskState.class, names = {"IN_PROGRESS"}, mode = EnumSource.Mode.EXCLUDE)
+    void resetTaskUnsuccessfully(TaskState state) {
+        User user = new User("Manfred", 17);
+        Task test = new Task(1, "title", "content", state, null, user, LocalDate.now());
+        try {
+            test.reviewTask();
+            fail("task should not be completable");
+        } catch (TaskStateException e) {
+            e.printStackTrace();
+        }
+    }
+    @ParameterizedTest
+    @EnumSource(value = TaskState.class, names = {"IN_PROGRESS"}, mode = EnumSource.Mode.EXCLUDE)
+    void startTaskSuccessfullyTest(TaskState state) {
+        User user = new User("Manfred", 17);
+        Task test = new Task(1, "title", "content", state, null, user, LocalDate.now());
+        try {
+            test.startTask();
+            assertThat(test.getTaskState()).isEqualTo(TaskState.IN_PROGRESS);
+        } catch (TaskStateException e) {
+            fail(e);
+        }
+    }
+    @Test
+    void startTaskUnsuccessfullyTest() {
+        User user = new User("Manfred", 17);
+        Task test = new Task(1, "title", "content", TaskState.IN_PROGRESS, null, user, LocalDate.now());
+
+        try {
+            test.startTask();
+            fail("task should not be completable");
+        } catch (TaskStateException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    void reviewTaskSuccessfullyTest() {
+        User user = new User("Manfred", 17);
+        Task test = new Task(1, "title", "content", TaskState.IN_PROGRESS, null, user, LocalDate.now());
+        try {
+            test.reviewTask();
+            assertThat(test.getTaskState()).isEqualTo(TaskState.IN_REVIEW);
+        } catch (TaskStateException e) {
+            fail(e);
+        }
+    }
+    @ParameterizedTest
+    @EnumSource(value = TaskState.class, names = {"IN_PROGRESS"}, mode = EnumSource.Mode.EXCLUDE)
+    void reviewTaskUnsuccessfullyTest(TaskState state) {
+        User user = new User("Manfred", 17);
+        Task test = new Task(1, "title", "content", state, null, user, LocalDate.now());
+        try {
+            test.reviewTask();
+            fail("task should not be completable");
+        } catch (TaskStateException e) {
+            e.printStackTrace();
+        }
+    }
 }
