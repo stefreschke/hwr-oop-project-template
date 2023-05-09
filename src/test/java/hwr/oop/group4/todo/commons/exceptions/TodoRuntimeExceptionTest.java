@@ -7,31 +7,28 @@ import static org.assertj.core.api.Assertions.assertThat;
 class TodoRuntimeExceptionTest {
 
     @Test
-    void runTimeExceptionNothing(){
-
+    void runTimeExceptionWithNull(){
         assertThat(new TodoRuntimeException()).hasMessage(null).hasCause(null);
     }
 
     @Test
-    void runTimeException(){
-
+    void runTimeExceptionWithMessage(){
         assertThat(new TodoRuntimeException("sjs")).hasMessage("sjs").hasCause(null);
     }
 
     @Test
-    void runTimeExceptionWithCause(){
-        assertThat(new TodoRuntimeException("test", null)).hasMessage("test").hasCause(null);
+    void runTimeExceptionWithCauseAndMessage(){
+        assertThat(new TodoRuntimeException("test", new RuntimeException())).hasMessage("test").hasCause(new RuntimeException());
     }
 
     @Test
-    void runTimeExceptionWithOnlyCause(){
+    void runTimeExceptionJustCause(){
         assertThat(new TodoRuntimeException(new RuntimeException())).hasCause(new RuntimeException());
     }
 
     @Test
     void runTimeExceptionAll() {
         assertThat(new TodoRuntimeException("test", null, true, true)).hasMessage("test").hasCause(null);
-
     }
 
 }
