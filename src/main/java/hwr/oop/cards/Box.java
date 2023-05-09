@@ -14,7 +14,6 @@ public class Box {
         cardList.add(card);
     }
 
-
     public ArrayList<Card> getCards() {
 
         return cardList;
