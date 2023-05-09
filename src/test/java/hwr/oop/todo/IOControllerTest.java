@@ -1,33 +1,48 @@
 package hwr.oop.todo;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class IOControllerTest {
 
     @Test
-    void canPrintPropmptString(){
-        IOController controller = new IOController(System.in);
+    void canPrintPrompt(){
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        IOController controller = new IOController(System.in, outputStream);
         controller.printPrompt("string");
+
+        String output = retrieveResultFrom(outputStream);
+
+        assertTrue(output.contains("string"));
+        assertTrue(output.contains(System.lineSeparator()));
     }
 
     @Test
     void canPrintPromptList(){
-        IOController controller = new IOController(System.in);
+        InputStream inputStream = createInputStreamForInput("");
+        OutputStream outputStream = new ByteArrayOutputStream();
+
+        IOController controller = new IOController(inputStream, outputStream);
         List<MenuOption> options= List.of(new MenuOption('a', "Example action to test very long"), new MenuOption('b', "Example action"));
         controller.printPrompt(options);
     }
 
     @Test
     void canGetInputString(){
+        OutputStream output = new ByteArrayOutputStream();
         InputStream inputStream = createInputStreamForInput("AAA\n");
-        IOController controller = new IOController(inputStream);
+        IOController controller = new IOController(inputStream, output);
+
         String input = controller.getInputString();
 
         assertEquals("AAA", input);
@@ -35,23 +50,13 @@ public class IOControllerTest {
 
     @Test
     void canGetInputInt(){
+        OutputStream out = new ByteArrayOutputStream();
         InputStream inputStream = createInputStreamForInput("3");
-        IOController controller = new IOController(inputStream);
+        IOController controller = new IOController(inputStream, out);
         int input = controller.getInputInt();
 
         assertEquals(3, input);
     }
-
-    @Test
-    void canGetInputListSelection(){
-        InputStream inputStream = createInputStreamForInput("a");
-        IOController controller = new IOController(inputStream);
-        List<MenuOption> options= List.of(new MenuOption('a', "Example action to test very long"), new MenuOption('b', "Example action"));
-        int input = controller.getInputList(options);
-
-        assertEquals('a', input);
-    }
-
 
     private String retrieveResultFrom(OutputStream outputStream) {
         String outputText = outputStream.toString();

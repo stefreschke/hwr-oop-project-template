@@ -1,6 +1,8 @@
 package hwr.oop.todo;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
@@ -8,25 +10,38 @@ import java.util.Scanner;
 
 public class IOController {
 
-    Scanner scanner;
+    Scanner in;
+    OutputStream out;
 
-    public IOController (InputStream in){
-        this.scanner = new Scanner(in);
+    public IOController (InputStream in, OutputStream out){
+        this.in = new Scanner(in);
+        this.out = out;
     }
-    public IOController () { this.scanner = new Scanner(System.in);}
+
+    private void write(String s){
+        try {
+            out.write(s.getBytes());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void writeLine(String s){
+        write(s+System.lineSeparator());
+    }
 
     public void printPrompt(String prompt) {
-        System.out.println("\033[2J");
+        writeLine("\033[2J");
 
         int textLength = prompt.length();
         StringBuilder line = new StringBuilder();
         line.append("-".repeat(Math.max(0, (int) (textLength * 1.0) + 2)));
 
-        System.out.println("|" + line + "|");
-        System.out.println("| " + prompt + " |");
-        System.out.println("|" + line + "|");
-        System.out.println("\u001B[32m");
-        System.out.print("> ");
+        writeLine("|" + line + "|");
+        writeLine("| " + prompt + " |");
+        writeLine("|" + line + "|");
+        writeLine("\u001B[32m");
+        write("> ");
     }
 
     public void printPrompt(List<MenuOption> options) {
@@ -47,23 +62,13 @@ public class IOController {
         System.out.print("> ");
     }
 
+
     public String getInputString(){
-        return this.scanner.nextLine();
-    }
-
-    public char getInputList(List<MenuOption> options){
-        String selection = this.getInputString();
-
-        for (MenuOption option : options) {
-            if (option.getSelectionKey() == selection.charAt(0)) {
-                return option.getSelectionKey();
-            }
-        }
-        return ' ';
+        return in.nextLine();
     }
 
     public int getInputInt(){
-        return this.scanner.nextInt();
+        return in.nextInt();
     }
 
 }

@@ -1,5 +1,6 @@
 package hwr.oop.todo;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -11,8 +12,8 @@ public class ProjectMenuTest {
     @Test
     void hasOptions() {
         ProjectMenu menu = new ProjectMenu();
-
         assertFalse(menu.getMenuOptions().isEmpty());
+        assertTrue(menu.getMenuOptions().size() == 3);
     }
 
     @Test
