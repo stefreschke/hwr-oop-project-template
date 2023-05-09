@@ -1,5 +1,6 @@
 package hwr.oop.group4.todo.ui;
 
+import hwr.oop.group4.todo.core.Idea;
 import hwr.oop.group4.todo.core.TodoList;
 import hwr.oop.group4.todo.ui.controller.ConsoleController;
 import hwr.oop.group4.todo.ui.controller.ConsoleHelper;
@@ -8,6 +9,8 @@ import hwr.oop.group4.todo.ui.controller.command.CommandArgument;
 import hwr.oop.group4.todo.ui.controller.menu.Entry;
 import hwr.oop.group4.todo.ui.controller.menu.EntryArgument;
 import hwr.oop.group4.todo.ui.controller.menu.Menu;
+import hwr.oop.group4.todo.ui.controller.tables.ColumnConfig;
+import hwr.oop.group4.todo.ui.controller.tables.Table;
 
 import java.util.Collection;
 import java.util.List;
@@ -54,6 +57,24 @@ public class IntrayUi {
     }
 
     private void listItems(Collection<CommandArgument<String>> args) {
+        final List<Idea> ideas = todoList.getInTray().stream().toList();
+        final int idColumnLength = Math.max((int) Math.ceil(Math.log10(projects.size()) - 2), 2);
+        final Table ideaTable = new Table(List.of(
+                new ColumnConfig("ID", idColumnLength),
+                new ColumnConfig("Name", 20),
+                new ColumnConfig("Description", 50)
+        ));
+
+        for (int i = 0; i < ideas.size(); i++) {
+            final Idea idea = ideas.get(i);
+            ideaTable.addRow(
+                    String.valueOf(i),
+                    idea.name(),
+                    idea.description()
+            );
+        }
+
+        consoleController.output(ideaTable.toString());
     }
 
     private void newItem(Collection<CommandArgument<String>> args) {
