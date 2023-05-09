@@ -1,6 +1,8 @@
 package hwr.oop.cards;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -28,6 +30,7 @@ public class Box {
         learnedCardList.add(card);
     }
 
+    @JsonIgnore
     public ArrayList<Card> getCardList() {
 
         ArrayList<Card> returnList = new ArrayList<Card>();
@@ -38,6 +41,7 @@ public class Box {
         return returnList;
     }
 
+    @JsonIgnore
     public Card getRandomCard() {
         Random random = new Random();
         int index = random.nextInt(learnedCardList.size());

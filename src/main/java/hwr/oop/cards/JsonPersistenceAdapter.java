@@ -8,7 +8,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JsonPersistenceAdapter implements PersistenceSavePort, PersistenceLoadPort {
 
+    static final String EXCEPTION_TEXT = "persistenceInstanceName should not be empty.";
+
     public void saveTrainingInstance(Collection<Box> boxes, String persistenceInstanceName) throws IOException {
+
+        if (persistenceInstanceName.isEmpty()){
+
+            throw new IllegalArgumentException(EXCEPTION_TEXT);
+        }
 
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(new File(persistenceInstanceName), boxes);
@@ -17,29 +24,30 @@ public class JsonPersistenceAdapter implements PersistenceSavePort, PersistenceL
     @Override
     public Collection<Card> loadCards(String persistenceInstanceName) throws IOException {
 
-        if (persistenceInstanceName.isEmpty() || persistenceInstanceName == null){
+        if (persistenceInstanceName.isEmpty()){
 
-            throw new IllegalArgumentException("persistenceInstanceName should not be empty or null.");
+            throw new IllegalArgumentException(EXCEPTION_TEXT);
         }
-        try {
-            BufferedReader reader = new BufferedReader(new FileReader(persistenceInstanceName));
+        try (BufferedReader reader = new BufferedReader(new FileReader(persistenceInstanceName))) {
             ObjectMapper mapper = new ObjectMapper();
             String json = reader.readLine();
-            Collection<Card> cards = mapper.readValue(json, new TypeReference<Collection<Card>>(){});
-            reader.close();
-            return cards;
-        } catch (IOException e) {
-            throw e;
+            return mapper.readValue(json, new TypeReference<>() {
+            });
         }
     }
 
     public Collection<Box> loadTrainingInstance(String persistenceInstanceName) throws IOException {
 
+        if (persistenceInstanceName.isEmpty()){
+
+            throw new IllegalArgumentException(EXCEPTION_TEXT);
+        }
+
         ObjectMapper mapper = new ObjectMapper();
         TypeReference<List<Box>> typeReference = new TypeReference<List<Box>>(){};
         List<Box> boxes = mapper.readValue(new File(persistenceInstanceName), typeReference);
 
-        Map<Integer, Card> cards = new HashMap<Integer, Card>();
+        Map<Integer, Card> cards = new HashMap<>();
         for (Box box : boxes) {
             for (Card card : box.getLearnedCardList()) {
                 cards.put(card.getId(), card);
@@ -49,10 +57,10 @@ public class JsonPersistenceAdapter implements PersistenceSavePort, PersistenceL
             }
         }
 
-        List<Box> result = new ArrayList<Box>();
+        List<Box> result = new ArrayList<>();
         for (Box box : boxes) {
-            ArrayList<Card> learnedCardList = new ArrayList<Card>();
-            ArrayList<Card> notLearnedCardList = new ArrayList<Card>();
+            ArrayList<Card> learnedCardList = new ArrayList<>();
+            ArrayList<Card> notLearnedCardList = new ArrayList<>();
             for (Card card : box.getLearnedCardList()) {
                 learnedCardList.add(cards.get(card.getId()));
             }
@@ -67,18 +75,14 @@ public class JsonPersistenceAdapter implements PersistenceSavePort, PersistenceL
     @Override
     public void saveCards(Collection<Card> cards, String persistenceInstanceName) throws IOException {
 
-        if (persistenceInstanceName.isEmpty() || persistenceInstanceName == null){
+        if (persistenceInstanceName.isEmpty()){
 
-            throw new IllegalArgumentException("persistenceInstanceName should not be empty or null.");
+            throw new IllegalArgumentException(EXCEPTION_TEXT);
         }
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(persistenceInstanceName));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(persistenceInstanceName))) {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(cards);
             writer.write(json);
-            writer.close();
-        } catch (IOException e) {
-            throw e;
         }
     }
 }

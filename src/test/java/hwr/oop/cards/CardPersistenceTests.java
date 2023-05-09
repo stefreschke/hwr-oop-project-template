@@ -7,20 +7,28 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public class CardPersistenceTests {
 
-    @Test
-    void emptyPersistenceInstanceNameThrowsException(){
+    @Nested
+    class emptyPersistenceInstanceNameThrowsExceptionTests{
 
-        JsonPersistenceAdapter pa = new JsonPersistenceAdapter();
+        @Test
+        void load(){
 
-        try{
-            pa.loadCards("");
-            fail("PersistenceAdapter.loadCards(String) should throw an exception, but it didn't.");
-        } catch (Exception ex){
+            JsonPersistenceAdapter pa = new JsonPersistenceAdapter();
 
+            assertThrows(IllegalArgumentException.class, () -> pa.loadCards(""));
+        }
+
+        @Test
+        void save(){
+
+            JsonPersistenceAdapter pa = new JsonPersistenceAdapter();
+
+            assertThrows(IllegalArgumentException.class, () -> pa.saveCards(List.of(new Card("", "", 0)), ""));
         }
     }
 
@@ -72,7 +80,7 @@ public class CardPersistenceTests {
 
         }
 
-        @Test void canMakeSureToOverwriteSaves(){
+        @Test void makeSureToOverwritePreviousSaves(){
 
             PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
             PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();

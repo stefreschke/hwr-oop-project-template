@@ -17,6 +17,22 @@ public class CardTests {
         assertThat(testQuestion).isEqualTo("What was the first item to be sold on Ebay?");
     }
 
+    @Test
+    void testEquals(){
+
+        Card card1 = new Card("1", "2", 3);
+        Card card2 = new Card("1", "2", 3);
+        assertThat(card1).isEqualTo(card2);
+    }
+
+    @Test
+    void testEqualsNot(){
+
+        Card card1 = new Card("1", "2", 3);
+        Card card2 = new Card("2", "1", 3);
+        assertThat(card1).isNotEqualTo(card2);
+    }
+
     /*
     @Test
     public void canGetAnswer(){
