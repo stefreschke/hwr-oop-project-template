@@ -17,7 +17,7 @@ The most important features of our project are:
 
 
 We encountered the following interesting problems:
-- objetct oriented design (especially SRP)
+- object oriented design (especially SRP)
 
 
 ## Feature List
@@ -26,11 +26,11 @@ We encountered the following interesting problems:
 
 | Number | Feature | Tests |
 |--------|---------|-------|
-| 1      | Topic creation       | 1     |
-| 2      | Card creation       | 2     |
-| 3      | Box creation       | 1     |
-| 4      | Box can hold cards       | 3     |
-| 5      | Box can return random card      | 2     |
+| 1      | Topic creation       | canCreateTopicWithName     |
+| 2      | Card creation       | canCreateCard, canGetQuestion, canGetAnswer, canGetId     |
+| 3      | Box creation       | x     |
+| 4      | Box can hold cards       | canContainCards, boxIsEmptyAfterDrawingAllCards     |
+| 5      | Box can return random card      | canReturnRandomCard     |
 | 6      |        | /     |
 | 7      |        | /     |
 | 8      |        | /     |

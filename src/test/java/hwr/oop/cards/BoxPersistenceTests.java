@@ -19,9 +19,9 @@ public class BoxPersistenceTests {
             Box box2 = new Box();
             Box box3 = new Box();
 
-            box1.addCard(new Card("Box 1?", "Box 1!"));
-            box2.addCard(new Card("Box 2?", "Box 2!"));
-            box3.addCard(new Card("Box 3?", "Box 3!"));
+            box1.addCard(new Card("Box 1?", "Box 1!", 0));
+            box2.addCard(new Card("Box 2?", "Box 2!", 1));
+            box3.addCard(new Card("Box 3?", "Box 3!", 2));
 
             List<Box> boxes = List.of(box1, box2, box3);
 

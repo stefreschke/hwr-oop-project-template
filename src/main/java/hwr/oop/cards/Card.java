@@ -1,18 +1,20 @@
 package hwr.oop.cards;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Card {
+    private final int id;
     private final String question;
     private final String answer;
 
-    public Card(@JsonProperty("question") String question, @JsonProperty("answer") String answer){
+    public Card(@JsonProperty("question") String question, @JsonProperty("answer") String answer, @JsonProperty("id") int id) {
 
         this.question = question;
         this.answer = answer;
+        this.id = id;
     }
+
     public String getQuestion() {
         return question;
     }
@@ -37,4 +39,6 @@ public class Card {
     public int hashCode() {
         return Objects.hash(question, answer);
     }
+
+    public int getId() { return id; }
 }

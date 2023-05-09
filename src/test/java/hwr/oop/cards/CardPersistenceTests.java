@@ -33,7 +33,7 @@ public class CardPersistenceTests {
             PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
             PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
 
-            List<Card> cards = List.of(new Card("Question?", "Answer!"));
+            List<Card> cards = List.of(new Card("Question?", "Answer!", 0));
             try {
                 persistenceSavePort.saveCards(cards, "test");
             } catch (IOException e) {
@@ -55,7 +55,7 @@ public class CardPersistenceTests {
             PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
             PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
 
-            List<Card> cards = List.of(new Card("Question?", "Answer!"), new Card("Frage?", "Antwort!"));
+            List<Card> cards = List.of(new Card("Question?", "Answer!", 0), new Card("Frage?", "Antwort!", 1));
             try {
                 persistenceSavePort.saveCards(cards, "test");
             } catch (IOException e) {
@@ -77,14 +77,14 @@ public class CardPersistenceTests {
             PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
             PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
 
-            List<Card> cards = List.of(new Card("Question?", "Answer!"));
+            List<Card> cards = List.of(new Card("Question?", "Answer!", 0));
             try {
                 persistenceSavePort.saveCards(cards, "test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
-            List<Card> cards1 = List.of(new Card("Frage?????", "Antwort!!!!!!"));
+            List<Card> cards1 = List.of(new Card("Frage?????", "Antwort!!!!!!", 0));
             try {
                 persistenceSavePort.saveCards(cards1, "test");
             } catch (IOException e) {
@@ -110,7 +110,7 @@ public class CardPersistenceTests {
 
             PersistenceSavePort pa = new JsonPersistenceAdapter();
 
-            List<Card> cards = List.of(new Card("Question?", "Answer!"), new Card("Frage?", "Antwort!"));
+            List<Card> cards = List.of(new Card("Question?", "Answer!", 0), new Card("Frage?", "Antwort!", 1));
             try {
                 pa.saveCards(cards, "test");
             } catch (IOException e) {
@@ -129,7 +129,7 @@ public class CardPersistenceTests {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Assertions.assertThat(loadedCards).isEqualTo(List.of(new Card("Question?", "Answer!"), new Card("Frage?", "Antwort!")));
+            Assertions.assertThat(loadedCards).isEqualTo(List.of(new Card("Question?", "Answer!", 0), new Card("Frage?", "Antwort!", 1)));
         }
     }
 
@@ -140,7 +140,7 @@ public class CardPersistenceTests {
 
         PersistenceSavePort pa = new JsonPersistenceAdapter();
 
-        List<Card> cards = List.of(new Card("Question?", "Answer!"), new Card("Frage?", "Antwort!"));
+        List<Card> cards = List.of(new Card("Question?", "Answer!", 0), new Card("Frage?", "Antwort!", 0));
         try {
             pa.saveCards(cards, "manual_test");
         } catch (IOException e) {
