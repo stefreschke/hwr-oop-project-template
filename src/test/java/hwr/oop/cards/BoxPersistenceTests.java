@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,10 +27,19 @@ public class BoxPersistenceTests {
             List<Box> boxes = List.of(box1, box2, box3);
 
             PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
-            persistenceSavePort.saveTrainingInstance(boxes, "test_box");
+            try {
+                persistenceSavePort.saveTrainingInstance(boxes, "test_box");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
 
             PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
-            Collection<Box> testBoxes = persistenceLoadPort.loadTrainingInstance("test_box");
+            Collection<Box> testBoxes = null;
+            try {
+                testBoxes = persistenceLoadPort.loadTrainingInstance("test_box");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             Assertions.assertThat(testBoxes).isEqualTo(boxes);
         }
     }

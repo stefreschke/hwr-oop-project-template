@@ -7,5 +7,5 @@ public interface PersistenceSavePort {
 
     void saveCards(Collection<Card> cards, String persistenceInstanceName) throws IOException;
 
-    void saveTrainingInstance(Collection<Box> boxes, String persistenceInstanceName);
+    void saveTrainingInstance(Collection<Box> boxes, String persistenceInstanceName) throws IOException;
 }
