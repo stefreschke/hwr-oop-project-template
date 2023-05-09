@@ -149,9 +149,9 @@ class ProjectUiTest {
     @Test
     void canEditProject() {
         InputStream inputStream = createInputStreamForInput(
-                "edit -id 0 -name Peter -desc Lustig -addTags tv -begin 01.01.2022 -end 10.10.2022" + System.lineSeparator() +
+                "edit -id 0 -name Peter -desc Lustig -addTags tv vt -begin 01.01.2022 -end 10.10.2022" + System.lineSeparator() +
                 "list" + System.lineSeparator() +
-                "edit -removeTags tv -id 1" + System.lineSeparator() +
+                "edit -removeTags vt -id 1" + System.lineSeparator() +
                 "list" + System.lineSeparator() +
                 "back" + System.lineSeparator()
         );
@@ -172,13 +172,13 @@ class ProjectUiTest {
                 "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
                 "========================================================================================" + System.lineSeparator() +
                 "|  0 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
-                "|  1 |           Peter |                         Lustig |         tv | 01.01. | 10.10. |" + System.lineSeparator() +
+                "|  1 |           Peter |                         Lustig |     tv, vt | 01.01. | 10.10. |" + System.lineSeparator() +
                 "projects:> " +
                 "projects:> " +
                 "| ID | Name            | Description                    | Tags       | Begin  | End    |" + System.lineSeparator() +
                 "========================================================================================" + System.lineSeparator() +
                 "|  0 |            proj |                           qwer |            | 22.12. | 10.01. |" + System.lineSeparator() +
-                "|  1 |           Peter |                         Lustig |            | 01.01. | 10.10. |" + System.lineSeparator() +
+                "|  1 |           Peter |                         Lustig |         tv | 01.01. | 10.10. |" + System.lineSeparator() +
                 "projects:> "
         );
     }

@@ -158,18 +158,22 @@ public class ProjectUi {
         final Optional<LocalDateTime> end = consoleHelper.parseDate(endParam.orElse(""));
         newProject.end(end.orElseGet(project::getEnd));
 
-        final Optional<String> addTag = consoleHelper.getStringParameter(args, "addTags");
-        if (addTag.isPresent()) {
-            newProject.addTag(project.getTags().toArray(new Tag[0]));
-            newProject.addTag(new Tag(addTag.get()));
+        final Collection<Tag> tags = project.getTags();
+        final Optional<String> addTags = consoleHelper.getStringParameter(args, "addTags");
+        if (addTags.isPresent()) {
+            String[] newTagNames = addTags.get().split(" ");
+            for (String tag : newTagNames) {
+                tags.add(new Tag(tag));
+            }
         }
-
-        final Optional<String> removeTag = consoleHelper.getStringParameter(args, "removeTags");
-        if (removeTag.isPresent()) {
-            Collection<Tag> tags = project.getTags();
-            tags.remove(new Tag(removeTag.get()));
-            newProject.addTag(tags.toArray(new Tag[0]));
+        final Optional<String> removeTags = consoleHelper.getStringParameter(args, "removeTags");
+        if (removeTags.isPresent()) {
+            String[] removeTagNames = removeTags.get().split(" ");
+            for (String tag : removeTagNames) {
+                tags.remove(new Tag(tag));
+            }
         }
+        newProject.addTag(tags.toArray(new Tag[0]));
 
         newProject.addTasks(project.getTasks().toArray(new Task[0]));
         todoList.addProject(newProject.build());
