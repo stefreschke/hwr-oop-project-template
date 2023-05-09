@@ -24,6 +24,11 @@ class TodoRuntimeExceptionTest {
     }
 
     @Test
+    void runTimeExceptionWithOnlyCause(){
+        assertThat(new TodoRuntimeException(new RuntimeException())).hasCause(new RuntimeException());
+    }
+
+    @Test
     void runTimeExceptionAll() {
         assertThat(new TodoRuntimeException("test", null, true, true)).hasMessage("test").hasCause(null);
 
