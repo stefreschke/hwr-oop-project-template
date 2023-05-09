@@ -60,7 +60,7 @@ public class IntrayUi {
 
     private void listItems(Collection<CommandArgument<String>> args) {
         final List<Idea> ideas = todoList.getInTray().stream().toList();
-        final int idColumnLength = Math.max((int) Math.ceil(Math.log10(projects.size()) - 2), 2);
+        final int idColumnLength = Math.max((int) Math.ceil(Math.log10(ideas.size()) - 2), 2);
         final Table ideaTable = new Table(List.of(
                 new ColumnConfig("ID", idColumnLength),
                 new ColumnConfig("Name", 20),
@@ -93,7 +93,7 @@ public class IntrayUi {
     private void removeItem(Collection<CommandArgument<String>> args) {
         final int id;
         try {
-            id = consoleHelper.getId(args, todoList.getProjects().size());
+            id = consoleHelper.getId(args, todoList.getInTray().stream().toList().size());
         } catch (TodoRuntimeException e) {
             consoleController.outputLine(e.getMessage());
             return;
@@ -107,6 +107,7 @@ public class IntrayUi {
     }
 
     private void toTask(Collection<CommandArgument<String>> args) {
+        // call TaskUi
     }
 
 }
