@@ -14,9 +14,6 @@ import java.util.Optional;
 
 public class ConsoleHelper {
 
-    public ConsoleHelper() {
-    }
-
     public Optional<String> getStringParameter(Collection<CommandArgument<String>> args, String name) {
         return args.stream()
                 .filter(argument -> argument.name().equals(name))
