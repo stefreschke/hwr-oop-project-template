@@ -14,6 +14,11 @@ public class PersistenceAdapter implements PersistenceSavePort, PersistenceLoadP
     @Override
     public Collection<Card> loadCards(String persistenceInstanceName) {
 
+        if (persistenceInstanceName.isEmpty() || persistenceInstanceName == null){
+
+            throw new IllegalArgumentException("persistenceInstanceName should not be empty or null.");
+        }
+
         Collection<Card> cards = new ArrayList<>();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(persistenceInstanceName));
