@@ -7,11 +7,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+
 public class List {
     private String name;
     private ToDoItem[] listToDos;
     private String fileName;
-    private String[] Buckets;
+    private java.util.List<Bucket> Buckets;
 
     public List(String name) {
         this(name, null);
@@ -20,7 +22,7 @@ public class List {
         this.name = name;
         this.listToDos = new ToDoItem[0];
         this.fileName = fileName;
-        this.Buckets = new String[0];
+        this.Buckets = new ArrayList<>();
     }
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -36,20 +38,12 @@ public class List {
         return this.listToDos;
     }
 
-    public String[] getBuckets() {
+    public java.util.List<Bucket> getBuckets() {
         return Buckets;
     }
 
-    public void setBuckets(String newbucket) {
-        String[] oldbucket = this.Buckets;
-        this.Buckets = new String[Buckets.length + 1];
-        for (int i = 0; i < Buckets.length; i++) {
-            if (i < Buckets.length - 1) {
-                Buckets[i] = oldbucket[i];
-            }else{
-                Buckets[i] = newbucket;
-            }
-        }
+    public void addBucket(String newBucket) {
+        this.Buckets.add(new Bucket(newBucket));
     }
 
     public void setListToDos(ToDoItem[] listToDos) {
@@ -83,28 +77,31 @@ public class List {
         }
     }
 
-    public void updateBuckets(){
+    /*public void updateBuckets(){
+        java.util.ArrayList<Bucket> copyBucket = new ArrayList<>();
         for (int i = 0; i < ListToDos.length; i++) {
+
             String element = ListToDos[i].getBucket();
             int help = 0;
-            for (int j = 0; i< Buckets.length; i++) {
-                if(Buckets[j] == element) {
+            for (int j = 0; j < ListToDos.length; j++) {
+                if(Buckets.get(j).getBucket() == element) {
                     help++;
                     break;
                 }
             }
+
             if(help == 0) {
-                String[] copyBucket = Buckets;
-                Buckets = new String[Buckets.length + 1];
-                for (int j = 0; j < Buckets.length; j++) {
-                    if (j < copyBucket.length) {
-                        Buckets[j] = copyBucket[j];
-                    }else {
-                        Buckets[j] = element;
-                    }
-                }
+                copyBucket.add(new Bucket(element));
             }
+
         }
+
+        Buckets = copyBucket;
+    }*/
+
+
+    public void editBucket (int index, String newBucket) {
+        this.Buckets.set(index, new Bucket(newBucket));
     }
 
     public void add(ToDoItem toDoItem) {

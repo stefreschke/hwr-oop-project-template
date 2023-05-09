@@ -116,13 +116,13 @@ public class ListClassTest {
         list.add(item);
         list.add(item2);
         list.add(item3);
-        list.updateBuckets();
-        String[] testbuckets = list.getBuckets();
-        assertThat(testbuckets[0]).isEqualTo("Uni");
-        assertThat(testbuckets[1]).isEqualTo("Math");
-        assertThat(testbuckets[2]).isEqualTo("Personal");
+        // list.updateBuckets();
+        java.util.List<Bucket> testbuckets = list.getBuckets();
+        assertThat(testbuckets.get(0).getBucket()).isEqualTo("Uni");
+        assertThat(testbuckets.get(1).getBucket()).isEqualTo("Math");
+        assertThat(testbuckets.get(2).getBucket()).isEqualTo("Personal");
     }
-    @Test
+    /*@Test
     void updateBucketsTest() {
         List list = new List("myList");
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", "Uni", false, Priority.HIGH);
@@ -131,17 +131,26 @@ public class ListClassTest {
         list.add(item);
         list.add(item2);
         list.add(item3);
-        list.updateBuckets();
-        String[] testbuckets = list.getBuckets();
-        assertThat(testbuckets[0]).isEqualTo("Uni");
-        assertThat(testbuckets[1]).isEqualTo("Math");
-        assertThat(testbuckets[2]).isEqualTo("Personal");
-    }
+        //list.updateBuckets();
+        java.util.List<Bucket> testbuckets = list.getBuckets();
+        assertThat(testbuckets.get(0).getBucket()).isEqualTo("Uni");
+        assertThat(testbuckets.get(1).getBucket()).isEqualTo("Math");
+        assertThat(testbuckets.get(2).getBucket()).isEqualTo("Personal");
+    }*/
+
+
     @Test
-    void setBucketTest() {
+    void addBucketTest() {
+        List list =  new List("myList");
+        list.addBucket("Test");
+        assertThat(list.getBuckets().get(0).getBucket()).isEqualTo("Test");
+    }
+
+    @Test
+    void editBucketTest() {
         List list = new List("myList");
-        list.setBuckets("Test");
-        String[] Test = list.getBuckets();
-        assertThat(Test[1]).isEqualTo("Test");
+        list.addBucket("Test");
+        list.editBucket(0, "Boo");
+        assertThat(list.getBuckets().get(0).getBucket()).isEqualTo("Boo");
     }
 }

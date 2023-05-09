@@ -150,7 +150,6 @@ public class Main {
                 priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH);
         success("Task Created Successfully!");
         list.add(toDoItem);
-        list.updateBuckets();
         try {
             list.writeToJSON(list.getFileName());
         } catch (Exception e) {
@@ -179,7 +178,6 @@ public class Main {
                 if (index == -1) return;
             }
         }
-        list.updateBuckets();
                 try {
             list.writeToJSON(list.getFileName());
         } catch (Exception e) {
@@ -254,7 +252,6 @@ public class Main {
             out.println("Could not read your input... skipping");
         }
         out.println("Task Edited Successfully!");
-        list.updateBuckets();
                 try {
             list.writeToJSON(list.getFileName());
         } catch (Exception e) {
@@ -264,22 +261,21 @@ public class Main {
     }
 
     public static void createBucket(List toDoList, String newBucket){
-        String[] BucketsArray = toDoList.getBuckets();
+        java.util.List<Bucket> BucketsCopy = toDoList.getBuckets();
         int help = 0;
-        for (int i = 0; i< BucketsArray.length; i++) {
-            if(BucketsArray[i] == newBucket){
+        for (int i = 0; i < toDoList.getListToDos().length; i++) {
+            if(BucketsCopy.get(i).getBucket() == newBucket){
                 out.println("Bucket allready exists!");
                 help++;
                 break;
             }
         }
         if (help == 0) {
-            toDoList.setBuckets(newBucket);
+            toDoList.addBucket(newBucket);
         }
     }
     public static void showBuckets(List ToDoList){
-        String[] BucketsArray = ToDoList.getBuckets();
-        out.println(BucketsArray);
+        out.println(ToDoList.getBuckets());
     }
     public static void sortHelp() {
         out.println("gtd sort [option]");
@@ -364,7 +360,12 @@ public class Main {
                 } else if (commandArray[1].equalsIgnoreCase("sort")) {
                     handleSort(toDoList, commandArray);
                 } else if (commandArray[1].equalsIgnoreCase("createBucket")) {
-                    createBucket(toDoList, commandArray[2]);
+                    try {
+                        createBucket(toDoList, commandArray[2]);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                        error("Try 'gtd createBucket [Bucket]'");
+                    }
+
                 } else if (commandArray[1].equalsIgnoreCase ("showBuckets")) {
                     showBuckets(toDoList);
                 }else if (commandArray[1].equals("clear")) {

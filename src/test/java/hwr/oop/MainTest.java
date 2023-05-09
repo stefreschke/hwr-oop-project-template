@@ -578,9 +578,9 @@ class MainTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
             Main.add(list);
-            String[] TestBuckets = list.getBuckets();
+            java.util.List<Bucket> TestBuckets = list.getBuckets();
 
-            assertThat(TestBuckets[0]).isEqualTo("Bucket");
+            assertThat(TestBuckets.get(0)).isEqualTo("Bucket");
         }finally {
             System.setOut(sysOutBackup);
             System.setIn(sysInBackup);
@@ -610,7 +610,7 @@ class MainTest {
             ByteArrayOutputStream outBuffer3 = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer3));
             Main.add(list);
-            String[] TestBuckets = list.getBuckets();
+            java.util.List<Bucket> TestBuckets = list.getBuckets();
             assertThat(TestBuckets).isEqualTo(list.getBuckets());
         }finally {
             System.setOut(sysOutBackup);
