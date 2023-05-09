@@ -6,8 +6,8 @@ This repository contains a student project created for an ongoing lecture on obj
 
 ## Abstract
 
-# This repository is used for a todo application.
-# With this application you can create and manage tasks and assign tags and projects to the tasks.
+This repository is used for a todo application.
+With this application you can create and manage tasks and assign tags and projects to the tasks.
 
 ## Feature List
 
