@@ -4,7 +4,7 @@ import java.util.Collection;
 
 public interface PersistenceLoadPort {
 
-    Collection<Card> loadCards(String filename);
+    Collection<Card> loadCards(String persistenceInstanceName);
 
-    Collection<Box> loadTrainingInstance(String filename);
+    Collection<Box> loadTrainingInstance(String persistenceInstanceName);
 }

@@ -6,17 +6,17 @@ import java.util.Collection;
 
 public class PersistenceAdapter implements PersistenceSavePort, PersistenceLoadPort {
 
-    public void saveTrainingInstance(Collection<Box> boxes, String filename){
+    public void saveTrainingInstance(Collection<Box> boxes, String persistenceInstanceName){
 
 
     }
 
     @Override
-    public Collection<Card> loadCards(String filename) {
+    public Collection<Card> loadCards(String persistenceInstanceName) {
 
         Collection<Card> cards = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            BufferedReader reader = new BufferedReader(new FileReader(persistenceInstanceName));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(",");
@@ -34,15 +34,20 @@ public class PersistenceAdapter implements PersistenceSavePort, PersistenceLoadP
     }
 
     @Override
-    public Collection<Box> loadTrainingInstance(String filename) {
+    public Collection<Box> loadTrainingInstance(String persistenceInstanceName) {
         return null;
     }
 
     @Override
-    public void saveCards(Collection<Card> cards, String filename) {
+    public void saveCards(Collection<Card> cards, String persistenceInstanceName) {
+
+        if (persistenceInstanceName.isEmpty() || persistenceInstanceName == null){
+
+            throw new IllegalArgumentException("persistenceInstanceName should not be empty or null.");
+        }
 
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename, false));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(persistenceInstanceName, false));
             for (Card card : cards) {
                 writer.write(card.getQuestion() + "," + card.getAnswer() + "\n");
             }
