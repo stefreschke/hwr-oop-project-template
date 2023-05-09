@@ -106,7 +106,8 @@ public class Main {
         out.println("  list                -  list all tasks");
         out.println("  sort                            -  sort your tasks");
         out.println("  createBucket [bucket name]      -  create a bucket for tasks");
-        out.println("  showBuckets                     -  show buckets for tasks ");
+        out.println("  showBuckets                     -  show buckets for tasks");
+        out.println("  editBuckets [index] [new name]  -  changes bucket name");
         out.println("  clear                           -  clear all tasks");
         out.println("  exit                            -  exit the program");
     }
@@ -146,7 +147,6 @@ public class Main {
                 title,
                 description,
                 bucket,
-                false ,
                 priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH);
         success("Task Created Successfully!");
         list.add(toDoItem);
@@ -274,9 +274,15 @@ public class Main {
             toDoList.addBucket(newBucket);
         }
     }
+
     public static void showBuckets(List ToDoList){
         out.println(ToDoList.getBuckets());
     }
+
+    public static void editBucket(List ToDoList, int index, String newBucket) {
+        ToDoList.editBucket(index, newBucket);
+    }
+
     public static void sortHelp() {
         out.println("gtd sort [option]");
         out.println("Options:");
@@ -368,6 +374,13 @@ public class Main {
 
                 } else if (commandArray[1].equalsIgnoreCase ("showBuckets")) {
                     showBuckets(toDoList);
+                } else if (commandArray[1].equalsIgnoreCase("editBucket")){
+                    try {
+                        editBucket(toDoList, Integer.parseInt(commandArray[2]), commandArray[3]);
+                    } catch (ArrayIndexOutOfBoundsException e) {
+                      error("Try 'gtd editBucket [index] [new Name]'");
+                    }
+                    // test comment because of git test1
                 }else if (commandArray[1].equals("clear")) {
                     clear(toDoList);
                 } else if (commandArray[1].equalsIgnoreCase("promote")) {

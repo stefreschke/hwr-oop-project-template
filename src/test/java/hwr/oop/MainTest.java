@@ -100,6 +100,7 @@ class MainTest {
                     "  edit [Item Index]   -  edit a task\n" +
                     "  list                -  list all tasks\n" +
                     "  createBucket [bucket name]      -  create a bucket for tasks\n" +
+                    "  editBuckets [index] [new name]  -  changes bucket name\n" +
                     "  showBuckets                     -  show buckets for tasks \n" +
                     "  sort                -  sort your tasks\n" +
                     "  clear               -  clear all tasks\n" +
@@ -617,5 +618,26 @@ class MainTest {
             System.setIn(sysInBackup);
         }
 
+    }
+
+    @Test
+    void editBucketTest() {
+        PrintStream sysOutBackup = System.out;
+        InputStream sysInBackup = System.in;
+
+        List list = new List("My List");
+        try {
+            String userInput = "Title\nDescription\n12.12.12\n3\nBucket\n";
+            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+            list.addBucket("Bucket");
+            Main.add(list);
+            list.editBucket(0, "Test");
+            assertThat(list.getBuckets().get(0).getBucket()).isEqualTo("Test");
+        } finally {
+            System.setOut(sysOutBackup);
+            System.setIn(sysInBackup);
+        }
     }
 }
