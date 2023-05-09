@@ -16,7 +16,9 @@ public class CreateTaskService implements CreateTaskUseCase {
     }
     @Override
     public void createTask(int id, String title, String content, TaskState state, List<TaskTag> tagList, User creator, LocalDateTime deadline) {
+        List<Task> tmp = load.loadTask();
         Task task = new Task(id, title, content, state, tagList, creator, deadline);
-        save.saveTask(task);
+        tmp.add(task);
+        save.saveTask(tmp);
     }
 }
