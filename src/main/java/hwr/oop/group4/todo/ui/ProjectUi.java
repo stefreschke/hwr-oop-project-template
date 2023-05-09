@@ -49,8 +49,8 @@ public class ProjectUi {
                         new EntryArgument("desc <desc>", "Change the description of the project."),
                         new EntryArgument("begin", "Change the beginning of the project."),
                         new EntryArgument("end", "Change the end of the project"),
-                        new EntryArgument("addTag <tag>", "Add a new tag."),
-                        new EntryArgument("removeTag <tag>", "Remove a tag.")
+                        new EntryArgument("addTags <tag> [<tag> ...]", "Add a new tag."),
+                        new EntryArgument("removeTags <tag> [<tag> ...]", "Remove a tag.")
                 )),
                 new Entry("remove", "Remove a project.", List.of(
                         new EntryArgument("id <id>", "ID of the project to be removed.")
@@ -158,13 +158,13 @@ public class ProjectUi {
         final Optional<LocalDateTime> end = consoleHelper.parseDate(endParam.orElse(""));
         newProject.end(end.orElseGet(project::getEnd));
 
-        final Optional<String> addTag = consoleHelper.getStringParameter(args, "addTag");
+        final Optional<String> addTag = consoleHelper.getStringParameter(args, "addTags");
         if (addTag.isPresent()) {
             newProject.addTag(project.getTags().toArray(new Tag[0]));
             newProject.addTag(new Tag(addTag.get()));
         }
 
-        final Optional<String> removeTag = consoleHelper.getStringParameter(args, "removeTag");
+        final Optional<String> removeTag = consoleHelper.getStringParameter(args, "removeTags");
         if (removeTag.isPresent()) {
             Collection<Tag> tags = project.getTags();
             tags.remove(new Tag(removeTag.get()));

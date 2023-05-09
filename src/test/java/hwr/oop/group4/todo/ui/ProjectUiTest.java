@@ -37,9 +37,9 @@ class ProjectUiTest {
             "      Change the beginning of the project." + System.lineSeparator() +
             "    -end" + System.lineSeparator() +
             "      Change the end of the project" + System.lineSeparator() +
-            "    -addTag <tag>" + System.lineSeparator() +
+            "    -addTags <tag> [<tag> ...]" + System.lineSeparator() +
             "      Add a new tag." + System.lineSeparator() +
-            "    -removeTag <tag>" + System.lineSeparator() +
+            "    -removeTags <tag> [<tag> ...]" + System.lineSeparator() +
             "      Remove a tag." + System.lineSeparator() +
             "  remove" + System.lineSeparator() +
             "    Remove a project." + System.lineSeparator() +
@@ -149,9 +149,9 @@ class ProjectUiTest {
     @Test
     void canEditProject() {
         InputStream inputStream = createInputStreamForInput(
-                "edit -id 0 -name Peter -desc Lustig -addTag tv -begin 01.01.2022 -end 10.10.2022" + System.lineSeparator() +
+                "edit -id 0 -name Peter -desc Lustig -addTags tv -begin 01.01.2022 -end 10.10.2022" + System.lineSeparator() +
                 "list" + System.lineSeparator() +
-                "edit -removeTag tv -id 1" + System.lineSeparator() +
+                "edit -removeTags tv -id 1" + System.lineSeparator() +
                 "list" + System.lineSeparator() +
                 "back" + System.lineSeparator()
         );
