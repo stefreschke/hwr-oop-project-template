@@ -124,8 +124,8 @@ public class ProjectUi {
             return;
         }
 
-        String projectName = todoList.getProjects().get(id.get()).getName();
-        String confirmation = "Do you really want to remove " + projectName + "?";
+        final String projectName = todoList.getProjects().get(id).getName();
+        final String confirmation = "Do you really want to remove " + projectName + "?";
         if (consoleController.inputBool(List.of("projects", "remove"), confirmation, false)) {
             todoList.removeProject(todoList.getProjects().get(id));
         }
@@ -140,9 +140,9 @@ public class ProjectUi {
             return;
         }
 
-        Project project = todoList.getProjects().get(id);
+        final Project project = todoList.getProjects().get(id);
         todoList.removeProject(project);
-        Project.ProjectBuilder newProject = new Project.ProjectBuilder();
+        final Project.ProjectBuilder newProject = new Project.ProjectBuilder();
 
         final Optional<String> name = consoleHelper.getStringParameter(args, "name");
         newProject.name(name.orElseGet(project::getName));
