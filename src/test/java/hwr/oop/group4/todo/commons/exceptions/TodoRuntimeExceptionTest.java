@@ -17,7 +17,7 @@ class TodoRuntimeExceptionTest {
     }
 
     @Test
-    void runTimeExceptionWithCauseAndMessage(){
+    void runTimeExceptionWithMessageAndCause(){
         assertThat(new TodoRuntimeException("test", new RuntimeException())).hasMessage("test").hasCause(new RuntimeException());
     }
 
