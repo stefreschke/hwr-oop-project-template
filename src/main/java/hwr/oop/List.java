@@ -44,7 +44,7 @@ public class List {
         String[] oldbucket = this.Buckets;
         this.Buckets = new String[Buckets.length + 1];
         for (int i = 0; i < Buckets.length; i++) {
-            if (i < Buckets.length -1) {
+            if (i < Buckets.length - 1) {
                 Buckets[i] = oldbucket[i];
             }else{
                 Buckets[i] = newbucket;
@@ -83,9 +83,8 @@ public class List {
         }
     }
 
-    public void actuliseBuckets(){
-        Buckets = new String[ListToDos.length];
-        for (int i = 0; i< ListToDos.length; i++) {
+    public void updateBuckets(){
+        for (int i = 0; i < ListToDos.length; i++) {
             String element = ListToDos[i].getBucket();
             int help = 0;
             for (int j = 0; i< Buckets.length; i++) {
@@ -95,7 +94,15 @@ public class List {
                 }
             }
             if(help == 0) {
-                Buckets[i] = element;
+                String[] copyBucket = Buckets;
+                Buckets = new String[Buckets.length + 1];
+                for (int j = 0; j < Buckets.length; j++) {
+                    if (j < copyBucket.length) {
+                        Buckets[j] = copyBucket[j];
+                    }else {
+                        Buckets[j] = element;
+                    }
+                }
             }
         }
     }

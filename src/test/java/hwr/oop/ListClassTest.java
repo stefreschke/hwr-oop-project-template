@@ -116,14 +116,14 @@ public class ListClassTest {
         list.add(item);
         list.add(item2);
         list.add(item3);
-        list.actuliseBuckets();
+        list.updateBuckets();
         String[] testbuckets = list.getBuckets();
         assertThat(testbuckets[0]).isEqualTo("Uni");
         assertThat(testbuckets[1]).isEqualTo("Math");
         assertThat(testbuckets[2]).isEqualTo("Personal");
     }
     @Test
-    void actuliseBucketsTest() {
+    void updateBucketsTest() {
         List list = new List("myList");
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", "Uni", false, Priority.HIGH);
         ToDoItem item2 = new ToDoItem("Calculate Something", "More Math over here", "Math", false, Priority.MEDIUM);
@@ -131,7 +131,7 @@ public class ListClassTest {
         list.add(item);
         list.add(item2);
         list.add(item3);
-        list.actuliseBuckets();
+        list.updateBuckets();
         String[] testbuckets = list.getBuckets();
         assertThat(testbuckets[0]).isEqualTo("Uni");
         assertThat(testbuckets[1]).isEqualTo("Math");

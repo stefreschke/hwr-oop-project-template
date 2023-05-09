@@ -580,7 +580,7 @@ class MainTest {
             Main.add(list);
             String[] TestBuckets = list.getBuckets();
 
-            assertThat(TestBuckets[1]).isEqualTo("Bucket");
+            assertThat(TestBuckets[0]).isEqualTo("Bucket");
         }finally {
             System.setOut(sysOutBackup);
             System.setIn(sysInBackup);

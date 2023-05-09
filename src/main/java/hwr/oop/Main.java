@@ -150,7 +150,7 @@ public class Main {
                 priority == 1 ? Priority.LOW : priority == 2 ? Priority.MEDIUM : Priority.HIGH);
         success("Task Created Successfully!");
         list.add(toDoItem);
-        list.actuliseBuckets();
+        list.updateBuckets();
         try {
             list.writeToJSON(list.getFileName());
         } catch (Exception e) {
@@ -179,7 +179,7 @@ public class Main {
                 if (index == -1) return;
             }
         }
-        list.actuliseBuckets();
+        list.updateBuckets();
                 try {
             list.writeToJSON(list.getFileName());
         } catch (Exception e) {
@@ -254,12 +254,13 @@ public class Main {
             out.println("Could not read your input... skipping");
         }
         out.println("Task Edited Successfully!");
-        list.actuliseBuckets();
+        list.updateBuckets();
                 try {
             list.writeToJSON(list.getFileName());
         } catch (Exception e) {
             out.println("Could not save your progress... please specify a file or try again.");
         }
+
     }
 
     public static void createBucket(List toDoList, String newBucket){
