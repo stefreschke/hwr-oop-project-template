@@ -44,4 +44,10 @@ class TopicTests {
 
         assertThat(topic.boxCount()).isEqualTo(amount);
     }
+
+    @Test
+    public void canSaveTopic(){
+
+        IPersistenceAdapter pa = new PersistenceAdapter();
+    }
 }
