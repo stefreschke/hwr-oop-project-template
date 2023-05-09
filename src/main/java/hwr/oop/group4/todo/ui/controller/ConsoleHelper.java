@@ -42,7 +42,7 @@ public class ConsoleHelper {
         }
     }
 
-    public Integer getId(Collection<CommandArgument<String>> args, int size) {
+    public int getId(Collection<CommandArgument<String>> args, int size) {
         Optional<CommandArgument<String>> idArg = args.stream()
                 .filter(arg -> arg.name().equals("id"))
                 .findFirst();
