@@ -14,6 +14,7 @@ import hwr.oop.group4.todo.ui.controller.tables.Table;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class IntrayUi {
@@ -78,6 +79,14 @@ public class IntrayUi {
     }
 
     private void newItem(Collection<CommandArgument<String>> args) {
+        final String name = consoleController.input(List.of("intray", "new", "name")).orElseThrow();
+        final Optional<String> desc = consoleController.input(List.of("intray", "new", "description"));
+
+        if (desc.isPresent()) {
+            todoList.addIdea(new Idea(name, desc.get()));
+        } else {
+            todoList.addIdea(new Idea(name));
+        }
     }
 
     private void removeItem(Collection<CommandArgument<String>> args) {
