@@ -1,14 +1,10 @@
 package hwr.oop.cards;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
-public interface IPersistenceAdapter {
+public interface PersistenceSavePort {
 
-    public void saveCards();
+    void saveCards(Collection<Card> cards, String filename);
 
-    public void saveTrainingInstance();
-
-    public ArrayList<Card> loadCards();
-
-    public ArrayList<Box> loadTrainingInstance();
+    void saveTrainingInstance(Collection<Box> boxes, String filename);
 }
