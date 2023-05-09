@@ -120,9 +120,9 @@ class ConsoleUserInterfaceTest {
                 "      Change the beginning of the project." + System.lineSeparator() +
                 "    -end" + System.lineSeparator() +
                 "      Change the end of the project" + System.lineSeparator() +
-                "    -addTag <tag>" + System.lineSeparator() +
+                "    -addTags <tag> [<tag> ...]" + System.lineSeparator() +
                 "      Add a new tag." + System.lineSeparator() +
-                "    -removeTag <tag>" + System.lineSeparator() +
+                "    -removeTags <tag> [<tag> ...]" + System.lineSeparator() +
                 "      Remove a tag." + System.lineSeparator() +
                 "  remove" + System.lineSeparator() +
                 "    Remove a project." + System.lineSeparator() +
