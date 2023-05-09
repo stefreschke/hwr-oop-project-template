@@ -1,9 +1,9 @@
-package hwr.oop.clicode;
+package hwr.oop.input;
 
-import hwr.oop.dataclasses.Task;
-import hwr.oop.dataclasses.TaskList;
-import hwr.oop.dataclasses.TaskState;
-import hwr.oop.dataclasses.User;
+import hwr.oop.application.Task;
+import hwr.oop.application.TaskList;
+import hwr.oop.application.TaskState;
+import hwr.oop.application.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

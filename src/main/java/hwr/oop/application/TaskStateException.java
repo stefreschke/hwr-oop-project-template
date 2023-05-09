@@ -1,4 +1,4 @@
-package hwr.oop.dataclasses;
+package hwr.oop.application;
 
 public class TaskStateException extends RuntimeException {
     public TaskStateException(String errorMessage) {

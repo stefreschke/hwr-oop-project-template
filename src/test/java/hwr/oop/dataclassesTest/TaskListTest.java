@@ -1,11 +1,11 @@
 package hwr.oop.dataclassesTest;
 
-import hwr.oop.clicode.TaskListException;
-import hwr.oop.dataclasses.Task;
-import hwr.oop.dataclasses.TaskList;
+import hwr.oop.input.TaskListException;
+import hwr.oop.application.Task;
+import hwr.oop.application.TaskList;
 
-import hwr.oop.dataclasses.TaskState;
-import hwr.oop.dataclasses.User;
+import hwr.oop.application.TaskState;
+import hwr.oop.application.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
