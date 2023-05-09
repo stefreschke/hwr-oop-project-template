@@ -39,7 +39,7 @@ public class ConsoleUserInterface {
             consoleController.output(menu.toString());
 
             consoleController.inputOptions(List.of("main"), List.of(
-                    new Command("intray",   args -> {}),
+                    new Command("intray", args -> {}),
                     new Command("tasks",    args -> {}),
                     new Command("projects", args -> projectUi.menu(todoList)),
                     new Command("calendar", args -> {}),
