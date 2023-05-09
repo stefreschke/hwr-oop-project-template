@@ -1,7 +1,5 @@
 package hwr.oop.persistence;
 
-import hwr.oop.application.SaveTaskPort;
-import hwr.oop.application.LoadTaskPort;
 import hwr.oop.application.Task;
 
 import java.util.List;

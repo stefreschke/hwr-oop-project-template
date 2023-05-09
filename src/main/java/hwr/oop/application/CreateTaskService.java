@@ -1,5 +1,8 @@
 package hwr.oop.application;
 
+import hwr.oop.persistence.LoadTaskPort;
+import hwr.oop.persistence.SaveTaskPort;
+
 import java.time.LocalDateTime;
 import java.util.List;
 

@@ -1,4 +1,6 @@
-package hwr.oop.application;
+package hwr.oop.persistence;
+
+import hwr.oop.application.Task;
 
 import java.util.List;
 
