@@ -1,5 +1,6 @@
 package hwr.oop.group4.todo.ui;
 
+import hwr.oop.group4.todo.commons.exceptions.TodoRuntimeException;
 import hwr.oop.group4.todo.core.Idea;
 import hwr.oop.group4.todo.core.TodoList;
 import hwr.oop.group4.todo.ui.controller.ConsoleController;
@@ -90,6 +91,19 @@ public class IntrayUi {
     }
 
     private void removeItem(Collection<CommandArgument<String>> args) {
+        final int id;
+        try {
+            id = consoleHelper.getId(args, todoList.getProjects().size());
+        } catch (TodoRuntimeException e) {
+            consoleController.outputLine(e.getMessage());
+            return;
+        }
+
+        final String ideaName = todoList.getInTray().stream().toList().get(id).name();
+        final String confirmation = "Do you really want to remove " + ideaName + "?";
+        if (consoleController.inputBool(List.of("intray", "remove"), confirmation, false)) {
+            todoList.removeIdea(todoList.getInTray().stream().toList().get(id));
+        }
     }
 
     private void toTask(Collection<CommandArgument<String>> args) {
