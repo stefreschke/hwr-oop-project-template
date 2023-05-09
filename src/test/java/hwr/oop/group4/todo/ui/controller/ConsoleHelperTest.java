@@ -139,7 +139,7 @@ class ConsoleHelperTest {
         final Collection<Tag> tags = List.of(new Tag("a"), new Tag("b"), new Tag("c"));
         final String returnValue = consoleHelper.concatTagsToString(tags);
 
-        assertThat(returnValue).isEqualTo("abc");
+        assertThat(returnValue).isEqualTo("a, b, c");
     }
 
 }
