@@ -81,13 +81,9 @@ public class IntrayUi {
 
     private void newItem(Collection<CommandArgument<String>> args) {
         final String name = consoleController.input(List.of("intray", "new", "name")).orElseThrow();
-        final Optional<String> desc = consoleController.input(List.of("intray", "new", "description"));
+        final String desc = consoleController.input(List.of("intray", "new", "description")).orElse("");
 
-        if (desc.isPresent()) {
-            todoList.addIdea(new Idea(name, desc.get()));
-        } else {
-            todoList.addIdea(new Idea(name));
-        }
+        todoList.addIdea(new Idea(name, desc));
     }
 
     private void removeItem(Collection<CommandArgument<String>> args) {
