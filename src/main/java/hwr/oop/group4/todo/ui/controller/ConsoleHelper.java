@@ -30,17 +30,19 @@ public class ConsoleHelper {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu HH:mm");
             return Optional.of(LocalDateTime.parse(input, formatter));
-        } catch (DateTimeParseException ignore) { }
+        } catch (DateTimeParseException ignore) {
+            // fall through, try next parser
+        }
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.uuuu");
             LocalDate localDate = LocalDate.parse(input, formatter);
             return Optional.of(LocalDateTime.of(localDate, LocalTime.MIDNIGHT));
-        } catch (DateTimeParseException ignore) { }
-
-        return Optional.empty();
+        } catch (DateTimeParseException ignore) {
+            return Optional.empty();
+        }
     }
 
-    public Integer getId(Collection<CommandArgument<String>> args, int size) {
+    public int getId(Collection<CommandArgument<String>> args, int size) {
         Optional<CommandArgument<String>> idArg = args.stream()
                 .filter(arg -> arg.name().equals("id"))
                 .findFirst();
@@ -53,9 +55,13 @@ public class ConsoleHelper {
             throw new TodoRuntimeException("ID Argument has no parameter.");
         }
 
-        int id;
+        return parseAndValidateId(idArg.get().value(), size);
+    }
+
+    private int parseAndValidateId(String input, int size) {
+        final int id;
         try {
-            id = Integer.parseInt(idArg.get().value());
+            id = Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new TodoRuntimeException("ID parameter is not a valid number.");
         }
