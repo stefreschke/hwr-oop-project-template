@@ -17,7 +17,7 @@ public class FileAdapter implements LoadPersistenceAdapter, SavePersistenceAdapt
         try {
             file.createNewFile();
             FileWriter writer = new FileWriter(file);
-            writer.write(data.toString());
+            writer.write(data.exportAsString());
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -38,7 +38,7 @@ class PersistableTodoListTest {
 
         var persistedTodoList = new PersistableTodoList(todoList);
 
-        assertThatJson(persistedTodoList.toString())
+        assertThatJson(persistedTodoList.exportAsString())
                 .when(Option.IGNORING_ARRAY_ORDER)
                 .isEqualTo("{\"projects\":[{\"name\":\"project a\",\"description\":\"\",\"tasks\":[{\"name\":\"task c\",\"description\":\"description c\",\"priority\":0,\"tags\":[],\"status\":\"OPEN\"},{\"name\":\"task b\",\"description\":\"description b\",\"priority\":0,\"tags\":[],\"status\":\"OPEN\"}],\"tags\":[]}],\"maybeList\":[],\"inTray\":[],\"loseTasks\":[{\"name\":\"task a\",\"description\":\"description a\",\"priority\":0,\"tags\":[],\"status\":\"OPEN\"}]}");
     }

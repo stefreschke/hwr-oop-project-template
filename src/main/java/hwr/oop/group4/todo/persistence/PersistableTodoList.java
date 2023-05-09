@@ -11,7 +11,7 @@ public class PersistableTodoList implements Persistable {
     }
 
     @Override
-    public String toString() {
+    public String exportAsString() {
         JSONObject todoListObject = new JSONObject(todoList);
         return todoListObject.toString();
     }

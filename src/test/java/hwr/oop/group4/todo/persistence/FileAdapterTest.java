@@ -16,7 +16,7 @@ class FileAdapterTest {
     @Test
     void save(@TempDir Path tempDir) {
         Persistable data = mock();
-        when(data.toString()).thenReturn("demo file content");
+        when(data.exportAsString()).thenReturn("demo file content");
 
         Path path = Path.of(tempDir.toString() + "/FileAdapterTest.save.txt");
         File file = new File(path.toUri());
