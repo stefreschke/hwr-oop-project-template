@@ -3,16 +3,17 @@ package hwr.oop.persistence;
 import hwr.oop.application.Task;
 
 import java.util.List;
+import java.util.UUID;
 
 public class PersistenceAdapter implements SaveTaskPort, LoadTaskPort{
 
     @Override
-    public Task loadTask(int id) {
+    public Task loadTask(UUID id) {
         return null;
     }
 
     @Override
-    public List<Task> loadTask() {
+    public List<Task> loadTasks() {
         return null;
     }
 
