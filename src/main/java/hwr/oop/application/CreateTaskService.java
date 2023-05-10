@@ -3,6 +3,8 @@ package hwr.oop.application;
 import hwr.oop.persistence.LoadTaskPort;
 import hwr.oop.persistence.SaveTaskPort;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -15,10 +17,17 @@ public class CreateTaskService implements CreateTaskUseCase {
         this.save = save;
     }
     @Override
-    public void createTask(String title, String content, TaskState state, List<TaskTag> tagList, User creator, LocalDateTime deadline) {
-        List<Task> tmp = load.loadTasks();
-        Task task = new Task( title, content, state, tagList, creator, deadline);
-        tmp.add(task);
-        save.saveTask(tmp);
+    public void createTask(String title, String content, TaskState state, List<TaskTag> tagList, User creator,
+                           LocalDateTime deadline) {
+        try {
+            List<Task> tmp = load.loadTasks();
+            Task task = new Task( title, content, state, tagList, creator, deadline);
+            tmp.add(task);
+            save.saveTask(tmp);
+        } catch (FileNotFoundException e) {
+            //what do we do now?
+        } catch (IOException e) {
+            //what do we do nIOw?
+        }
     }
 }
