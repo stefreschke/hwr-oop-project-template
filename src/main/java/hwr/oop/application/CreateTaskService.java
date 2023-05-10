@@ -23,7 +23,7 @@ public class CreateTaskService implements CreateTaskUseCase {
             List<Task> tmp = load.loadTasks();
             Task task = new Task( title, content, state, tagList, creator, deadline);
             tmp.add(task);
-            save.saveTask(tmp);
+            save.saveTasks(tmp);
         } catch (FileNotFoundException e) {
             //what do we do now?
         } catch (IOException e) {

@@ -20,8 +20,9 @@ public class PersistenceAdapter implements SaveTaskPort, LoadTaskPort{
     }
 
     @Override
-    public void saveTask(List<Task> taskList) {
-        //implementing this in a minute
+    public void saveTasks(List<Task> taskList) throws IOException {
+        Gson gson = new Gson();
+        gson.toJson(taskList, new FileWriter(FILE_PATH));
     }
 
 
