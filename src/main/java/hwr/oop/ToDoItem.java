@@ -1,38 +1,34 @@
 package hwr.oop;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-
 import static hwr.oop.ConsoleColors.*;
 
 public class ToDoItem {
     private String title;
     private String description;
     private String tag;
-    private boolean done;
     private Priority priority;
     private Project project;
     private String createdAt;
-
-    public ToDoItem (String title, String description, String tag, boolean done, Priority priority, Project project) {
-        this.title = WHITE_BOLD_BRIGHT + title + RESET;
+    private State state;
+    public ToDoItem (String title, String description, String tag, Priority priority, Project project) {
+        this.title = title;
         this.description = description;
         this.tag = CYAN_BOLD + tag + RESET;
-        this.done = done;
         this.createdAt = LocalDateTime.now().toString();
         this.priority = priority;
         this.project = project;
+        this.state = State.TODO;
     }
     void setTitle(String title) {
-        this.title = WHITE_BOLD_BRIGHT + title + RESET;
+        this.title = title;
     }
     void setDescription(String description) {
         this.description = description;
     }
     void setDone(boolean done) {
-        this.done = done;
+        this.state = State.DONE;
     }
     void setPriority(Priority priority) {
         this.priority = priority;
@@ -43,7 +39,7 @@ public class ToDoItem {
     void setProjectName(String project) {
         this.project.setTitle(project);
     }
-    static @NotNull String getLocalDate() {
+    static String getLocalDate() {
         return LocalDate.now().toString();
     }
     public String getTitle() {
@@ -55,8 +51,41 @@ public class ToDoItem {
     public String getDescription() {
         return description;
     }
+    public String getState() {
+        return state.toString();
+    }
+    public String getStateEmoji() {
+        try {
+            switch (state) {
+                case DONE:
+                    return "✅";
+                case TODO:
+                    return "⏭️";
+                case IN_PROGRESS:
+                    return "🏗️";
+                case ON_HOLD:
+                    return "🕑";
+                default:
+                    return "❓";
+            }
+        } catch (Exception e) {
+            return "❓";
+        }
+    }
+    public String getPriorityString() {
+        switch (priority) {
+            case LOW:
+                return BLUE_BOLD + "LOW" + RESET;
+            case MEDIUM:
+                return YELLOW_BOLD + "MEDIUM" + RESET;
+            case HIGH:
+                return RED_BOLD + "HIGH" + RESET;
+            default:
+                return "❓";
+        }
+    }
     public boolean isDone() {
-        return done;
+        return state == State.DONE;
     }
     public Priority getPriority() {
         return priority;
@@ -64,22 +93,65 @@ public class ToDoItem {
     public String getProjectName() {
         return project.getTitle();
     }
-    public void setCreatedAt(@org.jetbrains.annotations.NotNull LocalDateTime createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt.toString();
     }
-
     @Override
     public String toString() {
-        String doneSymbol = this.done ? "✅ " : "❌ " ;
-        String priority = (this.priority == Priority.LOW ? BLUE_BOLD : this.priority == Priority.MEDIUM ? YELLOW_BOLD : RED_BOLD) + this.priority + RESET;
-        return  doneSymbol + title + '\n' +
+        String stateSymbol = getStateEmoji() + ' ';
+        String priorityString = getPriorityString();
+        return  stateSymbol + title + '\n' +
                 description + '\n' +
                 "<" + tag + ">" + ' ' +
-                priority;
+                priorityString;
     }
-
     public String getCreatedAt() {
         return createdAt;
     }
+    public void promote() {
+        switch (state) {
+            case TODO:
+                state = State.IN_PROGRESS;
+                break;
+            case IN_PROGRESS:
+                state = State.DONE;
+                break;
+            case ON_HOLD:
+                state = State.IN_PROGRESS;
+                break;
+            case DONE:
+                break;
+        }
+    }
+    public void demote() {
+        switch (state) {
+            case TODO:
+                break;
+            case IN_PROGRESS:
+                state = State.TODO;
+                break;
+            case ON_HOLD:
+                state = State.TODO;
+                break;
+            case DONE:
+                state = State.IN_PROGRESS;
+                break;
+        }
+    }
+
+    public void hold() {
+        switch (state) {
+            case TODO:
+                break;
+            case IN_PROGRESS:
+                state = State.ON_HOLD;
+                break;
+            case ON_HOLD:
+                break;
+            case DONE:
+                break;
+        }
+    }
+
 
 }

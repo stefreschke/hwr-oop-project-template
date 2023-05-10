@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MyAppTest {
+class MainTest {
     @Test
     void getEnvironmentVariablesTest() {
         Program testEnvProgram = new Program();
@@ -35,13 +35,11 @@ class MyAppTest {
     }
     @Test
     void testWelcome() {
-        // Redirect standard input and output streams to memory buffers
         InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
 
         Program testEnvProgram = new Program();
         String[] env = testEnvProgram.getEnvironmentVariables();
-
         try {
             String userInput = "0\n" + "\n" + "data.json\n";
             System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
@@ -100,6 +98,7 @@ class MyAppTest {
                     "  remove [Item Index] -  remove a task\n" +
                     "  done [Item Index]   -  mark a task as done\n" +
                     "  edit [Item Index]   -  edit a task\n" +
+                    "  list                -  list all tasks\n" +
                     "  sort                -  sort your tasks\n" +
                     "  clear               -  clear all tasks\n" +
                     "  exit                -  exit the program\n";
@@ -116,12 +115,12 @@ class MyAppTest {
     }
 
     @Test
-    void testAdd() {
+    void addNoFileSpecifiedTest() {
         // Redirect standard input and output streams to memory buffers
         InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
         try {
-            String userInput = "Title\nDescription\n12.12.12\n3\nTag\n";
+            String userInput = "Title\nDescription\n3\nTag\n";
             System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
@@ -134,11 +133,11 @@ class MyAppTest {
                     "Create a new task\n" +
                     "Please enter a title for your task\n" +
                     "Please enter a description for your task\n" +
-                    "Please enter a due date for your task\n" +
                     "Please enter a priority for your task\n" +
-                    "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
+                    "\u001B[1;34m1 - LOW, \u001B[1;33m2 - MEDIUM, \u001B[1;31m3 - HIGH\u001B[0m\n" +
                     "Add a Tag to group your tasks\n" +
-                    "\u001B[1;32mTask Created Successfully!\u001B[0m\n";
+                    "\u001B[1;32mTask Created Successfully!\u001B[0m\n" +
+                    "Could not save your progress... please specify a file or try again.\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
             assertThat(toDoList.getListToDos()[0].getTitle()).isEqualTo("Title");
@@ -152,7 +151,42 @@ class MyAppTest {
     }
 
     @Test
-    void testEdit() {
+    void addFileSpecifiedTest() {
+        // Redirect standard input and output streams to memory buffers
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+        try {
+            String userInput = "Title\nDescription\n3\nTag\n";
+            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+
+            List toDoList = new List("MyList", "addTestFile");
+            Main.add(toDoList);
+            // Check the program output
+            String expectedOutput;
+            expectedOutput =
+                    "Create a new task\n" +
+                        "Please enter a title for your task\n" +
+                        "Please enter a description for your task\n" +
+                        "Please enter a priority for your task\n" +
+                        "\u001B[1;34m1 - LOW, \u001B[1;33m2 - MEDIUM, \u001B[1;31m3 - HIGH\u001B[0m\n" +
+                        "Add a Tag to group your tasks\n" +
+                        "\u001B[1;32mTask Created Successfully!\u001B[0m\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+            assertThat(toDoList.getListToDos()[0].getTitle()).isEqualTo("Title");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+    }
+
+    @Test
+    void editNotFileSpecifiedTest() {
         // Redirect standard input and output streams to memory buffers
         InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
@@ -166,14 +200,59 @@ class MyAppTest {
             System.setOut(new PrintStream(outBuffer));
 
             List toDoList = new List("MyList");
-            toDoList.add(new ToDoItem("Test", "Test", "Test", false, Priority.LOW, new Project("Test")));
+            toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test")));
             Main.edit(toDoList, 0);
             // Check the program output
             String expectedOutput;
             expectedOutput = "Editing task at index 0:\n" +
-                    "❌ Test\n" +
+                    "⏭\uFE0F Test\n" +
                     "Test\n" +
-                    "<Test> LOW\n\n" +
+                    "<\u001B[1;36mTest\u001B[0m> \u001B[1;34mLOW\u001B[0m\n" +
+                    "Enter new Title or press enter to skip\n" +
+                    "Enter new Description or press enter to skip\n" +
+                    "Enter new Priority or press enter to skip\n" +
+                    "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
+                    "Enter new Tag or press enter to skip\n" +
+                    "Task Edited Successfully!\n" +
+                    "Could not save your progress... please specify a file or try again.\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+            assertThat(toDoList.getListToDos()[0].getTitle()).isEqualTo("MyList");
+            assertThat(toDoList.getListToDos()[0].getDescription()).isEqualTo("Description");
+            assertThat(toDoList.getListToDos()[0].getPriority()).isEqualTo(Priority.HIGH);
+            assertThat(toDoList.getListToDos()[0].getTag()).isEqualTo("Tag");
+            assertThat(env).isNotNull();
+
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+    }
+
+    @Test
+    void editFileSpecifiedTest() {
+        // Redirect standard input and output streams to memory buffers
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+
+        Program testEnvProgram = new Program();
+        String[] env = testEnvProgram.getEnvironmentVariables();
+        try {
+            String userInput = "MyList\nDescription\n3\nTag\n";
+            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+
+            List toDoList = new List("MyList", "editTestFile");
+            toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test")));
+            Main.edit(toDoList, 0);
+            // Check the program output
+            String expectedOutput;
+            expectedOutput = "Editing task at index 0:\n" +
+                    "⏭\uFE0F Test\n" +
+                    "Test\n" +
+                    "<\u001B[1;36mTest\u001B[0m> \u001B[1;34mLOW\u001B[0m\n" +
                     "Enter new Title or press enter to skip\n" +
                     "Enter new Description or press enter to skip\n" +
                     "Enter new Priority or press enter to skip\n" +
@@ -201,19 +280,16 @@ class MyAppTest {
         PrintStream sysOutBackup = System.out;
 
         ToDoItem[] toDoItems = new ToDoItem[2];
-        toDoItems[0] = new ToDoItem("Test", "Test", "Test", false, Priority.LOW, new Project("Test"));
-        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", false, Priority.LOW, new Project("Test2"));
+        toDoItems[0] = new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test"));
+        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", Priority.LOW, new Project("Test2"));
 
         List toDoList = new List("MyList");
         toDoList.setListToDos(toDoItems);
 
         try {
-            String userInput = "MyList\n";
-            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
             Main.list(toDoList);
-            // Check the program output
             String expectedOutput;
             expectedOutput = "MyList:\n" +
                     toDoList.getListToDos()[0].toString() + "\n" +
@@ -222,7 +298,6 @@ class MyAppTest {
             assertEquals(expectedOutput, actualOutput);
 
         } finally {
-            // Restore standard input and output streams
             System.setIn(sysInBackup);
             System.setOut(sysOutBackup);
         }
@@ -240,30 +315,60 @@ class MyAppTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
             Main.list(toDoList);
-            // Check the program output
             String expectedOutput;
             expectedOutput = "MyList:\n" +
                     "👀Looks Empty here... Add some tasks!\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
-
         } finally {
-            // Restore standard input and output streams
             System.setIn(sysInBackup);
             System.setOut(sysOutBackup);
         }
     }
 
     @Test
-    void removeTest() {
+    void removeFileNotSpecifiedTest() {
         InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
 
         ToDoItem[] toDoItems = new ToDoItem[2];
-        toDoItems[0] = new ToDoItem("Test", "Test", "Test", false, Priority.LOW, new Project("Test"));
-        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", false, Priority.LOW, new Project("Test2"));
+        toDoItems[0] = new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test"));
+        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", Priority.LOW, new Project("Test2"));
 
         List toDoList = new List("MyList");
+        toDoList.setListToDos(toDoItems);
+
+        try {
+            System.setIn(new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(outBuffer));
+            assertThat(toDoList.getListToDos().length).isEqualTo(2);
+            Main.remove(toDoList, 0);
+            // Check the program output
+            String expectedOutput;
+            expectedOutput =
+                    "Task Removed Successfully!\n" +
+                    "Could not save your progress... please specify a file or try again.\n";
+            String actualOutput = outBuffer.toString();
+            assertEquals(expectedOutput, actualOutput);
+            assertThat(toDoList.getListToDos().length).isEqualTo(1);
+            assertThat(toDoList.getListToDos()[0].getTitle()).isEqualTo("Test2");
+        } finally {
+            // Restore standard input and output streams
+            System.setIn(sysInBackup);
+            System.setOut(sysOutBackup);
+        }
+    }
+    @Test
+    void removeFileSpecifiedTest() {
+        InputStream sysInBackup = System.in;
+        PrintStream sysOutBackup = System.out;
+
+        ToDoItem[] toDoItems = new ToDoItem[2];
+        toDoItems[0] = new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test"));
+        toDoItems[1] = new ToDoItem("Test2", "Test2", "Test2", Priority.LOW, new Project("Test2"));
+
+        List toDoList = new List("MyList", "removeTestFile");
         toDoList.setListToDos(toDoItems);
 
         try {
@@ -363,7 +468,7 @@ class MyAppTest {
     @Test
     void doneTest() {
         List list = new List("MyList", "listTest.json");
-        list.add(new ToDoItem("Test", "Test", "Test", false, Priority.LOW, new Project("Test")));
+        list.add(new ToDoItem("Test", "Test", "Test", Priority.LOW, new Project("Test")));
         assertThat(list.getListToDos()[0].isDone()).isFalse();
         Main.done(list, 0);
         assertThat(list.getListToDos()[0].isDone()).isTrue();
@@ -378,7 +483,6 @@ class MyAppTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
             Main.sortHelp();
-            // Check the program output
             String expectedOutput;
             expectedOutput =
                     "gtd sort [option]\n" +
@@ -393,7 +497,6 @@ class MyAppTest {
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
         } finally {
-            // Restore standard input and output streams
             System.setIn(sysInBackup);
             System.setOut(sysOutBackup);
         }
@@ -403,11 +506,11 @@ class MyAppTest {
     void handleSortTest() {
         String[] commandArray = {"gtd", "sort", "prio", "asc"};
         List list = new List("MyList");
-        list.add(new ToDoItem("Apple", "Computers", "Fruit", false, Priority.MEDIUM, new Project("Obstsalat")));
+        list.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM, new Project("Obstsalat")));
         list.getListToDos()[0].setCreatedAt(LocalDateTime.of(2020, 1, 1, 0, 0));
-        list.add(new ToDoItem("Cucumber", "Water", "Vegetable", false, Priority.LOW, new Project("Gin&Tonic")));
+        list.add(new ToDoItem("Cucumber", "Water", "Vegetable", Priority.LOW, new Project("Gin&Tonic")));
         list.getListToDos()[1].setCreatedAt(LocalDateTime.of(2020, 1, 2, 0, 0));
-        list.add(new ToDoItem("Banana", "Minions", "Fruit", true, Priority.HIGH, new Project("BananaBread")));
+        list.add(new ToDoItem("Banana", "Minions", "Fruit", Priority.HIGH, new Project("BananaBread")));
 
         // Priority Test
         list.sortByPriority("asc");
@@ -426,21 +529,13 @@ class MyAppTest {
     void clearTest() {
         PrintStream sysOutBackup = System.out;
         List list = new List("MyList");
-        list.add(new ToDoItem("Apple", "Computers", "Fruit", false, Priority.MEDIUM, new Project("Obstsalat")));
+        list.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM, new Project("Obstsalat")));
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
-
             assertThat(list.getListToDos().length).isEqualTo(1);
             Main.clear(list);
             assertThat(list.getListToDos() == null).isTrue();
-            // Check the program output
-            Main.list(list);
-            String expectedOutput;
-            expectedOutput = "MyList:\n" +
-                    "👀Looks Empty here... Add some tasks!\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
         } finally {
             System.setOut(sysOutBackup);
         }
@@ -451,7 +546,7 @@ class MyAppTest {
         PrintStream sysOutBackup = System.out;
         List list = new List("MyList");
         list.setFileName("listTest.json");
-        list.add(new ToDoItem("Apple", "Computers", "Fruit", false, Priority.MEDIUM, new Project("Obstsalat")));
+        list.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM, new Project("Obstsalat")));
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
