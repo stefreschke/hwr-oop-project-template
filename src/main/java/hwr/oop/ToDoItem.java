@@ -7,18 +7,17 @@ import static hwr.oop.ConsoleColors.*;
 public class ToDoItem {
     private String title;
     private String description;
-    private String tag;
+
+    private Bucket bucket;
     private Priority priority;
-    private Project project;
     private String createdAt;
     private State state;
-    public ToDoItem (String title, String description, String tag, Priority priority, Project project) {
+    public ToDoItem (String title, String description, String bucket, Priority priority) {
         this.title = title;
         this.description = description;
-        this.tag = CYAN_BOLD + tag + RESET;
+        this.bucket = new Bucket(bucket);
         this.createdAt = LocalDateTime.now().toString();
         this.priority = priority;
-        this.project = project;
         this.state = State.TODO;
     }
     void setTitle(String title) {
@@ -33,11 +32,8 @@ public class ToDoItem {
     void setPriority(Priority priority) {
         this.priority = priority;
     }
-    void setTag(String tag) {
-        this.tag = tag;
-    }
-    void setProjectName(String project) {
-        this.project.setTitle(project);
+    void setBucket(String bucket) {
+        this.bucket.setBucket(bucket);
     }
     static String getLocalDate() {
         return LocalDate.now().toString();
@@ -45,8 +41,8 @@ public class ToDoItem {
     public String getTitle() {
         return title;
     }
-    public String getTag() {
-        return tag;
+    public String getBucket() {
+        return bucket.getBucket();
     }
     public String getDescription() {
         return description;
@@ -90,9 +86,6 @@ public class ToDoItem {
     public Priority getPriority() {
         return priority;
     }
-    public String getProjectName() {
-        return project.getTitle();
-    }
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt.toString();
     }
@@ -102,7 +95,7 @@ public class ToDoItem {
         String priorityString = getPriorityString();
         return  stateSymbol + title + '\n' +
                 description + '\n' +
-                "<" + tag + ">" + ' ' +
+                "<" + bucket + ">" + ' ' +
                 priorityString;
     }
     public String getCreatedAt() {

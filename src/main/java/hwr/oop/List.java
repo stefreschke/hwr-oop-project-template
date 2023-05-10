@@ -7,10 +7,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-public class List { // TODO: RENAME TO ToDoList
+import java.util.ArrayList;
+
+public class List {
     private String name;
     private ToDoItem[] listToDos;
     private String fileName;
+    private java.util.List<Bucket> Buckets;
 
     public List(String name) {
         this(name, null);
@@ -19,6 +22,7 @@ public class List { // TODO: RENAME TO ToDoList
         this.name = name;
         this.listToDos = new ToDoItem[0];
         this.fileName = fileName;
+        this.Buckets = new ArrayList<>();
     }
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -34,12 +38,21 @@ public class List { // TODO: RENAME TO ToDoList
         return this.listToDos;
     }
 
+    public java.util.List<Bucket> getBuckets() {
+        return Buckets;
+    }
+
+    public void addBucket(String newBucket) {
+        this.Buckets.add(new Bucket(newBucket));
+    }
+
     public void setListToDos(ToDoItem[] listToDos) {
         this.listToDos = listToDos;
     }
     public String getFileName() {
         return this.fileName;
     }
+
     public void writeToJSON(String fileName) {
         //remove any file extension if present
         if (fileName.contains(".")) {
@@ -62,6 +75,33 @@ public class List { // TODO: RENAME TO ToDoList
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /*public void updateBuckets(){
+        java.util.ArrayList<Bucket> copyBucket = new ArrayList<>();
+        for (int i = 0; i < ListToDos.length; i++) {
+
+            String element = ListToDos[i].getBucket();
+            int help = 0;
+            for (int j = 0; j < ListToDos.length; j++) {
+                if(Buckets.get(j).getBucket() == element) {
+                    help++;
+                    break;
+                }
+            }
+
+            if(help == 0) {
+                copyBucket.add(new Bucket(element));
+            }
+
+        }
+
+        Buckets = copyBucket;
+    }*/
+
+
+    public void editBucket (int index, String newBucket) {
+        this.Buckets.set(index, new Bucket(newBucket));
     }
 
     public void add(ToDoItem toDoItem) {
@@ -108,10 +148,10 @@ public class List { // TODO: RENAME TO ToDoList
         }
     }
 
-    public void bubbleUpTag(String tag) {
+    public void bubbleUpBucket(String bucket) {
         for (int i = this.listToDos.length-1; i >= 0; i--) {
             for (int j = this.listToDos.length-1; j > 0; j--) {
-                if (this.listToDos[j].getTag().contains(tag) && !this.listToDos[j - 1].getTag().contains(tag)) {
+                if (this.listToDos[j].getBucket().contains(tag) && !this.listToDos[j - 1].getBucket().contains(tag)) {
                     ToDoItem temp = this.listToDos[j];
                     this.listToDos[j] = this.listToDos[j - 1];
                     this.listToDos[j - 1] = temp;

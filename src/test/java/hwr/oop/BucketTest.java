@@ -4,19 +4,19 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ProjectTest {
+public class BucketTest {
     @Test
     void setTitle() {
-        Project project = new Project("");
-        project.setTitle("testtitle");
-        String Testname = project.getTitle();
+        Bucket bucket = new Bucket("");
+        bucket.setBucket("testtitle");
+        String Testname = bucket.getBucket();
         assertThat(Testname).isEqualTo("testtitle");
     }
 
     @Test
     void getTitle() {
-        Project project = new Project("testtitle");
-        String Testname = project.getTitle();
+        Bucket bucket = new Bucket("testtitle");
+        String Testname = bucket.getBucket();
         assertThat(Testname).isEqualTo("testtitle");
     }
 }
