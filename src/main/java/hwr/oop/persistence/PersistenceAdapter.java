@@ -16,7 +16,7 @@ public class PersistenceAdapter implements SaveTaskPort, LoadTaskPort{
     }
 
     @Override
-    public List<Task> loadTasks(Reader fileReader) throws FileNotFoundException {
+    public List<Task> loadTasks(Reader fileReader) {
         Gson gson = new Gson();
         return gson.fromJson(fileReader, new TypeToken<List<Task>>() {}.getType());
     }
