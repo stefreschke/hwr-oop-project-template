@@ -4,10 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import hwr.oop.application.Task;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class PersistenceAdapter implements SaveTaskPort, LoadTaskPort{
@@ -15,14 +12,24 @@ public class PersistenceAdapter implements SaveTaskPort, LoadTaskPort{
 
     @Override
     public List<Task> loadTasks() throws FileNotFoundException {
+        return loadTasks(new FileReader(FILE_PATH));
+    }
+
+    @Override
+    public List<Task> loadTasks(Reader fileReader) throws FileNotFoundException {
         Gson gson = new Gson();
-        return gson.fromJson(new FileReader(FILE_PATH), new TypeToken<List<Task>>() {}.getType());
+        return gson.fromJson(fileReader, new TypeToken<List<Task>>() {}.getType());
     }
 
     @Override
     public void saveTasks(List<Task> taskList) throws IOException {
+        saveTasks(taskList, new FileWriter(FILE_PATH));
+    }
+
+    @Override
+    public void saveTasks(List<Task> taskList, Writer fileWriter) {
         Gson gson = new Gson();
-        gson.toJson(taskList, new FileWriter(FILE_PATH));
+        gson.toJson(taskList, fileWriter);
     }
 
 
