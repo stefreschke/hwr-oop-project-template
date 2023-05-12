@@ -1,10 +1,12 @@
 package hwr.oop.persistence;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import hwr.oop.application.Task;
 
 import java.io.*;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class PersistenceAdapter implements SaveTaskPort, LoadTaskPort{
@@ -17,7 +19,9 @@ public class PersistenceAdapter implements SaveTaskPort, LoadTaskPort{
 
     @Override
     public List<Task> loadTasks(Reader fileReader) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
         return gson.fromJson(fileReader, new TypeToken<List<Task>>() {}.getType());
     }
 
@@ -28,7 +32,9 @@ public class PersistenceAdapter implements SaveTaskPort, LoadTaskPort{
 
     @Override
     public void saveTasks(List<Task> taskList, Writer fileWriter) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
         gson.toJson(taskList, fileWriter);
     }
 
