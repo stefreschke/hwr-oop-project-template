@@ -43,6 +43,26 @@ public class TrainerTests {
         Card cardRef3_topic = topic.getCardList().get(2);
         Card card3_rand = trainer.getBoxList().get(0).getRandomCard();
         Assertions.assertThat(topic.getCardList()).contains(card3_rand);
+    }
 
+    @Test
+    void canMoveCardUp(){
+        Trainer trainer = new Trainer();
+        Topic topic = new Topic("Random");
+        topic.createCard("Penny", "Doku");
+        Card card = topic.getCardList().get(0);
+        trainer.loadTopic(topic);
+        Card card1 = trainer.getBoxList().get(0).getRandomCard();
+        trainer.moveCardIntoBox(card1, 1);
+        Assertions.assertThat(trainer.getBoxList().get(1).getRandomCard()).isEqualTo(card);
+    }
+    @Test
+    void canMoveCard(){
+        Trainer trainer = new Trainer();
+        Topic topic = new Topic("Random");
+        topic.createCard("Penny", "Doku");
+        Card card = topic.getCardList().get(0);
+        trainer.moveCardIntoBox(card, 2);
+        Assertions.assertThat(trainer.getBoxList().get(2).getRandomCard()).isEqualTo(card);
     }
 }
