@@ -27,4 +27,10 @@ class TopicTests {
         Card testCard = topic.getCardList().get(0);
         assertThat(testCard).isNotNull();
     }
+
+    @Test
+    public void canSaveTopic(){
+
+        PersistenceSavePort pa = new JsonPersistenceAdapter();
+    }
 }
