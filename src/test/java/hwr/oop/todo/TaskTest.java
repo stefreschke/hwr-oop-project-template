@@ -9,7 +9,7 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TaskTest {
+ class TaskTest {
 
     @Test
     void canCreateTaskWithTitle(){

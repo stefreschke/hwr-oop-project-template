@@ -5,16 +5,16 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class TagTest {
+class TagTest {
 
     @Test
-    public void canCreateTagWithNameOnly(){
+    void canCreateTagWithNameOnly(){
         Tag tag = new Tag("Name");
         assertEquals("Name", tag.getName());
     }
 
     @Test
-    public void canCreateTagWithDescription(){
+    void canCreateTagWithDescription(){
         Tag tag = new Tag("Name", "Description");
         assertEquals("Name", tag.getName());
         assertEquals("Description", tag.getDescription());

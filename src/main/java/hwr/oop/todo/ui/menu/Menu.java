@@ -10,12 +10,7 @@ import java.util.Map;
 
 
 public class Menu {
-    private final String menuName;
     private final Map<Character, MenuAction> actions = new HashMap<>();
-
-    public Menu(String menuName){
-        this.menuName = menuName;
-    }
 
     public MenuResponseInContext on(char key, String description) {
         return new MenuResponseInContext(key, description, this);
