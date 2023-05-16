@@ -14,8 +14,8 @@ public class TagMenuTest {
     @Test
     void hasOptions() {
         TagMenu menu = new TagMenu();
-
         assertFalse(menu.getMenuOptions().isEmpty());
+        assertTrue(menu.getMenuOptions().size() == 3);
     }
 
     @Test

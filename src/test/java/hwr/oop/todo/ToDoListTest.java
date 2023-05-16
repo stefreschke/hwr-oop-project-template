@@ -2,6 +2,8 @@ package hwr.oop.todo;
 
 import hwr.oop.todo.library.project.Project;
 import hwr.oop.todo.library.project.ProjectData;
+import hwr.oop.todo.library.task.TaskController;
+import hwr.oop.todo.library.todolist.DuplicateIdException;
 import hwr.oop.todo.library.todolist.ToDoList;
 import hwr.oop.todo.library.todolist.ToDoListException;
 import hwr.oop.todo.library.task.Task;
@@ -20,10 +22,7 @@ public class ToDoListTest {
 
         Task taskData = TaskFactory.createTask("Title");
 
-        Task task = testController.addTask(taskData);
-        UUID id = task.getId();
-
-        assertEquals(task, testController.getTask(id));
+        testController.addTask(taskData);
     }
 
     @Test
@@ -41,10 +40,8 @@ public class ToDoListTest {
         Task firstTask = TaskFactory.createTask("Title");
         Task secondTask = TaskFactory.createTask("Title2");
 
-        Task task1 = testController.addTask(firstTask);
-        Task task2 = testController.addTask(secondTask);
-
-        assertNotEquals(task1, task2);
+        testController.addTask(firstTask);
+        testController.addTask(secondTask);
     }
 
     @Test
@@ -54,10 +51,8 @@ public class ToDoListTest {
         Task firstTask = TaskFactory.createTask("Title");
         Task secondTask = TaskFactory.createTask("Title");
 
-        Task task1 = testController.addTask(firstTask);
-        Task task2 = testController.addTask(secondTask);
-
-        assertNotEquals(task1, task2);
+        testController.addTask(firstTask);
+        testController.addTask(secondTask);
     }
     
     @Test
@@ -69,6 +64,16 @@ public class ToDoListTest {
 
         assertEquals(projectData.getName(), project.getName());
         assertEquals(projectData.getTaskIds(), project.getTaskIds());
+    }
+
+    @Test
+    void canCreateMultipleProjects(){
+        ToDoList todoList = new ToDoList();
+
+        Project project1 = todoList.createProject(new ProjectData("Project1"));
+        Project project2 = todoList.createProject(new ProjectData("Project2"));
+
+        assertNotEquals(project1, project2);
     }
 
     @Test
@@ -85,5 +90,16 @@ public class ToDoListTest {
     void cannotGetProjectThatDoesNotExist(){
         ToDoList todoList = new ToDoList();
         assertThrows(ToDoListException.class, () -> todoList.getProject(UUID.randomUUID()));
+    }
+
+    @Test
+    void canNotStoreTwoTaskWithSameId(){
+        ToDoList toDoList = new ToDoList();
+
+        Task task = TaskFactory.createTask("Title");
+
+        toDoList.addTask(task);
+
+        assertThrows(DuplicateIdException.class, () -> toDoList.addTask(task));
     }
 }

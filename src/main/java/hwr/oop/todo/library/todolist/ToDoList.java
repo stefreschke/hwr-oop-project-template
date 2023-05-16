@@ -11,10 +11,14 @@ public class ToDoList {
     private final HashMap<UUID, Task> tasks = new HashMap<>();
     private final HashMap<UUID, Project> projects = new HashMap<>();
 
-    public Task addTask(Task task){
+    public void addTask(Task task){
         UUID id = task.getId();
+
+        if(tasks.containsKey(id)){
+            throw new DuplicateIdException(id);
+        }
+
         tasks.put(id, task);
-        return task;
     }
 
     public Task getTask(UUID id){

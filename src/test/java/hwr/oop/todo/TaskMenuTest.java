@@ -14,8 +14,8 @@ public class TaskMenuTest {
     @Test
     void hasOptions() {
         TaskMenu menu = new TaskMenu();
-
         assertFalse(menu.getMenuOptions().isEmpty());
+        assertTrue(menu.getMenuOptions().size() == 3);
     }
 
     @Test

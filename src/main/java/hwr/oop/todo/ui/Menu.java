@@ -10,9 +10,8 @@ public class Menu {
         this.options = new ArrayList<>();
     }
 
-    public Menu addOption(MenuOption option){
+    public void addOption(MenuOption option){
         options.add(option);
-        return this;
     }
 
 
