@@ -1,5 +1,8 @@
 package hwr.oop.todo;
 
+import hwr.oop.todo.ui.MenuOption;
+import hwr.oop.todo.ui.ProjectMenu;
+import hwr.oop.todo.ui.SelectionResponse;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

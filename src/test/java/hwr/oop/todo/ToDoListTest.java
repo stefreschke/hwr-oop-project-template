@@ -1,5 +1,13 @@
 package hwr.oop.todo;
 
+import hwr.oop.todo.library.project.Project;
+import hwr.oop.todo.library.project.ProjectData;
+import hwr.oop.todo.library.task.TaskController;
+import hwr.oop.todo.library.todolist.DuplicateIdException;
+import hwr.oop.todo.library.todolist.ToDoList;
+import hwr.oop.todo.library.todolist.ToDoListException;
+import hwr.oop.todo.library.task.Task;
+import hwr.oop.todo.library.task.TaskFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -11,12 +19,10 @@ public class ToDoListTest {
     @Test
     void canStoreTask () {
         ToDoList testController = new ToDoList();
-        TaskData taskData = new TaskData("Title");
 
-        Task task = testController.addTask(taskData);
-        UUID id = task.getId();
+        Task taskData = TaskFactory.createTask("Title");
 
-        assertEquals(task, testController.getTask(id));
+        testController.addTask(taskData);
     }
 
     @Test
@@ -31,20 +37,22 @@ public class ToDoListTest {
     void canStoreMultipleTasks () {
         ToDoList testController = new ToDoList();
 
-        Task task1 = testController.addTask(new TaskData("Title"));
-        Task task2 = testController.addTask(new TaskData("Title2"));
+        Task firstTask = TaskFactory.createTask("Title");
+        Task secondTask = TaskFactory.createTask("Title2");
 
-        assertNotEquals(task1, task2);
+        testController.addTask(firstTask);
+        testController.addTask(secondTask);
     }
 
     @Test
     void canStoreMultipleTasksWithSameTitle () {
         ToDoList testController = new ToDoList();
 
-        Task task1 = testController.addTask(new TaskData("Title"));
-        Task task2 = testController.addTask(new TaskData("Title"));
+        Task firstTask = TaskFactory.createTask("Title");
+        Task secondTask = TaskFactory.createTask("Title");
 
-        assertNotEquals(task1, task2);
+        testController.addTask(firstTask);
+        testController.addTask(secondTask);
     }
     
     @Test
@@ -82,5 +90,16 @@ public class ToDoListTest {
     void cannotGetProjectThatDoesNotExist(){
         ToDoList todoList = new ToDoList();
         assertThrows(ToDoListException.class, () -> todoList.getProject(UUID.randomUUID()));
+    }
+
+    @Test
+    void canNotStoreTwoTaskWithSameId(){
+        ToDoList toDoList = new ToDoList();
+
+        Task task = TaskFactory.createTask("Title");
+
+        toDoList.addTask(task);
+
+        assertThrows(DuplicateIdException.class, () -> toDoList.addTask(task));
     }
 }

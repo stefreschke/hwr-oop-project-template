@@ -1,4 +1,6 @@
-package hwr.oop.todo;
+package hwr.oop.todo.library.task;
+
+import hwr.oop.todo.library.todolist.ToDoList;
 
 import java.util.UUID;
 
@@ -15,8 +17,8 @@ public class TaskController {
         return todolist;
     }
 
-    public Task addTask(TaskData taskdata){
-        return todolist.addTask(taskdata);
+    public void addTask(Task task){
+        todolist.addTask(task);
     }
 
     public Task getTask(UUID id){

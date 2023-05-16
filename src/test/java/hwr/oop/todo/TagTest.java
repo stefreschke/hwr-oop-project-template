@@ -1,6 +1,6 @@
 package hwr.oop.todo;
 
-import org.junit.jupiter.api.Assertions;
+import hwr.oop.todo.library.tag.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

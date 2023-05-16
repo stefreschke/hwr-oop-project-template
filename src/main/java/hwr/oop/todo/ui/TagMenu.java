@@ -1,9 +1,13 @@
-package hwr.oop.todo;
+package hwr.oop.todo.ui;
 
-import java.util.ArrayList;
+import hwr.oop.todo.ui.InvalidMenuOptionException;
+import hwr.oop.todo.ui.Menu;
+import hwr.oop.todo.ui.MenuOption;
+import hwr.oop.todo.ui.SelectionResponse;
+
 import java.util.List;
 
-public class TagMenu extends Menu{
+public class TagMenu extends Menu {
     private List<MenuOption> options;
 
     public TagMenu(){

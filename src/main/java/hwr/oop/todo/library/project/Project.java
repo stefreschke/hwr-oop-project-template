@@ -1,22 +1,21 @@
-package hwr.oop.todo;
+package hwr.oop.todo.library.project;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Project extends ProjectData {
     private UUID id;
 
-    public Project(UUID uuid, String name){
+    public Project(UUID uuid, String name) {
         super(name);
         this.id = uuid;
     }
 
-    public static Project fromData(UUID uuid, ProjectData data){
+    public static Project fromData(UUID uuid, ProjectData data) {
         return new Project(uuid, data.getName());
     }
 
-    public UUID getId(){
+    public UUID getId() {
         return id;
     }
 

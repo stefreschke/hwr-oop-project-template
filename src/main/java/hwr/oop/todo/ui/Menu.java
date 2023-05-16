@@ -1,4 +1,4 @@
-package hwr.oop.todo;
+package hwr.oop.todo.ui;
 
 import java.util.ArrayList;
 import java.util.List;

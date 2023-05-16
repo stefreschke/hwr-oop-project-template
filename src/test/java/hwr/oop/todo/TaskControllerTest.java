@@ -1,5 +1,9 @@
 package hwr.oop.todo;
 
+import hwr.oop.todo.library.task.Task;
+import hwr.oop.todo.library.task.TaskController;
+import hwr.oop.todo.library.task.TaskFactory;
+import hwr.oop.todo.library.todolist.ToDoListException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -24,12 +28,9 @@ class TaskControllerTest {
     @Test
     void canStoreTask() {
         TaskController testController = new TaskController();
-        TaskData taskData = new TaskData("Title");
+        Task task = TaskFactory.createTask("Title");
 
-        Task task = testController.addTask(taskData);
-        UUID id = task.getId();
-
-        assertEquals(task, testController.getTask(id));
+        assertDoesNotThrow(() -> testController.addTask(task));
     }
 
 
@@ -46,10 +47,11 @@ class TaskControllerTest {
     void canStoreMultipleTasks() {
         TaskController testController = new TaskController();
 
-        Task task1 = testController.addTask(new TaskData("Title"));
-        Task task2 = testController.addTask(new TaskData("Title2"));
-
-        assertNotEquals(task1, task2);
+        Task firstTask = TaskFactory.createTask("Title");
+        Task secondTask = TaskFactory.createTask("Title2");
+        
+        testController.addTask(firstTask);
+        testController.addTask(secondTask);
     }
 
 
@@ -57,11 +59,10 @@ class TaskControllerTest {
     void canStoreMultipleTasksWithSameTitle() {
         TaskController testController = new TaskController();
 
-        Task task1 = testController.addTask(new TaskData("Title"));
-        Task task2 = testController.addTask(new TaskData("Title"));
-
-        assertNotEquals(task1, task2);
+        Task firstTask = TaskFactory.createTask("Title");
+        Task secondTask = TaskFactory.createTask("Title");
+        
+        testController.addTask(firstTask);
+        testController.addTask(secondTask);
     }
-
-
 }

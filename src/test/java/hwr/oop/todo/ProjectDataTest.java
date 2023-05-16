@@ -1,9 +1,14 @@
 package hwr.oop.todo;
 
+import hwr.oop.todo.library.project.Project;
+import hwr.oop.todo.library.project.ProjectData;
+import hwr.oop.todo.library.task.Task;
+import hwr.oop.todo.library.task.TaskFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -23,24 +28,24 @@ public class ProjectDataTest {
     void canAddTaskById(){
         Project project = new Project(UUID.randomUUID(), "Name");
 
-        UUID id = UUID.randomUUID();
-        Task task = new Task(id, "Title", "Description");
+        Task task = TaskFactory.createTask("Title", "Description");
+        project.addTask(task);
 
-        project.addTask(id);
+        List<UUID> ids = Arrays.asList(task.getId());
 
-        Assertions.assertIterableEquals(Arrays.asList(id), project.getTaskIds());
+        Assertions.assertIterableEquals(ids, project.getTaskIds());
     }
 
     @Test
     void canAddTask(){
         Project project = new Project(UUID.randomUUID(), "Name");
 
-        UUID id = UUID.randomUUID();
-        Task task = new Task(id, "Title", "Description");
-
+        Task task = TaskFactory.createTask("Title", "Description");
         project.addTask(task);
 
-        Assertions.assertIterableEquals(Arrays.asList(id), project.getTaskIds());
+        List<UUID> ids = Arrays.asList(task.getId());
+
+        Assertions.assertIterableEquals(ids, project.getTaskIds());
     }
 
     @Test

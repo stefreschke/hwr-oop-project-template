@@ -1,4 +1,6 @@
-package hwr.oop.todo;
+package hwr.oop.todo.ui;
+
+import hwr.oop.todo.ui.MenuOption;
 
 import java.io.IOException;
 import java.io.InputStream;
