@@ -47,8 +47,6 @@ The project consists of the following classes and their corresponding test class
 | IoController         | Handles input/output         | IoControllerTest          |
 | ApplicationController | Controls the application    | ApplicationControllerTest  |
 
-Bitte beachten Sie, dass die Testklassen den tatsächlichen Namen der Klassen gefolgt von "Test" haben.
-
 ## Dependencies
 
 The project does not have any additional dependencies beyond the core Java libraries.
