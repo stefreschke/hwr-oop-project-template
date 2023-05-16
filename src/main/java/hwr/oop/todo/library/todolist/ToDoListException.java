@@ -1,4 +1,4 @@
-package hwr.oop.todo;
+package hwr.oop.todo.library.todolist;
 
 public class ToDoListException extends RuntimeException{
     public ToDoListException(String message){

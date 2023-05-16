@@ -1,4 +1,4 @@
-package hwr.oop.todo;
+package hwr.oop.todo.ui;
 
 public class InvalidMenuOptionException extends RuntimeException {
     public InvalidMenuOptionException(String message){

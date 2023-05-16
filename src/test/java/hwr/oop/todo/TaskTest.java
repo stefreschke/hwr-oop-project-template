@@ -1,55 +1,90 @@
 package hwr.oop.todo;
 
+import hwr.oop.todo.library.tag.Tag;
+import hwr.oop.todo.library.task.Task;
+import hwr.oop.todo.library.task.TaskFactory;
 import org.junit.jupiter.api.Test;
 
-import java.util.UUID;
+import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TaskTest {
 
     @Test
-    void canCreateTask(){
-        UUID id = UUID.randomUUID();
-        Task task = new Task(id, "Title", "Description");
+    void canCreateTaskWithTitle(){
+        Task taskData = TaskFactory.createTask("Title");
 
-        assertEquals(id, task.getId());
-        assertEquals("Title", task.getTitle());
-        assertEquals("Description", task.getDescription());
+        String title = taskData.getTitle();
+
+        assertEquals("Title", title);
     }
 
     @Test
-    void canCreateTaskFromTaskData(){
-        UUID id = UUID.randomUUID();
-        TaskData data = new TaskData("Title", "Description");
+    void canCreateTaskWithDescription(){
+        Task taskData = TaskFactory.createTask("Title", "Description");
 
-        Task task = Task.fromData(id, data);
+        String title = taskData.getTitle();
+        String desc = taskData.getDescription();
 
-        assertEquals(id, task.getId());
-        assertEquals(data.getTitle(), task.getTitle());
-        assertEquals(data.getDescription(), task.getDescription());
+        assertEquals("Title", title);
+        assertEquals("Description", desc);
     }
 
     @Test
-    void tasksAreEqualWithEqualContents(){
-        UUID id = UUID.randomUUID();
-        Task first = new Task(id, "First", "First");
-        Task second = new Task(id, "First", "First");
+    void canAddTags(){
+        Task taskData = TaskFactory.createTask("Title", "Description");
 
-        assertEquals(first, second);
-        assertEquals(first.hashCode(), second.hashCode());
+        Tag homework = new Tag("Homework");
+        Tag important = new Tag("Important");
+
+        taskData.addTag(homework);
+        taskData.addTag(important);
+        assertIterableEquals(Arrays.asList(homework, important), taskData.getTags());
+
+
     }
 
     @Test
-    void tasksAreNotEqualWithDifferentContents(){
-        UUID id = UUID.randomUUID();
-        Task first = new Task(id, "First_", "First");
-        Task second = new Task(id, "First", "First");
+    void canRemoveTags(){
+        Task taskData = TaskFactory.createTask("Title", "Description");
+
+        Tag homework = new Tag("Homework");
+        Tag important = new Tag("Important");
+        Tag birthday = new Tag("Birthday Present");
+
+        taskData.addTag(homework);
+        taskData.addTag(important);
+        taskData.removeTag(important);
+        taskData.addTag(birthday);
+
+        assertIterableEquals(Arrays.asList(homework, birthday), taskData.getTags());
+    }
+
+    @Test
+    void tasksAreNotEqualWithEqualTitles(){
+        Task first = TaskFactory.createTask("First");
+        Task second = TaskFactory.createTask("First");
 
         assertNotEquals(first, second);
         assertNotEquals(first.hashCode(), second.hashCode());
     }
 
+    @Test
+    void tasksAreNotEqualWithEqualContents(){
+        Task first = TaskFactory.createTask("Title", "Description");
+        Task second = TaskFactory.createTask("Title", "Description");
 
+        assertNotEquals(first, second);
+        assertNotEquals(first.hashCode(), second.hashCode());
+    }
+
+    @Test
+    void tasksAreNotEqualWithDifferentContents(){
+        Task first = TaskFactory.createTask("Title_", "Description");
+        Task second = TaskFactory.createTask("Title", "Description");
+
+        assertNotEquals(first, second);
+        assertNotEquals(first.hashCode(), second.hashCode());
+    }
 }

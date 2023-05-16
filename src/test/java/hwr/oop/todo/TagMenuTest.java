@@ -1,6 +1,8 @@
 package hwr.oop.todo;
 
-import org.junit.jupiter.api.Assertions;
+import hwr.oop.todo.ui.MenuOption;
+import hwr.oop.todo.ui.SelectionResponse;
+import hwr.oop.todo.ui.TagMenu;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

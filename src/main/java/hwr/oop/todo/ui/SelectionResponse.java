@@ -1,4 +1,4 @@
-package hwr.oop.todo;
+package hwr.oop.todo.ui;
 
 public class SelectionResponse {
     private boolean isSuccess;

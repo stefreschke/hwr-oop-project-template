@@ -1,10 +1,6 @@
-package hwr.oop.todo;
+package hwr.oop.todo.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-public class ProjectMenu extends Menu{
+public class ProjectMenu extends Menu {
     public ProjectMenu(){
         addOption(new MenuOption( 'a', "Create project"));
         addOption(new MenuOption('b', "Delete project"));

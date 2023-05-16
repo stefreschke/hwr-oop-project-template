@@ -1,10 +1,11 @@
-package hwr.oop.todo;
+package hwr.oop.todo.ui;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import hwr.oop.todo.ui.InvalidMenuOptionException;
+import hwr.oop.todo.ui.Menu;
+import hwr.oop.todo.ui.MenuOption;
+import hwr.oop.todo.ui.SelectionResponse;
 
-public class TaskMenu extends Menu{
+public class TaskMenu extends Menu {
     public TaskMenu(){
         addOption(new MenuOption( 'a', "Create task"));
         addOption(new MenuOption('b', "Delete task"));

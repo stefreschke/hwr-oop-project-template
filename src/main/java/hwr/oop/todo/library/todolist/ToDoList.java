@@ -1,20 +1,19 @@
-package hwr.oop.todo;
+package hwr.oop.todo.library.todolist;
 
-import java.util.ArrayList;
+import hwr.oop.todo.library.project.Project;
+import hwr.oop.todo.library.project.ProjectData;
+import hwr.oop.todo.library.task.Task;
+
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 public class ToDoList {
     private final HashMap<UUID, Task> tasks = new HashMap<>();
     private final HashMap<UUID, Project> projects = new HashMap<>();
 
-    public Task addTask(TaskData taskData){
-        UUID id = UUID.randomUUID();
-        Task task =  Task.fromData(id, taskData);
-
+    public Task addTask(Task task){
+        UUID id = task.getId();
         tasks.put(id, task);
-
         return task;
     }
 

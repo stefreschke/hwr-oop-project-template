@@ -1,5 +1,8 @@
 package hwr.oop.todo;
 
+import hwr.oop.todo.library.tag.Tag;
+import hwr.oop.todo.library.tag.TagController;
+import hwr.oop.todo.library.tag.TagException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
