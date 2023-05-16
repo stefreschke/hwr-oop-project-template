@@ -1,5 +1,8 @@
 package hwr.oop.todo.ui;
 
+import hwr.oop.todo.ui.menu.Menu;
+import hwr.oop.todo.ui.menu.responses.MenuResponse;
+
 import java.util.Optional;
 
 public class UIController {

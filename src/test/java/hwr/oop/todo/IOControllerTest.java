@@ -1,7 +1,7 @@
 package hwr.oop.todo;
 
 import hwr.oop.todo.ui.IOController;
-import hwr.oop.todo.ui.MenuAction;
+import hwr.oop.todo.ui.menu.MenuAction;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;

@@ -1,4 +1,9 @@
-package hwr.oop.todo.ui;
+package hwr.oop.todo.ui.menu.responses;
+
+import hwr.oop.todo.ui.menu.Menu;
+import hwr.oop.todo.ui.menu.MenuOptionHandlerFunction;
+import hwr.oop.todo.ui.menu.responses.NavigationResponse;
+import hwr.oop.todo.ui.menu.responses.StringResponse;
 
 public class MenuResponseInContext {
 

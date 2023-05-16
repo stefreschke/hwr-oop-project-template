@@ -1,11 +1,13 @@
 package hwr.oop.todo;
 
 import hwr.oop.todo.ui.*;
-import org.junit.jupiter.api.Assertions;
+import hwr.oop.todo.ui.menu.Menu;
+import hwr.oop.todo.ui.menu.MenuAction;
+import hwr.oop.todo.ui.menu.responses.InvalidKeyResponse;
+import hwr.oop.todo.ui.menu.responses.MenuResponse;
 import org.junit.jupiter.api.Test;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;

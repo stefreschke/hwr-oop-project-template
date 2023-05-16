@@ -1,4 +1,6 @@
-package hwr.oop.todo.ui;
+package hwr.oop.todo.ui.menu;
+
+import hwr.oop.todo.ui.menu.responses.MenuResponse;
 
 public class MenuAction {
 

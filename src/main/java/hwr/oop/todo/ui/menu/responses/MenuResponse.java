@@ -1,4 +1,6 @@
-package hwr.oop.todo.ui;
+package hwr.oop.todo.ui.menu.responses;
+
+import hwr.oop.todo.ui.menu.Menu;
 
 import java.util.Optional;
 

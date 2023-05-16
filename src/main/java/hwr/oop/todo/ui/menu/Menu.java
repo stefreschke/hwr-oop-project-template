@@ -1,9 +1,12 @@
-package hwr.oop.todo.ui;
+package hwr.oop.todo.ui.menu;
+
+import hwr.oop.todo.ui.menu.responses.MenuResponse;
+import hwr.oop.todo.ui.menu.responses.MenuResponseInContext;
+import hwr.oop.todo.ui.menu.responses.InvalidKeyResponse;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 
 public class Menu {

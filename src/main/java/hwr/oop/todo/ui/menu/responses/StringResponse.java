@@ -1,8 +1,10 @@
-package hwr.oop.todo.ui;
+package hwr.oop.todo.ui.menu.responses;
+
+import hwr.oop.todo.ui.menu.Menu;
 
 import java.util.Optional;
 
-public class StringResponse implements MenuResponse{
+public class StringResponse implements MenuResponse {
     private final String response;
 
     public StringResponse(String response){
