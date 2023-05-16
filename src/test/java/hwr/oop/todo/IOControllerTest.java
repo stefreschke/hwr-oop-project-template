@@ -1,7 +1,7 @@
 package hwr.oop.todo;
 
 import hwr.oop.todo.ui.IOController;
-import hwr.oop.todo.ui.MenuOption;
+import hwr.oop.todo.ui.MenuAction;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -34,7 +34,7 @@ public class IOControllerTest {
         OutputStream outputStream = new ByteArrayOutputStream();
 
         IOController controller = new IOController(inputStream, outputStream);
-        List<MenuOption> options= List.of(new MenuOption('a', "Example action to test very long"), new MenuOption('b', "Example action"));
+        List<MenuAction> options= List.of(new MenuAction('a', "Example action to test very long", () -> null), new MenuAction('b', "Example action", () -> null));
         controller.printPrompt(options);
     }
 

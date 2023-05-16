@@ -1,0 +1,32 @@
+package hwr.oop.todo.ui;
+
+import java.util.Optional;
+
+public class InvalidKeyResponse implements MenuResponse{
+    private char invalidKey;
+
+    private InvalidKeyResponse(char invalidKey){
+        this.invalidKey = invalidKey;
+    }
+
+    public static InvalidKeyResponse withKey(char key){
+        return new InvalidKeyResponse(key);
+    }
+
+    @Override
+    public boolean isSuccess() {
+        return false;
+    }
+
+    @Override
+    public Optional<String> message() {
+        return Optional.of("The key '"+invalidKey+"' is invalid.");
+    }
+
+    @Override
+    public Optional<Menu> navigateTo() {
+        return Optional.empty();
+    }
+
+
+}

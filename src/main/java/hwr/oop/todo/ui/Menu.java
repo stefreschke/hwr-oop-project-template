@@ -1,40 +1,37 @@
 package hwr.oop.todo.ui;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 
 public class Menu {
-    private List<MenuOption> options;
+    private final String menuName;
+    private final Map<Character, MenuAction> actions = new HashMap<>();
 
-    public Menu(){
-        this.options = new ArrayList<>();
+    public Menu(String menuName){
+        this.menuName = menuName;
     }
 
-    public void addOption(MenuOption option){
-        options.add(option);
+    public MenuResponseInContext on(char key, String description) {
+        return new MenuResponseInContext(key, description, this);
     }
 
+    public void addAction(char key, String description, MenuOptionHandlerFunction handler){
+        MenuAction menuAction = new MenuAction(key, description, handler);
+        actions.put(key, menuAction);
+    }
+    public Collection<MenuAction> getActions(){
+        return actions.values();
+    }
 
-    public List<MenuOption> getMenuOptions(){
-        return options;
-    };
-
-    protected MenuOption getOptionByKey(char key){
-        MenuOption option = options.stream().filter(elem -> elem.getSelectionKey() == key).findFirst().orElse(null);
-
-        if(option == null){
-            throw new InvalidMenuOptionException("Cannot find option with selection key "+key);
+    public MenuResponse handle(char key){
+        if(!actions.containsKey(key)){
+            return InvalidKeyResponse.withKey(key);
         }
 
-        return option;
+        return actions.get(key).run();
     }
 
-    public SelectionResponse getSelectionResponse(char selectionKey){
-        try{
-            MenuOption option = getOptionByKey(selectionKey);
-            return SelectionResponse.success("You selected \""+ option.getDescription()+"\"");
-        }catch(InvalidMenuOptionException e){
-            return SelectionResponse.error("Selection "+selectionKey+" is invalid.");
-        }
-    };
 }

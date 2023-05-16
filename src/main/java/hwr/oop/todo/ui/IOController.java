@@ -1,7 +1,5 @@
 package hwr.oop.todo.ui;
 
-import hwr.oop.todo.ui.MenuOption;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -46,18 +44,18 @@ public class IOController {
         write("> ");
     }
 
-    public void printPrompt(List<MenuOption> options) {
+    public void printPrompt(List<MenuAction> options) {
         System.out.println("\033[2J");
 
-        String longest = String.valueOf(options.stream().map(MenuOption::getDescription).max(Comparator.comparingInt(String::length)));
+        String longest = String.valueOf(options.stream().map(MenuAction::getDescription).max(Comparator.comparingInt(String::length)));
 
         StringBuilder line = new StringBuilder();
         line.append("-".repeat(Math.max(0, (int) (longest.length() * 1.0) + 7)));
 
         System.out.println("|" + line + "|");
-        for (MenuOption option : options) {
+        for (MenuAction option : options) {
             String description = option.getDescription();
-            System.out.println("| "+ option.getSelectionKey()+ ") " + description + " ".repeat(Math.max(0, (int) (longest.length() * 1.0) + 2 - description.length())) + " |");
+            System.out.println("| "+ option.getKey()+ ") " + description + " ".repeat(Math.max(0, (int) (longest.length() * 1.0) + 2 - description.length())) + " |");
         }
         System.out.println("|" + line + "|");
         System.out.println("\u001B[32m");
