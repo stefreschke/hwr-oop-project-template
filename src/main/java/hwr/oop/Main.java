@@ -158,7 +158,7 @@ public class Main {
     }
     public static void list(List list) { // maybe redundant method
         out.println(list.getName() + ":");
-        ToDoItem[] toDoItems = list.getListToDos();
+        ToDoItem[] toDoItems = list.getItems();
         if (toDoItems == null || toDoItems.length == 0) {
             out.println("👀Looks Empty here... Add some tasks!");
             return;
@@ -188,7 +188,7 @@ public class Main {
         int i = 0;
         while (i == 0) {
             try {
-                list.getListToDos()[index].setDone(true);
+                list.getItems()[index].setDone(true);
                 i++;
             } catch (Exception e) {
                  index = handleBadIndex("Please enter the index of the task you want to mark as done.");
@@ -206,11 +206,11 @@ public class Main {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         ToDoItem item;
         try {
-            item = list.getListToDos()[index];
+            item = list.getItems()[index];
         } catch (Exception e) {
             index = handleBadIndex("Please enter the index of the task you want to edit.");
             if (index == -1) return;
-            else item = list.getListToDos()[index];
+            else item = list.getItems()[index];
         }
         out.println("Editing task at index " + index + ":");
         out.println(item.toString());
@@ -263,7 +263,7 @@ public class Main {
     public static void createBucket(List toDoList, String newBucket){
         java.util.List<Bucket> BucketsCopy = toDoList.getBuckets();
         int help = 0;
-        for (int i = 0; i < toDoList.getListToDos().length; i++) {
+        for (int i = 0; i < toDoList.getItems().length; i++) {
             if(BucketsCopy.get(i).getBucket() == newBucket){
                 out.println("Bucket allready exists!");
                 help++;
@@ -324,7 +324,7 @@ public class Main {
         }
     }
     public static void clear(List list) {
-        list.setListToDos(null);
+        list.setItems(null);
     }
     public static void exit(List list) {
         out.println("exiting...");
@@ -332,6 +332,56 @@ public class Main {
             list.writeToJSON(list.getFileName());
         } catch (Exception e) {
             out.println("Could not save your progress... please specify a file or try again.");
+        }
+    }
+
+    public static void initiateSort(ConsoleUserInterface cui, ToDoList list, String[] commandArray) {
+        int nCommands = commandArray.length;
+        if (nCommands == 2) {
+            cui.sortHelp();
+        } else if (nCommands == 3) {
+            if (commandArray[2].equals("help")) {
+                cui.sortHelp();
+            }
+        } else if (nCommands == 4) {
+            assignSortingAlgorithm(cui, list, commandArray);
+        }
+    }
+
+    public static void assignSortingAlgorithm(ConsoleUserInterface cui, ToDoList list, String[] commandArray) {
+        if (commandArray[2].toLowerCase().contains("prio")) {
+            if (commandArray[3].equals("asc")) {
+                list.sortByPriority("asc");
+            } else {
+                list.sortByPriority("desc");
+            }
+        } else if (commandArray[2].toLowerCase().contains("create")) {
+            if (commandArray[3].equals("asc")) {
+                list.sortByCreatedAt("asc");
+            } else {
+                list.sortByCreatedAt("desc");
+            }
+        } else if (commandArray[2].toLowerCase().contains("tag")) {
+            list.bubbleUpTag(commandArray[3]);
+        } else {
+            cui.sortHelp();
+        }
+    }
+    public static void clear(ToDoList list) {
+        list.setItems(null);
+    }
+    public void exit(ConsoleUserInterface cui, ToDoList list) {
+        cui.say("exiting...");
+        list.writeToJSON(list.getFileName());
+        System.exit(0);
+    }
+    public static void main(String[] args) throws IOException, ConsoleUserInterface.CouldNotReadInputException {
+        Main main = new Main();
+        ConsoleUserInterface cui = new ConsoleUserInterface(System.out, System.in);
+        ToDoList toDoList = cui.welcome();
+        cui.say(BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + RESET);
+        while (true) {
+            cui.parseCommands(main, toDoList);
         }
     }
     public static void main(String[] args) throws IOException {
@@ -385,19 +435,19 @@ public class Main {
                     clear(toDoList);
                 } else if (commandArray[1].equalsIgnoreCase("promote")) {
                      try {
-                        toDoList.getListToDos()[Integer.parseInt(commandArray[2])].promote();
+                        toDoList.getItems()[Integer.parseInt(commandArray[2])].promote();
                     } catch (ArrayIndexOutOfBoundsException e) {
                         error("Try 'gtd promote [index]'");
                      }
                 } else if (commandArray[1].equalsIgnoreCase("demote")) {
                     try {
-                        toDoList.getListToDos()[Integer.parseInt(commandArray[2])].demote();
+                        toDoList.getItems()[Integer.parseInt(commandArray[2])].demote();
                     } catch (ArrayIndexOutOfBoundsException e) {
                         error("Try 'gtd demote [index]'");
                     }
                 } else if (commandArray[1].equalsIgnoreCase("hold")) {
                     try {
-                        toDoList.getListToDos()[Integer.parseInt(commandArray[2])].hold();
+                        toDoList.getItems()[Integer.parseInt(commandArray[2])].hold();
                     } catch (ArrayIndexOutOfBoundsException e) {
                         error("Try 'gtd hold [index]'");
                     }
