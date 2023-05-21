@@ -16,12 +16,14 @@ public class ConsoleUserInterface {
     private final ConsoleController consoleController;
     private final ProjectUi projectUi;
     private final IntrayUi intrayUi;
+    private final CalendarUi calendarUi;
     private TodoList todoList;
 
     public ConsoleUserInterface(ConsoleController consoleController) {
         this.consoleController = consoleController;
         projectUi = new ProjectUi(this.consoleController);
         intrayUi = new IntrayUi(this.consoleController);
+        calendarUi = new CalendarUi(this.consoleController);
         load(null);
     }
 
@@ -44,7 +46,7 @@ public class ConsoleUserInterface {
                     new Command("intray",   args -> intrayUi.menu(todoList)),
                     new Command("tasks",    args -> {}),
                     new Command("projects", args -> projectUi.menu(todoList)),
-                    new Command("calendar", args -> {}),
+                    new Command("calendar", args -> calendarUi.menu(todoList)),
                     new Command("load",     this::load),
                     new Command("save",     this::save),
                     new Command("quit",     args -> shouldReturn.set(true))

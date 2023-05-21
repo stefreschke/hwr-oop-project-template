@@ -1,22 +1,30 @@
 package hwr.oop.group4.todo.ui;
 
+import hwr.oop.group4.todo.core.Project;
 import hwr.oop.group4.todo.core.TodoList;
 import hwr.oop.group4.todo.ui.controller.ConsoleController;
 import hwr.oop.group4.todo.ui.controller.ConsoleHelper;
+import hwr.oop.group4.todo.ui.controller.command.Command;
 import hwr.oop.group4.todo.ui.controller.menu.Entry;
 import hwr.oop.group4.todo.ui.controller.menu.EntryArgument;
 import hwr.oop.group4.todo.ui.controller.menu.Menu;
 import hwr.oop.group4.todo.core.Task;
+import hwr.oop.group4.todo.ui.controller.tables.ColumnConfig;
+import hwr.oop.group4.todo.ui.controller.tables.Table;
 
+import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class CalendarUi {
     private final ConsoleController consoleController;
     private final ConsoleHelper consoleHelper;
     private TodoList todoList;
-    private final String[] daysOfWeek = {"Mo","Di","Mi","Do","Fr","Sa","So"};
+    private LocalDate date = LocalDate.now();
 
     public CalendarUi(ConsoleController consoleController){
         this.consoleController = consoleController;
@@ -24,29 +32,47 @@ public class CalendarUi {
     }
     public void menu(TodoList todoList){ //enough entries?
         this.todoList = todoList;
-        Menu menu = new Menu("Calendar Menu", "See your current Calendar?", List.of(
-            new Entry("next week", "Scroll to the next week"),
-            new Entry("last week", "Scroll one week back"),
+        Menu menu = new Menu("Calendar Menu", "", List.of(
+            new Entry("today", ""),
+            new Entry("nextWeek", ""),
+            new Entry("lastWeek", ""),
             new Entry("back", "Return to the previous menu")
         ));
         consoleController.output(menu.toString());
+
+        AtomicBoolean shouldReturn = new AtomicBoolean(false);
+        while (!shouldReturn.get()) {
+            createTable(date);
+            consoleController.inputOptions(List.of("calendar"), List.of(
+                    new Command("today", args -> date = LocalDate.now()),
+                    new Command("nextWeek", args -> date = date.plusWeeks(1)),
+                    new Command("lastWeek", args -> date = date.minusWeeks(1)),
+                    new Command("back", args -> shouldReturn.set(true))
+            ), new Command("wrongInput", args -> {}));
+        }
     }
 
-    private void createTable(){
-        Date currentDate = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(currentDate);
-        calendar.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        for (String day : daysOfWeek) {
-            System.out.print(String.format("%10s", day));
+    //new ColumnConfig(day.getDayOfWeek().getDisplayName(TextStyle.SHORT_STANDALONE, Locale.US), 10),
+    //String dayOfMonth = String.valueOf(day.getDayOfMonth());
+    //LocalDate day = monday.plusDays(i);
+    private void createTable(LocalDate date){
+        for (int i = 0; i < 7; i++) {
+            LocalDate monday = date.minusDays(date.getDayOfWeek().getValue() - 1);
+            LocalDate day = monday.plusDays(i);
+            String ok = day.getDayOfWeek().getDisplayName(TextStyle.SHORT_STANDALONE, Locale.US);
+            String aa = day.getDayOfWeek().plus(i).getDisplayName(TextStyle.SHORT_STANDALONE, Locale.US);
+            final Table calendarTable = new Table(List.of(
+                    new ColumnConfig("Mon", 15),
+                    new ColumnConfig("Tue", 15),
+                    new ColumnConfig("Wed", 15),
+                    new ColumnConfig("Thu", 15),
+                    new ColumnConfig("Fri", 15),
+                    new ColumnConfig("Sat", 15),
+                    new ColumnConfig("Sun", 15)
+            ));
+            consoleController.outputLine("|" + monday + "|");
+            consoleController.output(calendarTable.toString());
         }
-        System.out.println();
-        for (int i = 0; i < 7; i++){ //create with table class
-            int day = calendar.get(Calendar.DAY_OF_MONTH);
-            System.out.print(String.format("%10d", day));
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
-        }
-        System.out.println();
     }
 
     //create 2 funcs for scrolling through different weeks?(+/- 7d)
