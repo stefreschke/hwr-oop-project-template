@@ -84,14 +84,21 @@ class ConsoleUITest {
             expectedOutput =
                     "gtd [command] [arguments]\n" +
                             "Commands:\n" +
-                            "  help                -  print this help\n" +
-                            "  add [Item Index]    -  add a new task\n" +
-                            "  remove [Item Index] -  remove a task\n" +
-                            "  done [Item Index]   -  mark a task as done\n" +
-                            "  edit [Item Index]   -  edit a task\n" +
-                            "  sort                -  sort your tasks\n" +
-                            "  clear               -  clear all tasks\n" +
-                            "  exit                -  exit the program\n";
+                            "  help                            -  print this help\n" +
+                            "  add [Item Index]                -  add a new task\n" +
+                            "  remove [Item Index]             -  remove a task\n" +
+                            "  promote [Item Index]            -  promote a task to a further state\n" +
+                            "  demote [Item Index]             -  demote a task to a previous state\n" +
+                            "  onhold [Item Index]             -  put a task on hold\n" +
+                            "  done [Item Index]               -  mark a task as done\n" +
+                            "  edit [Item Index]               -  edit a task\n" +
+                            "  list                            -  list all tasks\n" +
+                            "  sort                            -  sort your tasks\n" +
+                            "  createBucket [bucket name]      -  create a bucket for tasks\n" +
+                            "  showBuckets                     -  show buckets for tasks\n" +
+                            "  editBuckets [index] [new name]  -  changes bucket name\n" +
+                            "  clear                           -  clear all tasks\n" +
+                            "  exit                            -  exit the program\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
 
@@ -121,11 +128,11 @@ class ConsoleUITest {
                             "Please enter a description for your task\n" +
                             "Please select a priority for your task\n" +
                             "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
-                            "Add a Tag to group your tasks\n" +
+                            "Add a Bucket to group your tasks\n" +
                             "\u001B[1;32mTask Created Successfully!\u001B[0m\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
-            assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("\u001B[1;97mTitle\u001B[0m");
+            assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Title");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -227,7 +234,7 @@ class ConsoleUITest {
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
             assertThat(toDoList.getItems()).hasSize(1);
-            assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("\u001B[1;97mTest2\u001B[0m");
+            assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Test2");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -239,9 +246,9 @@ class ConsoleUITest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            testConsole.success("greatsuccess");
+            testConsole.print(LogMode.SUCCESS, "great success");
             String expectedOutput;
-            expectedOutput = ConsoleColors.GREEN_BOLD + "greatsuccess" + ConsoleColors.RESET +"\n";
+            expectedOutput = ConsoleColors.GREEN_BOLD + "great success" + ConsoleColors.RESET +"\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
         } finally {
@@ -256,10 +263,10 @@ class ConsoleUITest {
             System.setOut(new PrintStream(outBuffer));
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
             // funktion Main.success aufrufen
-            testConsole.error("nogreatsuccess");
+            testConsole.print(LogMode.ERROR, "Error Message");
             String expectedOutput;
             // Output den du erwartest
-            expectedOutput = ConsoleColors.RED_BOLD + "nogreatsuccess" + ConsoleColors.RESET + "\n";
+            expectedOutput = ConsoleColors.RED_BOLD + "Error Message" + ConsoleColors.RESET + "\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
         } finally {
@@ -332,7 +339,7 @@ class ConsoleUITest {
                             "  priority - sort by priority\n" +
                             "  createdAt- sort by creation date\n" +
                             "  dueDate  - sort by due date\n" +
-                            "  tag [tag]- sort by tag\n" +
+                            "  bucket [bucket]- sort by bucket\n" +
                             "  title    - sort by title\n" +
                             "  done     - sort by done\n" +
                             "  help     - print this help\n";
@@ -356,15 +363,15 @@ class ConsoleUITest {
 
         // Priority Test
         toDoList.sortByPriority("asc");
-        assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("\u001B[1;97mCucumber\u001B[0m");
+        assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Cucumber");
         toDoList.sortByPriority("desc");
-        assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("\u001B[1;97mBanana\u001B[0m");
+        assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Banana");
         toDoList.sortByCreatedAt("asc");
-        assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("\u001B[1;97mApple\u001B[0m");
+        assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Apple");
         toDoList.sortByCreatedAt("desc");
-        assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("\u001B[1;97mBanana\u001B[0m");
+        assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Banana");
         toDoList.bubbleUpBucket(commandArray[3]);
-        assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("\u001B[1;97mBanana\u001B[0m");
+        assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Banana");
     }
 
     @Test
@@ -376,7 +383,7 @@ class ConsoleUITest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
             assertThat(list.getItems()).hasSize(1);
-            Main.clear(cui, list);
+            Main.clear(list);
             assertThat(list.getItems()).isNull();
             // Check the program output
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));

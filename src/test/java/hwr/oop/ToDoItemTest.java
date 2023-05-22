@@ -29,9 +29,9 @@ class ToDoItemTest {
 
     @Test
     void getBucketTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testTag", Priority.LOW);
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testBucket", Priority.LOW);
         String result = item.getBucket();
-        assertThat(result).isEqualTo("[1;36mtestTag[0m");
+        assertThat(result).isEqualTo("testBucket");
     }
 
     @Test
@@ -64,7 +64,7 @@ class ToDoItemTest {
     @Test
     void setDoneTest() {
         ToDoItem item = new ToDoItem("testTitle", "testDesc", "testTag", Priority.LOW);
-        item.setDone(true);
+        item.setDone();
         boolean testDone = item.isDone();
         assertThat(testDone).isEqualTo(true);
     }
@@ -91,7 +91,7 @@ class ToDoItemTest {
         String state = item.getStateEmoji();
         assertThat(result).isEqualTo(state + " " + item.getTitle() + '\n' +
                 item.getDescription() +  '\n' +
-                "<" + item.getBucket() + ">" + ' ' +
+                "<" +"[1;36mUni[0m" + ">" + ' ' +
                 priority);
     }
     @Test

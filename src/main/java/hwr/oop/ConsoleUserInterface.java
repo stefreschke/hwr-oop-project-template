@@ -8,13 +8,9 @@ import static hwr.oop.Main.initiateSort;
 public class ConsoleUserInterface {
     private final PrintStream out;
     private final InputStream in;
-
     public ConsoleUserInterface(PrintStream out, InputStream in) {
         this.out = out;
         this.in = in;
-    }
-    public PrintStream getOut() {
-        return out;
     }
     public void print(LogMode mode, String message) {
         out.println(mode.getColor() + message + ConsoleColors.RESET);
@@ -22,14 +18,15 @@ public class ConsoleUserInterface {
     public void say(String message) {
         out.println(message);
     }
-    public void error(String message) {
-        out.println(ConsoleColors.RED_BOLD + message + ConsoleColors.RESET);
-    }
-    public void success(String message) {
-        out.println(ConsoleColors.GREEN_BOLD + message + ConsoleColors.RESET);
+    public void saveChanges(ToDoList toDoList) throws CouldNotSaveChangesException {
+        try {
+            toDoList.writeToJSON(this, toDoList.getFileName());
+        } catch (Exception e) {
+            throw new CouldNotSaveChangesException();
+        }
     }
     public  int handleBadIndex(String message) {
-        error("There is nothing at that index... 🥸");
+        print(LogMode.ERROR, "There is nothing at that index... 🥸");
         out.println("Try again? (y/n)");
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String input;
@@ -50,7 +47,6 @@ public class ConsoleUserInterface {
             return -1;
         }
     }
-
     public ToDoList welcome() throws IOException {
         String listFileName;
         String listName;
@@ -106,14 +102,21 @@ public class ConsoleUserInterface {
     public void help() {
         out.println("gtd [command] [arguments]");
         out.println("Commands:");
-        out.println("  help                -  print this help");
-        out.println("  add [Item Index]    -  add a new task");
-        out.println("  remove [Item Index] -  remove a task");
-        out.println("  done [Item Index]   -  mark a task as done");
-        out.println("  edit [Item Index]   -  edit a task");
-        out.println("  sort                -  sort your tasks");
-        out.println("  clear               -  clear all tasks");
-        out.println("  exit                -  exit the program");
+        out.println("  help                            -  print this help");
+        out.println("  add [Item Index]                -  add a new task");
+        out.println("  remove [Item Index]             -  remove a task");
+        out.println("  promote [Item Index]            -  promote a task to a further state");
+        out.println("  demote [Item Index]             -  demote a task to a previous state");
+        out.println("  onhold [Item Index]             -  put a task on hold");
+        out.println("  done [Item Index]               -  mark a task as done");
+        out.println("  edit [Item Index]               -  edit a task");
+        out.println("  list                            -  list all tasks");
+        out.println("  sort                            -  sort your tasks");
+        out.println("  createBucket [bucket name]      -  create a bucket for tasks");
+        out.println("  showBuckets                     -  show buckets for tasks");
+        out.println("  editBuckets [index] [new name]  -  changes bucket name");
+        out.println("  clear                           -  clear all tasks");
+        out.println("  exit                            -  exit the program");
     }
     public  String getTitleForAdd(BufferedReader reader) {
         out.println("Please enter a title for your task");
@@ -139,7 +142,6 @@ public class ConsoleUserInterface {
         String priority = "-1";
         while (!priority.equals("1") && !priority.equals("2") && !priority.equals("3")) {
             try {
-                priority = "";
                 priority = reader.readLine();
             } catch (IOException e) {
                 throw new CouldNotReadInputException();
@@ -169,7 +171,7 @@ public class ConsoleUserInterface {
                 bucket,
                 priority
                 );
-        success("Task Created Successfully!");
+        print(LogMode.SUCCESS, "Task Created Successfully!");
         toDoList.add(toDoItem);
     }
     public void list(ToDoList toDoList) {
@@ -199,10 +201,10 @@ public class ConsoleUserInterface {
         int i = 0;
         while (i == 0) {
             try {
-                toDoList.getItems()[index].setDone(true);
+                toDoList.getItems()[index].setDone();
                 i++;
             } catch (Exception e) {
-                index = handleBadIndex("Please enter the index of the task you want to mark as done.");
+                index = this.handleBadIndex("Please enter the index of the task you want to mark as done.");
                 if (index == -1) return;
             }
         }
@@ -296,7 +298,7 @@ public class ConsoleUserInterface {
         out.println("  help     - print this help");
     }
 
-    public void parseCommands(Main main, ToDoList toDoList) throws IOException, CouldNotReadInputException {
+    public int parseCommands(ToDoList toDoList) throws IOException, CouldNotReadInputException, CouldNotSaveChangesException {
         out.print("> ");
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String command = reader.readLine();
@@ -318,58 +320,69 @@ public class ConsoleUserInterface {
                 try {
                     edit(toDoList, Integer.parseInt(commandArray[2]));
                 } catch (Exception e) {
-                    error("Try 'gtd edit [index]'");
+                    print(LogMode.ERROR, "Try 'gtd edit [index]'");
                 }
             } else if (commandArray[1].equalsIgnoreCase("createBucket")) {
                 try {
-                    main.createBucket(toDoList, commandArray[2]);
+                    Main.createBucket(toDoList, commandArray[2]);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    error("Try 'gtd createBucket [Bucket]'");
+                    print(LogMode.ERROR, "Try 'gtd createBucket [Bucket]'");
                 }
 
             } else if (commandArray[1].equalsIgnoreCase ("showBuckets")) {
-                main.showBuckets(toDoList);
+                Main.showBuckets(toDoList);
             } else if (commandArray[1].equalsIgnoreCase("editBucket")){
                 try {
-                    main.editBucket(toDoList, Integer.parseInt(commandArray[2]), commandArray[3]);
+                    Main.editBucket(toDoList, Integer.parseInt(commandArray[2]), commandArray[3]);
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    error("Try 'gtd editBucket [index] [new Name]'");
+                    print(LogMode.ERROR, "Try 'gtd editBucket [index] [new Name]'");
                 }
             } else if (commandArray[1].equalsIgnoreCase("promote")) {
                 try {
                     toDoList.getItems()[Integer.parseInt(commandArray[2])].promote();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    error("Try 'gtd promote [index]'");
+                    print(LogMode.ERROR, "Try 'gtd promote [index]'");
                 }
             } else if (commandArray[1].equalsIgnoreCase("demote")) {
                 try {
                     toDoList.getItems()[Integer.parseInt(commandArray[2])].demote();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    error("Try 'gtd demote [index]'");
+                    print(LogMode.ERROR, "Try 'gtd demote [index]'");
                 }
             } else if (commandArray[1].equalsIgnoreCase("hold")) {
                 try {
                     toDoList.getItems()[Integer.parseInt(commandArray[2])].hold();
                 } catch (ArrayIndexOutOfBoundsException e) {
-                    error("Try 'gtd hold [index]'");
+                    print(LogMode.ERROR, "Try 'gtd hold [index]'");
                 }
             } else if (commandArray[1].equalsIgnoreCase("sort")) {
                 initiateSort(this, toDoList, commandArray);
             } else if (commandArray[1].equals("clear")) {
-                clear(this, toDoList);
+                clear(toDoList);
             } else if (commandArray[1].equals("exit")) {
                 Main.exit(this, toDoList);
             } else {
-                error("Command not found.");
+                print(LogMode.ERROR, "Command not found.");
             }
         } else {
-            error("Command not found.");
+            print(LogMode.ERROR, "Command not found.");
         }
+        try {
+            saveChanges(toDoList);
+        } catch (CouldNotSaveChangesException e) {
+            return 1;
+        }
+        return 0;
     }
 
     public static class CouldNotReadInputException extends Exception {
         public CouldNotReadInputException() {
             super("Could not read your input... skipping");
+        }
+    }
+    public static class CouldNotSaveChangesException extends Exception {
+        public CouldNotSaveChangesException() {
+            super("Could not save your progress... please specify a file or try again.");
         }
     }
 

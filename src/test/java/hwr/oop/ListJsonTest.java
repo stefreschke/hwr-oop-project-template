@@ -27,8 +27,7 @@ public class ListJsonTest {
                     jsonIn.append((char) character);
                 }
             }
-            String testDate = item.getCreatedAt();
-            assertThat(jsonIn.toString()).isEqualTo("{\"Name\":\"myToDoList\",\"ToDoListToDos\":[{\"id\":0,\"title\":\"Finish Math homework\",\"description\":\"I need to do tasks 5 - 10b.\\nCreated " + testDate + "\",\"Bucket\":\"Uni\",\"done\":false,\"priority\":\"HIGH\",\"project\":{\"title\":\"\"}},{\"id\":1,\"title\":\"Calculate Something\",\"description\":\"More Math over here\\nCreated " + testDate + "\",\"Bucket\":\"Math\",\"done\":false,\"priority\":\"MEDIUM\",\"project\":{\"title\":\"\"}},{\"id\":2,\"title\":\"Be Amazing\",\"description\":\"Just Do It\\nCreated " + testDate + "\",\"Bucket\":\"Personal\",\"done\":false,\"priority\":\"LOW\",\"project\":{\"title\":\"\"}}],\"fileName\":\"toDoListTest\"}");
+            assertThat(jsonIn.toString()).isEqualTo("{\"name\":\"myToDoList\",\"items\":[{\"title\":\"Finish Math homework\",\"description\":\"I need to do tasks 5 - 10b.\",\"bucket\":{\"bucketName\":\"Uni\"},\"priority\":\"HIGH\",\"createdAt\":\""  + item.getCreatedAt() + "\",\"state\":\"TODO\"},{\"title\":\"Calculate Something\",\"description\":\"More Math over here\",\"bucket\":{\"bucketName\":\"Math\"},\"priority\":\"MEDIUM\",\"createdAt\":\""  + item2.getCreatedAt() + "\",\"state\":\"TODO\"},{\"title\":\"Be Amazing\",\"description\":\"Just Do It\",\"bucket\":{\"bucketName\":\"Personal\"},\"priority\":\"LOW\",\"createdAt\":\""  + item3.getCreatedAt() + "\",\"state\":\"TODO\"}],\"fileName\":\"toDoListTest\",\"buckets\":[]}");
         } catch (IOException e) {
             System.out.println("File not found");
         } catch (NullPointerException e) {

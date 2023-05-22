@@ -15,15 +15,7 @@ class MainTest {
     void getEnvironmentVariablesTest() {
         Program testEnvProgram = new Program();
         String[] env = testEnvProgram.getEnvironmentVariables();
-        if (env == null) {
-            System.out.println("No environment variables found");
-        } else {
-            for (String envVar : env) {
-                System.out.format("%s=%s%n",
-                        envVar,
-                        System.getenv(envVar));
-            }
-        }
+        assertThat(env).isNotNull();
     }
 
     @Test
@@ -43,11 +35,9 @@ class MainTest {
         String[] env = testEnvProgram.getEnvironmentVariables();
         try {
             String userInput = "0\n" + "\n" + "data.json\n";
-            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer));
-
-            ToDoList toDoList = Main.welcome();
+            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            ToDoList toDoList = cui.welcome();
             // Check the program output
             String expectedOutput;
             if (env == null) {
@@ -82,13 +72,10 @@ class MainTest {
         // Redirect standard input and output streams to memory buffers
         InputStream sysInBackup = System.in;
         PrintStream sysOutBackup = System.out;
-
         try {
-            System.setIn(new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer));
-
-            Main.help();
+            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            cui.help();
             // Check the program output
             String expectedOutput;
             expectedOutput =
@@ -128,7 +115,7 @@ class MainTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ToDoList toDoList = new ToDoList("MyList");
-            Main.add(cui, toDoList);
+            cui.add(toDoList);
             // Check the program output
             String expectedOutput;
             expectedOutput =
@@ -162,7 +149,7 @@ class MainTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ToDoList toDoList = new ToDoList("MyList", "addTestFile");
-            Main.add(cui, toDoList);
+            cui.add(toDoList);
             // Check the program output
             String expectedOutput;
             expectedOutput =
@@ -199,7 +186,7 @@ class MainTest {
             ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ToDoList toDoList = new ToDoList("MyList");
             toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
-            Main.edit(cui, toDoList, 0);
+            cui.edit(toDoList, 0);
             // Check the program output
             String expectedOutput;
             expectedOutput = "Editing task at index 0:\n" +
@@ -221,6 +208,8 @@ class MainTest {
             assertThat(toDoList.getItems()[0].getBucket()).isEqualTo("Tag");
             assertThat(env).isNotNull();
 
+        } catch (ConsoleUserInterface.CouldNotReadInputException e) {
+            throw new RuntimeException(e);
         } finally {
             // Restore standard input and output streams
             System.setIn(sysInBackup);
@@ -243,7 +232,7 @@ class MainTest {
             ToDoList toDoList = new ToDoList("MyList", "editTestFile");
             toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
             toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
-            Main.edit(cui, toDoList, 0);
+            cui.edit(toDoList, 0);
             // Check the program output
             String expectedOutput;
             expectedOutput = "Editing task at index 0:\n" +
@@ -264,6 +253,8 @@ class MainTest {
             assertThat(toDoList.getItems()[0].getBucket()).isEqualTo("Bucket");
             assertThat(env).isNotNull();
 
+        } catch (ConsoleUserInterface.CouldNotReadInputException e) {
+            throw new RuntimeException(e);
         } finally {
             // Restore standard input and output streams
             System.setIn(sysInBackup);
@@ -286,7 +277,8 @@ class MainTest {
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
-            Main.list(toDoList);
+            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            cui.list(toDoList);
             String expectedOutput;
             expectedOutput = "MyList:\n" +
                     toDoList.getItems()[0].toString() + "\n" +
@@ -311,7 +303,8 @@ class MainTest {
             System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
-            Main.list(toDoList);
+            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            cui.list(toDoList);
             String expectedOutput;
             expectedOutput = "MyList:\n" +
                     "👀Looks Empty here... Add some tasks!\n";
@@ -339,8 +332,8 @@ class MainTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
             System.setOut(new PrintStream(outBuffer));
-            assertThat(toDoList.getItems().length).isEqualTo(2);
-            Main.remove(cui, toDoList, 0);
+            assertThat(toDoList.getItems()).hasSize(2);
+            cui.remove(toDoList, 0);
             // Check the program output
             String expectedOutput;
             expectedOutput =
@@ -348,7 +341,7 @@ class MainTest {
                     "Could not save your progress... please specify a file or try again.\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
-            assertThat(toDoList.getItems().length).isEqualTo(1);
+            assertThat(toDoList.getItems()).hasSize(1);
             assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Test2");
         } finally {
             // Restore standard input and output streams
@@ -368,14 +361,14 @@ class MainTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
             ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            assertThat(toDoList.getItems().length).isEqualTo(2);
-            Main.remove(cui, toDoList, 0);
+            assertThat(toDoList.getItems()).hasSize(2);
+            cui.remove(toDoList, 0);
             // Check the program output
             String expectedOutput;
             expectedOutput = "Task Removed Successfully!\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
-            assertThat(toDoList.getItems().length).isEqualTo(1);
+            assertThat(toDoList.getItems()).hasSize(1);
             assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Test2");
         } finally {
             // Restore standard input and output streams
@@ -389,9 +382,10 @@ class MainTest {
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
-            Main.success("greatsuccess");
+            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            testConsole.print(LogMode.SUCCESS, "Great Success");
             String expectedOutput;
-            expectedOutput = ConsoleColors.GREEN_BOLD + "greatsuccess" + ConsoleColors.RESET +"\n";
+            expectedOutput = ConsoleColors.GREEN_BOLD + "Great Success" + ConsoleColors.RESET +"\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
         } finally {
@@ -400,20 +394,16 @@ class MainTest {
     }
     @Test
     void errorTest() {
-        PrintStream sysOutBackup = System.out;
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer));
-            // funktion Main.success aufrufen
-            Main.error("nogreatsuccess");
+            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            testConsole.print(LogMode.ERROR, "Error Message");
             String expectedOutput;
-            // Output den du erwartest
-            expectedOutput = ConsoleColors.RED_BOLD + "nogreatsuccess" + ConsoleColors.RESET + "\n";
+            expectedOutput = ConsoleColors.RED_BOLD + "Error Message" + ConsoleColors.RESET + "\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
         } finally {
-            System.setOut(sysOutBackup);
-
+            System.setOut(System.out);
         }
     }
     @Test
@@ -424,7 +414,8 @@ class MainTest {
             System.setIn(new ByteArrayInputStream("y\n1\n".getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
-            int index = Main.handleBadIndex("Test Message.");
+            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            int index = cui.handleBadIndex("Test Message.");
             // Check the program output
             String expectedOutput;
             expectedOutput = ConsoleColors.RED_BOLD + "There is nothing at that index... \uD83E\uDD78" + ConsoleColors.RESET + "\n" +
@@ -442,7 +433,8 @@ class MainTest {
             System.setIn(new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
-            int index = Main.handleBadIndex("Test Message.");
+            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+            int index = cui.handleBadIndex("Test Message.");
             // Check the program output
             String expectedOutput;
             expectedOutput = ConsoleColors.RED_BOLD + "There is nothing at that index... \uD83E\uDD78" + ConsoleColors.RESET + "\n" +
@@ -464,7 +456,7 @@ class MainTest {
         ToDoList toDoList = new ToDoList("MyList", "listTest.json");
         toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
         assertThat(toDoList.getItems()[0].isDone()).isFalse();
-        Main.done(cui, toDoList, 0);
+        cui.done(toDoList, 0);
         assertThat(toDoList.getItems()[0].isDone()).isTrue();
     }
 
@@ -525,9 +517,8 @@ class MainTest {
         ToDoList toDoList = new ToDoList("MyList");
         toDoList.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM));
         try {
-            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(new ByteArrayOutputStream()), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
             assertThat(toDoList.getItems()).hasSize(1);
-            Main.clear(cui, toDoList);
+            Main.clear(toDoList);
             assertThat(toDoList.getItems()).isNull();
         } finally {
             System.setOut(sysOutBackup);
@@ -551,13 +542,15 @@ class MainTest {
             assertEquals(expectedOutput, actualOutput);
             ToDoList testList = new Program().loadToDoList("listTest.json");
             assertThat(testList.getItems()[0].getTitle()).isEqualTo("Apple");
+        } catch (ConsoleUserInterface.CouldNotSaveChangesException e) {
+            throw new RuntimeException(e);
         } finally {
             System.setOut(sysOutBackup);
         }
     }
 
     @Test
-    void createBucketsTest() {
+    void createBucketsTest() throws ConsoleUserInterface.CouldNotReadInputException {
         PrintStream sysOutBackup = System.out;
         InputStream sysInBackup = System.in;
 
@@ -566,7 +559,7 @@ class MainTest {
             String userInput = "Title\nDescription\n12.12.12\n3\nBucket\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(new ByteArrayOutputStream()), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            Main.add(cui, toDoList);
+            cui.add(toDoList);
             Set<Bucket> testBuckets = toDoList.getBuckets();
             assertThat(testBuckets.contains(new Bucket("Bucket"))).isTrue();
 
@@ -589,20 +582,22 @@ class MainTest {
             System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
-            Main.add(cui, toDoList);
+            cui.add(toDoList);
             String userInput2 = "Title\nDescription\n12.12.12\n3\nBucket2\n";
             System.setIn(new ByteArrayInputStream(userInput2.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer2 = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer2));
-            Main.add(cui, toDoList);
+            cui.add(toDoList);
             String userInput3 = "Title\nDescription\n12.12.12\n3\nBucket3\n";
             System.setIn(new ByteArrayInputStream(userInput3.getBytes(StandardCharsets.UTF_8)));
             ByteArrayOutputStream outBuffer3 = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer3));
-            Main.add(cui, toDoList);
+            cui.add(toDoList);
             Set<Bucket> TestBuckets = toDoList.getBuckets();
             assertThat(TestBuckets).isEqualTo(toDoList.getBuckets());
-        }finally {
+        } catch (ConsoleUserInterface.CouldNotReadInputException e) {
+            throw new RuntimeException(e);
+        } finally {
             System.setOut(sysOutBackup);
             System.setIn(sysInBackup);
         }
@@ -622,12 +617,16 @@ class MainTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
             toDoList.addBucket("Bucket");
-            Main.add(cui, toDoList);
+            cui.add(toDoList);
             toDoList.editBucket(0, "Test");
-            assertThat(toDoList.getBuckets().contains("Test")).isTrue();
+            assertThat(toDoList.getBuckets().contains(new Bucket("Test"))).isTrue();
+        } catch (ConsoleUserInterface.CouldNotReadInputException e) {
+            throw new RuntimeException(e);
         } finally {
             System.setOut(sysOutBackup);
             System.setIn(sysInBackup);
         }
     }
 }
+
+// Type cast to List

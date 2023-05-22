@@ -3,8 +3,8 @@ package hwr.oop;
 public class Bucket {
     private String bucketName;
 
-    public Bucket(String bucket) {
-        this.bucketName = bucket;
+    public Bucket(String bucketName) {
+        this.bucketName = bucketName;
     }
     public void setBucketName(String bucketName) {
         this.bucketName = bucketName;

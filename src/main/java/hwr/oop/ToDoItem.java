@@ -26,7 +26,7 @@ public class ToDoItem {
     void setDescription(String description) {
         this.description = description;
     }
-    void setDone(boolean done) {
+    void setDone() {
         this.state = State.DONE;
     }
     void setPriority(Priority priority) {
@@ -95,8 +95,8 @@ public class ToDoItem {
         String priorityString = getPriorityString();
         return  stateSymbol + title + '\n' +
                 description + '\n' +
-                "<" + bucket + ">" + ' ' +
-                priorityString;
+                "<" +  CYAN_BOLD + bucket.getBucketName() + RESET + ">" +
+                ' ' + priorityString;
     }
     public String getCreatedAt() {
         return createdAt;
@@ -104,13 +104,11 @@ public class ToDoItem {
     public void promote() {
         switch (state) {
             case TODO:
+            case ON_HOLD:
                 state = State.IN_PROGRESS;
                 break;
             case IN_PROGRESS:
                 state = State.DONE;
-                break;
-            case ON_HOLD:
-                state = State.IN_PROGRESS;
                 break;
             case DONE:
                 break;
@@ -121,8 +119,6 @@ public class ToDoItem {
             case TODO:
                 break;
             case IN_PROGRESS:
-                state = State.TODO;
-                break;
             case ON_HOLD:
                 state = State.TODO;
                 break;
@@ -135,13 +131,11 @@ public class ToDoItem {
     public void hold() {
         switch (state) {
             case TODO:
+            case ON_HOLD:
+            case DONE:
                 break;
             case IN_PROGRESS:
                 state = State.ON_HOLD;
-                break;
-            case ON_HOLD:
-                break;
-            case DONE:
                 break;
         }
     }
