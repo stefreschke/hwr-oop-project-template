@@ -33,7 +33,7 @@ public class ToDoItem {
         this.priority = priority;
     }
     void setBucket(String bucket) {
-        this.bucket.setBucket(bucket);
+        this.bucket.setBucketName(bucket);
     }
     static String getLocalDate() {
         return LocalDate.now().toString();
@@ -42,7 +42,7 @@ public class ToDoItem {
         return title;
     }
     public String getBucket() {
-        return bucket.getBucket();
+        return bucket.getBucketName();
     }
     public String getDescription() {
         return description;

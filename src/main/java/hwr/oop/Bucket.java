@@ -1,16 +1,16 @@
 package hwr.oop;
 
 public class Bucket {
-    private String bucket;
+    private String bucketName;
 
     public Bucket(String bucket) {
-        this.bucket = bucket;
+        this.bucketName = bucket;
     }
-    public void setBucket(String bucket) {
-        this.bucket = bucket;
+    public void setBucketName(String bucketName) {
+        this.bucketName = bucketName;
     }
-    public String getBucket() {
-        return bucket;
+    public String getBucketName() {
+        return bucketName;
     }
 
 }

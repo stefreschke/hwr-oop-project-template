@@ -16,7 +16,7 @@ class ToDoItemTest {
     }
     @Test
     void getTitleTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testbucket", false, Priority.LOW);
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testbucket", Priority.LOW);
         String result = item.getTitle();
         assertThat(result).isEqualTo("testTitle");
     }
@@ -102,7 +102,7 @@ class ToDoItemTest {
     }
     @Test
     void promotionTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW,  new Project("test"));
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW);
         item.promote(); // TODO -> IN PROGRESS
         assertThat(item.getState()).isEqualTo("IN_PROGRESS");
         item.promote(); // IN PROGRESS -> DONE
@@ -111,7 +111,7 @@ class ToDoItemTest {
 
     @Test
     void demotionTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW,  new Project("test"));
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW);
         item.promote(); // TODO -> IN PROGRESS
         item.demote(); // IN PROGRESS -> TODO
         assertThat(item.getState()).isEqualTo("TODO");
@@ -123,7 +123,7 @@ class ToDoItemTest {
 
     @Test
     void holdTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW,  new Project("test"));
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW);
         item.hold(); // TODO -> HOLD
         assertThat(item.getState()).isEqualTo("TODO");
         item.promote(); // HOLD -> IN PROGRESS
@@ -133,21 +133,21 @@ class ToDoItemTest {
 
     @Test
     void getPriorityStringTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW,  new Project("test"));
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW);
         String result = item.getPriorityString();
         assertThat(result).isEqualTo("[1;34mLOW[0m");
     }
 
     @Test
     void getStateEmojiTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW,  new Project("test"));
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW);
         String result = item.getStateEmoji();
         assertThat(result).isEqualTo("⏭️");
     }
 
     @Test
     void setCreatedAtTest() {
-        ToDoItem item = new ToDoItem("", "", "", Priority.LOW, new Project(""));
+        ToDoItem item = new ToDoItem("", "", "", Priority.LOW);
         String test = "test";
         item.setCreatedAt(LocalDateTime.of(2020, 1, 1, 1, 1));
         String result = item.getCreatedAt();

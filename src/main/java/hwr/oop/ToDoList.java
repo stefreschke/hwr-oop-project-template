@@ -7,22 +7,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
-public class List {
+public class ToDoList {
     private String name;
     private ToDoItem[] items;
     private String fileName;
-    private java.util.List<Bucket> Buckets;
+    private HashSet<Bucket> buckets;
 
-    public List(String name) {
+    public ToDoList(String name) {
         this(name, null);
     }
-    public List(String name, String fileName) {
+    public ToDoList(String name, String fileName) {
         this.name = name;
         this.items = new ToDoItem[0];
         this.fileName = fileName;
-        this.Buckets = new ArrayList<>();
+        this.buckets = new HashSet<>();
     }
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -38,12 +39,12 @@ public class List {
         return this.items;
     }
 
-    public java.util.List<Bucket> getBuckets() {
-        return Buckets;
+    public Set<Bucket> getBuckets() {
+        return buckets;
     }
 
     public void addBucket(String newBucket) {
-        this.Buckets.add(new Bucket(newBucket));
+        this.buckets.add(new Bucket(newBucket));
     }
 
     public void setItems(ToDoItem[] items) {
@@ -53,7 +54,7 @@ public class List {
         return this.fileName;
     }
 
-    public void writeToJSON(String fileName) {
+    public void writeToJSON(ConsoleUserInterface cui, String fileName) {
         //remove any file extension if present
         if (fileName.contains(".")) {
             fileName = fileName.substring(0, fileName.lastIndexOf('.'));
@@ -67,8 +68,8 @@ public class List {
             File file = new File(fileName + ".json");
             try {
                 boolean fileExists = file.createNewFile();
-                if (!fileExists) this.writeToJSON(fileName);
-                else System.out.println("Sorry...File could not be neither found nor created.");
+                if (!fileExists) this.writeToJSON(cui, fileName);
+                else cui.print(LogMode.WARN, "Sorry...File could not be neither found nor created.");
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -101,27 +102,27 @@ public class List {
 
 
     public void editBucket (int index, String newBucket) {
-        this.Buckets.set(index, new Bucket(newBucket));
+        this.buckets.remove(Util.getElementAtIndex(this.buckets, index));
+        this.buckets.add(new Bucket(newBucket));
     }
 
     public void add(ToDoItem toDoItem) {
         if (this.items == null) {
             this.items = new ToDoItem[1];
             this.items[0] = toDoItem;
-            return;
         } else {
-            ToDoItem[] newList = new ToDoItem[this.items.length + 1];
-            System.arraycopy(this.items, 0, newList, 0, this.items.length);
-            newList[newList.length - 1] = toDoItem;
-            this.items = newList;
+            ToDoItem[] newToDoList = new ToDoItem[this.items.length + 1];
+            System.arraycopy(this.items, 0, newToDoList, 0, this.items.length);
+            newToDoList[newToDoList.length - 1] = toDoItem;
+            this.items = newToDoList;
         }
     }
 
     public void remove(int index) {
-        ToDoItem[] newList = new ToDoItem[this.items.length - 1];
-        System.arraycopy(this.items, 0, newList, 0, index);
-        System.arraycopy(this.items, index + 1, newList, index, this.items.length - 1);
-        this.items = newList;
+        ToDoItem[] newToDoList = new ToDoItem[this.items.length - 1];
+        System.arraycopy(this.items, 0, newToDoList, 0, index);
+        System.arraycopy(this.items, index + 1, newToDoList, index, this.items.length - 1);
+        this.items = newToDoList;
     }
 
     public void sortByPriority(String order) {
@@ -151,7 +152,7 @@ public class List {
     public void bubbleUpBucket(String bucket) {
         for (int i = this.items.length-1; i >= 0; i--) {
             for (int j = this.items.length-1; j > 0; j--) {
-                if (this.items[j].getBucket().contains(tag) && !this.items[j - 1].getBucket().contains(tag)) {
+                if (this.items[j].getBucket().contains(bucket) && !this.items[j - 1].getBucket().contains(bucket)) {
                     ToDoItem temp = this.items[j];
                     this.items[j] = this.items[j - 1];
                     this.items[j - 1] = temp;

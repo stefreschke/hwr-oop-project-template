@@ -8,15 +8,15 @@ public class BucketTest {
     @Test
     void setTitle() {
         Bucket bucket = new Bucket("");
-        bucket.setBucket("testtitle");
-        String Testname = bucket.getBucket();
+        bucket.setBucketName("testtitle");
+        String Testname = bucket.getBucketName();
         assertThat(Testname).isEqualTo("testtitle");
     }
 
     @Test
     void getTitle() {
         Bucket bucket = new Bucket("testtitle");
-        String Testname = bucket.getBucket();
+        String Testname = bucket.getBucketName();
         assertThat(Testname).isEqualTo("testtitle");
     }
 }

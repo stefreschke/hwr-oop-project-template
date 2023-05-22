@@ -10,14 +10,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class ListJsonTest {
     @Test
     public void listToJsonTest() {
-        List assertList = new List("myList", "listTest");
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", "Uni", false, Priority.HIGH);
-        ToDoItem item2 = new ToDoItem("Calculate Something", "More Math over here", "Math", false, Priority.MEDIUM);
-        ToDoItem item3 = new ToDoItem("Be Amazing", "Just Do It", "Personal", false, Priority.LOW);
-        assertList.add(item);
-        assertList.add(item2);
-        assertList.add(item3);
-        assertList.writeToJSON("listTest.mp3");
+        ToDoList assertToDoList = new ToDoList("myToDoList", "toDoListTest");
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", "Uni", Priority.HIGH);
+        ToDoItem item2 = new ToDoItem("Calculate Something", "More Math over here", "Math", Priority.MEDIUM);
+        ToDoItem item3 = new ToDoItem("Be Amazing", "Just Do It", "Personal", Priority.LOW);
+        assertToDoList.add(item);
+        assertToDoList.add(item2);
+        assertToDoList.add(item3);
+        assertToDoList.writeToJSON(new ConsoleUserInterface(null, null), "listTest.mp3");
         try {
             StringBuilder jsonIn;
             try (FileReader reader = new FileReader("listTest.json")) {
@@ -28,7 +28,7 @@ public class ListJsonTest {
                 }
             }
             String testDate = item.getCreatedAt();
-            assertThat(jsonIn.toString()).isEqualTo("{\"Name\":\"myList\",\"ListToDos\":[{\"id\":0,\"title\":\"Finish Math homework\",\"description\":\"I need to do tasks 5 - 10b.\\nCreated " + testDate + "\",\"Bucket\":\"Uni\",\"done\":false,\"priority\":\"HIGH\",\"project\":{\"title\":\"\"}},{\"id\":1,\"title\":\"Calculate Something\",\"description\":\"More Math over here\\nCreated " + testDate + "\",\"Bucket\":\"Math\",\"done\":false,\"priority\":\"MEDIUM\",\"project\":{\"title\":\"\"}},{\"id\":2,\"title\":\"Be Amazing\",\"description\":\"Just Do It\\nCreated " + testDate + "\",\"Bucket\":\"Personal\",\"done\":false,\"priority\":\"LOW\",\"project\":{\"title\":\"\"}}],\"fileName\":\"listTest\"}");
+            assertThat(jsonIn.toString()).isEqualTo("{\"Name\":\"myToDoList\",\"ToDoListToDos\":[{\"id\":0,\"title\":\"Finish Math homework\",\"description\":\"I need to do tasks 5 - 10b.\\nCreated " + testDate + "\",\"Bucket\":\"Uni\",\"done\":false,\"priority\":\"HIGH\",\"project\":{\"title\":\"\"}},{\"id\":1,\"title\":\"Calculate Something\",\"description\":\"More Math over here\\nCreated " + testDate + "\",\"Bucket\":\"Math\",\"done\":false,\"priority\":\"MEDIUM\",\"project\":{\"title\":\"\"}},{\"id\":2,\"title\":\"Be Amazing\",\"description\":\"Just Do It\\nCreated " + testDate + "\",\"Bucket\":\"Personal\",\"done\":false,\"priority\":\"LOW\",\"project\":{\"title\":\"\"}}],\"fileName\":\"toDoListTest\"}");
         } catch (IOException e) {
             System.out.println("File not found");
         } catch (NullPointerException e) {
@@ -36,10 +36,10 @@ public class ListJsonTest {
         }
     }
     @Test
-    public void jsonToListTest() {
+    public void jsonToToDoListTest() {
         Program program = new Program();
-        List assertList = program.loadList("listTest.ipynb");
-        assertThat(assertList.getName()).isEqualTo("myList");
+        ToDoList assertToDoList = program.loadToDoList("listTest.ipynb");
+        assertThat(assertToDoList.getName()).isEqualTo("myToDoList");
     }
 }
 
