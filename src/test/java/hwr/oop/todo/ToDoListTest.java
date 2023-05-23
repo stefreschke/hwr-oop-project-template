@@ -27,6 +27,8 @@ class ToDoListTest {
         Task taskData = TaskFactory.createTask("Title");
 
         testController.addTask(taskData);
+
+        assertEquals(testController.getTask(taskData.getId()), taskData);
     }
 
     @Test
@@ -57,6 +59,9 @@ class ToDoListTest {
 
         testController.addTask(firstTask);
         testController.addTask(secondTask);
+
+        assertEquals(testController.getTask(firstTask.getId()), firstTask);
+        assertEquals(testController.getTask(secondTask.getId()), secondTask);
     }
 
     @Test
@@ -68,6 +73,10 @@ class ToDoListTest {
 
         testController.addTask(firstTask);
         testController.addTask(secondTask);
+
+        assertEquals(testController.getTask(firstTask.getId()), firstTask);
+        assertEquals(testController.getTask(secondTask.getId()), secondTask);
+        assertNotEquals(testController.getTask(firstTask.getId()), testController.getTask(secondTask.getId()));
     }
 
     @Test
@@ -115,7 +124,8 @@ class ToDoListTest {
     @Test
     void cannotGetProjectThatDoesNotExist(){
         ToDoList todoList = new ToDoList();
-        assertThrows(ToDoListException.class, () -> todoList.getProject(UUID.randomUUID()));
+        UUID testId = UUID.randomUUID();
+        assertThrows(ToDoListException.class, () -> todoList.getProject(testId));
     }
 
     @Test

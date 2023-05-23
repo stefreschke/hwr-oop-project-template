@@ -36,6 +36,18 @@ class IOControllerTest {
         IOController controller = new IOController(inputStream, outputStream);
         List<MenuAction> options= List.of(new MenuAction('a', "Example action to test very long", () -> null), new MenuAction('b', "Example action", () -> null));
         controller.printPrompt(options);
+
+        String output = retrieveResultFrom(outputStream);
+        String expectedOutput =
+                "|-------------------------------------------------|\r\n" +
+                        "| a) Example action to test very long             |\r\n" +
+                        "| b) Example action                               |\r\n" +
+                        "|-------------------------------------------------|\r\n" +
+                        "\u001B[32m\r\n" + ">";
+
+
+        assertEquals(output, expectedOutput);
+
     }
 
     @Test
@@ -69,4 +81,7 @@ class IOControllerTest {
         byte[] inputInBytes = input.getBytes();
         return new ByteArrayInputStream(inputInBytes);
     }
+
+
+
 }
