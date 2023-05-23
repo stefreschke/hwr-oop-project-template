@@ -20,7 +20,7 @@ public class CardPersistenceTests {
 
             JsonPersistenceAdapter pa = new JsonPersistenceAdapter();
 
-            assertThrows(IllegalArgumentException.class, () -> pa.loadCards(""));
+            assertThrows(IllegalArgumentException.class, () -> pa.loadTopic(""));
         }
 
         @Test
@@ -28,7 +28,9 @@ public class CardPersistenceTests {
 
             JsonPersistenceAdapter pa = new JsonPersistenceAdapter();
 
-            assertThrows(IllegalArgumentException.class, () -> pa.saveCards(List.of(new Card("", "", 0)), ""));
+            Topic topic = new Topic("testTopic");
+            topic.createCard("", "");
+            assertThrows(IllegalArgumentException.class, () -> pa.saveTopic(topic, ""));
         }
     }
 
@@ -41,20 +43,21 @@ public class CardPersistenceTests {
             PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
             PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
 
-            List<Card> cards = List.of(new Card("Question?", "Answer!", 0));
+            Topic topic = new Topic("testTopic");
+            topic.createCard("Question?", "Answer!");
             try {
-                persistenceSavePort.saveCards(cards, "test");
+                persistenceSavePort.saveTopic(topic, "test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
-            Collection<Card> testCardList = null;
+            Topic testTopic = null;
             try {
-                testCardList = persistenceLoadPort.loadCards("test");
+                testTopic = persistenceLoadPort.loadTopic("test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Assertions.assertThat(testCardList).isEqualTo(cards);
+            Assertions.assertThat(testTopic).isEqualTo(topic);
         }
 
         @Test
@@ -63,20 +66,22 @@ public class CardPersistenceTests {
             PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
             PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
 
-            List<Card> cards = List.of(new Card("Question?", "Answer!", 0), new Card("Frage?", "Antwort!", 1));
+            Topic topic = new Topic("testTopic");
+            topic.createCard("Question?", "Answer!");
+            topic.createCard("Frage?", "Antwort!");
             try {
-                persistenceSavePort.saveCards(cards, "test");
+                persistenceSavePort.saveTopic(topic, "test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
-            Collection<Card> testCardList = null;
+            Topic testTopic = null;
             try {
-                testCardList = persistenceLoadPort.loadCards("test");
+                testTopic = persistenceLoadPort.loadTopic("test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Assertions.assertThat(testCardList).isEqualTo(cards);
+            Assertions.assertThat(testTopic).isEqualTo(topic);
 
         }
 
@@ -85,27 +90,29 @@ public class CardPersistenceTests {
             PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
             PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
 
-            List<Card> cards = List.of(new Card("Question?", "Answer!", 0));
+            Topic topic = new Topic("testTopic");
+            topic.createCard("Question?", "Answer!");
             try {
-                persistenceSavePort.saveCards(cards, "test");
+                persistenceSavePort.saveTopic(topic, "test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
-            List<Card> cards1 = List.of(new Card("Frage?????", "Antwort!!!!!!", 0));
+            Topic topic1 = new Topic("testTopic");
+            topic.createCard("Question??????", "Answer!!!!!!");
             try {
-                persistenceSavePort.saveCards(cards1, "test");
+                persistenceSavePort.saveTopic(topic1, "test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
 
-            Collection<Card> testCardList = null;
+            Topic testTopic = null;
             try {
-                testCardList = persistenceLoadPort.loadCards("test");
+                testTopic = persistenceLoadPort.loadTopic("test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Assertions.assertThat(testCardList).isEqualTo(cards1);
+            Assertions.assertThat(testTopic).isEqualTo(topic1);
 
         }
     }
@@ -118,9 +125,11 @@ public class CardPersistenceTests {
 
             PersistenceSavePort pa = new JsonPersistenceAdapter();
 
-            List<Card> cards = List.of(new Card("Question?", "Answer!", 0), new Card("Frage?", "Antwort!", 1));
+            Topic topic = new Topic("testTopic");
+            topic.createCard("Question?", "Answer!");
+            topic.createCard("Frage?", "Antwort!");
             try {
-                pa.saveCards(cards, "test");
+                pa.saveTopic(topic, "test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -131,13 +140,18 @@ public class CardPersistenceTests {
 
             PersistenceLoadPort pa = new JsonPersistenceAdapter();
 
-            Collection<Card> loadedCards = null;
+            Topic loadedTopic = null;
             try {
-                loadedCards = pa.loadCards("test");
+                loadedTopic = pa.loadTopic("test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            Assertions.assertThat(loadedCards).isEqualTo(List.of(new Card("Question?", "Answer!", 0), new Card("Frage?", "Antwort!", 1)));
+
+            Topic topic = new Topic("testTopic");
+            topic.createCard("Question?", "Answer!");
+            topic.createCard("Frage?", "Antwort!");
+
+            Assertions.assertThat(loadedTopic).isEqualTo(topic);
         }
     }
 
@@ -148,9 +162,10 @@ public class CardPersistenceTests {
 
         PersistenceSavePort pa = new JsonPersistenceAdapter();
 
-        List<Card> cards = List.of(new Card("Question?", "Answer!", 0), new Card("Frage?", "Antwort!", 0));
+        Topic topic = new Topic("testTopic");
+        topic.createCard("Question?", "Answer!");
         try {
-            pa.saveCards(cards, "manual_test");
+            pa.saveTopic(topic, "manual_test");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

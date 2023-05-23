@@ -22,7 +22,7 @@ public class JsonPersistenceAdapter implements PersistenceSavePort, PersistenceL
     }
 
     @Override
-    public Collection<Card> loadCards(String persistenceInstanceName) throws IOException {
+    public Topic loadTopic(String persistenceInstanceName) throws IOException {
 
         if (persistenceInstanceName.isEmpty()){
 
@@ -73,7 +73,7 @@ public class JsonPersistenceAdapter implements PersistenceSavePort, PersistenceL
         return result;
     }
     @Override
-    public void saveCards(Collection<Card> cards, String persistenceInstanceName) throws IOException {
+    public void saveTopic(Topic topic, String persistenceInstanceName) throws IOException {
 
         if (persistenceInstanceName.isEmpty()){
 
@@ -81,7 +81,7 @@ public class JsonPersistenceAdapter implements PersistenceSavePort, PersistenceL
         }
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(persistenceInstanceName))) {
             ObjectMapper mapper = new ObjectMapper();
-            String json = mapper.writeValueAsString(cards);
+            String json = mapper.writeValueAsString(topic);
             writer.write(json);
         }
     }
