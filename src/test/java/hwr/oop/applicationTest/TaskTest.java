@@ -1,4 +1,4 @@
-package hwr.oop.dataclassesTest;
+package hwr.oop.applicationTest;
 
 import hwr.oop.application.*;
 import org.junit.jupiter.api.Test;
