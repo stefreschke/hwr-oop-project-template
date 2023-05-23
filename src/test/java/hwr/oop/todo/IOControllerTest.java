@@ -14,14 +14,17 @@ class IOControllerTest {
     @Test
     void canPrintPrompt(){
         OutputStream outputStream = new ByteArrayOutputStream();
-
         IOController controller = new IOController(System.in, outputStream);
         controller.printPrompt("string");
 
         String output = retrieveResultFrom(outputStream);
-
-        assertTrue(output.contains("string"));
-        assertTrue(output.contains(System.lineSeparator()));
+        String expectedOutput = """
+                |--------|\r
+                | string |\r
+                |--------|\r
+                \u001B[32m\r
+                >""";
+        assertEquals(expectedOutput, output);
     }
 
     @Test
@@ -34,16 +37,15 @@ class IOControllerTest {
         controller.printPrompt(options);
 
         String output = retrieveResultFrom(outputStream);
-        String expectedOutput =
-                "|-------------------------------------------------|\r\n" +
-                        "| a) Example action to test very long             |\r\n" +
-                        "| b) Example action                               |\r\n" +
-                        "|-------------------------------------------------|\r\n" +
-                        "\u001B[32m\r\n" + ">";
-
+        String expectedOutput ="""
+                    |-------------------------------------------------|\r
+                    | a) Example action to test very long             |\r
+                    | b) Example action                               |\r
+                    |-------------------------------------------------|\r
+                    \u001B[32m\r
+                    >""";
 
         assertEquals(output, expectedOutput);
-
     }
 
     @Test
