@@ -85,7 +85,7 @@ public class BoxPersistenceTests {
             List<Box> boxes1 = List.of(box1, box2, box3);
             List<Box> boxes2 = List.of(box3, box2, box1);
 
-            PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
+          PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
             try {
                 persistenceSavePort.saveTrainingInstance(boxes1, "test_box");
             } catch (IOException e) {
