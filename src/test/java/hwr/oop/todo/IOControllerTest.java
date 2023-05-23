@@ -4,14 +4,10 @@ import hwr.oop.todo.ui.IOController;
 import hwr.oop.todo.ui.menu.MenuAction;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class IOControllerTest {
 
@@ -36,6 +32,19 @@ class IOControllerTest {
         IOController controller = new IOController(inputStream, outputStream);
         List<MenuAction> options= List.of(new MenuAction('a', "Example action to test very long", () -> null), new MenuAction('b', "Example action", () -> null));
         controller.printPrompt(options);
+    }
+
+    @Test
+    void canThrowWriteException(){
+        InputStream inputStream = createInputStreamForInput("");
+        OutputStream out = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                throw new IOException();
+            }
+        };
+        IOController controller = new IOController(inputStream, out);
+        assertThrows(RuntimeException.class, () -> controller.printPrompt("string"));
     }
 
     @Test
