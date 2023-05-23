@@ -50,18 +50,26 @@ public class Trainer {
     }
     */
     public static class TrainerBuilder{
-        public TrainerBuilder()
+        private final PersistenceLoadPort persistenceLoadPort;
+        public TrainerBuilder(){
+
+        }
+        public TrainerBuilder(PersistenceLoadPort persistenceLoadPort){
+            this.persistenceLoadPort = persistenceLoadPort;
+        }
+
         public Trainer buildTrainerFromSave(){
-            JsonPersistenceAdapter adapter = new JsonPersistenceAdapter();
+            //JsonPersistenceAdapter adapter = new JsonPersistenceAdapter();
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            List<Box> boxList;
             try{
                 String filename = reader.readLine();
-                List<Box> boxList = (List)adapter.loadTrainingInstance(filename);//unschön
+                boxList = (List)persistenceLoadPort.loadTrainingInstance(filename);//unschön
+                Trainer trainer = new Trainer(boxList);
+                return trainer;
             }catch(IOException error){
                 error.printStackTrace();
             }
-            Trainer trainer = new Trainer(boxList);
-            return trainer;
         }
         public Trainer buildTrainerWith3Boxes(){
             Trainer trainer = new Trainer(List.of(new Box(), new Box(), new Box()));
