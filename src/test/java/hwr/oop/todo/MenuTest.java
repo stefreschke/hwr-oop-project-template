@@ -87,4 +87,9 @@ class MenuTest {
         assertTrue(response.message().isPresent());
         assertEquals("Hello World", response.message().get());
     }
+
+    @Test
+    void canInstantiateUtilityClass() {
+        assertThrows(IllegalStateException.class, Menus::new);
+    }
 }

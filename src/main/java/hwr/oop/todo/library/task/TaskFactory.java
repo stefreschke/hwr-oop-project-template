@@ -13,7 +13,7 @@ public class TaskFactory {
         return new Task(id, title);
     }
 
-    private TaskFactory() {
+    public TaskFactory() {
         throw new IllegalStateException("Utility class");
     }
 }

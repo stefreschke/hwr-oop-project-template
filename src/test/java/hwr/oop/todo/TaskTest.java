@@ -87,4 +87,9 @@ import static org.junit.jupiter.api.Assertions.*;
         assertNotEquals(first, second);
         assertNotEquals(first.hashCode(), second.hashCode());
     }
+
+     @Test
+     void canInstantiateUtilityClass() {
+         assertThrows(IllegalStateException.class, TaskFactory::new);
+     }
 }
