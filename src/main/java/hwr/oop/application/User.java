@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.UUID;
 
 public class User {
-    private final String name;
     private final UUID id;
+    private final String name;
     private List<String> inbox;
 
     private List<Task> contextList;
 
-    public User(String name, UUID id, List<String> inbox, List<Task> contextList) {
+    public User(UUID id, String name, List<String> inbox, List<Task> contextList) {
         this.name = name;
         this.id = id;
         this.inbox = inbox;
