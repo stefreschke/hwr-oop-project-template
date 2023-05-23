@@ -1,35 +1,30 @@
 package hwr.oop.application;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 public class Task {
-    public Task(Integer id, String title, String content, TaskState taskState, List<TaskTag> taskTagList, User creator,
-                LocalDateTime deadline) {
-        this.id = id;
+    public Task(String title, String content, TaskState taskState, LocalDateTime deadline) {
+        this.id = UUID.randomUUID();
         this.title = title;
         this.content = content;
         this.taskState = taskState;
-        this.taskTagList = taskTagList;
-        this.creator = creator;
         this.deadline = deadline;
     }
 
-    private final Integer id;
+    private final UUID id;
     private final String title;
     private final String content;
     private TaskState taskState;
-    private final List<TaskTag> taskTagList;
-    private final User creator;
     private final LocalDateTime deadline;
 
     public Optional<LocalDateTime> getDeadline() {
         return Optional.ofNullable(deadline);
     }
 
-    public Integer getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -45,13 +40,6 @@ public class Task {
         return taskState;
     }
 
-    public List<TaskTag> getTaskTagList() {
-        return taskTagList;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
 
     //change TaskState to BACKLOG
     public void resetTask() {
@@ -99,6 +87,6 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content, taskState, taskTagList, creator, deadline);
+        return Objects.hash(id, title, content, taskState, deadline);
     }
 }
