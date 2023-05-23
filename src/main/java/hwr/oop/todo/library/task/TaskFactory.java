@@ -12,4 +12,8 @@ public class TaskFactory {
         UUID id = UUID.randomUUID();
         return new Task(id, title);
     }
+
+    private TaskFactory() {
+        throw new IllegalStateException("Utility class");
+    }
 }

@@ -1,5 +1,6 @@
 package hwr.oop.todo.ui;
 
+import hwr.oop.todo.ui.menu.CantWriteException;
 import hwr.oop.todo.ui.menu.MenuAction;
 
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class IOController {
         try {
             out.write(s.getBytes());
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new CantWriteException();
         }
     }
 
@@ -47,21 +48,21 @@ public class IOController {
     }
 
     public void printPrompt(List<MenuAction> options) {
-        System.out.println("\033[2J");
+        writeLine("\033[2J");
 
         String longest = String.valueOf(options.stream().map(MenuAction::getDescription).max(Comparator.comparingInt(String::length)));
 
         StringBuilder line = new StringBuilder();
         line.append("-".repeat(Math.max(0, (int) (longest.length() * 1.0) + 7)));
 
-        System.out.println("|" + line + "|");
+        writeLine("|" + line + "|");
         for (MenuAction option : options) {
             String description = option.getDescription();
-            System.out.println("| "+ option.getKey()+ ") " + description + " ".repeat(Math.max(0, (int) (longest.length() * 1.0) + 2 - description.length())) + " |");
+            writeLine("| "+ option.getKey()+ ") " + description + " ".repeat(Math.max(0, (int) (longest.length() * 1.0) + 2 - description.length())) + " |");
         }
-        System.out.println("|" + line + "|");
-        System.out.println("\u001B[32m");
-        System.out.print("> ");
+        writeLine("|" + line + "|");
+        writeLine("\u001B[32m");
+        writeLine("> ");
     }
 
 

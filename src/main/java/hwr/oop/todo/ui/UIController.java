@@ -21,7 +21,7 @@ public class UIController {
         Optional<String> message = menuResponse.message();
 
         if(message.isPresent()){
-            // Print message;
+            // Print message
             return;
         }
 
@@ -30,7 +30,6 @@ public class UIController {
 
         if(nextMenu.isPresent()){
             currentMenu = nextMenu.get();
-            return;
         }
 
 

@@ -12,29 +12,29 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class MenuTest {
+class MenuTest {
 
     @Test
     void canCreateMenuWithoutActions() {
-        Menu menu = new Menu("MenuName");
+        Menu menu = new Menu();
 
         Collection<MenuAction> actions = menu.getActions();
 
-        assertEquals(actions.size(), 0);
+        assertEquals(0, actions.size());
     }
 
     @Test
     void canCreateMenuWithActions() {
-        Menu menu = new Menu("MenuName").on('a', "DescA").execute(() -> null);
+        Menu menu = new Menu().on('a', "DescA").execute(() -> null);
 
         Collection<MenuAction> actions = menu.getActions();
 
-        assertEquals(actions.size(), 1);
+        assertEquals(1, actions.size());
     }
 
     @Test
     void canHandleKeyEntry() {
-        Menu menu = new Menu("MenuName").on('a', "DescA").execute(() -> new MenuResponse() {
+        Menu menu = new Menu().on('a', "DescA").execute(() -> new MenuResponse() {
             @Override
             public boolean isSuccess() {
                 return true;
@@ -58,7 +58,7 @@ public class MenuTest {
 
     @Test
     void cannotHandleInvalidEntries() {
-        Menu menu = new Menu("MenuName").on('a', "DescA").execute(() -> null);
+        Menu menu = new Menu().on('a', "DescA").execute(() -> null);
 
         MenuResponse response = menu.handle('z');
 
@@ -70,7 +70,7 @@ public class MenuTest {
 
     @Test
     void canReturnNavigationResponse() {
-        Menu menu = new Menu("MenuName").on('a', "DescA").navigateTo(Menus.HOME);
+        Menu menu = new Menu().on('a', "DescA").navigateTo(Menus.HOME);
 
         MenuResponse response = menu.handle('a');
 
@@ -80,7 +80,7 @@ public class MenuTest {
 
     @Test
     void canReturnPrintStringResponse() {
-        Menu menu = new Menu("MenuName").on('a', "DescA").printString("Hello World");
+        Menu menu = new Menu().on('a', "DescA").printString("Hello World");
 
         MenuResponse response = menu.handle('a');
 
