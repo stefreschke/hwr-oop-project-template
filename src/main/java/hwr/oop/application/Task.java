@@ -6,14 +6,12 @@ import java.util.Objects;
 import java.util.Optional;
 
 public class Task {
-    public Task(Integer id, String title, String content, TaskState taskState, List<TaskTag> taskTagList, User creator,
+    public Task(Integer id, String title, String content, TaskState taskState,
                 LocalDateTime deadline) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.taskState = taskState;
-        this.taskTagList = taskTagList;
-        this.creator = creator;
         this.deadline = deadline;
     }
 
@@ -21,8 +19,6 @@ public class Task {
     private final String title;
     private final String content;
     private TaskState taskState;
-    private final List<TaskTag> taskTagList;
-    private final User creator;
     private final LocalDateTime deadline;
 
     public Optional<LocalDateTime> getDeadline() {
@@ -45,13 +41,6 @@ public class Task {
         return taskState;
     }
 
-    public List<TaskTag> getTaskTagList() {
-        return taskTagList;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
 
     //change TaskState to BACKLOG
     public void resetTask() {
@@ -99,6 +88,6 @@ public class Task {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content, taskState, taskTagList, creator, deadline);
+        return Objects.hash(id, title, content, taskState, deadline);
     }
 }
