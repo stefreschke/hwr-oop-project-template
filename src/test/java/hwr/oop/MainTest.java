@@ -1,5 +1,6 @@
 package hwr.oop;
 
+import hwr.oop.util.ConsoleColors;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;

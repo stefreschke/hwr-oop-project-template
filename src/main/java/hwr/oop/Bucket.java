@@ -13,4 +13,7 @@ public class Bucket {
         return bucketName;
     }
 
+    public static interface ExitHandler {
+
+    }
 }

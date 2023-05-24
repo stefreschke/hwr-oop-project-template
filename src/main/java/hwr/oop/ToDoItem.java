@@ -2,7 +2,7 @@ package hwr.oop;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import static hwr.oop.ConsoleColors.*;
+import static hwr.oop.util.ConsoleColors.*;
 
 public class ToDoItem {
     private String title;

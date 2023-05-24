@@ -1,5 +1,7 @@
 package hwr.oop;
 
+import hwr.oop.util.ConsoleColors;
+
 public enum LogMode {
     NONE(ConsoleColors.WHITE_BOLD),
     WARN(ConsoleColors.YELLOW_BOLD),

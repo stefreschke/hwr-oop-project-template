@@ -1,4 +1,4 @@
-package hwr.oop;
+package hwr.oop.util;
 
 public class ConsoleColors {
     // Reset
