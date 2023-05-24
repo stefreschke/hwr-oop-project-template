@@ -1,6 +1,7 @@
 package hwr.oop.cards;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrainerTests {
+
     @Test
     void canCreateTrainerWith3Boxes(){
         Trainer trainer = new Trainer.TrainerBuilder().buildTrainerWith5Boxes();
@@ -27,8 +29,6 @@ public class TrainerTests {
     @Test
     void CanCreateTrainerFromSave(){
         Trainer trainer = new Trainer.TrainerBuilder().buildTrainerFromSave();
-
-
     }
     @Test
     void canLoadTopic_OneCard(){
@@ -59,54 +59,7 @@ public class TrainerTests {
         Assertions.assertThat(topic.getCardList()).contains(card3_rand);
     }
 
-    @Test
-    void canMoveCardUp(){
-        Trainer trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
-        Topic topic = new Topic("Random");
-        Box box1 = trainer.getBoxList().get(0);
-        Box box2 = trainer.getBoxList().get(1);
-        topic.createCard("Penny", "Doku");
-        Card compareCard = topic.getCardList().get(0);
-        trainer.loadTopic(topic);
-        Card card = box1.getRandomCard();
-        trainer.moveCardUp(card);
-        Assertions.assertThat(box2.getRandomCard()).isEqualTo(compareCard);
-    }
-    @Test
-    void canMoveCardUp2Times(){
-        Trainer trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
-        Topic topic = new Topic("Random");
-        Box box1 = trainer.getBoxList().get(0);
-        Box box2 = trainer.getBoxList().get(1);
-        Box box3 = trainer.getBoxList().get(2);
-        topic.createCard("Penny", "Doku");
-        Card compareCard = topic.getCardList().get(0);
-        trainer.loadTopic(topic);
-        Card card = box1.getRandomCard();
-        trainer.moveCardUp(card);
-        card = box2.getRandomCard(); //davor müsste spezieiferzt werden, dass es aus Box2 kommt und currentBoxIndex auf 1 setzten
-        trainer.moveCardUp(card);
-        Assertions.assertThat(box3.getRandomCard()).isEqualTo(compareCard);
-    }
-    @Test
-    void canMoveCardUpTopBox(){
-        Trainer trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
-        Topic topic = new Topic("Random");
-        topic.createCard("Penny", "Doku");
-        Box box1 = trainer.getBoxList().get(0);
-        Box box2 = trainer.getBoxList().get(1);
-        Box box3 = trainer.getBoxList().get(2);
-        Card comparecard = topic.getCardList().get(0);
-        trainer.loadTopic(topic);
-        Card card = box1.getRandomCard();
-        trainer.moveCardUp(card);
-        card = box2.getRandomCard(); //davor müsste spezieiferzt werden, dass es aus Box2 kommt und currentBoxIndex auf 1 setzten
-        trainer.moveCardUp(card);
-        card = box3.getRandomCard();
-        trainer.moveCardUp(card); // sollte immer noch in 3. Box sein
-        Assertions.assertThat(box3.getRandomCard()).isEqualTo(comparecard);
-    }
-
+    //andere Testklassen
     @Test
     void canGetRandomBoxIndex(){
         Trainer trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
