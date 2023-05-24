@@ -54,6 +54,7 @@ public class Trainer {
     void moveCardDown(Card card) {
         if (currentBoxIndex != 0){
             getBoxList().get(currentBoxIndex-1).addCard(card);
+            this.currentBoxIndex--; //für Testzwecke
         }
         else{
             getBoxList().get(currentBoxIndex).addCard(card);

@@ -1,5 +1,6 @@
 package hwr.oop.cards;
 
+import org.assertj.core.api.Assert;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,15 +14,16 @@ public class MoveCardsTest {
     private Card compareCard;
     @BeforeEach
     void setup(){
-        Trainer trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
-        Topic topic = new Topic("Random");
-        Box box1 = trainer.getBoxList().get(0);
-        Box box2 = trainer.getBoxList().get(1);
-        Box box3 = trainer.getBoxList().get(2);
+        trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
+        topic = new Topic("Random");
+        box1 = trainer.getBoxList().get(0);
+        box2 = trainer.getBoxList().get(1);
+        box3 = trainer.getBoxList().get(2);
         topic.createCard("Penny", "Doku");
-        Card compareCard = topic.getCardList().get(0);
+        compareCard = topic.getCardList().get(0);
         trainer.loadTopic(topic);
     }
+
     @Test
     void canMoveCardUp(){
         Card card = box1.getRandomCard();
@@ -50,7 +52,29 @@ public class MoveCardsTest {
 
     @Test
     void canMoveCardDown(){
+        Card card = box1.getRandomCard();
+        trainer.moveCardUp(card);
+        card = box2.getRandomCard();
+        trainer.moveCardDown(card);
+        Assertions.assertThat(box1.getRandomCard()).isEqualTo(compareCard);
+    }
+    @Test
+    void canMoveCardDown2Times(){
+        Card card = box1.getRandomCard();
+        trainer.moveCardUp(card);
+        card = box2.getRandomCard();
+        trainer.moveCardUp(card);
+        card = box3.getRandomCard();
 
-
+        trainer.moveCardDown(card);
+        card = box2.getRandomCard();
+        trainer.moveCardDown(card);
+        Assertions.assertThat(box1.getRandomCard()).isEqualTo(compareCard);
+    }
+    @Test
+    void canMoveCardDownBottomBox(){
+        Card card = box1.getRandomCard();
+        trainer.moveCardDown(card);
+        Assertions.assertThat(box1.getRandomCard()).isEqualTo(compareCard);
     }
 }
