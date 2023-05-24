@@ -59,17 +59,6 @@ public class TrainerTests {
         Assertions.assertThat(topic.getCardList()).contains(card3_rand);
     }
 
-    //andere Testklassen
-    @Test
-    void canGetRandomBoxIndex(){
-        Trainer trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
-        int randomBoxIndex = trainer.getRandomBoxIndex();
-        Assertions.assertThat(randomBoxIndex).isIn(List.of(0,1,2));
-    }
-    @Test
-    void canGetRandomCardFromRandomBox(){
-
-    }
     @Test
     void canAskQuestionToCLI(){
 
