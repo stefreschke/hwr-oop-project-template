@@ -3,21 +3,36 @@ package hwr.oop.cards;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 public class Trainer {
     private final List<Box> boxList;
+    private final int NUMBER_OF_BOXES;
+    private int currentBoxIndex;
+    private Card currentCard;
 
     private Trainer(List<Box> boxList) {
         this.boxList = boxList;
+        this.NUMBER_OF_BOXES = boxList.size();
     }
 
     public List<Box> getBoxList() {
         return boxList;
     }
+
+    public int getRandomBoxIndex(){
+        Random random = new Random();
+        int randomInt = random.nextInt(NUMBER_OF_BOXES - 1);
+        this.currentBoxIndex = randomInt;
+        return randomInt;
+    }
+
+    public Card getRandomCard(){
+        return (this.boxList.get(getRandomBoxIndex()).getRandomCard());
+    }
+
 
     // loading new Topic
     void loadTopic(Topic topic) {
@@ -26,23 +41,27 @@ public class Trainer {
             boxList.get(0).addCard(card);
         }
     }
-
-    /* Da man nach dem removen einer Card aus einer Box nicht weiß,
-    woher sie kommmt, würde ich die boxNummer als int passen.
-    Somit kann man z.b. beim Checken der Antwort dann die boxNummer
-    in- bzw. dekrementieren je nachdem, ob die Anwort richtig oder falsch war
-     */
-    void moveCardIntoBox(Card card, int boxNumber) {
-        getBoxList().get(boxNumber).addCard(card);
+    void moveCardUp(Card card) {
+        //Bei Tests bleibt currentBoxIndex bei 0!!!
+        if (currentBoxIndex != NUMBER_OF_BOXES - 1){
+            getBoxList().get(currentBoxIndex+1).addCard(card);
+            this.currentBoxIndex++; //für Testzwecke
+        }
+        else{
+            getBoxList().get(currentBoxIndex).addCard(card);
+        }
     }
+    void moveCardDown(Card card) {
+        if (currentBoxIndex != 0){
+            getBoxList().get(currentBoxIndex-1).addCard(card);
+        }
+        else{
+            getBoxList().get(currentBoxIndex).addCard(card);
+        }
+    }
+
+
     /*
-    void moveCard(Card card, boolean answer) {
-        int length = getBOxList().size()
-        if (answer == true){
-            currentbox + 1
-        getBoxList().get(boxNumber).addCard(card);
-    }
-
     boolean checkAnswer(String answer){
         if answer == card.getAnswer(){
             moveCardUp();
@@ -52,24 +71,26 @@ public class Trainer {
     public static class TrainerBuilder{
         private final PersistenceLoadPort persistenceLoadPort;
         public TrainerBuilder(){
-
+            this.persistenceLoadPort = null;
         }
         public TrainerBuilder(PersistenceLoadPort persistenceLoadPort){
             this.persistenceLoadPort = persistenceLoadPort;
         }
 
         public Trainer buildTrainerFromSave(){
-            //JsonPersistenceAdapter adapter = new JsonPersistenceAdapter();
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             List<Box> boxList;
+            Trainer trainer = null;
             try{
                 String filename = reader.readLine();
                 boxList = (List)persistenceLoadPort.loadTrainingInstance(filename);//unschön
-                Trainer trainer = new Trainer(boxList);
-                return trainer;
+                trainer = new Trainer(boxList);
             }catch(IOException error){
                 error.printStackTrace();
+            }catch(NullPointerException error){
+                error.printStackTrace();
             }
+            return trainer;
         }
         public Trainer buildTrainerWith3Boxes(){
             Trainer trainer = new Trainer(List.of(new Box(), new Box(), new Box()));
