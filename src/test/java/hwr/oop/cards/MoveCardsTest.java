@@ -77,4 +77,9 @@ public class MoveCardsTest {
         trainer.moveCardDown(card);
         Assertions.assertThat(box1.getRandomCard()).isEqualTo(compareCard);
     }
+
+    @Test
+    void canMoveRandomCard(){
+
+    }
 }

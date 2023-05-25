@@ -36,4 +36,5 @@ public class GetCardTest {
         Card card = trainer.getRandomCard();
         Assertions.assertThat(card).isIn(topic.getCardList());
     }
+
 }
