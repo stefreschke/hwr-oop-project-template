@@ -12,8 +12,4 @@ public class Bucket {
     public String getBucketName() {
         return bucketName;
     }
-
-    public static interface ExitHandler {
-
-    }
 }

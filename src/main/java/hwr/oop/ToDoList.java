@@ -102,7 +102,7 @@ public class ToDoList {
     }*/
 
 
-    public void editBucket (int index, String newBucket) {
+    public void renameBucket (int index, String newBucket) {
         this.buckets.remove(Util.getElementAtIndex(this.buckets, index));
         this.buckets.add(new Bucket(newBucket));
     }

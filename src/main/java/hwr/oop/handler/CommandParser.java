@@ -1,6 +1,8 @@
 package hwr.oop.handler;
 
-import hwr.oop.*;
+import hwr.oop.ConsoleUserInterface;
+import hwr.oop.LogMode;
+import hwr.oop.ToDoList;
 
 import java.util.Arrays;
 import java.util.EnumSet;
@@ -12,16 +14,16 @@ public class CommandParser {
         REMOVE(new String[]{"remove", "rm"}, "remove a task", ExistenceHandler.class),
         PROMOTE(new String[]{"promote", "p"}, "promote a task to a further state", StateHandler.class),
         DEMOTE(new String[]{"demote", "d"}, "demote a task to a previous state", StateHandler.class),
-        HOLD(new String[]{"hold", "o"}, "put a task on hold", StateHandler.class),
+        HOLD(new String[]{"hold", "hd"}, "put a task on hold", StateHandler.class),
         DONE(new String[]{"done", "do"}, "mark a task as done", StateHandler.class),
         EDIT(new String[]{"edit", "e"}, "edit a task", EditHandler.class),
         LIST(new String[]{"list", "ls"}, "list all tasks", ConsoleUserInterface.class),
         SORT(new String[]{"sort", "s"}, "sort your tasks", SortHandler.class),
         CREATEBUCKET(new String[]{"createBucket", "cb"}, "create a bucket for tasks", BucketHandler.class),
-        SHOWBUCKETS(new String[]{"showBuckets", "sb"}, "show buckets for tasks", BucketsHandler.class),
-        EDITBUCKETS(new String[]{"editBuckets", "eb"}, "changes bucket name", BucketHandler.class),
+        SHOWBUCKETS(new String[]{"showBuckets", "sb"}, "show buckets for tasks", BucketHandler.class),
+        RENAMEBUCKETS(new String[]{"editBuckets", "rnb"}, "changes bucket name", BucketHandler.class),
         CLEAR(new String[]{"clear", "cls"}, "clear all tasks", ClearHandler.class),
-        EXIT(new String[]{"exit", "q"}, "exit the program", Bucket.ExitHandler.class),
+        EXIT(new String[]{"exit", "q"}, "exit the program", ExitHandler.class),
         NULL(null, null, null);
 
         private final String[] commands;
@@ -53,23 +55,38 @@ public class CommandParser {
         this.cui = cui;
         this.commandHandlerElements = CommandHandler.values();
     }
-    public CommandHandler handle(String[] args) {
-        EnumSet.allOf(CommandHandler.class)
-                .forEach(commandElement -> {
-                    if (Arrays.asList(commandElement.getCommands()).contains(args[1])) {
-                        try {
-                            callHandler(commandElement, args);
-                        } catch (CouldNotCallHandlerException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                });
-        return CommandHandler.NULL;
+    public int handle(ToDoList toDoList, String[] args) {
+        for (CommandHandler commandElement : EnumSet.allOf(CommandHandler.class)) {
+            if (Arrays.asList(commandElement.getCommands()).contains(args[1])) {
+                try {
+                    callHandler(toDoList, commandElement, args);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+                return 0;
+            }
+        }
+        return 1;
     }
 
-    private void callHandler(CommandHandler commandElement, String[] userArgs) throws CouldNotCallHandlerException {
+    private void callHandler(ToDoList toDoList, CommandHandler commandElement, String[] userArgs) throws CouldNotCallHandlerException {
         try {
-            commandElement.handlerClass.getMethod("handleUserCommand", String[].class).invoke(null, userArgs, cui);
+            String methodName = "handleUserCommand";
+            java.lang.reflect.Method method;
+            try {
+                method = commandElement.getHandlerClass().getMethod(methodName, ToDoList.class, ConsoleUserInterface.class, String[].class);
+                method.invoke(null, toDoList, cui, userArgs);
+            } catch (SecurityException e) {
+                cui.print(LogMode.ERROR, "We cant execute that command.");
+            }
+            catch (NoSuchMethodException e) {
+                cui.print(LogMode.ERROR, "We cant execute that command.");
+            }
+            try {
+            } catch (IllegalArgumentException e) {
+                cui.print(LogMode.ERROR, "We cant execute that command.");
+            }
+
         } catch (Exception e) {
             throw new CouldNotCallHandlerException();
         }
@@ -122,7 +139,7 @@ if (commandArray[0].equalsIgnoreCase("gtd")) {
         try {
             toDoList.getItems()[Integer.parseInt(commandArray[2])].promote();
         } catch (ArrayIndexOutOfBoundsException e) {
-            print(LogMode.ERROR, "Try 'gtd promote [index]'");
+            print(LogMod e.ERROR, "Try 'gtd promote [index]'");
         }
     } else if (commandArray[1].equalsIgnoreCase("demote")) {
         try {

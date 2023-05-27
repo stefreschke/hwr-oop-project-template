@@ -20,19 +20,19 @@ public class ToDoItem {
         this.priority = priority;
         this.state = State.TODO;
     }
-    void setTitle(String title) {
+    public void setTitle(String title) {
         this.title = title;
     }
-    void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
-    void setDone() {
+    public void setDone() {
         this.state = State.DONE;
     }
-    void setPriority(Priority priority) {
+    public void setPriority(Priority priority) {
         this.priority = priority;
     }
-    void setBucket(String bucket) {
+    public void setBucket(String bucket) {
         this.bucket.setBucketName(bucket);
     }
     static String getLocalDate() {

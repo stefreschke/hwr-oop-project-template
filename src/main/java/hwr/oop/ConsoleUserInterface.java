@@ -112,13 +112,14 @@ public class ConsoleUserInterface {
         out.println("  edit [Item Index]               -  edit a task");
         out.println("  list                            -  list all tasks");
         out.println("  sort                            -  sort your tasks");
-        out.println("  createBucket [bucket name]      -  create a bucket for tasks");
+        out.println("  createBucket [Name]             -  create a bucket for tasks");
         out.println("  showBuckets                     -  show buckets for tasks");
-        out.println("  editBuckets [index] [new name]  -  changes bucket name");
+        out.println("  renameBucket [index] [Name]     -  changes bucket name");
         out.println("  clear                           -  clear all tasks");
         out.println("  exit                            -  exit the program");
     }
-    public  String getTitleForAdd(BufferedReader reader) {
+    public  String getTitleForAdd() {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         out.println("Please enter a title for your task");
         try {
             return reader.readLine();
@@ -127,7 +128,8 @@ public class ConsoleUserInterface {
         }
         return "NO TITLE";
     }
-    public  String getDescriptionForAdd(BufferedReader reader) {
+    public  String getDescriptionForAdd() {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         out.println("Please enter a description for your task");
         try {
             return reader.readLine();
@@ -136,7 +138,8 @@ public class ConsoleUserInterface {
         }
         return "NO DESCRIPTION";
     }
-    public  Priority getPriorityForAdd(BufferedReader reader) throws CouldNotReadInputException {
+    public  Priority getPriorityForAdd() throws CouldNotReadInputException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         out.println("Please select a priority for your task");
         out.println("1 - LOW, 2 - MEDIUM, 3 - HIGH");
         String priority = "-1";
@@ -149,7 +152,8 @@ public class ConsoleUserInterface {
         }
         return Priority.fromInt(Integer.parseInt(priority));
     }
-    public  String getBucketForAdd(BufferedReader reader) {
+    public  String getBucketForAdd() {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         out.println("Add a Bucket to group your tasks");
         try {
             return reader.readLine();
@@ -157,22 +161,6 @@ public class ConsoleUserInterface {
             e.printStackTrace();
         }
         return "NO BUCKET";
-    }
-    public void add(ToDoList toDoList) throws CouldNotReadInputException {
-        out.println("Create a new task");
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        String title = getTitleForAdd(reader);
-        String description = getDescriptionForAdd(reader);
-        Priority priority = getPriorityForAdd(reader);
-        String bucket = getBucketForAdd(reader);
-        ToDoItem toDoItem = new ToDoItem(
-                title,
-                description,
-                bucket,
-                priority
-                );
-        print(LogMode.SUCCESS, "Task Created Successfully!");
-        toDoList.add(toDoItem);
     }
     public void list(ToDoList toDoList) {
         out.println(toDoList.getName() + ":");
@@ -197,20 +185,8 @@ public class ConsoleUserInterface {
             }
         }
     }
-    public void done(ToDoList toDoList, int index) {
-        int i = 0;
-        while (i == 0) {
-            try {
-                toDoList.getItems()[index].setDone();
-                i++;
-            } catch (Exception e) {
-                index = this.handleBadIndex("Please enter the index of the task you want to mark as done.");
-                if (index == -1) return;
-            }
-        }
-    }
-
-    public  String getTitleForEdit(BufferedReader reader, ToDoItem item) throws CouldNotReadInputException {
+    public  String getTitleForEdit(ToDoItem item) throws CouldNotReadInputException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         out.println("Enter new Title or press enter to skip");
         String title;
         try {
@@ -222,7 +198,8 @@ public class ConsoleUserInterface {
         }
     }
 
-    public  String getDescriptionForEdit(BufferedReader reader, ToDoItem item) throws CouldNotReadInputException {
+    public  String getDescriptionForEdit(ToDoItem item) throws CouldNotReadInputException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         out.println("Enter new Description or press enter to skip");
         String description;
         try {
@@ -234,7 +211,8 @@ public class ConsoleUserInterface {
         }
     }
 
-    public  Priority getPriorityForEdit(BufferedReader reader, ToDoItem item) throws CouldNotReadInputException {
+    public  Priority getPriorityForEdit(ToDoItem item) throws CouldNotReadInputException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         out.println("Enter new Priority or press enter to skip");
         out.println("1 - LOW, 2 - MEDIUM, 3 - HIGH");
         String priority = "-1";
@@ -251,7 +229,8 @@ public class ConsoleUserInterface {
         }
         return item.getPriority();
     }
-    public  String getBucketForEdit(BufferedReader reader, ToDoItem item) {
+    public  String getBucketForEdit(ToDoItem item) {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         out.println("Enter new Bucket or press enter to skip");
         String bucket;
         try {
@@ -262,29 +241,6 @@ public class ConsoleUserInterface {
             out.println("Could not read your input... skipping");
         }
         return item.getBucket();
-    }
-    public void edit(ToDoList toDoList, int index) throws CouldNotReadInputException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-        ToDoItem item;
-        try {
-            item = toDoList.getItems()[index];
-        } catch (Exception e) {
-            index = handleBadIndex("Please enter the index of the task you want to edit.");
-            if (index == -1) return;
-            else item = toDoList.getItems()[index];
-        }
-        out.println("Editing task at index " + index + ":");
-        out.println(item.toString());
-        String title = getTitleForEdit(reader, item);
-        String description = getDescriptionForEdit(reader, item);
-        Priority priority = getPriorityForEdit(reader, item);
-        String bucket = getBucketForEdit(reader, item);
-        item.setTitle(title);
-        item.setDescription(description);
-        item.setPriority(priority);
-        item.setBucket(bucket);
-        out.println("Task Edited Successfully!");
-
     }
     public void sortHelp() {
         out.println("gtd sort [option]");
@@ -298,8 +254,9 @@ public class ConsoleUserInterface {
         out.println("  help     - print this help");
     }
 
-
-
+    public void showBuckets(ToDoList toDoList){
+        out.println(toDoList.getBuckets());
+    }
 
     public int parseCommands(ToDoList toDoList, CommandParser commandParser) throws IOException, CouldNotReadInputException, CouldNotSaveChangesException {
         out.print("> ");
@@ -307,11 +264,11 @@ public class ConsoleUserInterface {
         String command = reader.readLine();
         String[] commandArray = command.split(" ");
 
-        commandParser.handle(commandArray);
+        commandParser.handle(toDoList, commandArray);
         try {
             saveChanges(toDoList);
         } catch (CouldNotSaveChangesException e) {
-            return 1;
+            throw new CouldNotSaveChangesException();
         }
         return 0;
     }
