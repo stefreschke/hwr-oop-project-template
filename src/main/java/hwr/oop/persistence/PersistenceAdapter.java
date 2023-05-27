@@ -14,37 +14,18 @@ import java.util.List;
 
 public class PersistenceAdapter implements LoadPort, SavePort {
     @Override
-    public AppData loadData(Reader projectFile, Reader userFile) throws FileNotFoundException {
-        List<Project> projectList = loadProjects(projectFile);
-        List<User> userList = loadUsers(userFile);
-        return new AppData(projectList, userList);
-    }
-
-    public List<Project> loadProjects(Reader projectFile) {
+    public AppData loadData(Reader fileReader) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .create();
-        return gson.fromJson(projectFile, new TypeToken<List<Project>>() {}.getType());
-    }
-
-    public List<User> loadUsers(Reader userFile) {
-        return new Gson().fromJson(userFile, new TypeToken<List<User>>() {}.getType());
+        return gson.fromJson(fileReader, AppData.class);
     }
 
     @Override
-    public void saveData(AppData appData, Writer projectFile, Writer userFile) {
-        saveProjects(appData.getProjectList(), projectFile);
-        saveUsers(appData.getUserList(), userFile);
-    }
-
-    public void saveProjects(List<Project> projectList, Writer projectFile) {
+    public void saveData(AppData appData, Writer fileWriter) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .create();
-        gson.toJson(projectList, projectFile);
-    }
-
-    public void saveUsers(List<User> userList, Writer userFile) {
-        new Gson().toJson(userList, userFile);
+        gson.toJson(fileWriter, AppData.class);
     }
 }
