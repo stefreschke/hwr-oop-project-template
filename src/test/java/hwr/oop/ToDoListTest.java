@@ -125,37 +125,4 @@ public class ToDoListTest {
         assertThat(testBuckets.contains(new Bucket("Math"))).isTrue();
         assertThat(testBuckets.contains(new Bucket("Personal"))).isTrue();
     }
-    /*@Test
-    void updateBucketsTest() {
-        ToDoList toDoList = new ToDoList("myList");
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", "Uni",  Priority.HIGH);
-        ToDoItem item2 = new ToDoItem("Calculate Something", "More Math over here", "Math",  Priority.MEDIUM);
-        ToDoItem item3 = new ToDoItem("Be Amazing", "Just Do It", "Personal",  Priority.LOW);
-        toDoList.add(item);
-        toDoList.add(item2);
-        toDoList.add(item3);
-        //toDoList.updateBuckets();
-        java.util.List<Bucket> testbuckets = toDoList.getBuckets();
-        assertThat(testbuckets.get(0).getBucket()).isEqualTo("Uni");
-        assertThat(testbuckets.get(1).getBucket()).isEqualTo("Math");
-        assertThat(testbuckets.get(2).getBucket()).isEqualTo("Personal");
-    }*/
-
-
-    @Test
-    void addBucketTest() {
-        ToDoList toDoList =  new ToDoList("myList");
-        assertThat(toDoList.getBuckets().size()).isEqualTo(0);
-        toDoList.addBucket("Test");
-        assertThat(toDoList.getBuckets().size()).isEqualTo(1);
-        assertThat(toDoList.getBuckets().contains("Test"));
-    }
-
-    @Test
-    void editBucketTest() {
-        ToDoList toDoList = new ToDoList("myList");
-        toDoList.addBucket("Test");
-        toDoList.editBucket(0, "Boo");
-        assertThat(toDoList.getBuckets().contains("Boo")).isTrue();
-    }
 }

@@ -8,8 +8,8 @@ import java.util.Arrays;
 import java.util.EnumSet;
 
 public class CommandParser {
-    private enum CommandHandler {
-        HELP(new String[]{"help", "h"}, "print this help", ConsoleUserInterface.class),
+    public enum CommandHandler {
+        HELP(new String[]{"help", "h"}, "print this help", HelpHandler.class),
         ADD(new String[]{"add", "a"}, "add a new task", ExistenceHandler.class),
         REMOVE(new String[]{"remove", "rm"}, "remove a task", ExistenceHandler.class),
         PROMOTE(new String[]{"promote", "p"}, "promote a task to a further state", StateHandler.class),
@@ -24,7 +24,7 @@ public class CommandParser {
         RENAMEBUCKETS(new String[]{"editBuckets", "rnb"}, "changes bucket name", BucketHandler.class),
         CLEAR(new String[]{"clear", "cls"}, "clear all tasks", ClearHandler.class),
         EXIT(new String[]{"exit", "q"}, "exit the program", ExitHandler.class),
-        NULL(null, null, null);
+        NULL(new String[]{}, "", HelpHandler.class);
 
         private final String[] commands;
         private final String description;
@@ -37,13 +37,12 @@ public class CommandParser {
         }
 
         public String[] getCommands() {
-            return commands;
+            try {
+                return commands;
+            } catch (Exception e) {
+                return new String[]{"help", "h"};
+            }
         }
-
-        public String getDescription() {
-            return description;
-        }
-
         public Class getHandlerClass() {
             return handlerClass;
         }
@@ -66,6 +65,11 @@ public class CommandParser {
                 return 0;
             }
         }
+        try {
+            callHandler(toDoList, CommandHandler.HELP, args);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return 1;
     }
 
@@ -77,16 +81,15 @@ public class CommandParser {
                 method = commandElement.getHandlerClass().getMethod(methodName, ToDoList.class, ConsoleUserInterface.class, String[].class);
                 method.invoke(null, toDoList, cui, userArgs);
             } catch (SecurityException e) {
-                cui.print(LogMode.ERROR, "We cant execute that command.");
+                cui.print(LogMode.ERROR, "SE We cant execute that command.");
             }
             catch (NoSuchMethodException e) {
-                cui.print(LogMode.ERROR, "We cant execute that command.");
+                cui.print(LogMode.ERROR, "NSM We cant execute that command.");
             }
             try {
             } catch (IllegalArgumentException e) {
-                cui.print(LogMode.ERROR, "We cant execute that command.");
+                cui.print(LogMode.ERROR, "IAE e cant execute that command.");
             }
-
         } catch (Exception e) {
             throw new CouldNotCallHandlerException();
         }

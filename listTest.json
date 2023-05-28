@@ -1,1 +1,1 @@
-{"name":"MyList","items":[{"title":"Test","description":"Test","bucket":{"bucketName":"Test"},"priority":"LOW","createdAt":"2023-05-22T21:47:01.211428","state":"DONE"}],"fileName":"listTest.json","buckets":[]}
+{"name":"MyList","items":[{"title":"Apple","description":"Computers","bucket":{"bucketName":"Fruit"},"priority":"MEDIUM","createdAt":"2023-05-28T15:01:41.486242","state":"TODO"}],"fileName":"listTest.json","buckets":[]}

@@ -25,7 +25,7 @@ public class ConsoleUserInterface {
             throw new CouldNotSaveChangesException();
         }
     }
-    public  int handleBadIndex(String message) {
+    public int handleBadIndex(String message) {
         print(LogMode.ERROR, "There is nothing at that index... 🥸");
         out.println("Try again? (y/n)");
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));

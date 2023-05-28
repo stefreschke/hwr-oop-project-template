@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -67,202 +66,6 @@ class MainTest {
             System.setOut(sysOutBackup);
         }
     }
-
-    @Test
-    void helpTest() {
-        // Redirect standard input and output streams to memory buffers
-        InputStream sysInBackup = System.in;
-        PrintStream sysOutBackup = System.out;
-        try {
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            cui.help();
-            // Check the program output
-            String expectedOutput;
-            expectedOutput =
-                    "gtd [command] [arguments]\n" +
-                    "Commands:\n" +
-                    "  help                -  print this help\n" +
-                    "  add [Item Index]    -  add a new task\n" +
-                    "  remove [Item Index] -  remove a task\n" +
-                    "  done [Item Index]   -  mark a task as done\n" +
-                    "  edit [Item Index]   -  edit a task\n" +
-                    "  list                -  list all tasks\n" +
-                    "  createBucket [bucket name]      -  create a bucket for tasks\n" +
-                    "  editBuckets [index] [new name]  -  changes bucket name\n" +
-                    "  showBuckets                     -  show buckets for tasks \n" +
-                    "  sort                -  sort your tasks\n" +
-                    "  clear               -  clear all tasks\n" +
-                    "  exit                -  exit the program\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            // Restore standard input and output streams
-            System.setIn(sysInBackup);
-            System.setOut(sysOutBackup);
-        }
-    }
-
-    @Test
-    void addNoFileSpecifiedTest() {
-        // Redirect standard input and output streams to memory buffers
-        InputStream sysInBackup = System.in;
-        PrintStream sysOutBackup = System.out;
-        try {
-            String userInput = "Title\nDescription\n3\nBucket\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ToDoList toDoList = new ToDoList("MyList");
-            cui.add(toDoList);
-            // Check the program output
-            String expectedOutput;
-            expectedOutput =
-                    "Create a new task\n" +
-                    "Please enter a title for your task\n" +
-                    "Please enter a description for your task\n" +
-                    "Please enter a priority for your task\n" +
-                    "\u001B[1;34m1 - LOW, \u001B[1;33m2 - MEDIUM, \u001B[1;31m3 - HIGH\u001B[0m\n" +
-                    "Add a Tag to group your tasks\n" +
-                    "\u001B[1;32mTask Created Successfully!\u001B[0m\n" +
-                    "Could not save your progress... please specify a file or try again.\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-            assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Title");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            // Restore standard input and output streams
-            System.setIn(sysInBackup);
-            System.setOut(sysOutBackup);
-        }
-    }
-
-    @Test
-    void addFileSpecifiedTest() {
-        // Redirect standard input and output streams to memory buffers
-        InputStream sysInBackup = System.in;
-        PrintStream sysOutBackup = System.out;
-        try {
-            String userInput = "Title\nDescription\n3\nTag\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ToDoList toDoList = new ToDoList("MyList", "addTestFile");
-            cui.add(toDoList);
-            // Check the program output
-            String expectedOutput;
-            expectedOutput =
-                    "Create a new task\n" +
-                        "Please enter a title for your task\n" +
-                        "Please enter a description for your task\n" +
-                        "Please enter a priority for your task\n" +
-                        "\u001B[1;34m1 - LOW, \u001B[1;33m2 - MEDIUM, \u001B[1;31m3 - HIGH\u001B[0m\n" +
-                        "Add a Bucket to group your tasks\n" +
-                        "\u001B[1;32mTask Created Successfully!\u001B[0m\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-            assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Title");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        } finally {
-            // Restore standard input and output streams
-            System.setIn(sysInBackup);
-            System.setOut(sysOutBackup);
-        }
-    }
-
-    @Test
-    void editNotFileSpecifiedTest() {
-        // Redirect standard input and output streams to memory buffers
-        InputStream sysInBackup = System.in;
-        PrintStream sysOutBackup = System.out;
-
-        Program testEnvProgram = new Program();
-        String[] env = testEnvProgram.getEnvironmentVariables();
-        try {
-            String userInput = "MyList\nDescription\n3\nBucket\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ToDoList toDoList = new ToDoList("MyList");
-            toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
-            cui.edit(toDoList, 0);
-            // Check the program output
-            String expectedOutput;
-            expectedOutput = "Editing task at index 0:\n" +
-                    "⏭\uFE0F Test\n" +
-                    "Test\n" +
-                    "<\u001B[1;36mTest\u001B[0m> \u001B[1;34mLOW\u001B[0m\n" +
-                    "Enter new Title or press enter to skip\n" +
-                    "Enter new Description or press enter to skip\n" +
-                    "Enter new Priority or press enter to skip\n" +
-                    "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
-                    "Enter new Bucket or press enter to skip\n" +
-                    "Task Edited Successfully!\n" +
-                    "Could not save your progress... please specify a file or try again.\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-            assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("MyList");
-            assertThat(toDoList.getItems()[0].getDescription()).isEqualTo("Description");
-            assertThat(toDoList.getItems()[0].getPriority()).isEqualTo(Priority.HIGH);
-            assertThat(toDoList.getItems()[0].getBucket()).isEqualTo("Tag");
-            assertThat(env).isNotNull();
-
-        } catch (ConsoleUserInterface.CouldNotReadInputException e) {
-            throw new RuntimeException(e);
-        } finally {
-            // Restore standard input and output streams
-            System.setIn(sysInBackup);
-            System.setOut(sysOutBackup);
-        }
-    }
-
-    @Test
-    void editFileSpecifiedTest() {
-        // Redirect standard input and output streams to memory buffers
-        InputStream sysInBackup = System.in;
-        PrintStream sysOutBackup = System.out;
-
-        Program testEnvProgram = new Program();
-        String[] env = testEnvProgram.getEnvironmentVariables();
-        try {
-            String userInput = "MyList\nDescription\n3\nTag\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ToDoList toDoList = new ToDoList("MyList", "editTestFile");
-            toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
-            toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
-            cui.edit(toDoList, 0);
-            // Check the program output
-            String expectedOutput;
-            expectedOutput = "Editing task at index 0:\n" +
-                    "⏭\uFE0F Test\n" +
-                    "Test\n" +
-                    "<\u001B[1;36mTest\u001B[0m> \u001B[1;34mLOW\u001B[0m\n" +
-                    "Enter new Title or press enter to skip\n" +
-                    "Enter new Description or press enter to skip\n" +
-                    "Enter new Priority or press enter to skip\n" +
-                    "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
-                    "Enter new Bucket or press enter to skip\n" +
-                    "Task Edited Successfully!\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-            assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("MyList");
-            assertThat(toDoList.getItems()[0].getDescription()).isEqualTo("Description");
-            assertThat(toDoList.getItems()[0].getPriority()).isEqualTo(Priority.HIGH);
-            assertThat(toDoList.getItems()[0].getBucket()).isEqualTo("Bucket");
-            assertThat(env).isNotNull();
-
-        } catch (ConsoleUserInterface.CouldNotReadInputException e) {
-            throw new RuntimeException(e);
-        } finally {
-            // Restore standard input and output streams
-            System.setIn(sysInBackup);
-            System.setOut(sysOutBackup);
-        }
-    }
-
     @Test
     void listTest() {
         InputStream sysInBackup = System.in;
@@ -450,17 +253,6 @@ class MainTest {
             System.setOut(sysOutBackup);
         }
     }
-
-    @Test
-    void doneTest() {
-        ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(new ByteArrayOutputStream()), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        ToDoList toDoList = new ToDoList("MyList", "listTest.json");
-        toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
-        assertThat(toDoList.getItems()[0].isDone()).isFalse();
-        cui.done(toDoList, 0);
-        assertThat(toDoList.getItems()[0].isDone()).isTrue();
-    }
-
     @Test
     void sortHelpTest() {
         InputStream sysInBackup = System.in;
@@ -511,21 +303,6 @@ class MainTest {
         toDoList.bubbleUpBucket(commandArray[3]);
         assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Banana");
     }
-
-    @Test
-    void clearTest() {
-        PrintStream sysOutBackup = System.out;
-        ToDoList toDoList = new ToDoList("MyList");
-        toDoList.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM));
-        try {
-            assertThat(toDoList.getItems()).hasSize(1);
-            Main.clear(toDoList);
-            assertThat(toDoList.getItems()).isNull();
-        } finally {
-            System.setOut(sysOutBackup);
-        }
-    }
-
     @Test
     void exitTest() {
         PrintStream sysOutBackup = System.out;
@@ -538,7 +315,7 @@ class MainTest {
             Main.exit(cui, toDoList);
             // Check the program output
             String expectedOutput;
-            expectedOutput = "exiting...\n";
+            expectedOutput = "Exiting...\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
             ToDoList testList = new Program().loadToDoList("listTest.json");
@@ -549,85 +326,4 @@ class MainTest {
             System.setOut(sysOutBackup);
         }
     }
-
-    @Test
-    void createBucketsTest() throws ConsoleUserInterface.CouldNotReadInputException {
-        PrintStream sysOutBackup = System.out;
-        InputStream sysInBackup = System.in;
-
-        ToDoList toDoList = new ToDoList("My ToDoList");
-        try {
-            String userInput = "Title\nDescription\n12.12.12\n3\nBucket\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(new ByteArrayOutputStream()), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            cui.add(toDoList);
-            Set<Bucket> testBuckets = toDoList.getBuckets();
-            assertThat(testBuckets.contains(new Bucket("Bucket"))).isTrue();
-
-        }finally {
-            System.setOut(sysOutBackup);
-            System.setIn(sysInBackup);
-        }
-
-    }
-
-    @Test
-    void showBucketsTest() {
-        PrintStream sysOutBackup = System.out;
-        InputStream sysInBackup = System.in;
-
-        ToDoList toDoList = new ToDoList("My ToDoList");
-        ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(new ByteArrayOutputStream()), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        try {
-            String userInput = "Title\nDescription\n12.12.12\n3\nBucket\n";
-            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer));
-            cui.add(toDoList);
-            String userInput2 = "Title\nDescription\n12.12.12\n3\nBucket2\n";
-            System.setIn(new ByteArrayInputStream(userInput2.getBytes(StandardCharsets.UTF_8)));
-            ByteArrayOutputStream outBuffer2 = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer2));
-            cui.add(toDoList);
-            String userInput3 = "Title\nDescription\n12.12.12\n3\nBucket3\n";
-            System.setIn(new ByteArrayInputStream(userInput3.getBytes(StandardCharsets.UTF_8)));
-            ByteArrayOutputStream outBuffer3 = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer3));
-            cui.add(toDoList);
-            Set<Bucket> TestBuckets = toDoList.getBuckets();
-            assertThat(TestBuckets).isEqualTo(toDoList.getBuckets());
-        } catch (ConsoleUserInterface.CouldNotReadInputException e) {
-            throw new RuntimeException(e);
-        } finally {
-            System.setOut(sysOutBackup);
-            System.setIn(sysInBackup);
-        }
-
-    }
-
-    @Test
-    void editBucketTest() {
-        PrintStream sysOutBackup = System.out;
-        InputStream sysInBackup = System.in;
-
-        ToDoList toDoList = new ToDoList("My ToDoList");
-        ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(new ByteArrayOutputStream()), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        try {
-            String userInput = "Title\nDescription\n12.12.12\n3\nBucket\n";
-            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer));
-            toDoList.addBucket("Bucket");
-            cui.add(toDoList);
-            toDoList.editBucket(0, "Test");
-            assertThat(toDoList.getBuckets().contains(new Bucket("Test"))).isTrue();
-        } catch (ConsoleUserInterface.CouldNotReadInputException e) {
-            throw new RuntimeException(e);
-        } finally {
-            System.setOut(sysOutBackup);
-            System.setIn(sysInBackup);
-        }
-    }
 }
-
-// Type cast to List

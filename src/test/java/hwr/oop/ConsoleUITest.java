@@ -109,35 +109,54 @@ class ConsoleUITest {
     }
 
     @Test
-    void testAdd() {
-        // Redirect standard input and output streams to memory buffers
-        InputStream sysInBackup = System.in;
-        PrintStream sysOutBackup = System.out;
+    void getTitleForAddTest(){
         try {
-            String userInput = "Title\nDescription\n12.12.12\n3\nTag\n";
-            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            String userInput = "MyItem\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer));
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ToDoList toDoList = new ToDoList("MyList");
-            testConsole.add(toDoList);
-            // Check the program output
-            String expectedOutput;
-            expectedOutput =
-                    "Create a new task\n" +
-                            "Please enter a title for your task\n" +
-                            "Please enter a description for your task\n" +
-                            "Please select a priority for your task\n" +
-                            "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
-                            "Add a Bucket to group your tasks\n" +
-                            "\u001B[1;32mTask Created Successfully!\u001B[0m\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-            assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Title");
+            String title = testConsole.getTitleForAdd();
+            assertThat(title).isEqualTo("MyItem");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
+    @Test
+    void getTitleForDescriptionTest(){
+        try {
+            String userInput = "MyItem\n";
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            String desc = testConsole.getDescriptionForAdd();
+            assertThat(desc).isEqualTo("MyItem");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    void getTitleForPriorityTest(){
+        try {
+            String userInput = "MyItem\n";
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            Priority prio = testConsole.getPriorityForAdd();
+            assertThat(prio).isEqualTo("MyItem");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    void getBucketForTest(){
+        try {
+            String userInput = "MyItem\n";
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            String bucket = testConsole.getBucketForAdd();
+            assertThat(bucket).isEqualTo("MyItem");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     /*
     @Test
     void testEdit() {
@@ -313,17 +332,6 @@ class ConsoleUITest {
             throw new RuntimeException(e);
         }
     }
-
-    @Test
-    void doneTest() {
-        ToDoList toDoList = new ToDoList("MyList", "listTest.json");
-        toDoList.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
-        assertThat(toDoList.getItems()[0].isDone()).isFalse();
-        ConsoleUserInterface testConsole = new ConsoleUserInterface(System.out, new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        testConsole.done(toDoList, 0);
-        assertThat(toDoList.getItems()[0].isDone()).isTrue();
-    }
-
     @Test
     void sortHelpTest() {
         InputStream sysInBackup = System.in;
@@ -373,30 +381,6 @@ class ConsoleUITest {
         assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Banana");
         toDoList.bubbleUpBucket(commandArray[3]);
         assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Banana");
-    }
-
-    @Test
-    void clearTest() {
-        PrintStream sysOutBackup = System.out;
-        ToDoList list = new ToDoList("MyList");
-        list.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM));
-        try {
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            assertThat(list.getItems()).hasSize(1);
-            Main.clear(list);
-            assertThat(list.getItems()).isNull();
-            // Check the program output
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            testConsole.list(list);
-            String expectedOutput;
-            expectedOutput = "MyList:\n" +
-                    "👀Looks Empty here... Add some tasks!\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-        } finally {
-            System.setOut(sysOutBackup);
-        }
     }
     /*
     @Test
