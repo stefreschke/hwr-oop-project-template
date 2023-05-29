@@ -42,6 +42,7 @@ class TaskTest {
         assertThat(result).isEqualTo(TaskState.IN_PROGRESS);
     }
 
+
     @ParameterizedTest
     @EnumSource(value = TaskState.class, names = {"IN_REVIEW", "IN_PROGRESS"})
     void completeTaskSuccessfully(TaskState state) {
