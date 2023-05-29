@@ -12,13 +12,12 @@ public interface ExistenceHandler {
                     int index;
                     try {
                         index = Integer.parseInt(args[2]);
-                        toDoList.remove(index);
+                        remove(cui, toDoList, index);
                     } catch (Exception e) {
                         index = cui.handleBadIndex("Please enter the index of the task you want to remove.");
                         if (index == -1) return;
-                        else toDoList.remove(index);
+                        remove(cui, toDoList, index);
                     }
-                    remove(cui, toDoList, index);
                 } else {
                     cui.print(LogMode.ERROR, "Unknown command");
                 }
@@ -53,7 +52,7 @@ public interface ExistenceHandler {
                 i++;
             } catch (Exception e) {
                 index = cui.handleBadIndex("Please enter the index of the task you want to remove.");
-                if (index == -1) return;
+                if (index == -1) i++;
             }
         }
     }
