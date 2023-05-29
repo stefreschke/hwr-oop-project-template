@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -40,6 +41,7 @@ class TaskTest {
         TaskState result = example.getTaskState();
         assertThat(result).isEqualTo(TaskState.IN_PROGRESS);
     }
+
 
     @ParameterizedTest
     @EnumSource(value = TaskState.class, names = {"IN_REVIEW", "IN_PROGRESS"})
