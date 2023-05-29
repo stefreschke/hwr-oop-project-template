@@ -12,7 +12,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class StateHandlerTest {
+class StateHandlerTest {
     @Test
     void doneTest() {
         ToDoList toDoList = new ToDoList("MyList", "listTest.json");

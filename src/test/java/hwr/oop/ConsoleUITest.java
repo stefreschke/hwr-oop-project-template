@@ -95,9 +95,9 @@ class ConsoleUITest {
                             "  edit [Item Index]               -  edit a task\n" +
                             "  list                            -  list all tasks\n" +
                             "  sort                            -  sort your tasks\n" +
-                            "  createBucket [bucket name]      -  create a bucket for tasks\n" +
+                            "  createBucket [Name]             -  create a bucket for tasks\n" +
                             "  showBuckets                     -  show buckets for tasks\n" +
-                            "  editBuckets [index] [new name]  -  changes bucket name\n" +
+                            "  renameBucket [index] [Name]     -  changes bucket name\n" +
                             "  clear                           -  clear all tasks\n" +
                             "  exit                            -  exit the program\n";
             String actualOutput = outBuffer.toString();
@@ -133,13 +133,13 @@ class ConsoleUITest {
         }
     }
     @Test
-    void getTitleForPriorityTest(){
+    void getPriorityForAddTest(){
         try {
-            String userInput = "MyItem\n";
+            String userInput = "3\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             Priority prio = testConsole.getPriorityForAdd();
-            assertThat(prio).isEqualTo("MyItem");
+            assertThat(prio).isEqualTo(Priority.HIGH);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -156,26 +156,6 @@ class ConsoleUITest {
             throw new RuntimeException(e);
         }
     }
-
-    /*
-    @Test
-    void testEdit() {
-        try {
-            String userInput = "MyItem\nDescription\n3\nTag\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ToDoList toDoList = new ToDoList("MyList");
-            toDoList.add(new ToDoItem("Test", "Test", "Test", false, Priority.LOW, new Project("Test")));
-            testConsole.edit(toDoList, 0);
-            assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("MyList");
-            assertThat(toDoList.getItems()[0].getDescription()).isEqualTo("Description");
-            assertThat(toDoList.getItems()[0].getPriority()).isEqualTo(Priority.HIGH);
-            assertThat(toDoList.getItems()[0].getTag()).isEqualTo("Tag");
-        } catch (ConsoleUserInterface.CouldNotReadInputException e) {
-            throw new RuntimeException(e);
-        }
-    }
-    */
     @Test
     void listTest() {
         InputStream sysInBackup = System.in;
@@ -382,27 +362,4 @@ class ConsoleUITest {
         toDoList.bubbleUpBucket(commandArray[3]);
         assertThat(toDoList.getItems()[0].getTitle()).isEqualTo("Banana");
     }
-    /*
-    @Test
-    void exitTest() {
-        PrintStream sysOutBackup = System.out;
-        ToDoList list = new ToDoList("MyList");
-        list.setFileName("listTest.json");
-        list.add(new ToDoItem("Apple", "Computers", "Fruit", false, Priority.MEDIUM, new Project("Obstsalat")));
-        try {
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            Main main = new Main();
-            main.exit(testConsole, list);
-            String expectedOutput;
-            expectedOutput = "exiting...\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-            ToDoList testList = new Program().loadList("listTest.json");
-            assertThat(testList.getItems()[0].getTitle()).isEqualTo("Apple");
-        } finally {
-            System.setOut(sysOutBackup);
-        }
-    }
-    */
 }
