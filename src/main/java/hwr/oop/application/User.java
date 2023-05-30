@@ -10,9 +10,9 @@ public class User {
 
     private List<Task> contextList;
 
-    public User(UUID id, String name, List<String> inbox, List<Task> contextList) {
+    public User(String name, List<String> inbox, List<Task> contextList) {
         this.name = name;
-        this.id = id;
+        this.id = UUID.randomUUID();
         this.inbox = inbox;
         this.contextList = contextList;
     }

@@ -1,28 +1,47 @@
 package hwr.oop.persistence;
 
-import hwr.oop.application.Task;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import hwr.oop.application.Project;
+import hwr.oop.application.User;
 
+import java.io.FileNotFoundException;
+import java.io.Reader;
+import java.io.Writer;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
-public class PersistenceAdapter implements SaveTaskPort, LoadTaskPort{
+public class PersistenceAdapter implements LoadPort, SavePort {
+    @Override
+    public AppData loadData(Reader fileReader) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
+        return gson.fromJson(fileReader, AppData.class);
+    }
 
     @Override
-    public Task loadTask(int id) {
+    public Project loadProjectById(Reader fileReader, UUID projectID) throws FileNotFoundException {
         return null;
     }
 
     @Override
-    public List<Task> loadTask() {
+    public User loadUserbyId(Reader fileReader, UUID userId) throws FileNotFoundException {
         return null;
     }
 
     @Override
-    public void saveTask(List<Task> list) {
-
+    public List<Project> loadAllUserProjects(Reader fileReader, UUID userId) throws FileNotFoundException {
+        return null;
     }
 
     @Override
-    public void saveTask(Task task) {
-
+    public void saveData(AppData appData, Writer fileWriter) {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .enableComplexMapKeySerialization()
+                .create();
+        gson.toJson(appData, fileWriter);
     }
 }
