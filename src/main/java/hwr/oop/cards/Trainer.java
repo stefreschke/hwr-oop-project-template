@@ -82,12 +82,11 @@ public class Trainer {
             this.persistenceLoadPort = persistenceLoadPort;
         }
 
-        public Trainer buildTrainerFromSave(){
+        public Trainer buildTrainerFromSave(String filename){
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             List<Box> boxList;
             Trainer trainer = null;
             try{
-                String filename = reader.readLine();
                 boxList = (List)persistenceLoadPort.loadTrainingInstance(filename);//unschön
                 trainer = new Trainer(boxList);
             }catch(IOException error){
