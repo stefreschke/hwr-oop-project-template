@@ -3,18 +3,15 @@ package hwr.oop.todo.ui;
 import hwr.oop.todo.io.IOController;
 import hwr.oop.todo.library.todolist.ToDoList;
 import hwr.oop.todo.ui.menu.Menu;
-import hwr.oop.todo.ui.menu.MenuAction;
-import hwr.oop.todo.ui.menu.responses.MenuResponse;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import hwr.oop.todo.ui.menu.responses.MenuResponse;
 import java.util.Optional;
 
 public class MenuController {
 
     private Menu currentMenu = Menus.HOME;
-    private ToDoList toDoList;
-    private IOController ioController;
+    private final ToDoList toDoList;
+    private final IOController ioController;
 
     public MenuController(ToDoList toDoList, IOController ioController){
         this.toDoList = toDoList;
