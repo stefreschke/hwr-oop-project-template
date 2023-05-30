@@ -13,6 +13,17 @@ public class Trainer {
     private int currentBoxIndex;
     private Card currentCard;
 
+    public static Trainer createTrainerWith3Boxes(){
+        return new Trainer(List.of(new Box(), new Box(), new Box()));
+    }public static Trainer createTrainerWith5Boxes(){
+        return new Trainer(List.of(new Box(), new Box(), new Box(), new Box(), new Box()));
+    }public static Trainer createTrainerWith7Boxes(){
+        return new Trainer(List.of(new Box(), new Box(), new Box(), new Box(), new Box(), new Box(), new Box()));
+    }
+    public static Trainer createTrainerFromBoxList(List<Box> boxList){
+        return new Trainer(boxList);
+    }
+
     private Trainer(List<Box> boxList) {
         this.boxList = boxList;
         this.NUMBER_OF_BOXES = boxList.size();
@@ -73,41 +84,5 @@ public class Trainer {
         }
     }
     */
-    public static class TrainerBuilder{
-        private final PersistenceLoadPort persistenceLoadPort;
-        public TrainerBuilder(){
-            this.persistenceLoadPort = null;
-        }
-        public TrainerBuilder(PersistenceLoadPort persistenceLoadPort){
-            this.persistenceLoadPort = persistenceLoadPort;
-        }
-
-        public Trainer buildTrainerFromSave(String filename){
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-            List<Box> boxList;
-            Trainer trainer = null;
-            try{
-                boxList = (List)persistenceLoadPort.loadTrainingInstance(filename);//unschön
-                trainer = new Trainer(boxList);
-            }catch(IOException error){
-                error.printStackTrace();
-            }catch(NullPointerException error){
-                error.printStackTrace();
-            }
-            return trainer;
-        }
-        public Trainer buildTrainerWith3Boxes(){
-            Trainer trainer = new Trainer(List.of(new Box(), new Box(), new Box()));
-            return trainer;
-        }
-        public Trainer buildTrainerWith5Boxes(){
-            Trainer trainer = new Trainer(List.of(new Box(), new Box(), new Box(), new Box(), new Box()));
-            return trainer;
-        }
-        public Trainer buildTrainerWith7Boxes(){
-            Trainer trainer = new Trainer(List.of(new Box(), new Box(), new Box(),new Box(), new Box(), new Box(), new Box()));
-            return trainer;
-        }
-    }
 
 }
