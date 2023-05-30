@@ -13,7 +13,7 @@ import hwr.oop.group4.todo.ui.controller.tables.Table;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
-import java.util.Formatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -40,7 +40,6 @@ public class CalendarUi {
 
         AtomicBoolean shouldReturn = new AtomicBoolean(false);
         while (!shouldReturn.get()) {
-            createTableForDate(date);
             assignProjectToCalendar(date);
             consoleController.inputOptions(List.of("calendar"), List.of(
                     new Command("today", args -> date = LocalDate.now()),
@@ -51,79 +50,35 @@ public class CalendarUi {
         }
     }
 
-    private void createTableForDate(LocalDate date){
-        //Problem here: Have to center the Date and maybe make it more appealing?
-        LocalDate monday = date.minusDays(date.getDayOfWeek().getValue() - 1);
-        final Table dateTable = new Table(List.of(
-                new ColumnConfig(monday.format(DateTimeFormatter.ofPattern("dd.MM.YY")) +
-                        "      -      " +
-                        monday.plusDays(6).format(DateTimeFormatter.ofPattern("dd.MM.YY")),
-                        123)//I don't understand len of Table
-        ));
-        consoleController.output(dateTable.toString());
-    }
-
     private void assignProjectToCalendar(LocalDate date) {
-        //Problem here: can't assign a project to a day, have to make 7 columns
         LocalDate monday = date.minusDays(date.getDayOfWeek().getValue() - 1);
-        final List<Project> projects = todoList.getProjects();
-
-        final Table calendarTable = new Table(List.of(
-                new ColumnConfig("Mon", 15),
-                new ColumnConfig("Tue", 15),
-                new ColumnConfig("Wed", 15),
-                new ColumnConfig("Thu", 15),
-                new ColumnConfig("Fri", 15),
-                new ColumnConfig("Sat", 15),
-                new ColumnConfig("Sun", 15)
-        ));
-
-        for (int i = 0; i < projects.size(); i++) {
-            final Project project = projects.get(i);
-
-            for (int o = 0; o < 7; o++) {
-                LocalDate day = monday.plusDays(o);
-                String days = day.format(DateTimeFormatter.ofPattern("dd.MM.yy"));
-                if (days.equals(project.getEnd().format(DateTimeFormatter.ofPattern("dd.MM.yy")))) {
-                    String assign = project.getName();
-                    calendarTable.addRow(
-                            assign,
-                            assign,
-                            assign,
-                            assign,
-                            assign,
-                            assign,
-                            assign
-                    );
-                }
-            }
-        }
+        final Table calendarTable = createCalendarHeader(monday);
+        todoList.getProjects().forEach(project -> calendarTable.addRow(createCalendarRow(monday, project)));
         consoleController.output(calendarTable.toString());
     }
-    //String dayOfMonth = String.valueOf(day.getDayOfMonth());
-    private void assignProjectToCalendar2(LocalDate date) {
-        //Problem here: can't concat strings(creates a new table for each day) +
-        // Table only active when if statement is true
-        LocalDate monday = date.minusDays(date.getDayOfWeek().getValue() - 1);
-        final List<Project> projects = todoList.getProjects();
 
-        for (int i = 0; i < projects.size(); i++) {
-            final Project project = projects.get(i);
-            for (int o = 0; o < 7; o++) {
-                LocalDate day = monday.plusDays(o);
-                String days = day.format(DateTimeFormatter.ofPattern("dd.MM.yy"));
-                final Table test = new Table(List.of(
-                        new ColumnConfig(day.getDayOfWeek().getDisplayName(TextStyle.SHORT_STANDALONE, Locale.US), 10)
-                ));
-                if (days.equals(project.getEnd().format(DateTimeFormatter.ofPattern("dd.MM.yy")))) {
-                    String assign = project.getName();
-                    test.addRow(
-                            assign
-                    );
-                }
-                consoleController.output(test.toString());
-            }
-
+    private Table createCalendarHeader(LocalDate monday) {
+        final List<ColumnConfig> header = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            LocalDate day = monday.plusDays(i);
+            header.add(new ColumnConfig(day.getDayOfWeek().getDisplayName(TextStyle.SHORT_STANDALONE, Locale.US) +
+                    " - " +
+                    day.format(DateTimeFormatter.ofPattern("dd.MM.yy")), 15));
         }
+        return new Table(header);
+    }
+
+    private String[] createCalendarRow(LocalDate monday, Project project) {
+        String[] projectRuntime = new String[7];
+        for (int o = 0; o < 7; o++) {
+            LocalDate day = monday.plusDays(o);
+            if ((day.isBefore(project.getEnd().toLocalDate()) || day.isEqual(project.getEnd().toLocalDate())) &&
+                    (day.isAfter(project.getBegin().toLocalDate()) || day.isEqual(project.getBegin().toLocalDate()))) {
+                projectRuntime[o] = project.getName();
+            } else {
+                projectRuntime[o] = "";
+            }
+        }
+        return projectRuntime;
     }
 }
