@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class HelpHandlerTest {
+class HelpHandlerTest {
     @Test
     void handleUserCommand() {
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
@@ -23,7 +23,7 @@ public class HelpHandlerTest {
                 "  remove [Item Index]             -  remove a task\n" +
                 "  promote [Item Index]            -  promote a task to a further state\n" +
                 "  demote [Item Index]             -  demote a task to a previous state\n" +
-                "  onhold [Item Index]             -  put a task on hold\n" +
+                "  hold [Item Index]               -  put a task on hold\n" +
                 "  done [Item Index]               -  mark a task as done\n" +
                 "  edit [Item Index]               -  edit a task\n" +
                 "  list                            -  list all tasks\n" +
@@ -33,8 +33,8 @@ public class HelpHandlerTest {
                 "  renameBucket [index] [Name]     -  changes bucket name\n" +
                 "  clear                           -  clear all tasks\n" +
                 "  exit                            -  exit the program\n";
-        HelpHandler.handleUserCommand(null, cui, null);
+        HelpHandler.handleUserCommand(cui);
 
-        assertThat(outBuffer.toString()).isEqualTo(expected);
+        assertThat(outBuffer).hasToString(expected);
     }
 }

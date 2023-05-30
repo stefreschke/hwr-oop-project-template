@@ -32,7 +32,7 @@ public class SortHandlerTest {
         SortHandler.handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
-            titles[i] = toDoList.getItems()[i].getTitle();
+            titles[i] = toDoList.getItems().get(i).getTitle();
         }
         // Assert
         assertThat(titles).isEqualTo(new String[]{"Task 2", "Task 1", "Task 3", "Task 4"});
@@ -55,7 +55,7 @@ public class SortHandlerTest {
         SortHandler.handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
-            titles[i] = toDoList.getItems()[i].getTitle();
+            titles[i] = toDoList.getItems().get(i).getTitle();
         }
         // Assert
         assertThat(titles).isEqualTo(new String[]{"Task 4", "Task 1", "Task 3", "Task 2"});
@@ -78,7 +78,7 @@ public class SortHandlerTest {
         SortHandler.handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
-            titles[i] = toDoList.getItems()[i].getTitle();
+            titles[i] = toDoList.getItems().get(i).getTitle();
         }
         // Assert
         assertThat(titles).isEqualTo(new String[]{"Task 1", "Task 2", "Task 3", "Task 4"});
@@ -101,7 +101,7 @@ public class SortHandlerTest {
         SortHandler.handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
-            titles[i] = toDoList.getItems()[i].getTitle();
+            titles[i] = toDoList.getItems().get(i).getTitle();
         }
         // Assert
         assertThat(titles).isEqualTo(new String[]{"Task 4", "Task 3", "Task 2", "Task 1"});

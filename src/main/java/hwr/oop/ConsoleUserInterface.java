@@ -4,6 +4,7 @@ import hwr.oop.handler.CommandParser;
 import hwr.oop.util.ConsoleColors;
 
 import java.io.*;
+import java.util.List;
 
 public class ConsoleUserInterface {
     private final PrintStream out;
@@ -107,7 +108,7 @@ public class ConsoleUserInterface {
         out.println("  remove [Item Index]             -  remove a task");
         out.println("  promote [Item Index]            -  promote a task to a further state");
         out.println("  demote [Item Index]             -  demote a task to a previous state");
-        out.println("  onhold [Item Index]             -  put a task on hold");
+        out.println("  hold [Item Index]               -  put a task on hold");
         out.println("  done [Item Index]               -  mark a task as done");
         out.println("  edit [Item Index]               -  edit a task");
         out.println("  list                            -  list all tasks");
@@ -164,8 +165,8 @@ public class ConsoleUserInterface {
     }
     public void list(ToDoList toDoList) {
         out.println(toDoList.getName() + ":");
-        ToDoItem[] toDoItems = toDoList.getItems();
-        if (toDoItems == null || toDoItems.length == 0) {
+        List<ToDoItem> toDoItems = toDoList.getItems();
+        if (toDoItems == null || toDoItems.isEmpty()) {
             out.println("👀Looks Empty here... Add some tasks!");
             return;
         }
@@ -247,10 +248,10 @@ public class ConsoleUserInterface {
         out.println("Options:");
         out.println("  priority - sort by priority");
         out.println("  createdAt- sort by creation date");
-        out.println("  dueDate  - sort by due date"); // TODO
+        out.println("  dueDate  - sort by due date");
         out.println("  bucket [bucket]- sort by bucket");
-        out.println("  title    - sort by title"); // TODO
-        out.println("  done     - sort by done"); // TODO
+        out.println("  title    - sort by title");
+        out.println("  done     - sort by done");
         out.println("  help     - print this help");
     }
 
@@ -258,7 +259,7 @@ public class ConsoleUserInterface {
         out.println(toDoList.getBuckets());
     }
 
-    public int parseCommands(ToDoList toDoList, CommandParser commandParser) throws IOException, CouldNotReadInputException, CouldNotSaveChangesException {
+    public int parseCommands(ToDoList toDoList, CommandParser commandParser) throws IOException, CouldNotSaveChangesException, CommandParser.CouldNotCallHandlerException {
         out.print("> ");
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String command = reader.readLine();

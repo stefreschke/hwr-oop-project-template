@@ -32,7 +32,7 @@ public interface StateHandler {
         int index = Integer.parseInt(args[2]);
         while (i == 0) {
             try {
-                toDoList.getItems()[index].setDone();
+                toDoList.getItems().get(index).setDone();
                 i++;
             } catch (Exception e) {
                 index = cui.handleBadIndex("Please enter the index of the task you want to mark as done.");
@@ -45,7 +45,7 @@ public interface StateHandler {
         int index = Integer.parseInt(args[2]);
         while (i == 0) {
             try {
-                toDoList.getItems()[index].hold();
+                toDoList.getItems().get(index).hold();
                 i++;
             } catch (Exception e) {
                 index = cui.handleBadIndex("Please enter the index of the task you want to mark as done.");
@@ -58,7 +58,7 @@ public interface StateHandler {
         int index = Integer.parseInt(args[2]);
         while (i == 0) {
             try {
-                toDoList.getItems()[index].promote();
+                toDoList.getItems().get(index).promote();
                 i++;
             } catch (Exception e) {
                 index = cui.handleBadIndex("Please enter the index of the task you want to mark as done.");
@@ -71,7 +71,7 @@ public interface StateHandler {
         int index = Integer.parseInt(args[2]);
         while (i == 0) {
             try {
-                toDoList.getItems()[index].demote();
+                toDoList.getItems().get(index).demote();
                 i++;
             } catch (Exception e) {
                 index = cui.handleBadIndex("Please enter the index of the task you want to mark as done.");

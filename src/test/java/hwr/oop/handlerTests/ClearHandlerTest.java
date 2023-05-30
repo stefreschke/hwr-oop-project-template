@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 
 import static hwr.oop.handler.ClearHandler.clear;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClearHandlerTest {

@@ -12,17 +12,17 @@ import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CommandParserTest {
+class CommandParserTest {
     @Test
-    public void getCommandsTest() {
+    void getCommandsTest() {
         assertThat(CommandParser.CommandHandler.EDIT.getCommands()).containsExactly("edit", "e");
     }
     @Test
-    public void getHandlerClassTest() {
+    void getHandlerClassTest() {
         assertThat(CommandParser.CommandHandler.EDIT.getHandlerClass()).isEqualTo(hwr.oop.handler.EditHandler.class);
     }
     @Test
-    public void handleWrongCommandTest() {
+    void handleWrongCommandTest() throws CommandParser.CouldNotCallHandlerException {
         String[] args = {"", "wrongCommand"};
         ToDoList toDoList = new ToDoList("MyList", "testFile.json");
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
@@ -45,6 +45,6 @@ public class CommandParserTest {
                 "  clear                           -  clear all tasks\n" +
                 "  exit                            -  exit the program\n";
         assertThat(new CommandParser(cui).handle(toDoList, args)).isEqualTo(1);
-        assertThat(outBuffer.toString()).isEqualTo(expected);
+        assertThat(outBuffer).hasToString(expected);
     }
 }

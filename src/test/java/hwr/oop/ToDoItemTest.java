@@ -2,18 +2,11 @@ package hwr.oop;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ToDoItemTest {
-    @Test
-    void getLocalDateTest() {
-        String result = ToDoItem.getLocalDate();
-        System.out.println(result);
-        assertThat(result).isEqualTo(LocalDate.now().toString());
-    }
     @Test
     void getTitleTest() {
         ToDoItem item = new ToDoItem("testTitle", "testDesc", "testbucket", Priority.LOW);

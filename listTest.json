@@ -1,1 +1,1 @@
-{"name":"MyList","items":[{"title":"Apple","description":"Computers","bucket":{"bucketName":"Fruit"},"priority":"MEDIUM","createdAt":"2023-05-28T15:01:41.486242","state":"TODO"}],"fileName":"listTest.json","buckets":[]}
+{"name":"MyList","items":[{"title":"Apple","description":"Computers","bucket":{"bucketName":"Fruit"},"priority":"MEDIUM","createdAt":"2023-05-30T15:34:19.165369","state":"TODO"}],"fileName":"listTest.json","buckets":[]}

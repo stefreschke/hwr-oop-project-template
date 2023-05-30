@@ -22,10 +22,4 @@ public class ExitHandlerTest {
         String actual = outBuffer.toString();
         assertThat(actual).isEqualTo(expected);
     }
-    @Test
-    public void exitTest() {
-        ConsoleUserInterface cui = new ConsoleUserInterface(System.out, System.in);
-        ToDoList toDoList = new ToDoList("MyList", "test.json");
-        ExitHandler.exit(toDoList, cui);
-    }
 }

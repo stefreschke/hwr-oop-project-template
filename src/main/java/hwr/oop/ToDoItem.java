@@ -1,7 +1,7 @@
 package hwr.oop;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+
 import static hwr.oop.util.ConsoleColors.*;
 
 public class ToDoItem {
@@ -34,9 +34,6 @@ public class ToDoItem {
     }
     public void setBucket(String bucket) {
         this.bucket.setBucketName(bucket);
-    }
-    static String getLocalDate() {
-        return LocalDate.now().toString();
     }
     public String getTitle() {
         return title;
