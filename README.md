@@ -13,8 +13,9 @@ The most important features of our project are:
 2. Card creation
 3. Choice between 3, 5 and 7 box systems per
 4. Drawing a random card from boxes that need to be learned
-5. Card history
-
+5. Cards and boxes can be saved to and loaded from a file
+6. Cards can be moved between boxes
+7. Topics can be loaded
 
 We encountered the following interesting problems:
 - object oriented design (especially SRP)
@@ -24,37 +25,26 @@ We encountered the following interesting problems:
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature | Tests |
-|--------|---------|-------|
-| 1      | Topic creation       | canCreateTopicWithName     |
-| 2      | Card creation       | canCreateCard, canGetQuestion, canGetAnswer, canGetId     |
-| 3      | Box creation       | x     |
-| 4      | Box can hold cards       | canContainCards, boxIsEmptyAfterDrawingAllCards     |
-| 5      | Box can return random card      | canReturnRandomCard     |
-| 6      |        | /     |
-| 7      |        | /     |
-| 8      |        | /     |
-
+| Number | Feature                                       | Tests                                                                                                                      |
+|--------|-----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| 1      | Topic creation                                | canCreateTopicWithName                                                                                                     |
+| 2      | Card creation                                 | canCreateCard, canGetQuestion, canGetAnswer, canGetId                                                                      |
+| 3      | Box creation                                  | x                                                                                                                          |
+| 4      | Box can hold cards                            | canContainCards, boxIsEmptyAfterDrawingAllCards                                                                            |
+| 5      | Box can return random card                    | canReturnRandomCard                                                                                                        |
+| 6      | Cards can be moved up/down                    | canMoveCardUp, canMoveCardUp2Times, canMoveCardUpTopBox, canMoveCardDown, canMoveCardDown2Times, canMoveCardDownBottomBox, |
+| 7      | Random card can be drawn from random box      | canGetRandomCardFromRandomBox, canGetRandomBoxIndex                                                                        |
+| 8      | Cards and boxes can be saved and loaded       | BoxPersistenceTests, CardPersistenceTests                                                                                  |
+| 9      | Trainer can be initialized with 3/5/7 boxes   | canCreateTrainerWith3Boxes, canCreateTrainerWith5Boxes, canCreateTrainerWith7Boxes                                         |
+| 10     | Trainer can be initialized with a saved topic | canCreateTrainerFromSave                                                                                                   |
 
 ## Additional Dependencies
 
 [TODO]: # (For each additional dependency your project requires- Add an additional row to the table!)
 
-| Number | Dependency Name | Dependency Description | Why is it necessary? |
-|--------|-----------------|------------------------|----------------------|
-| 1      | /               | /                      | /                    |
-
-## Instructions
-
-Don't use this.
-[TODO]: # (Remove these instructions once you finished your fork's setup.)
-
-Use a fork of this repository to do implement your project.
-
-Remember to add this repository as a second remote repository (upstream) and pull from the correct remotes.
-This is necessary, because we might apply changes to this template during the next month.
-
-The following section describes how to add multiple remote repositories to your local repository, which is cloned from the fork.
+| Number | Dependency Name | Dependency Description                                   | Why is it necessary?                                     |
+|--------|-----------------|----------------------------------------------------------|----------------------------------------------------------|
+| 1      | Jackson         | Library for Serialization and Deserialization of objects | This is needed for persistence in the form of JSON files |
 
 ### Multiple remote repositories
 
