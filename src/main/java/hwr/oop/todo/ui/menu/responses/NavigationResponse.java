@@ -26,7 +26,7 @@ public class NavigationResponse implements MenuResponse {
     }
 
     @Override
-    public Optional<Menu> navigateTo() {
+    public Optional<Menu> navigationTarget() {
         return Optional.of(menu);
     }
 }

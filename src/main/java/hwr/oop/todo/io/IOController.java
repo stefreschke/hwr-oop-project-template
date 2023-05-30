@@ -1,6 +1,6 @@
-package hwr.oop.todo.ui;
+package hwr.oop.todo.io;
 
-import hwr.oop.todo.ui.menu.CantWriteException;
+import hwr.oop.todo.ui.menu.FailedWriteException;
 import hwr.oop.todo.ui.menu.MenuAction;
 
 import java.io.IOException;
@@ -25,7 +25,7 @@ public class IOController {
         try {
             out.write(s.getBytes());
         } catch (IOException e) {
-            throw new CantWriteException();
+            throw new FailedWriteException();
         }
     }
 

@@ -8,5 +8,5 @@ public interface MenuResponse {
     boolean isSuccess();
     Optional<String> message();
 
-    Optional<Menu> navigateTo();
+    Optional<Menu> navigationTarget();
 }
