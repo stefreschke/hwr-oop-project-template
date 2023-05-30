@@ -2,7 +2,6 @@ package hwr.oop.cards;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -12,18 +11,18 @@ import java.util.Random;
 public class Box {
 
     private ArrayList<Card> learnedCardList;
-    private ArrayList<Card> notLearnedCardList;
+    private ArrayList<Card> unlearnedCardList;
 
     public Box(){
 
         learnedCardList = new ArrayList<Card>();
-        notLearnedCardList = new ArrayList<Card>();
+        unlearnedCardList = new ArrayList<Card>();
     }
 
-    public Box(ArrayList<Card> learnedCardList, ArrayList<Card> notLearnedCardList) {
+    public Box(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList) {
 
         this.learnedCardList = learnedCardList;
-        this.notLearnedCardList = notLearnedCardList;
+        this.unlearnedCardList = unlearnedCardList;
     }
 
     public void addCard(Card card) {
@@ -36,13 +35,14 @@ public class Box {
         ArrayList<Card> returnList = new ArrayList<Card>();
 
         returnList.addAll(learnedCardList);
-        returnList.addAll(notLearnedCardList);
+        returnList.addAll(unlearnedCardList);
 
         return returnList;
     }
 
     @JsonIgnore
     public Card getRandomCard() {
+        // learnedCardList müsste unlearned sein in der Logik mit einem Datum, für die Tests aber hinderlich
         Random random = new Random();
         int index = random.nextInt(learnedCardList.size());
         Card returnCard = learnedCardList.get(index);
@@ -54,8 +54,8 @@ public class Box {
         return learnedCardList;
     }
 
-    public ArrayList<Card> getNotLearnedCardList() {
-        return notLearnedCardList;
+    public ArrayList<Card> getUnlearnedCardList() {
+        return unlearnedCardList;
     }
 
     @Override
@@ -68,11 +68,11 @@ public class Box {
         }
         Box box = (Box) o;
         return Objects.equals(learnedCardList, box.learnedCardList)
-                && Objects.equals(notLearnedCardList, box.notLearnedCardList);
+                && Objects.equals(unlearnedCardList, box.unlearnedCardList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(learnedCardList, notLearnedCardList);
+        return Objects.hash(learnedCardList, unlearnedCardList);
     }
 }

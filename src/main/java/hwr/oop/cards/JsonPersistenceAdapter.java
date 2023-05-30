@@ -1,6 +1,6 @@
 package hwr.oop.cards;
 
-import java.io.*;
+import wqjava.io.*;
 import java.util.*;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -52,7 +52,7 @@ public class JsonPersistenceAdapter implements PersistenceSavePort, PersistenceL
             for (Card card : box.getLearnedCardList()) {
                 cards.put(card.getId(), card);
             }
-            for (Card card : box.getNotLearnedCardList()) {
+            for (Card card : box.getUnlearnedCardList()) {
                 cards.put(card.getId(), card);
             }
         }
@@ -64,7 +64,7 @@ public class JsonPersistenceAdapter implements PersistenceSavePort, PersistenceL
             for (Card card : box.getLearnedCardList()) {
                 learnedCardList.add(cards.get(card.getId()));
             }
-            for (Card card : box.getNotLearnedCardList()) {
+            for (Card card : box.getUnlearnedCardList()) {
                 notLearnedCardList.add(cards.get(card.getId()));
             }
             result.add(new Box(learnedCardList, notLearnedCardList));
