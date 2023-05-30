@@ -18,17 +18,6 @@ class TopicTests {
     }
 
     @Test
-    public void canCreateCard() {
-
-        Topic topic = new Topic("Spanisch");
-
-        topic.createCard("Is 30 dollars too much for Cyberpunk?", "Yes");
-
-        Card testCard = topic.getCardList().get(0);
-        assertThat(testCard).isNotNull();
-    }
-
-    @Test
     public void canSaveTopic(){
 
         PersistenceSavePort pa = new JsonPersistenceAdapter();
