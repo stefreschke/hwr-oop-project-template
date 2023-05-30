@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.FileWriter;
 
 public class Program {
-    public List loadList(String fileName) {
+    public ToDoList loadToDoList(String fileName) {
         Gson gson = new Gson();
         String json;
         if (fileName.contains(".")) {
@@ -20,7 +20,7 @@ public class Program {
             return null;
         }
 
-        return gson.fromJson(json, List.class);
+        return gson.fromJson(json, ToDoList.class);
     }
 
     public String[] getEnvironmentVariables() {

@@ -9,7 +9,7 @@ This repository contains a student project created for an ongoing lecture on obj
 This project is a implementation of a TODO List according to the principles of Getting Things done (GTD).
 It focuses on Test Driven Development and the principles of Object Oriented Programming.
 The final product is a command line application that allows the user to create, edit and delete tasks and projects.
-Task rank automatically and can be sorted and grouped with tags.
+Task rank automatically and can be sorted and grouped with buckets .
 The automated ranking will also take into account what activities the user has done in the past and what activities the user has planned for the future.
 ### Features
 
