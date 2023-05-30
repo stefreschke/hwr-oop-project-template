@@ -22,11 +22,11 @@ public class InvalidKeyResponse implements MenuResponse {
 
     @Override
     public Optional<String> message() {
-        return Optional.of("The key '"+invalidKey+"' is invalid.");
+        return Optional.of("The key '"+invalidKey+"' is not valid.");
     }
 
     @Override
-    public Optional<Menu> navigateTo() {
+    public Optional<Menu> navigationTarget() {
         return Optional.empty();
     }
 

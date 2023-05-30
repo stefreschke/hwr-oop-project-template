@@ -1,7 +1,7 @@
 package hwr.oop.todo.ui.menu.responses;
 
 import hwr.oop.todo.ui.menu.Menu;
-import hwr.oop.todo.ui.menu.MenuOptionHandlerFunction;
+import hwr.oop.todo.ui.menu.MenuActionHandlerFunction;
 
 public class MenuResponseInContext {
 
@@ -15,21 +15,21 @@ public class MenuResponseInContext {
         this.menu = menu;
     }
 
-    private void registerHandler(MenuOptionHandlerFunction handler){
+    private void registerHandler(MenuActionHandlerFunction handler){
         menu.addAction(key, description, handler);
     }
 
     public Menu printString(String s){
-        registerHandler(() -> StringResponse.with(s));
+        registerHandler((toDoList, parameters) -> StringResponse.with(s));
         return menu;
     }
 
     public Menu navigateTo(Menu nextMenu){
-        registerHandler(() -> NavigationResponse.to(nextMenu));
+        registerHandler((toDoList, parameters) -> NavigationResponse.to(nextMenu));
         return menu;
     }
 
-    public Menu execute(MenuOptionHandlerFunction handler){
+    public Menu execute(MenuActionHandlerFunction handler) {
         registerHandler(handler);
         return menu;
     }
