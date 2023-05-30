@@ -32,7 +32,6 @@ public class Menus {
                 );
             });
 
-    private Menus() {
-        throw new IllegalStateException("Utility class");
+     private Menus() {
     }
 }

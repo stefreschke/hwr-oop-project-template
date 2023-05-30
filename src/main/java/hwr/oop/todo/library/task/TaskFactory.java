@@ -14,6 +14,5 @@ public class TaskFactory {
     }
 
     private TaskFactory() {
-        throw new IllegalStateException("Utility class");
     }
 }

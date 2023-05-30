@@ -4,28 +4,27 @@ import hwr.oop.todo.io.IOController;
 import hwr.oop.todo.ui.menu.MenuAction;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class IOControllerTest {
 
     @Test
     void canPrintPrompt(){
         OutputStream outputStream = new ByteArrayOutputStream();
-
         IOController controller = new IOController(System.in, outputStream);
         controller.printPrompt("string");
 
         String output = retrieveResultFrom(outputStream);
-
-        assertTrue(output.contains("string"));
-        assertTrue(output.contains(System.lineSeparator()));
+        String expectedOutput = """
+                |--------|\r
+                | string |\r
+                |--------|\r
+                \u001B[32m\r
+                >""";
+        assertEquals(expectedOutput, output);
     }
 
     @Test
@@ -36,6 +35,30 @@ class IOControllerTest {
         IOController controller = new IOController(inputStream, outputStream);
         List<MenuAction> options= List.of(new MenuAction('a', "Example action to test very long", (toDoList, parameterProvider) -> null), new MenuAction('b', "Example action", (toDoList, parameterProvider) -> null));
         controller.printPrompt(options);
+
+        String output = retrieveResultFrom(outputStream);
+        String expectedOutput ="""
+                    |-------------------------------------------------|\r
+                    | a) Example action to test very long             |\r
+                    | b) Example action                               |\r
+                    |-------------------------------------------------|\r
+                    \u001B[32m\r
+                    >""";
+
+        assertEquals(output, expectedOutput);
+    }
+
+    @Test
+    void canThrowWriteException(){
+        InputStream inputStream = createInputStreamForInput("");
+        OutputStream out = new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                throw new IOException();
+            }
+        };
+        IOController controller = new IOController(inputStream, out);
+        assertThrows(RuntimeException.class, () -> controller.printPrompt("string"));
     }
 
     @Test
@@ -69,4 +92,7 @@ class IOControllerTest {
         byte[] inputInBytes = input.getBytes();
         return new ByteArrayInputStream(inputInBytes);
     }
+
+
+
 }
