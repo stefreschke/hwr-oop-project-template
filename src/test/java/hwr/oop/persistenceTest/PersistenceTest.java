@@ -61,13 +61,9 @@ class PersistenceTest {
 
     @Test
     void CanLoadAppData() {
-        try {
-            AppData result = load.loadData(appDataJsonReader);
-            assertThat(result.equals(appData));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        AppData result = load.loadData(appDataJsonReader);
+        assertThat(result.equals(appData));
         }
-    }
     @Test
     void CanSaveAppData() {
         StringWriter testDataJson = new StringWriter();
