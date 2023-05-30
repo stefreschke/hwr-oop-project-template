@@ -27,8 +27,9 @@ public class TrainerTests {
         Assertions.assertThat(length).isEqualTo(7);
     }
     @Test
-    void CanCreateTrainerFromSave(){
+    void canCreateTrainerFromSave(){
         Trainer trainer = new Trainer.TrainerBuilder().buildTrainerFromSave();
+        Assertions.assertThat(trainer).isNotNull();
     }
     @Test
     void canLoadTopic_OneCard(){
