@@ -1,6 +1,6 @@
 package hwr.oop.cards;
 
-import wqjava.io.*;
+import java.io.*;
 import java.util.*;
 
 import com.fasterxml.jackson.core.type.TypeReference;

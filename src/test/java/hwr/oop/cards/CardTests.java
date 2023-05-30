@@ -32,6 +32,16 @@ public class CardTests {
         Card card2 = new Card("2", "1", 3);
         assertThat(card1).isNotEqualTo(card2);
     }
+    @Test
+    public void canCreateCard() {
+
+        Topic topic = new Topic("Spanisch");
+
+        topic.createCard("Is 30 dollars too much for Cyberpunk?", "Yes");
+
+        Card testCard = topic.getCardList().get(0);
+        assertThat(testCard).isNotNull();
+    }
 
     /*
     @Test

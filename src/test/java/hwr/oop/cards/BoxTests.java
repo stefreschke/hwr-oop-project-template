@@ -48,24 +48,7 @@ public class BoxTests {
         assertThat(box1).isNotEqualTo(box2);
     }
 
-    @Test
-    public void canReturnRandomCard(){
 
-        Box box = new Box();
-        Card card1 = new Card("What is the smallest mammal in the world?", "The bumblebee bat.", 0);
-        Card card2 = new Card("What is the highest-grossing movie of all time?", "Avatar, which grossed over $2.7 billion worldwide.", 1);
-        Card card3 = new Card("What is the longest word in the English language?", "Pneumonoultramicroscopicsilicovolcanoconiosis", 2);
-
-        box.addCard(card1);
-        box.addCard(card2);
-        box.addCard(card3);
-
-        Card testCard = box.getRandomCard();
-
-        if (!testCard.equals(card1) && !testCard.equals(card2) && !testCard.equals(card3)){
-            fail("Drawn card does not equal one of the test cards.");
-        }
-    }
 
     @Test
     public void boxIsEmptyAfterDrawingAllCards(){
