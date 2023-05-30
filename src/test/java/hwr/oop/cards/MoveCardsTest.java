@@ -79,7 +79,5 @@ public class MoveCardsTest {
     }
 
     @Test
-    void canMoveRandomCard(){
-
-    }
+    void canMoveRandomCardUp(){}
 }

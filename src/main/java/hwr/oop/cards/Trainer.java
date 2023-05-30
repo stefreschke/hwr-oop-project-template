@@ -29,6 +29,10 @@ public class Trainer {
         return randomInt;
     }
 
+    public int getCurrentBoxIndex(){
+        return this.currentBoxIndex;
+    }
+
     public Card getRandomCard(){
         return (this.boxList.get(getRandomBoxIndex()).getRandomCard());
     }
