@@ -6,15 +6,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public interface EditHandler {
-    static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
-        if (args.length >= 3 && args[2].equals("edit") || args[2].equals("e")) {
+public class EditHandler {
+    EditHandler() {
+    }
+    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+        if (args.length >= 3 && args[1].equals("edit") || args[1].equals("e")) {
             editTask(toDoList, cui, args);
         } else {
             cui.print(LogMode.NONE, "Invalid Command.");
         }
     }
-    static void editTask(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public static void editTask(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         try {
             Map<ToDoItem, Number> itemAndIndex = getToDoItem(toDoList, cui, args[2]);
             ToDoItem item = (ToDoItem) itemAndIndex.keySet().toArray()[0];
@@ -35,7 +37,7 @@ public interface EditHandler {
             cui.print(LogMode.ERROR, "Try gtd edit [index]");
         }
     }
-    static Map<ToDoItem, Number> getToDoItem(ToDoList toDoList, ConsoleUserInterface cui, String arg) {
+    public static Map<ToDoItem, Number> getToDoItem(ToDoList toDoList, ConsoleUserInterface cui, String arg) {
         int index = Integer.parseInt(arg);
         Map<ToDoItem, Number> itemAndIndexMap = new HashMap<>();
         try {

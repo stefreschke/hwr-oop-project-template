@@ -4,6 +4,9 @@
 This repository contains a student project created for an ongoing lecture on object-oriented programming with Java at HWR Berlin (summer term 2023).
 
 ## Overview
+## Table of Contents
+
+
 
 ### Project Description
 This project is a implementation of a TODO List according to the principles of Getting Things done (GTD).
@@ -21,18 +24,15 @@ The automated ranking will also take into account what activities the user has d
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature | Tests | Developer |
-|--------|---------|-------| --------- |
-| 1      | Save Lists to JSON          | JsonToListTest | @lukasklockenhoff |
-| 2      | Load Lists from JSON        | ListToJsonTest | @lukasklockenhoff |
-| 3      | Edit, Remove, Add, Done       | MainTest.java     | @lukasklockenhoff |
-| 4      | Save Exit       | MainTest.java     | @lukasklockenhoff |
-| 5      | Sort      | MainTest.java, ListClassTest.java     | @lukasklockenhoff |
-| 6      | List       | MainTest.java, ListClassTest.java (toString() method)  | @lukasklockenhoff |
-| 7      | Clear       | MainTest.java     | @lukasklockenhoff |
-| 8      | /       | /     | /         |
-| 9      | /       | /     | /         |
-| 10     | /       | /     | /         |
+| Number | Feature | Tests | 
+|--------|---------|-------|
+| 1      | Save Lists to JSON          | JsonToListTest |
+| 2      | Load Lists from JSON        | ListToJsonTest |
+| 3      | Edit, Remove, Add, Done       | MainTest.java     |
+| 4      | Save Exit       | MainTest.java     |
+| 5      | Sort      | MainTest.java, ListClassTest.java     |
+| 6      | List       | MainTest.java, ListClassTest.java (toString() method)  |
+| 7      | State Management       | MainTest.java     |
 
 ## Additional Dependencies
 

@@ -4,8 +4,11 @@ import hwr.oop.ConsoleUserInterface;
 import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
 
-public interface StateHandler {
-    static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+public class StateHandler {
+
+    StateHandler() {
+    }
+    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2) {
             try {
                 if (args[1].equals("done") || args[1].equals("do")) {
@@ -27,7 +30,7 @@ public interface StateHandler {
         }
     }
 
-    static void done(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public static void done(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         int i = 0;
         int index = Integer.parseInt(args[2]);
         while (i == 0) {
@@ -40,7 +43,7 @@ public interface StateHandler {
             }
         }
     }
-    static void hold(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public static void hold(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         int i = 0;
         int index = Integer.parseInt(args[2]);
         while (i == 0) {
@@ -53,7 +56,7 @@ public interface StateHandler {
             }
         }
     }
-    static void promote(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public static void promote(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         int i = 0;
         int index = Integer.parseInt(args[2]);
         while (i == 0) {
@@ -66,7 +69,7 @@ public interface StateHandler {
             }
         }
     }
-    static void demote(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public static void demote(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         int i = 0;
         int index = Integer.parseInt(args[2]);
         while (i == 0) {

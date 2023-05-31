@@ -87,12 +87,11 @@ public class ConsoleUserInterface {
                 toDoList = program.loadToDoList(listFileName);
             }
         } else {
-            // case where environment variables are set
             listFileName = env[0];
+            listName = env[1];
             if (listFileName.contains(".")) {
                 listFileName = listFileName.substring(0, listFileName.lastIndexOf('.'));
             }
-            listName = env[1];
             toDoList = program.loadToDoList(listFileName);
             if (toDoList == null) {
                 toDoList = new ToDoList(listName, listFileName);

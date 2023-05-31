@@ -17,14 +17,14 @@ public class CommandParser {
         HOLD(new String[]{"hold", "hd"}, "put a task on hold", StateHandler.class),
         DONE(new String[]{"done", "do"}, "mark a task as done", StateHandler.class),
         EDIT(new String[]{"edit", "e"}, "edit a task", EditHandler.class),
-        LIST(new String[]{"list", "ls"}, "list all tasks", ConsoleUserInterface.class),
+        LIST(new String[]{"list", "ls"}, "list all tasks", ListHandler.class),
         SORT(new String[]{"sort", "s"}, "sort your tasks", SortHandler.class),
         CREATEBUCKET(new String[]{"createBucket", "cb"}, "create a bucket for tasks", BucketHandler.class),
         SHOWBUCKETS(new String[]{"showBuckets", "sb"}, "show buckets for tasks", BucketHandler.class),
-        RENAMEBUCKETS(new String[]{"editBuckets", "rnb"}, "changes bucket name", BucketHandler.class),
+        RENAMEBUCKETS(new String[]{"renameBucket", "rnb"}, "changes bucket name", BucketHandler.class),
         CLEAR(new String[]{"clear", "cls"}, "clear all tasks", ClearHandler.class),
         EXIT(new String[]{"exit", "q"}, "exit the program", ExitHandler.class),
-        NULL(new String[]{}, "", HelpHandler.class);
+        WRONGCOMMAND(new String[]{}, "", WrongCommandHandler.class);
 
         private final String[] commands;
         private final String description;
@@ -66,7 +66,7 @@ public class CommandParser {
             }
         }
         try {
-            callHandler(toDoList, CommandHandler.HELP, args);
+            callHandler(toDoList, CommandHandler.WRONGCOMMAND, args);
         } catch (Exception e) {
             throw new CouldNotCallHandlerException();
         }

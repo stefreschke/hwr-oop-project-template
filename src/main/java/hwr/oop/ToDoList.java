@@ -21,9 +21,9 @@ public class ToDoList {
     }
     public ToDoList(String name, String fileName) {
         this.name = name;
-        this.items = new ArrayList<>();
+        items = new ArrayList<>();
         this.fileName = fileName;
-        this.buckets = new HashSet<>();
+        buckets = new HashSet<>();
     }
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -77,39 +77,13 @@ public class ToDoList {
             e.printStackTrace();
         }
     }
-
-    /*public void updateBuckets(){
-        java.util.ArrayList<Bucket> copyBucket = new ArrayList<>();
-        for (int i = 0; i < ListToDos.length; i++) {
-
-            String element = ListToDos[i].getBucket();
-            int help = 0;
-            for (int j = 0; j < ListToDos.length; j++) {
-                if(Buckets.get(j).getBucket() == element) {
-                    help++;
-                    break;
-                }
-            }
-
-            if(help == 0) {
-                copyBucket.add(new Bucket(element));
-            }
-
-        }
-
-        Buckets = copyBucket;
-    }*/
-
-
     public void renameBucket (int index, String newBucket) {
         this.buckets.remove(Util.getElementAtIndex(this.buckets, index));
         this.buckets.add(new Bucket(newBucket));
     }
-
     public void add(ToDoItem toDoItem) {
-        items.add(toDoItem);
+        this.items.add(toDoItem);
     }
-
     public void remove(int index) {
         this.items.remove(index);
     }
@@ -117,7 +91,6 @@ public class ToDoList {
         if (order.equals("asc")) items.sort(Comparator.comparingInt(o -> o.getPriority().toInt()));
         else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::getPriority, Comparator.reverseOrder()));
     }
-
     public void bubbleUpBucket(String bucket) {
         items.sort((o1, o2) -> {
             if(Objects.equals(o1.getBucket(), o2.getBucket())){
@@ -126,17 +99,14 @@ public class ToDoList {
             return Objects.equals(o1.getBucket(), bucket) ? -1 : 1;
         });
     }
-
     public void sortByCreatedAt(String order) {
         if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::getCreatedAt));
         else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::getCreatedAt, Comparator.reverseOrder()));
     }
-
     public void sortByTitle(String order) {
         if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::getTitle));
         else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::getTitle, Comparator.reverseOrder()));
     }
-
     public void sortByDone(String order) {
         if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::isDone, Comparator.reverseOrder()));
         else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::isDone));

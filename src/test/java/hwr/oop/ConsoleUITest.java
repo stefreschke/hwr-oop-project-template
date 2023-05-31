@@ -7,7 +7,6 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -150,7 +149,7 @@ class ConsoleUITest {
     }
     @Test
     void listTest() {
-        List<ToDoItem> toDoItems = new ArrayList<>();
+        ArrayList<ToDoItem> toDoItems = new ArrayList<>();
         toDoItems.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
         toDoItems.add(new ToDoItem("Test2", "Test2", "Test", Priority.LOW));
 
@@ -197,7 +196,7 @@ class ConsoleUITest {
 
     @Test
     void removeTest() {
-        List<ToDoItem> toDoItems = new ArrayList<>();
+        ArrayList<ToDoItem> toDoItems = new ArrayList<>();
         toDoItems.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
         toDoItems.add(new ToDoItem("Test2", "Test2", "Test2", Priority.LOW));
 

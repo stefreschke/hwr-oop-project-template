@@ -13,13 +13,17 @@ public class Program {
             fileName = fileName.substring(0, fileName.lastIndexOf('.'));
         }
         try (FileReader reader = new FileReader(fileName + ".json")) {
-            char[] buffer = new char[1024];
-            int len = reader.read(buffer);
-            json = new String(buffer, 0, len);
+            char[] buffer;
+            try {
+                buffer = new char[1024];
+                int len = reader.read(buffer);
+                json = new String(buffer, 0, len);
+            } catch (Exception e) {
+                return null;
+            }
         } catch (IOException e) {
             return null;
         }
-
         return gson.fromJson(json, ToDoList.class);
     }
 
