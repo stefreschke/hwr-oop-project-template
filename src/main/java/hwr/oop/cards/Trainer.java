@@ -48,7 +48,6 @@ public class Trainer {
         return (this.boxList.get(getRandomBoxIndex()).getRandomCard());
     }
 
-
     // loading new Topic
     void loadTopic(Topic topic) {
         ArrayList<Card> cardList = topic.getCardList();
@@ -75,14 +74,4 @@ public class Trainer {
             getBoxList().get(currentBoxIndex).addCard(card);
         }
     }
-
-
-    /*
-    boolean checkAnswer(String answer){
-        if answer == card.getAnswer(){
-            moveCardUp();
-        }
-    }
-    */
-
 }
