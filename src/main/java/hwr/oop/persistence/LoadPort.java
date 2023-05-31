@@ -9,30 +9,30 @@ import java.util.Map;
 import java.util.UUID;
 
 public interface LoadPort {
-    AppData loadData(Reader fileReader);
+    AppData loadData();
 
-    default Project loadProjectById(Reader fileReader, UUID projectID) {
-        AppData appData = loadData(fileReader);
+    default Project loadProjectById(UUID projectID) {
+        AppData appData = loadData();
         for (Project p : appData.getProjectList()) {
             if (p.getId().equals(projectID)) {
                 return p;
             }
         }
-        throw new ProjectNotFoundException("Project not found");
+        throw new ProjectNotInAppDataException("Project not found");
     }
 
-    default User loadUserbyId(Reader fileReader, UUID userId) {
-        AppData appData = loadData(fileReader);
+    default User loadUserbyId(UUID userId) {
+        AppData appData = loadData();
         for (User u : appData.getUserList()) {
             if (u.getId().equals(userId)) {
                 return u;
             }
         }
-        throw new UserNotFoundException("User not found");
+        throw new UserNotInAppDataException("User not found");
     }
 
     default List<Project> loadAllUserProjects(Reader fileReader, UUID userId) {
-        AppData appData = loadData(fileReader);
+        AppData appData = loadData();
         List<Project> projectList = new ArrayList<>();
         for (Project p : appData.getProjectList()) {
             for (Map.Entry<User, Boolean> entry : p.getPermissions().entrySet()) {

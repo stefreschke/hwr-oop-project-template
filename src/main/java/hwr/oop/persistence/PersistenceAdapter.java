@@ -2,29 +2,41 @@ package hwr.oop.persistence;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import hwr.oop.application.Project;
-import hwr.oop.application.User;
-import java.io.Reader;
-import java.io.Writer;
+
+import java.io.*;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
+
 
 public class PersistenceAdapter implements LoadPort, SavePort {
-    @Override
-    public AppData loadData(Reader fileReader) {
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
-                .create();
-        return gson.fromJson(fileReader, AppData.class);
+
+    private final String filePath;
+
+    public PersistenceAdapter(String filePath) {
+        this.filePath = filePath;
     }
 
     @Override
-    public void saveData(AppData appData, Writer fileWriter) {
+    public AppData loadData() {
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .create();
+        try {
+            return gson.fromJson(new FileReader(filePath), AppData.class);
+        } catch (FileNotFoundException e) {
+            throw new CantLoadAppDataException("AppData not at specified location: " + filePath);
+        }
+    }
+
+    @Override
+    public void saveData(AppData appData) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .enableComplexMapKeySerialization()
                 .create();
-        gson.toJson(appData, fileWriter);
+        try {
+            gson.toJson(appData, new FileWriter(filePath));
+        } catch (IOException e) {
+            throw new CantSaveAppDataException("There was a Problem with saving AppData");
+        }
     }
 }
