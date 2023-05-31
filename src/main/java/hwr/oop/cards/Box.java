@@ -39,6 +39,12 @@ public class Box {
 
         return returnList;
     }
+    public boolean isEmpty_unlearned() {
+        return unlearnedCardList.isEmpty();
+    }
+    public boolean isEmpty_learned(){
+        return learnedCardList.isEmpty();
+    }
 
     @JsonIgnore
     public Card getRandomCard() {

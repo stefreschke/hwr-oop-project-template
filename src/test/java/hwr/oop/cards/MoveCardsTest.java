@@ -67,6 +67,7 @@ public class MoveCardsTest {
         card = box3.getRandomCard();
 
         trainer.moveCardDown(card);
+        System.out.println(trainer.getCurrentBoxIndex());
         card = box2.getRandomCard();
         trainer.moveCardDown(card);
         Assertions.assertThat(box1.getRandomCard()).isEqualTo(compareCard);

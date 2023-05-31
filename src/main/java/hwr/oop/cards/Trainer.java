@@ -45,7 +45,14 @@ public class Trainer {
     }
 
     public Card getRandomCard(){
-        return (this.boxList.get(getRandomBoxIndex()).getRandomCard());
+        Box box;
+        while (true) { //was soll passieren, wenn jede Box leer ist
+            box = this.boxList.get(getRandomBoxIndex());
+            if (box.isEmpty_learned() == false) { //eigentlich unlearned,aber für Test so
+                break;
+            }
+        }
+        return box.getRandomCard();
     }
 
     // loading new Topic
