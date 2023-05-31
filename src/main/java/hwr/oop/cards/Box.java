@@ -12,6 +12,8 @@ public class Box {
 
     private ArrayList<Card> learnedCardList;
     private ArrayList<Card> unlearnedCardList;
+    //private final Box previousBox;
+    //private final Box nextBox;
 
     public Box(){
 
