@@ -3,10 +3,9 @@ package hwr.oop.todo;
 import hwr.oop.todo.io.IOController;
 import hwr.oop.todo.library.todolist.ToDoList;
 import hwr.oop.todo.ui.MenuController;
-import hwr.oop.todo.ui.menu.Menu;
-import hwr.oop.todo.ui.menu.responses.MenuResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -37,4 +36,7 @@ class MenuControllerTest {
     }
 
 }
+
+
+
 
