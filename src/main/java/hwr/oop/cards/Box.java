@@ -45,6 +45,7 @@ public class Box {
     public boolean isEmpty_learned(){
         return learnedCardList.isEmpty();
     }
+    public void updateCard(Card card){unlearnedCardList.add(card);}
 
     @JsonIgnore
     public Card getRandomCard() {

@@ -1,5 +1,6 @@
 package hwr.oop.cards;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -34,6 +35,31 @@ public class BoxTests {
         assertThat(box1).isEqualTo(box2);
     }
 
+    @Test
+    void unlearnedCardListIsEmpty(){
+        Box box = new Box();
+        boolean isEmpty = box.isEmpty_unlearned();
+        assertThat(isEmpty).isTrue();
+    }@Test
+    void unlearnedCardListIsNotEmpty(){
+        Card card = new Card("Test", "Frage", 0);
+        Box box = new Box();
+        box.updateCard(card);
+        boolean isEmpty = box.isEmpty_unlearned();
+        assertThat(isEmpty).isFalse();
+    }@Test
+    void learnedCardListIsEmpty(){
+        Box box = new Box();
+        boolean isEmpty = box.isEmpty_learned();
+        assertThat(isEmpty).isTrue();
+    }@Test
+    void learnedCardListIsNotEmpty(){
+        Card card = new Card("Test", "Frage", 0);
+        Box box = new Box();
+        box.addCard(card);
+        boolean isEmpty = box.isEmpty_learned();
+        assertThat(isEmpty).isFalse();
+    }
     @Test
     void testEqualsNot(){
 
