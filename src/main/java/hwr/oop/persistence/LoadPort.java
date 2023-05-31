@@ -2,18 +2,46 @@ package hwr.oop.persistence;
 
 import hwr.oop.application.Project;
 import hwr.oop.application.User;
-import java.io.FileNotFoundException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface LoadPort {
-    AppData loadData(Reader fileReader) throws FileNotFoundException;
+    AppData loadData();
 
-    Project loadProjectById(Reader fileReader, UUID projectID) throws FileNotFoundException;
+    default Project loadProjectById(UUID projectID) {
+        AppData appData = loadData();
+        for (Project p : appData.getProjectList()) {
+            if (p.getId().equals(projectID)) {
+                return p;
+            }
+        }
+        throw new ProjectNotInAppDataException("Project not found");
+    }
 
-    User loadUserbyId(Reader fileReader, UUID userId) throws FileNotFoundException;
+    default User loadUserbyId(UUID userId) {
+        AppData appData = loadData();
+        for (User u : appData.getUserList()) {
+            if (u.getId().equals(userId)) {
+                return u;
+            }
+        }
+        throw new UserNotInAppDataException("User not found");
+    }
 
-    List<Project> loadAllUserProjects(Reader fileReader, UUID userId) throws FileNotFoundException;
-    //takes user and gives back all projects this user is involved in
+    default List<Project> loadAllUserProjects(Reader fileReader, UUID userId) {
+        AppData appData = loadData();
+        List<Project> projectList = new ArrayList<>();
+        for (Project p : appData.getProjectList()) {
+            for (Map.Entry<User, Boolean> entry : p.getPermissions().entrySet()) {
+                if (entry.getKey().getId().equals(userId) && entry.getValue().equals(Boolean.TRUE)) {
+                    projectList.add(p);
+                }
+            }
+        }
+        return projectList;
+    }
+
 }
