@@ -10,7 +10,7 @@ public class TopicLoadTest {
     }
     @Test
     void canLoadTopic_OneCard(){
-        Trainer trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
+        Trainer trainer = Trainer.createTrainerWith3Boxes();
         Topic topic = new Topic("Spanish");
         topic.createCard("Marco", "Polo");
         trainer.loadTopic(topic);
@@ -20,7 +20,7 @@ public class TopicLoadTest {
     }
     @Test
     void canLoadTopic_ThreeCards(){
-        Trainer trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
+        Trainer trainer = Trainer.createTrainerWith3Boxes();
         Topic topic = new Topic("Spanish");
         topic.createCard("Marco", "Polo");
         topic.createCard("Julius", "Caesar");

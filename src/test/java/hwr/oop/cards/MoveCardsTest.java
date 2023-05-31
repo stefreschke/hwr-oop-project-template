@@ -14,7 +14,7 @@ public class MoveCardsTest {
     private Card compareCard;
     @BeforeEach
     void setup(){
-        trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
+        trainer = Trainer.createTrainerWith3Boxes();
         topic = new Topic("Random");
         box1 = trainer.getBoxList().get(0);
         box2 = trainer.getBoxList().get(1);
@@ -78,6 +78,6 @@ public class MoveCardsTest {
         Assertions.assertThat(box1.getRandomCard()).isEqualTo(compareCard);
     }
 
-    @Test
-    void canMoveRandomCardUp(){}
+    /*@Test
+    void canMoveRandomCardUp(){}*/
 }

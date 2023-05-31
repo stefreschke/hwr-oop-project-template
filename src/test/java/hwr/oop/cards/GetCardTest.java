@@ -17,7 +17,7 @@ public class GetCardTest {
     private Card compareCard;
     @BeforeEach
     void setup(){
-        trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
+        trainer = Trainer.createTrainerWith3Boxes();
         topic = new Topic("Random");
         box1 = trainer.getBoxList().get(0);
         box2 = trainer.getBoxList().get(1);
@@ -29,7 +29,6 @@ public class GetCardTest {
     }
     @Test
     void canGetRandomBoxIndex(){
-        Trainer trainer = new Trainer.TrainerBuilder().buildTrainerWith3Boxes();
         int randomBoxIndex = trainer.getRandomBoxIndex();
         Assertions.assertThat(randomBoxIndex).isIn(List.of(0,1,2));
     }
