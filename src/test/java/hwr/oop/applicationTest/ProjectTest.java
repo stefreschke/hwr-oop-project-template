@@ -6,8 +6,6 @@ import hwr.oop.persistence.AppData;
 import hwr.oop.persistence.LoadPort;
 import hwr.oop.persistence.PersistenceAdapter;
 import hwr.oop.persistence.SavePort;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -28,7 +26,7 @@ class ProjectTest {
     @ParameterizedTest
     @MethodSource("randomProjects")
     void canCreateProject(Project expected) {
-        AppData appData = new AppData(new ArrayList<>(), new ArrayList<>());
+        AppData appData = new AppData(new ArrayList<>(), new ArrayList<>(), "./OOPTest");
         projectCreation.createProject(appData, expected.getTitle(), expected.getTaskList(), expected.getPermissions());
         assertThat(load.loadData().getProjectList().get(0)).isEqualTo(expected);
     }
