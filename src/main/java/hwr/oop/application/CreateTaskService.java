@@ -27,12 +27,21 @@ public class CreateTaskService implements CreateTaskUseCase{
             savePort.saveData(appData);
         }
         else {
-            throw new RuntimeException();
+            throw new CreateTaskException("Project not found");
         }
     }
 
     @Override
     public void createTaskInContextList(String title, String content, TaskState taskState, LocalDateTime deadLine, User user) {
-
+        Task taskTmp = new Task(title,content,taskState,deadLine);
+        int ind= loadPort.loadData().getUserList().indexOf(user);
+        if(ind >= 0){
+            AppData appData = loadPort.loadData();
+            appData.getUserList().get(ind).getContextList().add(taskTmp);
+            savePort.saveData(appData);
+        }
+        else {
+            throw new CreateTaskException("User not found");
+        }
     }
 }

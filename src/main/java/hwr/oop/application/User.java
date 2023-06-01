@@ -1,6 +1,7 @@
 package hwr.oop.application;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class User {
@@ -32,5 +33,16 @@ public class User {
     public List<Task> getContextList() {
         return contextList;
     }
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof User) {
+            return (Objects.equals(((User) obj).id, this.id));
+        }
+        return false;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name,inbox,contextList);
+    }
 }

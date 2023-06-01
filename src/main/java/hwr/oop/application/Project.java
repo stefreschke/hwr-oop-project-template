@@ -41,5 +41,9 @@ public class Project {
         }
         return false;
     }
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, taskList,title, permissions);
+    }
 
 }
