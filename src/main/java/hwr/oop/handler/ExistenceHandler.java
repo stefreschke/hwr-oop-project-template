@@ -43,6 +43,7 @@ public class ExistenceHandler {
         );
         try {
             toDoList.add(toDoItem);
+            toDoList.addBucket(new Bucket(bucket));
         } catch (Exception e) {
             cui.print(LogMode.ERROR, "Could not add task");
             return;

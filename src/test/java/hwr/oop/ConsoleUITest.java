@@ -7,6 +7,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,21 +18,22 @@ class ConsoleUITest {
     @Test
     void getEnvironmentVariablesTest() {
         Program testEnvProgram = new Program();
-        String[] env = testEnvProgram.getEnvironmentVariables();
-        assertThat(env).hasToString("data.json,MyList");
+        String[] env = testEnvProgram.getEnvironmentVariables("testSetup");
+        String envString = Arrays.toString(env);
+        assertThat(envString).isEqualTo("[data.json, MyList]");
     }
 
     @Test
     void setEnvironmentVariablesTest() {
         Program testEnvProgram = new Program();
-        testEnvProgram.setEnvironmentVariables("data.json", "MyList");
-        String[] env = testEnvProgram.getEnvironmentVariables();
+        testEnvProgram.setEnvironmentVariables("data.json", "MyList", "setTestSetup");
+        String[] env = testEnvProgram.getEnvironmentVariables("setTestSetup");
         assertThat(env).contains("data.json").contains("MyList");
     }
     @Test
     void testWelcome() {
         Program testEnvProgram = new Program();
-        String[] env = testEnvProgram.getEnvironmentVariables();
+        String[] env = testEnvProgram.getEnvironmentVariables("testSetup");
 
         try {
             String userInput = "0\n" + "\n" + "data.json\n";

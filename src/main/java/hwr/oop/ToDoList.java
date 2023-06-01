@@ -43,8 +43,8 @@ public class ToDoList {
         return buckets;
     }
 
-    public void addBucket(String newBucket) {
-        this.buckets.add(new Bucket(newBucket));
+    public void addBucket(Bucket bucket) {
+        this.buckets.add(bucket);
     }
 
     public void setItems(List<ToDoItem> items) {

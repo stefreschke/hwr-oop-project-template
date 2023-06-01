@@ -22,7 +22,7 @@ public class ToDoListTest {
     void getBucketsTest() {
         ToDoList list = new ToDoList("myList");
         list.add(new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", "Uni", Priority.HIGH));
-        list.addBucket("Uni");
+        list.addBucket(new Bucket("Uni"));
         Set<Bucket> testBuckets = list.getBuckets();
         assertThat(Util.getElementAtIndex(testBuckets, 0).getBucketName()).isEqualTo("Uni");
     }
@@ -50,14 +50,14 @@ public class ToDoListTest {
     @Test
     void addBucketTest() {
         ToDoList list =  new ToDoList("myList");
-        list.addBucket("Test");
+        list.addBucket(new Bucket("Test"));
         assertThat(Util.getElementAtIndex(list.getBuckets(), 0).getBucketName()).isEqualTo("Test");
     }
 
     @Test
     void editBucketTest() {
         ToDoList list = new ToDoList("myList");
-        list.addBucket("Test");
+        list.addBucket(new Bucket("Test"));
         list.renameBucket(0, "Boo");
         assertThat(Util.getElementAtIndex(list.getBuckets(), 0).getBucketName()).isEqualTo("Boo");
     }

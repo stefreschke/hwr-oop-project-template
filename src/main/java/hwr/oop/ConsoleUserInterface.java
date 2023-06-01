@@ -4,7 +4,10 @@ import hwr.oop.handler.CommandParser;
 import hwr.oop.util.ConsoleColors;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
 
 public class ConsoleUserInterface {
     private final PrintStream out;
@@ -55,7 +58,7 @@ public class ConsoleUserInterface {
 
         out.println("Welcome To Getting Things Done 🚀");
         Program program = new Program();
-        String[] env = program.getEnvironmentVariables();
+        String[] env = program.getEnvironmentVariables("setup");
         if (env == null) {
             out.println("Looks Like it is your first time using this program.");
             out.println("Lets set you up first.");
@@ -75,7 +78,7 @@ public class ConsoleUserInterface {
                 if (listFileName.contains(".")) {
                     listFileName = listFileName.substring(0, listFileName.lastIndexOf('.'));
                 }
-                program.setEnvironmentVariables(listFileName, listName);
+                program.setEnvironmentVariables(listFileName, listName, "setup");
                 toDoList = new ToDoList(listName, listFileName);
             } else {
                 // Load environment variables
@@ -83,7 +86,7 @@ public class ConsoleUserInterface {
                 if (listFileName.contains(".")) {
                     listFileName = listFileName.substring(0, listFileName.lastIndexOf('.'));
                 }
-                program.setEnvironmentVariables(listFileName, listName);
+                program.setEnvironmentVariables(listFileName, listName, "setup");
                 toDoList = program.loadToDoList(listFileName);
             }
         } else {
@@ -255,7 +258,17 @@ public class ConsoleUserInterface {
     }
 
     public void showBuckets(ToDoList toDoList){
-        out.println(toDoList.getBuckets());
+        Set<Bucket> buckets = toDoList.getBuckets();
+        if (buckets == null || buckets.isEmpty()) {
+            out.println("👀Looks Empty here... Add some buckets!");
+            return;
+        }
+        // sort bucekts by name
+        List<Bucket> sortedBuckets = new ArrayList<>(buckets);
+        sortedBuckets.sort(Comparator.comparing(Bucket::getBucketName));
+        for (Bucket bucket : sortedBuckets) {
+            out.println(bucket.toString());
+        }
     }
 
     public int parseCommands(ToDoList toDoList, CommandParser commandParser) throws IOException, CouldNotSaveChangesException, CommandParser.CouldNotCallHandlerException {
