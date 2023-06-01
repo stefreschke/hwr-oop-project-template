@@ -2,6 +2,7 @@ package hwr.oop.application;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Project {
@@ -33,6 +34,12 @@ public class Project {
     private String title;
     private Map<User, Boolean> permissions;
 
-
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Project) {
+            return (Objects.equals(((Project) obj).id, this.id));
+        }
+        return false;
+    }
 
 }
