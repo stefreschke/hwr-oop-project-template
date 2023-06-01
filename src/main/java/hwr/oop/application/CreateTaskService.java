@@ -20,7 +20,7 @@ public class CreateTaskService implements CreateTaskUseCase{
     @Override
     public void createTaskInProject(String title, String content, TaskState taskState, LocalDateTime deadLine, Project project) {
         Task taskTmp = new Task(title,content,taskState,deadLine);
-        int ind= loadPort.loadData().getProjectList().indexOf(project);
+        int ind = loadPort.loadData().getProjectList().indexOf(project);
         if(ind >= 0){
             AppData appData = loadPort.loadData();
             appData.getProjectList().get(ind).getTaskList().add(taskTmp);

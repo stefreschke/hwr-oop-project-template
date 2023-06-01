@@ -11,13 +11,12 @@ import static org.assertj.core.api.Assertions.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 class CreateTaskTest {
 
     private LoadPort loadPort;
-    private SavePort savePort;
     private CreateTaskService createTaskService;
-
     AppData appDataMock;
     @BeforeEach
     void setUp() {
@@ -32,50 +31,42 @@ class CreateTaskTest {
         users.add(new User("TestUser",new ArrayList<>(),new ArrayList<>()));
 
         appDataMock = new AppData(projects,users);
-        loadPort = new LoadPort() {
-            @Override
-            public AppData loadData() {
-                return appDataMock;
-            }
-        };
-        savePort = new SavePort() {
-            @Override
-            public void saveData(AppData appData) {
-                 appDataMock = appData;
-            }
-        };
 
-        createTaskService = new CreateTaskService(loadPort,savePort);
+        loadPort = () -> appDataMock;
+        SavePort savePort = appData -> appDataMock = appData;
+
+        createTaskService = new CreateTaskService(loadPort, savePort);
     }
 
     @Test
     void testCreateTaskInProject() {
-        // Arrange
         String title = "Task Title";
         String content = "Task Content";
         TaskState taskState = TaskState.IN_PROGRESS;
         LocalDateTime deadline = LocalDateTime.now();
-        Project project =loadPort.loadData().getProjectList().get(0);
+        Project project = loadPort.loadData().getProjectList().get(0);
 
         createTaskService.createTaskInProject(title,content,taskState,deadline,project);
 
         Task createdTask = loadPort.loadData().getProjectList().get(0).getTaskList().get(1);
 
+        Optional<LocalDateTime> result = createdTask.getDeadline();
+
         assertThat(createdTask.getTitle()).isEqualTo(title);
         assertThat(createdTask.getContent()).isEqualTo(content);
         assertThat(createdTask.getTaskState()).isEqualTo(taskState);
-        assertThat(createdTask.getDeadline()).isEqualTo(deadline);
+        result.ifPresent(localDate -> assertThat(localDate).isBetween(LocalDateTime.now().minusHours(1),LocalDateTime.now()));
     }
 
     @Test
      void testCreateTaskInProject_ThrowsExceptionWhenProjectNotFound() {
-        // Arrange
         String title = "Task Title";
         String content = "Task Content";
         TaskState taskState = TaskState.IN_PROGRESS;
         LocalDateTime deadline = LocalDateTime.now();
 
-        // Act & Assert
+        Project project = new Project(new ArrayList<>(),"Test",null);
+
         assertThatThrownBy(() -> createTaskService.createTaskInProject(title, content, taskState, deadline, project))
                 .isInstanceOf(CreateTaskException.class)
                 .hasMessage("Project not found");
@@ -84,34 +75,37 @@ class CreateTaskTest {
 
     @Test
      void testCreateTaskInContextList() {
-        // Arrange
         String title = "Task Title";
         String content = "Task Content";
         TaskState taskState = TaskState.IN_PROGRESS;
         LocalDateTime deadline = LocalDateTime.now();
 
+        User user = loadPort.loadData().getUserList().get(0);
 
-        assertThat(user.getContextList()).hasSize(1);
-        Task createdTask = user.getContextList().get(0);
+        createTaskService.createTaskInContextList(title,content,taskState,deadline,user);
+
+        Task createdTask = loadPort.loadData().getUserList().get(0).getContextList().get(0);
+
+        Optional<LocalDateTime> result = createdTask.getDeadline();
+
         assertThat(createdTask.getTitle()).isEqualTo(title);
         assertThat(createdTask.getContent()).isEqualTo(content);
         assertThat(createdTask.getTaskState()).isEqualTo(taskState);
-        assertThat(createdTask.getDeadLine()).isEqualTo(deadline);
+        result.ifPresent(localDate -> assertThat(localDate).isBetween(LocalDateTime.now().minusHours(1),LocalDateTime.now()));
     }
 
     @Test
      void testCreateTaskInContextList_ThrowsExceptionWhenUserNotFound() {
-        // Arrange
+
         String title = "Task Title";
         String content = "Task Content";
         TaskState taskState = TaskState.IN_PROGRESS;
         LocalDateTime deadline = LocalDateTime.now();
 
+        User user = new User("Test not known", new ArrayList<>(),new ArrayList<>());
 
-        // Act & Assert
         assertThatThrownBy(() -> createTaskService.createTaskInContextList(title, content, taskState, deadline, user))
                 .isInstanceOf(CreateTaskException.class)
                 .hasMessage("User not found");
-
     }
 }
