@@ -101,44 +101,14 @@ public class ToDoItem {
     public String getCreatedAt() {
         return createdAt;
     }
+
     public void promote() {
-        switch (state) {
-            case TODO:
-            case ON_HOLD:
-                state = State.IN_PROGRESS;
-                break;
-            case IN_PROGRESS:
-                state = State.DONE;
-                break;
-            case DONE:
-                break;
-        }
+        this.state = state.nextState();
     }
     public void demote() {
-        switch (state) {
-            case TODO:
-                break;
-            case IN_PROGRESS:
-            case ON_HOLD:
-                state = State.TODO;
-                break;
-            case DONE:
-                state = State.IN_PROGRESS;
-                break;
-        }
+        this.state = state.previousState();
     }
-
-    public void hold() {
-        switch (state) {
-            case TODO:
-            case ON_HOLD:
-            case DONE:
-                break;
-            case IN_PROGRESS:
-                state = State.ON_HOLD;
-                break;
-        }
+    public void hold(){
+        this.state = state.hold();
     }
-
-
 }
