@@ -28,6 +28,10 @@ public class Project {
         return permissions;
     }
 
+    public void changeTitle(String newTitle){
+        title = newTitle;
+    }
+
     private final UUID id;
     private List<Task> taskList;
     private String title;
