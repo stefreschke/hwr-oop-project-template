@@ -20,7 +20,7 @@ public class PersistenceAdapter implements LoadPort, SavePort {
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .create();
         try {
-            return gson.fromJson(new FileReader(directory + AppData.class), AppData.class);
+            return gson.fromJson(new FileReader(directory + AppData.class + ".json"), AppData.class);
         } catch (FileNotFoundException e) {
             throw new CantLoadAppDataException("AppData not at specified location:");
         }
@@ -33,7 +33,7 @@ public class PersistenceAdapter implements LoadPort, SavePort {
                 .enableComplexMapKeySerialization()
                 .create();
         try {
-            gson.toJson(appData, new FileWriter(directory + AppData.class));
+            gson.toJson(appData, new FileWriter(directory + AppData.class + ".json"));
         } catch (IOException e) {
             throw new CantSaveAppDataException("There was a Problem with saving AppData");
         }
