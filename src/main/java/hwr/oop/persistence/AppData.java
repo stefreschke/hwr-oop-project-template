@@ -10,12 +10,9 @@ public class AppData {
     private final List<Project> projectList;
     private final List<User> userList;
 
-    private final String filePath;
-
-    public AppData(List<Project> projectList, List<User> userList, String filePath) {
+    public AppData(List<Project> projectList, List<User> userList) {
         this.projectList = projectList;
         this.userList = userList;
-        this.filePath = filePath;
     }
 
     public List<Project> getProjectList() {
@@ -24,10 +21,6 @@ public class AppData {
 
     public List<User> getUserList() {
         return userList;
-    }
-
-    public String getFilePath() {
-        return filePath;
     }
 
     @Override

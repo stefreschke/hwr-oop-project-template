@@ -9,10 +9,9 @@ import java.time.LocalDateTime;
 
 public class PersistenceAdapter implements LoadPort, SavePort {
 
-    private final AppData appData;
-
-    public PersistenceAdapter(AppData appData) {
-        this.appData = appData;
+    private final String directory;
+    public PersistenceAdapter(String directory) {
+        this.directory = directory;
     }
 
     @Override
@@ -21,20 +20,20 @@ public class PersistenceAdapter implements LoadPort, SavePort {
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .create();
         try {
-            return gson.fromJson(new FileReader(appData.getFilePath()), AppData.class);
+            return gson.fromJson(new FileReader(directory + AppData.class.toString()), AppData.class);
         } catch (FileNotFoundException e) {
-            throw new CantLoadAppDataException("AppData not at specified location: " + appData.getFilePath());
+            throw new CantLoadAppDataException("AppData not at specified location:");
         }
     }
 
     @Override
-    public void saveData() {
+    public void saveData(AppData appData) {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .enableComplexMapKeySerialization()
                 .create();
         try {
-            gson.toJson(appData, new FileWriter(appData.getFilePath()));
+            gson.toJson(appData, new FileWriter(directory + AppData.class.toString()));
         } catch (IOException e) {
             throw new CantSaveAppDataException("There was a Problem with saving AppData");
         }

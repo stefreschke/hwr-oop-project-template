@@ -1,5 +1,5 @@
 package hwr.oop.persistence;
 
 public interface SavePort {
-    void saveData();
+    void saveData(AppData appData);
 }

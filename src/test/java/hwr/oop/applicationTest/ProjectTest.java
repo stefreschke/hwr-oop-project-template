@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class ProjectTest {
-
+    String directory = "./OOPTest/";
     AppData appData;
     CreateProjectUseCase projectCreation;
     LoadPort load;
@@ -24,9 +24,9 @@ class ProjectTest {
 
     @BeforeEach
     void setUp() {
-        appData = new AppData(new ArrayList<>(), new ArrayList<>(),"./OOPTest");
-        load = new PersistenceAdapter(appData);
-        save = new PersistenceAdapter(appData);
+        appData = new AppData(new ArrayList<>(), new ArrayList<>());
+        load = new PersistenceAdapter(directory);
+        save = new PersistenceAdapter(directory);
     }
 
     static Stream<Arguments> randomProjects() {
@@ -36,7 +36,7 @@ class ProjectTest {
     @ParameterizedTest
     @MethodSource("randomProjects")
     void canCreateProject(Project expected) {
-        AppData appData = new AppData(new ArrayList<>(), new ArrayList<>(), "./OOPTest");
+        AppData appData = new AppData(new ArrayList<>(), new ArrayList<>());
         projectCreation.createProject(appData, expected.getTitle(), expected.getTaskList(), expected.getPermissions());
         assertThat(load.loadData().getProjectList().get(0)).isEqualTo(expected);
     }
