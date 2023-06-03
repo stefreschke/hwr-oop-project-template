@@ -30,6 +30,10 @@ public class AppData {
         return filePath;
     }
 
+    public void addProject(Project project) {
+        projectList.add(project);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

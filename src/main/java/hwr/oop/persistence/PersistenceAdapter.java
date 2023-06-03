@@ -19,6 +19,7 @@ public class PersistenceAdapter implements LoadPort, SavePort {
     public AppData loadData() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .enableComplexMapKeySerialization()
                 .create();
         try {
             return gson.fromJson(new FileReader(appData.getFilePath()), AppData.class);
@@ -33,8 +34,8 @@ public class PersistenceAdapter implements LoadPort, SavePort {
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .enableComplexMapKeySerialization()
                 .create();
-        try {
-            gson.toJson(appData, new FileWriter(appData.getFilePath()));
+        try (FileWriter fileWriter = new FileWriter(appData.getFilePath())) {
+            gson.toJson(appData, fileWriter);
         } catch (IOException e) {
             throw new CantSaveAppDataException("There was a Problem with saving AppData");
         }
