@@ -139,12 +139,11 @@ class ProjectTest {
 
     @ParameterizedTest
     @MethodSource("randomProjectsWithSingleUser")
-    void createProjectAddsOneToProjectList(Project project, User user) {
+    void createProject_AddsOneToProjectListTest(Project project, User user) {
         AppData appData = new AppData(RandomTestData.getRandomProjects(), RandomTestData.getRandomUsers());
         int originalSize = appData.getProjectList().size();
         createProject.createProject(save, appData, project.getTitle(), project.getTaskList(), user);
 
-        AppData result = load.loadData();
-        assertThat(appData.getProjectList().size()).isEqualTo(originalSize+1);
+        assertThat(load.loadData().getProjectList().size()).isEqualTo(originalSize+1);
     }
 }
