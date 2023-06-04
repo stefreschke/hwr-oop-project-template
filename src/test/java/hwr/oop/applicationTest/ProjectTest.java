@@ -14,8 +14,6 @@ import java.io.File;
 import java.util.*;
 import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.setRemoveAssertJRelatedElementsFromStackTrace;
-
 class ProjectTest {
     String directory = "./OOPTest/";
     AppData appData;
