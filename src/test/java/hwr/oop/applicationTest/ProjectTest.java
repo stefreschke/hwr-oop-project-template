@@ -12,16 +12,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junit.jupiter.params.provider.ValueSource;
-
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 class ProjectTest {
@@ -76,11 +71,23 @@ class ProjectTest {
     @MethodSource("randomProjectsWithSingleUser")
     void canCreateProject(Project expected, User user) {
         AppData appData = new AppData(new ArrayList<>(), new ArrayList<>());
+
         createProject.createProject(save, appData, expected.getTitle(), expected.getTaskList(), user);
+
         Project result = load.loadData().getProjectList().get(0);
         assertThat(result.getTitle()).hasToString(expected.getTitle());
         assertThat(result.getTaskList()).isEqualTo(expected.getTaskList());
         assertThat(result.getPermissions()).isEqualTo(expected.getPermissions());
     }
 
+    @ParameterizedTest
+    @MethodSource("randomProjectsWithSingleUser")
+    void createProjectAddsOneToProjectList(Project project, User user) {
+        AppData appData = new AppData(RandomTestData.getRandomProjects(), RandomTestData.getRandomUsers());
+        int originalSize = appData.getProjectList().size();
+        createProject.createProject(save, appData, project.getTitle(), project.getTaskList(), user);
+
+        AppData result = load.loadData();
+        assertThat(appData.getProjectList().size()).isEqualTo(originalSize+1);
+    }
 }
