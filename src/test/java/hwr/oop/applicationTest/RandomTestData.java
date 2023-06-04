@@ -34,14 +34,14 @@ class RandomTestData {
         List<Task> taskList = new ArrayList<>();
         for (int i=0; i<rand.nextInt(10); i++) {
             String task = taskTitles.get(rand.nextInt(taskTitles.size()));
-            Task t = new Task(task, task, getRandomTaskState(), getRandomDeadline());
+            Task t = new Task(UUID.randomUUID(), task, task, getRandomTaskState(), getRandomDeadline());
             taskList.add(t);
         }
         return taskList;
     }
 
     static User getRandomUser() {
-        return new User("user" + rand.nextInt(1000), getRandomTaskTitles(), getRandomtaskList());
+        return new User(UUID.randomUUID(), "user" + rand.nextInt(1000), getRandomTaskTitles(), getRandomtaskList());
     }
 
     static Map<User, Boolean> getRandomPermissions() {
@@ -53,7 +53,7 @@ class RandomTestData {
     }
 
     static Project getRandomProject() {
-        return new Project(getRandomtaskList(), "project"+rand.nextInt(1000), getRandomPermissions());
+        return new Project(UUID.randomUUID(), getRandomtaskList(), "project"+rand.nextInt(1000), getRandomPermissions());
     }
 
     static List<Project> getRandomProjects() {

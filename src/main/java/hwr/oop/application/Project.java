@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.UUID;
 
 public class Project {
-    public Project(List<Task> taskList, String title, Map<User, Boolean> permissions) {
-        this.id = UUID.randomUUID();
+    public Project(UUID id, List<Task> taskList, String title, Map<User, Boolean> permissions) {
+        this.id = id;
         this.taskList = taskList;
         this.title = title;
         this.permissions = permissions;

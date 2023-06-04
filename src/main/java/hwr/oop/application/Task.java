@@ -6,8 +6,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class Task {
-    public Task(String title, String content, TaskState taskState, LocalDateTime deadline) {
-        this.id = UUID.randomUUID();
+    public Task(UUID id, String title, String content, TaskState taskState, LocalDateTime deadline) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.taskState = taskState;
