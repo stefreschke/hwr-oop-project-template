@@ -1,14 +1,12 @@
 package hwr.oop.applicationTest;
 
-import hwr.oop.application.CreateProjectService;
-import hwr.oop.application.CreateProjectUseCase;
-import hwr.oop.application.Project;
-import hwr.oop.application.User;
+import hwr.oop.application.*;
 import hwr.oop.persistence.AppData;
 import hwr.oop.persistence.LoadPort;
 import hwr.oop.persistence.PersistenceAdapter;
 import hwr.oop.persistence.SavePort;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -16,6 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -65,6 +64,35 @@ class ProjectTest {
             );
         }
         return  randomProjects.stream();
+    }
+
+
+    @Test
+    void getIdTest() {
+        UUID id = UUID.randomUUID();
+        Project project = new Project(id, null, null, null);
+        assertThat(project.getId()).isEqualTo(id);
+    }
+
+    @Test
+    void getTitleTest() {
+        String title = "testTitle";
+        Project project = new Project(UUID.randomUUID(), null, title, null);
+        assertThat(project.getTitle()).isEqualTo(title);
+    }
+
+    @Test
+    void getTaskListTest() {
+        List<Task> taskList = RandomTestData.getRandomtaskList();
+        Project project = new Project(UUID.randomUUID(), taskList, null, null);
+        assertThat(project.getTaskList()).isEqualTo(taskList);
+    }
+
+    @Test
+    void getPermissionsTest() {
+        Map<User, Boolean> permissions = RandomTestData.getRandomPermissions();
+        Project project = new Project(UUID.randomUUID(), null, null, permissions);
+        assertThat(project.getPermissions()).isEqualTo(permissions);
     }
 
     @ParameterizedTest
