@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.setRemoveAssertJRelatedElementsFromStackTrace;
 
 class ProjectTest {
     String directory = "./OOPTest/";
@@ -93,6 +94,26 @@ class ProjectTest {
         Map<User, Boolean> permissions = RandomTestData.getRandomPermissions();
         Project project = new Project(UUID.randomUUID(), null, null, permissions);
         assertThat(project.getPermissions()).isEqualTo(permissions);
+    }
+
+    @ParameterizedTest
+    @MethodSource("randomProjects")
+    void equalsTest(Project project) {
+        Project copy = new Project(project.getId(), project.getTaskList(), project.getTitle(),
+                project.getPermissions());
+        assertThat(project).isEqualTo(copy);
+        assertThat(copy).isEqualTo(project);
+        assertThat(project.hashCode()).isEqualTo(copy.hashCode());
+    }
+
+    @ParameterizedTest
+    @MethodSource("randomProjects")
+    void sameProjectDifferentID_returnsFalse(Project project) {
+        Project copy = new Project(UUID.randomUUID(), project.getTaskList(), project.getTitle(),
+                project.getPermissions());
+        assertThat(project).isNotEqualTo(copy);
+        assertThat(copy).isNotEqualTo(project);
+        assertThat(project.hashCode()).isNotEqualTo(copy.hashCode());
     }
 
     @ParameterizedTest
