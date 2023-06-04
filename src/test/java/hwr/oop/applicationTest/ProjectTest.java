@@ -1,5 +1,6 @@
 package hwr.oop.applicationTest;
 
+import hwr.oop.application.CreateProjectService;
 import hwr.oop.application.CreateProjectUseCase;
 import hwr.oop.application.Project;
 import hwr.oop.application.User;
@@ -35,10 +36,12 @@ class ProjectTest {
         appData = new AppData(new ArrayList<>(), new ArrayList<>());
         load = new PersistenceAdapter(directory);
         save = new PersistenceAdapter(directory);
+        createProject = new CreateProjectService();
+
+        final File parent = new File(directory);
+        parent.mkdirs();
         File file = new File(directory + AppData.class + ".json");
-        if (file.exists()) {
-            file.delete();
-        }
+        file.delete();
     }
 
     static Stream<Arguments> randomProjects() {
