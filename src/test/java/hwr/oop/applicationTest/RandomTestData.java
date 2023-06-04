@@ -44,6 +44,14 @@ class RandomTestData {
         return new User(UUID.randomUUID(), "user" + rand.nextInt(1000), getRandomTaskTitles(), getRandomtaskList());
     }
 
+    static List<User> getRandomUsers() {
+        List<User> returnList = new ArrayList<>();
+        for (int i=0; i< rand.nextInt(10); i++) {
+            returnList.add(getRandomUser());
+        }
+        return returnList;
+    }
+
     static Map<User, Boolean> getRandomPermissions() {
         Map<User, Boolean> permissions = new HashMap<>();
         for (int i=0; i< rand.nextInt(10); i++) {
