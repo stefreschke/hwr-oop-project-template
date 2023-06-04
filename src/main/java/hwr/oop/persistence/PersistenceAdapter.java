@@ -18,6 +18,7 @@ public class PersistenceAdapter implements LoadPort, SavePort {
     public AppData loadData() {
         Gson gson = new GsonBuilder()
                 .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
+                .enableComplexMapKeySerialization()
                 .create();
         try {
             return gson.fromJson(new FileReader(directory + AppData.class + ".json"), AppData.class);

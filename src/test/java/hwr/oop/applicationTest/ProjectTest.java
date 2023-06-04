@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
@@ -20,13 +21,17 @@ class ProjectTest {
     AppData appData;
     CreateProjectUseCase createProject;
     LoadPort load;
-    SavePort save;
 
     @BeforeEach
     void setUp() {
         appData = new AppData(new ArrayList<>(), new ArrayList<>());
         load = new PersistenceAdapter(directory);
         save = new PersistenceAdapter(directory);
+
+        File file = new File(directory + AppData.class + ".json");
+        if (file.exists()) {
+            file.delete();
+        }
     }
 
     static Stream<Arguments> randomProjects() {
