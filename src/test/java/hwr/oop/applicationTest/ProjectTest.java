@@ -18,7 +18,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 class ProjectTest {
     String directory = "./OOPTest/";
     AppData appData;
-    CreateProjectUseCase projectCreation;
+    CreateProjectUseCase createProject;
     LoadPort load;
     SavePort save;
 
@@ -30,14 +30,22 @@ class ProjectTest {
     }
 
     static Stream<Arguments> randomProjects() {
-        return Stream.of(Arguments.of(RandomTestData.getRandomProjects()));
+        return Stream.of(
+                Arguments.of(
+                        RandomTestData.getRandomProject(),
+                        RandomTestData.getRandomProject(),
+                        RandomTestData.getRandomProject(),
+                        RandomTestData.getRandomProject(),
+                        RandomTestData.getRandomProject()
+                )
+        );
     }
 
     @ParameterizedTest
     @MethodSource("randomProjects")
     void canCreateProject(Project expected) {
         AppData appData = new AppData(new ArrayList<>(), new ArrayList<>());
-        projectCreation.createProject(appData, expected.getTitle(), expected.getTaskList(), expected.getPermissions());
+        createProject.createProject(appData, expected.getTitle(), expected.getTaskList(), expected.getPermissions());
         assertThat(load.loadData().getProjectList().get(0)).isEqualTo(expected);
     }
 
