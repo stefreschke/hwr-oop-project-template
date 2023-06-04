@@ -121,6 +121,12 @@ class ProjectTest {
     }
 
     @ParameterizedTest
+    @MethodSource("randomProjects")
+    void equalsSameObjectTest(Project project) {
+        assertThat(project).isEqualTo(project);
+    }
+
+    @ParameterizedTest
     @MethodSource("randomProjectsWithSingleUser")
     void canCreateProject(Project expected, User user) {
         AppData appData = new AppData(new ArrayList<>(), new ArrayList<>());
