@@ -25,4 +25,4 @@ This repository contains a student project created for an ongoing lecture on obj
 
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
-| 1      | Gson            |                     | persistenceImplementation |
+| 1      | Gson | (de-)serialization of data from and to JSON | persistenceImplementation |
