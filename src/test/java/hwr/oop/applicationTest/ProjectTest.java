@@ -2,6 +2,7 @@ package hwr.oop.applicationTest;
 
 import hwr.oop.application.CreateProjectUseCase;
 import hwr.oop.application.Project;
+import hwr.oop.application.User;
 import hwr.oop.persistence.AppData;
 import hwr.oop.persistence.LoadPort;
 import hwr.oop.persistence.PersistenceAdapter;
@@ -56,11 +57,12 @@ class ProjectTest {
         List<Arguments> randomProjects = new ArrayList<>();
         for (int i=0; i<5; i++) {
             Project rando = RandomTestData.getRandomProject();
+            User user = RandomTestData.getRandomUser();
             randomProjects.add(
                     Arguments.of(
                             new Project(rando.getId(), rando.getTaskList(), rando.getTitle(),
-                                    Map.of(RandomTestData.getRandomUser(), Boolean.TRUE)
-                            )
+                                    Map.of(user, Boolean.TRUE)
+                            ), user
                     )
             );
         }
@@ -69,9 +71,9 @@ class ProjectTest {
 
     @ParameterizedTest
     @MethodSource("randomProjectsWithSingleUser")
-    void canCreateProject(Project expected) {
+    void canCreateProject(Project expected, User user) {
         AppData appData = new AppData(new ArrayList<>(), new ArrayList<>());
-        createProject.createProject(save, appData, expected.getTitle(), expected.getTaskList());
+        createProject.createProject(save, appData, expected.getTitle(), expected.getTaskList(), user);
         assertThat(load.loadData().getProjectList().get(0)).isEqualTo(expected);
     }
 
