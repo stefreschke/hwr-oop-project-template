@@ -6,8 +6,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class Task {
-    public Task(String title, String content, TaskState taskState, LocalDateTime deadline) {
-        this.id = UUID.randomUUID();
+    public Task(UUID id, String title, String content, TaskState taskState, LocalDateTime deadline) {
+        this.id = id;
         this.title = title;
         this.content = content;
         this.taskState = taskState;
@@ -78,15 +78,19 @@ public class Task {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Task) {
-            return (Objects.equals(((Task) obj).id, this.id));
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(getId(), task.getId()) &&
+                Objects.equals(getTitle(), task.getTitle()) &&
+                Objects.equals(getContent(), task.getContent()) &&
+                getTaskState() == task.getTaskState() &&
+                Objects.equals(getDeadline(), task.getDeadline());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, content, taskState, deadline);
+        return Objects.hash(getId(), getTitle(), getContent(), getTaskState(), getDeadline());
     }
 }

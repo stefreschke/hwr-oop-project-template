@@ -3,14 +3,6 @@ This repository contains a student project created for an ongoing lecture on obj
 
 > :warning: This code is for educational purposes only. Do not rely on it!
 
-## Abstract
-
-[TODO]: A professional TodoList
-
-[TODO]: create und delete Task, variable Taskstatus
-
-[TODO]: We cant open the readme anymore
-
 ## Feature List
 
 [TODO]: # (For each feature implemented, add a row to the table!)
@@ -23,7 +15,7 @@ This repository contains a student project created for an ongoing lecture on obj
 | 4      | create User        | /     |
 | 5      | manage Taskstate   | /     |
 | 6      | manage Deadline    | /     |
-| 7      | implement tag      | /     |
+| 7      | create Project     | check |
 
 
 
@@ -33,4 +25,4 @@ This repository contains a student project created for an ongoing lecture on obj
 
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
-| 1      | /               | /                      | /                    |
+| 1      | Gson | (de-)serialization of data from and to JSON | persistenceImplementation |
