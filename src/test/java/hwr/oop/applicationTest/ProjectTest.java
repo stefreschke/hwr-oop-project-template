@@ -77,7 +77,10 @@ class ProjectTest {
     void canCreateProject(Project expected, User user) {
         AppData appData = new AppData(new ArrayList<>(), new ArrayList<>());
         createProject.createProject(save, appData, expected.getTitle(), expected.getTaskList(), user);
-        assertThat(load.loadData().getProjectList().get(0)).isEqualTo(expected);
+        Project result = load.loadData().getProjectList().get(0);
+        assertThat(result.getTitle()).hasToString(expected.getTitle());
+        assertThat(result.getTaskList()).isEqualTo(expected.getTaskList());
+        assertThat(result.getPermissions()).isEqualTo(expected.getPermissions());
     }
 
 }
