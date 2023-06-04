@@ -11,10 +11,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.setRemoveAssertJRelatedElementsFromStackTrace;
@@ -108,12 +105,19 @@ class ProjectTest {
 
     @ParameterizedTest
     @MethodSource("randomProjects")
-    void sameProjectDifferentID_returnsFalse(Project project) {
+    void equals_sameProjectDifferentID_returnsFalseTest(Project project) {
         Project copy = new Project(UUID.randomUUID(), project.getTaskList(), project.getTitle(),
                 project.getPermissions());
         assertThat(project).isNotEqualTo(copy);
         assertThat(copy).isNotEqualTo(project);
         assertThat(project.hashCode()).isNotEqualTo(copy.hashCode());
+    }
+
+    @ParameterizedTest
+    @MethodSource("randomProjects")
+    void equals_differentClasses_returnsFalseTest(Project project) {
+        Object o = new Object();
+        assertThat(project).isNotEqualTo(o);
     }
 
     @ParameterizedTest
