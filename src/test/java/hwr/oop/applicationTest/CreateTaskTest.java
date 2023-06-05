@@ -17,6 +17,7 @@ import java.util.UUID;
 class CreateTaskTest {
 
     private LoadPort loadPort;
+    private SavePort savePort;
     private CreateTaskService createTaskService;
     AppData appDataMock;
     @BeforeEach
@@ -35,7 +36,7 @@ class CreateTaskTest {
         appDataMock = new AppData(projects,users);
 
         loadPort = () -> appDataMock;
-        SavePort savePort = appData -> appDataMock = appData;
+        savePort = appData -> appDataMock = appData;
 
         createTaskService = new CreateTaskService(loadPort, savePort);
     }

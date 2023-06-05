@@ -25,7 +25,7 @@ class ProjectTest {
         appData = new AppData(new ArrayList<>(), new ArrayList<>());
         load = new PersistenceAdapter(directory);
         save = new PersistenceAdapter(directory);
-        createProject = new CreateProjectService();
+        createProject = new CreateProjectService(load,save);
 
         final File parent = new File(directory);
         parent.mkdirs();
@@ -113,7 +113,7 @@ class ProjectTest {
                 project.getPermissions());
         assertThat(project).isEqualTo(copy);
         assertThat(copy).isEqualTo(project);
-        assertThat(project.hashCode()).isEqualTo(copy.hashCode());
+        assertThat(project.hashCode()).hasSameHashCodeAs(copy.hashCode());
     }
 
     @ParameterizedTest
@@ -142,7 +142,7 @@ class ProjectTest {
     @ParameterizedTest
     @MethodSource("randomProjectsWithSingleUser")
     void canCreateProject(Project expected, User user) {
-        createProject.createProject(save, appData, expected.getTitle(), expected.getTaskList(), user);
+        createProject.createProject(expected.getTitle(), expected.getTaskList(), user);
 
         Project result = load.loadData().getProjectList().get(0);
 
@@ -156,7 +156,7 @@ class ProjectTest {
     void createProject_AddsOneToProjectListTest(Project project, User user) {
         AppData appData = new AppData(RandomTestData.getRandomProjects(), RandomTestData.getRandomUsers());
         int originalSize = appData.getProjectList().size();
-        createProject.createProject(save, appData, project.getTitle(), project.getTaskList(), user);
+        createProject.createProject(project.getTitle(), project.getTaskList(), user);
 
         assertThat(load.loadData().getProjectList().size()).isEqualTo(originalSize+1);
     }
