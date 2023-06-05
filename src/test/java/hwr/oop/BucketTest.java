@@ -1,5 +1,6 @@
 package hwr.oop;
 
+import hwr.oop.util.Util;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,16 +24,19 @@ public class BucketTest {
     void addBucketTest() {
         ToDoList toDoList =  new ToDoList("myList");
         assertThat(toDoList.getBuckets().size()).isEqualTo(0);
-        toDoList.addBucket("Test");
+        Bucket bucket = new Bucket("Test");
+        toDoList.addBucket(bucket);
         assertThat(toDoList.getBuckets()).hasSize(1);
-        assertThat(toDoList.getBuckets().contains("Test"));
+        assertThat(toDoList.getBuckets()).contains(bucket);
     }
 
     @Test
     void editBucketTest() {
         ToDoList toDoList = new ToDoList("myList");
-        toDoList.addBucket("Test");
+        Bucket bucket = new Bucket("Test");
+        toDoList.addBucket(bucket);
         toDoList.renameBucket(0, "Boo");
-        assertThat(toDoList.getBuckets().contains("Boo")).isTrue();
+        assertThat(toDoList.getBuckets()).doesNotContain(bucket);
+        assertThat(Util.getElementAtIndex(toDoList.getBuckets(), 0).getBucketName()).isEqualTo("Boo");
     }
 }

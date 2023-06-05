@@ -4,8 +4,10 @@ import hwr.oop.ConsoleUserInterface;
 import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
 
-public interface ExitHandler {
-    static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+public class ExitHandler {
+    ExitHandler() {
+    }
+    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length == 2) {
             if (args[1].equals("exit") || args[1].equals("q")) {
                 exit(toDoList, cui);
@@ -16,7 +18,7 @@ public interface ExitHandler {
             cui.print(LogMode.ERROR, "Cannot process additional arguments.");
         }
     }
-    static void exit(ToDoList toDoList, ConsoleUserInterface cui) {
+    public static void exit(ToDoList toDoList, ConsoleUserInterface cui) {
         cui.say("Exiting ...");
         toDoList.writeToJSON(cui, toDoList.getFileName());
         System.exit(0);

@@ -3,11 +3,13 @@ package hwr.oop.handler;
 import hwr.oop.ConsoleUserInterface;
 import hwr.oop.ToDoList;
 
-public interface SortHandler {
-    static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+public class SortHandler {
+    SortHandler() {
+    }
+    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         initiateSort(cui, toDoList, args);
     }
-    static void initiateSort(ConsoleUserInterface cui, ToDoList toDoList, String[] commandArray) {
+    public static void initiateSort(ConsoleUserInterface cui, ToDoList toDoList, String[] commandArray) {
         int nCommands = commandArray.length;
         if (nCommands == 2) {
             cui.sortHelp();
@@ -19,7 +21,8 @@ public interface SortHandler {
             assignSortingAlgorithm(cui, toDoList, commandArray);
         }
     }
-    static void assignSortingAlgorithm(ConsoleUserInterface cui, ToDoList toDoList, String[] commandArray) {
+    //might need a rework: cognitive complexity > 15
+    public static void assignSortingAlgorithm(ConsoleUserInterface cui, ToDoList toDoList, String[] commandArray) {
         if (commandArray[2].toLowerCase().contains("prio")) {
             if (commandArray[3].equals("asc")) {
                 toDoList.sortByPriority("asc");
@@ -31,6 +34,18 @@ public interface SortHandler {
                 toDoList.sortByCreatedAt("asc");
             } else {
                 toDoList.sortByCreatedAt("desc");
+            }
+        } else if (commandArray[2].toLowerCase().contains("title")) {
+            if (commandArray[3].equals("asc")) {
+                toDoList.sortByTitle("asc");
+            } else {
+                toDoList.sortByTitle("desc");
+            }
+        } else if (commandArray[2].toLowerCase().contains("done")) {
+            if (commandArray[3].equals("asc")) {
+                toDoList.sortByDone("asc");
+            } else {
+                toDoList.sortByDone("desc");
             }
         } else if (commandArray[2].toLowerCase().contains("tag")) {
             toDoList.bubbleUpBucket(commandArray[3]);

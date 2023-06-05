@@ -1,4 +1,0 @@
-{"Name":"myList","ListToDos":[{"id":0,"title":"Finish Math homework","description":"I need to do tasks 5 - 10b.","tag":"Uni",
-  "createdAt": "14.12.12","done":false,"priority":"HIGH"},{"id":1,"title":"Calculate Something","description":"More Math over here","tag":"Math",
-  "createdAt": "12.12.12","done":false,"priority":"MEDIUM"},{"id":2,"title":"Be Amazing","description":"Just Do It.","tag":"Personal",
-  "createdAt": "13.12.12","done":false,"priority":"LOW"}]}

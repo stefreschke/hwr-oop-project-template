@@ -8,12 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class ToDoList {
     private String name;
-    private ToDoItem[] items;
+    private List<ToDoItem> items;
     private String fileName;
     private HashSet<Bucket> buckets;
 
@@ -22,9 +21,9 @@ public class ToDoList {
     }
     public ToDoList(String name, String fileName) {
         this.name = name;
-        this.items = new ToDoItem[0];
+        items = new ArrayList<>();
         this.fileName = fileName;
-        this.buckets = new HashSet<>();
+        buckets = new HashSet<>();
     }
     public void setFileName(String fileName) {
         this.fileName = fileName;
@@ -36,7 +35,7 @@ public class ToDoList {
         return this.name;
     }
 
-    public ToDoItem[] getItems() {
+    public List<ToDoItem> getItems() {
         return this.items;
     }
 
@@ -44,18 +43,18 @@ public class ToDoList {
         return buckets;
     }
 
-    public void addBucket(String newBucket) {
-        this.buckets.add(new Bucket(newBucket));
+    public void addBucket(Bucket bucket) {
+        buckets.add(bucket);
     }
 
-    public void setItems(ToDoItem[] items) {
+    public void setItems(List<ToDoItem> items) {
         this.items = items;
     }
     public String getFileName() {
         return this.fileName;
     }
 
-    public void writeToJSON(ConsoleUserInterface cui, String fileName) {
+    public void writeToJSON(ConsoleUserInterface cui, String fileName) throws FileNotFoundAndCoundNotCreateException {
         //remove any file extension if present
         if (fileName.contains(".")) {
             fileName = fileName.substring(0, fileName.lastIndexOf('.'));
@@ -72,116 +71,50 @@ public class ToDoList {
                 if (!fileExists) this.writeToJSON(cui, fileName);
                 else cui.print(LogMode.WARN, "Sorry...File could not be neither found nor created.");
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                throw new FileNotFoundAndCoundNotCreateException("Sorry...File could not be neither found nor created.");
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-    /*public void updateBuckets(){
-        java.util.ArrayList<Bucket> copyBucket = new ArrayList<>();
-        for (int i = 0; i < ListToDos.length; i++) {
-
-            String element = ListToDos[i].getBucket();
-            int help = 0;
-            for (int j = 0; j < ListToDos.length; j++) {
-                if(Buckets.get(j).getBucket() == element) {
-                    help++;
-                    break;
-                }
-            }
-
-            if(help == 0) {
-                copyBucket.add(new Bucket(element));
-            }
-
-        }
-
-        Buckets = copyBucket;
-    }*/
-
-
     public void renameBucket (int index, String newBucket) {
         this.buckets.remove(Util.getElementAtIndex(this.buckets, index));
         this.buckets.add(new Bucket(newBucket));
     }
-
     public void add(ToDoItem toDoItem) {
-        if (this.items == null) {
-            this.items = new ToDoItem[1];
-            this.items[0] = toDoItem;
-        } else {
-            ToDoItem[] newToDoList = new ToDoItem[this.items.length + 1];
-            System.arraycopy(this.items, 0, newToDoList, 0, this.items.length);
-            newToDoList[newToDoList.length - 1] = toDoItem;
-            this.items = newToDoList;
-        }
+        this.items.add(toDoItem);
     }
-
     public void remove(int index) {
-        ToDoItem[] newToDoList = new ToDoItem[this.items.length - 1];
-        System.arraycopy(this.items, 0, newToDoList, 0, index);
-        System.arraycopy(this.items, index + 1, newToDoList, index, this.items.length - 1);
-        this.items = newToDoList;
+        this.items.remove(index);
     }
-
     public void sortByPriority(String order) {
-        if (order.equals("asc")) {
-            for (int i = 0; i < this.items.length; i++) {
-                for (int j = 0; j < this.items.length - 1; j++) {
-                    if (this.items[j].getPriority().toInt() > this.items[j + 1].getPriority().toInt()) {
-                        ToDoItem temp = this.items[j];
-                        this.items[j] = this.items[j + 1];
-                        this.items[j + 1] = temp;
-                    }
-                }
-            }
-        } else if (order.equals("desc")) {
-            for (int i = 0; i < this.items.length; i++) {
-                for (int j = 0; j < this.items.length - 1; j++) {
-                    if (this.items[j].getPriority().toInt() < this.items[j + 1].getPriority().toInt()) {
-                        ToDoItem temp = this.items[j];
-                        this.items[j] = this.items[j + 1];
-                        this.items[j + 1] = temp;
-                    }
-                }
-            }
-        }
+        if (order.equals("asc")) items.sort(Comparator.comparingInt(o -> o.getPriority().toInt()));
+        else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::getPriority, Comparator.reverseOrder()));
     }
-
     public void bubbleUpBucket(String bucket) {
-        for (int i = this.items.length-1; i >= 0; i--) {
-            for (int j = this.items.length-1; j > 0; j--) {
-                if (this.items[j].getBucket().contains(bucket) && !this.items[j - 1].getBucket().contains(bucket)) {
-                    ToDoItem temp = this.items[j];
-                    this.items[j] = this.items[j - 1];
-                    this.items[j - 1] = temp;
-                }
+        items.sort((o1, o2) -> {
+            if(Objects.equals(o1.getBucket(), o2.getBucket())){
+                return 0;
             }
-        }
+            return Objects.equals(o1.getBucket(), bucket) ? -1 : 1;
+        });
     }
     public void sortByCreatedAt(String order) {
-        if (order.equals("asc"))
-            for (int i = 0; i < this.items.length; i++) {
-                for (int j = 0; j < this.items.length-1; j++) {
-                    if (this.items[j].getCreatedAt().compareTo(this.items[j + 1].getCreatedAt()) > 0) {
-                        ToDoItem temp = this.items[j];
-                        this.items[j] = this.items[j + 1];
-                        this.items[j + 1] = temp;
-                    }
-                }
-            }
-        else if (order.equals("desc")) {
-            for (int i = 0; i < this.items.length; i++) {
-                for (int j = 0; j < this.items.length - 1; j++) {
-                    if (this.items[j].getCreatedAt().compareTo(this.items[j + 1].getCreatedAt()) < 0) {
-                        ToDoItem temp = this.items[j];
-                        this.items[j] = this.items[j + 1];
-                        this.items[j + 1] = temp;
-                    }
-                }
-            }
+        if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::getCreatedAt));
+        else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::getCreatedAt, Comparator.reverseOrder()));
+    }
+    public void sortByTitle(String order) {
+        if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::getTitle));
+        else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::getTitle, Comparator.reverseOrder()));
+    }
+    public void sortByDone(String order) {
+        if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::isDone, Comparator.reverseOrder()));
+        else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::isDone));
+    }
+
+    public static class FileNotFoundAndCoundNotCreateException extends Exception {
+        public FileNotFoundAndCoundNotCreateException(String s) {
+            super(s);
         }
     }
 }

@@ -7,15 +7,17 @@ import hwr.oop.ToDoList;
 
 import java.util.Set;
 
-public interface BucketHandler {
-    static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+public class BucketHandler {
+    BucketHandler() {
+    }
+    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2) {
             try {
                 if (args[1].equals("createBucket") || args[1].equals("cb")) {
                     createBucket(toDoList, args[2]);
                 } else if (args[1].equals("showBuckets") || args[1].equals("sb")) {
                     showBuckets(toDoList, cui);
-                } else if (args[1].equals("renameBuckets") || args[1].equals("rnb")) {
+                } else if (args[1].equals("renameBucket") || args[1].equals("rnb")) {
                     renameBuckets(toDoList, args[2], args[3]);
                 } else {
                     cui.print(LogMode.ERROR, "Unknown command");
@@ -28,7 +30,7 @@ public interface BucketHandler {
         }
     }
 
-    static void createBucket(ToDoList toDoList, String name) {
+    public static void createBucket(ToDoList toDoList, String name) {
         Set<Bucket> buckets = toDoList.getBuckets();
         try {
             buckets.add(new Bucket(name));
@@ -36,10 +38,10 @@ public interface BucketHandler {
             throw new RuntimeException(e);
         }
     }
-    static void showBuckets(ToDoList toDoList, ConsoleUserInterface cui) {
+    public static void showBuckets(ToDoList toDoList, ConsoleUserInterface cui) {
         cui.showBuckets(toDoList);
     }
-    static void renameBuckets(ToDoList toDoList, String indexString, String newName) {
+    public static void renameBuckets(ToDoList toDoList, String indexString, String newName) {
         try {
             int index = Integer.parseInt(indexString);
             toDoList.renameBucket(index, newName);

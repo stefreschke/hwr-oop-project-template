@@ -10,6 +10,13 @@ public class Bucket {
         this.bucketName = bucketName;
     }
     public String getBucketName() {
-        return bucketName;
+        try {
+            return bucketName;
+        } catch (NullPointerException e) {
+            return "";
+        }
+    }
+    public String toString() {
+        return "🪣" + bucketName;
     }
 }

@@ -4,6 +4,10 @@ import hwr.oop.handler.CommandParser;
 import hwr.oop.util.ConsoleColors;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Set;
 
 public class ConsoleUserInterface {
     private final PrintStream out;
@@ -18,7 +22,7 @@ public class ConsoleUserInterface {
     public void say(String message) {
         out.println(message);
     }
-    public void saveChanges(ToDoList toDoList) throws CouldNotSaveChangesException {
+    public void saveChanges(ToDoList toDoList) throws CouldNotSaveChangesException, ToDoList.FileNotFoundAndCoundNotCreateException {
         try {
             toDoList.writeToJSON(this, toDoList.getFileName());
         } catch (Exception e) {
@@ -54,7 +58,7 @@ public class ConsoleUserInterface {
 
         out.println("Welcome To Getting Things Done 🚀");
         Program program = new Program();
-        String[] env = program.getEnvironmentVariables();
+        String[] env = program.getEnvironmentVariables("setup");
         if (env == null) {
             out.println("Looks Like it is your first time using this program.");
             out.println("Lets set you up first.");
@@ -74,7 +78,7 @@ public class ConsoleUserInterface {
                 if (listFileName.contains(".")) {
                     listFileName = listFileName.substring(0, listFileName.lastIndexOf('.'));
                 }
-                program.setEnvironmentVariables(listFileName, listName);
+                program.setEnvironmentVariables(listFileName, listName, "setup");
                 toDoList = new ToDoList(listName, listFileName);
             } else {
                 // Load environment variables
@@ -82,16 +86,15 @@ public class ConsoleUserInterface {
                 if (listFileName.contains(".")) {
                     listFileName = listFileName.substring(0, listFileName.lastIndexOf('.'));
                 }
-                program.setEnvironmentVariables(listFileName, listName);
+                program.setEnvironmentVariables(listFileName, listName, "setup");
                 toDoList = program.loadToDoList(listFileName);
             }
         } else {
-            // case where environment variables are set
             listFileName = env[0];
+            listName = env[1];
             if (listFileName.contains(".")) {
                 listFileName = listFileName.substring(0, listFileName.lastIndexOf('.'));
             }
-            listName = env[1];
             toDoList = program.loadToDoList(listFileName);
             if (toDoList == null) {
                 toDoList = new ToDoList(listName, listFileName);
@@ -107,7 +110,7 @@ public class ConsoleUserInterface {
         out.println("  remove [Item Index]             -  remove a task");
         out.println("  promote [Item Index]            -  promote a task to a further state");
         out.println("  demote [Item Index]             -  demote a task to a previous state");
-        out.println("  onhold [Item Index]             -  put a task on hold");
+        out.println("  hold [Item Index]               -  put a task on hold");
         out.println("  done [Item Index]               -  mark a task as done");
         out.println("  edit [Item Index]               -  edit a task");
         out.println("  list                            -  list all tasks");
@@ -164,8 +167,8 @@ public class ConsoleUserInterface {
     }
     public void list(ToDoList toDoList) {
         out.println(toDoList.getName() + ":");
-        ToDoItem[] toDoItems = toDoList.getItems();
-        if (toDoItems == null || toDoItems.length == 0) {
+        List<ToDoItem> toDoItems = toDoList.getItems();
+        if (toDoItems == null || toDoItems.isEmpty()) {
             out.println("👀Looks Empty here... Add some tasks!");
             return;
         }
@@ -247,18 +250,28 @@ public class ConsoleUserInterface {
         out.println("Options:");
         out.println("  priority - sort by priority");
         out.println("  createdAt- sort by creation date");
-        out.println("  dueDate  - sort by due date"); // TODO
+        out.println("  dueDate  - sort by due date");
         out.println("  bucket [bucket]- sort by bucket");
-        out.println("  title    - sort by title"); // TODO
-        out.println("  done     - sort by done"); // TODO
+        out.println("  title    - sort by title");
+        out.println("  done     - sort by done");
         out.println("  help     - print this help");
     }
 
     public void showBuckets(ToDoList toDoList){
-        out.println(toDoList.getBuckets());
+        Set<Bucket> buckets = toDoList.getBuckets();
+        if (buckets == null || buckets.isEmpty()) {
+            out.println("👀Looks Empty here... Add some buckets!");
+            return;
+        }
+        // sort bucekts by name
+        List<Bucket> sortedBuckets = new ArrayList<>(buckets);
+        sortedBuckets.sort(Comparator.comparing(Bucket::getBucketName));
+        for (Bucket bucket : sortedBuckets) {
+            out.println(bucket.toString());
+        }
     }
 
-    public int parseCommands(ToDoList toDoList, CommandParser commandParser) throws IOException, CouldNotReadInputException, CouldNotSaveChangesException {
+    public int parseCommands(ToDoList toDoList, CommandParser commandParser) throws IOException, CouldNotSaveChangesException, CommandParser.CouldNotCallHandlerException {
         out.print("> ");
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
         String command = reader.readLine();
@@ -267,7 +280,7 @@ public class ConsoleUserInterface {
         commandParser.handle(toDoList, commandArray);
         try {
             saveChanges(toDoList);
-        } catch (CouldNotSaveChangesException e) {
+        } catch (CouldNotSaveChangesException | ToDoList.FileNotFoundAndCoundNotCreateException e) {
             throw new CouldNotSaveChangesException();
         }
         return 0;
