@@ -6,8 +6,8 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Project {
-    public Project(List<Task> taskList, String title, Map<User, Boolean> permissions) {
-        this.id = UUID.randomUUID();
+    public Project(UUID id, List<Task> taskList, String title, Map<User, Boolean> permissions) {
+        this.id = id;
         this.taskList = taskList;
         this.title = title;
         this.permissions = permissions;
@@ -34,16 +34,20 @@ public class Project {
     private String title;
     private Map<User, Boolean> permissions;
 
+
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof Project) {
-            return (Objects.equals(((Project) obj).id, this.id));
-        }
-        return false;
-    }
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, taskList,title, permissions);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Project project = (Project) o;
+        return Objects.equals(getId(), project.getId()) &&
+                Objects.equals(getTaskList(), project.getTaskList()) &&
+                Objects.equals(getTitle(), project.getTitle()) &&
+                Objects.equals(getPermissions(), project.getPermissions());
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getTaskList(), getTitle(), getPermissions());
+    }
 }

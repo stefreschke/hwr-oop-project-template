@@ -11,9 +11,9 @@ public class User {
 
     private List<Task> contextList;
 
-    public User(String name, List<String> inbox, List<Task> contextList) {
+    public User(UUID id, String name, List<String> inbox, List<Task> contextList) {
+        this.id = id;
         this.name = name;
-        this.id = UUID.randomUUID();
         this.inbox = inbox;
         this.contextList = contextList;
     }
@@ -33,16 +33,20 @@ public class User {
     public List<Task> getContextList() {
         return contextList;
     }
+
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof User) {
-            return (Objects.equals(((User) obj).id, this.id));
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(getId(), user.getId()) &&
+                Objects.equals(getName(), user.getName()) &&
+                Objects.equals(getInbox(), user.getInbox()) &&
+                Objects.equals(getContextList(), user.getContextList());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name,inbox,contextList);
+        return Objects.hash(getId(), getName(), getInbox(), getContextList());
     }
 }
