@@ -26,6 +26,10 @@ public class AppData {
         projectList.add(project);
     }
 
+    public void addUser(User user) {
+        userList.add(user);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
