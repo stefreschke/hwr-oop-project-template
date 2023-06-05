@@ -114,7 +114,7 @@ class ConsoleUITest {
         }
     }
     @Test
-    void getTitleForDescriptionTest(){
+    void getDescriptionForAddTest(){
         try {
             String userInput = "MyItem\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
@@ -138,7 +138,7 @@ class ConsoleUITest {
         }
     }
     @Test
-    void getBucketForTest(){
+    void getBucketForAddTest(){
         try {
             String userInput = "MyItem\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
@@ -339,11 +339,24 @@ class ConsoleUITest {
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
         toDoList.sortByPriority("desc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
         toDoList.sortByCreatedAt("asc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
         toDoList.sortByCreatedAt("desc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
         toDoList.bubbleUpBucket(commandArray[3]);
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
+        toDoList.sortByTitle("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
+        toDoList.sortByTitle("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+
+        toDoList.getItems().get(1).setDone();
+        toDoList.sortByDone("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+        toDoList.sortByDone("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
     }
 }

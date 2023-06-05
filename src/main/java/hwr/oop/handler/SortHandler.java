@@ -21,6 +21,7 @@ public class SortHandler {
             assignSortingAlgorithm(cui, toDoList, commandArray);
         }
     }
+    //might need a rework: cognitive complexity > 15
     public static void assignSortingAlgorithm(ConsoleUserInterface cui, ToDoList toDoList, String[] commandArray) {
         if (commandArray[2].toLowerCase().contains("prio")) {
             if (commandArray[3].equals("asc")) {
@@ -33,6 +34,18 @@ public class SortHandler {
                 toDoList.sortByCreatedAt("asc");
             } else {
                 toDoList.sortByCreatedAt("desc");
+            }
+        } else if (commandArray[2].toLowerCase().contains("title")) {
+            if (commandArray[3].equals("asc")) {
+                toDoList.sortByTitle("asc");
+            } else {
+                toDoList.sortByTitle("desc");
+            }
+        } else if (commandArray[2].toLowerCase().contains("done")) {
+            if (commandArray[3].equals("asc")) {
+                toDoList.sortByDone("asc");
+            } else {
+                toDoList.sortByDone("desc");
             }
         } else if (commandArray[2].toLowerCase().contains("tag")) {
             toDoList.bubbleUpBucket(commandArray[3]);
