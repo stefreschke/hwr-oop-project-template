@@ -10,7 +10,7 @@ public class EditHandler {
     EditHandler() {
     }
     public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
-        if (args.length >= 3 && args[1].equals("edit") || args[1].equals("e")) {
+        if (args.length >= 2 && args[1].equals("edit") || args[1].equals("e")) {
             editTask(toDoList, cui, args);
         } else {
             cui.print(LogMode.NONE, "Invalid Command.");
@@ -32,7 +32,7 @@ public class EditHandler {
             item.setDescription(description);
             item.setPriority(priority);
             item.setBucket(bucket);
-            cui.say("Task Edited Successfully!");
+            cui.print(LogMode.SUCCESS, "Task Edited Successfully!");
         } catch (Exception e) {
             cui.print(LogMode.ERROR, "Try gtd edit [index]");
         }

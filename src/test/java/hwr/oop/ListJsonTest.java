@@ -17,7 +17,11 @@ public class ListJsonTest {
         assertToDoList.add(item);
         assertToDoList.add(item2);
         assertToDoList.add(item3);
-        assertToDoList.writeToJSON(new ConsoleUserInterface(null, null), "listTest.mp3");
+        try {
+            assertToDoList.writeToJSON(new ConsoleUserInterface(null, null), "listTest.mp3");
+        } catch (ToDoList.FileNotFoundAndCoundNotCreateException e) {
+            throw new RuntimeException(e);
+        }
         try {
             StringBuilder jsonIn;
             try (FileReader reader = new FileReader("listTest.json")) {
