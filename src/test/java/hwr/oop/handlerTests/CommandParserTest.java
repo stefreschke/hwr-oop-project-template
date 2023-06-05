@@ -29,22 +29,22 @@ class CommandParserTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
         String expected = "Here is a list of all commands:\n" +
                 "gtd [command] [arguments]\n" +
-                "Commands:\n" +
-                "  help                            -  print this help\n" +
-                "  add [Item Index]                -  add a new task\n" +
-                "  remove [Item Index]             -  remove a task\n" +
-                "  promote [Item Index]            -  promote a task to a further state\n" +
-                "  demote [Item Index]             -  demote a task to a previous state\n" +
-                "  hold [Item Index]               -  put a task on hold\n" +
-                "  done [Item Index]               -  mark a task as done\n" +
-                "  edit [Item Index]               -  edit a task\n" +
-                "  list                            -  list all tasks\n" +
-                "  sort                            -  sort your tasks\n" +
-                "  createBucket [Name]             -  create a bucket for tasks\n" +
-                "  showBuckets                     -  show buckets for tasks\n" +
-                "  renameBucket [index] [Name]     -  changes bucket name\n" +
-                "  clear                           -  clear all tasks\n" +
-                "  exit                            -  exit the program\n\n";
+                "\n" +
+                "[help, h]\u001B[1;35m\u001B[0m - \u001B[1;34mprint this help\u001B[0m\n" +
+                "[add, a]\u001B[1;35m\u001B[0m - \u001B[1;34madd a new task\u001B[0m\n" +
+                "[remove, rm]\u001B[1;35m[index] \u001B[0m - \u001B[1;34mremove a task\u001B[0m\n" +
+                "[promote, p]\u001B[1;35m[index] \u001B[0m - \u001B[1;34mpromote a task to a further state\u001B[0m\n" +
+                "[demote, d]\u001B[1;35m[index] \u001B[0m - \u001B[1;34mdemote a task to a previous state\u001B[0m\n" +
+                "[hold, hd]\u001B[1;35m[index] \u001B[0m - \u001B[1;34mput a task on hold\u001B[0m\n" +
+                "[done, do]\u001B[1;35m[index] \u001B[0m - \u001B[1;34mmark a task as done\u001B[0m\n" +
+                "[edit, e]\u001B[1;35m[index] \u001B[0m - \u001B[1;34medit a task\u001B[0m\n" +
+                "[list, ls]\u001B[1;35m\u001B[0m - \u001B[1;34mlist all tasks\u001B[0m\n" +
+                "[sort, s]\u001B[1;35m[priority | createdAt | bucket | title | done] [asc | desc] \u001B[0m - \u001B[1;34msort your tasks\u001B[0m\n" +
+                "[createBucket, cb]\u001B[1;35m[name] \u001B[0m - \u001B[1;34mcreate a bucket for tasks\u001B[0m\n" +
+                "[showBuckets, sb]\u001B[1;35m\u001B[0m - \u001B[1;34mshow buckets for tasks\u001B[0m\n" +
+                "[renameBucket, rnb]\u001B[1;35m[index] \u001B[0m - \u001B[1;34mchanges bucket name\u001B[0m\n" +
+                "[clear, cls]\u001B[1;35m\u001B[0m - \u001B[1;34mclear all tasks\u001B[0m\n" +
+                "[exit, q]\u001B[1;35m\u001B[0m - \u001B[1;34mexit the program\u001B[0m\n";
         assertThat(new CommandParser(cui).handle(toDoList, args)).isEqualTo(1);
         assertThat(outBuffer).hasToString(expected);
     }
