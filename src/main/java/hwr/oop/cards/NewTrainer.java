@@ -11,17 +11,23 @@ public class NewTrainer {
     private Card currentCard;
 
     public static NewTrainer createTrainerWith3Boxes(){
-        return new Trainer(List.of(new Box(), new Box(), new Box()));
-    }public static Trainer createTrainerWith5Boxes(){
-        return new Trainer(List.of(new Box(), new Box(), new Box(), new Box(), new Box()));
-    }public static Trainer createTrainerWith7Boxes(){
-        return new Trainer(List.of(new Box(), new Box(), new Box(), new Box(), new Box(), new Box(), new Box()));
+        BoxInterface box1 = null;
+        BoxInterface box2 = null
+        BoxInterface box3 = null;
+        box1 = new FirstBox(1, box2);
+        box2 = new NormalBox(3, box1, box3);
+        box3 = new LastBox(7, box2);
+        return new NewTrainer(List.of(new Box(), new Box(), new Box()));
+    }public static NewTrainer createTrainerWith5Boxes(){
+        return new NewTrainer(List.of(new Box(), new Box(), new Box(), new Box(), new Box()));
+    }public static NewTrainer createTrainerWith7Boxes(){
+        return new NewTrainer(List.of(new Box(), new Box(), new Box(), new Box(), new Box(), new Box(), new Box()));
     }
-    public static Trainer createTrainerFromBoxList(List<Box> boxList){
-        return new Trainer(boxList);
+    public static NewTrainer createTrainerFromBoxList(List<Box> boxList){
+        return new NewTrainer(boxList);
     }
 
-    private Trainer(List<Box> boxList) {
+    private NewTrainer(List<Box> boxList) {
         this.boxList = boxList;
         this.NUMBER_OF_BOXES = boxList.size();
     }

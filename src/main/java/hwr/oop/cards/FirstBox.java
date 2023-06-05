@@ -5,25 +5,22 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-public class NormalBox implements BoxInterface{
+public class FirstBox implements BoxInterface{
     private ArrayList<Card> learnedCardList;
     private ArrayList<Card> unlearnedCardList;
-    private final BoxInterface previousBox;
     private final BoxInterface nextBox;
     private int daterule;
 
-    public NormalBox(int daterule, BoxInterface previousBox, BoxInterface nextBox){
+    public FirstBox(int daterule, BoxInterface nextBox){
         learnedCardList = new ArrayList<Card>();
         unlearnedCardList = new ArrayList<Card>();
         this. daterule = daterule;
-        this.previousBox = previousBox;
         this.nextBox = nextBox;
     }
-    public NormalBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule, BoxInterface previousBox, BoxInterface nextBox){
+    public FirstBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule, BoxInterface nextBox){
         this.learnedCardList = learnedCardList;
         this.unlearnedCardList = unlearnedCardList;
         this. daterule = daterule;
-        this.previousBox = previousBox;
         this.nextBox = nextBox;
     }
     @Override
@@ -38,7 +35,7 @@ public class NormalBox implements BoxInterface{
 
     @Override
     public void moveCardDown(Card card) {
-        this.previousBox.addCard(card);
+        this.learnedCardList.add(card);
     }
 
     @Override
