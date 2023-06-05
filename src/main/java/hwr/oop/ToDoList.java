@@ -44,7 +44,7 @@ public class ToDoList {
     }
 
     public void addBucket(Bucket bucket) {
-        this.buckets.add(bucket);
+        buckets.add(bucket);
     }
 
     public void setItems(List<ToDoItem> items) {
@@ -54,7 +54,7 @@ public class ToDoList {
         return this.fileName;
     }
 
-    public void writeToJSON(ConsoleUserInterface cui, String fileName) {
+    public void writeToJSON(ConsoleUserInterface cui, String fileName) throws FileNotFoundAndCoundNotCreateException {
         //remove any file extension if present
         if (fileName.contains(".")) {
             fileName = fileName.substring(0, fileName.lastIndexOf('.'));
@@ -71,7 +71,7 @@ public class ToDoList {
                 if (!fileExists) this.writeToJSON(cui, fileName);
                 else cui.print(LogMode.WARN, "Sorry...File could not be neither found nor created.");
             } catch (IOException ex) {
-                throw new RuntimeException(ex);
+                throw new FileNotFoundAndCoundNotCreateException("Sorry...File could not be neither found nor created.");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -110,5 +110,11 @@ public class ToDoList {
     public void sortByDone(String order) {
         if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::isDone, Comparator.reverseOrder()));
         else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::isDone));
+    }
+
+    public static class FileNotFoundAndCoundNotCreateException extends Exception {
+        public FileNotFoundAndCoundNotCreateException(String s) {
+            super(s);
+        }
     }
 }

@@ -22,7 +22,7 @@ public class ConsoleUserInterface {
     public void say(String message) {
         out.println(message);
     }
-    public void saveChanges(ToDoList toDoList) throws CouldNotSaveChangesException {
+    public void saveChanges(ToDoList toDoList) throws CouldNotSaveChangesException, ToDoList.FileNotFoundAndCoundNotCreateException {
         try {
             toDoList.writeToJSON(this, toDoList.getFileName());
         } catch (Exception e) {
@@ -280,7 +280,7 @@ public class ConsoleUserInterface {
         commandParser.handle(toDoList, commandArray);
         try {
             saveChanges(toDoList);
-        } catch (CouldNotSaveChangesException e) {
+        } catch (CouldNotSaveChangesException | ToDoList.FileNotFoundAndCoundNotCreateException e) {
             throw new CouldNotSaveChangesException();
         }
         return 0;
