@@ -2,7 +2,6 @@ package hwr.oop.persistence;
 
 import hwr.oop.application.Project;
 import hwr.oop.application.User;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,7 +30,7 @@ public interface LoadPort {
         throw new UserNotInAppDataException("User not found");
     }
 
-    default List<Project> loadAllUserProjects(Reader fileReader, UUID userId) {
+    default List<Project> loadAllUserProjects(UUID userId) {
         AppData appData = loadData();
         List<Project> projectList = new ArrayList<>();
         for (Project p : appData.getProjectList()) {

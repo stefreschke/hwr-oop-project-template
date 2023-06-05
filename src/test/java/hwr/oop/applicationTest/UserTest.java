@@ -1,26 +1,17 @@
 package hwr.oop.applicationTest;
 
-import hwr.oop.application.CreateProjectService;
-import hwr.oop.application.CreateProjectUseCase;
-import hwr.oop.application.Task;
-import hwr.oop.application.User;
-import hwr.oop.persistence.AppData;
-import hwr.oop.persistence.LoadPort;
-import hwr.oop.persistence.PersistenceAdapter;
-import hwr.oop.persistence.SavePort;
+limport hwr.oop.application.*;
+import hwr.oop.persistence.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Stream;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
 
 class UserTest {
 
@@ -114,5 +105,34 @@ class UserTest {
     void differentClasses_doesNotEqual(User user) {
         assertThat(user).isNotEqualTo(new Object());
         assertThat(new Object()).isNotEqualTo(user);
+    }
+
+    @ParameterizedTest
+    @MethodSource("randomUsers")
+    void loadAllUserProjectsTest(User user) {
+        List<Project> expected = new ArrayList<>();
+        for (int i=0; i<5; i++) {
+            Project randomProject = RandomTestData.getRandomProject();
+            Project project = new Project(randomProject.getId(), randomProject.getTaskList(), randomProject.getTitle(),
+                    Map.of(user, Boolean.TRUE));
+            expected.add(project);
+            appData.addProject(project);
+        }
+        save.saveData(appData);
+        List<Project> projectList = load.loadAllUserProjects(user.getId());
+        assertThat(projectList).containsAll(expected);
+    }
+
+    @Test
+    void wrongId_throwsError() {
+        User user = RandomTestData.getRandomUser();
+        appData.addUser(user);
+        save.saveData(appData);
+        try {
+            load.loadUserbyId(UUID.randomUUID());
+            fail("should throw exception");
+        } catch (UserNotInAppDataException e) {
+            e.printStackTrace();
+        }
     }
 }
