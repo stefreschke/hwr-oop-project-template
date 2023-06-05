@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 class CreateTaskTest {
 
@@ -22,13 +23,14 @@ class CreateTaskTest {
     void setUp() {
 
         List<Project> projects = new ArrayList<>();
-        projects.add(new Project(new ArrayList<>(),"Test Project",null));
+        UUID id = UUID.randomUUID();
+        projects.add(new Project(id,new ArrayList<>(),"Test Project",null));
 
-        Task taskTmp = new Task("TestTask","This is a task for testing", TaskState.DONE,null);
+        Task taskTmp = new Task(UUID.randomUUID(),"TestTask","This is a task for testing", TaskState.DONE,null);
         projects.get(0).getTaskList().add(taskTmp);
 
         List<User> users = new ArrayList<>();
-        users.add(new User("TestUser",new ArrayList<>(),new ArrayList<>()));
+        users.add(new User(UUID.randomUUID(),"TestUser",new ArrayList<>(),new ArrayList<>()));
 
         appDataMock = new AppData(projects,users);
 
@@ -65,7 +67,7 @@ class CreateTaskTest {
         TaskState taskState = TaskState.IN_PROGRESS;
         LocalDateTime deadline = LocalDateTime.now();
 
-        Project project = new Project(new ArrayList<>(),"Test",null);
+        Project project = new Project(UUID.randomUUID(),new ArrayList<>(),"Test",null);
 
         assertThatThrownBy(() -> createTaskService.createTaskInProject(title, content, taskState, deadline, project))
                 .isInstanceOf(CreateTaskException.class)
@@ -102,7 +104,7 @@ class CreateTaskTest {
         TaskState taskState = TaskState.IN_PROGRESS;
         LocalDateTime deadline = LocalDateTime.now();
 
-        User user = new User("Test not known", new ArrayList<>(),new ArrayList<>());
+        User user = new User(UUID.randomUUID(),"Test not known", new ArrayList<>(),new ArrayList<>());
 
         assertThatThrownBy(() -> createTaskService.createTaskInContextList(title, content, taskState, deadline, user))
                 .isInstanceOf(CreateTaskException.class)

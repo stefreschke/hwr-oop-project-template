@@ -5,6 +5,7 @@ import hwr.oop.persistence.LoadPort;
 import hwr.oop.persistence.SavePort;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 public class CreateTaskService implements CreateTaskUseCase{
 
@@ -19,7 +20,7 @@ public class CreateTaskService implements CreateTaskUseCase{
 
     @Override
     public void createTaskInProject(String title, String content, TaskState taskState, LocalDateTime deadLine, Project project) {
-        Task taskTmp = new Task(title,content,taskState,deadLine);
+        Task taskTmp = new Task(UUID.randomUUID(),title,content,taskState,deadLine);
         int ind = loadPort.loadData().getProjectList().indexOf(project);
         if(ind >= 0){
             AppData appData = loadPort.loadData();
@@ -33,7 +34,7 @@ public class CreateTaskService implements CreateTaskUseCase{
 
     @Override
     public void createTaskInContextList(String title, String content, TaskState taskState, LocalDateTime deadLine, User user) {
-        Task taskTmp = new Task(title,content,taskState,deadLine);
+        Task taskTmp = new Task(UUID.randomUUID(),title,content,taskState,deadLine);
         int ind= loadPort.loadData().getUserList().indexOf(user);
         if(ind >= 0){
             AppData appData = loadPort.loadData();
