@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Trainer {
+public class NewTrainer {
     private final List<Box> boxList;
     private final int NUMBER_OF_BOXES;
     private int currentBoxIndex;
     private Card currentCard;
 
-    public static Trainer createTrainerWith3Boxes(){
+    public static NewTrainer createTrainerWith3Boxes(){
         return new Trainer(List.of(new Box(), new Box(), new Box()));
     }public static Trainer createTrainerWith5Boxes(){
         return new Trainer(List.of(new Box(), new Box(), new Box(), new Box(), new Box()));
