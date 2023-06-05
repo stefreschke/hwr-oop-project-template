@@ -1,5 +1,6 @@
 package hwr.oop.cards;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,22 +10,23 @@ public class NormalBox implements BoxInterface{
     private ArrayList<Card> learnedCardList;
     private ArrayList<Card> unlearnedCardList;
     private final BoxInterface previousBox;
-    private final BoxInterface nextBox;
+    private BoxInterface nextBox;
     private int daterule;
 
-    public NormalBox(int daterule, BoxInterface previousBox, BoxInterface nextBox){
+    // Konstruktor: fügt sich selbst dem vorherigen hinzu
+    public NormalBox(int daterule, BoxInterface previousBox){
         learnedCardList = new ArrayList<Card>();
         unlearnedCardList = new ArrayList<Card>();
-        this. daterule = daterule;
+        this.daterule = daterule;
         this.previousBox = previousBox;
-        this.nextBox = nextBox;
+        previousBox.setNextBox(this);
     }
-    public NormalBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule, BoxInterface previousBox, BoxInterface nextBox){
+    public NormalBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule, BoxInterface previousBox){
         this.learnedCardList = learnedCardList;
         this.unlearnedCardList = unlearnedCardList;
-        this. daterule = daterule;
+        this.daterule = daterule;
         this.previousBox = previousBox;
-        this.nextBox = nextBox;
+        previousBox.setNextBox(this);
     }
     @Override
     public void addCard(Card card) {
@@ -83,5 +85,15 @@ public class NormalBox implements BoxInterface{
     @Override
     public ArrayList<Card> getUnlearnedCardList() {
         return unlearnedCardList;
+    }
+
+    @Override
+    public BoxInterface getNextBox() {
+        return this.nextBox;
+    }
+    public void setNextBox(BoxInterface nextBox){
+        if (this.nextBox == null){
+            this.nextBox = nextBox;
+        }
     }
 }

@@ -12,6 +12,8 @@ public interface BoxInterface{
     public Card getRandomCard();
     public ArrayList<Card> getLearnedCardList();
     public ArrayList<Card> getUnlearnedCardList();
+    public BoxInterface getNextBox();
+    public void setNextBox(BoxInterface nextBox);
     public boolean equals(Object o);
 
 }

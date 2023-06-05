@@ -8,19 +8,18 @@ import java.util.Random;
 public class FirstBox implements BoxInterface{
     private ArrayList<Card> learnedCardList;
     private ArrayList<Card> unlearnedCardList;
-    private final BoxInterface nextBox;
+    private BoxInterface nextBox = null;
     private int daterule;
 
-    public FirstBox(int daterule, BoxInterface nextBox){
+    public FirstBox(int daterule){
         learnedCardList = new ArrayList<Card>();
         unlearnedCardList = new ArrayList<Card>();
         this. daterule = daterule;
-        this.nextBox = nextBox;
     }
-    public FirstBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule, BoxInterface nextBox){
+    public FirstBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule){
         this.learnedCardList = learnedCardList;
         this.unlearnedCardList = unlearnedCardList;
-        this. daterule = daterule;
+        this.daterule = daterule;
         this.nextBox = nextBox;
     }
     @Override
@@ -80,5 +79,13 @@ public class FirstBox implements BoxInterface{
     @Override
     public ArrayList<Card> getUnlearnedCardList() {
         return unlearnedCardList;
+    }
+    public BoxInterface getNextBox() {
+        return nextBox;
+    }
+    public void setNextBox(BoxInterface nextBox){
+        if (this.nextBox == null){
+            this.nextBox = nextBox;
+        }
     }
 }

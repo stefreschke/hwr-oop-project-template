@@ -14,14 +14,16 @@ public class LastBox implements BoxInterface{
     public LastBox(int daterule, BoxInterface previousBox){
         learnedCardList = new ArrayList<Card>();
         unlearnedCardList = new ArrayList<Card>();
-        this. daterule = daterule;
+        this.daterule = daterule;
         this.previousBox = previousBox;
+        previousBox.setNextBox(this);
     }
     public LastBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule, BoxInterface previousBox){
         this.learnedCardList = learnedCardList;
         this.unlearnedCardList = unlearnedCardList;
         this. daterule = daterule;
         this.previousBox = previousBox;
+        previousBox.setNextBox(this);
     }
     @Override
     public void addCard(Card card) {
@@ -81,4 +83,14 @@ public class LastBox implements BoxInterface{
     public ArrayList<Card> getUnlearnedCardList() {
         return unlearnedCardList;
     }
+
+    @Override
+    public BoxInterface getNextBox() {
+        return this;
+    }
+
+    @Override
+    public void setNextBox(BoxInterface nextBox) {
+    }
+
 }

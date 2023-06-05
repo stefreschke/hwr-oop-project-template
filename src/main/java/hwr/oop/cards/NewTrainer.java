@@ -5,34 +5,44 @@ import java.util.List;
 import java.util.Random;
 
 public class NewTrainer {
-    private final List<Box> boxList;
+    private final List<BoxInterface> boxList;
     private final int NUMBER_OF_BOXES;
     private int currentBoxIndex;
     private Card currentCard;
 
     public static NewTrainer createTrainerWith3Boxes(){
-        BoxInterface box1 = null;
-        BoxInterface box2 = null
-        BoxInterface box3 = null;
-        box1 = new FirstBox(1, box2);
-        box2 = new NormalBox(3, box1, box3);
-        box3 = new LastBox(7, box2);
-        return new NewTrainer(List.of(new Box(), new Box(), new Box()));
-    }public static NewTrainer createTrainerWith5Boxes(){
-        return new NewTrainer(List.of(new Box(), new Box(), new Box(), new Box(), new Box()));
-    }public static NewTrainer createTrainerWith7Boxes(){
-        return new NewTrainer(List.of(new Box(), new Box(), new Box(), new Box(), new Box(), new Box(), new Box()));
+        BoxInterface box1 = new FirstBox(1);
+        BoxInterface box2 = new NormalBox(3,box1);
+        BoxInterface box3 = new LastBox(7,box2);
+        return new NewTrainer(List.of(box1, box2, box3));
     }
-    public static NewTrainer createTrainerFromBoxList(List<Box> boxList){
+    }public static NewTrainer createTrainerWith5Boxes(){
+        BoxInterface box1 = new FirstBox(1);
+        BoxInterface box2 = new NormalBox(3,box1);
+        BoxInterface box3 = new NormalBox(7,box2);
+        BoxInterface box4 = new NormalBox(14,box3);
+        BoxInterface box5 = new LastBox(7,box4);
+        return new NewTrainer(List.of(box1, box2, box3, box4, box5));
+    }public static NewTrainer createTrainerWith7Boxes(){
+        BoxInterface box1 = new FirstBox(1);
+        BoxInterface box2 = new NormalBox(3,box1);
+        BoxInterface box3 = new NormalBox(7,box2);
+        BoxInterface box4 = new NormalBox(14,box3);
+        BoxInterface box5 = new NormalBox(14,box4);
+        BoxInterface box6 = new NormalBox(14,box5);
+        BoxInterface box7 = new LastBox(7,box6);
+        return new NewTrainer(List.of(box1, box2, box3, box4, box5, box6, box7));
+    }
+    public static NewTrainer createTrainerFromBoxList(List<BoxInterface> boxList){
         return new NewTrainer(boxList);
     }
 
-    private NewTrainer(List<Box> boxList) {
+    private NewTrainer(List<BoxInterface> boxList) {
         this.boxList = boxList;
         this.NUMBER_OF_BOXES = boxList.size();
     }
 
-    public List<Box> getBoxList() {
+    public List<BoxInterface> getBoxList() {
         return boxList;
     }
 
@@ -48,7 +58,7 @@ public class NewTrainer {
     }
 
     public Card getRandomCard(){
-        Box box;
+        BoxInterface box;
         while (true) { //was soll passieren, wenn jede Box leer ist
             box = this.boxList.get(getRandomBoxIndex());
             if (box.isEmpty_learned() == false) { //eigentlich unlearned,aber für Test so
