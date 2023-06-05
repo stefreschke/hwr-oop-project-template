@@ -1,6 +1,6 @@
 package hwr.oop.applicationTest;
 
-limport hwr.oop.application.*;
+import hwr.oop.application.*;
 import hwr.oop.persistence.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -128,8 +128,9 @@ class UserTest {
         User user = RandomTestData.getRandomUser();
         appData.addUser(user);
         save.saveData(appData);
+        UUID uuid = UUID.randomUUID();
         try {
-            load.loadUserbyId(UUID.randomUUID());
+            load.loadUserbyId(uuid);
             fail("should throw exception");
         } catch (UserNotInAppDataException e) {
             e.printStackTrace();
