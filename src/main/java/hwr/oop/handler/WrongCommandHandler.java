@@ -1,24 +1,14 @@
-package hwr.oop.handlerTests;
+package hwr.oop.handler;
 
 import hwr.oop.ConsoleUserInterface;
 import hwr.oop.ToDoList;
-import hwr.oop.handler.HelpHandler;
-import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.nio.charset.StandardCharsets;
-
-import static org.assertj.core.api.Assertions.assertThat;
-
-class HelpHandlerTest {
-    @Test
-    void handleUserCommand() {
-        ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-        ToDoList toDoList = new ToDoList("MyToDoList");
-        ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        String expected = "gtd [command] [arguments]\n" +
+public class WrongCommandHandler {
+    WrongCommandHandler() {
+    }
+    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+        cui.say("Here is a list of all commands:\n" +
+                "gtd [command] [arguments]\n" +
                 "Commands:\n" +
                 "  help                            -  print this help\n" +
                 "  add [Item Index]                -  add a new task\n" +
@@ -34,9 +24,6 @@ class HelpHandlerTest {
                 "  showBuckets                     -  show buckets for tasks\n" +
                 "  renameBucket [index] [Name]     -  changes bucket name\n" +
                 "  clear                           -  clear all tasks\n" +
-                "  exit                            -  exit the program\n";
-        HelpHandler.handleUserCommand(toDoList, cui, new String[]{"gtd", "help"});
-
-        assertThat(outBuffer).hasToString(expected);
+                "  exit                            -  exit the program\n");
     }
 }

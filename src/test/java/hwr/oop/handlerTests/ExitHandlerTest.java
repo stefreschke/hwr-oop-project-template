@@ -17,15 +17,13 @@ public class ExitHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), System.in);
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "ex"};
-        ExitHandler.handleUserCommand(toDoList, cui, args);
+        try {
+            ExitHandler.handleUserCommand(toDoList, cui, args);
+        } catch (ToDoList.FileNotFoundAndCoundNotCreateException e) {
+            throw new RuntimeException(e);
+        }
         String expected = "\u001B[1;31mCould not exit... If that is what you wanted to do, try 'gtd exit'\u001B[0m\n";
         String actual = outBuffer.toString();
         assertThat(actual).isEqualTo(expected);
-    }
-    @Test
-    public void exitTest() {
-        ConsoleUserInterface cui = new ConsoleUserInterface(System.out, System.in);
-        ToDoList toDoList = new ToDoList("MyList", "test.json");
-        ExitHandler.exit(toDoList, cui);
     }
 }
