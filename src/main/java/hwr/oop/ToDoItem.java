@@ -12,10 +12,10 @@ public class ToDoItem {
     private Priority priority;
     private String createdAt;
     private State state;
-    public ToDoItem (String title, String description, String bucket, Priority priority) {
+    public ToDoItem (String title, String description, Bucket bucket, Priority priority) {
         this.title = title;
         this.description = description;
-        this.bucket = new Bucket(bucket);
+        this.bucket = bucket;
         this.createdAt = LocalDateTime.now().toString();
         this.priority = priority;
         this.state = State.TODO;
@@ -32,14 +32,14 @@ public class ToDoItem {
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-    public void setBucket(String bucket) {
-        this.bucket.setBucketName(bucket);
+    public void setBucket(Bucket bucket) {
+        this.bucket = bucket;
     }
     public String getTitle() {
         return title;
     }
-    public String getBucket() {
-        return bucket.getBucketName();
+    public Bucket getBucket() {
+        return this.bucket;
     }
     public String getDescription() {
         return description;

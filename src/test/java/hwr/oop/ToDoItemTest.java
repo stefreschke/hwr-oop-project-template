@@ -9,75 +9,82 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ToDoItemTest {
     @Test
     void getTitleTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testbucket", Priority.LOW);
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testbucket"), Priority.LOW);
         String result = item.getTitle();
         assertThat(result).isEqualTo("testTitle");
     }
     @Test
     void getDescriptionTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testTag", Priority.LOW);
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testTag"), Priority.LOW);
         String result = item.getDescription();
         assertThat(result).isEqualTo("testDesc");
     }
 
     @Test
     void getBucketTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testBucket", Priority.LOW);
-        String result = item.getBucket();
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testBucket"), Priority.LOW);
+        String result = item.getBucket().getBucketName();
         assertThat(result).isEqualTo("testBucket");
     }
 
     @Test
     void isDoneTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testTag", Priority.LOW);
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testTag"), Priority.LOW);
         boolean result = item.isDone();
-        assertThat(result).isEqualTo(false);
+        assertThat(result).isFalse();
     }
 
     @Test
     void getPriorityTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testTag", Priority.LOW);
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testTag"), Priority.LOW);
         Priority result = item.getPriority();
         assertThat(result).isEqualTo(Priority.LOW);
     }
     @Test
     void setTitleTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testTag", Priority.LOW);
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testTag"), Priority.LOW);
         item.setTitle("Title");
         String testTitle = item.getTitle();
         assertThat(testTitle).isEqualTo("Title");
     }
     @Test
     void setDescriptionTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testTag", Priority.LOW);
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testTag"), Priority.LOW);
         item.setDescription("Description");
         String testDescription = item.getDescription();
         assertThat(testDescription).isEqualTo("Description");
     }
     @Test
     void setDoneTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testTag", Priority.LOW);
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testTag"), Priority.LOW);
         item.setDone();
         boolean testDone = item.isDone();
-        assertThat(testDone).isEqualTo(true);
+        assertThat(testDone).isTrue();
     }
     @Test
     void setPriorityTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testTag", Priority.LOW);
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testTag"), Priority.LOW);
         item.setPriority(Priority.HIGH);
         Priority testPriority = item.getPriority();
         assertThat(testPriority).isEqualTo(Priority.HIGH);
     }
     @Test
     void setBucketTest() {
-        ToDoItem item = new ToDoItem("testTitle", "testDesc", "testTag", Priority.LOW);
-        item.setBucket("Tag");
-        String testTag = item.getBucket();
+        ToDoList toDoList = new ToDoList("myList");
+        ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testTag"), Priority.LOW);
+        Bucket possibleExistingBucket = toDoList.findBucket("Tag");
+        if (possibleExistingBucket == null) {
+            item.setBucket(new Bucket("Tag"));
+            toDoList.addBucket(new Bucket("Tag"));
+        } else {
+            item.setBucket(possibleExistingBucket);
+        }
+        String testTag = item.getBucket().getBucketName();
         assertThat(testTag).isEqualTo("Tag");
     }
     @Test
     void toStringTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.MEDIUM);
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.MEDIUM);
         String result = item.toString();
         System.out.println(result);
         String priority = item.getPriorityString();
@@ -89,13 +96,13 @@ class ToDoItemTest {
     }
     @Test
     void getCreatedAtTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.HIGH);
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.HIGH);
         String result = item.getCreatedAt();
         assertThat(item.getCreatedAt()).isEqualTo(result);
     }
     @Test
     void promotionTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW);
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW);
         item.promote(); // TODO -> IN PROGRESS
         assertThat(item.getState()).isEqualTo("IN_PROGRESS");
         item.promote(); // IN PROGRESS -> DONE
@@ -104,7 +111,7 @@ class ToDoItemTest {
 
     @Test
     void demotionTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW);
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW);
         item.promote(); // TODO -> IN PROGRESS
         item.demote(); // IN PROGRESS -> TODO
         assertThat(item.getState()).isEqualTo("TODO");
@@ -116,7 +123,7 @@ class ToDoItemTest {
 
     @Test
     void holdTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW);
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW);
         item.hold(); // TODO -> HOLD
         assertThat(item.getState()).isEqualTo("TODO");
         item.promote(); // HOLD -> IN PROGRESS
@@ -126,22 +133,21 @@ class ToDoItemTest {
 
     @Test
     void getPriorityStringTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW);
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW);
         String result = item.getPriorityString();
         assertThat(result).isEqualTo("[1;34mLOW[0m");
     }
 
     @Test
     void getStateEmojiTest() {
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", "Uni", Priority.LOW);
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW);
         String result = item.getStateEmoji();
         assertThat(result).isEqualTo("⏭️");
     }
 
     @Test
     void setCreatedAtTest() {
-        ToDoItem item = new ToDoItem("", "", "", Priority.LOW);
-        String test = "test";
+        ToDoItem item = new ToDoItem("", "", new Bucket(""), Priority.LOW);
         item.setCreatedAt(LocalDateTime.of(2020, 1, 1, 1, 1));
         String result = item.getCreatedAt();
         assertThat(result).isEqualTo(LocalDateTime.of(2020, 1, 1, 1, 1).toString());

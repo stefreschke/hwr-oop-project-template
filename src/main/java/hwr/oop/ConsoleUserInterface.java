@@ -3,9 +3,8 @@ package hwr.oop;
 import hwr.oop.dialog.HandleBadIndexDialog;
 import hwr.oop.util.ConsoleColors;
 
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.List;
 import java.util.Set;
 
@@ -28,26 +27,6 @@ public class ConsoleUserInterface {
     public void say(String message) {
         out.println(message);
     }
-    public void help() {
-        out.println("gtd [command] [arguments]");
-        out.println("Commands:");
-        out.println("  help                            -  print this help");
-        out.println("  add [Item Index]                -  add a new task");
-        out.println("  remove [Item Index]             -  remove a task");
-        out.println("  promote [Item Index]            -  promote a task to a further state");
-        out.println("  demote [Item Index]             -  demote a task to a previous state");
-        out.println("  hold [Item Index]               -  put a task on hold");
-        out.println("  done [Item Index]               -  mark a task as done");
-        out.println("  edit [Item Index]               -  edit a task");
-        out.println("  list                            -  list all tasks");
-        out.println("  sort                            -  sort your tasks");
-        out.println("  createBucket [Name]             -  create a bucket for tasks");
-        out.println("  showBuckets                     -  show buckets for tasks");
-        out.println("  renameBucket [index] [Name]     -  changes bucket name");
-        out.println("  clear                           -  clear all tasks");
-        out.println("  exit                            -  exit the program");
-    }
-
     public void list(ToDoList toDoList) {
         out.println(toDoList.getName() + ":");
         List<ToDoItem> toDoItems = toDoList.getItems();
@@ -89,9 +68,7 @@ public class ConsoleUserInterface {
             out.println("👀Looks Empty here... Add some buckets!");
             return;
         }
-        List<Bucket> sortedBuckets = new ArrayList<>(buckets);
-        sortedBuckets.sort(Comparator.comparing(Bucket::getBucketName));
-        for (Bucket bucket : sortedBuckets) {
+        for (Bucket bucket : buckets) {
             out.println(bucket.toString());
         }
     }

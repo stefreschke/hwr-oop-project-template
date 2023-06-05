@@ -31,7 +31,7 @@ public class ExistenceHandler {
         ToDoItem toDoItem = addDialog.start();
         try {
             toDoList.add(toDoItem);
-            toDoList.addBucket(new Bucket(toDoItem.getBucket()));
+            toDoList.addBucket(new Bucket(toDoItem.getBucket().getBucketName()));
         } catch (Exception e) {
             throw new CouldNotAddException("Could not add task");
         }
