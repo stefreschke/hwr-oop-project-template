@@ -1,10 +1,7 @@
 package hwr.oop.applicationTest;
 
 import hwr.oop.application.*;
-import hwr.oop.persistence.AppData;
-import hwr.oop.persistence.LoadPort;
-import hwr.oop.persistence.PersistenceAdapter;
-import hwr.oop.persistence.SavePort;
+import hwr.oop.persistence.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -14,6 +11,8 @@ import java.io.File;
 import java.util.*;
 import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.fail;
+
 class ProjectTest {
     String directory = "./OOPTest/";
     AppData appData;
@@ -67,28 +66,44 @@ class ProjectTest {
     void getIdTest() {
         UUID id = UUID.randomUUID();
         Project project = new Project(id, null, null, null);
-        assertThat(project.getId()).isEqualTo(id);
+        appData.addProject(project);
+        save.saveData(appData);
+
+        Project result = load.loadProjectById(project.getId());
+        assertThat(result.getId()).isEqualTo(id);
     }
 
     @Test
     void getTitleTest() {
         String title = "testTitle";
         Project project = new Project(UUID.randomUUID(), null, title, null);
-        assertThat(project.getTitle()).isEqualTo(title);
+        appData.addProject(project);
+        save.saveData(appData);
+
+        Project result = load.loadProjectById(project.getId());
+        assertThat(result.getTitle()).isEqualTo(title);
     }
 
     @Test
     void getTaskListTest() {
         List<Task> taskList = RandomTestData.getRandomtaskList();
         Project project = new Project(UUID.randomUUID(), taskList, null, null);
-        assertThat(project.getTaskList()).isEqualTo(taskList);
+        appData.addProject(project);
+        save.saveData(appData);
+
+        Project result = load.loadProjectById(project.getId());
+        assertThat(result.getTaskList()).isEqualTo(taskList);
     }
 
     @Test
     void getPermissionsTest() {
         Map<User, Boolean> permissions = RandomTestData.getRandomPermissions();
         Project project = new Project(UUID.randomUUID(), null, null, permissions);
-        assertThat(project.getPermissions()).isEqualTo(permissions);
+        appData.addProject(project);
+        save.saveData(appData);
+
+        Project result = load.loadProjectById(project.getId());
+        assertThat(result.getPermissions()).isEqualTo(permissions);
     }
 
     @ParameterizedTest
@@ -127,11 +142,10 @@ class ProjectTest {
     @ParameterizedTest
     @MethodSource("randomProjectsWithSingleUser")
     void canCreateProject(Project expected, User user) {
-        AppData appData = new AppData(new ArrayList<>(), new ArrayList<>());
-
         createProject.createProject(save, appData, expected.getTitle(), expected.getTaskList(), user);
 
         Project result = load.loadData().getProjectList().get(0);
+
         assertThat(result.getTitle()).hasToString(expected.getTitle());
         assertThat(result.getTaskList()).isEqualTo(expected.getTaskList());
         assertThat(result.getPermissions()).isEqualTo(expected.getPermissions());
@@ -145,5 +159,19 @@ class ProjectTest {
         createProject.createProject(save, appData, project.getTitle(), project.getTaskList(), user);
 
         assertThat(load.loadData().getProjectList().size()).isEqualTo(originalSize+1);
+    }
+
+    @Test
+    void wrongId_throwsException() {
+        Project project = RandomTestData.getRandomProject();
+        appData.addProject(project);
+        UUID uuid = UUID.randomUUID();
+
+        try {
+            Project result = load.loadProjectById(uuid);
+            fail("should throw exception");
+        } catch (ProjectNotInAppDataException e) {
+            e.printStackTrace();
+        }
     }
 }
