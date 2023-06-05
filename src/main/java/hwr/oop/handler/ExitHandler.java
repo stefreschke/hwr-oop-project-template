@@ -7,7 +7,7 @@ import hwr.oop.ToDoList;
 public class ExitHandler {
     ExitHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) throws ToDoList.FileNotFoundAndCoundNotCreateException {
         if (args.length == 2) {
             if (args[1].equals("exit") || args[1].equals("q")) {
                 exit(toDoList, cui);
@@ -18,7 +18,7 @@ public class ExitHandler {
             cui.print(LogMode.ERROR, "Cannot process additional arguments.");
         }
     }
-    public static void exit(ToDoList toDoList, ConsoleUserInterface cui) {
+    public static void exit(ToDoList toDoList, ConsoleUserInterface cui) throws ToDoList.FileNotFoundAndCoundNotCreateException {
         cui.say("Exiting ...");
         toDoList.writeToJSON(cui, toDoList.getFileName());
         System.exit(0);

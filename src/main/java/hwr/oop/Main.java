@@ -10,7 +10,7 @@ import static hwr.oop.util.ConsoleColors.RESET;
 
 public class Main {
     private static final PrintStream out = new PrintStream(System.out);
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ToDoList.FileNotFoundAndCoundNotCreateException {
         ConsoleUserInterface cui = new ConsoleUserInterface(out, System.in);
         CommandParser commandParser = new CommandParser(cui);
         ToDoList toDoList = cui.welcome();

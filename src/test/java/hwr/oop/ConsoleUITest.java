@@ -34,7 +34,6 @@ class ConsoleUITest {
     void testWelcome() {
         Program testEnvProgram = new Program();
         String[] env = testEnvProgram.getEnvironmentVariables("testSetup");
-
         try {
             String userInput = "0\n" + "\n" + "data.json\n";
             System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
@@ -62,6 +61,8 @@ class ConsoleUITest {
             assertEquals(expectedOutput, actualOutput);
             assertThat(toDoList).isNotNull();
         } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ToDoList.FileNotFoundAndCoundNotCreateException e) {
             throw new RuntimeException(e);
         }
     }

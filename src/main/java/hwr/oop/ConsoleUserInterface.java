@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 public class ConsoleUserInterface {
+    private static final String SETUP_FILE = "setup";
     private final PrintStream out;
     private final InputStream in;
     public ConsoleUserInterface(PrintStream out, InputStream in) {
@@ -51,43 +52,42 @@ public class ConsoleUserInterface {
             return -1;
         }
     }
-    public ToDoList welcome() throws IOException {
+    public ToDoList welcome() throws IOException, ToDoList.FileNotFoundAndCoundNotCreateException {
         String listFileName;
         String listName;
         ToDoList toDoList;
 
         out.println("Welcome To Getting Things Done 🚀");
         Program program = new Program();
-        String[] env = program.getEnvironmentVariables("setup");
-        if (env == null) {
+        String[] env = program.getEnvironmentVariables(SETUP_FILE);
+        if (env.length != 2) {
             out.println("Looks Like it is your first time using this program.");
             out.println("Lets set you up first.");
             out.println("Please enter a name for your list");
-            out.println("> ");
+            out.print("> ");
             BufferedReader reader = new BufferedReader(new InputStreamReader(in));
             listName = reader.readLine();
             out.println("Please provide a filePath to an existing .json file to Load your list from.");
             out.println("If you don't have one press enter to create specify your path.");
-            out.println("> ");
+            out.print("> ");
             String filePath = reader.readLine();
             // if filePath is null or empty string
             if (filePath == null || filePath.trim().equals("")) {
                 out.println("Please enter your a path to a file to save your list to.");
-                out.println("> ");
+                out.print("> ");
                 listFileName = reader.readLine();
                 if (listFileName.contains(".")) {
                     listFileName = listFileName.substring(0, listFileName.lastIndexOf('.'));
                 }
-                program.setEnvironmentVariables(listFileName, listName, "setup");
+                program.setEnvironmentVariables(listFileName, listName, SETUP_FILE);
                 toDoList = new ToDoList(listName, listFileName);
             } else {
-                // Load environment variables
                 listFileName = filePath;
                 if (listFileName.contains(".")) {
                     listFileName = listFileName.substring(0, listFileName.lastIndexOf('.'));
                 }
-                program.setEnvironmentVariables(listFileName, listName, "setup");
-                toDoList = program.loadToDoList(listFileName);
+                program.setEnvironmentVariables(listFileName, listName, SETUP_FILE);
+                return welcome();
             }
         } else {
             listFileName = env[0];
