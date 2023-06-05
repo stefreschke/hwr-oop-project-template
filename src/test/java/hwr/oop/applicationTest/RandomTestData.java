@@ -8,13 +8,13 @@ import hwr.oop.application.User;
 import java.time.LocalDateTime;
 import java.util.*;
 
-class RandomTestData {
+public class RandomTestData {
     static Random rand = new Random();
 
-    static List<String> taskTitles = List.of("Müll Rausbringen", "Katzen füttern", "Bank überfallen",
+    public static List<String> taskTitles = List.of("Müll Rausbringen", "Katzen füttern", "Bank überfallen",
             "BWL lernen");
 
-    static List<String> getRandomTaskTitles() {
+    public static List<String> getRandomTaskTitles() {
         List<String> inbox = new ArrayList<>();
         for (int i=0; i< rand.nextInt(10); i++) {
             inbox.add(taskTitles.get(rand.nextInt(taskTitles.size())));
@@ -22,15 +22,15 @@ class RandomTestData {
         return inbox;
     }
 
-    static LocalDateTime getRandomDeadline() {
+    public static LocalDateTime getRandomDeadline() {
         return LocalDateTime.now().plusSeconds(rand.nextInt(Integer.MAX_VALUE));
     }
 
-    static TaskState getRandomTaskState() {
+    public static TaskState getRandomTaskState() {
         return TaskState.values()[rand.nextInt(TaskState.values().length)];
     }
 
-    static List<Task> getRandomtaskList() {
+    public static List<Task> getRandomtaskList() {
         List<Task> taskList = new ArrayList<>();
         for (int i=0; i<rand.nextInt(10); i++) {
             String task = taskTitles.get(rand.nextInt(taskTitles.size()));
@@ -40,11 +40,11 @@ class RandomTestData {
         return taskList;
     }
 
-    static User getRandomUser() {
+    public static User getRandomUser() {
         return new User(UUID.randomUUID(), "user" + rand.nextInt(1000), getRandomTaskTitles(), getRandomtaskList());
     }
 
-    static List<User> getRandomUsers() {
+    public static List<User> getRandomUsers() {
         List<User> returnList = new ArrayList<>();
         for (int i=0; i< rand.nextInt(10); i++) {
             returnList.add(getRandomUser());
@@ -52,7 +52,7 @@ class RandomTestData {
         return returnList;
     }
 
-    static Map<User, Boolean> getRandomPermissions() {
+    public static Map<User, Boolean> getRandomPermissions() {
         Map<User, Boolean> permissions = new HashMap<>();
         for (int i=0; i< rand.nextInt(10); i++) {
             permissions.put(getRandomUser(), rand.nextBoolean());
@@ -60,11 +60,11 @@ class RandomTestData {
         return permissions;
     }
 
-    static Project getRandomProject() {
+    public static Project getRandomProject() {
         return new Project(UUID.randomUUID(), getRandomtaskList(), "project"+rand.nextInt(1000), getRandomPermissions());
     }
 
-    static List<Project> getRandomProjects() {
+    public static List<Project> getRandomProjects() {
         List<Project> projectList = new ArrayList<>();
         for (int i=0; i<rand.nextInt(10); i++) {
             projectList.add(getRandomProject());
