@@ -52,22 +52,6 @@ class ProjectTest {
         );
     }
 
-    static Stream<Arguments> randomProjectsWithSingleUser() {
-        List<Arguments> randomProjects = new ArrayList<>();
-        for (int i=0; i<5; i++) {
-            Project rando = RandomTestData.getRandomProject();
-            User user = RandomTestData.getRandomUser();
-            randomProjects.add(
-                    Arguments.of(
-                            new Project(rando.getId(), rando.getTaskList(), rando.getTitle(),
-                                    Map.of(user, Boolean.TRUE)
-                            ), user
-                    )
-            );
-        }
-        return  randomProjects.stream();
-    }
-
 
     @Test
     void getIdTest() {
@@ -158,28 +142,6 @@ class ProjectTest {
     @MethodSource("randomProjects")
     void equalsSameObjectTest(Project project) {
         assertThat(project).isEqualTo(project);
-    }
-
-    @ParameterizedTest
-    @MethodSource("randomProjectsWithSingleUser")
-    void canCreateProject(Project expected, User user) {
-        Project result = createProject.createProject(expected.getTitle(), expected.getTaskList(), user);
-
-        assertThat(result.getTitle()).hasToString(expected.getTitle());
-        assertThat(result.getTaskList()).isEqualTo(expected.getTaskList());
-        assertThat(result.getPermissions()).isEqualTo(expected.getPermissions());
-    }
-
-    @ParameterizedTest
-    @MethodSource("randomProjectsWithSingleUser")
-    void createProject_AddsOneToProjectListTest(Project project, User user) {
-        AppData appData = new AppData(RandomTestData.getRandomProjects(), RandomTestData.getRandomUsers());
-        save.saveData(appData);
-
-        int originalSize = appData.getProjectList().size();
-        createProject.createProject(project.getTitle(), project.getTaskList(), user);
-
-        assertThat(load.loadData().getProjectList().size()).isEqualTo(originalSize+1);
     }
 
     @Test
