@@ -113,6 +113,20 @@ class ProjectTest {
         assertThat(result.getPermissions()).isEqualTo(permissions);
     }
 
+    @Test
+    void loadProjectWithWrongId_throwsException(){
+        appData = new AppData(RandomTestData.getRandomProjects(), RandomTestData.getRandomUsers());
+        save.saveData(appData);
+
+        UUID uuid = UUID.randomUUID();
+        try {
+            load.loadProjectById(uuid);
+            fail("should throw exception");
+        } catch (ProjectNotInAppDataException e) {
+            e.printStackTrace();
+        }
+    }
+
     @ParameterizedTest
     @MethodSource("randomProjects")
     void equalsTest(Project project) {
