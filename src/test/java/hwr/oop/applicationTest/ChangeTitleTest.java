@@ -46,4 +46,14 @@ public class ChangeTitleTest {
         changeTitleService.changeTitle(project,"Title");
         assertThat(loadPort.loadData().getProjectList().get(0).getTitle()).isEqualTo("Title");
     }
+    @Test
+    void changeTitleUnsuccesfully(){
+        Project project= new Project(UUID.randomUUID(),null, "Title",null);
+        try {
+            changeTitleService.changeTitle(project, "NewTitle");
+            fail("Project not found");
+        }catch (ChangeTitleException e) {
+            e.printStackTrace();
+        }
+    }
 }
