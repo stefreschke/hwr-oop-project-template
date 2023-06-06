@@ -1,7 +1,5 @@
 package hwr.oop.persistenceTest;
 
-import hwr.oop.application.CreateProjectService;
-import hwr.oop.application.CreateProjectUseCase;
 import hwr.oop.applicationTest.RandomTestData;
 import hwr.oop.persistence.*;
 import org.junit.jupiter.api.BeforeEach;

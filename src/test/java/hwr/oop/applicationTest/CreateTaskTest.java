@@ -15,9 +15,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 class CreateTaskTest {
-
     private  LoadPort loadPort;
-    private SavePort savePort;
     private CreateTaskService createTaskService;
     AppData appDataMock;
     @BeforeEach
@@ -33,10 +31,11 @@ class CreateTaskTest {
         List<User> users = new ArrayList<>();
         users.add(new User(UUID.randomUUID(),"TestUser",new ArrayList<>(),new ArrayList<>()));
 
-        appDataMock = new AppData(projects,users);
 
         loadPort = () -> appDataMock;
-        savePort = appData -> appDataMock = appData;
+        SavePort savePort = appData -> appDataMock = appData;
+
+        savePort.saveData(new AppData(projects,users));
 
         createTaskService = new CreateTaskService(loadPort, savePort);
     }
@@ -49,13 +48,13 @@ class CreateTaskTest {
         LocalDateTime deadline = LocalDateTime.now();
         Project project = loadPort.loadData().getProjectList().get(0);
 
-       UUID uuid =  createTaskService.createTaskInProject(title,content,taskState,deadline,project);
+        Task task =  createTaskService.createTaskInProject(title,content,taskState,deadline,project);
 
         Task createdTask = loadPort.loadData().getProjectList().get(0).getTaskList().get(1);
 
         Optional<LocalDateTime> result = createdTask.getDeadline();
 
-        assertThat(createdTask.getId()).isEqualTo(uuid);
+        assertThat(createdTask.getId()).isEqualTo(task.getId());
         assertThat(createdTask.getTitle()).isEqualTo(title);
         assertThat(createdTask.getContent()).isEqualTo(content);
         assertThat(createdTask.getTaskState()).isEqualTo(taskState);
@@ -86,13 +85,13 @@ class CreateTaskTest {
 
         User user = loadPort.loadData().getUserList().get(0);
 
-        UUID uuid =createTaskService.createTaskInContextList(title,content,taskState,deadline,user);
+        Task task =createTaskService.createTaskInContextList(title,content,taskState,deadline,user);
 
         Task createdTask = loadPort.loadData().getUserList().get(0).getContextList().get(0);
 
         Optional<LocalDateTime> result = createdTask.getDeadline();
 
-        assertThat(createdTask.getId()).isEqualTo(uuid);
+        assertThat(createdTask.getId()).isEqualTo(task.getId());
         assertThat(createdTask.getTitle()).isEqualTo(title);
         assertThat(createdTask.getContent()).isEqualTo(content);
         assertThat(createdTask.getTaskState()).isEqualTo(taskState);
