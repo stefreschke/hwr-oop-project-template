@@ -20,5 +20,8 @@ public class ChangeTitleService implements ChangeTitleUseCase {
             appData.getProjectList().get(ind).changeTitle(newTitle);
             savePort.saveData(appData);
         }
+        else{
+            throw new ChangeTitleException("Project not found");
+        }
     }
 }
