@@ -16,7 +16,7 @@ import java.util.UUID;
 
 class CreateTaskTest {
 
-    private LoadPort loadPort;
+    private  LoadPort loadPort;
     private SavePort savePort;
     private CreateTaskService createTaskService;
     AppData appDataMock;
@@ -49,12 +49,13 @@ class CreateTaskTest {
         LocalDateTime deadline = LocalDateTime.now();
         Project project = loadPort.loadData().getProjectList().get(0);
 
-        createTaskService.createTaskInProject(title,content,taskState,deadline,project);
+       UUID uuid =  createTaskService.createTaskInProject(title,content,taskState,deadline,project);
 
         Task createdTask = loadPort.loadData().getProjectList().get(0).getTaskList().get(1);
 
         Optional<LocalDateTime> result = createdTask.getDeadline();
 
+        assertThat(createdTask.getId()).isEqualTo(uuid);
         assertThat(createdTask.getTitle()).isEqualTo(title);
         assertThat(createdTask.getContent()).isEqualTo(content);
         assertThat(createdTask.getTaskState()).isEqualTo(taskState);
@@ -85,12 +86,13 @@ class CreateTaskTest {
 
         User user = loadPort.loadData().getUserList().get(0);
 
-        createTaskService.createTaskInContextList(title,content,taskState,deadline,user);
+        UUID uuid =createTaskService.createTaskInContextList(title,content,taskState,deadline,user);
 
         Task createdTask = loadPort.loadData().getUserList().get(0).getContextList().get(0);
 
         Optional<LocalDateTime> result = createdTask.getDeadline();
 
+        assertThat(createdTask.getId()).isEqualTo(uuid);
         assertThat(createdTask.getTitle()).isEqualTo(title);
         assertThat(createdTask.getContent()).isEqualTo(content);
         assertThat(createdTask.getTaskState()).isEqualTo(taskState);

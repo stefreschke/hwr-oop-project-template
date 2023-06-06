@@ -19,13 +19,15 @@ public class CreateTaskService implements CreateTaskUseCase{
 
 
     @Override
-    public void createTaskInProject(String title, String content, TaskState taskState, LocalDateTime deadLine, Project project) {
-        Task taskTmp = new Task(UUID.randomUUID(),title,content,taskState,deadLine);
+    public UUID createTaskInProject(String title, String content, TaskState taskState, LocalDateTime deadLine, Project project) {
+      UUID  uuid = UUID.randomUUID();
+        Task taskTmp = new Task(uuid,title,content,taskState,deadLine);
         int ind = loadPort.loadData().getProjectList().indexOf(project);
         if(ind >= 0){
             AppData appData = loadPort.loadData();
             appData.getProjectList().get(ind).getTaskList().add(taskTmp);
             savePort.saveData(appData);
+            return uuid;
         }
         else {
             throw new CreateTaskException("Project not found");
@@ -33,13 +35,15 @@ public class CreateTaskService implements CreateTaskUseCase{
     }
 
     @Override
-    public void createTaskInContextList(String title, String content, TaskState taskState, LocalDateTime deadLine, User user) {
-        Task taskTmp = new Task(UUID.randomUUID(),title,content,taskState,deadLine);
+    public UUID createTaskInContextList(String title, String content, TaskState taskState, LocalDateTime deadLine, User user) {
+        UUID uuid = UUID.randomUUID();
+        Task taskTmp = new Task(uuid,title,content,taskState,deadLine);
         int ind= loadPort.loadData().getUserList().indexOf(user);
         if(ind >= 0){
             AppData appData = loadPort.loadData();
             appData.getUserList().get(ind).getContextList().add(taskTmp);
             savePort.saveData(appData);
+            return uuid;
         }
         else {
             throw new CreateTaskException("User not found");
