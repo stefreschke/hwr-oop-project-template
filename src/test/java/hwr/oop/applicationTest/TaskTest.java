@@ -4,44 +4,29 @@ import hwr.oop.application.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-
 import java.time.LocalDateTime;
-import java.util.Optional;
 import java.util.UUID;
-
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.fail;
 
 class TaskTest {
 
     @Test
-    void getDeadline() {
-        Task example = new Task(UUID.randomUUID(), "Title","Content", TaskState.IN_PROGRESS, LocalDateTime.now());
-        Optional<LocalDateTime> result = example.getDeadline();
-        result.ifPresent(localDate -> assertThat(localDate).isBetween(LocalDateTime.now().minusHours(1),LocalDateTime.now()));
-    }
+    void getAttributes() {
+        UUID id = UUID.randomUUID();
+        String title = "taskTitle";
+        String content = "taskContent";
+        TaskState state = TaskState.IN_PROGRESS;
+        LocalDateTime deadline = LocalDateTime.now().plusHours(17);
 
-    @Test
-    void getTitle() {
-        Task example = new Task(UUID.randomUUID(), "Title","Content", TaskState.IN_PROGRESS, LocalDateTime.now());
-        String result = example.getTitle();
-        assertThat(result).isEqualTo("Title");
-    }
+        Task task = new Task(id, title, content, state, deadline);
 
-    @Test
-    void getContent() {
-        Task example = new Task(UUID.randomUUID(), "Title","Content", TaskState.IN_PROGRESS, LocalDateTime.now());
-        String result = example.getContent();
-        assertThat(result).isEqualTo("Content");
+        assertThat(task.getId()).isEqualTo(id);
+        assertThat(task.getTitle()).isEqualTo(title);
+        assertThat(task.getContent()).isEqualTo(content);
+        assertThat(task.getTaskState()).isEqualTo(state);
+        task.getDeadline().ifPresent(time -> assertThat(time).isEqualTo(deadline));
     }
-
-    @Test
-    void getTaskState() {
-        Task example = new Task(UUID.randomUUID(), "Title","Content", TaskState.IN_PROGRESS, LocalDateTime.now());
-        TaskState result = example.getTaskState();
-        assertThat(result).isEqualTo(TaskState.IN_PROGRESS);
-    }
-
 
     @ParameterizedTest
     @EnumSource(value = TaskState.class, names = {"IN_REVIEW", "IN_PROGRESS"})
