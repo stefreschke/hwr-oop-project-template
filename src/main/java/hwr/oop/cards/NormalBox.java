@@ -1,5 +1,8 @@
 package hwr.oop.cards;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,11 +12,13 @@ import java.util.Random;
 public class NormalBox implements BoxInterface{
     private ArrayList<Card> learnedCardList;
     private ArrayList<Card> unlearnedCardList;
+    @JsonBackReference
     private final BoxInterface previousBox;
+    @JsonManagedReference
     private BoxInterface nextBox;
     private int daterule;
 
-    // Konstruktor: fügt sich selbst dem vorherigen hinzu
+    // Konstruktor: fügt sich selbst als NextBox bei der vorherigen Box hinzu
     public NormalBox(int daterule, BoxInterface previousBox){
         learnedCardList = new ArrayList<Card>();
         unlearnedCardList = new ArrayList<Card>();

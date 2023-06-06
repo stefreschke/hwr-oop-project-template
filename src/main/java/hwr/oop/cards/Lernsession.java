@@ -10,20 +10,20 @@ public class Lernsession {
     private int currentBoxIndex;
     private Card currentCard;
 
-    public static Lernsession createTrainerWith3Boxes(){
+    public static Lernsession createLernsessionWith3Boxes(){
         BoxInterface box1 = new FirstBox(1);
         BoxInterface box2 = new NormalBox(3,box1);
         BoxInterface box3 = new LastBox(7,box2);
         return new Lernsession(List.of(box1, box2, box3));
     }
-    public static Lernsession createTrainerWith5Boxes(){
+    public static Lernsession createLernsessionWith5Boxes(){
         BoxInterface box1 = new FirstBox(1);
         BoxInterface box2 = new NormalBox(3,box1);
         BoxInterface box3 = new NormalBox(7,box2);
         BoxInterface box4 = new NormalBox(14,box3);
         BoxInterface box5 = new LastBox(7,box4);
         return new Lernsession(List.of(box1, box2, box3, box4, box5));
-    }public static Lernsession createTrainerWith7Boxes(){
+    }public static Lernsession createLernsessionWith7Boxes(){
         BoxInterface box1 = new FirstBox(1);
         BoxInterface box2 = new NormalBox(3,box1);
         BoxInterface box3 = new NormalBox(7,box2);

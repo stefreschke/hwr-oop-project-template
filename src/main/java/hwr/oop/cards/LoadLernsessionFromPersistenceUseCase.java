@@ -4,15 +4,15 @@ import java.io.IOException;
 import java.util.List;
 
 public class LoadLernsessionFromPersistenceUseCase {
-    private final PersistenceLoadPort persistenceLoadPort;
+    private final NewPersistenceLoadPort persistenceLoadPort;
 
-    public LoadLernsessionFromPersistenceUseCase(PersistenceLoadPort persistenceLoadPort){
+    public LoadLernsessionFromPersistenceUseCase(NewPersistenceLoadPort persistenceLoadPort){
         this.persistenceLoadPort = persistenceLoadPort;
     }
 
-    public Lernsession loadTrainer(String filename) throws IOException {
+    public Lernsession loadLernsession(String filename) throws IOException {
         Lernsession lernsession;
-        List<BoxInterface> boxList = (List)persistenceLoadPort.loadTrainingInstance(filename);
+        List<BoxInterface> boxList = (List)persistenceLoadPort.loadLernsessionInstance(filename);
         lernsession = Lernsession.createLernsessionFromBoxList(boxList);
         return lernsession;
     }

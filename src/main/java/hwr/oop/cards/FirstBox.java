@@ -1,10 +1,13 @@
 package hwr.oop.cards;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.util.*;
 
 public class FirstBox implements BoxInterface{
     private ArrayList<Card> learnedCardList;
     private ArrayList<Card> unlearnedCardList;
+    @JsonManagedReference
     private BoxInterface nextBox = null;
     private int daterule;
 
@@ -17,7 +20,6 @@ public class FirstBox implements BoxInterface{
         this.learnedCardList = learnedCardList;
         this.unlearnedCardList = unlearnedCardList;
         this.daterule = daterule;
-        this.nextBox = nextBox;
     }
     @Override
     public void addCard(Card card) {

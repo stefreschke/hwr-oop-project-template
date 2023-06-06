@@ -3,60 +3,58 @@ package hwr.oop.cards;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
 
-public class LastBox implements BoxInterface{
+public class NewBox{
     private ArrayList<Card> learnedCardList;
     private ArrayList<Card> unlearnedCardList;
-    @JsonBackReference
-    private final BoxInterface previousBox;
+    private final Boxes boxes;
+    private final int next;
+    private final int previous;
     private int daterule;
 
-    public LastBox(int daterule, BoxInterface previousBox){
+    NewBox(int daterule, Boxes boxes, int next, int previous){
         learnedCardList = new ArrayList<Card>();
         unlearnedCardList = new ArrayList<Card>();
         this.daterule = daterule;
-        this.previousBox = previousBox;
-        previousBox.setNextBox(this);
+        this.boxes = boxes;
+        this.next = next;
+        this.previous = previous;
     }
-    public LastBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule, BoxInterface previousBox){
-        this.learnedCardList = learnedCardList;
-        this.unlearnedCardList = unlearnedCardList;
-        this. daterule = daterule;
-        this.previousBox = previousBox;
-        previousBox.setNextBox(this);
+    NewBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule, Boxes boxes, int next, int previous){
+        learnedCardList = new ArrayList<Card>();
+        unlearnedCardList = new ArrayList<Card>();
+        this.daterule = daterule;
+        this.boxes = boxes;
+        this.next = next;
+        this.previous = previous;
     }
-    @Override
+    }
     public void addCard(Card card) {
         learnedCardList.add(card);
     }
 
-    @Override
     public void moveCardUp(Card card) {
-        this.learnedCardList.add(card);
+        this.boxes.retrieve(next).addCard(card);
     }
 
-    @Override
     public void moveCardDown(Card card) {
         this.previousBox.addCard(card);
     }
 
-    @Override
     public boolean isEmpty_learned() {
         return learnedCardList.isEmpty();
     }
 
-    @Override
     public boolean isEmpty_unlearned() {
         return unlearnedCardList.isEmpty();
     }
-    @Override
     public boolean isEmpty(){ return (learnedCardList.isEmpty()&& unlearnedCardList.isEmpty());}
 
-    @Override
     public void updateBox() {
         Date currentDate = new Date();
         Calendar learnDate = Calendar.getInstance();
@@ -79,7 +77,6 @@ public class LastBox implements BoxInterface{
         }
     }
 
-    @Override
     public Card getRandomCard() {
         // learnedCardList müsste unlearned sein in der Logik mit einem Datum, für die Tests aber hinderlich
         Random random = new Random();
@@ -89,23 +86,20 @@ public class LastBox implements BoxInterface{
         return returnCard;
     }
 
-    @Override
     public ArrayList<Card> getLearnedCardList() {
         return learnedCardList;
     }
 
-    @Override
     public ArrayList<Card> getUnlearnedCardList() {
         return unlearnedCardList;
     }
 
-    @Override
     public BoxInterface getNextBox() {
-        return this;
+        return this.nextBox;
     }
-
-    @Override
-    public void setNextBox(BoxInterface nextBox) {
+    public void setNextBox(BoxInterface nextBox){
+        if (this.nextBox == null){
+            this.nextBox = nextBox;
+        }
     }
-
 }
