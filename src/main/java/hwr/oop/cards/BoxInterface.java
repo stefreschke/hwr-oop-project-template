@@ -8,6 +8,7 @@ public interface BoxInterface{
     public void moveCardDown(Card card);
     public boolean isEmpty_learned();
     public boolean isEmpty_unlearned();
+    public boolean isEmpty();
     public void updateBox();
     public Card getRandomCard();
     public ArrayList<Card> getLearnedCardList();

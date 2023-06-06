@@ -52,18 +52,29 @@ public class NormalBox implements BoxInterface{
     public boolean isEmpty_unlearned() {
         return unlearnedCardList.isEmpty();
     }
+    @Override
+    public boolean isEmpty(){ return (learnedCardList.isEmpty()&& unlearnedCardList.isEmpty());}
 
     @Override
     public void updateBox() {
         Date currentDate = new Date();
         Calendar learnDate = Calendar.getInstance();
+        int index = 0;
+        ArrayList <Integer> indices = new ArrayList<Integer>();
+        Date lernTag = new Date();
         for (Card card: this.learnedCardList){
             learnDate.setTime(card.getLastLearned()); //setzt Datum
             learnDate.add(Calendar.DATE, daterule); //addiert Regel darauf
-            if (learnDate.before(currentDate)){
+            lernTag = learnDate.getTime(); //cast ist nötig
+            if (lernTag.before(currentDate)){
                 this.unlearnedCardList.add(card);
-                this.learnedCardList.remove(card);
+                indices.add(index);
             }
+            index++;
+        }
+
+        for (Integer i: indices){
+            this.learnedCardList.remove((int)i); //cast nötig weil Remove(Object o) aufgerufen wird statt remove(index i)
         }
     }
 
