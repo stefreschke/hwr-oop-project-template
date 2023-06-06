@@ -3,19 +3,12 @@ package hwr.oop.cards;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class CardTests {
 
-    @Test
-    public void canGetQuestion(){
-
-        Card card = new Card("What was the first item to be sold on Ebay?", "A broken laser pointer", 0);
-
-        String testQuestion = card.getQuestion();
-        assertThat(testQuestion).isEqualTo("What was the first item to be sold on Ebay?");
-    }
 
     @Test
     void testEquals(){
@@ -43,7 +36,14 @@ public class CardTests {
         assertThat(testCard).isNotNull();
     }
 
-    /*
+    @Test
+    public void canGetQuestion(){
+
+        Card card = new Card("What was the first item to be sold on Ebay?", "A broken laser pointer", 0);
+
+        String testQuestion = card.getQuestion();
+        assertThat(testQuestion).isEqualTo("What was the first item to be sold on Ebay?");
+    }
     @Test
     public void canGetAnswer(){
 
@@ -52,7 +52,6 @@ public class CardTests {
         String testQuestion = card.getAnswer();
         assertThat(testQuestion).isEqualTo("The Great Barrier Reef");
     }
-    */
 
     @Test
     public void canGetId(){
@@ -61,5 +60,11 @@ public class CardTests {
 
         int id = card.getId();
         assertThat(id).isEqualTo(42);
+    }
+    @Test
+    public void canGetLastLearned(){
+        Card card = new Card("Test?", "Ja!", 42);
+        Date date = new Date();
+        assertThat(date).isCloseTo(card.getLastLearned(),1000);
     }
 }
