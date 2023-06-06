@@ -8,6 +8,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Stream;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -22,15 +23,21 @@ class ProjectTest {
 
     @BeforeEach
     void setUp() {
-        appData = new AppData(new ArrayList<>(), new ArrayList<>());
         load = new PersistenceAdapter(directory);
         save = new PersistenceAdapter(directory);
         createProject = new CreateProjectService(load, save);
 
         final File parent = new File(directory);
         parent.mkdirs();
-        File file = new File(directory + AppData.class + ".json");
+        File file = new File(directory + "AppData.json");
         file.delete();
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        appData = load.loadData();
     }
 
     static Stream<Arguments> randomProjects() {

@@ -52,6 +52,7 @@ class AppDataTest {
         AppData copy = new AppData(RandomTestData.getRandomProjects(), appData.getUserList());
         assertThat(appData).isNotEqualTo(copy);
         assertThat(copy).isNotEqualTo(appData);
+        assertThat(copy.hashCode()).isNotEqualTo(appData.hashCode());
     }
 
     @Test
@@ -59,6 +60,7 @@ class AppDataTest {
         appData = new AppData(RandomTestData.getRandomProjects(), RandomTestData.getRandomUsers());
         assertThat(appData).isNotEqualTo(new Object());
         assertThat(new Object()).isNotEqualTo(appData);
+        assertThat(appData.hashCode()).isNotEqualTo(new Object().hashCode());
     }
 
     @Test
