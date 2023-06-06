@@ -5,44 +5,33 @@ import java.util.List;
 import java.util.Random;
 
 public class Lernsession {
-    private final List<BoxInterface> boxList;
+    private final List<NewBox> boxList;
     private final int NUMBER_OF_BOXES;
     private int currentBoxIndex;
     private Card currentCard;
 
+    // saving Boxes reference or reference to the box
     public static Lernsession createLernsessionWith3Boxes(){
-        BoxInterface box1 = new FirstBox(1);
-        BoxInterface box2 = new NormalBox(3,box1);
-        BoxInterface box3 = new LastBox(7,box2);
-        return new Lernsession(List.of(box1, box2, box3));
+        Boxes boxes = Boxes.createBoxes(3);
+        return new Lernsession(List.of(boxes.retrieve(1).get(),boxes.retrieve(2).get(),boxes.retrieve(3).get()));
     }
     public static Lernsession createLernsessionWith5Boxes(){
-        BoxInterface box1 = new FirstBox(1);
-        BoxInterface box2 = new NormalBox(3,box1);
-        BoxInterface box3 = new NormalBox(7,box2);
-        BoxInterface box4 = new NormalBox(14,box3);
-        BoxInterface box5 = new LastBox(7,box4);
-        return new Lernsession(List.of(box1, box2, box3, box4, box5));
+        Boxes boxes = Boxes.createBoxes(5);
+        return new Lernsession(List.of(boxes.retrieve(1).get(),boxes.retrieve(2).get(),boxes.retrieve(3).get(), boxes.retrieve(4).get(),boxes.retrieve(5).get()));
     }public static Lernsession createLernsessionWith7Boxes(){
-        BoxInterface box1 = new FirstBox(1);
-        BoxInterface box2 = new NormalBox(3,box1);
-        BoxInterface box3 = new NormalBox(7,box2);
-        BoxInterface box4 = new NormalBox(14,box3);
-        BoxInterface box5 = new NormalBox(14,box4);
-        BoxInterface box6 = new NormalBox(14,box5);
-        BoxInterface box7 = new LastBox(7,box6);
-        return new Lernsession(List.of(box1, box2, box3, box4, box5, box6, box7));
+        Boxes boxes = Boxes.createBoxes(5);
+        return new Lernsession(List.of(boxes.retrieve(1).get(),boxes.retrieve(2).get(),boxes.retrieve(3).get(), boxes.retrieve(4).get(),boxes.retrieve(5).get(), boxes.retrieve(6).get(),boxes.retrieve(7).get()));
     }
-    public static Lernsession createLernsessionFromBoxList(List<BoxInterface> boxList){
+    public static Lernsession createLernsessionFromBoxList(List<NewBox> boxList){
         return new Lernsession(boxList);
     }
 
-    private Lernsession(List<BoxInterface> boxList) {
+    private Lernsession(List<NewBox> boxList) {
         this.boxList = boxList;
         this.NUMBER_OF_BOXES = boxList.size();
     }
 
-    public List<BoxInterface> getBoxList() {
+    public List<NewBox> getBoxList() {
         return boxList;
     }
 
@@ -58,7 +47,7 @@ public class Lernsession {
     }
 
     public Card getRandomCard(){
-        BoxInterface box;
+        NewBox box;
         while (true) { //was soll passieren, wenn jede Box leer ist
             box = this.boxList.get(getRandomBoxIndex());
             if (box.isEmpty_learned() == false) { //eigentlich unlearned,aber für Test so
@@ -75,12 +64,13 @@ public class Lernsession {
             boxList.get(0).addCard(card);
         }
     }
+    /*
     void moveCardUp(Card card) {
         getBoxList().get(currentBoxIndex).moveCardUp(card);
     }
     void moveCardDown(Card card) {
         getBoxList().get(currentBoxIndex).moveCardUp(card);
-    }
+    }*/
 
     public Card getCurrentCard(){
         return this.currentCard;

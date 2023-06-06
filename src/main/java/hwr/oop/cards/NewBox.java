@@ -15,12 +15,12 @@ public class NewBox{
     private final Boxes boxes;
     private final int next;
     private final int previous;
-    private int daterule;
+    private int learnInterval;
 
     NewBox(int daterule, Boxes boxes, int next, int previous){
         learnedCardList = new ArrayList<Card>();
         unlearnedCardList = new ArrayList<Card>();
-        this.daterule = daterule;
+        this.learnInterval = daterule;
         this.boxes = boxes;
         this.next = next;
         this.previous = previous;
@@ -28,23 +28,22 @@ public class NewBox{
     NewBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule, Boxes boxes, int next, int previous){
         learnedCardList = new ArrayList<Card>();
         unlearnedCardList = new ArrayList<Card>();
-        this.daterule = daterule;
+        this.learnInterval = daterule;
         this.boxes = boxes;
         this.next = next;
         this.previous = previous;
     }
-    }
     public void addCard(Card card) {
         learnedCardList.add(card);
     }
-
+/*
     public void moveCardUp(Card card) {
         this.boxes.retrieve(next).addCard(card);
     }
 
     public void moveCardDown(Card card) {
         this.previousBox.addCard(card);
-    }
+    }*/
 
     public boolean isEmpty_learned() {
         return learnedCardList.isEmpty();
@@ -63,7 +62,7 @@ public class NewBox{
         Date lernTag = new Date();
         for (Card card: this.learnedCardList){
             learnDate.setTime(card.getLastLearned()); //setzt Datum
-            learnDate.add(Calendar.DATE, daterule); //addiert Regel darauf
+            learnDate.add(Calendar.DATE, learnInterval); //addiert Regel darauf
             lernTag = learnDate.getTime(); //cast ist nötig
             if (lernTag.before(currentDate)){
                 this.unlearnedCardList.add(card);
@@ -92,14 +91,5 @@ public class NewBox{
 
     public ArrayList<Card> getUnlearnedCardList() {
         return unlearnedCardList;
-    }
-
-    public BoxInterface getNextBox() {
-        return this.nextBox;
-    }
-    public void setNextBox(BoxInterface nextBox){
-        if (this.nextBox == null){
-            this.nextBox = nextBox;
-        }
     }
 }
