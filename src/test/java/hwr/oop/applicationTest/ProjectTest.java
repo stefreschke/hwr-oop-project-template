@@ -54,46 +54,20 @@ class ProjectTest {
 
 
     @Test
-    void getIdTest() {
+    void getAttributesTest() {
         UUID id = UUID.randomUUID();
-        Project project = new Project(id, null, null, null);
+        String title = "testTitle";
+        List<Task> taskList = RandomTestData.getRandomtaskList();
+        Map<User, Boolean> permissions = RandomTestData.getRandomPermissions();
+
+        Project project = new Project(id, taskList, title, permissions);
         appData.addProject(project);
         save.saveData(appData);
 
         Project result = load.loadProjectById(project.getId());
         assertThat(result.getId()).isEqualTo(id);
-    }
-
-    @Test
-    void getTitleTest() {
-        String title = "testTitle";
-        Project project = new Project(UUID.randomUUID(), null, title, null);
-        appData.addProject(project);
-        save.saveData(appData);
-
-        Project result = load.loadProjectById(project.getId());
         assertThat(result.getTitle()).isEqualTo(title);
-    }
-
-    @Test
-    void getTaskListTest() {
-        List<Task> taskList = RandomTestData.getRandomtaskList();
-        Project project = new Project(UUID.randomUUID(), taskList, null, null);
-        appData.addProject(project);
-        save.saveData(appData);
-
-        Project result = load.loadProjectById(project.getId());
         assertThat(result.getTaskList()).isEqualTo(taskList);
-    }
-
-    @Test
-    void getPermissionsTest() {
-        Map<User, Boolean> permissions = RandomTestData.getRandomPermissions();
-        Project project = new Project(UUID.randomUUID(), null, null, permissions);
-        appData.addProject(project);
-        save.saveData(appData);
-
-        Project result = load.loadProjectById(project.getId());
         assertThat(result.getPermissions()).isEqualTo(permissions);
     }
 
