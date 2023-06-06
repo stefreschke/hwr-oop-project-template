@@ -28,6 +28,41 @@ class TaskTest {
         task.getDeadline().ifPresent(time -> assertThat(time).isEqualTo(deadline));
     }
 
+    @Test
+    void equalsTest() {
+        Task task = RandomTestData.getRandomTask();
+        Task copy = new Task(task.getId(), task.getTitle(), task.getContent(), task.getTaskState(),
+                task.getDeadline().get());
+        assertThat(task).isEqualTo(copy);
+        assertThat(copy).isEqualTo(task);
+        assertThat(task).hasSameHashCodeAs(copy);
+    }
+
+    @Test
+    void equalsExactlyTest() {
+        Task task = RandomTestData.getRandomTask();
+        assertThat(task).isEqualTo(task);
+    }
+
+    @Test
+    void differentId_doesNotEqual() {
+        Task task = RandomTestData.getRandomTask();
+        Task copy = new Task(UUID.randomUUID(), task.getTitle(), task.getContent(), task.getTaskState(),
+                task.getDeadline().get());
+
+        assertThat(task).isNotEqualTo(copy);
+        assertThat(copy).isNotEqualTo(task);
+        assertThat(task).doesNotHaveSameHashCodeAs(copy);
+    }
+
+    @Test
+    void differentClasses_doesNotEqual() {
+        Task task = RandomTestData.getRandomTask();
+        assertThat(task).isNotEqualTo(new Object());
+        assertThat(new Object()).isNotEqualTo(task);
+        assertThat(task).doesNotHaveSameHashCodeAs(new Object());
+    }
+
     @ParameterizedTest
     @EnumSource(value = TaskState.class, names = {"IN_REVIEW", "IN_PROGRESS"})
     void completeTaskSuccessfully(TaskState state) {
