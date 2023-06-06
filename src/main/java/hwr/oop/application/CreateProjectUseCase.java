@@ -3,5 +3,5 @@ package hwr.oop.application;
 import java.util.List;
 
 public interface CreateProjectUseCase {
-    void createProject(String title, List<Task> taskList, User user);
+    Project createProject(String title, List<Task> taskList, User user);
 }

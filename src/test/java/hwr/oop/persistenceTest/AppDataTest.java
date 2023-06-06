@@ -65,7 +65,7 @@ class AppDataTest {
     void wrongFile_ThrowsLoadException() {
         appData = new AppData(RandomTestData.getRandomProjects(), RandomTestData.getRandomUsers());
         save.saveData(appData);
-        load = new PersistenceAdapter("./wrongPath");
+        load = new PersistenceAdapter("/stuff/stuff/test");
         try {
             AppData result = load.loadData();
             fail("should throw Exception");

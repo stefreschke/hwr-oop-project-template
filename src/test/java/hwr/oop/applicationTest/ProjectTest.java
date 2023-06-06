@@ -22,6 +22,7 @@ class ProjectTest {
 
     @BeforeEach
     void setUp() {
+        appData = new AppData(new ArrayList<>(), new ArrayList<>());
         load = new PersistenceAdapter(directory);
         save = new PersistenceAdapter(directory);
         createProject = new CreateProjectService(load, save);
@@ -141,9 +142,7 @@ class ProjectTest {
     @ParameterizedTest
     @MethodSource("randomProjectsWithSingleUser")
     void canCreateProject(Project expected, User user) {
-        createProject.createProject(expected.getTitle(), expected.getTaskList(), user);
-
-        Project result = load.loadData().getProjectList().get(0);
+        Project result = createProject.createProject(expected.getTitle(), expected.getTaskList(), user);
 
         assertThat(result.getTitle()).hasToString(expected.getTitle());
         assertThat(result.getTaskList()).isEqualTo(expected.getTaskList());
@@ -154,6 +153,8 @@ class ProjectTest {
     @MethodSource("randomProjectsWithSingleUser")
     void createProject_AddsOneToProjectListTest(Project project, User user) {
         AppData appData = new AppData(RandomTestData.getRandomProjects(), RandomTestData.getRandomUsers());
+        save.saveData(appData);
+
         int originalSize = appData.getProjectList().size();
         createProject.createProject(project.getTitle(), project.getTaskList(), user);
 

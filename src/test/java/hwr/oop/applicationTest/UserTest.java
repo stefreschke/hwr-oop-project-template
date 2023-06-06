@@ -26,7 +26,7 @@ class UserTest {
         appData = new AppData(new ArrayList<>(), new ArrayList<>());
         load = new PersistenceAdapter(directory);
         save = new PersistenceAdapter(directory);
-        createProject = new CreateProjectService();
+        createProject = new CreateProjectService(load, save);
 
         final File parent = new File(directory);
         parent.mkdirs();

@@ -18,10 +18,11 @@ public class CreateProjectService implements CreateProjectUseCase {
     }
 
     @Override
-    public void createProject(String title, List<Task> taskList, User user) {
+    public Project createProject(String title, List<Task> taskList, User user) {
         Project project = new Project(UUID.randomUUID(), taskList, title, Map.of(user, Boolean.TRUE));
         AppData appData = loadPort.loadData();
         appData.addProject(project);
         savePort.saveData(appData);
+        return project;
     }
 }
