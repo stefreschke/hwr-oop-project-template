@@ -13,14 +13,14 @@ public class Lernsession {
     // saving Boxes reference or reference to the box
     public static Lernsession createLernsessionWith3Boxes(){
         Boxes boxes = Boxes.createBoxes(3);
-        return new Lernsession(List.of(boxes.retrieve(1).get(),boxes.retrieve(2).get(),boxes.retrieve(3).get()));
+        return new Lernsession(List.of(boxes.retrieve(0).get(),boxes.retrieve(1).get(),boxes.retrieve(2).get()));
     }
     public static Lernsession createLernsessionWith5Boxes(){
         Boxes boxes = Boxes.createBoxes(5);
-        return new Lernsession(List.of(boxes.retrieve(1).get(),boxes.retrieve(2).get(),boxes.retrieve(3).get(), boxes.retrieve(4).get(),boxes.retrieve(5).get()));
+        return new Lernsession(List.of(boxes.retrieve(0).get(), boxes.retrieve(1).get(),boxes.retrieve(2).get(),boxes.retrieve(3).get(), boxes.retrieve(4).get()));
     }public static Lernsession createLernsessionWith7Boxes(){
-        Boxes boxes = Boxes.createBoxes(5);
-        return new Lernsession(List.of(boxes.retrieve(1).get(),boxes.retrieve(2).get(),boxes.retrieve(3).get(), boxes.retrieve(4).get(),boxes.retrieve(5).get(), boxes.retrieve(6).get(),boxes.retrieve(7).get()));
+        Boxes boxes = Boxes.createBoxes(7);
+        return new Lernsession(List.of(boxes.retrieve(0).get(), boxes.retrieve(1).get(),boxes.retrieve(2).get(),boxes.retrieve(3).get(), boxes.retrieve(4).get(),boxes.retrieve(5).get(), boxes.retrieve(6).get()));
     }
     public static Lernsession createLernsessionFromBoxList(List<NewBox> boxList){
         return new Lernsession(boxList);
