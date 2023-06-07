@@ -4,8 +4,10 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CreateNewBoxTest {
     @Test
@@ -110,6 +112,36 @@ public class CreateNewBoxTest {
         box.getRandomCard();
 
         assertThat(box.isEmpty());
+    }
+    @Test
+    void canGetLearnInterval(){
+        Boxes mediator = Boxes.createBoxes(3);
+        NewBox box1 = mediator.retrieve(0).get();
+        NewBox box2 = mediator.retrieve(1).get();
+        NewBox box3 = mediator.retrieve(2).get();
+        assertThat(box1.getLearnInterval()).isEqualTo(1);
+        assertThat(box2.getLearnInterval()).isEqualTo(3);
+        assertThat(box3.getLearnInterval()).isEqualTo(7);
+    }
+    @Test
+    void canGetNextBox(){
+        Boxes mediator = Boxes.createBoxes(3);
+        NewBox box1 = mediator.retrieve(0).get();
+        NewBox box2 = mediator.retrieve(1).get();
+        NewBox box3 = mediator.retrieve(2).get();
+        assertThat(mediator.retrieve(box1.getNext()).get()).isEqualTo(box2);
+        assertThat(mediator.retrieve(box2.getNext()).get()).isEqualTo(box3);
+        assertThrows(NoSuchElementException.class, () -> mediator.retrieve(box3.getNext()).get());
+    }
+    @Test
+    void canGetPreviousBox(){
+        Boxes mediator = Boxes.createBoxes(3);
+        NewBox box1 = mediator.retrieve(0).get();
+        NewBox box2 = mediator.retrieve(1).get();
+        NewBox box3 = mediator.retrieve(2).get();
+        assertThat(mediator.retrieve(box3.getPrevious()).get()).isEqualTo(box2);
+        assertThat(mediator.retrieve(box2.getNext()).get()).isEqualTo(box1);
+        assertThrows(NoSuchElementException.class, () -> mediator.retrieve(box1.getPrevious()).get());
     }
 }
 

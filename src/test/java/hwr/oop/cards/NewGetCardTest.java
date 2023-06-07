@@ -37,7 +37,7 @@ public class NewGetCardTest {
     }
     @Test
     void canGetRandomBoxIndexFromList(){
-        int randomBoxIndex = lernsession.getRandomBoxIndexFromList(List.of(1,2,3));
+        int randomBoxIndex = lernsession.getRandomBoxIndexFromList(List.of(0,1,2));
         Assertions.assertThat(randomBoxIndex).isIn(List.of(0,1,2));
     }
     @Test

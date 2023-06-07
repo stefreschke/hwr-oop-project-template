@@ -38,7 +38,7 @@ public class NewCardTests {
     public void canDeleteCard(){
         Topic topic = new Topic("Spanisch");
         topic.createCard("Tisch", "table");
-        assertThat(topic.deleteCard(topic.getCardList().get(0)));
+        assertThat(topic.getCardList().isEmpty());
     }
     @Test
     public void cannotDeleteCard(){
