@@ -92,4 +92,7 @@ public class NewBox{
     public ArrayList<Card> getUnlearnedCardList() {
         return unlearnedCardList;
     }
+    public int getLearnInterval(){
+        return learnInterval;
+    }
 }

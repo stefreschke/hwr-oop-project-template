@@ -50,7 +50,7 @@ public class Lernsession {
         NewBox box;
         while (true) { //was soll passieren, wenn jede Box leer ist
             box = this.boxList.get(getRandomBoxIndex());
-            if (box.isEmpty_learned() == false) { //eigentlich unlearned,aber für Test so
+            if (!box.isEmpty_learned()) { //eigentlich unlearned,aber für Test so
                 break;
             }
         }

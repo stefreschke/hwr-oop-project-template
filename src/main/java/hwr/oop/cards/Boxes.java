@@ -5,15 +5,34 @@ import java.util.*;
 public class Boxes {
     private final Map<Integer, NewBox> boxMap;
 
-    private Boxes(int numberOfBoxes) {
-        this.boxMap = createMap(numberOfBoxes);
-    }
     public static Boxes createBoxes(int numberOfBoxes){
         if (numberOfBoxes==3 | numberOfBoxes==5 | numberOfBoxes==7){
             return new Boxes(numberOfBoxes);
         }else{
             throw new InvalidBoxNumberException();
         }
+    }
+    private Boxes(int numberOfBoxes) {
+        this.boxMap = createMap(numberOfBoxes);
+    }
+
+    public Boxes(List<NewBox> boxen){
+        this.boxMap = createMapFromBoxList(boxen);
+    }
+
+    private Map<Integer, NewBox> createMapFromBoxList(List<NewBox> boxen) {
+        final Map<Integer, NewBox> map = new HashMap<>();
+        for (int current = 0; current < boxen.size(); current++){
+            final int next = current + 1;
+            final int previous = current - 1;
+            final NewBox loadedBox = boxen.get(current);
+            final ArrayList<Card> learnedCardList = loadedBox.getLearnedCardList();
+            final ArrayList<Card> unlearnedCardList = loadedBox.getUnlearnedCardList();
+            final int learnInterval = loadedBox.getLearnInterval();
+            final NewBox box = new NewBox(learnedCardList, unlearnedCardList, learnInterval, this, next, previous );
+            map.put(current, box);
+        }
+        return map;
     }
 
     private Map<Integer, NewBox> createMap(int numberOfBoxes) {
@@ -45,6 +64,7 @@ public class Boxes {
             return Optional.empty();
         }
     }
+    public
     static class InvalidBoxNumberException extends RuntimeException{
         private InvalidBoxNumberException() {
             super("BoxNumber should be either 3, 5 or 7");
