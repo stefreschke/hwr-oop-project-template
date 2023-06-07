@@ -101,7 +101,7 @@ class TaskTest {
     void resetTaskUnsuccessfully(TaskState state) {
         Task test = new Task(UUID.randomUUID(), "title", "content", state, LocalDateTime.now());
         try {
-            test.reviewTask();
+            test.resetTask();
             fail("task should not be completable");
         } catch (TaskStateException e) {
             e.printStackTrace();
