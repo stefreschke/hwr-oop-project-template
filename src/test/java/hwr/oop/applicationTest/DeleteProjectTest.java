@@ -51,7 +51,7 @@ class DeleteProjectTest {
         appData = new AppData(projectList, RandomTestData.getRandomUsers());
         save.saveData(appData);
 
-        deleteProject.deleteProject(project);
+        deleteProject.deleteProject(project.getId());
 
         assertThat(load.loadData().getProjectList()).doesNotContain(project);
     }
@@ -62,7 +62,7 @@ class DeleteProjectTest {
         save.saveData(appData);
 
         try {
-            deleteProject.deleteProject(RandomTestData.getRandomProject());
+            deleteProject.deleteProject(RandomTestData.getRandomProject().getId());
             fail("should throw exception");
         } catch (CantDeleteNonexistentProjectException e) {
             e.printStackTrace();

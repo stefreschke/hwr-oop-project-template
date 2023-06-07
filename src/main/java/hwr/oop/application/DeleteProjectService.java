@@ -3,6 +3,8 @@ package hwr.oop.application;
 import hwr.oop.persistence.LoadPort;
 import hwr.oop.persistence.SavePort;
 
+import java.util.UUID;
+
 public class DeleteProjectService implements DeleteProjectUseCase {
     private LoadPort load;
     private SavePort save;
@@ -13,7 +15,7 @@ public class DeleteProjectService implements DeleteProjectUseCase {
     }
 
     @Override
-    public void deleteProject(Project project) {
+    public void deleteProject(UUID id) {
 
     }
 }
