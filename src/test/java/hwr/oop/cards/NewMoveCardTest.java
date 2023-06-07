@@ -53,36 +53,37 @@ public class NewMoveCardTest {
         Assertions.assertThat(box3.getRandomCard()).isEqualTo(compareCard);
     }
 
-    /*
     @Test
     void canMoveCardDown(){
         Card card = box1.getRandomCard();
-        trainer.moveCardUp(card);
+        box1.moveCardUp(card);
         card = box2.getRandomCard();
-        trainer.moveCardDown(card);
+        box2.moveCardDown(card);
+        Assertions.assertThat(box2.isEmpty()).isTrue();
         Assertions.assertThat(box1.getRandomCard()).isEqualTo(compareCard);
     }
     @Test
     void canMoveCardDown2Times(){
         Card card = box1.getRandomCard();
-        trainer.moveCardUp(card);
+        box1.moveCardUp(card);
         card = box2.getRandomCard();
-        trainer.moveCardUp(card);
+        box2.moveCardUp(card);
         card = box3.getRandomCard();
 
-        trainer.moveCardDown(card);
-        System.out.println(trainer.getCurrentBoxIndex());
+        box3.moveCardDown(card);
         card = box2.getRandomCard();
-        trainer.moveCardDown(card);
+        box2.moveCardDown(card);
+        Assertions.assertThat(box2.isEmpty()).isTrue();
+        Assertions.assertThat(box3.isEmpty()).isTrue();
         Assertions.assertThat(box1.getRandomCard()).isEqualTo(compareCard);
     }
+
     @Test
     void canMoveCardDownBottomBox(){
         Card card = box1.getRandomCard();
-        trainer.moveCardDown(card);
+        box1.moveCardDown(card);
         Assertions.assertThat(box1.getRandomCard()).isEqualTo(compareCard);
     }
-    */
 
     /*@Test
     void canMoveRandomCardUp(){}*/
