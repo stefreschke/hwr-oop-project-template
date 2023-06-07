@@ -1,8 +1,6 @@
 package hwr.oop.cards;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class Lernsession {
     private final Boxes mediator;
@@ -36,22 +34,34 @@ public class Lernsession {
         return mediator;
     }
 
-    public int getRandomBoxIndex(){
+    public int getRandomBoxIndex() {
         Random random = new Random();
         int randomInt = random.nextInt(NUMBER_OF_BOXES - 1);
+        this.currentBoxIndex = randomInt;
+        return randomInt;
+    }
+    public int getRandomBoxIndexFromList(List<Integer> indexList){
+        Random random = new Random();
+        int randomInt = indexList.get(random.nextInt(indexList.size()));
         this.currentBoxIndex = randomInt;
         return randomInt;
     }
 
     public Card getRandomCard(){
         NewBox box;
-        while (true) { //was soll passieren, wenn jede Box leer ist
-            box = mediator.retrieve(getRandomBoxIndex()).get();
+        List<Integer> indexList = new ArrayList<>();
+        for(int current = 0; current < NUMBER_OF_BOXES; current++){
+            indexList.add(current);
+        }
+        while (!indexList.isEmpty()) {
+            Integer index = getRandomBoxIndexFromList(indexList); //keine int, da bei remove sonst index statt Object
+            indexList.remove(index);
+            box = mediator.retrieve(index).get();
             if (!box.isEmpty_learned()) { //eigentlich unlearned,aber für Test so
-                break;
+                return box.getRandomCard();
             }
         }
-        return box.getRandomCard();
+        throw new EmptyBoxesException();
     }
 
     // loading new Topic
@@ -60,6 +70,11 @@ public class Lernsession {
         NewBox box = mediator.retrieve(0).get();
         for (Card card : cardList) {
             box.addCard(card);
+        }
+    }
+    public static class EmptyBoxesException extends RuntimeException{
+        public EmptyBoxesException(){
+            super ("All Boxes are empty!");
         }
     }
 }

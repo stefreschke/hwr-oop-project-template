@@ -1,5 +1,6 @@
 package hwr.oop.cards;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
@@ -23,6 +24,10 @@ public class Topic {
         int id = cardList.size();
         Card newCard = new Card(question, answer, id);
         cardList.add(newCard);
+    }
+    @JsonIgnore
+    public boolean deleteCard(Card card){
+        return cardList.remove(card);
     }
 
     public String getName() {

@@ -2,12 +2,14 @@ package hwr.oop.cards;
 
 import java.util.Date;
 import java.util.Objects;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Card {
     private final int id;
-    private final String question;
-    private final String answer;
+    private String question;
+    private String answer;
     private Date lastLearned;
 
     public Card(@JsonProperty("question") String question, @JsonProperty("answer") String answer, @JsonProperty("id") int id) {
@@ -36,6 +38,11 @@ public class Card {
         }
         Card other = (Card) obj;
         return Objects.equals(question, other.question) && Objects.equals(answer, other.answer) && Objects.equals(id, other.id) && Objects.equals(lastLearned, other.lastLearned);
+    }
+    @JsonIgnore
+    public void edit(String question, String answer){
+        this.question = question;
+        this.answer = answer;
     }
 
     @Override

@@ -34,6 +34,18 @@ public class NewCardTests {
         Card testCard = topic.getCardList().get(0);
         assertThat(testCard).isNotNull();
     }
+    @Test
+    public void canDeleteCard(){
+        Topic topic = new Topic("Spanisch");
+        topic.createCard("Tisch", "table");
+        assertThat(topic.deleteCard(topic.getCardList().get(0)));
+    }
+    @Test
+    public void cannotDeleteCard(){
+        Topic topic = new Topic("Spanisch");
+        Card card = new Card("Fischkutter", "fishcutter", 1);
+        assertThat(!topic.deleteCard(card));
+    }
 
     @Test
     public void canGetQuestion(){
@@ -65,5 +77,15 @@ public class NewCardTests {
         Card card = new Card("Test?", "Ja!", 42);
         Date date = new Date();
         assertThat(date).isCloseTo(card.getLastLearned(),1000);
+    }
+    @Test
+    public void canEditCard(){
+        Lernsession lernsession = Lernsession.createLernsessionWith3Boxes();
+        Topic topic = new Topic("Spanisch");
+        topic.createCard("Soja", "beste!!!");
+        lernsession.loadTopic(topic);
+        Card card = lernsession.getRandomCard();
+        card.edit("Tofu", "auch Beste");
+        assertThat(topic.getCardList().get(0).getQuestion()).isEqualTo("Tofu");
     }
 }

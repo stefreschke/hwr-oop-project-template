@@ -1,12 +1,15 @@
 package hwr.oop.cards;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 
 public class NewGetCardTest {
     private Lernsession lernsession;
@@ -33,9 +36,19 @@ public class NewGetCardTest {
         Assertions.assertThat(randomBoxIndex).isIn(List.of(0,1,2));
     }
     @Test
+    void canGetRandomBoxIndexFromList(){
+        int randomBoxIndex = lernsession.getRandomBoxIndexFromList(List.of(1,2,3));
+        Assertions.assertThat(randomBoxIndex).isIn(List.of(0,1,2));
+    }
+    @Test
     void canGetRandomCardFromRandomBox(){
         Card card = lernsession.getRandomCard();
         Assertions.assertThat(card).isIn(topic.getCardList());
+    }
+    @Test
+    public void cannotReturnRandomCardFromEmptyLernsession(){
+        Lernsession lernsession1 = Lernsession.createLernsessionWith3Boxes();
+        assertThrows(Lernsession.EmptyBoxesException.class, () -> lernsession1.getRandomCard());
     }
 
     @Test
