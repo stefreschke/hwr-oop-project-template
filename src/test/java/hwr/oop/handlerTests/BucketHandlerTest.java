@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.Objects;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -24,7 +25,7 @@ class BucketHandlerTest {
         ToDoList toDoList = new ToDoList("MyToDoList");
         toDoList.addBucket(new Bucket("Bucket1"));
         BucketHandler.handleUserCommand(toDoList, new ConsoleUserInterface(System.out, System.in), new String[]{"gtd", "rnb", "0", "test"});
-        assertThat(Util.getElementAtIndex(toDoList.getBuckets(), 0).getBucketName()).isEqualTo("test");
+        assertThat(Objects.requireNonNull(Util.getElementAtIndex(toDoList.getBuckets(), 0)).getBucketName()).isEqualTo("test");
     }
     @Test
      void testShowBuckets() {

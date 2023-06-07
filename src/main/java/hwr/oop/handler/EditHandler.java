@@ -30,6 +30,7 @@ public class EditHandler {
             item.setDescription(copyToDoItem.getDescription());
             item.setPriority(copyToDoItem.getPriority());
             item.setBucket(copyToDoItem.getBucket());
+            item.setDueDate(copyToDoItem.getDueDate());
             editDialog.end();
         } catch (Exception e) {
             cui.print(LogMode.ERROR, "Try gtd edit [index]");

@@ -2,12 +2,14 @@ package hwr.oop;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import hwr.oop.util.LocalDateTypeAdapter;
 import hwr.oop.util.Util;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 public class ToDoList {
@@ -62,7 +64,9 @@ public class ToDoList {
         if (fileName.contains(".")) {
             fileName = fileName.substring(0, fileName.lastIndexOf('.'));
         }
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+                .create();
         String json = gson.toJson(this);
 
         try (FileWriter fileWriter = new FileWriter(fileName + ".json")) {
@@ -147,6 +151,10 @@ public class ToDoList {
     public void sortByDone(String order) {
         if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::isDone, Comparator.reverseOrder()));
         else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::isDone));
+    }
+    public void sortByDueDate(String order) {
+        if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::getDueDate));
+        else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::getDueDate, Comparator.reverseOrder()));
     }
 
     public static class FileNotFoundAndCoundNotCreateException extends Exception {

@@ -8,6 +8,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,8 +71,8 @@ class ConsoleUITest {
     @Test
     void listTest() {
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
-        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW));
-        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test"), Priority.LOW));
+        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW, LocalDate.now()));
+        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test"), Priority.LOW, LocalDate.now()));
 
         ToDoList toDoList = new ToDoList("MyList");
         toDoList.setItems(toDoItems);
@@ -117,8 +118,8 @@ class ConsoleUITest {
     @Test
     void removeTest() {
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
-        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW));
-        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test2"), Priority.LOW));
+        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW, LocalDate.now()));
+        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test2"), Priority.LOW, LocalDate.now()));
 
         ToDoList toDoList = new ToDoList("MyList");
         toDoList.setItems(toDoItems);
@@ -207,11 +208,11 @@ class ConsoleUITest {
     void handleSortTest() {
         String[] commandArray = {"gtd", "sort", "prio", "asc"};
         ToDoList toDoList = new ToDoList("MyList");
-        toDoList.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now()));
         toDoList.getItems().get(0).setCreatedAt(LocalDateTime.of(2020, 1, 1, 0, 0));
-        toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW));
+        toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW, LocalDate.now()));
         toDoList.getItems().get(1).setCreatedAt(LocalDateTime.of(2020, 1, 2, 0, 0));
-        toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH));
+        toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH, LocalDate.now()));
 
         // Priority Test
         toDoList.sortByPriority("asc");
@@ -237,5 +238,10 @@ class ConsoleUITest {
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
         toDoList.sortByDone("desc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+
+        toDoList.sortByDueDate("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+        toDoList.sortByDueDate("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
     }
 }
