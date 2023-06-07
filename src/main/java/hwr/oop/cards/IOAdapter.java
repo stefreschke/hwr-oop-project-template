@@ -1,5 +1,6 @@
 package hwr.oop.cards;
 
 public interface IOAdapter {
-    void printString(String s);
+    void printMessage(String message);
+    String getResponse();
 }
