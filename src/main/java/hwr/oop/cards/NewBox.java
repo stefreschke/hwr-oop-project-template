@@ -102,12 +102,17 @@ public class NewBox{
             return false;
         }
         NewBox box = (NewBox) o;
-        if
-        for (int current = 0; current <){
-            card
+        if (learnedCardList.size() != box.learnedCardList.size() || unlearnedCardList.size() != box.unlearnedCardList.size()){
+            return false;
         }
-        return Objects.equals(learnedCardList, box.learnedCardList)
-                && Objects.equals(unlearnedCardList, box.unlearnedCardList);
+        for (int current = 0; current < learnedCardList.size(); current ++){
+            if (!learnedCardList.get(current).equals(box.learnedCardList.get(current)))
+                return false;
+        }for (int current = 0; current < unlearnedCardList.size(); current ++){
+            if (!unlearnedCardList.get(current).equals(box.unlearnedCardList.get(current)))
+                return false;
+        }
+        return true;
     }
 
     public ArrayList<Card> getLearnedCardList() {
