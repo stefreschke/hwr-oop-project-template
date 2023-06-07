@@ -17,7 +17,7 @@ public class ClearHandlerTest {
     void clearTest() {
         PrintStream sysOutBackup = System.out;
         ToDoList list = new ToDoList("MyList");
-        list.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM));
+        list.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM));
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));

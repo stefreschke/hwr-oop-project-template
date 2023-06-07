@@ -70,8 +70,8 @@ class ConsoleUITest {
     @Test
     void listTest() {
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
-        toDoItems.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
-        toDoItems.add(new ToDoItem("Test2", "Test2", "Test", Priority.LOW));
+        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW));
+        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test"), Priority.LOW));
 
         ToDoList toDoList = new ToDoList("MyList");
         toDoList.setItems(toDoItems);
@@ -117,8 +117,8 @@ class ConsoleUITest {
     @Test
     void removeTest() {
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
-        toDoItems.add(new ToDoItem("Test", "Test", "Test", Priority.LOW));
-        toDoItems.add(new ToDoItem("Test2", "Test2", "Test2", Priority.LOW));
+        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW));
+        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test2"), Priority.LOW));
 
         ToDoList toDoList = new ToDoList("MyList");
         toDoList.setItems(toDoItems);
@@ -207,11 +207,11 @@ class ConsoleUITest {
     void handleSortTest() {
         String[] commandArray = {"gtd", "sort", "prio", "asc"};
         ToDoList toDoList = new ToDoList("MyList");
-        toDoList.add(new ToDoItem("Apple", "Computers", "Fruit", Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM));
         toDoList.getItems().get(0).setCreatedAt(LocalDateTime.of(2020, 1, 1, 0, 0));
-        toDoList.add(new ToDoItem("Cucumber", "Water", "Vegetable", Priority.LOW));
+        toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW));
         toDoList.getItems().get(1).setCreatedAt(LocalDateTime.of(2020, 1, 2, 0, 0));
-        toDoList.add(new ToDoItem("Banana", "Minions", "Fruit", Priority.HIGH));
+        toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH));
 
         // Priority Test
         toDoList.sortByPriority("asc");

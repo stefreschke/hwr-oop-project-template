@@ -1,9 +1,6 @@
 package hwr.oop.handlerTests;
 
-import hwr.oop.ConsoleUserInterface;
-import hwr.oop.Priority;
-import hwr.oop.ToDoItem;
-import hwr.oop.ToDoList;
+import hwr.oop.*;
 import hwr.oop.handler.SortHandler;
 import org.junit.jupiter.api.Test;
 
@@ -22,10 +19,11 @@ public class SortHandlerTest {
         String userInput = "Task 1\nDescription 1\nBucket 1\nLOW\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 2", "Description 2", "Bucket 1", Priority.LOW));
-        toDoList.add(new ToDoItem("Task 3", "Description 3", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 4", "Description 4", "Bucket 1", Priority.HIGH));
+        Bucket bucket1 = new Bucket("Bucket 1");
+        toDoList.add(new ToDoItem("Task 1", "Description 1", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW));
+        toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH));
         String[] args = {"gtd", "sort", "prio", "asc"};
 
         // Act
@@ -45,10 +43,11 @@ public class SortHandlerTest {
         String userInput = "Task 1\nDescription 1\nBucket 1\nLOW\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 2", "Description 2", "Bucket 1", Priority.LOW));
-        toDoList.add(new ToDoItem("Task 3", "Description 3", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 4", "Description 4", "Bucket 1", Priority.HIGH));
+        Bucket bucket1 = new Bucket("Bucket 1");
+        toDoList.add(new ToDoItem("Task 1", "Description 1", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW));
+        toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH));
         String[] args = {"gtd", "sort", "prio", "desc"};
 
         // Act
@@ -68,10 +67,11 @@ public class SortHandlerTest {
         String userInput = "Task 1\nDescription 1\nBucket 1\nLOW\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 2", "Description 2", "Bucket 1", Priority.LOW));
-        toDoList.add(new ToDoItem("Task 3", "Description 3", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 4", "Description 4", "Bucket 1", Priority.HIGH));
+        Bucket bucket1 = new Bucket("Bucket 1");
+        toDoList.add(new ToDoItem("Task 1", "Description 1", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW));
+        toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH));
         String[] args = {"gtd", "sort", "create", "asc"};
 
         // Act
@@ -90,11 +90,12 @@ public class SortHandlerTest {
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         String userInput = "Task 1\nDescription 1\nBucket 1\nLOW\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+        Bucket bucket1 = new Bucket("Bucket 1");
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 2", "Description 2", "Bucket 1", Priority.LOW));
-        toDoList.add(new ToDoItem("Task 3", "Description 3", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 4", "Description 4", "Bucket 1", Priority.HIGH));
+        toDoList.add(new ToDoItem("Task 1", "Description 1", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW));
+        toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH));
         String[] args = {"gtd", "sort", "create", "desc"};
 
         // Act
@@ -115,10 +116,11 @@ public class SortHandlerTest {
         String userInput = "Task 1\nDescription 1\nBucket 1\nLOW\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 2", "Description 2", "Bucket 1", Priority.LOW));
-        toDoList.add(new ToDoItem("Task 3", "Description 3", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 4", "Description 4", "Bucket 1", Priority.HIGH));
+        Bucket bucket1 = new Bucket("Bucket 1");
+        toDoList.add(new ToDoItem("Task 1", "Description 1", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW));
+        toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH));
         String[] args = {"gtd", "sort", "title", "asc"};
 
         // Act
@@ -138,10 +140,11 @@ public class SortHandlerTest {
         String userInput = "Task 1\nDescription 1\nBucket 1\nLOW\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 2", "Description 2", "Bucket 1", Priority.LOW));
-        toDoList.add(new ToDoItem("Task 3", "Description 3", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 4", "Description 4", "Bucket 1", Priority.HIGH));
+        Bucket bucket1 = new Bucket("Bucket 1");
+        toDoList.add(new ToDoItem("Task 1", "Description 1", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW));
+        toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH));
         String[] args = {"gtd", "sort", "title", "desc"};
 
         // Act
@@ -162,10 +165,11 @@ public class SortHandlerTest {
         String userInput = "Task 1\nDescription 1\nBucket 1\nLOW\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 2", "Description 2", "Bucket 1", Priority.LOW));
-        toDoList.add(new ToDoItem("Task 3", "Description 3", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 4", "Description 4", "Bucket 1", Priority.HIGH));
+        Bucket bucket1 = new Bucket("Bucket 1");
+        toDoList.add(new ToDoItem("Task 1", "Description 1", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW));
+        toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH));
         toDoList.getItems().get(1).setDone();
         String[] args = {"gtd", "sort", "done", "asc"};
 
@@ -186,10 +190,11 @@ public class SortHandlerTest {
         String userInput = "Task 1\nDescription 1\nBucket 1\nLOW\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 2", "Description 2", "Bucket 1", Priority.LOW));
-        toDoList.add(new ToDoItem("Task 3", "Description 3", "Bucket 1", Priority.MEDIUM));
-        toDoList.add(new ToDoItem("Task 4", "Description 4", "Bucket 1", Priority.HIGH));
+        Bucket bucket1 = new Bucket("Bucket 1");
+        toDoList.add(new ToDoItem("Task 1", "Description 1", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW));
+        toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM));
+        toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH));
         toDoList.getItems().get(1).setDone();
         String[] args = {"gtd", "sort", "done", "desc"};
 

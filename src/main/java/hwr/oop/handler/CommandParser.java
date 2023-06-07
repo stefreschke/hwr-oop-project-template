@@ -20,12 +20,11 @@ public class CommandParser {
         EDIT(new String[]{"edit", "e"}, new String[][]{new String[]{INDEX_ARG}},"edit a task", EditHandler.class),
         LIST(new String[]{"list", "ls"}, new String[][]{new String[]{}},"list all tasks", ListHandler.class),
         SORT(new String[]{"sort", "s"}, new String[][]{new String[]{"priority | createdAt | bucket | title | done"}, new String[]{"asc | desc"}},"sort your tasks", SortHandler.class),
-        CREATEBUCKET(new String[]{"createBucket", "cb"}, new String[][]{new String[]{"name"}},"create a bucket for tasks", BucketHandler.class),
         SHOWBUCKETS(new String[]{"showBuckets", "sb"}, new String[][]{new String[]{}}, "show buckets for tasks", BucketHandler.class),
         RENAMEBUCKETS(new String[]{"renameBucket", "rnb"}, new String[][]{new String[]{INDEX_ARG}}, "changes bucket name", BucketHandler.class),
         CLEAR(new String[]{"clear", "cls"}, new String[][]{new String[]{}}, "clear all tasks", ClearHandler.class),
         EXIT(new String[]{"exit", "q"}, new String[][]{new String[]{}}, "exit the program", ExitHandler.class),
-        WRONGCOMMAND(new String[]{}, new String[][]{new String[]{}}, "", WrongCommandHandler.class);
+        WRONGCOMMAND(new String[]{}, new String[][]{new String[]{}}, "", HelpHandler.class);
 
         private final String[] commands;
         private final String[][] arguments;

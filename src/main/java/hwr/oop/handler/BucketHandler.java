@@ -1,11 +1,8 @@
 package hwr.oop.handler;
 
-import hwr.oop.Bucket;
 import hwr.oop.ConsoleUserInterface;
 import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
-
-import java.util.Set;
 
 public class BucketHandler {
     BucketHandler() {
@@ -13,9 +10,7 @@ public class BucketHandler {
     public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2) {
             try {
-                if (args[1].equals("createBucket") || args[1].equals("cb")) {
-                    createBucket(toDoList, args[2]);
-                } else if (args[1].equals("showBuckets") || args[1].equals("sb")) {
+                if (args[1].equals("showBuckets") || args[1].equals("sb")) {
                     showBuckets(toDoList, cui);
                 } else if (args[1].equals("renameBucket") || args[1].equals("rnb")) {
                     renameBuckets(toDoList, args[2], args[3]);
@@ -29,15 +24,6 @@ public class BucketHandler {
             cui.print(LogMode.ERROR, "Invalid number of arguments");
         }
     }
-
-    public static void createBucket(ToDoList toDoList, String name) {
-        Set<Bucket> buckets = toDoList.getBuckets();
-        try {
-            buckets.add(new Bucket(name));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
     public static void showBuckets(ToDoList toDoList, ConsoleUserInterface cui) {
         cui.showBuckets(toDoList);
     }
@@ -45,9 +31,9 @@ public class BucketHandler {
         try {
             int index = Integer.parseInt(indexString);
             toDoList.renameBucket(index, newName);
+            //toDoList.sortBuckets();
         } catch (Exception e) {
             throw new RuntimeException(e);
-
         }
     }
 }

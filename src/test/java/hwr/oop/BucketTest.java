@@ -36,7 +36,6 @@ public class BucketTest {
         Bucket bucket = new Bucket("Test");
         toDoList.addBucket(bucket);
         toDoList.renameBucket(0, "Boo");
-        assertThat(toDoList.getBuckets()).doesNotContain(bucket);
         assertThat(Util.getElementAtIndex(toDoList.getBuckets(), 0).getBucketName()).isEqualTo("Boo");
     }
 }

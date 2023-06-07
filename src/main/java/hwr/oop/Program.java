@@ -8,14 +8,14 @@ import java.util.ArrayList;
 public class Program {
     public ToDoList loadToDoList(String fileName) {
         ToDoList toDoList = getToDoListFromJSON(fileName);
-        if (toDoList != null && toDoList.getItems() == null) {
-            toDoList.setItems(new ArrayList<>());
-            return toDoList;
+        if (toDoList != null) {
+            if (toDoList.getItems() == null) {
+                toDoList.setItems(new ArrayList<>());
+            }
+            linkToCorrectBucket(toDoList);
         }
         return toDoList;
     }
-
-
     private ToDoList getToDoListFromJSON(String fileName) {
         Gson gson = new Gson();
         String json;
@@ -47,7 +47,6 @@ public class Program {
             return new String[0];
         }
     }
-
     public void setEnvironmentVariables(String filePath, String listName, String fileName) {
         if (fileName.contains(".")) {
             fileName = fileName.substring(0, fileName.lastIndexOf('.'));
@@ -57,6 +56,16 @@ public class Program {
             fileWriter.flush();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    private void linkToCorrectBucket(ToDoList toDoList) {
+        for (ToDoItem item:toDoList.getItems()) {
+            for (Bucket bucket:toDoList.getBuckets()) {
+                if (item.getBucket().getBucketName().equals(bucket.getBucketName())) {
+                    item.setBucket(bucket);
+                }
+            }
+            toDoList.getBuckets().add(item.getBucket());
         }
     }
 }

@@ -25,9 +25,6 @@ public class ToDoList {
         this.fileName = fileName;
         buckets = new HashSet<>();
     }
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
-    }
     public void setName(String name) {
         this.name = name;
     }
@@ -42,11 +39,17 @@ public class ToDoList {
     public Set<Bucket> getBuckets() {
         return buckets;
     }
-
     public void addBucket(Bucket bucket) {
         buckets.add(bucket);
     }
-
+    public Bucket findBucket(String name) {
+        for (Bucket bucket:this.buckets) {
+            if (bucket.getBucketName().equals(name)) {
+                return bucket;
+            }
+        }
+        return null;
+    }
     public void setItems(List<ToDoItem> items) {
         this.items = items;
     }
@@ -55,7 +58,7 @@ public class ToDoList {
     }
 
     public void writeToJSON(ConsoleUserInterface cui, String fileName) throws FileNotFoundAndCoundNotCreateException {
-        //remove any file extension if present
+        pruneUnusedBuckets();
         if (fileName.contains(".")) {
             fileName = fileName.substring(0, fileName.lastIndexOf('.'));
         }
@@ -77,9 +80,43 @@ public class ToDoList {
             e.printStackTrace();
         }
     }
+    private void pruneUnusedBuckets() {
+        int index = 0;
+        for (Bucket bucket:this.buckets) {
+            int help = 0;
+            for (ToDoItem Item : this.items) {
+                if (bucket.getBucketName().equals(Item.getBucket().getBucketName())) {
+                    help++;
+                }
+            }
+            if (help == 0) {
+                this.buckets.remove(Util.getElementAtIndex(buckets, index));
+            }
+            index++;
+        }
+    }
     public void renameBucket (int index, String newBucket) {
-        this.buckets.remove(Util.getElementAtIndex(this.buckets, index));
-        this.buckets.add(new Bucket(newBucket));
+        try {
+            String help = Util.getElementAtIndex(this.buckets, index).getBucketName();
+            for (Bucket Bucket : this.buckets) {
+                if (Bucket.getBucketName().equals(help)) {
+                    Bucket.setBucketName(newBucket);
+                }
+            }
+            //sortBuckets();
+            for (ToDoItem ToDoIt : this.items) {
+                if (ToDoIt.getBucket().getBucketName().equals(help)) {
+                    ToDoIt.getBucket().setBucketName(newBucket);
+                }
+            }
+        } catch (Exception e) {
+            throw new IndexOutOfBoundsException("Sorry...Bucket could not be found.");
+        }
+    }
+    public void sortBuckets() {
+        List<Bucket> bucketList = new ArrayList<>(this.buckets);
+        Collections.reverseOrder(Comparator.comparing(Bucket::getBucketName));
+        this.buckets = new LinkedHashSet<>(bucketList);
     }
     public void add(ToDoItem toDoItem) {
         this.items.add(toDoItem);
