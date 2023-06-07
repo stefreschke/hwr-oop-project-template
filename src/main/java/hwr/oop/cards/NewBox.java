@@ -41,14 +41,24 @@ public class NewBox{
     public void addCard(Card card) {
         learnedCardList.add(card);
     }
-/*
+
     public void moveCardUp(Card card) {
-        this.boxes.retrieve(next).addCard(card);
+        try{
+            NewBox box = this.boxes.retrieve((next)).get();
+            box.addCard(card);
+        }catch(NoSuchElementException error){ //ok? oder auf isPresent checken?
+            this.addCard(card);
+        }
     }
 
     public void moveCardDown(Card card) {
-        this.previousBox.addCard(card);
-    }*/
+        try{
+            NewBox box = this.boxes.retrieve((previous)).get();
+            box.addCard(card);
+        }catch(NoSuchElementException error){ //ok? oder auf isPresent checken?
+            this.addCard(card);
+        }
+    }
     @JsonIgnore
     public boolean isEmpty_learned() {
         return learnedCardList.isEmpty();

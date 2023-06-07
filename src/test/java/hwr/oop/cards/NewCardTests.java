@@ -2,12 +2,11 @@ package hwr.oop.cards;
 
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CardTests {
+public class NewCardTests {
 
 
     @Test

@@ -1,12 +1,10 @@
 package hwr.oop.cards;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TopicTests {
+class NewTopicTests {
 
     @Test
     public void canCreateTopicWithName(){
@@ -15,11 +13,5 @@ class TopicTests {
 
         String testName = topic.getName();
         assertThat(testName).isEqualTo("Portugiesisch");
-    }
-
-    @Test
-    public void canSaveTopic(){
-
-        PersistenceSavePort pa = new JsonPersistenceAdapter();
     }
 }

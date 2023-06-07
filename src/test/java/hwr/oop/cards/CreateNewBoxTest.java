@@ -3,11 +3,11 @@ package hwr.oop.cards;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.TimeUnit;
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class CreateBoxTest {
+public class CreateNewBoxTest {
     @Test
     public void canContainCards(){
         Boxes boxes = Boxes.createBoxes(3);
@@ -15,6 +15,27 @@ public class CreateBoxTest {
         NewBox box = boxes.retrieve(1).get(); //no checking for isPresent()
         box.addCard(card);
         Assertions.assertThat(box.isEmpty_learned()).isFalse();
+    }
+    @Test
+    void testEquals(){
+        Boxes mediator = Boxes.createBoxes(3);
+        NewBox box1 = mediator.retrieve(0).get();
+        NewBox box2 = mediator.retrieve(0).get();
+        Card card = new Card("1", "2", 3);
+        box1.addCard(card);
+        box2.addCard(card);
+        assertThat(box1).isEqualTo(box2);
+    }
+    @Test
+    void testEqualsNot(){
+        Boxes mediator = Boxes.createBoxes(3);
+        NewBox box1 = mediator.retrieve(0).get();
+        NewBox box2 = mediator.retrieve(1).get();
+        Card card = new Card("1", "2", 3);
+        Card card2 = new Card("blabal", "2", 4);
+        box1.addCard(card);
+        box2.addCard(card2);
+        assertThat(box1).isNotEqualTo(box2);
     }
 
     @Test

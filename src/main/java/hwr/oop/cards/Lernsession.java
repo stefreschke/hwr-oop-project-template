@@ -65,13 +65,6 @@ public class Lernsession {
             box.addCard(card);
         }
     }
-    /*
-    void moveCardUp(Card card) {
-        getBoxList().get(currentBoxIndex).moveCardUp(card);
-    }
-    void moveCardDown(Card card) {
-        getBoxList().get(currentBoxIndex).moveCardUp(card);
-    }*/
 
     public Card getCurrentCard(){
         return this.currentCard;
