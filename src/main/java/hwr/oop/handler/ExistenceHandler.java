@@ -1,6 +1,8 @@
 package hwr.oop.handler;
 
 import hwr.oop.*;
+import hwr.oop.dialog.AddDialog;
+import hwr.oop.dialog.HandleBadIndexDialog;
 
 public class ExistenceHandler {
     ExistenceHandler() {
@@ -12,12 +14,7 @@ public class ExistenceHandler {
                     add(toDoList, cui);
                 } else if (args[1].equals("remove") || args[1].equals("r")) {
                     int index;
-                    try {
-                        index = Integer.parseInt(args[2]);
-                    } catch (Exception e) {
-                        cui.print(LogMode.ERROR, "Invalid index");
-                        return;
-                    }
+                    index = Integer.parseInt(args[2]);
                     remove(cui, toDoList, index);
                 } else {
                     cui.print(LogMode.ERROR, "Unknown command");
@@ -29,26 +26,16 @@ public class ExistenceHandler {
             cui.print(LogMode.ERROR, "Invalid number of arguments");
         }
     }
-    public static void add(ToDoList toDoList, ConsoleUserInterface cui) throws Exception {
-        cui.say("Create a new task");
-        String title = cui.getTitleForAdd();
-        String description = cui.getDescriptionForAdd();
-        Priority priority = cui.getPriorityForAdd();
-        String bucket = cui.getBucketForAdd();
-        ToDoItem toDoItem = new ToDoItem(
-                title,
-                description,
-                bucket,
-                priority
-        );
+    public static void add(ToDoList toDoList, ConsoleUserInterface cui) throws CouldNotAddException, ConsoleUserInterface.CouldNotReadInputException {
+        AddDialog addDialog = new AddDialog(cui);
+        ToDoItem toDoItem = addDialog.start();
         try {
             toDoList.add(toDoItem);
-            toDoList.addBucket(new Bucket(bucket));
+            toDoList.addBucket(new Bucket(toDoItem.getBucket()));
         } catch (Exception e) {
-            cui.print(LogMode.ERROR, "Could not add task");
-            return;
+            throw new CouldNotAddException("Could not add task");
         }
-        cui.print(LogMode.SUCCESS, "Task Created Successfully!🎉");
+        addDialog.end();
     }
     public static void remove(ConsoleUserInterface cui, ToDoList toDoList, int index) {
         int i = 0;
@@ -58,9 +45,15 @@ public class ExistenceHandler {
                 cui.say("Task Removed Successfully!");
                 i++;
             } catch (Exception e) {
-                index = cui.handleBadIndex("Please enter the index of the task you want to remove.");
+                index =  new HandleBadIndexDialog(cui).start("Please enter the index of the task you want to remove.");
                 if (index == -1) i++;
             }
+        }
+    }
+
+    public  static class CouldNotAddException extends Exception {
+        public CouldNotAddException(String message) {
+            super(message);
         }
     }
 }

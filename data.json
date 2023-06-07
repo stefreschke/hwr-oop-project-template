@@ -1,1 +1,1 @@
-{"name":"list","items":[],"fileName":"data","buckets":[]}
+{"name":"mylist","items":[{"title":"Title","description":"Desc","bucket":{"bucketName":"Bucket"},"priority":"LOW","createdAt":"2023-06-07T09:16:39.838829","state":"TODO"}],"fileName":"data","buckets":[{"bucketName":"Bucket"}]}
