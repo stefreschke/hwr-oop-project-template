@@ -16,7 +16,7 @@ public class NewCardPersistenceTests {
         @Test
         void load(){
 
-            JsonPersistenceAdapter pa = new JsonPersistenceAdapter();
+            NewJsonPersistenceAdapter pa = new NewJsonPersistenceAdapter();
 
             assertThrows(IllegalArgumentException.class, () -> pa.loadTopic(""));
         }
@@ -24,7 +24,7 @@ public class NewCardPersistenceTests {
         @Test
         void save(){
 
-            JsonPersistenceAdapter pa = new JsonPersistenceAdapter();
+            NewJsonPersistenceAdapter pa = new NewJsonPersistenceAdapter();
 
             Topic topic = new Topic("testTopic");
             topic.createCard("", "");
@@ -38,8 +38,8 @@ public class NewCardPersistenceTests {
         @Test
         public void canSaveSingleCard(){
 
-            PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
-            PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
+            NewPersistenceSavePort persistenceSavePort = new NewJsonPersistenceAdapter();
+            NewPersistenceLoadPort persistenceLoadPort = new NewJsonPersistenceAdapter();
 
             Topic topic = new Topic("testTopic");
             topic.createCard("Question?", "Answer!");
@@ -61,8 +61,8 @@ public class NewCardPersistenceTests {
         @Test
         public void canSaveMultipleCards(){
 
-            PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
-            PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
+            NewPersistenceSavePort persistenceSavePort = new NewJsonPersistenceAdapter();
+            NewPersistenceLoadPort persistenceLoadPort = new NewJsonPersistenceAdapter();
 
             Topic topic = new Topic("testTopic");
             topic.createCard("Question?", "Answer!");
@@ -85,8 +85,8 @@ public class NewCardPersistenceTests {
 
         @Test void makeSureToOverwritePreviousSaves(){
 
-            PersistenceSavePort persistenceSavePort = new JsonPersistenceAdapter();
-            PersistenceLoadPort persistenceLoadPort = new JsonPersistenceAdapter();
+            NewPersistenceSavePort persistenceSavePort = new NewJsonPersistenceAdapter();
+            NewPersistenceLoadPort persistenceLoadPort = new NewJsonPersistenceAdapter();
 
             Topic topic = new Topic("testTopic");
             topic.createCard("Question?", "Answer!");
@@ -120,7 +120,7 @@ public class NewCardPersistenceTests {
         Topic savedTopic;
         @BeforeEach
         void setUp(){
-            PersistenceSavePort pa = new JsonPersistenceAdapter();
+            NewPersistenceSavePort pa = new NewJsonPersistenceAdapter();
 
             savedTopic = new Topic("testTopic");
             savedTopic.createCard("Question?", "Answer!");
@@ -135,7 +135,7 @@ public class NewCardPersistenceTests {
         @Test
         void canLoadSavedContent(){
 
-            PersistenceLoadPort pa = new JsonPersistenceAdapter();
+            NewPersistenceLoadPort pa = new NewJsonPersistenceAdapter();
 
             Topic loadedTopic = null;
             try {
@@ -152,7 +152,7 @@ public class NewCardPersistenceTests {
     @AfterAll
     static void afterAll(){
 
-        PersistenceSavePort pa = new JsonPersistenceAdapter();
+        NewPersistenceSavePort pa = new NewJsonPersistenceAdapter();
 
         Topic topic = new Topic("testTopic");
         topic.createCard("Question?", "Answer!");

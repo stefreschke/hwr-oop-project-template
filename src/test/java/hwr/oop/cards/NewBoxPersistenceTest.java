@@ -33,9 +33,9 @@ public class NewBoxPersistenceTest {
         @Test
         void load(){
 
-            PersistenceLoadPort pa = new JsonPersistenceAdapter();
+            NewPersistenceLoadPort pa = new NewJsonPersistenceAdapter();
 
-            assertThrows(IllegalArgumentException.class, () -> pa.loadTrainingInstance(""));
+            assertThrows(IllegalArgumentException.class, () -> pa.loadLernsession(""));
         }
     }
 

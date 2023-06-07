@@ -29,6 +29,7 @@ public class Lernsession {
     private Lernsession(Boxes mediator) {
         this.mediator = mediator;
         this.NUMBER_OF_BOXES = mediator.getBoxAmount();
+        currentBoxIndex = 0;
     }
 
     public Boxes getBoxes() {
@@ -40,10 +41,6 @@ public class Lernsession {
         int randomInt = random.nextInt(NUMBER_OF_BOXES - 1);
         this.currentBoxIndex = randomInt;
         return randomInt;
-    }
-
-    public int getCurrentBoxIndex(){
-        return this.currentBoxIndex;
     }
 
     public Card getRandomCard(){
@@ -64,9 +61,5 @@ public class Lernsession {
         for (Card card : cardList) {
             box.addCard(card);
         }
-    }
-
-    public Card getCurrentCard(){
-        return this.currentCard;
     }
 }

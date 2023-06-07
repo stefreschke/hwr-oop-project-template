@@ -20,9 +20,7 @@ public class Topic {
     }
 
     public void createCard(String question, String answer){
-
         int id = cardList.size();
-
         Card newCard = new Card(question, answer, id);
         cardList.add(newCard);
     }
