@@ -1,5 +1,6 @@
 package hwr.oop.applicationTest;
 
+import hwr.oop.application.CantDeleteNonexistentProjectException;
 import hwr.oop.application.DeleteProjectService;
 import hwr.oop.application.DeleteProjectUseCase;
 import hwr.oop.application.Project;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import static org.assertj.core.api.Assertions.*;
 
@@ -52,5 +54,18 @@ class DeleteProjectTest {
         deleteProject.deleteProject(project);
 
         assertThat(load.loadData().getProjectList()).doesNotContain(project);
+    }
+
+    @Test
+    void deleteProjectOnEmptyProjectList_throwsException() {
+        appData = new AppData(new ArrayList<>(), RandomTestData.getRandomUsers());
+        save.saveData(appData);
+
+        try {
+            deleteProject.deleteProject(RandomTestData.getRandomProject());
+            fail("should throw exception");
+        } catch (CantDeleteNonexistentProjectException e) {
+            e.printStackTrace();
+        }
     }
 }
