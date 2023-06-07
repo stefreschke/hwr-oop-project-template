@@ -36,12 +36,15 @@ public class Topic {
         if (this == o) return true;
         if (!(o instanceof Topic)) return false;
         Topic topic = (Topic) o;
-        return Objects.equals(name, topic.name) &&
-                Objects.equals(cardList, topic.cardList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, cardList);
+        if (cardList.size() != topic.cardList.size()) {
+            return false;
+        }
+        for (int current = 0; current < cardList.size(); current++) {
+            boolean notequal = !cardList.get(current).equals(topic.cardList.get(current));
+            if (notequal) {
+                return false;
+            }
+        }
+        return Objects.equals(name, topic.name);
     }
 }

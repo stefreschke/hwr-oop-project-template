@@ -119,17 +119,16 @@ public class CardPersistenceTests {
 
     @Nested
     class loadCardTests{
-
+        Topic savedTopic;
         @BeforeEach
         void setUp(){
-
             PersistenceSavePort pa = new JsonPersistenceAdapter();
 
-            Topic topic = new Topic("testTopic");
-            topic.createCard("Question?", "Answer!");
-            topic.createCard("Frage?", "Antwort!");
+            savedTopic = new Topic("testTopic");
+            savedTopic.createCard("Question?", "Answer!");
+            savedTopic.createCard("Frage?", "Antwort!");
             try {
-                pa.saveTopic(topic, "test");
+                pa.saveTopic(savedTopic, "test");
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
@@ -146,12 +145,7 @@ public class CardPersistenceTests {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
-            Topic topic = new Topic("testTopic");
-            topic.createCard("Question?", "Answer!");
-            topic.createCard("Frage?", "Antwort!");
-
-            Assertions.assertThat(loadedTopic).isEqualTo(topic);
+            Assertions.assertThat(loadedTopic).isEqualTo(savedTopic);
         }
     }
 

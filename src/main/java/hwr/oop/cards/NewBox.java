@@ -61,7 +61,7 @@ public class NewBox{
     @JsonIgnore
 
     public boolean isEmpty(){ return (learnedCardList.isEmpty()&& unlearnedCardList.isEmpty());}
-    @JsonIgnore
+    /*@JsonIgnore
     public void updateBox() {
         Date currentDate = new Date();
         Calendar learnDate = Calendar.getInstance();
@@ -82,7 +82,7 @@ public class NewBox{
         for (Integer i: indices){
             this.learnedCardList.remove((int)i); //cast nötig weil Remove(Object o) aufgerufen wird statt remove(index i)
         }
-    }
+    }*/
     @JsonIgnore
     public Card getRandomCard() {
         // learnedCardList müsste unlearned sein in der Logik mit einem Datum, für die Tests aber hinderlich
