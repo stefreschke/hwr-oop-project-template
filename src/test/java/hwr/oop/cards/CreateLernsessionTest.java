@@ -9,20 +9,20 @@ public class CreateLernsessionTest {
     @Test
     void canCreateLernsessionWith3Boxes(){
         Lernsession lernsession = Lernsession.createLernsessionWith3Boxes();
-        int length = lernsession.getBoxList().size();
+        int length = lernsession.getBoxes().getBoxAmount();
         Assertions.assertThat(length).isEqualTo(3);
     }@Test
     void canCreateLernsessionWith5Boxes(){
         Lernsession lernsession = Lernsession.createLernsessionWith5Boxes();
-        int length = lernsession.getBoxList().size();
+        int length = lernsession.getBoxes().getBoxAmount();
         Assertions.assertThat(length).isEqualTo(5);
     }@Test
     void canCreateLernsessionWith7Boxes(){
         Lernsession lernsession = Lernsession.createLernsessionWith7Boxes();
-        int length = lernsession.getBoxList().size();
+        int length = lernsession.getBoxes().getBoxAmount();
         Assertions.assertThat(length).isEqualTo(7);
     }
-    /*@Test
+    @Test
     void canCreateLernsessionFromSave(){
         NewPersistenceLoadPort loadPort = new NewJsonPersistenceAdapter();
         LoadLernsessionFromPersistenceUseCase creator = new LoadLernsessionFromPersistenceUseCase(loadPort);
@@ -32,6 +32,6 @@ public class CreateLernsessionTest {
         }catch (IOException error){
             error.printStackTrace();
         }
-        Assertions.assertThat(lernsession.getBoxList()).isNotNull();
-    }*/
+        Assertions.assertThat(lernsession.getBoxes()).isNotNull();
+    }
 }

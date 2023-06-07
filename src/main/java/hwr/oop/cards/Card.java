@@ -35,7 +35,7 @@ public class Card {
             return false;
         }
         Card other = (Card) obj;
-        return Objects.equals(question, other.question) && Objects.equals(answer, other.answer);
+        return Objects.equals(question, other.question) && Objects.equals(answer, other.answer) && Objects.equals(id, other.id) && Objects.equals(lastLearned, other.lastLearned);
     }
 
     @Override

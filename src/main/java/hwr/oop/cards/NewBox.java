@@ -1,13 +1,9 @@
 package hwr.oop.cards;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.Random;
+import java.util.*;
 
 public class NewBox{
     private ArrayList<Card> learnedCardList;
@@ -17,18 +13,27 @@ public class NewBox{
     private final int previous;
     private int learnInterval;
 
-    NewBox(int daterule, Boxes boxes, int next, int previous){
+
+    /*public NewBox(){
+        boxes = null;
+        next = 0;
+        previous = 0;
         learnedCardList = new ArrayList<Card>();
         unlearnedCardList = new ArrayList<Card>();
-        this.learnInterval = daterule;
+    }*/
+    public NewBox(int learnInterval, Boxes boxes, int next, int previous){
+        learnedCardList = new ArrayList<Card>();
+        unlearnedCardList = new ArrayList<Card>();
+        this.learnInterval = learnInterval;
         this.boxes = boxes;
         this.next = next;
         this.previous = previous;
     }
-    NewBox(ArrayList<Card> learnedCardList, ArrayList<Card> unlearnedCardList, int daterule, Boxes boxes, int next, int previous){
-        learnedCardList = new ArrayList<Card>();
-        unlearnedCardList = new ArrayList<Card>();
-        this.learnInterval = daterule;
+    @JsonCreator
+    public NewBox(@JsonProperty("learnedCardList") ArrayList<Card> learnedCardList, @JsonProperty("unlearnedCardList") ArrayList<Card> unlearnedCardList, @JsonProperty("learnInterval") int learnInterval, @JsonProperty("boxes") Boxes boxes, @JsonProperty("next") int next, @JsonProperty("previous") int previous){
+        this.learnedCardList = learnedCardList;
+        this.unlearnedCardList = unlearnedCardList;
+        this.learnInterval = learnInterval;
         this.boxes = boxes;
         this.next = next;
         this.previous = previous;
@@ -44,16 +49,19 @@ public class NewBox{
     public void moveCardDown(Card card) {
         this.previousBox.addCard(card);
     }*/
-
+    @JsonIgnore
     public boolean isEmpty_learned() {
         return learnedCardList.isEmpty();
     }
+    @JsonIgnore
 
     public boolean isEmpty_unlearned() {
         return unlearnedCardList.isEmpty();
     }
-    public boolean isEmpty(){ return (learnedCardList.isEmpty()&& unlearnedCardList.isEmpty());}
+    @JsonIgnore
 
+    public boolean isEmpty(){ return (learnedCardList.isEmpty()&& unlearnedCardList.isEmpty());}
+    @JsonIgnore
     public void updateBox() {
         Date currentDate = new Date();
         Calendar learnDate = Calendar.getInstance();
@@ -75,7 +83,7 @@ public class NewBox{
             this.learnedCardList.remove((int)i); //cast nötig weil Remove(Object o) aufgerufen wird statt remove(index i)
         }
     }
-
+    @JsonIgnore
     public Card getRandomCard() {
         // learnedCardList müsste unlearned sein in der Logik mit einem Datum, für die Tests aber hinderlich
         Random random = new Random();
@@ -83,6 +91,23 @@ public class NewBox{
         Card returnCard = learnedCardList.get(index);
         learnedCardList.remove(index);
         return returnCard;
+    }
+    @JsonIgnore
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        NewBox box = (NewBox) o;
+        if
+        for (int current = 0; current <){
+            card
+        }
+        return Objects.equals(learnedCardList, box.learnedCardList)
+                && Objects.equals(unlearnedCardList, box.unlearnedCardList);
     }
 
     public ArrayList<Card> getLearnedCardList() {
@@ -92,7 +117,14 @@ public class NewBox{
     public ArrayList<Card> getUnlearnedCardList() {
         return unlearnedCardList;
     }
+
     public int getLearnInterval(){
         return learnInterval;
+    }
+    public int getNext(){
+        return next;
+    }
+    public int getPrevious() {
+        return previous;
     }
 }

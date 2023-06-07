@@ -64,6 +64,17 @@ public class Boxes {
             return Optional.empty();
         }
     }
+    public int getBoxAmount(){
+        return this.boxMap.size();
+    }
+
+    public List<NewBox> createBoxList(){
+        List<NewBox> boxList = new ArrayList<>();
+        for (int current = 0; current < boxMap.size(); current++){
+            boxList.add(boxMap.get(current));
+        }
+        return boxList;
+    }
     public
     static class InvalidBoxNumberException extends RuntimeException{
         private InvalidBoxNumberException() {
