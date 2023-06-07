@@ -3,7 +3,10 @@ package hwr.oop;
 import hwr.oop.util.ConsoleColors;
 import org.junit.jupiter.api.Test;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -30,43 +33,6 @@ class ConsoleUITest {
         String[] env = testEnvProgram.getEnvironmentVariables("setTestSetup");
         assertThat(env).contains("data.json").contains("MyList");
     }
-    @Test
-    void testWelcome() {
-        Program testEnvProgram = new Program();
-        String[] env = testEnvProgram.getEnvironmentVariables("testSetup");
-        try {
-            String userInput = "0\n" + "\n" + "data.json\n";
-            System.setIn(new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer));
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ToDoList toDoList = testConsole.welcome();
-            // Check the program output
-            String expectedOutput;
-            if (env == null) {
-                expectedOutput = "Welcome To Getting Things Done \uD83D\uDE80\n" +
-                        "Looks Like it is your first time using this program.\n" +
-                        "Lets set you up first.\n" +
-                        "Please enter a name for your list\n" +
-                        "> " +
-                        "Please provide a filePath to an existing .json file to Load your list from.\n" +
-                        "If you don't have one press enter to create specify your path.\n" +
-                        "> " +
-                        "Please enter your a path to a file to save your list to.\n" +
-                        "> ";
-            } else {
-                expectedOutput = "Welcome To Getting Things Done \uD83D\uDE80\n";
-            }
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-            assertThat(toDoList).isNotNull();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (ToDoList.FileNotFoundAndCoundNotCreateException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     @Test
     void helpTest() {
         try {
@@ -97,55 +63,6 @@ class ConsoleUITest {
                             "  exit                            -  exit the program\n";
             String actualOutput = outBuffer.toString();
             assertEquals(expectedOutput, actualOutput);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Test
-    void getTitleForAddTest(){
-        try {
-            String userInput = "MyItem\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            String title = testConsole.getTitleForAdd();
-            assertThat(title).isEqualTo("MyItem");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @Test
-    void getDescriptionForAddTest(){
-        try {
-            String userInput = "MyItem\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            String desc = testConsole.getDescriptionForAdd();
-            assertThat(desc).isEqualTo("MyItem");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @Test
-    void getPriorityForAddTest(){
-        try {
-            String userInput = "3\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            Priority prio = testConsole.getPriorityForAdd();
-            assertThat(prio).isEqualTo(Priority.HIGH);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @Test
-    void getBucketForAddTest(){
-        try {
-            String userInput = "MyItem\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            String bucket = testConsole.getBucketForAdd();
-            assertThat(bucket).isEqualTo("MyItem");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -256,45 +173,6 @@ class ConsoleUITest {
             assertEquals(expectedOutput, actualOutput);
         } finally {
             System.setOut(sysOutBackup);
-        }
-    }
-    @Test
-    void handleBadIndexTest() {
-        try {
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("y\n1\n".getBytes(StandardCharsets.UTF_8)));
-            int index = testConsole.handleBadIndex("Test Message.");
-            // Check the program output
-            String expectedOutput;
-            expectedOutput = ConsoleColors.RED_BOLD + "There is nothing at that index... \uD83E\uDD78" + ConsoleColors.RESET + "\n" +
-                    "Try again? (y/n)\n" +
-                    "Test Message.\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-            assertThat(index).isEqualTo(1);
-            System.setIn(System.in);
-        }
-        catch (Exception e) {
-            System.setIn(System.in);
-            throw new RuntimeException(e);
-        }
-        try {
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
-            int index = testConsole.handleBadIndex("Test Message.");
-            // Check the program output
-            String expectedOutput;
-            expectedOutput = ConsoleColors.RED_BOLD + "There is nothing at that index... \uD83E\uDD78" + ConsoleColors.RESET + "\n" +
-                    "Try again? (y/n)\n" +
-                    "Okay, I'll leave you alone then. 👋\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-            assertThat(index).isEqualTo(-1);
-            System.setIn(System.in);
-        }
-        catch (Exception e) {
-            System.setIn(System.in);
-            throw new RuntimeException(e);
         }
     }
     @Test

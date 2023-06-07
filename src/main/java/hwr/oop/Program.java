@@ -6,7 +6,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Program {
-    private String DELIMITER = ",";
     public ToDoList loadToDoList(String fileName) {
         ToDoList toDoList = getToDoListFromJSON(fileName);
         if (toDoList != null && toDoList.getItems() == null) {
@@ -31,10 +30,14 @@ public class Program {
         return gson.fromJson(json, ToDoList.class);
     }
     public String[] getEnvironmentVariables(String file) {
+        if (file.contains(".")) {
+            file = file.substring(0, file.lastIndexOf('.'));
+        }
         try (BufferedReader br = new BufferedReader(new FileReader(file + ".csv"))){
             String line;
             if ((line = br.readLine()) != null) {
-                return line.split(DELIMITER);
+                String delimiter = ",";
+                return line.split(delimiter);
             }
             return new String[0];
         } catch (FileNotFoundException e) {
@@ -46,6 +49,9 @@ public class Program {
     }
 
     public void setEnvironmentVariables(String filePath, String listName, String fileName) {
+        if (fileName.contains(".")) {
+            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
+        }
         try (FileWriter fileWriter = new FileWriter(fileName + ".csv")) {
             fileWriter.write(filePath + "," + listName);
             fileWriter.flush();

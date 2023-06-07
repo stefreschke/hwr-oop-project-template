@@ -1,8 +1,10 @@
 package hwr.oop.handler;
 
 import hwr.oop.*;
-import java.util.Collections;
+import hwr.oop.dialog.EditDialog;
+import hwr.oop.dialog.HandleBadIndexDialog;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,17 +24,13 @@ public class EditHandler {
             ToDoItem item = (ToDoItem) itemAndIndex.keySet().toArray()[0];
             int index = (int) itemAndIndex.values().toArray()[0];
             if (item == null) return;
-            cui.say("Editing task at index " + index + ":");
-            cui.say(item.toString());
-            String title = cui.getTitleForEdit(item);
-            String description = cui.getDescriptionForEdit(item);
-            Priority priority = cui.getPriorityForEdit(item);
-            String bucket = cui.getBucketForEdit(item);
-            item.setTitle(title);
-            item.setDescription(description);
-            item.setPriority(priority);
-            item.setBucket(bucket);
-            cui.print(LogMode.SUCCESS, "Task Edited Successfully!");
+            EditDialog editDialog = new EditDialog(cui);
+            ToDoItem copyToDoItem = editDialog.start(item, index);
+            item.setTitle(copyToDoItem.getTitle());
+            item.setDescription(copyToDoItem.getDescription());
+            item.setPriority(copyToDoItem.getPriority());
+            item.setBucket(copyToDoItem.getBucket());
+            editDialog.end();
         } catch (Exception e) {
             cui.print(LogMode.ERROR, "Try gtd edit [index]");
         }
@@ -44,7 +42,7 @@ public class EditHandler {
             itemAndIndexMap.put(toDoList.getItems().get(index), index);
             return itemAndIndexMap;
         } catch (Exception e) {
-            index = cui.handleBadIndex("Please enter the index of the task you want to edit.");
+            index = new HandleBadIndexDialog(cui).start("Please enter the index of the task you want to edit.");
             if (index == -1) return Collections.emptyMap();
             else {
                 itemAndIndexMap.put(toDoList.getItems().get(index), index);

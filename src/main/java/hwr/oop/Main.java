@@ -1,27 +1,33 @@
 package hwr.oop;
 
+import hwr.oop.dialog.WelcomeDialog;
+import hwr.oop.dialog.GetCommandDialog;
 import hwr.oop.handler.CommandParser;
 
-import java.io.IOException;
 import java.io.PrintStream;
-
-import static hwr.oop.util.ConsoleColors.BLUE_BOLD;
-import static hwr.oop.util.ConsoleColors.RESET;
 
 public class Main {
     private static final PrintStream out = new PrintStream(System.out);
-    public static void main(String[] args) throws IOException, ToDoList.FileNotFoundAndCoundNotCreateException {
+    private static final String SETUP_FILE = "setup.csv";
+    public static void main(String[] args) throws WelcomeDialog.CannotLaunchSetupException, GetCommandDialog.CouldNotreadCommandException {
         ConsoleUserInterface cui = new ConsoleUserInterface(out, System.in);
         CommandParser commandParser = new CommandParser(cui);
-        ToDoList toDoList = cui.welcome();
-        cui.say(BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + RESET);
+        ToDoList toDoList;
+        try {
+            toDoList = new WelcomeDialog(cui, SETUP_FILE).start();
+        } catch (WelcomeDialog.CannotLaunchSetupException e) {
+            throw new WelcomeDialog.CannotLaunchSetupException();
+        }
+        GetCommandDialog getCommandDialog = new GetCommandDialog(toDoList, cui, commandParser);
         while (true) {
             try {
-                if (cui.parseCommands(toDoList, commandParser) == 1) {
+                if (getCommandDialog.start() == 1) {
                     break;
                 }
-            } catch (ConsoleUserInterface.CouldNotSaveChangesException | CommandParser.CouldNotCallHandlerException e) {
+            } catch (CommandParser.CouldNotCallHandlerException e) {
                 cui.say("Could not save changes");
+            } catch (Exception e) {
+                throw new GetCommandDialog.CouldNotreadCommandException("Could not read command");
             }
         }
     }

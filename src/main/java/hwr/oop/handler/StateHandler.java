@@ -3,9 +3,10 @@ package hwr.oop.handler;
 import hwr.oop.ConsoleUserInterface;
 import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
+import hwr.oop.dialog.HandleBadIndexDialog;
 
 public class StateHandler {
-
+    private static final String BAD_INDEX_MESSAGE = "Please enter the index of the item you want to change the state of:";
     StateHandler() {
     }
     public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
@@ -38,7 +39,7 @@ public class StateHandler {
                 toDoList.getItems().get(index).setDone();
                 i++;
             } catch (Exception e) {
-                index = cui.handleBadIndex("Please enter the index of the task you want to mark as done.");
+                index =  new HandleBadIndexDialog(cui).start(BAD_INDEX_MESSAGE);
                 if (index == -1) return;
             }
         }
@@ -51,7 +52,7 @@ public class StateHandler {
                 toDoList.getItems().get(index).hold();
                 i++;
             } catch (Exception e) {
-                index = cui.handleBadIndex("Please enter the index of the task you want to mark as done.");
+                index =  new HandleBadIndexDialog(cui).start("Please enter the index of the task you want to mark as done.");
                 if (index == -1) return;
             }
         }
@@ -64,7 +65,7 @@ public class StateHandler {
                 toDoList.getItems().get(index).promote();
                 i++;
             } catch (Exception e) {
-                index = cui.handleBadIndex("Please enter the index of the task you want to mark as done.");
+                index =  new HandleBadIndexDialog(cui).start(BAD_INDEX_MESSAGE);
                 if (index == -1) return;
             }
         }
@@ -77,7 +78,7 @@ public class StateHandler {
                 toDoList.getItems().get(index).demote();
                 i++;
             } catch (Exception e) {
-                index = cui.handleBadIndex("Please enter the index of the task you want to mark as done.");
+                index =  new HandleBadIndexDialog(cui).start(BAD_INDEX_MESSAGE);
                 if (index == -1) return;
             }
         }
