@@ -2,20 +2,27 @@ package hwr.oop.applicationTest;
 
 import hwr.oop.application.DeleteProjectService;
 import hwr.oop.application.DeleteProjectUseCase;
+import hwr.oop.application.Project;
+import hwr.oop.persistence.AppData;
 import hwr.oop.persistence.LoadPort;
 import hwr.oop.persistence.PersistenceAdapter;
 import hwr.oop.persistence.SavePort;
 import org.junit.jupiter.api.BeforeEach;
-
+import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
+import static org.assertj.core.api.Assertions.*;
 
-public class DeleteProjectTest {
+
+class DeleteProjectTest {
 
     String directory = "./OOPTest/";
     LoadPort load;
     SavePort save;
     DeleteProjectUseCase deleteProject;
+
+    AppData appData;
 
     @BeforeEach
     void setUp() {
@@ -32,5 +39,18 @@ public class DeleteProjectTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    void deletedProject_notInAppData() {
+        Project project = RandomTestData.getRandomProject();
+        List<Project> projectList = RandomTestData.getRandomProjects();
+        projectList.add(project);
+        appData = new AppData(projectList, RandomTestData.getRandomUsers());
+        save.saveData(appData);
+
+        deleteProject.deleteProject(project);
+
+        assertThat(load.loadData().getProjectList()).doesNotContain(project);
     }
 }
