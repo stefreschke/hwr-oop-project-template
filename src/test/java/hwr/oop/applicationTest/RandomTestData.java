@@ -30,12 +30,15 @@ public class RandomTestData {
         return TaskState.values()[rand.nextInt(TaskState.values().length)];
     }
 
+    public static Task getRandomTask() {
+        String taskTitle = taskTitles.get(rand.nextInt(taskTitles.size()));
+        return new Task(UUID.randomUUID(), taskTitle, taskTitle, getRandomTaskState(), getRandomDeadline());
+    }
+
     public static List<Task> getRandomtaskList() {
         List<Task> taskList = new ArrayList<>();
         for (int i=0; i<rand.nextInt(10); i++) {
-            String task = taskTitles.get(rand.nextInt(taskTitles.size()));
-            Task t = new Task(UUID.randomUUID(), task, task, getRandomTaskState(), getRandomDeadline());
-            taskList.add(t);
+            taskList.add(getRandomTask());
         }
         return taskList;
     }

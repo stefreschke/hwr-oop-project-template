@@ -1,7 +1,5 @@
 package hwr.oop.persistenceTest;
 
-import hwr.oop.application.CreateProjectService;
-import hwr.oop.application.CreateProjectUseCase;
 import hwr.oop.applicationTest.RandomTestData;
 import hwr.oop.persistence.*;
 import org.junit.jupiter.api.BeforeEach;
@@ -52,6 +50,7 @@ class AppDataTest {
         AppData copy = new AppData(RandomTestData.getRandomProjects(), appData.getUserList());
         assertThat(appData).isNotEqualTo(copy);
         assertThat(copy).isNotEqualTo(appData);
+        assertThat(copy.hashCode()).isNotEqualTo(appData.hashCode());
     }
 
     @Test
@@ -59,13 +58,14 @@ class AppDataTest {
         appData = new AppData(RandomTestData.getRandomProjects(), RandomTestData.getRandomUsers());
         assertThat(appData).isNotEqualTo(new Object());
         assertThat(new Object()).isNotEqualTo(appData);
+        assertThat(appData.hashCode()).isNotEqualTo(new Object().hashCode());
     }
 
     @Test
     void wrongFile_ThrowsLoadException() {
         appData = new AppData(RandomTestData.getRandomProjects(), RandomTestData.getRandomUsers());
         save.saveData(appData);
-        load = new PersistenceAdapter("./wrongPath");
+        load = new PersistenceAdapter("/stuff/stuff/test");
         try {
             AppData result = load.loadData();
             fail("should throw Exception");
