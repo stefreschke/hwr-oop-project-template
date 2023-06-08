@@ -1,5 +1,6 @@
 package hwr.oop.application;
 
+import hwr.oop.persistence.AppData;
 import hwr.oop.persistence.LoadPort;
 import hwr.oop.persistence.SavePort;
 
@@ -16,6 +17,14 @@ public class DeleteProjectService implements DeleteProjectUseCase {
 
     @Override
     public void deleteProject(UUID id) {
-
+        AppData appData = load.loadData();
+        for (Project p : appData.getProjectList()) {
+            if (p.getId().equals(id)) {
+                appData.deleteProject(p);
+                save.saveData(appData);
+                return;
+            }
+        }
+        throw new CantDeleteNonexistentProjectException("Project not in AppData");
     }
 }
