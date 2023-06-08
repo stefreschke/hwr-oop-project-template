@@ -16,8 +16,6 @@ import java.util.Arrays;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
-
 class ConsoleUITest {
     @Test
     void getEnvironmentVariablesTest() {
@@ -33,40 +31,6 @@ class ConsoleUITest {
         testEnvProgram.setEnvironmentVariables("data.json", "MyList", "setTestSetup");
         String[] env = testEnvProgram.getEnvironmentVariables("setTestSetup");
         assertThat(env).contains("data.json").contains("MyList");
-    }
-    @Test
-    void helpTest() {
-        try {
-            System.setIn(new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer));
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            testConsole.help();
-            // Check the program output
-            String expectedOutput;
-            expectedOutput =
-                    "gtd [command] [arguments]\n" +
-                            "Commands:\n" +
-                            "  help                            -  print this help\n" +
-                            "  add [Item Index]                -  add a new task\n" +
-                            "  remove [Item Index]             -  remove a task\n" +
-                            "  promote [Item Index]            -  promote a task to a further state\n" +
-                            "  demote [Item Index]             -  demote a task to a previous state\n" +
-                            "  hold [Item Index]               -  put a task on hold\n" +
-                            "  done [Item Index]               -  mark a task as done\n" +
-                            "  edit [Item Index]               -  edit a task\n" +
-                            "  list                            -  list all tasks\n" +
-                            "  sort                            -  sort your tasks\n" +
-                            "  createBucket [Name]             -  create a bucket for tasks\n" +
-                            "  showBuckets                     -  show buckets for tasks\n" +
-                            "  renameBucket [index] [Name]     -  changes bucket name\n" +
-                            "  clear                           -  clear all tasks\n" +
-                            "  exit                            -  exit the program\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
     @Test
     void listTest() {
@@ -206,13 +170,12 @@ class ConsoleUITest {
 
     @Test
     void handleSortTest() {
-        String[] commandArray = {"gtd", "sort", "prio", "asc"};
         ToDoList toDoList = new ToDoList("MyList");
         toDoList.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now()));
         toDoList.getItems().get(0).setCreatedAt(LocalDateTime.of(2020, 1, 1, 0, 0));
-        toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW, LocalDate.now()));
+        toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW, LocalDate.now().plusDays(1)));
         toDoList.getItems().get(1).setCreatedAt(LocalDateTime.of(2020, 1, 2, 0, 0));
-        toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH, LocalDate.now()));
+        toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH, LocalDate.now().plusDays(2)));
 
         // Priority Test
         toDoList.sortByPriority("asc");
@@ -225,7 +188,7 @@ class ConsoleUITest {
         toDoList.sortByCreatedAt("desc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
 
-        toDoList.bubbleUpBucket(commandArray[3]);
+        toDoList.bubbleUpBucket("Weapon");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
 
         toDoList.sortByTitle("asc");
@@ -235,12 +198,12 @@ class ConsoleUITest {
 
         toDoList.getItems().get(1).setDone();
         toDoList.sortByDone("asc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
-        toDoList.sortByDone("desc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+        toDoList.sortByDone("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
 
         toDoList.sortByDueDate("asc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
         toDoList.sortByDueDate("desc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
     }

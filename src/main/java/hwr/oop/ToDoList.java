@@ -15,8 +15,8 @@ import java.util.*;
 public class ToDoList {
     private String name;
     private List<ToDoItem> items;
-    private String fileName;
-    private HashSet<Bucket> buckets;
+    private final String fileName;
+    private final HashSet<Bucket> buckets;
 
     public ToDoList(String name) {
         this(name, null);
@@ -101,13 +101,12 @@ public class ToDoList {
     }
     public void renameBucket (int index, String newBucket) {
         try {
-            String help = Util.getElementAtIndex(this.buckets, index).getBucketName();
+            String help = Objects.requireNonNull(Util.getElementAtIndex(this.buckets, index)).getBucketName();
             for (Bucket Bucket : this.buckets) {
                 if (Bucket.getBucketName().equals(help)) {
                     Bucket.setBucketName(newBucket);
                 }
             }
-            //sortBuckets();
             for (ToDoItem ToDoIt : this.items) {
                 if (ToDoIt.getBucket().getBucketName().equals(help)) {
                     ToDoIt.getBucket().setBucketName(newBucket);
@@ -116,11 +115,6 @@ public class ToDoList {
         } catch (Exception e) {
             throw new IndexOutOfBoundsException("Sorry...Bucket could not be found.");
         }
-    }
-    public void sortBuckets() {
-        List<Bucket> bucketList = new ArrayList<>(this.buckets);
-        Collections.reverseOrder(Comparator.comparing(Bucket::getBucketName));
-        this.buckets = new LinkedHashSet<>(bucketList);
     }
     public void add(ToDoItem toDoItem) {
         this.items.add(toDoItem);
@@ -134,10 +128,10 @@ public class ToDoList {
     }
     public void bubbleUpBucket(String bucket) {
         items.sort((o1, o2) -> {
-            if(Objects.equals(o1.getBucket(), o2.getBucket())){
+            if(Objects.equals(o1.getBucket().getBucketName(), o2.getBucket().getBucketName())){
                 return 0;
             }
-            return Objects.equals(o1.getBucket(), bucket) ? -1 : 1;
+            return Objects.equals(o1.getBucket().getBucketName(), bucket) ? -1 : 1;
         });
     }
     public void sortByCreatedAt(String order) {
@@ -149,8 +143,8 @@ public class ToDoList {
         else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::getTitle, Comparator.reverseOrder()));
     }
     public void sortByDone(String order) {
-        if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::isDone, Comparator.reverseOrder()));
-        else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::isDone));
+        if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::isDone));
+        else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::isDone, Comparator.reverseOrder()));
     }
     public void sortByDueDate(String order) {
         if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::getDueDate));

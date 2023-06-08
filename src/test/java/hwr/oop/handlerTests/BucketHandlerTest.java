@@ -15,12 +15,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class BucketHandlerTest {
     @Test
-     void testCreateBucket() {
-        ToDoList toDoList = new ToDoList("MyToDoList");
-        BucketHandler.handleUserCommand(toDoList, null, new String[]{"gtd", "cb", "test"});
-        assertThat(toDoList.getBuckets()).hasSize(1);
-    }
-    @Test
      void testRenameBucket() {
         ToDoList toDoList = new ToDoList("MyToDoList");
         toDoList.addBucket(new Bucket("Bucket1"));

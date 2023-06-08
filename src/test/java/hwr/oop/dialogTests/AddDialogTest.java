@@ -1,7 +1,9 @@
 package hwr.oop.dialogTests;
 
+import hwr.oop.Bucket;
 import hwr.oop.ConsoleUserInterface;
 import hwr.oop.Priority;
+import hwr.oop.ToDoList;
 import hwr.oop.dialog.AddDialog;
 import org.junit.jupiter.api.Test;
 
@@ -13,13 +15,14 @@ import java.nio.charset.StandardCharsets;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AddDialogTest {
+    public static final ToDoList toDoList = new ToDoList("MyList", "test.json");
     @Test
     void getTitleForAddTest(){
         try {
             String userInput = "MyItem\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            String title = new AddDialog(testConsole).getTitleForAdd();
+            String title = new AddDialog(testConsole, toDoList).getTitleForAdd();
             assertThat(title).isEqualTo("MyItem");
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -31,7 +34,7 @@ class AddDialogTest {
             String userInput = "MyItem\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            String desc = new AddDialog(testConsole).getDescriptionForAdd();
+            String desc = new AddDialog(testConsole, toDoList).getDescriptionForAdd();
             assertThat(desc).isEqualTo("MyItem");
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -43,7 +46,7 @@ class AddDialogTest {
             String userInput = "3\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            Priority prio = new AddDialog(testConsole).getPriorityForAdd();
+            Priority prio = new AddDialog(testConsole, toDoList).getPriorityForAdd();
             assertThat(prio).isEqualTo(Priority.HIGH);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -55,8 +58,8 @@ class AddDialogTest {
             String userInput = "MyItem\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            String bucket = new AddDialog(testConsole).getBucketForAdd();
-            assertThat(bucket).isEqualTo("MyItem");
+            Bucket bucket = new AddDialog(testConsole, toDoList).getBucketForAdd();
+            assertThat(bucket.getBucketName()).isEqualTo("MyItem");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

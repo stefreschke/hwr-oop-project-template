@@ -16,12 +16,19 @@ class ExistenceHandlerTest {
     @Test
     void handleUserCommandAddTest() {
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-        String userInput = "Task\nDescription\n3\nBucket\n";
+        String userInput = "Task\nDescription\n3\nBucket\n1.1.2020\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "add"};
         ExistenceHandler.handleUserCommand(toDoList, cui, args);
-        assertThat(outBuffer.toString()).isEqualTo("Task added successfully!");
+        assertThat(outBuffer).hasToString("Create a new task\n" +
+                "Please enter a title for your task\n" +
+                "Please enter a description for your task\n" +
+                "Please select a priority for your task\n" +
+                "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
+                "Add a Bucket to group your tasks\n" +
+                "Please enter a due date for your task\n" +
+                "\u001B[1;32mTask Created Successfully!\uD83C\uDF89\u001B[0m\n");
     }
 
     @Test

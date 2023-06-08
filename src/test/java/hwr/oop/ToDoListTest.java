@@ -11,7 +11,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ToDoListTest {
+class ToDoListTest {
     @Test
     void setNameTest() {
         ToDoList list = new ToDoList("wrongName");
@@ -189,9 +189,9 @@ public class ToDoListTest {
         item2.setDone();
         list.sortByDone("asc");
         List<ToDoItem> itemList = new ArrayList<>();
-        itemList.add(item2);
         itemList.add(item);
         itemList.add(item3);
+        itemList.add(item2);
         assertThat(list.getItems()).isEqualTo(itemList);
     }
 
@@ -207,9 +207,9 @@ public class ToDoListTest {
         item2.setDone();
         list.sortByDone("desc");
         List<ToDoItem> itemList = new ArrayList<>();
+        itemList.add(item2);
         itemList.add(item);
         itemList.add(item3);
-        itemList.add(item2);
         assertThat(list.getItems()).isEqualTo(itemList);
     }
     @Test

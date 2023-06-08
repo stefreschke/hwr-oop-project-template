@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class SortHandlerTest {
+class SortHandlerTest {
     @Test
     void handleUserCommandPrioAscTest() {
         // Arrange
@@ -181,7 +181,7 @@ public class SortHandlerTest {
             titles[i] = toDoList.getItems().get(i).getTitle();
         }
         // Assert
-        assertThat(titles).isEqualTo(new String[]{"Task 2", "Task 1", "Task 3", "Task 4"});
+        assertThat(titles).isEqualTo(new String[]{"Task 1", "Task 3", "Task 4", "Task 2"});
         // Add more assertions to verify the behavior of the add command
     }
     @Test
@@ -206,7 +206,7 @@ public class SortHandlerTest {
             titles[i] = toDoList.getItems().get(i).getTitle();
         }
         // Assert
-        assertThat(titles).isEqualTo(new String[]{"Task 1", "Task 3", "Task 4", "Task 2"});
+        assertThat(titles).isEqualTo(new String[]{"Task 2", "Task 1", "Task 3", "Task 4"});
         // Add more assertions to verify the behavior of the add command
     }
     @Test
@@ -216,10 +216,11 @@ public class SortHandlerTest {
         String userInput = "Task 1\nDescription 1\nBucket 1\nLOW\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", "Bucket 1", Priority.MEDIUM, LocalDate.now().plusDays(1)));
-        toDoList.add(new ToDoItem("Task 2", "Description 2", "Bucket 1", Priority.LOW, LocalDate.now()));
-        toDoList.add(new ToDoItem("Task 3", "Description 3", "Bucket 1", Priority.MEDIUM, LocalDate.now().plusDays(12)));
-        toDoList.add(new ToDoItem("Task 4", "Description 4", "Bucket 1", Priority.HIGH, LocalDate.now()));
+        Bucket bucket1 = new Bucket("Bucket 1");
+        toDoList.add(new ToDoItem("Task 1", "Description 1", bucket1, Priority.MEDIUM, LocalDate.now().plusDays(1)));
+        toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW, LocalDate.now()));
+        toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM, LocalDate.now().plusDays(12)));
+        toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH, LocalDate.now()));
         String[] args = {"gtd", "sort", "due", "asc"};
 
         // Act
@@ -239,10 +240,11 @@ public class SortHandlerTest {
         String userInput = "Task 1\nDescription 1\nBucket 1\nLOW\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", "Bucket 1", Priority.MEDIUM, LocalDate.now().plusDays(1)));
-        toDoList.add(new ToDoItem("Task 2", "Description 2", "Bucket 1", Priority.LOW, LocalDate.now()));
-        toDoList.add(new ToDoItem("Task 3", "Description 3", "Bucket 1", Priority.MEDIUM, LocalDate.now().plusDays(12)));
-        toDoList.add(new ToDoItem("Task 4", "Description 4", "Bucket 1", Priority.HIGH, LocalDate.now()));
+        Bucket bucket1 = new Bucket("Bucket 1");
+        toDoList.add(new ToDoItem("Task 1", "Description 1", bucket1, Priority.MEDIUM, LocalDate.now().plusDays(1)));
+        toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW, LocalDate.now()));
+        toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM, LocalDate.now().plusDays(12)));
+        toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH, LocalDate.now()));
         String[] args = {"gtd", "sort", "due", "desc"};
 
         // Act
