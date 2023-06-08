@@ -4,6 +4,8 @@ import hwr.oop.ConsoleUserInterface;
 import hwr.oop.Program;
 import hwr.oop.ToDoList;
 import hwr.oop.dialog.WelcomeDialog;
+import hwr.oop.persistence.LoadPort;
+import hwr.oop.persistence.PersistenceAdapter;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
@@ -17,10 +19,9 @@ class WelcomeDialogTest {
     @Test
     void testEnvLoadSuccessful() {
         String[] testEnv = {"", ""};
-        Program program = new Program();
         PrintStream out = new PrintStream(new ByteArrayOutputStream());
         ConsoleUserInterface cui = new ConsoleUserInterface(out, System.in);
-        ToDoList toDoList = new WelcomeDialog(cui, "welcomeTestEnvLoadSuccessful.csv").envLoadSuccessful(testEnv, program);
+        ToDoList toDoList = new WelcomeDialog(cui, "welcomeTestEnvLoadSuccessful.csv", LoadPort).envLoadSuccessful(testEnv);
         assertThat(toDoList).isNotNull();
         assertThat(toDoList.getItems()).isEmpty();
     }
@@ -28,12 +29,11 @@ class WelcomeDialogTest {
     void testMakeNewFile() throws IOException {
         String listName = "testList";
         String filePath = "testFile";
-        Program program = new Program();
         String setupFile = "welcomeTestNewFileSetup.csv";
         PrintStream out = new PrintStream(new ByteArrayOutputStream());
         ByteArrayInputStream in = new ByteArrayInputStream((filePath + "\n" + listName).getBytes(StandardCharsets.UTF_8));
-        ToDoList toDoList = new WelcomeDialog(new ConsoleUserInterface(out, in), setupFile).makeNewFile(listName, program);
-        assertThat(program.getEnvironmentVariables(setupFile)).containsExactly(filePath, listName);
+        ToDoList toDoList = new WelcomeDialog(new ConsoleUserInterface(out, in), setupFile, null).makeNewFile(listName);
+        assertThat(PersistenceAdapter.getEnvironmentVariables(setupFile)).containsExactly(filePath, listName);
         assertThat(toDoList).isNotNull();
         assertThat(toDoList.getItems()).isEmpty();
     }
@@ -41,11 +41,10 @@ class WelcomeDialogTest {
     void testTakeExistingFile() throws WelcomeDialog.CannotLaunchSetupException {
         String filePath = "testFile";
         String listName = "testList";
-        Program program = new Program();
         String setupFile = "welcomeTestExistingFileSetup.csv";
         PrintStream out = new PrintStream(new ByteArrayOutputStream());
-        ToDoList toDoList = new WelcomeDialog(new ConsoleUserInterface(out, System.in), setupFile).takeExistingFile(filePath, listName, program);
-        assertThat(program.getEnvironmentVariables(setupFile)).containsExactly(filePath, listName);
+        ToDoList toDoList = new WelcomeDialog(new ConsoleUserInterface(out, System.in), setupFile, null).takeExistingFile(filePath, listName);
+        assertThat(PersistenceAdapter.getEnvironmentVariables(setupFile)).containsExactly(filePath, listName);
         assertThat(toDoList).isNotNull();
         assertThat(toDoList.getItems()).isEmpty();
     }
@@ -56,7 +55,7 @@ class WelcomeDialogTest {
         Program program = new Program();
         String userInput = "testList\nwelcomeDialogTest.json\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(out), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-        ToDoList toDoList = new WelcomeDialog(cui, setupFile).firstTimeSetup(program);
+        ToDoList toDoList = new WelcomeDialog(cui, setupFile, null).firstTimeSetup();
         assertThat(out).hasToString(
                 "Looks Like it is your first time using this program.\n" +
                         "Lets set you up first.\n" +
@@ -75,7 +74,7 @@ class WelcomeDialogTest {
         String setupFile = "getEnvTestSetup.csv";
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(out), System.in);
-        ToDoList toDoList = new WelcomeDialog(cui, setupFile).start();
+        ToDoList toDoList = new WelcomeDialog(cui, setupFile, null).start();
         assertThat(out.toString()).contains("Welcome To Getting Things Done 🚀");
         assertThat(toDoList).isNotNull();
         assertThat(toDoList.getItems()).isEmpty();

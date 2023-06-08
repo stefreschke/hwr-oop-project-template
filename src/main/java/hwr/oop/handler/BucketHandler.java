@@ -7,7 +7,7 @@ import hwr.oop.ToDoList;
 public class BucketHandler {
     BucketHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2) {
             try {
                 if (args[1].equals("showBuckets") || args[1].equals("sb")) {

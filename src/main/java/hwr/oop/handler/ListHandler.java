@@ -7,7 +7,7 @@ import hwr.oop.ToDoList;
 public class ListHandler {
     ListHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length == 2 && (args[1].equals("list") || args[1].equals("ls")) ) {
             cui.list(toDoList);
         } else {

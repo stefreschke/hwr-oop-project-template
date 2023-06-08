@@ -11,7 +11,7 @@ import static hwr.oop.util.ConsoleColors.RESET;
 public class HelpHandler {
     HelpHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args ) {
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args ) {
         cui.say("Here is a list of all commands:\n" +
                 "gtd [command] [arguments]\n");
         for(CommandParser.CommandHandler command : CommandParser.CommandHandler.values()) {

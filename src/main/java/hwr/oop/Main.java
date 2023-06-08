@@ -14,7 +14,7 @@ public class Main {
         CommandParser commandParser = new CommandParser(cui);
         ToDoList toDoList;
         try {
-            toDoList = new WelcomeDialog(cui, SETUP_FILE).start();
+            toDoList = new WelcomeDialog(cui, SETUP_FILE, null).start();
         } catch (WelcomeDialog.CannotLaunchSetupException e) {
             throw new WelcomeDialog.CannotLaunchSetupException();
         }

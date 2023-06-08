@@ -6,11 +6,11 @@ import hwr.oop.ToDoList;
 public class ClearHandler {
     ClearHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         clear(toDoList);
     }
 
-    public static void clear(ToDoList toDoList) {
+    public void clear(ToDoList toDoList) {
         toDoList.setItems(null);
     }
 }

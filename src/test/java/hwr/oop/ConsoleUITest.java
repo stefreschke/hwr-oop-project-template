@@ -1,5 +1,6 @@
 package hwr.oop;
 
+import hwr.oop.persistence.PersistenceAdapter;
 import hwr.oop.util.ConsoleColors;
 import org.junit.jupiter.api.Test;
 
@@ -19,17 +20,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ConsoleUITest {
     @Test
     void getEnvironmentVariablesTest() {
-        Program testEnvProgram = new Program();
-        String[] env = testEnvProgram.getEnvironmentVariables("testSetup");
+        String[] env = PersistenceAdapter.getEnvironmentVariables("testSetup");
         String envString = Arrays.toString(env);
         assertThat(envString).isEqualTo("[data.json, MyList]");
     }
 
     @Test
     void setEnvironmentVariablesTest() {
-        Program testEnvProgram = new Program();
-        testEnvProgram.setEnvironmentVariables("data.json", "MyList", "setTestSetup");
-        String[] env = testEnvProgram.getEnvironmentVariables("setTestSetup");
+        PersistenceAdapter.setEnvironmentVariables("data.json", "MyList", "setTestSetup");
+        String[] env = PersistenceAdapter.getEnvironmentVariables("setTestSetup");
         assertThat(env).contains("data.json").contains("MyList");
     }
     @Test

@@ -3,6 +3,7 @@ package hwr.oop.handlerTests;
 import hwr.oop.ConsoleUserInterface;
 import hwr.oop.ToDoList;
 import hwr.oop.handler.ExitHandler;
+import hwr.oop.persistence.FileNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -19,7 +20,7 @@ public class ExitHandlerTest {
         String[] args = {"gtd", "ex"};
         try {
             ExitHandler.handleUserCommand(toDoList, cui, args);
-        } catch (ToDoList.FileNotFoundAndCoundNotCreateException e) {
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
         String expected = "\u001B[1;31mCould not exit... If that is what you wanted to do, try 'gtd exit'\u001B[0m\n";
