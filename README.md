@@ -45,4 +45,4 @@ This repository contains a student project created for an ongoing lecture on obj
 
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
-| 1      | /               | /                      | /                    |
+| 1      | Gson            | Can be used to convert Java Objects into their JSON representation.                                     | Persistence          |
