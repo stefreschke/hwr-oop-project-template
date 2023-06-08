@@ -3,7 +3,10 @@ package hwr.oop;
 import hwr.oop.util.Util;
 import org.junit.jupiter.api.Test;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,6 +17,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ToDoListTest {
     @Test
     void setNameTest() {
+        ToDoList list = new ToDoList("wrongName");
+        list.setName("rightName");
+        String TestName = list.getName();
+        assertThat(TestName).isEqualTo("rightName");
+    }
+
+    @Test
+    void getNameTest() {
         ToDoList list = new ToDoList("wrongName");
         list.setName("rightName");
         String TestName = list.getName();
@@ -38,6 +49,25 @@ class ToDoListTest {
         itemList.add(item);
         assertThat(list.getItems()).isEqualTo(itemList);
     }
+
+    @Test
+    void getItemsTest() {
+        ToDoList list = new ToDoList("myList");
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.HIGH, LocalDate.now());
+        ArrayList<ToDoItem> itemlist = new ArrayList<>();
+        list.add(item);
+        itemlist.add(item);
+        assertThat(list.getItems()).isEqualTo(itemlist);
+    }
+
+    @Test
+    void findBucketTest() {
+        ToDoList list = new ToDoList("myList");
+        list.addBucket(new Bucket("Test1"));
+        list.addBucket(new Bucket("Test2"));
+        assertThat(list.findBucket("Test1").getBucketName()).isEqualTo("Test1");
+    }
+
 
     @Test
     void removeTest() {
@@ -243,5 +273,46 @@ class ToDoListTest {
         itemList.add(item);
         itemList.add(item2);
         assertThat(list.getItems()).isEqualTo(itemList);
+    }
+
+
+    @Test
+    void handleSortTest() {
+        ToDoList toDoList = new ToDoList("MyList");
+        toDoList.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now()));
+        toDoList.getItems().get(0).setCreatedAt(LocalDateTime.of(2020, 1, 1, 0, 0));
+        toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW, LocalDate.now().plusDays(1)));
+        toDoList.getItems().get(1).setCreatedAt(LocalDateTime.of(2020, 1, 2, 0, 0));
+        toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH, LocalDate.now().plusDays(2)));
+
+        // Priority Test
+        toDoList.sortByPriority("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+        toDoList.sortByPriority("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
+        toDoList.sortByCreatedAt("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
+        toDoList.sortByCreatedAt("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
+        toDoList.bubbleUpBucket("Weapon");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
+        toDoList.sortByTitle("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
+        toDoList.sortByTitle("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+
+        toDoList.getItems().get(1).setDone();
+        toDoList.sortByDone("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+        toDoList.sortByDone("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
+        toDoList.sortByDueDate("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
+        toDoList.sortByDueDate("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
     }
 }

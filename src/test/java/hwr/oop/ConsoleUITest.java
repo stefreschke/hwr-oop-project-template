@@ -3,10 +3,7 @@ package hwr.oop;
 import hwr.oop.util.ConsoleColors;
 import org.junit.jupiter.api.Test;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,21 +14,46 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ConsoleUITest {
+
     @Test
-    void getEnvironmentVariablesTest() {
-        Program testEnvProgram = new Program();
-        String[] env = testEnvProgram.getEnvironmentVariables("testSetup");
-        String envString = Arrays.toString(env);
-        assertThat(envString).isEqualTo("[data.json, MyList]");
+    void getInputStreamTest() {
+        ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+        InputStream inputStream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
+        ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
+        assertThat(testConsole.getInputStream()).isEqualTo(inputStream);
     }
 
     @Test
-    void setEnvironmentVariablesTest() {
-        Program testEnvProgram = new Program();
-        testEnvProgram.setEnvironmentVariables("data.json", "MyList", "setTestSetup");
-        String[] env = testEnvProgram.getEnvironmentVariables("setTestSetup");
-        assertThat(env).contains("data.json").contains("MyList");
+    void getOutputStreamTest() {
+        OutputStream outBuffer = new ByteArrayOutputStream();
+        InputStream inputStream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
+        ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
+        assertThat(testConsole.getOutputStream()).isEqualTo(outBuffer);
     }
+
+    @Test
+    void printTest() {
+        LogMode mode = LogMode.SUCCESS;
+        OutputStream outBuffer = new ByteArrayOutputStream();
+        InputStream inputStream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
+        ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
+        String expectedOutput = mode.getColor() + "Test" + ConsoleColors.RESET + "\n";
+        testConsole.print(mode, "Test");
+        String actualOutput = outBuffer.toString();
+        assertThat(actualOutput).isEqualTo(expectedOutput);
+    }
+
+    @Test
+    void sayTest() {
+        OutputStream outBuffer = new ByteArrayOutputStream();
+        InputStream inputStream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
+        ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
+        String expectedOutput = "Test\n";
+        testConsole.say("Test");
+        String actualOutput = outBuffer.toString();
+        assertThat(actualOutput).isEqualTo(expectedOutput);
+    }
+
     @Test
     void listTest() {
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
@@ -169,42 +191,28 @@ class ConsoleUITest {
     }
 
     @Test
-    void handleSortTest() {
-        ToDoList toDoList = new ToDoList("MyList");
-        toDoList.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now()));
-        toDoList.getItems().get(0).setCreatedAt(LocalDateTime.of(2020, 1, 1, 0, 0));
-        toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW, LocalDate.now().plusDays(1)));
-        toDoList.getItems().get(1).setCreatedAt(LocalDateTime.of(2020, 1, 2, 0, 0));
-        toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH, LocalDate.now().plusDays(2)));
-
-        // Priority Test
-        toDoList.sortByPriority("asc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
-        toDoList.sortByPriority("desc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
-
-        toDoList.sortByCreatedAt("asc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
-        toDoList.sortByCreatedAt("desc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
-
-        toDoList.bubbleUpBucket("Weapon");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
-
-        toDoList.sortByTitle("asc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
-        toDoList.sortByTitle("desc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
-
-        toDoList.getItems().get(1).setDone();
-        toDoList.sortByDone("asc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
-        toDoList.sortByDone("desc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
-
-        toDoList.sortByDueDate("asc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
-        toDoList.sortByDueDate("desc");
-        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+    void showBucketsTestEmpty() {
+        OutputStream outBuffer = new ByteArrayOutputStream();
+        InputStream inputStream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
+        ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
+        ToDoList toDoList = new ToDoList("Test");
+        toDoList.getBuckets();
+        String expectedOutput = "\uD83D\uDC40Looks Empty here... Add some buckets!";
+        String actualOutput = outBuffer.toString();
+        assertThat(actualOutput).isEqualTo(expectedOutput);
     }
+
+    @Test
+    void showBucketsTestElement() {
+        OutputStream outBuffer = new ByteArrayOutputStream();
+        InputStream inputStream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
+        ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
+        ToDoList toDoList = new ToDoList("Test");
+        toDoList.addBucket(new Bucket("Test"));
+        testConsole.showBuckets(toDoList);
+        String expectedOutput = "🪣Test\n";
+        String actualOutput = outBuffer.toString();
+        assertThat(actualOutput).isEqualTo(expectedOutput);
+    }
+
 }

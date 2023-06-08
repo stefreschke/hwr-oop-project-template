@@ -35,13 +35,13 @@ class ToDoItemTest {
         assertThat(result).isFalse();
     }
     @Test
-    void getDueDate() {
+    void getDueDateTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.HIGH, LocalDate.now());
         LocalDate result = item.getDueDate();
         assertThat(result).isEqualTo(LocalDate.now());
     }
     @Test
-    void setDueDate() {
+    void setDueDateTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.HIGH, LocalDate.now());
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         item.setDueDate(tomorrow);
@@ -62,6 +62,14 @@ class ToDoItemTest {
         String testTitle = item.getTitle();
         assertThat(testTitle).isEqualTo("Title");
     }
+
+    @Test
+    void getStateTest() {
+        ToDoItem toDoItem = new ToDoItem("t","d",new Bucket("t"), Priority.LOW, LocalDate.now());
+        String expectedoutput = "TODO";
+        assertThat(toDoItem.getState()).isEqualTo(expectedoutput);
+    }
+
     @Test
     void setDescriptionTest() {
         ToDoItem item = new ToDoItem("testTitle", "testDesc", new Bucket("testTag"), Priority.LOW, LocalDate.now());
@@ -118,19 +126,19 @@ class ToDoItemTest {
     @Test
     void promotionTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
-        item.promote(); // TODO -> IN PROGRESS
+        item.promote();
         assertThat(item.getState()).isEqualTo("IN_PROGRESS");
-        item.promote(); // IN PROGRESS -> DONE
+        item.promote();
         assertThat(item.getState()).isEqualTo("DONE");
     }
 
     @Test
     void demotionTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
-        item.promote(); // TODO -> IN PROGRESS
-        item.demote(); // IN PROGRESS -> TODO
+        item.promote();
+        item.demote();
         assertThat(item.getState()).isEqualTo("TODO");
-        item.promote(); // TODO -> IN PROGRESS
+        item.promote();
         item.promote(); // IN PROGRESS -> DONE
         item.demote(); // DONE -> IN PROGRESS
         assertThat(item.getState()).isEqualTo("IN_PROGRESS");
@@ -139,7 +147,7 @@ class ToDoItemTest {
     @Test
     void holdTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
-        item.hold(); // TODO -> HOLD
+        item.hold();
         assertThat(item.getState()).isEqualTo("TODO");
         item.promote(); // HOLD -> IN PROGRESS
         item.hold();    // IN PROGRESS -> HOLD
