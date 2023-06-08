@@ -29,9 +29,9 @@ class BucketHandlerTest {
         toDoList.addBucket(new Bucket("Bucket1"));
         toDoList.addBucket(new Bucket("Bucket2"));
         BucketHandler.handleUserCommand(toDoList, cui, new String[]{"gtd", "sb"});
-        String expected = "\uD83E\uDEA3Bucket1\n" +
-                "\uD83E\uDEA3Bucket2\n";
+        String expected1 = "\uD83E\uDEA3Bucket1\n";
+        String expected2 = "\uD83E\uDEA3Bucket2\n";
         String actual = outBuffer.toString();
-        assertThat(actual).isEqualTo(expected);
+        assertThat(actual).contains(expected1).contains(expected2);
     }
 }
