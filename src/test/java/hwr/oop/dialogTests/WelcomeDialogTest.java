@@ -13,6 +13,8 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class WelcomeDialogTest {
     @Test
     void testEnvLoadSuccessful() {
@@ -79,5 +81,10 @@ class WelcomeDialogTest {
         assertThat(out.toString()).contains("Welcome To Getting Things Done 🚀");
         assertThat(toDoList).isNotNull();
         assertThat(toDoList.getItems()).isEmpty();
+    }
+    @Test
+    void testCouldNotLaunchSetupException() {
+        WelcomeDialog.CannotLaunchSetupException cannotLaunchSetupException = new WelcomeDialog.CannotLaunchSetupException();
+        assertEquals("Cannot Launch Setup", cannotLaunchSetupException.getMessage());
     }
 }

@@ -11,8 +11,14 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ExistenceHandlerTest {
+    @Test
+    void existenceHandlerTest() {
+        ExistenceHandler existenceHandler = new ExistenceHandler();
+        assertThat(existenceHandler).isNotNull();
+    }
     @Test
     void handleUserCommandAddTest() {
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
@@ -43,5 +49,10 @@ class ExistenceHandlerTest {
                 "Try again? (y/n)\n" +
                 "Please enter the index of the task you want to remove.\n" +
                 "Task Removed Successfully!\n");
+    }
+    @Test
+    void testCouldNotAddException(){
+        ExistenceHandler.CouldNotAddException couldNotAddException = new ExistenceHandler.CouldNotAddException("Cannot Add");
+        assertEquals("Cannot Add", couldNotAddException.getMessage());
     }
 }

@@ -17,7 +17,6 @@ public class AddDialog {
             .appendOptional(DateTimeFormatter.ofPattern("d.MM.yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("dd.M.yyyy"))
             .appendOptional(DateTimeFormatter.ofPattern("d.M.yyyy"))
-
             .appendOptional(DateTimeFormatter.ofPattern("dd.MM.yy"))
             .appendOptional(DateTimeFormatter.ofPattern("d.MM.yy"))
             .appendOptional(DateTimeFormatter.ofPattern("dd.M.yy"))
@@ -50,10 +49,11 @@ public class AddDialog {
         out.println("Please enter a title for your task");
         try {
             return this.reader.readLine();
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (IOException e)  {
+            this.cui.say("Could not read input. We will set a standard title.");
+            this.cui.say(PLEASE_EDIT_LATER_USING_GTD_EDIT_INDEX);
+            return "NO TITLE";
         }
-        return "NO TITLE";
     }
     public String getDescriptionForAdd() {
         out.println("Please enter a description for your task");

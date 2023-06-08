@@ -76,7 +76,6 @@ public class ConsoleUserInterface {
         out.println("  done     - sort by done");
         out.println("  help     - print this help");
     }
-
     public void showBuckets(ToDoList toDoList){
         Set<Bucket> buckets = toDoList.getBuckets();
         if (buckets == null || buckets.isEmpty()) {
