@@ -30,6 +30,10 @@ public class AppData {
         userList.add(user);
     }
 
+    public void deleteProject(Project project) {
+        projectList.remove(project);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
