@@ -16,6 +16,11 @@ class NewTopicTests {
         assertThat(testName).isEqualTo("Portugiesisch");
     }
     @Test
+    public void equalTopicSameObject(){
+        Topic topic1 = new Topic("Spanisch");
+        assertThat(topic1).isEqualTo(topic1);
+    }
+    @Test
     public void equalTopics(){
         Topic topic1 = new Topic("Spanisch");
         Topic topic2 = new Topic("Spanisch");

@@ -25,6 +25,12 @@ public class NewCardTests {
         assertThat(card1).isNotEqualTo(card2);
     }
     @Test
+    void testEqualsNotOtherClass(){
+        Card card = new Card("1", "2", 1);
+        Topic topic = new Topic("Spanisch");
+        assertThat(!card.equals(topic));
+    }
+    @Test
     public void canCreateCard() {
 
         Topic topic = new Topic("Spanisch");
@@ -38,6 +44,7 @@ public class NewCardTests {
     public void canDeleteCard(){
         Topic topic = new Topic("Spanisch");
         topic.createCard("Tisch", "table");
+        topic.deleteCard(topic.getCardList().get(0));
         assertThat(topic.getCardList().isEmpty());
     }
     @Test

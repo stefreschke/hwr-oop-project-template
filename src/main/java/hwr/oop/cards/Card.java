@@ -45,11 +45,6 @@ public class Card {
         this.answer = answer;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(question, answer);
-    }
-
     public int getId() { return id; }
 
     public Date getLastLearned() {

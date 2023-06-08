@@ -13,14 +13,6 @@ public class NewBox{
     private final int previous;
     private int learnInterval;
 
-
-    /*public NewBox(){
-        boxes = null;
-        next = 0;
-        previous = 0;
-        learnedCardList = new ArrayList<Card>();
-        unlearnedCardList = new ArrayList<Card>();
-    }*/
     public NewBox(int learnInterval, Boxes boxes, int next, int previous){
         learnedCardList = new ArrayList<Card>();
         unlearnedCardList = new ArrayList<Card>();
@@ -111,6 +103,7 @@ public class NewBox{
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
+
         NewBox box = (NewBox) o;
         if (learnedCardList.size() != box.learnedCardList.size() || unlearnedCardList.size() != box.unlearnedCardList.size()){
             return false;
