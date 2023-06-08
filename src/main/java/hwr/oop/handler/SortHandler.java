@@ -47,6 +47,12 @@ public class SortHandler {
             } else {
                 toDoList.sortByDone("desc");
             }
+        } else if (commandArray[2].toLowerCase().contains("due")) {
+            if (commandArray[3].equals("asc")) {
+                toDoList.sortByDueDate("asc");
+            } else {
+                toDoList.sortByDueDate("desc");
+            }
         } else if (commandArray[2].toLowerCase().contains("tag")) {
             toDoList.bubbleUpBucket(commandArray[3]);
         } else {

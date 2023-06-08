@@ -24,12 +24,13 @@ public class EditHandler {
             ToDoItem item = (ToDoItem) itemAndIndex.keySet().toArray()[0];
             int index = (int) itemAndIndex.values().toArray()[0];
             if (item == null) return;
-            EditDialog editDialog = new EditDialog(cui);
+            EditDialog editDialog = new EditDialog(cui, toDoList);
             ToDoItem copyToDoItem = editDialog.start(item, index);
             item.setTitle(copyToDoItem.getTitle());
             item.setDescription(copyToDoItem.getDescription());
             item.setPriority(copyToDoItem.getPriority());
             item.setBucket(copyToDoItem.getBucket());
+            item.setDueDate(copyToDoItem.getDueDate());
             editDialog.end();
         } catch (Exception e) {
             cui.print(LogMode.ERROR, "Try gtd edit [index]");

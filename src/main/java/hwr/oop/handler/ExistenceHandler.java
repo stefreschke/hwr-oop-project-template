@@ -27,7 +27,7 @@ public class ExistenceHandler {
         }
     }
     public static void add(ToDoList toDoList, ConsoleUserInterface cui) throws CouldNotAddException, ConsoleUserInterface.CouldNotReadInputException {
-        AddDialog addDialog = new AddDialog(cui);
+        AddDialog addDialog = new AddDialog(cui, toDoList);
         ToDoItem toDoItem = addDialog.start();
         try {
             toDoList.add(toDoItem);

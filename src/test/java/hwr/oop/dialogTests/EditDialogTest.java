@@ -1,8 +1,6 @@
 package hwr.oop.dialogTests;
 
-import hwr.oop.ConsoleUserInterface;
-import hwr.oop.Priority;
-import hwr.oop.ToDoItem;
+import hwr.oop.*;
 import hwr.oop.dialog.EditDialog;
 import org.junit.jupiter.api.Test;
 
@@ -10,11 +8,13 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EditDialogTest {
-    public static final ToDoItem toDoItem = new ToDoItem("MyItem", "MyItem",  "MyItem", Priority.HIGH);
+    public static final ToDoItem toDoItem = new ToDoItem("MyItem", "MyItem",  new Bucket("MyItem"), Priority.HIGH, LocalDate.now());
+    public static final ToDoList toDoList = new ToDoList("MyList", "test.json");
     @Test
     void getTitleForEditTest(){
         try {
@@ -22,7 +22,7 @@ public class EditDialogTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer),
                     new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            String title = new EditDialog(testConsole).getTitleForEdit(toDoItem);
+            String title = new EditDialog(testConsole, toDoList).getTitleForEdit(toDoItem);
             assertThat(title).isEqualTo("MyItem");
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -35,7 +35,7 @@ public class EditDialogTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer),
                     new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            String desc = new EditDialog(testConsole).getDescriptionForEdit(toDoItem);
+            String desc = new EditDialog(testConsole, toDoList).getDescriptionForEdit(toDoItem);
             assertThat(desc).isEqualTo("MyItem");
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -48,7 +48,7 @@ public class EditDialogTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer),
                     new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            Priority prio = new EditDialog(testConsole).getPriorityForEdit(toDoItem);
+            Priority prio = new EditDialog(testConsole, toDoList).getPriorityForEdit(toDoItem);
             assertThat(prio).isEqualTo(Priority.HIGH);
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -61,19 +61,19 @@ public class EditDialogTest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer),
                     new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            String bucket = new EditDialog(testConsole).getBucketForEdit(toDoItem);
-            assertThat(bucket).isEqualTo("MyItem");
+            Bucket bucket = new EditDialog(testConsole, toDoList).getBucketForEdit(toDoItem);
+            assertThat(bucket.getBucketName()).isEqualTo("MyItem");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
     @Test
     void startTest() throws ConsoleUserInterface.CouldNotReadInputException {
-        String userInput = "MyItem\nDesc\n1\nMyBucket\n";
+        String userInput = "MyItem\nDesc\n1\nMyBucket\n1.1.2020\n";
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer),
                 new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-        ToDoItem newItem = new EditDialog(testConsole).start(toDoItem, 0);
-        assertThat(newItem).hasToString(new ToDoItem("MyItem", "Desc", "MyBucket", Priority.LOW).toString());
+        ToDoItem newItem = new EditDialog(testConsole, toDoList).start(toDoItem, 0);
+        assertThat(newItem).hasToString(new ToDoItem("MyItem", "Desc", new Bucket("MyBucket"), Priority.LOW, LocalDate.of(2020,1,1)).toString());
     }
 }

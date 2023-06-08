@@ -40,7 +40,6 @@ class CommandParserTest {
                 "[edit, e]\u001B[1;35m[index] \u001B[0m - \u001B[1;34medit a task\u001B[0m\n" +
                 "[list, ls]\u001B[1;35m\u001B[0m - \u001B[1;34mlist all tasks\u001B[0m\n" +
                 "[sort, s]\u001B[1;35m[priority | createdAt | bucket | title | done] [asc | desc] \u001B[0m - \u001B[1;34msort your tasks\u001B[0m\n" +
-                "[createBucket, cb]\u001B[1;35m[name] \u001B[0m - \u001B[1;34mcreate a bucket for tasks\u001B[0m\n" +
                 "[showBuckets, sb]\u001B[1;35m\u001B[0m - \u001B[1;34mshow buckets for tasks\u001B[0m\n" +
                 "[renameBucket, rnb]\u001B[1;35m[index] \u001B[0m - \u001B[1;34mchanges bucket name\u001B[0m\n" +
                 "[clear, cls]\u001B[1;35m\u001B[0m - \u001B[1;34mclear all tasks\u001B[0m\n" +

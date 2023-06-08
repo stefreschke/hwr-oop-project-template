@@ -5,12 +5,27 @@ import hwr.oop.util.ConsoleColors;
 
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.List;
 import java.util.Set;
 
 public class ConsoleUserInterface {
     private final PrintStream out;
     private final InputStream in;
+
+    private final DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+            .appendOptional(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d.MM.yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd.M.yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d.M.yyyy"))
+
+            .appendOptional(DateTimeFormatter.ofPattern("dd.MM.yy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d.MM.yy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd.M.yy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d.M.yy"))
+            .toFormatter();
+
     public ConsoleUserInterface(PrintStream out, InputStream in) {
         this.out = out;
         this.in = in;

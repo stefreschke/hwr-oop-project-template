@@ -1,5 +1,6 @@
 package hwr.oop;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static hwr.oop.util.ConsoleColors.*;
@@ -12,13 +13,16 @@ public class ToDoItem {
     private Priority priority;
     private String createdAt;
     private State state;
-    public ToDoItem (String title, String description, Bucket bucket, Priority priority) {
+    private LocalDate dueDate;
+
+    public ToDoItem (String title, String description, Bucket bucket, Priority priority, LocalDate dueDate) {
         this.title = title;
         this.description = description;
         this.bucket = bucket;
         this.createdAt = LocalDateTime.now().toString();
         this.priority = priority;
         this.state = State.TODO;
+        this.dueDate = dueDate;
     }
     public void setTitle(String title) {
         this.title = title;
@@ -35,6 +39,12 @@ public class ToDoItem {
     public void setBucket(Bucket bucket) {
         this.bucket = bucket;
     }
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt.toString();
+    }
     public String getTitle() {
         return title;
     }
@@ -44,8 +54,20 @@ public class ToDoItem {
     public String getDescription() {
         return description;
     }
+    public boolean isDone() {
+        return state == State.DONE;
+    }
+    public Priority getPriority() {
+        return priority;
+    }
     public String getState() {
         return state.toString();
+    }
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+    public String getCreatedAt() {
+        return createdAt;
     }
     public String getStateEmoji() {
         try {
@@ -77,15 +99,6 @@ public class ToDoItem {
                 return "❓";
         }
     }
-    public boolean isDone() {
-        return state == State.DONE;
-    }
-    public Priority getPriority() {
-        return priority;
-    }
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt.toString();
-    }
     @Override
     public String toString() {
         String stateSymbol = getStateEmoji() + ' ';
@@ -93,10 +106,7 @@ public class ToDoItem {
         return  stateSymbol + title + '\n' +
                 description + '\n' +
                 "<" +  CYAN_BOLD + bucket.getBucketName() + RESET + ">" +
-                ' ' + priorityString;
-    }
-    public String getCreatedAt() {
-        return createdAt;
+                ' ' + priorityString + ' ' + dueDate;
     }
 
     public void promote() {

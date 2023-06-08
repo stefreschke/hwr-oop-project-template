@@ -1,8 +1,11 @@
 package hwr.oop;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import hwr.oop.util.LocalDateTypeAdapter;
 
 import java.io.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Program {
@@ -17,7 +20,9 @@ public class Program {
         return toDoList;
     }
     private ToDoList getToDoListFromJSON(String fileName) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
+                .create();
         String json;
         if (fileName.contains(".")) {
             fileName = fileName.substring(0, fileName.lastIndexOf('.'));

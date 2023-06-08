@@ -1,17 +1,34 @@
 package hwr.oop.dialog;
 
-import hwr.oop.ConsoleUserInterface;
-import hwr.oop.LogMode;
-import hwr.oop.Priority;
-import hwr.oop.ToDoItem;
+import hwr.oop.*;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 
 public class EditDialog {
+    private final ToDoList toDoList;
     private final ConsoleUserInterface cui;
     private final PrintStream out;
     private final BufferedReader reader;
-    public EditDialog(ConsoleUserInterface cui) {
+    private final DateTimeFormatter formatter = new DateTimeFormatterBuilder()
+            .appendOptional(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d.MM.yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd.M.yyyy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d.M.yyyy"))
+
+            .appendOptional(DateTimeFormatter.ofPattern("dd.MM.yy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d.MM.yy"))
+            .appendOptional(DateTimeFormatter.ofPattern("dd.M.yy"))
+            .appendOptional(DateTimeFormatter.ofPattern("d.M.yy"))
+            .toFormatter();
+
+    public EditDialog(ConsoleUserInterface cui, ToDoList toDoList) {
+        this.toDoList = toDoList;
         this.cui = cui;
         this.out = cui.getOutputStream();
         this.reader = new BufferedReader(new InputStreamReader(cui.getInputStream()));
@@ -22,12 +39,14 @@ public class EditDialog {
         String title = getTitleForEdit(item);
         String description = getDescriptionForEdit(item);
         Priority priority = getPriorityForEdit(item);
-        String bucket = getBucketForEdit(item);
+        Bucket bucket = getBucketForEdit(item);
+        LocalDate dueDate = getDueDateForEdit(item);
         return new ToDoItem(
                 title,
                 description,
                 bucket,
-                priority
+                priority,
+                dueDate
         );
     }
     public  String getTitleForEdit(ToDoItem item) throws ConsoleUserInterface.CouldNotReadInputException {
@@ -69,17 +88,30 @@ public class EditDialog {
         }
         return item.getPriority();
     }
-    public String getBucketForEdit(ToDoItem item) {
+    public Bucket getBucketForEdit(ToDoItem item) {
         this.out.println("Enter new Bucket or press enter to skip");
         String bucket;
         try {
             bucket = this.reader.readLine();
-            if (!bucket.equals("")) return bucket;
-            else return item.getBucket();
+            if (!bucket.equals("")) {
+                Bucket newBucket = this.toDoList.findBucket(bucket);
+                return newBucket == null ? new Bucket(bucket) : newBucket;
+            } else return item.getBucket();
         } catch (IOException e) {
             this.out.println("Could not read your input... skipping");
         }
         return item.getBucket();
+    }
+    public LocalDate getDueDateForEdit(ToDoItem item) {
+        out.println("Enter new Due Date or press enter to skip");
+        try {
+            String line = this.reader.readLine();
+            if (line.equals("")) return item.getDueDate();
+            return LocalDate.parse(line, this.formatter);
+        } catch (Exception e) {
+            this.out.println("Could not read your input... skipping");
+        }
+        return item.getDueDate();
     }
     public void end() {
         cui.print(LogMode.SUCCESS, "Task Edited Successfully!");
