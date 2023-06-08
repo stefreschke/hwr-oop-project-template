@@ -9,7 +9,6 @@ import java.util.Objects;
 public class AppData {
     private final List<Project> projectList;
     private final List<User> userList;
-
     public AppData(List<Project> projectList, List<User> userList) {
         this.projectList = projectList;
         this.userList = userList;
@@ -21,6 +20,18 @@ public class AppData {
 
     public List<User> getUserList() {
         return userList;
+    }
+
+    public void addProject(Project project) {
+        projectList.add(project);
+    }
+
+    public void addUser(User user) {
+        userList.add(user);
+    }
+
+    public void deleteProject(Project project) {
+        projectList.remove(project);
     }
 
     @Override

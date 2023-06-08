@@ -3,14 +3,6 @@ This repository contains a student project created for an ongoing lecture on obj
 
 > :warning: This code is for educational purposes only. Do not rely on it!
 
-## Abstract
-
-[TODO]: A professional TodoList
-
-[TODO]: create und delete Task, variable Taskstatus
-
-[TODO]: We cant open the readme anymore
-
 ## Feature List
 
 [TODO]: # (For each feature implemented, add a row to the table!)
@@ -28,6 +20,7 @@ This repository contains a student project created for an ongoing lecture on obj
 | 9      | create Kontextliste      | - [ ]         | - [ ]         |
 
 ## Optional Features
+
 
 [TODO]: # (For each additional dependency your project requires- Add an additional row to the table!)
 
