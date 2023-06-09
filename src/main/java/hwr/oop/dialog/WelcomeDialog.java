@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class WelcomeDialog {
-    
+  /*
     private final ConsoleUserInterface cui;
     private final BufferedReader reader;
     private final String setupFile;
@@ -100,5 +100,5 @@ public class WelcomeDialog {
         public CannotLaunchSetupException() {
             super("Cannot Launch Setup");
         }
-    }
+    }*/
 }
