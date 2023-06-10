@@ -1,5 +1,6 @@
 package hwr.oop;
 
+import hwr.oop.handler.SortHandler;
 import hwr.oop.util.ConsoleColors;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,8 @@ import java.time.LocalDate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-
+import java.util.Arrays;
+import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -43,18 +45,6 @@ class ConsoleUITest {
         String actualOutput = outBuffer.toString().replace("\r","");
         assertThat(actualOutput).isEqualTo(expectedOutput);
     }
-
-    @Test
-    void sayTest() {
-        OutputStream outBuffer = new ByteArrayOutputStream();
-        InputStream inputStream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
-        ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
-        String expectedOutput = "Test\n";
-        testConsole.say("Test");
-        String actualOutput = outBuffer.toString().replace("\r","");
-        assertThat(actualOutput).isEqualTo(expectedOutput);
-    }
-
     @Test
     void listTest() {
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
@@ -69,7 +59,7 @@ class ConsoleUITest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             testConsole.list(toDoList);
-            // Check the program output
+        
             String expectedOutput;
             expectedOutput = "MyList:\n" +
                     toDoList.getItems().get(0).toString() + "\n" +
@@ -90,7 +80,6 @@ class ConsoleUITest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             testConsole.list(toDoList);
-            // Check the program output
             String expectedOutput;
             expectedOutput = "MyList:\n" +
                     "👀Looks Empty here... Add some tasks!\n";
@@ -109,8 +98,7 @@ class ConsoleUITest {
         toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW, LocalDate.now().plusDays(1)));
         toDoList.getItems().get(1).setCreatedAt(LocalDateTime.of(2020, 1, 2, 0, 0));
         toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH, LocalDate.now().plusDays(2)));
-
-        // Priority Test
+      
         toDoList.sortByPriority("asc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
         toDoList.sortByPriority("desc");
@@ -157,7 +145,6 @@ class ConsoleUITest {
             assertThat(toDoList.getItems()).hasSize(2);
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
             testConsole.remove(toDoList, 0);
-            // Check the program output
             String expectedOutput;
             expectedOutput = "Task Removed Successfully!\n";
             String actualOutput = outBuffer.toString().replace("\r", "");
@@ -191,10 +178,8 @@ class ConsoleUITest {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            // funktion Main.success aufrufen
             testConsole.print(LogMode.ERROR, "Error Message");
             String expectedOutput;
-            // Output den du erwartest
             expectedOutput = ConsoleColors.RED_BOLD + "Error Message" + ConsoleColors.RESET + "\n";
             String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
@@ -209,8 +194,7 @@ class ConsoleUITest {
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            testConsole.sortHelp();
-            // Check the program output
+            SortHandler.sortHelp(testConsole);
             String expectedOutput;
             expectedOutput =
                     "gtd sort [option]\n" +
@@ -254,5 +238,9 @@ class ConsoleUITest {
         String actualOutput = outBuffer.toString().replace("\r","");
         assertThat(actualOutput).isEqualTo(expectedOutput);
     }
-
+    @Test
+    void testCouldNotReadInputException(){
+        ConsoleUserInterface.CouldNotReadInputException couldNotReadInputException = new ConsoleUserInterface.CouldNotReadInputException();
+        assertEquals("Could not read your input... skipping", couldNotReadInputException.getMessage());
+    }
 }

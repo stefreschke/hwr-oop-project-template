@@ -29,6 +29,34 @@ class AddDialogTest {
         }
     }
     @Test
+    void getTitleForAddFailedInputTest(){
+        try {
+            String userInput = "";
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            String title = new AddDialog(testConsole, toDoList).getTitleForAdd();
+            assertThat(title).isNotEqualTo("MyItem");
+            assertThat(title).isEqualTo("NO TITLE");
+            assertThat(outBuffer).hasToString("Please enter a title for your task\n");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    void getTitleForAddNoInputTest() {
+        try {
+            String userInput = "\n";
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            String title = new AddDialog(testConsole, toDoList).getTitleForAdd();
+            assertThat(title).isNotEqualTo("MyItem");
+            assertThat(title).isEqualTo("NO TITLE");
+            assertThat(outBuffer).hasToString("Please enter a title for your task\n");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
     void getDescriptionForAddTest(){
         try {
             String userInput = "MyItem\n";

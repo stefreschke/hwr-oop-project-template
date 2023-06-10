@@ -55,4 +55,9 @@ class GetCommandDialogTest {
         assertEquals(1, getCommandDialog.callHandler(toDoList, new String[]{"gtd", "whatever"}));
 
     }
+    @Test
+    void testCouldNotReadCommandException() {
+        GetCommandDialog.CouldNotreadCommandException couldNotreadCommandException = new GetCommandDialog.CouldNotreadCommandException("test");
+        assertEquals("test", couldNotreadCommandException.getMessage());
+    }
 }
