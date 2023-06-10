@@ -40,7 +40,7 @@ class ConsoleUITest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
         String expectedOutput = mode.getColor() + "Test" + ConsoleColors.RESET + "\n";
         testConsole.print(mode, "Test");
-        String actualOutput = outBuffer.toString();
+        String actualOutput = outBuffer.toString().replace("\r","");
         assertThat(actualOutput).isEqualTo(expectedOutput);
     }
 
@@ -51,7 +51,7 @@ class ConsoleUITest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
         String expectedOutput = "Test\n";
         testConsole.say("Test");
-        String actualOutput = outBuffer.toString();
+        String actualOutput = outBuffer.toString().replace("\r","");
         assertThat(actualOutput).isEqualTo(expectedOutput);
     }
 
@@ -238,7 +238,7 @@ class ConsoleUITest {
         ToDoList toDoList = new ToDoList("Test");
         toDoList.getBuckets();
         String expectedOutput = "\uD83D\uDC40Looks Empty here... Add some buckets!";
-        String actualOutput = outBuffer.toString();
+        String actualOutput = outBuffer.toString().replace("\r","");
         assertThat(actualOutput).isEqualTo(expectedOutput);
     }
 
@@ -251,7 +251,7 @@ class ConsoleUITest {
         toDoList.addBucket(new Bucket("Test"));
         testConsole.showBuckets(toDoList);
         String expectedOutput = "🪣Test\n";
-        String actualOutput = outBuffer.toString();
+        String actualOutput = outBuffer.toString().replace("\r","");
         assertThat(actualOutput).isEqualTo(expectedOutput);
     }
 
