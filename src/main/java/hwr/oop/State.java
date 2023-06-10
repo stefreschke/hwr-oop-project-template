@@ -1,7 +1,7 @@
 package hwr.oop;
 
 public enum State {
-    TODO {
+    TODO("⏭️") {
         @Override
         public State nextState() {
             return IN_PROGRESS;
@@ -17,7 +17,7 @@ public enum State {
             return TODO;
         }
     },
-    IN_PROGRESS {
+    IN_PROGRESS("🏗️") {
         @Override
         public State nextState() {
             return DONE;
@@ -33,7 +33,7 @@ public enum State {
             return ON_HOLD;
         }
     },
-    ON_HOLD {
+    ON_HOLD("🕑") {
         @Override
         public State nextState() {
             return IN_PROGRESS;
@@ -49,7 +49,7 @@ public enum State {
             return ON_HOLD;
         }
     },
-    DONE {
+    DONE("✅") {
         @Override
         public State nextState() {
             return DONE;
@@ -65,6 +65,16 @@ public enum State {
             return DONE;
         }
     };
+
+    private final String stateEmoji;
+
+    State(String stateEmoji) {
+        this.stateEmoji = stateEmoji;
+    }
+
+    public String getStateEmoji() {
+        return stateEmoji;
+    }
 
     public abstract State nextState();
     public abstract State previousState();
