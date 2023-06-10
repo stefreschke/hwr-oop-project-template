@@ -24,7 +24,7 @@ class ExitHandlerTest {
             throw new RuntimeException(e);
         }
         String expected = "\u001B[1;31mCould not exit... If that is what you wanted to do, try 'gtd exit'\u001B[0m\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
     }
 }

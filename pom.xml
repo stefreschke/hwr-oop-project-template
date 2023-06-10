@@ -3,13 +3,11 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>hwr.oop.projects</groupId>
-    <!-- TODO Change name and description according to your project -->
-    <artifactId>project</artifactId>
+    <groupId>hwr.oop.projects6</groupId>
+    <artifactId>ToDoAppGruppe6</artifactId>
     <version>0.1.0-SNAPSHOT</version>
-    <!-- TODO Change name and description according to your project -->
-    <name>project</name>
-    <description>project-description</description>
+    <name>hwr.oop.projects6</name>
+    <description>GettingThingsDoneToDoApp</description>
     <properties>
         <!-- java -->
         <java.version>17</java.version>
@@ -93,7 +91,7 @@
                     <plugin>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-maven</artifactId>
-                        <version>1.9.0</version>
+                        <version>1.11.0</version>
                         <configuration>
                             <targetClasses>
                                 <param>hwr.oop*</param>
@@ -106,7 +104,7 @@
                             <dependency>
                                 <groupId>org.pitest</groupId>
                                 <artifactId>pitest-junit5-plugin</artifactId>
-                                <version>1.0.0</version>
+                                <version>1.1.2</version>
                             </dependency>
                         </dependencies>
                     </plugin>
