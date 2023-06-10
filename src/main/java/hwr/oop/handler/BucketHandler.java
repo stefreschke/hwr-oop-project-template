@@ -4,10 +4,11 @@ import hwr.oop.ConsoleUserInterface;
 import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
 
-public class BucketHandler {
+public class BucketHandler implements HandlerCommandsInterface {
     BucketHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    @Override
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2) {
             try {
                 if (args[1].equals("showBuckets") || args[1].equals("sb")) {

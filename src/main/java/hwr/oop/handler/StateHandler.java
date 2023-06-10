@@ -5,11 +5,12 @@ import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
 import hwr.oop.dialog.HandleBadIndexDialog;
 
-public class StateHandler {
+public class StateHandler implements HandlerCommandsInterface {
     private static final String BAD_INDEX_MESSAGE = "Please enter the index of the item you want to change the state of:";
     StateHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    @Override
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2) {
             try {
                 if (args[1].equals("done") || args[1].equals("do")) {
@@ -31,7 +32,7 @@ public class StateHandler {
         }
     }
 
-    public static void done(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public void done(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         int i = 0;
         int index = Integer.parseInt(args[2]);
         while (i == 0) {
@@ -44,7 +45,7 @@ public class StateHandler {
             }
         }
     }
-    public static void hold(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public void hold(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         int i = 0;
         int index = Integer.parseInt(args[2]);
         while (i == 0) {
@@ -57,7 +58,7 @@ public class StateHandler {
             }
         }
     }
-    public static void promote(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public void promote(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         int i = 0;
         int index = Integer.parseInt(args[2]);
         while (i == 0) {
@@ -70,7 +71,7 @@ public class StateHandler {
             }
         }
     }
-    public static void demote(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public void demote(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         int i = 0;
         int index = Integer.parseInt(args[2]);
         while (i == 0) {

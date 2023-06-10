@@ -8,17 +8,18 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditHandler {
+public class EditHandler implements HandlerCommandsInterface {
     EditHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    @Override
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2 && args[1].equals("edit") || args[1].equals("e")) {
             editTask(toDoList, cui, args);
         } else {
             cui.print(LogMode.NONE, "Invalid Command.");
         }
     }
-    public static void editTask(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public void editTask(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         try {
             Map<ToDoItem, Number> itemAndIndex = getToDoItem(toDoList, cui, args[2]);
             ToDoItem item = (ToDoItem) itemAndIndex.keySet().toArray()[0];
@@ -36,7 +37,7 @@ public class EditHandler {
             cui.print(LogMode.ERROR, "Try gtd edit [index]");
         }
     }
-    public static Map<ToDoItem, Number> getToDoItem(ToDoList toDoList, ConsoleUserInterface cui, String arg) {
+    public Map<ToDoItem, Number> getToDoItem(ToDoList toDoList, ConsoleUserInterface cui, String arg) {
         int index = Integer.parseInt(arg);
         Map<ToDoItem, Number> itemAndIndexMap = new HashMap<>();
         try {

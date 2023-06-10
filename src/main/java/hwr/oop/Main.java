@@ -1,23 +1,18 @@
 package hwr.oop;
 
-import hwr.oop.dialog.WelcomeDialog;
 import hwr.oop.dialog.GetCommandDialog;
 import hwr.oop.handler.CommandParser;
+import hwr.oop.persistence.PersistenceAdapter;
 
 import java.io.PrintStream;
 
 public class Main {
     private static final PrintStream out = new PrintStream(System.out);
-    private static final String SETUP_FILE = "setup.csv";
-    public static void main(String[] args) throws WelcomeDialog.CannotLaunchSetupException, GetCommandDialog.CouldNotreadCommandException {
+    public static void main(String[] args) throws GetCommandDialog.CouldNotreadCommandException {
         ConsoleUserInterface cui = new ConsoleUserInterface(out, System.in);
         CommandParser commandParser = new CommandParser(cui);
-        ToDoList toDoList;
-        try {
-            toDoList = new WelcomeDialog(cui, SETUP_FILE).start();
-        } catch (WelcomeDialog.CannotLaunchSetupException e) {
-            throw new WelcomeDialog.CannotLaunchSetupException();
-        }
+        PersistenceAdapter persistenceAdapter = new PersistenceAdapter();
+        ToDoList toDoList = persistenceAdapter.loadData();
         GetCommandDialog getCommandDialog = new GetCommandDialog(toDoList, cui, commandParser);
         while (true) {
             try {

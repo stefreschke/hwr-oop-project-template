@@ -47,7 +47,6 @@ public class GetCommandDialog {
             throw new CommandParser.CouldNotCallHandlerException();
         }
     }
-
     public static class CouldNotreadCommandException extends Exception {
         public CouldNotreadCommandException(String message) {
             super(message);

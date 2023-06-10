@@ -1,7 +1,6 @@
 package hwr.oop.handler;
 
 import hwr.oop.ConsoleUserInterface;
-import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
 
 import java.util.Arrays;
@@ -10,28 +9,28 @@ import java.util.EnumSet;
 public class CommandParser {
     private static final String INDEX_ARG = "index";
     public enum CommandHandler {
-        HELP(new String[]{"help", "h"}, new String[][]{new String[]{}}, "print this help", HelpHandler.class),
-        ADD(new String[]{"add", "a"}, new String[][]{new String[]{}},"add a new task", ExistenceHandler.class),
-        REMOVE(new String[]{"remove", "rm"}, new String[][]{new String[]{INDEX_ARG}}, "remove a task", ExistenceHandler.class),
-        PROMOTE(new String[]{"promote", "p"}, new String[][]{new String[]{INDEX_ARG}},"promote a task to a further state", StateHandler.class),
-        DEMOTE(new String[]{"demote", "d"}, new String[][]{new String[]{INDEX_ARG}},"demote a task to a previous state", StateHandler.class),
-        HOLD(new String[]{"hold", "hd"}, new String[][]{new String[]{INDEX_ARG}},"put a task on hold", StateHandler.class),
-        DONE(new String[]{"done", "do"}, new String[][]{new String[]{INDEX_ARG}},"mark a task as done", StateHandler.class),
-        EDIT(new String[]{"edit", "e"}, new String[][]{new String[]{INDEX_ARG}},"edit a task", EditHandler.class),
-        LIST(new String[]{"list", "ls"}, new String[][]{new String[]{}},"list all tasks", ListHandler.class),
-        SORT(new String[]{"sort", "s"}, new String[][]{new String[]{"priority | createdAt | bucket | title | done"}, new String[]{"asc | desc"}},"sort your tasks", SortHandler.class),
-        SHOWBUCKETS(new String[]{"showBuckets", "sb"}, new String[][]{new String[]{}}, "show buckets for tasks", BucketHandler.class),
-        RENAMEBUCKETS(new String[]{"renameBucket", "rnb"}, new String[][]{new String[]{INDEX_ARG}}, "changes bucket name", BucketHandler.class),
-        CLEAR(new String[]{"clear", "cls"}, new String[][]{new String[]{}}, "clear all tasks", ClearHandler.class),
-        EXIT(new String[]{"exit", "q"}, new String[][]{new String[]{}}, "exit the program", ExitHandler.class),
-        WRONGCOMMAND(new String[]{}, new String[][]{new String[]{}}, "", HelpHandler.class);
+        HELP(new String[]{"help", "h"}, new String[][]{new String[]{}}, "print this help", new HelpHandler()),
+        ADD(new String[]{"add", "a"}, new String[][]{new String[]{}},"add a new task", new ExistenceHandler()),
+        REMOVE(new String[]{"remove", "rm"}, new String[][]{new String[]{INDEX_ARG}}, "remove a task", new ExistenceHandler()),
+        PROMOTE(new String[]{"promote", "p"}, new String[][]{new String[]{INDEX_ARG}},"promote a task to a further state", new StateHandler()),
+        DEMOTE(new String[]{"demote", "d"}, new String[][]{new String[]{INDEX_ARG}},"demote a task to a previous state", new StateHandler()),
+        HOLD(new String[]{"hold", "hd"}, new String[][]{new String[]{INDEX_ARG}},"put a task on hold", new StateHandler()),
+        DONE(new String[]{"done", "do"}, new String[][]{new String[]{INDEX_ARG}},"mark a task as done", new StateHandler()),
+        EDIT(new String[]{"edit", "e"}, new String[][]{new String[]{INDEX_ARG}},"edit a task", new EditHandler()),
+        LIST(new String[]{"list", "ls"}, new String[][]{new String[]{}},"list all tasks", new ListHandler()),
+        SORT(new String[]{"sort", "s"}, new String[][]{new String[]{"priority | createdAt | bucket | title | done"}, new String[]{"asc | desc"}},"sort your tasks", new SortHandler()),
+        SHOWBUCKETS(new String[]{"showBuckets", "sb"}, new String[][]{new String[]{}}, "show buckets for tasks", new BucketHandler()),
+        RENAMEBUCKETS(new String[]{"renameBucket", "rnb"}, new String[][]{new String[]{INDEX_ARG}}, "changes bucket name", new BucketHandler()),
+        CLEAR(new String[]{"clear", "cls"}, new String[][]{new String[]{}}, "clear all tasks", new ClearHandler()),
+        EXIT(new String[]{"exit", "q"}, new String[][]{new String[]{}}, "exit the program", new ExitHandler()),
+        WRONGCOMMAND(new String[]{}, new String[][]{new String[]{}}, "", new HelpHandler());
 
         private final String[] commands;
         private final String[][] arguments;
         private final String description;
-        private final Class handlerClass;
+        private final HandlerCommandsInterface handlerClass;
 
-        CommandHandler(String[] commands, String[][] arguments, String description, Class handlerClass) {
+        CommandHandler(String[] commands, String[][] arguments, String description, HandlerCommandsInterface handlerClass) {
             this.commands = commands;
             this.arguments = arguments;
             this.description = description;
@@ -57,7 +56,7 @@ public class CommandParser {
         public String getDescription() {
             return description;
         }
-        public Class getHandlerClass() {
+        public HandlerCommandsInterface getHandlerClass() {
             return handlerClass;
         }
     }
@@ -89,20 +88,7 @@ public class CommandParser {
 
     private void callHandler(ToDoList toDoList, CommandHandler commandElement, String[] userArgs) throws CouldNotCallHandlerException {
         try {
-            String methodName = "handleUserCommand";
-            java.lang.reflect.Method method;
-            method = commandElement.getHandlerClass().getMethod(methodName, ToDoList.class, ConsoleUserInterface.class, String[].class);
-            method.invoke(null, toDoList, cui, userArgs);
-        } catch (IllegalAccessException e) {
-            cui.print(LogMode.ERROR, "IAE We cant execute that command.");
-        } catch (SecurityException e) {
-            cui.print(LogMode.ERROR, "SE We cant execute that command.");
-        } catch (NoSuchMethodException e) {
-            cui.print(LogMode.ERROR, "NSM We cant execute that command.");
-        } catch (IllegalArgumentException e) {
-            cui.print(LogMode.ERROR, "IAE e cant execute that command.");
-        } catch (ExceptionInInitializerError e) {
-            cui.print(LogMode.ERROR, "EIIE We cant execute that command.");
+            commandElement.getHandlerClass().handleUserCommand(toDoList, cui, userArgs);
         } catch (Exception e) {
             throw new CouldNotCallHandlerException();
         }

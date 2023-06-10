@@ -112,7 +112,7 @@ class ToDoItemTest {
     @Test
     void getCreatedAtTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.HIGH, LocalDate.now());
-        String result = item.getCreatedAt();
+        String result = item.getCreatedAt().toString();
         assertThat(item.getCreatedAt()).isEqualTo(result);
     }
     @Test
@@ -163,8 +163,8 @@ class ToDoItemTest {
     @Test
     void setCreatedAtTest() {
         ToDoItem item = new ToDoItem("", "", new Bucket(""), Priority.LOW, LocalDate.now());
-        item.setCreatedAt(LocalDateTime.of(2020, 1, 1, 1, 1));
-        String result = item.getCreatedAt();
+        item.setCreatedAt(LocalDate.of(2020, 1, 1));
+        String result = item.getCreatedAt().toString();
         assertThat(result).isEqualTo(LocalDateTime.of(2020, 1, 1, 1, 1).toString());
     }
 }
