@@ -1,1 +1,1 @@
-{"name":"list","items":[{"title":"A","description":"D","bucket":{"bucketName":"B"},"priority":"LOW","createdAt":"2023-06-08T10:34:21.931515","state":"TODO","dueDate":"2023-01-01"}],"fileName":"data","buckets":[{"bucketName":"B"}]}
+{"name":"list","items":[{"title":"t","description":"a","bucket":{"bucketName":"b"},"priority":"LOW","createdAt":"2023-06-10T12:20:34.136894400","state":"TODO","dueDate":"3022-09-24"}],"fileName":"data","buckets":[{"bucketName":"b"}]}

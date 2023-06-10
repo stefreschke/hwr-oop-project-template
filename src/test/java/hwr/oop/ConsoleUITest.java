@@ -7,6 +7,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 
@@ -99,6 +100,45 @@ class ConsoleUITest {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    @Test
+    void handleSortTest() {
+        ToDoList toDoList = new ToDoList("MyList");
+        toDoList.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now()));
+        toDoList.getItems().get(0).setCreatedAt(LocalDateTime.of(2020, 1, 1, 0, 0));
+        toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW, LocalDate.now().plusDays(1)));
+        toDoList.getItems().get(1).setCreatedAt(LocalDateTime.of(2020, 1, 2, 0, 0));
+        toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH, LocalDate.now().plusDays(2)));
+
+        // Priority Test
+        toDoList.sortByPriority("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+        toDoList.sortByPriority("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
+        toDoList.sortByCreatedAt("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
+        toDoList.sortByCreatedAt("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
+        toDoList.bubbleUpBucket("Weapon");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
+        toDoList.sortByTitle("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
+        toDoList.sortByTitle("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+
+        toDoList.getItems().get(1).setDone();
+        toDoList.sortByDone("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
+        toDoList.sortByDone("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+
+        toDoList.sortByDueDate("asc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
+        toDoList.sortByDueDate("desc");
+        assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
     }
 
     @Test

@@ -45,5 +45,13 @@ class ListJsonTest {
         ToDoList assertToDoList = program.loadToDoList("listTest.ipynb");
         assertThat(assertToDoList.getName()).isEqualTo("myToDoList");
     }
+
+    static class LodModeTest {
+
+        @Test
+        void testNone() {
+
+        }
+    }
 }
 

@@ -107,9 +107,9 @@ public class ToDoList {
                     Bucket.setBucketName(newBucket);
                 }
             }
-            for (ToDoItem ToDoIt : this.items) {
-                if (ToDoIt.getBucket().getBucketName().equals(help)) {
-                    ToDoIt.getBucket().setBucketName(newBucket);
+            for (ToDoItem item : this.items) {
+                if (item.getBucket().getBucketName().equals(help)) {
+                    item.getBucket().setBucketName(newBucket);
                 }
             }
         } catch (Exception e) {
