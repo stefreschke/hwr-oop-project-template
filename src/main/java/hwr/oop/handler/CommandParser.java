@@ -1,7 +1,6 @@
 package hwr.oop.handler;
 
 import hwr.oop.ConsoleUserInterface;
-import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
 
 import java.util.Arrays;
@@ -38,11 +37,7 @@ public class CommandParser {
             this.handlerClass = handlerClass;
         }
         public String[] getCommands() {
-            try {
-                return commands;
-            } catch (Exception e) {
-                return new String[]{"help", "h"};
-            }
+            return commands;
         }
         public String getArgString() {
             StringBuilder sb = new StringBuilder();
@@ -86,23 +81,12 @@ public class CommandParser {
         }
         return 1;
     }
-
-    private void callHandler(ToDoList toDoList, CommandHandler commandElement, String[] userArgs) throws CouldNotCallHandlerException {
+    public void callHandler(ToDoList toDoList, CommandHandler commandElement, String[] userArgs) throws CouldNotCallHandlerException {
         try {
             String methodName = "handleUserCommand";
             java.lang.reflect.Method method;
             method = commandElement.getHandlerClass().getMethod(methodName, ToDoList.class, ConsoleUserInterface.class, String[].class);
             method.invoke(null, toDoList, cui, userArgs);
-        } catch (IllegalAccessException e) {
-            cui.print(LogMode.ERROR, "IAE We cant execute that command.");
-        } catch (SecurityException e) {
-            cui.print(LogMode.ERROR, "SE We cant execute that command.");
-        } catch (NoSuchMethodException e) {
-            cui.print(LogMode.ERROR, "NSM We cant execute that command.");
-        } catch (IllegalArgumentException e) {
-            cui.print(LogMode.ERROR, "IAE e cant execute that command.");
-        } catch (ExceptionInInitializerError e) {
-            cui.print(LogMode.ERROR, "EIIE We cant execute that command.");
         } catch (Exception e) {
             throw new CouldNotCallHandlerException();
         }

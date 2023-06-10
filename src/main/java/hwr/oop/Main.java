@@ -25,7 +25,7 @@ public class Main {
                     break;
                 }
             } catch (CommandParser.CouldNotCallHandlerException e) {
-                cui.say("Could not call handler");
+                cui.print(LogMode.NONE, "Could not call handler");
             } catch (Exception e) {
                 throw new GetCommandDialog.CouldNotreadCommandException("Could not read command");
             }

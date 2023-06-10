@@ -49,6 +49,28 @@ class CommandParserTest {
         assertThat(outBuffer).hasToString(expected);
     }
     @Test
+    void handleCouldNotCallHandlerTest(){
+        String[] args = {"", "help"};
+        ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+        ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+        try {
+            new CommandParser(null).handle(null, args);
+        } catch (CommandParser.CouldNotCallHandlerException e) {
+            assertThat(e).hasMessage("Could not process your command. Please retry or restart the application.");
+        }
+    }
+    @Test
+    void handleCouldNotCallHandlerWrongCommandTest(){
+        String[] args = {"", "wrongCommand"};
+        ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+        ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
+        try {
+            new CommandParser(null).handle(null, args);
+        } catch (CommandParser.CouldNotCallHandlerException e) {
+            assertThat(e).hasMessage("Could not process your command. Please retry or restart the application.");
+        }
+    }
+    @Test
     void testCouldNotCallHandlerException() {
         CommandParser.CouldNotCallHandlerException couldNotCallHandlerException = new CommandParser.CouldNotCallHandlerException();
         assertEquals("Could not process your command. Please retry or restart the application.", couldNotCallHandlerException.getMessage());

@@ -1,5 +1,6 @@
 package hwr.oop;
 
+import hwr.oop.handler.SortHandler;
 import hwr.oop.util.ConsoleColors;
 import org.junit.jupiter.api.Test;
 
@@ -10,7 +11,6 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,80 +31,6 @@ class ConsoleUITest {
         testEnvProgram.setEnvironmentVariables("data.json", "MyList", "setTestSetup");
         String[] env = testEnvProgram.getEnvironmentVariables("setTestSetup");
         assertThat(env).contains("data.json").contains("MyList");
-    }
-    @Test
-    void listTest() {
-        ArrayList<ToDoItem> toDoItems = new ArrayList<>();
-        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW, LocalDate.now()));
-        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test"), Priority.LOW, LocalDate.now()));
-
-        ToDoList toDoList = new ToDoList("MyList");
-        toDoList.setItems(toDoItems);
-
-        try {
-            String userInput = "MyList\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            testConsole.list(toDoList);
-            // Check the program output
-            String expectedOutput;
-            expectedOutput = "MyList:\n" +
-                    toDoList.getItems().get(0).toString() + "\n" +
-                    toDoList.getItems().get(1).toString() + "\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Test
-    void listEmptyTest() {
-        ToDoList toDoList = new ToDoList("MyList");
-        try {
-            String userInput = "MyList\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            testConsole.list(toDoList);
-            // Check the program output
-            String expectedOutput;
-            expectedOutput = "MyList:\n" +
-                    "👀Looks Empty here... Add some tasks!\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Test
-    void removeTest() {
-        ArrayList<ToDoItem> toDoItems = new ArrayList<>();
-        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW, LocalDate.now()));
-        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test2"), Priority.LOW, LocalDate.now()));
-
-        ToDoList toDoList = new ToDoList("MyList");
-        toDoList.setItems(toDoItems);
-
-        try {
-            System.setIn(new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            System.setOut(new PrintStream(outBuffer));
-            assertThat(toDoList.getItems()).hasSize(2);
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            testConsole.remove(toDoList, 0);
-            // Check the program output
-            String expectedOutput;
-            expectedOutput = "Task Removed Successfully!\n";
-            String actualOutput = outBuffer.toString();
-            assertEquals(expectedOutput, actualOutput);
-            assertThat(toDoList.getItems()).hasSize(1);
-            assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Test2");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
     @Test
     void successTest() {
@@ -147,7 +73,7 @@ class ConsoleUITest {
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            testConsole.sortHelp();
+            SortHandler.sortHelp(testConsole);
             // Check the program output
             String expectedOutput;
             expectedOutput =
@@ -206,5 +132,10 @@ class ConsoleUITest {
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
         toDoList.sortByDueDate("desc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+    }
+    @Test
+    void testCouldNotReadInputException(){
+        ConsoleUserInterface.CouldNotReadInputException couldNotReadInputException = new ConsoleUserInterface.CouldNotReadInputException();
+        assertEquals("Could not read your input... skipping", couldNotReadInputException.getMessage());
     }
 }

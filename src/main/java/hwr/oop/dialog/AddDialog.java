@@ -31,7 +31,7 @@ public class AddDialog {
         this.reader = new BufferedReader(new InputStreamReader(in));
     }
     public ToDoItem start() throws ConsoleUserInterface.CouldNotReadInputException {
-        cui.say("Create a new task");
+        cui.print(LogMode.NONE,"Create a new task");
         String title = getTitleForAdd();
         String description = getDescriptionForAdd();
         Priority priority = getPriorityForAdd();
@@ -47,23 +47,27 @@ public class AddDialog {
     }
     public String getTitleForAdd() {
         out.println("Please enter a title for your task");
+        String title;
         try {
-            return this.reader.readLine();
-        } catch (IOException e)  {
-            this.cui.say("Could not read input. We will set a standard title.");
-            this.cui.say(PLEASE_EDIT_LATER_USING_GTD_EDIT_INDEX);
-            return "NO TITLE";
+            title = this.reader.readLine();
+        } catch (Exception e)  {
+            this.cui.print(LogMode.NONE,"Could not read input. We will set a standard title.");
+            this.cui.print(LogMode.NONE,PLEASE_EDIT_LATER_USING_GTD_EDIT_INDEX);
+            title = "NO TITLE";
         }
+        return title == null || title.equals("") ? "NO TITLE" : title;
     }
     public String getDescriptionForAdd() {
         out.println("Please enter a description for your task");
+        String description;
         try {
-            return this.reader.readLine();
+            description = this.reader.readLine();
         } catch (IOException e) {
-            this.cui.say("Could not read input. We will set a standard description.");
-            this.cui.say(PLEASE_EDIT_LATER_USING_GTD_EDIT_INDEX);
+            this.cui.print(LogMode.NONE,"Could not read input. We will set a standard description.");
+            this.cui.print(LogMode.NONE,PLEASE_EDIT_LATER_USING_GTD_EDIT_INDEX);
+            description = "NO DESCRIPTION";
         }
-        return "NO DESCRIPTION";
+        return description == null || description.equals("") ? "NO DESCRIPTION" : description;
     }
     public Priority getPriorityForAdd() throws ConsoleUserInterface.CouldNotReadInputException {
         out.println("Please select a priority for your task");
@@ -80,15 +84,16 @@ public class AddDialog {
     }
     public Bucket getBucketForAdd() {
         out.println("Add a Bucket to group your tasks");
+        String bucketName;
         try {
-            String bucketName = this.reader.readLine();
+            bucketName = this.reader.readLine();
             if (this.toDoList.findBucket(bucketName) != null) {
                 return this.toDoList.findBucket(bucketName);
             }
             return new Bucket(bucketName);
         } catch (IOException e) {
-            this.cui.say("Could not read input. We will set a standard bucket.");
-            this.cui.say(PLEASE_EDIT_LATER_USING_GTD_EDIT_INDEX);
+            this.cui.print(LogMode.NONE,"Could not read input. We will set a standard bucket.");
+            this.cui.print(LogMode.NONE,PLEASE_EDIT_LATER_USING_GTD_EDIT_INDEX);
         }
         return new Bucket("NO BUCKET");
     }
@@ -97,8 +102,8 @@ public class AddDialog {
         try {
             return LocalDate.parse(this.reader.readLine(), formatter);
         } catch (IOException e) {
-            this.cui.say("Could not read input. We will set the due date to tomorrow.");
-            this.cui.say(PLEASE_EDIT_LATER_USING_GTD_EDIT_INDEX);
+            this.cui.print(LogMode.NONE,"Could not read input. We will set the due date to tomorrow.");
+            this.cui.print(LogMode.NONE,PLEASE_EDIT_LATER_USING_GTD_EDIT_INDEX);
         }
         return LocalDate.now().plusDays(1);
     }

@@ -4,7 +4,7 @@ import hwr.oop.ConsoleUserInterface;
 import hwr.oop.ToDoList;
 
 public class ClearHandler {
-    ClearHandler() {
+    public ClearHandler() {
     }
     public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         clear(toDoList);
