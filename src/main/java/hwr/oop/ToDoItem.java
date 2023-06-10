@@ -60,8 +60,8 @@ public class ToDoItem {
     public Priority getPriority() {
         return priority;
     }
-    public String getState() {
-        return state.toString();
+    public State getState() {
+        return state;
     }
     public LocalDate getDueDate() {
         return dueDate;
@@ -69,44 +69,12 @@ public class ToDoItem {
     public String getCreatedAt() {
         return createdAt;
     }
-    public String getStateEmoji() {
-        try {
-            switch (state) {
-                case DONE:
-                    return "✅";
-                case TODO:
-                    return "⏭️";
-                case IN_PROGRESS:
-                    return "🏗️";
-                case ON_HOLD:
-                    return "🕑";
-                default:
-                    return "❓";
-            }
-        } catch (Exception e) {
-            return "❓";
-        }
-    }
-    public String getPriorityString() {
-        switch (priority) {
-            case LOW:
-                return BLUE_BOLD + "LOW" + RESET;
-            case MEDIUM:
-                return YELLOW_BOLD + "MEDIUM" + RESET;
-            case HIGH:
-                return RED_BOLD + "HIGH" + RESET;
-            default:
-                return "❓";
-        }
-    }
     @Override
     public String toString() {
-        String stateSymbol = getStateEmoji() + ' ';
-        String priorityString = getPriorityString();
-        return  stateSymbol + title + '\n' +
+        return  state.getStateEmoji() + ' ' + title + '\n' +
                 description + '\n' +
                 "<" +  CYAN_BOLD + bucket.getBucketName() + RESET + ">" +
-                ' ' + priorityString + ' ' + dueDate;
+                ' ' + priority.getColoredString() + ' ' + dueDate;
     }
 
     public void promote() {
