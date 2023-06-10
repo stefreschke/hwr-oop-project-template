@@ -204,9 +204,12 @@ class ToDoListTest {
         list.add(new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", new Bucket("Uni"), Priority.HIGH, LocalDate.now()));
         list.add(new ToDoItem("Calculate Something", "More Math over here", new Bucket("Math"), Priority.MEDIUM, LocalDate.now()));
         list.add(new ToDoItem("Be Amazing", "Just Do It", new Bucket("Personal"), Priority.LOW, LocalDate.now()));
+        list.getItems().get(0).setCreatedAt(LocalDateTime.now().minusHours(2));
+        list.getItems().get(1).setCreatedAt(LocalDateTime.now().minusHours(5));
+        list.getItems().get(2).setCreatedAt(LocalDateTime.now().minusHours(1));
         List<ToDoItem> sortedExpected = new ArrayList<>();
-        sortedExpected.add(list.getItems().get(0));
         sortedExpected.add(list.getItems().get(1));
+        sortedExpected.add(list.getItems().get(0));
         sortedExpected.add(list.getItems().get(2));
         list.sortByCreatedAt("asc");
         assertThat(list.getItems()).isEqualTo(sortedExpected);
