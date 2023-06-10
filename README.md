@@ -16,10 +16,11 @@ Task rank automatically and can be sorted and grouped with buckets .
 The automated ranking will also take into account what activities the user has done in the past and what activities the user has planned for the future.
 ### Features
 
-- ...
-### Problems
+- The application allows you to prioritize the tasks you create.
+  Arrange your to-dos according to their specifics and use the hierarchical order that this tool offers you. Provide your task lists with their topic in order to keep track of your tasks and check them off.
 
-- ...
+
+
 ## Feature List
 
 [TODO]: # (For each feature implemented, add a row to the table!)
