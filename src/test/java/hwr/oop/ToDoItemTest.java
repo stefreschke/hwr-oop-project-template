@@ -102,8 +102,8 @@ class ToDoItemTest {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.MEDIUM, LocalDate.now());
         String result = item.toString();
         System.out.println(result);
-        String priority = item.getPriorityString();
-        String state = item.getStateEmoji();
+        String priority = item.getPriority().getColoredString();
+        String state = item.getState().getStateEmoji();
         assertThat(result).isEqualTo(state + " " + item.getTitle() + '\n' +
                 item.getDescription() +  '\n' +
                 "<" +"[1;36mUni[0m" + ">" + ' ' +
@@ -112,16 +112,16 @@ class ToDoItemTest {
     @Test
     void getCreatedAtTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.HIGH, LocalDate.now());
-        String result = item.getCreatedAt();
+        String result = item.getCreatedAt().toString();
         assertThat(item.getCreatedAt()).isEqualTo(result);
     }
     @Test
     void promotionTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
         item.promote(); // TODO -> IN PROGRESS
-        assertThat(item.getState()).isEqualTo("IN_PROGRESS");
+        assertThat(item.getState().toString()).isEqualTo("IN_PROGRESS");
         item.promote(); // IN PROGRESS -> DONE
-        assertThat(item.getState()).isEqualTo("DONE");
+        assertThat(item.getState().toString()).isEqualTo("DONE");
     }
 
     @Test
@@ -129,42 +129,42 @@ class ToDoItemTest {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
         item.promote(); // TODO -> IN PROGRESS
         item.demote(); // IN PROGRESS -> TODO
-        assertThat(item.getState()).isEqualTo("TODO");
+        assertThat(item.getState().toString()).isEqualTo("TODO");
         item.promote(); // TODO -> IN PROGRESS
         item.promote(); // IN PROGRESS -> DONE
         item.demote(); // DONE -> IN PROGRESS
-        assertThat(item.getState()).isEqualTo("IN_PROGRESS");
+        assertThat(item.getState().toString()).isEqualTo("IN_PROGRESS");
     }
 
     @Test
     void holdTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
         item.hold(); // TODO -> HOLD
-        assertThat(item.getState()).isEqualTo("TODO");
+        assertThat(item.getState().toString()).isEqualTo("TODO");
         item.promote(); // HOLD -> IN PROGRESS
         item.hold();    // IN PROGRESS -> HOLD
-        assertThat(item.getState()).isEqualTo("ON_HOLD");
+        assertThat(item.getState().toString()).isEqualTo("ON_HOLD");
     }
 
     @Test
     void getPriorityStringTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
-        String result = item.getPriorityString();
+        String result = item.getPriority().getColoredString();
         assertThat(result).isEqualTo("[1;34mLOW[0m");
     }
 
     @Test
     void getStateEmojiTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
-        String result = item.getStateEmoji();
+        String result = item.getState().getStateEmoji();
         assertThat(result).isEqualTo("⏭️");
     }
 
     @Test
     void setCreatedAtTest() {
         ToDoItem item = new ToDoItem("", "", new Bucket(""), Priority.LOW, LocalDate.now());
-        item.setCreatedAt(LocalDateTime.of(2020, 1, 1, 1, 1));
-        String result = item.getCreatedAt();
+        item.setCreatedAt(LocalDate.of(2020, 1, 1));
+        String result = item.getCreatedAt().toString();
         assertThat(result).isEqualTo(LocalDateTime.of(2020, 1, 1, 1, 1).toString());
     }
 }

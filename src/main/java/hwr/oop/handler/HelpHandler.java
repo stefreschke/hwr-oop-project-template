@@ -9,11 +9,12 @@ import java.util.Arrays;
 import static hwr.oop.util.ConsoleColors.*;
 import static hwr.oop.util.ConsoleColors.RESET;
 
-public class HelpHandler {
-    public HelpHandler() {
+public class HelpHandler implements HandlerCommandsInterface{
+    HelpHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args ) {
-        cui.print(LogMode.NONE, "Here is a list of all commands:\n" +
+    @Override
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args ) {
+        cui.say("Here is a list of all commands:\n" +
                 "gtd [command] [arguments]\n");
         for(CommandParser.CommandHandler command : CommandParser.CommandHandler.values()) {
             if (command != CommandParser.CommandHandler.WRONGCOMMAND) {

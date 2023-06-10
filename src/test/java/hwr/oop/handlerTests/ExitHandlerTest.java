@@ -3,6 +3,7 @@ package hwr.oop.handlerTests;
 import hwr.oop.ConsoleUserInterface;
 import hwr.oop.ToDoList;
 import hwr.oop.handler.ExitHandler;
+import hwr.oop.persistence.PersistenceFileNotFoundException;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -53,7 +54,7 @@ class ExitHandlerTest {
             throw new RuntimeException(e);
         }
         String expected = "\u001B[1;31mCould not exit... If that is what you wanted to do, try 'gtd exit'\u001B[0m\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
     }
     @Test

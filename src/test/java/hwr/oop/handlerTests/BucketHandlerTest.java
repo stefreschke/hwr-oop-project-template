@@ -51,7 +51,7 @@ class BucketHandlerTest {
         BucketHandler.handleUserCommand(toDoList, cui, new String[]{"gtd", "sb"});
         String expected1 = "\uD83E\uDEA3Bucket1\n";
         String expected2 = "\uD83E\uDEA3Bucket2\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).contains(expected1).contains(expected2);
     }
     @Test

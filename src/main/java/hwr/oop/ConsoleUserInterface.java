@@ -8,6 +8,7 @@ import java.io.PrintStream;
 public class ConsoleUserInterface {
     private final PrintStream out;
     private final InputStream in;
+  
     public ConsoleUserInterface(PrintStream out, InputStream in) {
         this.out = out;
         this.in = in;

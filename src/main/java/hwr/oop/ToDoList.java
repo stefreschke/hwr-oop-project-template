@@ -59,32 +59,17 @@ public class ToDoList {
         return this.fileName;
     }
 
-    public void writeToJSON(ConsoleUserInterface cui, String fileName) throws FileNotFoundAndCoundNotCreateException {
-        pruneUnusedBuckets();
-        if (fileName.contains(".")) {
-            fileName = fileName.substring(0, fileName.lastIndexOf('.'));
-        }
-        Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter())
-                .create();
-        String json = gson.toJson(this);
-
-        try (FileWriter fileWriter = new FileWriter(fileName + ".json")) {
-            fileWriter.write(json);
-        } catch (FileNotFoundException e) {
-            File file = new File(fileName + ".json");
-            try {
-                boolean fileExists = file.createNewFile();
-                if (!fileExists) this.writeToJSON(cui, fileName);
-                else cui.print(LogMode.WARN, "Sorry...File could not be neither found nor created.");
-            } catch (IOException ex) {
-                throw new FileNotFoundAndCoundNotCreateException("Sorry...File could not be neither found nor created.");
+    public static void linkToCorrectBucket(ToDoList toDoList) {
+        for (ToDoItem item:toDoList.getItems()) {
+            for (Bucket bucket:toDoList.getBuckets()) {
+                if (item.getBucket().getBucketName().equals(bucket.getBucketName())) {
+                    item.setBucket(bucket);
+                }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+            toDoList.getBuckets().add(item.getBucket());
         }
     }
-    private void pruneUnusedBuckets() {
+    public void pruneUnusedBuckets() {
         int index = 0;
         for (Bucket bucket:this.buckets) {
             int help = 0;
@@ -149,11 +134,5 @@ public class ToDoList {
     public void sortByDueDate(String order) {
         if (order.equals("asc")) items.sort(Comparator.comparing(ToDoItem::getDueDate));
         else if (order.equals("desc")) items.sort(Comparator.comparing(ToDoItem::getDueDate, Comparator.reverseOrder()));
-    }
-
-    public static class FileNotFoundAndCoundNotCreateException extends Exception {
-        public FileNotFoundAndCoundNotCreateException(String s) {
-            super(s);
-        }
     }
 }

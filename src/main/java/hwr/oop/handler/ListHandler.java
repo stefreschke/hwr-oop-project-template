@@ -5,12 +5,11 @@ import hwr.oop.LogMode;
 import hwr.oop.ToDoItem;
 import hwr.oop.ToDoList;
 
-import java.util.List;
-
-public class ListHandler {
-    public ListHandler() {
+public class ListHandler implements HandlerCommandsInterface{
+    ListHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    @Override
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length == 2 && (args[1].equals("list") || args[1].equals("ls")) ) {
             list(toDoList, cui);
         } else {

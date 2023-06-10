@@ -46,7 +46,7 @@ class CommandParserTest {
                 "[clear, cls]\u001B[1;35m\u001B[0m - \u001B[1;34mclear all tasks\u001B[0m\n" +
                 "[exit, q]\u001B[1;35m\u001B[0m - \u001B[1;34mexit the program\u001B[0m\n";
         assertThat(new CommandParser(cui).handle(toDoList, args)).isEqualTo(1);
-        assertThat(outBuffer).hasToString(expected);
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString(expected);
     }
     @Test
     void handleCouldNotCallHandlerTest(){

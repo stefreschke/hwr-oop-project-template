@@ -8,19 +8,15 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditHandler {
-    public EditHandler() {
-        // Empty Until this is refactored without static methods
+public class EditHandler implements HandlerCommandsInterface {
+    EditHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) throws ConsoleUserInterface.CouldNotReadInputException {
-        try {
-            if (args.length >= 3 && args[1].equals("edit") || args[1].equals("e")) {
-                editTask(toDoList, cui, args);
-            } else {
-                cui.print(LogMode.NONE, "Invalid Command.");
-            }
-        } catch (IndexOutOfBoundsException e) {
-            cui.print(LogMode.ERROR, "Please provide a valid Command.");
+    @Override
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+        if (args.length >= 2 && args[1].equals("edit") || args[1].equals("e")) {
+            editTask(toDoList, cui, args);
+        } else {
+            cui.print(LogMode.NONE, "Invalid Command.");
         }
     }
     public static void editTask(ToDoList toDoList, ConsoleUserInterface cui, String[] args) throws ConsoleUserInterface.CouldNotReadInputException {
@@ -39,8 +35,8 @@ public class EditHandler {
         item.setBucket(copyToDoItem.getBucket());
         item.setDueDate(copyToDoItem.getDueDate());
         editDialog.end();
-    }
-    public static Map<ToDoItem, Number> getToDoItem(ToDoList toDoList, ConsoleUserInterface cui, String arg) {
+
+    public Map<ToDoItem, Number> getToDoItem(ToDoList toDoList, ConsoleUserInterface cui, String arg) {
         int index = Integer.parseInt(arg);
         Map<ToDoItem, Number> itemAndIndexMap = new HashMap<>();
         int toDoListLength = toDoList.getItems().size();

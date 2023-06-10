@@ -4,13 +4,14 @@ import hwr.oop.ConsoleUserInterface;
 import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
 
-public class SortHandler {
-    public SortHandler() {
+public class SortHandler implements HandlerCommandsInterface{
+    SortHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    @Override
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         initiateSort(cui, toDoList, args);
     }
-    public static void initiateSort(ConsoleUserInterface cui, ToDoList toDoList, String[] commandArray) {
+    public void initiateSort(ConsoleUserInterface cui, ToDoList toDoList, String[] commandArray) {
         int nCommands = commandArray.length;
         if (nCommands == 2) {
             sortHelp(cui);
@@ -23,7 +24,7 @@ public class SortHandler {
         }
     }
     //might need a rework: cognitive complexity > 15
-    public static void assignSortingAlgorithm(ConsoleUserInterface cui, ToDoList toDoList, String[] commandArray) {
+    public void assignSortingAlgorithm(ConsoleUserInterface cui, ToDoList toDoList, String[] commandArray) {
         if (commandArray[2].toLowerCase().contains("prio")) {
             if (commandArray[3].equals("asc")) {
                 toDoList.sortByPriority("asc");

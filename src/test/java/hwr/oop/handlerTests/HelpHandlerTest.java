@@ -42,6 +42,7 @@ class HelpHandlerTest {
                 "[exit, q]\u001B[1;35m\u001B[0m - \u001B[1;34mexit the program\u001B[0m\n";
         HelpHandler.handleUserCommand(toDoList, cui, new String[]{"gtd", "help"});
 
-        assertThat(outBuffer).hasToString(expected);
+
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString(expected);
     }
 }

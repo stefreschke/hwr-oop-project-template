@@ -4,10 +4,11 @@ import hwr.oop.*;
 import hwr.oop.dialog.AddDialog;
 import hwr.oop.dialog.HandleBadIndexDialog;
 
-public class ExistenceHandler {
-    public ExistenceHandler() {
+public class ExistenceHandler implements HandlerCommandsInterface {
+    ExistenceHandler() {
     }
-    public static void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    @Override
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length == 2 || args.length == 3) {
             try {
                 if (args[1].equals("add") || args[1].equals("a")) {
@@ -26,7 +27,7 @@ public class ExistenceHandler {
             cui.print(LogMode.ERROR, "Invalid number of arguments");
         }
     }
-    public static void add(ToDoList toDoList, ConsoleUserInterface cui) throws CouldNotAddException, ConsoleUserInterface.CouldNotReadInputException {
+    public void add(ToDoList toDoList, ConsoleUserInterface cui) throws CouldNotAddException, ConsoleUserInterface.CouldNotReadInputException {
         AddDialog addDialog = new AddDialog(cui, toDoList);
         ToDoItem toDoItem = addDialog.start();
         try {
@@ -37,7 +38,7 @@ public class ExistenceHandler {
         }
         addDialog.end();
     }
-    public static void remove(ConsoleUserInterface cui, ToDoList toDoList, int index) {
+    public void remove(ConsoleUserInterface cui, ToDoList toDoList, int index) {
         int i = 0;
         while (i == 0) {
             try {
@@ -50,7 +51,7 @@ public class ExistenceHandler {
             }
         }
     }
-    public  static class CouldNotAddException extends Exception {
+    public static class CouldNotAddException extends Exception {
         public CouldNotAddException(String message) {
             super(message);
         }
