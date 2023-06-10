@@ -7,10 +7,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -74,8 +71,10 @@ class ToDoListTest {
         ToDoList list = new ToDoList("myList");
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.HIGH, LocalDate.now());
         list.add(item);
-        list.remove(0);
+        list.add(new ToDoItem("t","t",new Bucket("d"),Priority.LOW,LocalDate.now()));
+        list.remove(1);
         List<ToDoItem> itemList = new ArrayList<>();
+        itemList.add(item);
         assertThat(list.getItems()).isEqualTo(itemList);
     }
 
@@ -314,5 +313,14 @@ class ToDoListTest {
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
         toDoList.sortByDueDate("desc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+    }
+
+    @Test
+    void pruneUnusedBucketsTest() {
+        ToDoList testList = new ToDoList("TestList");
+        testList.add(new ToDoItem("t","t",new Bucket("t"),Priority.LOW,LocalDate.now()));
+        testList.remove(0);
+        Set<Bucket> expectedBucket = new HashSet<>();
+        assertThat(testList.getBuckets()).isEqualTo(expectedBucket);
     }
 }

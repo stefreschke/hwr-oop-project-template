@@ -121,6 +121,7 @@ public class ToDoList {
     }
     public void remove(int index) {
         this.items.remove(index);
+        pruneUnusedBuckets();
     }
     public void sortByPriority(String order) {
         if (order.equals("asc")) items.sort(Comparator.comparingInt(o -> o.getPriority().toInt()));
