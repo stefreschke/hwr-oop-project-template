@@ -1,6 +1,7 @@
 package hwr.oop.dialog;
 
 import hwr.oop.ConsoleUserInterface;
+import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
 import hwr.oop.handler.CommandParser;
 
@@ -24,7 +25,7 @@ public class GetCommandDialog {
         this.commandParser = commandParser;
     }
     public int start() throws CouldNotreadCommandException, CommandParser.CouldNotCallHandlerException {
-        this.cui.say(BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + RESET);
+        this.cui.print(LogMode.NONE,BLUE_BOLD + "Please enter a command or type 'gtd help' for more information" + RESET);
         this.cui.getOutputStream().print("> ");
         return getCommand(this.toDoList);
     }
@@ -47,7 +48,6 @@ public class GetCommandDialog {
             throw new CommandParser.CouldNotCallHandlerException();
         }
     }
-
     public static class CouldNotreadCommandException extends Exception {
         public CouldNotreadCommandException(String message) {
             super(message);

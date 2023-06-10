@@ -10,7 +10,7 @@ public enum Priority {
 
     private final int value;
     private final String coloredString;
-
+  
     Priority(int value, String coloredString) {
         this.value = value;
         this.coloredString = coloredString;
