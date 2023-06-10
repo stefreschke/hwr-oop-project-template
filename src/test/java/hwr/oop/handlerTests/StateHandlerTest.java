@@ -27,7 +27,7 @@ class StateHandlerTest {
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(System.out, new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
         StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
-        assertThat(toDoList.getItems().get(0).getState()).isEqualTo("IN_PROGRESS");
+        assertThat(toDoList.getItems().get(0).getState()).isEqualTo(State.IN_PROGRESS);
     }
     @Test
     void demoteTest() {
@@ -38,7 +38,7 @@ class StateHandlerTest {
         StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
         StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
         StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "d", "0"});
-        assertThat(toDoList.getItems().get(0).getState()).isEqualTo("IN_PROGRESS");
+        assertThat(toDoList.getItems().get(0).getState()).isEqualTo(State.IN_PROGRESS);
     }
     @Test
     void holdTest() {
@@ -48,7 +48,7 @@ class StateHandlerTest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(System.out, new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
         StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
         StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "hold", "0"});
-        assertThat(toDoList.getItems().get(0).getState()).isEqualTo("ON_HOLD");
+        assertThat(toDoList.getItems().get(0).getState()).isEqualTo(State.ON_HOLD);
     }
     @Test
     void holdToDoTest() {
@@ -57,6 +57,6 @@ class StateHandlerTest {
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(System.out, new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
         StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "hold", "0"});
-        assertThat(toDoList.getItems().get(0).getState()).isEqualTo("TODO");
+        assertThat(toDoList.getItems().get(0).getState()).isEqualTo(State.TODO);
     }
 }

@@ -51,7 +51,7 @@ class ConsoleUITest {
             expectedOutput = "MyList:\n" +
                     toDoList.getItems().get(0).toString() + "\n" +
                     toDoList.getItems().get(1).toString() + "\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
 
         } catch (Exception e) {
@@ -71,7 +71,7 @@ class ConsoleUITest {
             String expectedOutput;
             expectedOutput = "MyList:\n" +
                     "👀Looks Empty here... Add some tasks!\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
 
         } catch (Exception e) {
@@ -98,7 +98,7 @@ class ConsoleUITest {
             // Check the program output
             String expectedOutput;
             expectedOutput = "Task Removed Successfully!\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
             assertThat(toDoList.getItems()).hasSize(1);
             assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Test2");
@@ -116,7 +116,7 @@ class ConsoleUITest {
             testConsole.print(LogMode.SUCCESS, "great success");
             String expectedOutput;
             expectedOutput = ConsoleColors.GREEN_BOLD + "great success" + ConsoleColors.RESET +"\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
         } finally {
             System.setOut(sysOutBackup);
@@ -134,7 +134,7 @@ class ConsoleUITest {
             String expectedOutput;
             // Output den du erwartest
             expectedOutput = ConsoleColors.RED_BOLD + "Error Message" + ConsoleColors.RESET + "\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
         } finally {
             System.setOut(sysOutBackup);
@@ -160,7 +160,7 @@ class ConsoleUITest {
                             "  title    - sort by title\n" +
                             "  done     - sort by done\n" +
                             "  help     - print this help\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
         } finally {
             System.setIn(sysInBackup);

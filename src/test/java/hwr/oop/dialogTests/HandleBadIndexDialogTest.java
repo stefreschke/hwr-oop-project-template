@@ -25,7 +25,7 @@ class HandleBadIndexDialogTest {
             expectedOutput = ConsoleColors.RED_BOLD + "There is nothing at that index... \uD83E\uDD78" + ConsoleColors.RESET + "\n" +
                     "Try again? (y/n)\n" +
                     "Test Message.\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
             assertThat(index).isEqualTo(1);
             System.setIn(System.in);
@@ -43,7 +43,7 @@ class HandleBadIndexDialogTest {
             expectedOutput = ConsoleColors.RED_BOLD + "There is nothing at that index... \uD83E\uDD78" + ConsoleColors.RESET + "\n" +
                     "Try again? (y/n)\n" +
                     "Okay, I'll leave you alone then. 👋\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
             assertThat(index).isEqualTo(-1);
             System.setIn(System.in);

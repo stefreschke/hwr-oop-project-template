@@ -9,6 +9,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -73,6 +74,10 @@ class SortHandlerTest {
         toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW, LocalDate.now()));
         toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM, LocalDate.now()));
         toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH, LocalDate.now()));
+        toDoList.getItems().get(0).setCreatedAt(LocalDateTime.now().minusHours(2));
+        toDoList.getItems().get(1).setCreatedAt(LocalDateTime.now().minusHours(5));
+        toDoList.getItems().get(2).setCreatedAt(LocalDateTime.now().minusHours(1));
+        toDoList.getItems().get(3).setCreatedAt(LocalDateTime.now().minusHours(7));
         String[] args = {"gtd", "sort", "create", "asc"};
 
         // Act
@@ -82,7 +87,7 @@ class SortHandlerTest {
             titles[i] = toDoList.getItems().get(i).getTitle();
         }
         // Assert
-        assertThat(titles).isEqualTo(new String[]{"Task 1", "Task 2", "Task 3", "Task 4"});
+        assertThat(titles).isEqualTo(new String[]{"Task 4", "Task 2", "Task 1", "Task 3"});
         // Add more assertions to verify the behavior of the add command
     }
     @Test
@@ -97,6 +102,10 @@ class SortHandlerTest {
         toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW, LocalDate.now()));
         toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM, LocalDate.now()));
         toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH, LocalDate.now()));
+        toDoList.getItems().get(0).setCreatedAt(LocalDateTime.now().minusHours(2));
+        toDoList.getItems().get(1).setCreatedAt(LocalDateTime.now().minusHours(5));
+        toDoList.getItems().get(2).setCreatedAt(LocalDateTime.now().minusHours(1));
+        toDoList.getItems().get(3).setCreatedAt(LocalDateTime.now().minusHours(7));
         String[] args = {"gtd", "sort", "create", "desc"};
 
         // Act
@@ -106,7 +115,7 @@ class SortHandlerTest {
             titles[i] = toDoList.getItems().get(i).getTitle();
         }
         // Assert
-        assertThat(titles).isEqualTo(new String[]{"Task 4", "Task 3", "Task 2", "Task 1"});
+        assertThat(titles).isEqualTo(new String[]{"Task 3", "Task 1", "Task 2", "Task 4"});
         // Add more assertions to verify the behavior of the add command
     }
 

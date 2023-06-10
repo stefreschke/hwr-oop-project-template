@@ -30,7 +30,7 @@ public class ClearHandlerTest {
             String expectedOutput;
             expectedOutput = "MyList:\n" +
                     "👀Looks Empty here... Add some tasks!\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
         } finally {
             System.setOut(sysOutBackup);

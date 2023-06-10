@@ -57,7 +57,7 @@ class WelcomeDialogTest {
         String userInput = "testList\nwelcomeDialogTest.json\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(out), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new WelcomeDialog(cui, setupFile).firstTimeSetup(program);
-        assertThat(out).hasToString(
+        assertThat(out.toString().replace("\r", "")).hasToString(
                 "Looks Like it is your first time using this program.\n" +
                         "Lets set you up first.\n" +
                         "Please enter a name for your list\n" +
