@@ -9,7 +9,7 @@ public class ExistenceHandler implements HandlerCommandsInterface {
     }
     @Override
     public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
-        if (args.length >= 2) {
+        if (args.length == 2 || args.length == 3) {
             try {
                 if (args[1].equals("add") || args[1].equals("a")) {
                     add(toDoList, cui);
@@ -43,7 +43,7 @@ public class ExistenceHandler implements HandlerCommandsInterface {
         while (i == 0) {
             try {
                 toDoList.remove(index);
-                cui.say("Task Removed Successfully!");
+                cui.print(LogMode.NONE, "Task Removed Successfully!");
                 i++;
             } catch (Exception e) {
                 index =  new HandleBadIndexDialog(cui).start("Please enter the index of the task you want to remove.");
@@ -51,7 +51,6 @@ public class ExistenceHandler implements HandlerCommandsInterface {
             }
         }
     }
-
     public static class CouldNotAddException extends Exception {
         public CouldNotAddException(String message) {
             super(message);

@@ -37,11 +37,7 @@ public class CommandParser {
             this.handlerClass = handlerClass;
         }
         public String[] getCommands() {
-            try {
-                return commands;
-            } catch (Exception e) {
-                return new String[]{"help", "h"};
-            }
+            return commands;
         }
         public String getArgString() {
             StringBuilder sb = new StringBuilder();
@@ -85,8 +81,7 @@ public class CommandParser {
         }
         return 1;
     }
-
-    private void callHandler(ToDoList toDoList, CommandHandler commandElement, String[] userArgs) throws CouldNotCallHandlerException {
+    public void callHandler(ToDoList toDoList, CommandHandler commandElement, String[] userArgs) throws CouldNotCallHandlerException {
         try {
             commandElement.getHandlerClass().handleUserCommand(toDoList, cui, userArgs);
         } catch (Exception e) {

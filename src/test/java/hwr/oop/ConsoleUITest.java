@@ -1,5 +1,6 @@
 package hwr.oop;
 
+import hwr.oop.handler.SortHandler;
 import hwr.oop.util.ConsoleColors;
 import org.junit.jupiter.api.Test;
 
@@ -10,6 +11,7 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -17,6 +19,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ConsoleUITest {
     @Test
+
+    void getEnvironmentVariablesTest() {
+        Program testEnvProgram = new Program();
+        String[] env = testEnvProgram.getEnvironmentVariables("testSetup");
+        String envString = Arrays.toString(env);
+        assertThat(envString).isEqualTo("[data.json, MyList]");
+    }
+
+    @Test
+    void setEnvironmentVariablesTest() {
+        Program testEnvProgram = new Program();
+        testEnvProgram.setEnvironmentVariables("data.json", "MyList", "setTestSetup");
+        String[] env = testEnvProgram.getEnvironmentVariables("setTestSetup");
+        assertThat(env).contains("data.json").contains("MyList");
+
     void listTest() {
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
         toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW, LocalDate.now()));
@@ -131,7 +148,7 @@ class ConsoleUITest {
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             System.setOut(new PrintStream(outBuffer));ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            testConsole.sortHelp();
+            SortHandler.sortHelp(testConsole);
             // Check the program output
             String expectedOutput;
             expectedOutput =
@@ -190,5 +207,10 @@ class ConsoleUITest {
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Apple");
         toDoList.sortByDueDate("desc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Banana");
+    }
+    @Test
+    void testCouldNotReadInputException(){
+        ConsoleUserInterface.CouldNotReadInputException couldNotReadInputException = new ConsoleUserInterface.CouldNotReadInputException();
+        assertEquals("Could not read your input... skipping", couldNotReadInputException.getMessage());
     }
 }
