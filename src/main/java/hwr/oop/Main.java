@@ -1,6 +1,5 @@
 package hwr.oop;
 
-import hwr.oop.dialog.WelcomeDialog;
 import hwr.oop.dialog.GetCommandDialog;
 import hwr.oop.handler.CommandParser;
 import hwr.oop.persistence.PersistenceAdapter;
@@ -12,7 +11,7 @@ public class Main {
     public static void main(String[] args) throws GetCommandDialog.CouldNotreadCommandException {
         ConsoleUserInterface cui = new ConsoleUserInterface(out, System.in);
         CommandParser commandParser = new CommandParser(cui);
-        PersistenceAdapter persistenceAdapter = new PersistenceAdapter("./");
+        PersistenceAdapter persistenceAdapter = new PersistenceAdapter();
         ToDoList toDoList = persistenceAdapter.loadData();
         GetCommandDialog getCommandDialog = new GetCommandDialog(toDoList, cui, commandParser);
         while (true) {

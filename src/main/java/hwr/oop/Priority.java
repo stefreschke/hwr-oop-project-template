@@ -7,9 +7,9 @@ public enum Priority {
 
 
     private final int value;
-
     Priority(int value) {
         this.value = value;
+
     }
 
     public int toInt() {

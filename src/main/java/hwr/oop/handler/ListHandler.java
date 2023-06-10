@@ -4,9 +4,10 @@ import hwr.oop.ConsoleUserInterface;
 import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
 
-public class ListHandler {
+public class ListHandler implements HandlerCommandsInterface{
     ListHandler() {
     }
+    @Override
     public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length == 2 && (args[1].equals("list") || args[1].equals("ls")) ) {
             cui.list(toDoList);

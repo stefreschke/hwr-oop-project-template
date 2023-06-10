@@ -4,9 +4,10 @@ import hwr.oop.*;
 import hwr.oop.dialog.AddDialog;
 import hwr.oop.dialog.HandleBadIndexDialog;
 
-public class ExistenceHandler {
+public class ExistenceHandler implements HandlerCommandsInterface {
     ExistenceHandler() {
     }
+    @Override
     public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2) {
             try {

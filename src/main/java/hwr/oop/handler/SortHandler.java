@@ -3,9 +3,10 @@ package hwr.oop.handler;
 import hwr.oop.ConsoleUserInterface;
 import hwr.oop.ToDoList;
 
-public class SortHandler {
+public class SortHandler implements HandlerCommandsInterface{
     SortHandler() {
     }
+    @Override
     public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         initiateSort(cui, toDoList, args);
     }

@@ -3,16 +3,14 @@ package hwr.oop.handler;
 import hwr.oop.ConsoleUserInterface;
 import hwr.oop.LogMode;
 import hwr.oop.ToDoList;
-import hwr.oop.persistence.FileNotFoundException;
-import hwr.oop.persistence.SavePort;
+import hwr.oop.persistence.PersistenceFileNotFoundException;
+import hwr.oop.persistence.PersistenceAdapter;
 
 
-public class ExitHandler {
-    private final SavePort savePort;
-    public ExitHandler(SavePort savePort) {
-        this.savePort = savePort;
-    }
-    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) throws FileNotFoundException {
+public class ExitHandler implements HandlerCommandsInterface{
+    private final PersistenceAdapter persistenceAdapter = new PersistenceAdapter();
+    @Override
+    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) throws PersistenceFileNotFoundException {
         if (args.length == 2) {
             if (args[1].equals("exit") || args[1].equals("q")) {
                 exit(toDoList, cui);
@@ -23,9 +21,13 @@ public class ExitHandler {
             cui.print(LogMode.ERROR, "Cannot process additional arguments.");
         }
     }
-    public void exit(ToDoList toDoList, ConsoleUserInterface cui) throws FileNotFoundException {
+    public void exit(ToDoList toDoList, ConsoleUserInterface cui) throws PersistenceFileNotFoundException {
         cui.say("Exiting ...");
-        savePort.saveData(toDoList);
+        try {
+            persistenceAdapter.saveData(toDoList);
+        } catch (Exception e) {
+            cui.say(e.getMessage());
+        }
         System.exit(0);
     }
 }

@@ -1,7 +1,9 @@
 package hwr.oop;
 
+import com.google.gson.annotations.JsonAdapter;
+import hwr.oop.util.LocalDateTypeAdapter;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static hwr.oop.util.ConsoleColors.*;
 
@@ -11,15 +13,17 @@ public class ToDoItem {
 
     private Bucket bucket;
     private Priority priority;
-    private String createdAt;
+    @JsonAdapter(LocalDateTypeAdapter.class)
+    private LocalDate createdAt;
     private State state;
+    @JsonAdapter(LocalDateTypeAdapter.class)
     private LocalDate dueDate;
 
     public ToDoItem (String title, String description, Bucket bucket, Priority priority, LocalDate dueDate) {
         this.title = title;
         this.description = description;
         this.bucket = bucket;
-        this.createdAt = LocalDateTime.now().toString();
+        this.createdAt = LocalDate.now();
         this.priority = priority;
         this.state = State.TODO;
         this.dueDate = dueDate;
@@ -42,8 +46,8 @@ public class ToDoItem {
     public void setDueDate(LocalDate dueDate) {
         this.dueDate = dueDate;
     }
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt.toString();
+    public void setCreatedAt(LocalDate createdAt) {
+        this.createdAt = createdAt;
     }
     public String getTitle() {
         return title;
@@ -66,7 +70,7 @@ public class ToDoItem {
     public LocalDate getDueDate() {
         return dueDate;
     }
-    public String getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
     public String getStateEmoji() {

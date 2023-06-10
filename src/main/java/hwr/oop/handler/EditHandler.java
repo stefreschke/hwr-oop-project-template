@@ -8,9 +8,10 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditHandler {
+public class EditHandler implements HandlerCommandsInterface {
     EditHandler() {
     }
+    @Override
     public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2 && args[1].equals("edit") || args[1].equals("e")) {
             editTask(toDoList, cui, args);

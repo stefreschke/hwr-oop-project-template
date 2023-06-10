@@ -8,9 +8,10 @@ import java.util.Arrays;
 import static hwr.oop.util.ConsoleColors.*;
 import static hwr.oop.util.ConsoleColors.RESET;
 
-public class HelpHandler {
+public class HelpHandler implements HandlerCommandsInterface{
     HelpHandler() {
     }
+    @Override
     public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args ) {
         cui.say("Here is a list of all commands:\n" +
                 "gtd [command] [arguments]\n");
