@@ -92,9 +92,9 @@ public class ToDoList {
                     Bucket.setBucketName(newBucket);
                 }
             }
-            for (ToDoItem ToDoIt : this.items) {
-                if (ToDoIt.getBucket().getBucketName().equals(help)) {
-                    ToDoIt.getBucket().setBucketName(newBucket);
+            for (ToDoItem item : this.items) {
+                if (item.getBucket().getBucketName().equals(help)) {
+                    item.getBucket().setBucketName(newBucket);
                 }
             }
         } catch (Exception e) {
@@ -106,6 +106,7 @@ public class ToDoList {
     }
     public void remove(int index) {
         this.items.remove(index);
+        pruneUnusedBuckets();
     }
     public void sortByPriority(String order) {
         if (order.equals("asc")) items.sort(Comparator.comparingInt(o -> o.getPriority().toInt()));
