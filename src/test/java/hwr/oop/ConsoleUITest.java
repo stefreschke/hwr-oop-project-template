@@ -236,9 +236,9 @@ class ConsoleUITest {
         InputStream inputStream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
         ToDoList toDoList = new ToDoList("Test");
-        toDoList.getBuckets();
+        testConsole.showBuckets(toDoList);
         String expectedOutput = "\uD83D\uDC40Looks Empty here... Add some buckets!";
-        String actualOutput = outBuffer.toString().replace("\r","");
+        String actualOutput = outBuffer.toString().replace("\r","").replace("\n","");
         assertThat(actualOutput).isEqualTo(expectedOutput);
     }
 
