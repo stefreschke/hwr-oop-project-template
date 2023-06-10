@@ -3,7 +3,7 @@ package hwr.oop;
 import hwr.oop.util.ConsoleColors;
 
 public enum LogMode {
-    NONE(ConsoleColors.WHITE_BOLD),
+    NONE(""),
     WARN(ConsoleColors.YELLOW_BOLD),
     ERROR(ConsoleColors.RED_BOLD),
     SUCCESS(ConsoleColors.GREEN_BOLD);

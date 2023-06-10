@@ -8,9 +8,9 @@ import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class ListJsonTest {
+class ListJsonTest {
     @Test
-    public void listToJsonTest() {
+    void listToJsonTest() {
         ToDoList assertToDoList = new ToDoList("myToDoList", "toDoListTest");
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", new Bucket("Uni"), Priority.HIGH, LocalDate.now());
         ToDoItem item2 = new ToDoItem("Calculate Something", "More Math over here", new Bucket("Math"), Priority.MEDIUM, LocalDate.now());
@@ -44,6 +44,14 @@ public class ListJsonTest {
         Program program = new Program();
         ToDoList assertToDoList = program.loadToDoList("listTest.ipynb");
         assertThat(assertToDoList.getName()).isEqualTo("myToDoList");
+    }
+
+    static class LodModeTest {
+
+        @Test
+        void testNone() {
+
+        }
     }
 }
 

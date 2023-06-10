@@ -34,8 +34,8 @@ public class EditDialog {
         this.reader = new BufferedReader(new InputStreamReader(cui.getInputStream()));
     }
     public ToDoItem start(ToDoItem item, int index) throws ConsoleUserInterface.CouldNotReadInputException {
-        cui.say("Editing task at index " + index + ":");
-        cui.say(item.toString());
+        cui.print(LogMode.NONE,"Editing task at index " + index + ":");
+        cui.print(LogMode.NONE,item.toString());
         String title = getTitleForEdit(item);
         String description = getDescriptionForEdit(item);
         Priority priority = getPriorityForEdit(item);

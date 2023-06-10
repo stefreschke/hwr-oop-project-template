@@ -14,6 +14,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class HelpHandlerTest {
     @Test
+    void helpHandlerTest() {
+        HelpHandler helpHandler = new HelpHandler();
+        assertThat(helpHandler).isNotNull();
+    }
+    @Test
     void handleUserCommand() {
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ToDoList toDoList = new ToDoList("MyToDoList");
