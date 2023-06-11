@@ -21,7 +21,7 @@ class EditHandlerTest {
     @Test
     void testEditTasksIndexOutOfBounds() {
         ToDoList toDoList = new ToDoList("MyToDoList");
-        toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.now()));
+        toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.now(), EstimatedTime.SHORT));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream("n\n".getBytes());
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
@@ -36,9 +36,9 @@ class EditHandlerTest {
     void testEditTasks() {
         ToDoList toDoList = new ToDoList("MyToDoList");
         toDoList.addBucket(new Bucket("Bucket1"));
-        toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.of(2020,1,1)));
+        toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.of(2020,1,1), EstimatedTime.SHORT));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-        ByteArrayInputStream in = new ByteArrayInputStream("TitleNew\nNewDescription\n1\nBucket1\n1.2.2020".getBytes());
+        ByteArrayInputStream in = new ByteArrayInputStream("TitleNew\nNewDescription\n1\nBucket1\n1.2.2020\n3\n".getBytes());
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
         new EditHandler().handleUserCommand(toDoList, cui, new String[]{"gtd", "edit", "0"});
         String expected = "Editing task at index 0:\n" +
@@ -51,6 +51,8 @@ class EditHandlerTest {
                 "1 - LOW, 2 - MEDIUM, 3 - HIGH\n" +
                 "Enter new Bucket or press enter to skip\n" +
                 "Enter new Due Date or press enter to skip\n" +
+                "Enter new estimated Time or press enter to skip\n" +
+                "1 - TaskTime<5min, 2 - 5min<TaskTime<30min, 3 - 30min<TaskTime<1hr, 4 - TaskTime>1hr\n" +
                 "\u001B[1;32mTask Edited Successfully!\u001B[0m\n";
         String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
@@ -59,12 +61,13 @@ class EditHandlerTest {
         assertThat(toDoList.getItems().get(0).getPriority()).isEqualTo(Priority.LOW);
         assertThat(toDoList.getItems().get(0).getBucket().getBucketName()).isEqualTo("Bucket1");
         assertThat(toDoList.getItems().get(0).getDueDate()).isEqualTo(LocalDate.of(2020, 2, 1));
+        assertThat(toDoList.getItems().get(0).getEstimatedTime()).isEqualTo(EstimatedTime.XLONG);
     }
     @Test
     void testToLittleCommands() {
         ToDoList toDoList = new ToDoList("MyToDoList");
         toDoList.addBucket(new Bucket("Bucket1"));
-        toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.now()));
+        toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.now(), EstimatedTime.SHORT));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream("n\n".getBytes());
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
@@ -77,7 +80,7 @@ class EditHandlerTest {
     void testToLittleArguments() {
         ToDoList toDoList = new ToDoList("MyToDoList");
         toDoList.addBucket(new Bucket("Bucket1"));
-        toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.now()));
+        toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.now(), EstimatedTime.SHORT));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream("n\n".getBytes());
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
@@ -90,7 +93,7 @@ class EditHandlerTest {
     void testEditTasksIndexOutOfBoundsNewIndex() {
         ToDoList toDoList = new ToDoList("MyToDoList");
         toDoList.addBucket(new Bucket("Bucket1"));
-        toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.of(2023,1,1)));
+        toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.of(2023,1,1), EstimatedTime.SHORT));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream("y\n0\n".getBytes());
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);

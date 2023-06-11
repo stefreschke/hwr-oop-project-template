@@ -18,7 +18,7 @@ public class CommandParser {
         DONE(new String[]{"done", "do"}, new String[][]{new String[]{INDEX_ARG}},"mark a task as done", new StateHandler()),
         EDIT(new String[]{"edit", "e"}, new String[][]{new String[]{INDEX_ARG}},"edit a task", new EditHandler()),
         LIST(new String[]{"list", "ls"}, new String[][]{new String[]{}},"list all tasks", new ListHandler()),
-        SORT(new String[]{"sort", "s"}, new String[][]{new String[]{"priority | createdAt | bucket | title | done"}, new String[]{"asc | desc"}},"sort your tasks", new SortHandler()),
+        SORT(new String[]{"sort", "s"}, new String[][]{new String[]{"priority | estimatedTime | createdAt | bucket | title | done"}, new String[]{"asc | desc"}},"sort your tasks", new SortHandler()),
         SHOWBUCKETS(new String[]{"showBuckets", "sb"}, new String[][]{new String[]{}}, "show buckets for tasks", new BucketHandler()),
         RENAMEBUCKETS(new String[]{"renameBucket", "rnb"}, new String[][]{new String[]{INDEX_ARG}}, "changes bucket name", new BucketHandler()),
         CLEAR(new String[]{"clear", "cls"}, new String[][]{new String[]{}}, "clear all tasks", new ClearHandler()),

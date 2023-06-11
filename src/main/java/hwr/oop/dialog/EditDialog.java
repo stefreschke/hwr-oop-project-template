@@ -43,12 +43,14 @@ public class EditDialog {
         Priority priority = getPriorityForEdit(item);
         Bucket bucket = getBucketForEdit(item);
         LocalDate dueDate = getDueDateForEdit(item);
+        EstimatedTime estimatedTime = getEstimatedTimeForEdit(item);
         return new ToDoItem(
                 title,
                 description,
                 bucket,
                 priority,
-                dueDate
+                dueDate,
+                estimatedTime
         );
     }
     public  String getTitleForEdit(ToDoItem item) throws ConsoleUserInterface.CouldNotReadInputException {
@@ -89,6 +91,22 @@ public class EditDialog {
             return Priority.fromInt(prioInt);
         }
         return item.getPriority();
+    }
+    public EstimatedTime getEstimatedTimeForEdit(ToDoItem item) throws ConsoleUserInterface.CouldNotReadInputException {
+        this.out.println("Enter new estimated Time or press enter to skip");
+        this.out.println("1 - TaskTime<5min, 2 - 5min<TaskTime<30min, 3 - 30min<TaskTime<1hr, 4 - TaskTime>1hr");
+        String et = "-1";
+        while (!et.equals("1") && !et.equals("2") && !et.equals("3") && !et.equals("4") &&!et.equals("")) {
+            try {
+                et = this.reader.readLine();
+            } catch (IOException e) {
+                throw new ConsoleUserInterface.CouldNotReadInputException();
+            }
+        }
+        if (!et.equals("")) {
+            return EstimatedTime.fromInt(Integer.parseInt(et));
+        }
+        return item.getEstimatedTime();
     }
     public Bucket getBucketForEdit(ToDoItem item) {
         this.out.println("Enter new Bucket or press enter to skip");

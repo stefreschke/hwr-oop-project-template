@@ -2,6 +2,7 @@ package hwr.oop.dialogTests;
 
 import hwr.oop.Bucket;
 import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
+import hwr.oop.EstimatedTime;
 import hwr.oop.Priority;
 import hwr.oop.ToDoList;
 import hwr.oop.dialog.AddDialog;
@@ -76,6 +77,18 @@ class AddDialogTest {
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
             Priority prio = new AddDialog(testConsole, toDoList).getPriorityForAdd();
             assertThat(prio).isEqualTo(Priority.HIGH);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    void getEstimatedTimeForAddTest(){
+        try {
+            String userInput = "3\n";
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            EstimatedTime estimatedTime = new AddDialog(testConsole, toDoList).getEstimatedTimeForAdd();
+            assertThat(estimatedTime).isEqualTo(EstimatedTime.XLONG);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

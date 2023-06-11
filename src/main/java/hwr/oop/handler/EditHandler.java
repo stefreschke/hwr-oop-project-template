@@ -41,6 +41,7 @@ public class EditHandler implements HandlerCommandsInterface {
         item.setPriority(copyToDoItem.getPriority());
         item.setBucket(copyToDoItem.getBucket());
         item.setDueDate(copyToDoItem.getDueDate());
+        item.setEstimatedTime(copyToDoItem.getEstimatedTime());
         editDialog.end();
     }
 

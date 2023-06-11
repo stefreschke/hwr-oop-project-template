@@ -49,11 +49,11 @@ class ConsoleUITest {
     @Test
     void handleSortTest() {
         ToDoList toDoList = new ToDoList("MyList");
-        toDoList.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now()));
+        toDoList.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now(), EstimatedTime.SHORT));
         toDoList.getItems().get(0).setCreatedAt(LocalDate.of(2020, 1, 1));
-        toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW, LocalDate.now().plusDays(1)));
+        toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW, LocalDate.now().plusDays(1), EstimatedTime.MEDIUM));
         toDoList.getItems().get(1).setCreatedAt(LocalDate.of(2020, 1, 2));
-        toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH, LocalDate.now().plusDays(2)));
+        toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH, LocalDate.now().plusDays(2), EstimatedTime.LONG));
       
         toDoList.sortByPriority("asc");
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("Cucumber");
@@ -88,8 +88,8 @@ class ConsoleUITest {
     @Test
     void removeTest() {
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
-        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW, LocalDate.now()));
-        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test2"), Priority.LOW, LocalDate.now()));
+        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW, LocalDate.now(), EstimatedTime.LONG));
+        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test2"), Priority.LOW, LocalDate.now(), EstimatedTime.LONG));
 
         ToDoList toDoList = new ToDoList("MyList");
         toDoList.setItems(toDoItems);
@@ -158,7 +158,8 @@ class ConsoleUITest {
                             "  priority - sort by priority\n" +
                             "  createdAt- sort by creation date\n" +
                             "  dueDate  - sort by due date\n" +
-                            "  bucket [bucket]- sort by bucket\n" +
+                            "  estimatedTime - sort by estimated time\n" +
+                            "  bucket [bucket] - sort by bucket\n" +
                             "  title    - sort by title\n" +
                             "  done     - sort by done\n" +
                             "  help     - print this help\n";

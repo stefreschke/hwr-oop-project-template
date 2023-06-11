@@ -18,8 +18,8 @@ public class ToDoItem {
     private State state;
     @JsonAdapter(LocalDateTypeAdapter.class)
     private LocalDate dueDate;
-
-    public ToDoItem (String title, String description, Bucket bucket, Priority priority, LocalDate dueDate) {
+    private EstimatedTime estimatedTime;
+    public ToDoItem (String title, String description, Bucket bucket, Priority priority, LocalDate dueDate, EstimatedTime estimatedTime) {
         this.title = title;
         this.description = description;
         this.bucket = bucket;
@@ -27,6 +27,7 @@ public class ToDoItem {
         this.priority = priority;
         this.state = State.TODO;
         this.dueDate = dueDate;
+        this.estimatedTime = estimatedTime;
     }
     public void setTitle(String title) {
         this.title = title;
@@ -72,6 +73,12 @@ public class ToDoItem {
     }
     public LocalDate getCreatedAt() {
         return createdAt;
+    }
+    public EstimatedTime getEstimatedTime() {
+        return estimatedTime;
+    }
+    public void setEstimatedTime(EstimatedTime estimatedTime) {
+        this.estimatedTime = estimatedTime;
     }
     @Override
     public String toString() {
