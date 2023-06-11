@@ -24,15 +24,16 @@ The automated ranking will also take into account what activities the user has d
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature | Tests | 
-|--------|---------|-------|
-| 1      | Save Lists to JSON          | JsonToListTest |
-| 2      | Load Lists from JSON        | ListToJsonTest |
-| 3      | Edit, Remove, Add, Done       | MainTest.java     |
-| 4      | Save Exit       | MainTest.java     |
-| 5      | Sort      | MainTest.java, ListClassTest.java     |
-| 6      | List       | MainTest.java, ListClassTest.java (toString() method)  |
-| 7      | State Management       | MainTest.java     |
+| Number | Feature                                     | Tests                                              | 
+|--------|---------------------------------------------|----------------------------------------------------|
+| 1      | Save Lists to JSON                          | JsonToListTest                                     |
+| 2      | Load Lists from JSON                        | ListToJsonTest                                     |
+| 3      | Edit, Remove, Add Item, Done -> to TodoList | MainTest.java                                      |
+| 4      | Save Exit TodoList                          | MainTest.java                                      |
+| 5      | Sort  Todos                                 | MainTest.java, ListClassTest.java                  |
+| 6      | List Todos                                  | MainTest.java, ListClassTest.java (toString() method) |
+| 7      | State Management                            | MainTest.java                                      |
+| 8      | Management Priority Tests                   | PriorityTest.java                                  |
 
 ## Additional Dependencies
 
