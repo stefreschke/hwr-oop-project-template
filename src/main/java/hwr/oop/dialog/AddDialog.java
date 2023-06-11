@@ -39,12 +39,14 @@ public class AddDialog {
         Priority priority = getPriorityForAdd();
         Bucket bucket = getBucketForAdd();
         LocalDate dueDate = getDueDateForAdd();
+        EstimatedTime estimatedTime = getEstimatedTimeForAdd();
         return new ToDoItem(
                 title,
                 description,
                 bucket,
                 priority,
-                dueDate
+                dueDate,
+                estimatedTime
         );
     }
     public String getTitleForAdd() {
@@ -71,19 +73,6 @@ public class AddDialog {
         }
         return description == null || description.equals("") ? "NO DESCRIPTION" : description;
     }
-    public Priority getPriorityForAdd() throws ConsoleUserInterface.CouldNotReadInputException {
-        out.println("Please select a priority for your task");
-        out.println("1 - LOW, 2 - MEDIUM, 3 - HIGH");
-        String priority = "-1";
-        while (!priority.equals("1") && !priority.equals("2") && !priority.equals("3")) {
-            try {
-                priority = this.reader.readLine();
-            } catch (IOException e) {
-                throw new ConsoleUserInterface.CouldNotReadInputException();
-            }
-        }
-        return Priority.fromInt(Integer.parseInt(priority));
-    }
     public Bucket getBucketForAdd() {
         out.println("Add a Bucket to group your tasks");
         String bucketName;
@@ -108,6 +97,33 @@ public class AddDialog {
             this.cui.print(LogMode.NONE,PLEASE_EDIT_LATER_USING_GTD_EDIT_INDEX);
         }
         return LocalDate.now().plusDays(1);
+    }
+
+    public EstimatedTime getEstimatedTimeForAdd() throws ConsoleUserInterface.CouldNotReadInputException {
+        out.println("Please select a priority for your task");
+        out.println("1 - yourTime<5min, 2 - 5min<yourTime<30min, 3 - 30min<yourTime<1hr, 4 - yourTime>1hr");
+        String et = "-1";
+        while (!et.equals("1") && !et.equals("2") && !et.equals("3") && !et.equals("4")) {
+            try {
+                et = this.reader.readLine();
+            } catch (IOException e) {
+                throw new ConsoleUserInterface.CouldNotReadInputException();
+            }
+        }
+        return EstimatedTime.fromInt(Integer.parseInt(et));
+    }
+    public Priority getPriorityForAdd() throws ConsoleUserInterface.CouldNotReadInputException {
+        out.println("Please select a priority for your task");
+        out.println("1 - LOW, 2 - MEDIUM, 3 - HIGH");
+        String priority = "-1";
+        while (!priority.equals("1") && !priority.equals("2") && !priority.equals("3")) {
+            try {
+                priority = this.reader.readLine();
+            } catch (IOException e) {
+                throw new ConsoleUserInterface.CouldNotReadInputException();
+            }
+        }
+        return Priority.fromInt(Integer.parseInt(priority));
     }
     public void end() {
         cui.print(LogMode.SUCCESS, "Task Created Successfully!🎉");
