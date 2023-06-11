@@ -26,7 +26,7 @@ class ListHandlerTest {
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outBuffer);
         new ListHandler().handleUserCommand(new ToDoList("Test"), new ConsoleUserInterface(out, in), new String[]{"gtd", "list", "test"});
-        assertThat(outBuffer).hasToString("\u001B[1;33mCould not list... If that is what you wanted to do, try 'gtd list'\u001B[0m\n");
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;33mCould not list... If that is what you wanted to do, try 'gtd list'\u001B[0m\n");
     }
     @Test
     void listTest() {
@@ -47,7 +47,7 @@ class ListHandlerTest {
             expectedOutput = "MyList:\n" +
                     toDoList.getItems().get(0).toString() + "\n" +
                     toDoList.getItems().get(1).toString() + "\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
 
         } catch (Exception e) {
@@ -67,7 +67,7 @@ class ListHandlerTest {
             String expectedOutput;
             expectedOutput = "MyList:\n" +
                     "👀Looks Empty here... Add some tasks!\n";
-            String actualOutput = outBuffer.toString();
+            String actualOutput = outBuffer.toString().replace("\r", "");
             assertEquals(expectedOutput, actualOutput);
 
         } catch (Exception e) {

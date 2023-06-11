@@ -28,7 +28,7 @@ class ExistenceHandlerTest {
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "add", "Task", "Description", "3", "Bucket", "1.1.2020"};
         new ExistenceHandler().handleUserCommand(toDoList, cui, args);
-        assertThat(outBuffer).hasToString("\u001B[1;31mInvalid number of arguments\u001B[0m\n");
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mInvalid number of arguments\u001B[0m\n");
 
     }
     @Test
@@ -39,7 +39,7 @@ class ExistenceHandlerTest {
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "addition"};
         new ExistenceHandler().handleUserCommand(toDoList, cui, args);
-        assertThat(outBuffer).hasToString("\u001B[1;31mUnknown command\u001B[0m\n");
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mUnknown command\u001B[0m\n");
 
     }
     @Test
@@ -80,7 +80,7 @@ class ExistenceHandlerTest {
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "add"};
         new ExistenceHandler().handleUserCommand(toDoList, cui, args);
-        assertThat(outBuffer).hasToString("Create a new task\n" +
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("Create a new task\n" +
                 "Please enter a title for your task\n" +
                 "Please enter a description for your task\n" +
                 "Please select a priority for your task\n" +

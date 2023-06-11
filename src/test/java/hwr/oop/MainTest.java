@@ -17,7 +17,7 @@ class MainTest {
         } catch (GetCommandDialog.CouldNotreadCommandException e) {
             assertThat(e.getMessage()).isEqualTo("Could not read command");
         }
-        assertThat(outBuffer).hasToString("\u001B[1;34mPlease enter a command or type 'gtd help' for more information\u001B[0m\n" +
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;34mPlease enter a command or type 'gtd help' for more information\u001B[0m\n" +
                 "> Exiting ...\n" +
                 "Goodbye!\n");
 

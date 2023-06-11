@@ -36,7 +36,7 @@ class StateHandlerTest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
         new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done", "1"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
-        assertThat(outBuffer).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
                 "Okay, I'll leave you alone then. \uD83D\uDC4B\n");
     }
@@ -49,7 +49,7 @@ class StateHandlerTest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
         new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
-        assertThat(outBuffer).hasToString("\u001B[1;33mType gtd help to get help on commands.\u001B[0m\n");
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;33mType gtd help to get help on commands.\u001B[0m\n");
     }
     @Test
     void handleUserCommandTestUnknownCommand(){
@@ -60,7 +60,7 @@ class StateHandlerTest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
         new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "doneston"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
-        assertThat(outBuffer).hasToString("\u001B[1;31mUnknown command\u001B[0m\n");
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mUnknown command\u001B[0m\n");
     }
     @Test
     void handleUserCommandTestTooManyArgs(){
@@ -71,7 +71,7 @@ class StateHandlerTest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
         new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done", "0", "1"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
-        assertThat(outBuffer).hasToString("\u001B[1;31mInvalid number of arguments\u001B[0m\n");
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mInvalid number of arguments\u001B[0m\n");
     }
     @Test
     void promoteTest() {
@@ -90,7 +90,7 @@ class StateHandlerTest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
         new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "promote", "1"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
-        assertThat(outBuffer).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
                 "Okay, I'll leave you alone then. \uD83D\uDC4B\n");
     }
@@ -113,7 +113,7 @@ class StateHandlerTest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
         new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "demote", "1"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
-        assertThat(outBuffer).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
                 "Okay, I'll leave you alone then. \uD83D\uDC4B\n");
     }
@@ -135,7 +135,7 @@ class StateHandlerTest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
         new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "hold", "1"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
-        assertThat(outBuffer).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
                 "Okay, I'll leave you alone then. \uD83D\uDC4B\n");
     }
