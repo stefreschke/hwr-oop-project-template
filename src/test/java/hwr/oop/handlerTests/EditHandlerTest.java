@@ -1,6 +1,7 @@
 package hwr.oop.handlerTests;
 
 import hwr.oop.*;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.handler.EditHandler;
 import org.junit.jupiter.api.Test;
 
@@ -18,13 +19,13 @@ class EditHandlerTest {
         assertThat(editHandler).isNotNull();
     }
     @Test
-    void testEditTasksIndexOutOfBounds() throws ConsoleUserInterface.CouldNotReadInputException {
+    void testEditTasksIndexOutOfBounds() {
         ToDoList toDoList = new ToDoList("MyToDoList");
         toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.now()));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream("n\n".getBytes());
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
-        EditHandler.handleUserCommand(toDoList, cui, new String[]{"gtd", "edit", "1"});
+        new EditHandler().handleUserCommand(toDoList, cui, new String[]{"gtd", "edit", "1"});
         String expected = "\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
                 "Okay, I'll leave you alone then. \uD83D\uDC4B\n";
@@ -32,14 +33,14 @@ class EditHandlerTest {
         assertThat(actual).isEqualTo(expected);
     }
     @Test
-    void testEditTasks() throws ConsoleUserInterface.CouldNotReadInputException {
+    void testEditTasks() {
         ToDoList toDoList = new ToDoList("MyToDoList");
         toDoList.addBucket(new Bucket("Bucket1"));
         toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.of(2020,1,1)));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream("TitleNew\nNewDescription\n1\nBucket1\n1.2.2020".getBytes());
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
-        EditHandler.handleUserCommand(toDoList, cui, new String[]{"gtd", "edit", "0"});
+        new EditHandler().handleUserCommand(toDoList, cui, new String[]{"gtd", "edit", "0"});
         String expected = "Editing task at index 0:\n" +
                 "⏭️ Title\n" +
                 "Description\n" +
@@ -60,28 +61,28 @@ class EditHandlerTest {
         assertThat(toDoList.getItems().get(0).getDueDate()).isEqualTo(LocalDate.of(2020, 2, 1));
     }
     @Test
-    void testToLittleCommands() throws ConsoleUserInterface.CouldNotReadInputException {
+    void testToLittleCommands() {
         ToDoList toDoList = new ToDoList("MyToDoList");
         toDoList.addBucket(new Bucket("Bucket1"));
         toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.now()));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream("n\n".getBytes());
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
-        EditHandler.handleUserCommand(toDoList, cui, new String[]{"gtd", "edit"});
+        new EditHandler().handleUserCommand(toDoList, cui, new String[]{"gtd", "edit"});
         String expected = "Invalid Command.\n";
         String actual = outBuffer.toString();
         assertThat(actual).isEqualTo(expected);
     }
     @Test
-    void testToLittleArguments() throws ConsoleUserInterface.CouldNotReadInputException {
+    void testToLittleArguments() {
         ToDoList toDoList = new ToDoList("MyToDoList");
         toDoList.addBucket(new Bucket("Bucket1"));
         toDoList.add(new ToDoItem("Title", "Description", new Bucket("Bucket"), Priority.MEDIUM, LocalDate.now()));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream("n\n".getBytes());
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
-        EditHandler.handleUserCommand(toDoList, cui, new String[]{"gtd"});
-        String expected = "\u001B[1;31mPlease provide a valid Command.\u001B[0m\n";
+        new EditHandler().handleUserCommand(toDoList, cui, new String[]{"gtd"});
+        String expected = "Invalid Command.\n";
         String actual = outBuffer.toString();
         assertThat(actual).isEqualTo(expected);
     }
@@ -93,20 +94,17 @@ class EditHandlerTest {
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ByteArrayInputStream in = new ByteArrayInputStream("y\n0\n".getBytes());
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
-        try {
-            EditHandler.handleUserCommand(toDoList, cui, new String[]{"gtd", "edit", "1"});
-        } catch (ConsoleUserInterface.CouldNotReadInputException e) {
-            String expected = "\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
-                    "Try again? (y/n)\n" +
-                    "Please enter the index of the task you want to edit.\n" +
-                    "Editing task at index 0:\n" +
-                    "⏭️ Title\n" +
-                    "Description\n" +
-                    "<\u001B[1;36mBucket\u001B[0m> \u001B[1;33mMEDIUM\u001B[0m 2023-01-01\n" +
-                    "Enter new Title or press enter to skip\n";
+        new EditHandler().handleUserCommand(toDoList, cui, new String[]{"gtd", "edit", "1"});
+        String expected = "\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
+                "Try again? (y/n)\n" +
+                "Please enter the index of the task you want to edit.\n" +
+                "Editing task at index 0:\n" +
+                "⏭️ Title\n" +
+                "Description\n" +
+                "<\u001B[1;36mBucket\u001B[0m> \u001B[1;33mMEDIUM\u001B[0m 2023-01-01\n" +
+                "Enter new Title or press enter to skip\n";
             String actual = outBuffer.toString();
             assertThat(actual).contains(expected);
-        }
-
     }
+
 }

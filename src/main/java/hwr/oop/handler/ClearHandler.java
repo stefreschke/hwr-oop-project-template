@@ -1,14 +1,15 @@
 package hwr.oop.handler;
 
-import hwr.oop.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.ToDoList;
 
 public class ClearHandler implements HandlerCommandsInterface {
-    ClearHandler() {
+    public ClearHandler() {
     }
     @Override
-    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public int handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         clear(toDoList);
+        return 0;
     }
 
     public void clear(ToDoList toDoList) {

@@ -20,9 +20,10 @@ public enum Priority {
         return value;
     }
     public static Priority fromInt(int value) {
-        return Priority.values()[value-1];
+        return value <= 3 ? Priority.values()[value-1]: Priority.LOW;
     }
-    public String getColoredString() {
+    @Override
+    public String toString() {
         return coloredString;
     }
 }

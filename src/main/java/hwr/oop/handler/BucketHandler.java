@@ -1,18 +1,18 @@
 package hwr.oop.handler;
 
 import hwr.oop.Bucket;
-import hwr.oop.ConsoleUserInterface;
-import hwr.oop.LogMode;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.LogMode;
 import hwr.oop.ToDoList;
 import hwr.oop.dialog.HandleBadIndexDialog;
 
 import java.util.Set;
 
 public class BucketHandler implements HandlerCommandsInterface {
-    BucketHandler() {
+    public BucketHandler() {
     }
     @Override
-    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public int handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2) {
             try {
                 if (args[1].equals("showBuckets") || args[1].equals("sb")) {
@@ -28,8 +28,9 @@ public class BucketHandler implements HandlerCommandsInterface {
         } else {
             cui.print(LogMode.ERROR, "Invalid number of arguments");
         }
+        return 0;
     }
-    public static void showBuckets(ToDoList toDoList, ConsoleUserInterface cui) {
+    public void showBuckets(ToDoList toDoList, ConsoleUserInterface cui) {
         Set<Bucket> buckets = toDoList.getBuckets();
         if (buckets == null || buckets.isEmpty()) {
             cui.print(LogMode.NONE, "👀Looks Empty here... Add some buckets!");
@@ -39,7 +40,7 @@ public class BucketHandler implements HandlerCommandsInterface {
             cui.print(LogMode.NONE, bucket.toString());
         }
     }
-    public static void renameBuckets(ToDoList toDoList, String indexString, String newName, ConsoleUserInterface cui) {
+    public void renameBuckets(ToDoList toDoList, String indexString, String newName, ConsoleUserInterface cui) {
         try {
             int index = Integer.parseInt(indexString);
             toDoList.renameBucket(index, newName);

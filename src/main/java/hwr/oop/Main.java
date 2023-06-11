@@ -1,5 +1,7 @@
 package hwr.oop;
 
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.LogMode;
 import hwr.oop.dialog.GetCommandDialog;
 import hwr.oop.handler.CommandParser;
 import hwr.oop.persistence.PersistenceAdapter;
@@ -27,4 +29,3 @@ public class Main {
         }
     }
 }
-

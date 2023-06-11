@@ -1,7 +1,7 @@
 package hwr.oop.dialogTests;
 
 import hwr.oop.Bucket;
-import hwr.oop.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.Priority;
 import hwr.oop.ToDoList;
 import hwr.oop.dialog.AddDialog;

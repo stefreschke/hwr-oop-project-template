@@ -16,27 +16,24 @@ Task rank automatically and can be sorted and grouped with buckets .
 The automated ranking will also take into account what activities the user has done in the past and what activities the user has planned for the future.
 ### Features
 
-- The application allows you to prioritize the tasks you create.
-  Arrange your to-dos according to their specifics and use the hierarchical order that this tool offers you. Provide your task lists with their topic in order to keep track of your tasks and check them off.
+- ...
+### Problems
 
-
-
+- ...
 ## Feature List
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature                 | Tests                                                 | 
-|-----|-------------------------|-------------------------------------------------------|
-| 1   | Save Lists to JSON      | JsonToListTest                                        |
-| 2   | Load Lists from JSON    | ListToJsonTest                                        |
-| 3   | Edit, Remove, Add, Done | MainTest.java                                         |
-| 4   | Save Exit               | MainTest.java                                         |
-| 5   | Sort                    | MainTest.java, ListClassTest.java                     |
-| 6   | List                    | MainTest.java, ListClassTest.java (toString() method) |
-| 7   | State Management        | MainTest.java                                         |
-| 8   | Priority Management     | PriorityTest.java                                     |  
-| 9   | Set Bucket              | BucketTest.java                                       |         
-
+| Number | Feature                   | Tests                                                 | 
+|-------|---------------------------|-------------------------------------------------------|
+| 1     | Save Lists to JSON        | JsonToListTest                                        |
+| 2     | Load Lists from JSON      | ListToJsonTest                                        |
+| 3     | Edit, Remove, Add, Done   | MainTest.java                                         |
+| 4     | Save Exit                 | MainTest.java                                         |
+| 5     | Sort                      | MainTest.java, ListClassTest.java                     |
+| 6     | List                      | MainTest.java, ListClassTest.java (toString() method) |
+| 7     | State Management          | MainTest.java                                         |
+| 8     | Management Priority Tests | Priority Test.java                                    |
 
 ## Additional Dependencies
 
