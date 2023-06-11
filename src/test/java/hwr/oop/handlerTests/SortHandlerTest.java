@@ -27,7 +27,7 @@ class SortHandlerTest {
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "sort", "help"};
         new SortHandler().handleUserCommand(toDoList, cui, args);
-        assertThat(outBuffer.toString()).hasToString("gtd sort [option]\n" +
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("gtd sort [option]\n" +
                 "Options:\n" +
                 "  priority - sort by priority\n" +
                 "  createdAt- sort by creation date\n" +
@@ -45,7 +45,7 @@ class SortHandlerTest {
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "sort"};
         new SortHandler().handleUserCommand(toDoList, cui, args);
-        assertThat(outBuffer).hasToString("gtd sort [option]\n" +
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("gtd sort [option]\n" +
                 "Options:\n" +
                 "  priority - sort by priority\n" +
                 "  createdAt- sort by creation date\n" +
@@ -63,7 +63,7 @@ class SortHandlerTest {
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "sort", "prierity", "vertically"};
         new SortHandler().handleUserCommand(toDoList, cui, args);
-        assertThat(outBuffer.toString()).hasToString("gtd sort [option]\n" +
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("gtd sort [option]\n" +
                 "Options:\n" +
                 "  priority - sort by priority\n" +
                 "  createdAt- sort by creation date\n" +

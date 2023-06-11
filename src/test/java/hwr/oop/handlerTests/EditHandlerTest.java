@@ -29,7 +29,7 @@ class EditHandlerTest {
         String expected = "\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
                 "Okay, I'll leave you alone then. \uD83D\uDC4B\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
     }
     @Test
@@ -52,7 +52,7 @@ class EditHandlerTest {
                 "Enter new Bucket or press enter to skip\n" +
                 "Enter new Due Date or press enter to skip\n" +
                 "\u001B[1;32mTask Edited Successfully!\u001B[0m\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
         assertThat(toDoList.getItems().get(0).getTitle()).isEqualTo("TitleNew");
         assertThat(toDoList.getItems().get(0).getDescription()).isEqualTo("NewDescription");
@@ -70,7 +70,7 @@ class EditHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
         new EditHandler().handleUserCommand(toDoList, cui, new String[]{"gtd", "edit"});
         String expected = "Invalid Command.\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
     }
     @Test
@@ -83,7 +83,7 @@ class EditHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), in);
         new EditHandler().handleUserCommand(toDoList, cui, new String[]{"gtd"});
         String expected = "Invalid Command.\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
     }
     @Test
@@ -103,7 +103,7 @@ class EditHandlerTest {
                 "Description\n" +
                 "<\u001B[1;36mBucket\u001B[0m> \u001B[1;33mMEDIUM\u001B[0m 2023-01-01\n" +
                 "Enter new Title or press enter to skip\n";
-            String actual = outBuffer.toString();
+            String actual = outBuffer.toString().replace("\r", "");
             assertThat(actual).contains(expected);
     }
 

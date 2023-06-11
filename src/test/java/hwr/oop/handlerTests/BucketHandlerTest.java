@@ -38,7 +38,7 @@ class BucketHandlerTest {
         String expected = "\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
                 "Okay, I'll leave you alone then. \uD83D\uDC4B\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
     }
     @Test
@@ -61,7 +61,7 @@ class BucketHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), System.in);
         new BucketHandler().handleUserCommand(toDoList, cui, new String[]{"gtd", "sb"});
         String expected = "\uD83D\uDC40Looks Empty here... Add some buckets!\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
     }
     @Test
@@ -71,7 +71,7 @@ class BucketHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), System.in);
         new BucketHandler().handleUserCommand(toDoList, cui, new String[]{"gtd"});
         String expected = "\u001B[1;31mInvalid number of arguments\u001B[0m\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
     }
     @Test
@@ -81,7 +81,7 @@ class BucketHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), System.in);
         new BucketHandler().handleUserCommand(toDoList, cui, new String[]{"gtd", "unknown"});
         String expected = "\u001B[1;31mUnknown command\u001B[0m\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
     }
     @Test
@@ -90,7 +90,7 @@ class BucketHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), System.in);
         new BucketHandler().handleUserCommand(null, cui, new String[]{"gtd", "sb"});
         String expected = "[1;33mType gtd help to get help on commands.[0m\n";
-        String actual = outBuffer.toString();
+        String actual = outBuffer.toString().replace("\r", "");
         assertThat(actual).isEqualTo(expected);
     }
 }
