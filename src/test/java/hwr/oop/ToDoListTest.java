@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.*;
 
+import static hwr.oop.ToDoList.linkToCorrectBucket;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class ToDoListTest {
@@ -361,18 +362,27 @@ class ToDoListTest {
         itemList.add(item3);
         assertThat(list.getItems()).isEqualTo(itemList);
     }
-
     @Test
     void pruneUnusedBucketsTest() {
         ToDoList testList = new ToDoList("TestList");
-        testList.add(new ToDoItem("t","t",new Bucket("t"),Priority.LOW, LocalDate.now(), EstimatedTime.SHORT));
-        testList.add(new ToDoItem("b","s",new Bucket("a"),Priority.LOW, LocalDate.now(), EstimatedTime.SHORT));
-        testList.add(new ToDoItem("c","a",new Bucket("d"),Priority.LOW, LocalDate.now(), EstimatedTime.SHORT));
-        testList.add(new ToDoItem("c","a",new Bucket("t"),Priority.LOW, LocalDate.now(), EstimatedTime.SHORT));
-        testList.add(new ToDoItem("c","a",new Bucket("z"),Priority.LOW, LocalDate.now(), EstimatedTime.SHORT));
-        testList.add(new ToDoItem("c","a",new Bucket("u"),Priority.LOW, LocalDate.now(), EstimatedTime.SHORT));
-        testList.remove(4);
+        testList.add(new ToDoItem("t","t",new Bucket("t"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
+        testList.add(new ToDoItem("b","s",new Bucket("a"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
+        testList.add(new ToDoItem("c","a",new Bucket("d"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
+        testList.add(new ToDoItem("c","a",new Bucket("t"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
+        testList.add(new ToDoItem("c","a",new Bucket("z"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
+        testList.add(new ToDoItem("c","a",new Bucket("u"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
+        testList.addBucket(new Bucket("e"));
+        testList.pruneUnusedBuckets();
         Set<Bucket> expectedBucket = new HashSet<>();
         assertThat(testList.getBuckets()).isEqualTo(expectedBucket);
+    }
+    @Test
+    void linkToCorrectBucketTest() {
+        ToDoList testList = new ToDoList("TestList");
+        testList.add(new ToDoItem("t","t",new Bucket("t"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
+        testList.add(new ToDoItem("b","s",new Bucket("a"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
+        testList.add(new ToDoItem("b","s",new Bucket("a"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
+        linkToCorrectBucket(testList);
+        assertThat(testList.getBuckets().toString()).hasToString("[🪣a, 🪣t]");
     }
 }
