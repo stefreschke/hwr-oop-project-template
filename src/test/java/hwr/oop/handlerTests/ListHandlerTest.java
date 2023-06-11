@@ -1,6 +1,7 @@
 package hwr.oop.handlerTests;
 
 import hwr.oop.*;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.handler.ListHandler;
 import org.junit.jupiter.api.Test;
 
@@ -11,8 +12,8 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 class ListHandlerTest {
     @Test
     void listHandlerTest(){
@@ -24,7 +25,7 @@ class ListHandlerTest {
         ByteArrayInputStream in = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         PrintStream out = new PrintStream(outBuffer);
-        ListHandler.handleUserCommand(new ToDoList("Test"), new ConsoleUserInterface(out, in), new String[]{"gtd", "list", "test"});
+        new ListHandler().handleUserCommand(new ToDoList("Test"), new ConsoleUserInterface(out, in), new String[]{"gtd", "list", "test"});
         assertThat(outBuffer).hasToString("\u001B[1;33mCould not list... If that is what you wanted to do, try 'gtd list'\u001B[0m\n");
     }
     @Test
@@ -40,7 +41,7 @@ class ListHandlerTest {
             String userInput = "MyList\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ListHandler.list(toDoList, testConsole);
+            new ListHandler().list(toDoList, testConsole);
             // Check the program output
             String expectedOutput;
             expectedOutput = "MyList:\n" +
@@ -61,7 +62,7 @@ class ListHandlerTest {
             String userInput = "MyList\n";
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            ListHandler.list(toDoList, testConsole);
+            new ListHandler().list(toDoList, testConsole);
             // Check the program output
             String expectedOutput;
             expectedOutput = "MyList:\n" +

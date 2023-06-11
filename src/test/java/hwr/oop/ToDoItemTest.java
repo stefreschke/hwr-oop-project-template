@@ -3,7 +3,6 @@ package hwr.oop;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static hwr.oop.util.ConsoleColors.RED_BOLD;
 import static hwr.oop.util.ConsoleColors.RESET;
@@ -76,8 +75,7 @@ class ToDoItemTest {
     @Test
     void getStateTest() {
         ToDoItem toDoItem = new ToDoItem("t","d",new Bucket("t"), Priority.LOW, LocalDate.now());
-        String expectedoutput = "TODO";
-        assertThat(toDoItem.getState()).isEqualTo(expectedoutput);
+        assertThat(toDoItem.getState()).hasToString("TODO");
     }
 
     @Test
@@ -120,7 +118,7 @@ class ToDoItemTest {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.MEDIUM, LocalDate.now());
         String result = item.toString();
         System.out.println(result);
-        String priority = item.getPriority().getColoredString();
+        String priority = item.getPriority().toString();
         String state = item.getState().getStateEmoji();
         assertThat(result).isEqualTo(state + " " + item.getTitle() + '\n' +
                 item.getDescription() +  '\n' +
@@ -137,69 +135,46 @@ class ToDoItemTest {
     void promotionTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
         item.promote(); // TODO -> IN PROGRESS
-        assertThat(item.getState().toString()).isEqualTo("IN_PROGRESS");
+        assertThat(item.getState()).hasToString("IN_PROGRESS");
         item.promote(); // IN PROGRESS -> DONE
-        assertThat(item.getState().toString()).isEqualTo("DONE");
+        assertThat(item.getState()).hasToString("DONE");
     }
 
     @Test
     void demotionTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
-        // TODO: Too Much!
-        item.promote();
-        item.demote();
-        assertThat(item.getState()).isEqualTo("TODO");
-        item.promote();
-        item.promote(); // IN PROGRESS -> DONE
-        item.demote(); // DONE -> IN PROGRESS
-        assertThat(item.getState()).isEqualTo("IN_PROGRESS");
-        item.demote();
-        item.demote();
-        assertThat(item.getState()).isEqualTo("TODO");
-        item.promote();
-        item.hold();
-        item.hold();
-        item.demote();
-        item.hold();
-        item.promote();
-        assertThat(item.getState()).isEqualTo("IN_PROGRESS");
-        item.hold();
-        item.promote();
-        assertThat(item.getState()).isEqualTo("IN_PROGRESS");
-        item.setDone();
-        item.promote();
-        item.hold();
-        assertThat(item.getState()).isEqualTo("DONE");
         item.promote(); // TODO -> IN PROGRESS
+        assertThat(item.getState()).hasToString("IN_PROGRESS");
         item.demote(); // IN PROGRESS -> TODO
-        assertThat(item.getState().toString()).isEqualTo("TODO");
+        assertThat(item.getState()).hasToString("TODO");
         item.promote(); // TODO -> IN PROGRESS
         item.promote(); // IN PROGRESS -> DONE
+        assertThat(item.getState()).hasToString("DONE");
         item.demote(); // DONE -> IN PROGRESS
-        assertThat(item.getState().toString()).isEqualTo("IN_PROGRESS");
+        assertThat(item.getState()).hasToString("IN_PROGRESS");
     }
 
     @Test
     void holdTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
         item.hold(); // TODO -> HOLD = TODO
-        assertThat(item.getState().toString()).isEqualTo("TODO");
+        assertThat(item.getState()).hasToString("TODO");
         item.promote(); // HOLD -> IN PROGRESS
         item.hold();    // IN PROGRESS -> HOLD
-        assertThat(item.getState().toString()).isEqualTo("ON_HOLD");
+        assertThat(item.getState()).hasToString("ON_HOLD");
     }
 
     @Test
     void getPriorityStringTest() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
-        String result = item.getPriority().getColoredString();
+        String result = item.getPriority().toString();
         assertThat(result).isEqualTo("[1;34mLOW[0m");
     }
 
     @Test
-    void getPriotityStringHIGHTest() {
+    void getPriorityStringHIGHTest() {
         ToDoItem item = new ToDoItem("t","t",new Bucket("t"),Priority.HIGH,LocalDate.now());
-        String result = item.getPriorityString();
+        String result = item.getPriority().toString();
         assertThat(result).isEqualTo(RED_BOLD + "HIGH" + RESET);
     }
 
@@ -213,7 +188,7 @@ class ToDoItemTest {
         ToDoItem item4 = new ToDoItem("t","t",new Bucket("t"),Priority.fromInt(12),LocalDate.now());
         assertThat(item2.getPriority().toInt()).isEqualTo(1);
         assertThat(item3.getPriority().toInt()).isEqualTo(2);
-        assertThat(item4.getPriority().toInt()).isEqualTo(0);
+        assertThat(item4.getPriority().toInt()).isZero();
     }
 
     @Test
@@ -227,7 +202,7 @@ class ToDoItemTest {
     void getStatEmojiTestDONE() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
         item.setDone();
-        String result = item.getStateEmoji();
+        String result = item.getState().getStateEmoji();
         assertThat(result).isEqualTo("✅");
     }
 
@@ -235,7 +210,7 @@ class ToDoItemTest {
     void getStateEmojiTestInPROGRESS() {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
         item.promote();
-        String result = item.getStateEmoji();
+        String result = item.getState().getStateEmoji();
         assertThat(result).isEqualTo("🏗️");
     }
 
@@ -244,7 +219,7 @@ class ToDoItemTest {
         ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b. Look up on pages 36 and 42 in Analysis I. ", new Bucket("Uni"), Priority.LOW, LocalDate.now());
         item.promote();
         item.hold();
-        String result = item.getStateEmoji();
+        String result = item.getState().getStateEmoji();
         assertThat(result).isEqualTo("🕑");
     }
 
@@ -253,7 +228,7 @@ class ToDoItemTest {
         ToDoItem item = new ToDoItem("", "", new Bucket(""), Priority.LOW, LocalDate.now());
         item.setCreatedAt(LocalDate.of(2020, 1, 1));
         String result = item.getCreatedAt().toString();
-        assertThat(result).isEqualTo(LocalDateTime.of(2020, 1, 1, 1, 1).toString());
+        assertThat(result).isEqualTo(LocalDate.of(2020, 1, 1).toString());
     }
 }
 

@@ -1,6 +1,8 @@
 package hwr.oop.dialog;
 
 import hwr.oop.*;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.LogMode;
 
 import java.io.*;
 import java.time.LocalDate;

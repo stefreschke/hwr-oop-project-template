@@ -1,6 +1,6 @@
 package hwr.oop.handlerTests;
 
-import hwr.oop.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.ToDoList;
 import hwr.oop.handler.HelpHandler;
 import org.junit.jupiter.api.Test;
@@ -40,7 +40,7 @@ class HelpHandlerTest {
                 "[renameBucket, rnb]\u001B[1;35m[index] \u001B[0m - \u001B[1;34mchanges bucket name\u001B[0m\n" +
                 "[clear, cls]\u001B[1;35m\u001B[0m - \u001B[1;34mclear all tasks\u001B[0m\n" +
                 "[exit, q]\u001B[1;35m\u001B[0m - \u001B[1;34mexit the program\u001B[0m\n";
-        HelpHandler.handleUserCommand(toDoList, cui, new String[]{"gtd", "help"});
+        new HelpHandler().handleUserCommand(toDoList, cui, new String[]{"gtd", "help"});
 
 
         assertThat(outBuffer.toString().replace("\r", "")).hasToString(expected);

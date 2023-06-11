@@ -1,7 +1,7 @@
 package hwr.oop.dialog;
 
-import hwr.oop.ConsoleUserInterface;
-import hwr.oop.LogMode;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.LogMode;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -1,5 +1,9 @@
 package hwr.oop;
 
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.LogMode;
+import hwr.oop.handler.BucketHandler;
+import hwr.oop.handler.ExistenceHandler;
 import hwr.oop.handler.SortHandler;
 import hwr.oop.util.ConsoleColors;
 import org.junit.jupiter.api.Test;
@@ -7,10 +11,6 @@ import org.junit.jupiter.api.Test;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ArrayList;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,9 +29,10 @@ class ConsoleUITest {
     @Test
     void getOutputStreamTest() {
         OutputStream outBuffer = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(outBuffer);
         InputStream inputStream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
-        ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
-        assertThat(testConsole.getOutputStream()).isEqualTo(outBuffer);
+        ConsoleUserInterface testConsole = new ConsoleUserInterface(out, inputStream);
+        assertThat(testConsole.getOutputStream()).isEqualTo(out);
     }
 
     @Test
@@ -46,57 +47,12 @@ class ConsoleUITest {
         assertThat(actualOutput).isEqualTo(expectedOutput);
     }
     @Test
-    void listTest() {
-        ArrayList<ToDoItem> toDoItems = new ArrayList<>();
-        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW, LocalDate.now()));
-        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test"), Priority.LOW, LocalDate.now()));
-
-        ToDoList toDoList = new ToDoList("MyList");
-        toDoList.setItems(toDoItems);
-
-        try {
-            String userInput = "MyList\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            testConsole.list(toDoList);
-        
-            String expectedOutput;
-            expectedOutput = "MyList:\n" +
-                    toDoList.getItems().get(0).toString() + "\n" +
-                    toDoList.getItems().get(1).toString() + "\n";
-            String actualOutput = outBuffer.toString().replace("\r", "");
-            assertEquals(expectedOutput, actualOutput);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Test
-    void listEmptyTest() {
-        ToDoList toDoList = new ToDoList("MyList");
-        try {
-            String userInput = "MyList\n";
-            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
-            testConsole.list(toDoList);
-            String expectedOutput;
-            expectedOutput = "MyList:\n" +
-                    "👀Looks Empty here... Add some tasks!\n";
-            String actualOutput = outBuffer.toString().replace("\r", "");
-            assertEquals(expectedOutput, actualOutput);
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-    @Test
     void handleSortTest() {
         ToDoList toDoList = new ToDoList("MyList");
         toDoList.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now()));
-        toDoList.getItems().get(0).setCreatedAt(LocalDateTime.of(2020, 1, 1, 0, 0));
+        toDoList.getItems().get(0).setCreatedAt(LocalDate.of(2020, 1, 1));
         toDoList.add(new ToDoItem("Cucumber", "Water", new Bucket("Vegetable"), Priority.LOW, LocalDate.now().plusDays(1)));
-        toDoList.getItems().get(1).setCreatedAt(LocalDateTime.of(2020, 1, 2, 0, 0));
+        toDoList.getItems().get(1).setCreatedAt(LocalDate.of(2020, 1, 2));
         toDoList.add(new ToDoItem("Banana", "Minions", new Bucket("Weapon"), Priority.HIGH, LocalDate.now().plusDays(2)));
       
         toDoList.sortByPriority("asc");
@@ -144,7 +100,7 @@ class ConsoleUITest {
             System.setOut(new PrintStream(outBuffer));
             assertThat(toDoList.getItems()).hasSize(2);
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            testConsole.remove(toDoList, 0);
+            new ExistenceHandler().remove(testConsole, toDoList, 0);
             String expectedOutput;
             expectedOutput = "Task Removed Successfully!\n";
             String actualOutput = outBuffer.toString().replace("\r", "");
@@ -220,7 +176,7 @@ class ConsoleUITest {
         InputStream inputStream = new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8));
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
         ToDoList toDoList = new ToDoList("Test");
-        testConsole.showBuckets(toDoList);
+        new BucketHandler().showBuckets(toDoList, testConsole);
         String expectedOutput = "\uD83D\uDC40Looks Empty here... Add some buckets!";
         String actualOutput = outBuffer.toString().replace("\r","").replace("\n","");
         assertThat(actualOutput).isEqualTo(expectedOutput);
@@ -233,7 +189,7 @@ class ConsoleUITest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), inputStream);
         ToDoList toDoList = new ToDoList("Test");
         toDoList.addBucket(new Bucket("Test"));
-        testConsole.showBuckets(toDoList);
+        new BucketHandler().showBuckets(toDoList, testConsole);
         String expectedOutput = "🪣Test\n";
         String actualOutput = outBuffer.toString().replace("\r","");
         assertThat(actualOutput).isEqualTo(expectedOutput);

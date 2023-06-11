@@ -1,6 +1,7 @@
 package hwr.oop.handlerTests;
 
 import hwr.oop.*;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.handler.ExistenceHandler;
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +27,7 @@ class ExistenceHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "add", "Task", "Description", "3", "Bucket", "1.1.2020"};
-        ExistenceHandler.handleUserCommand(toDoList, cui, args);
+        new ExistenceHandler().handleUserCommand(toDoList, cui, args);
         assertThat(outBuffer).hasToString("\u001B[1;31mInvalid number of arguments\u001B[0m\n");
 
     }
@@ -37,7 +38,7 @@ class ExistenceHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "addition"};
-        ExistenceHandler.handleUserCommand(toDoList, cui, args);
+        new ExistenceHandler().handleUserCommand(toDoList, cui, args);
         assertThat(outBuffer).hasToString("\u001B[1;31mUnknown command\u001B[0m\n");
 
     }
@@ -49,7 +50,7 @@ class ExistenceHandlerTest {
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         toDoList.setItems(null);
         try {
-            ExistenceHandler.add(toDoList, cui);
+            new ExistenceHandler().add(toDoList, cui);
         } catch (ExistenceHandler.CouldNotAddException | ConsoleUserInterface.CouldNotReadInputException e) {
             assertThat(e).hasMessage("Could not add task");
         }
@@ -61,7 +62,7 @@ class ExistenceHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "add"};
-        ExistenceHandler.handleUserCommand(toDoList, cui, args);
+        new ExistenceHandler().handleUserCommand(toDoList, cui, args);
         assertThat(outBuffer.toString().replace("\r", "")).hasToString("Create a new task\n" +
                 "Please enter a title for your task\n" +
                 "Please enter a description for your task\n" +
@@ -78,7 +79,7 @@ class ExistenceHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "add"};
-        ExistenceHandler.handleUserCommand(toDoList, cui, args);
+        new ExistenceHandler().handleUserCommand(toDoList, cui, args);
         assertThat(outBuffer).hasToString("Create a new task\n" +
                 "Please enter a title for your task\n" +
                 "Please enter a description for your task\n" +
@@ -95,7 +96,7 @@ class ExistenceHandlerTest {
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         toDoList.add(new ToDoItem("Task 1", "Description 1", new Bucket("Bucket 1"), Priority.LOW, LocalDate.now()));
         String[] args = {"gtd", "remove", "1"};
-        ExistenceHandler.handleUserCommand(toDoList, cui, args);
+        new ExistenceHandler().handleUserCommand(toDoList, cui, args);
         assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
                 "Please enter the index of the task you want to remove.\n" +

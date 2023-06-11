@@ -1,6 +1,7 @@
 package hwr.oop.handlerTests;
 
 import hwr.oop.*;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.handler.ClearHandler;
 import hwr.oop.handler.ListHandler;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 
-import static hwr.oop.handler.ClearHandler.clear;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,7 +29,7 @@ class ClearHandlerTest {
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             assertThat(list.getItems()).hasSize(1);
-            ClearHandler.handleUserCommand(list, new ConsoleUserInterface(new PrintStream(outBuffer), System.in), new String[]{"gtd", "clear"});
+            new ClearHandler().handleUserCommand(list, new ConsoleUserInterface(new PrintStream(outBuffer), System.in), new String[]{"gtd", "clear"});
             assertThat(list.getItems()).isNull();
         } finally {
             System.setOut(sysOutBackup);
@@ -43,11 +43,11 @@ class ClearHandlerTest {
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             assertThat(list.getItems()).hasSize(1);
-            clear(list);
+            new ClearHandler().clear(list);
             assertThat(list.getItems()).isNull();
             // Check the program output
             ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-            ListHandler.list(list, testConsole);
+            new ListHandler().list(list, testConsole);
             String expectedOutput;
             expectedOutput = "MyList:\n" +
                     "👀Looks Empty here... Add some tasks!\n";

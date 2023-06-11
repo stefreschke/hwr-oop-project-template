@@ -1,7 +1,7 @@
 package hwr.oop.handler;
 
-import hwr.oop.ConsoleUserInterface;
-import hwr.oop.LogMode;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.LogMode;
 import hwr.oop.ToDoList;
 import hwr.oop.dialog.HandleBadIndexDialog;
 
@@ -10,7 +10,7 @@ public class StateHandler implements HandlerCommandsInterface {
     public StateHandler() {
     }
     @Override
-    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public int handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length >= 2 && args.length <= 3) {
             try {
                 if (args[1].equals("done") || args[1].equals("do")) {
@@ -30,6 +30,7 @@ public class StateHandler implements HandlerCommandsInterface {
         } else {
             cui.print(LogMode.ERROR, "Invalid number of arguments");
         }
+        return 0;
     }
 
     public void done(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
