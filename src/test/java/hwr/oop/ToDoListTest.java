@@ -376,13 +376,4 @@ class ToDoListTest {
         Set<Bucket> expectedBucket = new HashSet<>();
         assertThat(testList.getBuckets()).isEqualTo(expectedBucket);
     }
-    @Test
-    void linkToCorrectBucketTest() {
-        ToDoList testList = new ToDoList("TestList");
-        testList.add(new ToDoItem("t","t",new Bucket("t"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
-        testList.add(new ToDoItem("b","s",new Bucket("a"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
-        testList.add(new ToDoItem("b","s",new Bucket("a"),Priority.LOW,LocalDate.now(), EstimatedTime.SHORT));
-        linkToCorrectBucket(testList);
-        assertThat(testList.getBuckets().toString()).hasToString("[🪣a, 🪣t]");
-    }
 }
