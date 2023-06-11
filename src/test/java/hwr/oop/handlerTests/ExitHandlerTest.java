@@ -40,7 +40,7 @@ class ExitHandlerTest {
         } catch (PersistenceFileNotFoundException e) {
             assertThat(e.getMessage()).isEqualTo("Goodbye!");
         }
-        assertThat(outBuffer).hasToString("\u001B[1;31mCannot process additional arguments.\u001B[0m\n");
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mCannot process additional arguments.\u001B[0m\n");
     }
     @Test
     void handleUserCommandFailedTest() {

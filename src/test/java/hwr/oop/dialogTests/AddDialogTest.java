@@ -37,7 +37,7 @@ class AddDialogTest {
             String title = new AddDialog(testConsole, toDoList).getTitleForAdd();
             assertThat(title).isNotEqualTo("MyItem");
             assertThat(title).isEqualTo("NO TITLE");
-            assertThat(outBuffer).hasToString("Please enter a title for your task\n");
+            assertThat(outBuffer.toString().replace("\r", "")).hasToString("Please enter a title for your task\n");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -51,7 +51,7 @@ class AddDialogTest {
             String title = new AddDialog(testConsole, toDoList).getTitleForAdd();
             assertThat(title).isNotEqualTo("MyItem");
             assertThat(title).isEqualTo("NO TITLE");
-            assertThat(outBuffer).hasToString("Please enter a title for your task\n");
+            assertThat(outBuffer.toString().replace("\r", "")).hasToString("Please enter a title for your task\n");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

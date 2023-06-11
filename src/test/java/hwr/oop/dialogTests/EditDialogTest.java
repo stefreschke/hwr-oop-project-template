@@ -135,6 +135,6 @@ public class EditDialogTest {
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer),
                 new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
         new EditDialog(testConsole, toDoList).end();
-        assertThat(outBuffer).hasToString("\u001B[1;32mTask Edited Successfully!\u001B[0m\n");
+        assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;32mTask Edited Successfully!\u001B[0m\n");
     }
 }
