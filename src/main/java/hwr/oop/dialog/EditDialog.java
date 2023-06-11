@@ -93,8 +93,8 @@ public class EditDialog {
         return item.getPriority();
     }
     public EstimatedTime getEstimatedTimeForEdit(ToDoItem item) throws ConsoleUserInterface.CouldNotReadInputException {
-        this.out.println("Enter new Priority or press enter to skip");
-        this.out.println("1 - yourTime<5min, 2 - 5min<yourTime<30min, 3 - 30min<yourTime<1hr, 4 - yourTime>1hr");
+        this.out.println("Enter new estimated Time or press enter to skip");
+        this.out.println("1 - TaskTime<5min, 2 - 5min<TaskTime<30min, 3 - 30min<TaskTime<1hr, 4 - TaskTime>1hr");
         String et = "-1";
         while (!et.equals("1") && !et.equals("2") && !et.equals("3") && !et.equals("4") &&!et.equals("")) {
             try {

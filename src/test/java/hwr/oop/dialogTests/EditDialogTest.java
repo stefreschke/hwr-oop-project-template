@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class EditDialogTest {
-    public static final ToDoItem toDoItem = new ToDoItem("MyItem", "MyItem",  new Bucket("MyItem"), Priority.HIGH, LocalDate.now());
+    public static final ToDoItem toDoItem = new ToDoItem("MyItem", "MyItem",  new Bucket("MyItem"), Priority.HIGH, LocalDate.now(), EstimatedTime.SHORT);
     public static final ToDoList toDoList = new ToDoList("MyList", "test.json");
     @Test
     void getTitleForEditTest(){
@@ -95,6 +95,32 @@ public class EditDialogTest {
         }
     }
     @Test
+    void getEstimatedTimeForEditTest(){
+        try {
+            String userInput = "3\n";
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer),
+                    new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            EstimatedTime estimatedTime = new EditDialog(testConsole, toDoList).getEstimatedTimeForEdit(toDoItem);
+            assertThat(estimatedTime).isEqualTo(EstimatedTime.XLONG);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
+    void getEstimatedTimeForEditEmptyInputTest(){
+        try {
+            String userInput = "\n";
+            ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
+            ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer),
+                    new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
+            EstimatedTime estimatedTime = new EditDialog(testConsole, toDoList).getEstimatedTimeForEdit(toDoItem);
+            assertThat(estimatedTime).isEqualTo(toDoItem.getEstimatedTime());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    @Test
     void getBucketForEditTest(){
         try {
             String userInput = "MyItem\n";
@@ -122,12 +148,13 @@ public class EditDialogTest {
     }
     @Test
     void startTest() throws ConsoleUserInterface.CouldNotReadInputException {
-        String userInput = "MyItem\nDesc\n1\nMyBucket\n1.1.2020\n";
+        String userInput = "MyItem\nDesc\n1\nMyBucket\n1.1.2020\n1\n";
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer),
                 new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoItem newItem = new EditDialog(testConsole, toDoList).start(toDoItem, 0);
-        assertThat(newItem).hasToString(new ToDoItem("MyItem", "Desc", new Bucket("MyBucket"), Priority.LOW, LocalDate.of(2020,1,1)).toString());
+        assertThat(newItem).hasToString(new ToDoItem("MyItem", "Desc", new Bucket("MyBucket"), Priority.LOW, LocalDate.of(2020,1,1), EstimatedTime.SHORT).toString());
+
     }
     @Test
     void endTest() {

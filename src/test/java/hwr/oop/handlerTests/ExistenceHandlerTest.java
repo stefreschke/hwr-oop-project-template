@@ -45,7 +45,7 @@ class ExistenceHandlerTest {
     @Test
     void addCantAddExceptionTest(){
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
-        String userInput = "Task\nDescription\n3\nBucket\n1.1.2020\n";
+        String userInput = "Task\nDescription\n3\nBucket\n1.1.2020\n3\n";
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         toDoList.setItems(null);
@@ -94,7 +94,7 @@ class ExistenceHandlerTest {
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("y\n0\n".getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
-        toDoList.add(new ToDoItem("Task 1", "Description 1", new Bucket("Bucket 1"), Priority.LOW, LocalDate.now()));
+        toDoList.add(new ToDoItem("Task 1", "Description 1", new Bucket("Bucket 1"), Priority.LOW, LocalDate.now(), EstimatedTime.SHORT));
         String[] args = {"gtd", "remove", "1"};
         new ExistenceHandler().handleUserCommand(toDoList, cui, args);
         assertThat(outBuffer.toString().replace("\r", "")).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +

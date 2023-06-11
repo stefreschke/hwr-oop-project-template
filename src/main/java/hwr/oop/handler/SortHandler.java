@@ -38,6 +38,12 @@ public class SortHandler implements HandlerCommandsInterface{
             } else {
                 toDoList.sortByCreatedAt("desc");
             }
+        } else if (commandArray[2].toLowerCase().contains("est")) {
+            if (commandArray[3].equals("asc")) {
+                toDoList.sortByEstimatedTime("asc");
+            } else {
+                toDoList.sortByEstimatedTime("desc");
+            }
         } else if (commandArray[2].toLowerCase().contains("title")) {
             if (commandArray[3].equals("asc")) {
                 toDoList.sortByTitle("asc");
@@ -68,7 +74,8 @@ public class SortHandler implements HandlerCommandsInterface{
         cui.print(LogMode.NONE,"  priority - sort by priority");
         cui.print(LogMode.NONE,"  createdAt- sort by creation date");
         cui.print(LogMode.NONE,"  dueDate  - sort by due date");
-        cui.print(LogMode.NONE,"  bucket [bucket]- sort by bucket");
+        cui.print(LogMode.NONE,"  estimatedTime - sort by estimated time");
+        cui.print(LogMode.NONE,"  bucket [bucket] - sort by bucket");
         cui.print(LogMode.NONE,"  title    - sort by title");
         cui.print(LogMode.NONE,"  done     - sort by done");
         cui.print(LogMode.NONE,"  help     - print this help");

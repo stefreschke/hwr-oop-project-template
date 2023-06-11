@@ -31,8 +31,8 @@ class ListHandlerTest {
     @Test
     void listTest() {
         ArrayList<ToDoItem> toDoItems = new ArrayList<>();
-        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW, LocalDate.now()));
-        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test"), Priority.LOW, LocalDate.now()));
+        toDoItems.add(new ToDoItem("Test", "Test", new Bucket("Test"), Priority.LOW, LocalDate.now(), EstimatedTime.MEDIUM));
+        toDoItems.add(new ToDoItem("Test2", "Test2", new Bucket("Test"), Priority.LOW, LocalDate.now(), EstimatedTime.MEDIUM));
 
         ToDoList toDoList = new ToDoList("MyList");
         toDoList.setItems(toDoItems);

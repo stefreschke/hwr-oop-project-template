@@ -26,9 +26,9 @@ class ListJsonTest {
         }
 
         ToDoList assertToDoList = new ToDoList("MyList", "data.json");
-        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", new Bucket("Uni"), Priority.HIGH, LocalDate.of(2024,1,1));
-        ToDoItem item2 = new ToDoItem("Calculate Something", "More Math over here", new Bucket("Math"), Priority.MEDIUM, LocalDate.of(2024,1,1));
-        ToDoItem item3 = new ToDoItem("Be Amazing", "Just Do It", new Bucket("Personal"), Priority.LOW, LocalDate.of(2024,1,1));
+        ToDoItem item = new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", new Bucket("Uni"), Priority.HIGH, LocalDate.of(2024,1,1), EstimatedTime.SHORT);
+        ToDoItem item2 = new ToDoItem("Calculate Something", "More Math over here", new Bucket("Math"), Priority.MEDIUM, LocalDate.of(2024,1,1), EstimatedTime.SHORT);
+        ToDoItem item3 = new ToDoItem("Be Amazing", "Just Do It", new Bucket("Personal"), Priority.LOW, LocalDate.of(2024,1,1), EstimatedTime.SHORT);
         assertToDoList.add(item);
         assertToDoList.add(item2);
         assertToDoList.add(item3);

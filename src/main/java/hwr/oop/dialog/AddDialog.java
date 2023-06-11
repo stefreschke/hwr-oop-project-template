@@ -100,8 +100,8 @@ public class AddDialog {
     }
 
     public EstimatedTime getEstimatedTimeForAdd() throws ConsoleUserInterface.CouldNotReadInputException {
-        out.println("Please select a priority for your task");
-        out.println("1 - yourTime<5min, 2 - 5min<yourTime<30min, 3 - 30min<yourTime<1hr, 4 - yourTime>1hr");
+        out.println("Please select an estimated time for your task");
+        out.println("1 - taskTime<5min, 2 - 5min<taskTime<30min, 3 - 30min<taskTime<1hr, 4 - taskTime>1hr");
         String et = "-1";
         while (!et.equals("1") && !et.equals("2") && !et.equals("3") && !et.equals("4")) {
             try {

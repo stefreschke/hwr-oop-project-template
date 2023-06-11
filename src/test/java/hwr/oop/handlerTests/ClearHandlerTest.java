@@ -25,7 +25,7 @@ class ClearHandlerTest {
     void handleUserCommandTest() {
         PrintStream sysOutBackup = System.out;
         ToDoList list = new ToDoList("MyList");
-        list.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now()));
+        list.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now(), EstimatedTime.SHORT));
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             assertThat(list.getItems()).hasSize(1);
@@ -39,7 +39,7 @@ class ClearHandlerTest {
     void clearTest() {
         PrintStream sysOutBackup = System.out;
         ToDoList list = new ToDoList("MyList");
-        list.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now()));
+        list.add(new ToDoItem("Apple", "Computers", new Bucket("Fruit"), Priority.MEDIUM, LocalDate.now(), EstimatedTime.SHORT));
         try {
             ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
             assertThat(list.getItems()).hasSize(1);
