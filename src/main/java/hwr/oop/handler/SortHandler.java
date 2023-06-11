@@ -1,15 +1,16 @@
 package hwr.oop.handler;
 
-import hwr.oop.ConsoleUserInterface;
-import hwr.oop.LogMode;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.LogMode;
 import hwr.oop.ToDoList;
 
 public class SortHandler implements HandlerCommandsInterface{
-    SortHandler() {
+    public SortHandler() {
     }
     @Override
-    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public int handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         initiateSort(cui, toDoList, args);
+        return 0;
     }
     public void initiateSort(ConsoleUserInterface cui, ToDoList toDoList, String[] commandArray) {
         int nCommands = commandArray.length;

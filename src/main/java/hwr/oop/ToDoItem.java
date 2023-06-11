@@ -78,7 +78,7 @@ public class ToDoItem {
         return  state.getStateEmoji() + ' ' + title + '\n' +
                 description + '\n' +
                 "<" +  CYAN_BOLD + bucket.getBucketName() + RESET + ">" +
-                ' ' + priority.getColoredString() + ' ' + dueDate;
+                ' ' + priority.toString() + ' ' + dueDate;
     }
 
     public void promote() {

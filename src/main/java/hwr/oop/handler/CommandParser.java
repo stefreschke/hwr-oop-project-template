@@ -1,6 +1,6 @@
 package hwr.oop.handler;
 
-import hwr.oop.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.ToDoList;
 
 import java.util.Arrays;
@@ -67,11 +67,10 @@ public class CommandParser {
         for (CommandHandler commandElement : EnumSet.allOf(CommandHandler.class)) {
             if (Arrays.asList(commandElement.getCommands()).contains(args[1])) {
                 try {
-                    callHandler(toDoList, commandElement, args);
+                    return callHandler(toDoList, commandElement, args);
                 } catch (Exception e) {
                     throw new CouldNotCallHandlerException();
                 }
-                return 0;
             }
         }
         try {
@@ -81,9 +80,9 @@ public class CommandParser {
         }
         return 1;
     }
-    public void callHandler(ToDoList toDoList, CommandHandler commandElement, String[] userArgs) throws CouldNotCallHandlerException {
+    public int callHandler(ToDoList toDoList, CommandHandler commandElement, String[] userArgs) throws CouldNotCallHandlerException {
         try {
-            commandElement.getHandlerClass().handleUserCommand(toDoList, cui, userArgs);
+            return commandElement.getHandlerClass().handleUserCommand(toDoList, cui, userArgs);
         } catch (Exception e) {
             throw new CouldNotCallHandlerException();
         }

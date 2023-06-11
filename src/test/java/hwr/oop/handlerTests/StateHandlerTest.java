@@ -1,6 +1,7 @@
 package hwr.oop.handlerTests;
 
 import hwr.oop.*;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.handler.StateHandler;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +25,7 @@ class StateHandlerTest {
         toDoList.add(new ToDoItem("Test", "Test",  new Bucket("Test"), Priority.LOW, LocalDate.now()));
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(System.out, new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done", "0"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done", "0"});
         assertThat(toDoList.getItems().get(0).isDone()).isTrue();
     }
     @Test
@@ -33,7 +34,7 @@ class StateHandlerTest {
         toDoList.add(new ToDoItem("Test", "Test",  new Bucket("Test"), Priority.LOW, LocalDate.now()));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done", "1"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done", "1"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         assertThat(outBuffer).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
@@ -46,7 +47,7 @@ class StateHandlerTest {
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         assertThat(outBuffer).hasToString("\u001B[1;33mType gtd help to get help on commands.\u001B[0m\n");
     }
@@ -57,7 +58,7 @@ class StateHandlerTest {
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "doneston"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "doneston"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         assertThat(outBuffer).hasToString("\u001B[1;31mUnknown command\u001B[0m\n");
     }
@@ -68,7 +69,7 @@ class StateHandlerTest {
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done", "0", "1"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "done", "0", "1"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         assertThat(outBuffer).hasToString("\u001B[1;31mInvalid number of arguments\u001B[0m\n");
     }
@@ -78,7 +79,7 @@ class StateHandlerTest {
         toDoList.add(new ToDoItem("Test", "Test",  new Bucket("Test"), Priority.LOW, LocalDate.now()));
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(System.out, new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
         assertThat(toDoList.getItems().get(0).getState()).isEqualTo(State.IN_PROGRESS);
     }
     @Test
@@ -87,7 +88,7 @@ class StateHandlerTest {
         toDoList.add(new ToDoItem("Test", "Test",  new Bucket("Test"), Priority.LOW, LocalDate.now()));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "promote", "1"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "promote", "1"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         assertThat(outBuffer).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
@@ -99,9 +100,9 @@ class StateHandlerTest {
         toDoList.add(new ToDoItem("Test", "Test",  new Bucket("Test"), Priority.LOW, LocalDate.now()));
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(System.out, new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "d", "0"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "d", "0"});
         assertThat(toDoList.getItems().get(0).getState()).isEqualTo(State.IN_PROGRESS);
     }
     @Test
@@ -110,7 +111,7 @@ class StateHandlerTest {
         toDoList.add(new ToDoItem("Test", "Test",  new Bucket("Test"), Priority.LOW, LocalDate.now()));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "demote", "1"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "demote", "1"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         assertThat(outBuffer).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
@@ -122,8 +123,8 @@ class StateHandlerTest {
         toDoList.add(new ToDoItem("Test", "Test",  new Bucket("Test"), Priority.LOW, LocalDate.now()));
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(System.out, new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "hold", "0"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "p", "0"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "hold", "0"});
         assertThat(toDoList.getItems().get(0).getState()).isEqualTo(State.ON_HOLD);
     }
     @Test
@@ -132,7 +133,7 @@ class StateHandlerTest {
         toDoList.add(new ToDoItem("Test", "Test",  new Bucket("Test"), Priority.LOW, LocalDate.now()));
         ByteArrayOutputStream outBuffer = new ByteArrayOutputStream();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream("n\n".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "hold", "1"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "hold", "1"});
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         assertThat(outBuffer).hasToString("\u001B[1;31mThere is nothing at that index... \uD83E\uDD78\u001B[0m\n" +
                 "Try again? (y/n)\n" +
@@ -144,7 +145,7 @@ class StateHandlerTest {
         toDoList.add(new ToDoItem("Test", "Test",  new Bucket("Test"), Priority.LOW, LocalDate.now()));
         assertThat(toDoList.getItems().get(0).isDone()).isFalse();
         ConsoleUserInterface testConsole = new ConsoleUserInterface(System.out, new ByteArrayInputStream("".getBytes(StandardCharsets.UTF_8)));
-        StateHandler.handleUserCommand(toDoList, testConsole, new String[]{"gtd", "hold", "0"});
+        new StateHandler().handleUserCommand(toDoList, testConsole, new String[]{"gtd", "hold", "0"});
         assertThat(toDoList.getItems().get(0).getState()).isEqualTo(State.TODO);
     }
 }

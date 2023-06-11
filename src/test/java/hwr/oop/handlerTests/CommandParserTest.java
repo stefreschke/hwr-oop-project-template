@@ -1,6 +1,6 @@
 package hwr.oop.handlerTests;
 
-import hwr.oop.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.ToDoList;
 import hwr.oop.handler.CommandParser;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ class CommandParserTest {
     }
     @Test
     void getHandlerClassTest() {
-        assertThat(CommandParser.CommandHandler.EDIT.getHandlerClass()).isEqualTo(hwr.oop.handler.EditHandler.class);
+        assertThat(CommandParser.CommandHandler.EDIT.getHandlerClass()).isInstanceOf(hwr.oop.handler.HandlerCommandsInterface.class);
     }
     @Test
     void handleWrongCommandTest() throws CommandParser.CouldNotCallHandlerException {

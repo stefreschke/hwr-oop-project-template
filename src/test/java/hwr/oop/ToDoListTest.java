@@ -4,12 +4,7 @@ import hwr.oop.util.Util;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -52,9 +47,9 @@ class ToDoListTest {
 
     @Test
     void getFileNameTest() {
-        String tetsname = "Test";
-        ToDoList list = new ToDoList("ABC", tetsname);
-        assertThat(list.getFileName()).isEqualTo(tetsname);
+        String testname = "Test";
+        ToDoList list = new ToDoList("ABC", testname);
+        assertThat(list.getFileName()).isEqualTo(testname);
     }
 
     @Test
@@ -88,7 +83,7 @@ class ToDoListTest {
     @Test
     void findBucketNullTest() {
         ToDoList list = new ToDoList("myList");
-        assertThat(list.findBucket("Test")).isEqualTo(null);
+        assertThat(list.findBucket("Test")).isNull();
     }
 
     @Test
@@ -205,9 +200,9 @@ class ToDoListTest {
         list.add(new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", new Bucket("Uni"), Priority.HIGH, LocalDate.now()));
         list.add(new ToDoItem("Calculate Something", "More Math over here", new Bucket("Math"), Priority.MEDIUM, LocalDate.now()));
         list.add(new ToDoItem("Be Amazing", "Just Do It", new Bucket("Personal"), Priority.LOW, LocalDate.now()));
-        list.getItems().get(0).setCreatedAt(LocalDateTime.now().minusHours(2));
-        list.getItems().get(1).setCreatedAt(LocalDateTime.now().minusHours(5));
-        list.getItems().get(2).setCreatedAt(LocalDateTime.now().minusHours(1));
+        list.getItems().get(0).setCreatedAt(LocalDate.now().minusDays(2));
+        list.getItems().get(1).setCreatedAt(LocalDate.now().minusDays(5));
+        list.getItems().get(2).setCreatedAt(LocalDate.now().minusDays(1));
         List<ToDoItem> sortedExpected = new ArrayList<>();
         sortedExpected.add(list.getItems().get(1));
         sortedExpected.add(list.getItems().get(0));
@@ -222,9 +217,9 @@ class ToDoListTest {
         list.add(new ToDoItem("Finish Math homework", "I need to do tasks 5 - 10b.", new Bucket("Uni"), Priority.HIGH, LocalDate.now()));
         list.add(new ToDoItem("Calculate Something", "More Math over here", new Bucket("Math"), Priority.MEDIUM, LocalDate.now()));
         list.add(new ToDoItem("Be Amazing", "Just Do It", new Bucket("Personal"), Priority.LOW, LocalDate.now()));
-        list.getItems().get(0).setCreatedAt(LocalDateTime.now().minusHours(2));
-        list.getItems().get(1).setCreatedAt(LocalDateTime.now().minusHours(5));
-        list.getItems().get(2).setCreatedAt(LocalDateTime.now().minusHours(1));
+        list.getItems().get(0).setCreatedAt(LocalDate.now().minusDays(2));
+        list.getItems().get(1).setCreatedAt(LocalDate.now().minusDays(5));
+        list.getItems().get(2).setCreatedAt(LocalDate.now().minusDays(1));
         List<ToDoItem> sortedExpected = new ArrayList<>();
         sortedExpected.add(list.getItems().get(2));
         sortedExpected.add(list.getItems().get(0));

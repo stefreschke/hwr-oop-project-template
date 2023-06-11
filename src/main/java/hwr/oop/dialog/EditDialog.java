@@ -1,6 +1,8 @@
 package hwr.oop.dialog;
 
 import hwr.oop.*;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.LogMode;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -95,7 +97,12 @@ public class EditDialog {
             bucket = this.reader.readLine();
             if (!bucket.equals("")) {
                 Bucket newBucket = this.toDoList.findBucket(bucket);
-                return newBucket == null ? new Bucket(bucket) : newBucket;
+                if (newBucket == null) {
+                    toDoList.addBucket(new Bucket(bucket));
+                    return toDoList.findBucket(bucket);
+                } else {
+                    return newBucket;
+                }
             } else return item.getBucket();
         } catch (IOException e) {
             this.out.println("Could not read your input... skipping");

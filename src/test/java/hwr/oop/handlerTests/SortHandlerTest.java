@@ -1,6 +1,7 @@
 package hwr.oop.handlerTests;
 
 import hwr.oop.*;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
 import hwr.oop.handler.SortHandler;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -26,7 +26,7 @@ class SortHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "sort", "help"};
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         assertThat(outBuffer.toString()).hasToString("gtd sort [option]\n" +
                 "Options:\n" +
                 "  priority - sort by priority\n" +
@@ -44,7 +44,7 @@ class SortHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "sort"};
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         assertThat(outBuffer).hasToString("gtd sort [option]\n" +
                 "Options:\n" +
                 "  priority - sort by priority\n" +
@@ -62,7 +62,7 @@ class SortHandlerTest {
         ConsoleUserInterface cui = new ConsoleUserInterface(new PrintStream(outBuffer), new ByteArrayInputStream(userInput.getBytes(StandardCharsets.UTF_8)));
         ToDoList toDoList = new ToDoList("MyList", "test.json");
         String[] args = {"gtd", "sort", "prierity", "vertically"};
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         assertThat(outBuffer.toString()).hasToString("gtd sort [option]\n" +
                 "Options:\n" +
                 "  priority - sort by priority\n" +
@@ -88,7 +88,7 @@ class SortHandlerTest {
         String[] args = {"gtd", "sort", "prio", "asc"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();
@@ -112,7 +112,7 @@ class SortHandlerTest {
         String[] args = {"gtd", "sort", "prio", "desc"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();
@@ -133,14 +133,14 @@ class SortHandlerTest {
         toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW, LocalDate.now()));
         toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM, LocalDate.now()));
         toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH, LocalDate.now()));
-        toDoList.getItems().get(0).setCreatedAt(LocalDateTime.now().minusHours(2));
-        toDoList.getItems().get(1).setCreatedAt(LocalDateTime.now().minusHours(5));
-        toDoList.getItems().get(2).setCreatedAt(LocalDateTime.now().minusHours(1));
-        toDoList.getItems().get(3).setCreatedAt(LocalDateTime.now().minusHours(7));
+        toDoList.getItems().get(0).setCreatedAt(LocalDate.now().minusDays(2));
+        toDoList.getItems().get(1).setCreatedAt(LocalDate.now().minusDays(5));
+        toDoList.getItems().get(2).setCreatedAt(LocalDate.now().minusDays(1));
+        toDoList.getItems().get(3).setCreatedAt(LocalDate.now().minusDays(7));
         String[] args = {"gtd", "sort", "create", "asc"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();
@@ -161,14 +161,14 @@ class SortHandlerTest {
         toDoList.add(new ToDoItem("Task 2", "Description 2", bucket1, Priority.LOW, LocalDate.now()));
         toDoList.add(new ToDoItem("Task 3", "Description 3", bucket1, Priority.MEDIUM, LocalDate.now()));
         toDoList.add(new ToDoItem("Task 4", "Description 4", bucket1, Priority.HIGH, LocalDate.now()));
-        toDoList.getItems().get(0).setCreatedAt(LocalDateTime.now().minusHours(2));
-        toDoList.getItems().get(1).setCreatedAt(LocalDateTime.now().minusHours(5));
-        toDoList.getItems().get(2).setCreatedAt(LocalDateTime.now().minusHours(1));
-        toDoList.getItems().get(3).setCreatedAt(LocalDateTime.now().minusHours(7));
+        toDoList.getItems().get(0).setCreatedAt(LocalDate.now().minusDays(2));
+        toDoList.getItems().get(1).setCreatedAt(LocalDate.now().minusDays(5));
+        toDoList.getItems().get(2).setCreatedAt(LocalDate.now().minusDays(1));
+        toDoList.getItems().get(3).setCreatedAt(LocalDate.now().minusDays(7));
         String[] args = {"gtd", "sort", "create", "desc"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();
@@ -193,7 +193,7 @@ class SortHandlerTest {
         String[] args = {"gtd", "sort", "title", "asc"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();
@@ -217,7 +217,7 @@ class SortHandlerTest {
         String[] args = {"gtd", "sort", "title", "desc"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();
@@ -243,7 +243,7 @@ class SortHandlerTest {
         String[] args = {"gtd", "sort", "done", "asc"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();
@@ -268,7 +268,7 @@ class SortHandlerTest {
         String[] args = {"gtd", "sort", "done", "desc"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();
@@ -292,7 +292,7 @@ class SortHandlerTest {
         String[] args = {"gtd", "sort", "due", "asc"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();
@@ -316,7 +316,7 @@ class SortHandlerTest {
         String[] args = {"gtd", "sort", "due", "desc"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();
@@ -339,7 +339,7 @@ class SortHandlerTest {
         String[] args = {"gtd", "sort", "bucket", "Bucket 1"};
 
         // Act
-        SortHandler.handleUserCommand(toDoList, cui, args);
+        new SortHandler().handleUserCommand(toDoList, cui, args);
         String[] titles = new String[4];
         for (int i = 0; i < 4; i++) {
             titles[i] = toDoList.getItems().get(i).getTitle();

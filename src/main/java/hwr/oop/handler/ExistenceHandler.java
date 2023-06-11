@@ -1,14 +1,16 @@
 package hwr.oop.handler;
 
 import hwr.oop.*;
+import hwr.oop.ConsoleUserInterface.ConsoleUserInterface;
+import hwr.oop.ConsoleUserInterface.LogMode;
 import hwr.oop.dialog.AddDialog;
 import hwr.oop.dialog.HandleBadIndexDialog;
 
 public class ExistenceHandler implements HandlerCommandsInterface {
-    ExistenceHandler() {
+    public ExistenceHandler() {
     }
     @Override
-    public void handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
+    public int handleUserCommand(ToDoList toDoList, ConsoleUserInterface cui, String[] args) {
         if (args.length == 2 || args.length == 3) {
             try {
                 if (args[1].equals("add") || args[1].equals("a")) {
@@ -26,6 +28,7 @@ public class ExistenceHandler implements HandlerCommandsInterface {
         } else {
             cui.print(LogMode.ERROR, "Invalid number of arguments");
         }
+        return 0;
     }
     public void add(ToDoList toDoList, ConsoleUserInterface cui) throws CouldNotAddException, ConsoleUserInterface.CouldNotReadInputException {
         AddDialog addDialog = new AddDialog(cui, toDoList);
