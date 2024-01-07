@@ -14,10 +14,11 @@
         <!-- java -->
         <java.version>21</java.version>
         <!-- kotlin -->
-        <kotlin.version>1.7.20</kotlin.version>
+        <kotlin.version>1.9.22</kotlin.version>
         <!-- build tool -->
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <maven-compiler-plugin.version>3.12.1</maven-compiler-plugin.version>
         <!-- testing -->
         <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
         <junit.version>5.9.2</junit.version>
@@ -64,8 +65,8 @@
                         </goals>
                         <configuration>
                             <sourceDirs>
-                                <source>src/main/java</source>
                                 <source>src/main/kotlin</source>
+                                <source>src/main/java</source>
                             </sourceDirs>
                         </configuration>
                     </execution>
@@ -90,6 +91,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>compile</id>
