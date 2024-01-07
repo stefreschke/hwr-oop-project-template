@@ -2,7 +2,8 @@
 
 [TODO]: # (Change README.md Headline to better fit to your project!)
 
-This repository contains a student project created for an ongoing lecture on object-oriented programming with Java at HWR Berlin (summer term 2023).
+This repository contains a student project created for an ongoing lecture on object-oriented programming 
+with Java at HWR Berlin (summer term 2024).
 
 > :warning: This code is for educational purposes only. Do not rely on it!
 
@@ -38,11 +39,13 @@ Use a fork of this repository to do implement your project.
 Remember to add this repository as a second remote repository (upstream) and pull from the correct remotes.
 This is necessary, because we might apply changes to this template during the next month.
 
-The following section describes how to add multiple remote repositories to your local repository, which is cloned from the fork.
+The following section describes how to add multiple remote repositories to your local repository, 
+which is cloned from the fork.
 
 ### Multiple remote repositories
 
-Your local repository should have a reference to both the fork (your own remote repository) and the original remote repository.
+Your local repository should have a reference to both the fork (your own remote repository) 
+and the original remote repository.
 To configure your git remote repositories, use the `git remote` command set.
 
 1. Clone your fork and go enter the repository.
