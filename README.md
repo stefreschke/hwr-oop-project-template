@@ -7,6 +7,26 @@ with Java at HWR Berlin (summer term 2024).
 
 > :warning: This code is for educational purposes only. Do not rely on it!
 
+## Local Development
+
+This project uses [Apache Maven](https://maven.apache.org/) as build tool.
+
+To build from your shell (without an additional local installation of Maven), ensure that `./mvnw` is executable:
+
+```
+chmod +x ./mvnw
+```
+
+I recommend not to dive into details about Maven at the beginning.
+Instead, you can use [just](https://github.com/casey/just) to build the project.
+It reads the repositories `justfile` which maps simplified commands to corresponding sensible Maven calls.
+
+With _just_ installed, you can simply run this command to perform a build of this project and run all of its tests:
+
+```
+just build
+```
+
 ## Abstract
 
 [TODO]: # (Write a short description of your project.)
