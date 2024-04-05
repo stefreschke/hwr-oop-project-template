@@ -1,4 +1,4 @@
-# HWR OOP Lecture Project Template
+# CHESS GAME by Hyejin, Aylin, Jonas and Theo!
 
 [TODO]: # (Change README.md Headline to better fit to your project!)
 
