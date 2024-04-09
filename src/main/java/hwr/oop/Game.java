@@ -6,7 +6,7 @@ import java.util.List;
 public class Game {
 
     private static final int NUM_PLAYERS = 4;
-    private static final int NUM_CARDS_PER_PLAYER = 8;
+    private static final int NUM_CARDS_PER_PLAYER = 12;
 
     public static void main(String[] args) {
         CardStack stack = new CardStack();

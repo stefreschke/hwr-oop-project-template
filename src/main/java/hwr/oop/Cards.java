@@ -4,7 +4,7 @@ public class Cards {
 
 
     public static String[] generateCards() {
-        String[] symbols = {"7", "8", "9", "10", "J", "Q", "K", "A"};
+        String[] symbols = {"9", "10", "J", "Q", "K", "A"};
         String[] colours = {"H", "D", "C", "S"};
 
         String[] skatCards = new String[symbols.length * colours.length];
