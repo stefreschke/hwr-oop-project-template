@@ -9,11 +9,11 @@ public class Card {
         this.symbol = symbol;
     }
 
-    public String getColour() {
+    public CardColours getColour() {
         return colour;
     }
 
-    public void setColour(String colour) {
+    public void setColour(CardColours colour) {
         this.colour = colour;
     }
 
@@ -26,19 +26,12 @@ public class Card {
     }
 
     String symbol;
-    String colour;
+    CardColours colour;
     int value; //Strenght of the card
     int worth; //Worth of the Card
     String name;
 
-    enum colour {
-        Clubs,
-        Ceart,
-        Spades,
-        Trump
-    }
-
-    public Card(String symbol, String colour, int value, String name, int worth) {
+    public Card(String symbol, CardColours colour, int value, String name, int worth) {
         this.symbol = symbol;
         this.colour = colour;
         this.value = value;
