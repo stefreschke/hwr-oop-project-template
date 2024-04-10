@@ -13,5 +13,4 @@ class ExampleTest {
     Assertions.assertThat(result).startsWith("Hello").endsWith("World!");
   }
 }
-
-//test
+// test
