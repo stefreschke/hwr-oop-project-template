@@ -1,22 +1,45 @@
 package hwr.oop;
 
 import hwr.oop.pieces.Piece;
+import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
     ChessBoard chessBoard = new ChessBoard();
     printChessBoard(chessBoard.getBoard());
 
-    // Beispiel-Zug: Bewegung der Figur 'Q' von (7, 3) nach (5, 3)
-    chessBoard.movePiece(new Position(7, 3), new Position(5, 3));
+    Scanner scanner = new Scanner(System.in);
 
-    // Bewege den linken weißen Turm um 4 Felder nach vorne
-    chessBoard.movePiece(new Position(7, 0), new Position(3, 0));
+    // Loop for multiple moves
+    boolean continueGame = true;
+    while (continueGame) {
+      System.out.println("Enter the current position (e.g., 'a1'):");
+      String fromInput = scanner.nextLine();
+      System.out.println("Enter the target position (e.g., 'a3'):");
+      String toInput = scanner.nextLine();
 
+      Position from = convertInputToPosition(fromInput);
+      Position to = convertInputToPosition(toInput);
 
+      boolean moveSuccessful = chessBoard.movePiece(from, to);
 
-    System.out.println(); // Leerzeile für bessere Lesbarkeit
-    printChessBoard(chessBoard.getBoard());
+      if (moveSuccessful) {
+        System.out.println("The piece has been successfully moved.");
+      } else {
+        System.out.println("Invalid move.");
+      }
+
+      System.out.println(); // Blank line for readability
+      printChessBoard(chessBoard.getBoard());
+
+      // Check if the user wants to continue
+      System.out.println("Do you want to make another move? (yes/no)");
+      String continueInput = scanner.nextLine();
+      continueGame = continueInput.equalsIgnoreCase("yes");
+    }
+
+    // Close the scanner to release resources
+    scanner.close();
   }
 
   public static void printChessBoard(Piece[][] board) {
@@ -31,8 +54,16 @@ public class Main {
           System.out.print(". ");
         }
       }
-      System.out.println("|");
+      System.out.println("|" + (8 - i));
     }
+
     System.out.println(" +-----------------+");
+    System.out.println("  a b c d e f g h");
+  }
+
+  public static Position convertInputToPosition(String input) {
+    int column = input.charAt(0) - 'a';
+    int row = 8 - Character.getNumericValue(input.charAt(1));
+    return new Position(row, column);
   }
 }
