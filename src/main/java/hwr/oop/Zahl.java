@@ -3,7 +3,7 @@ package hwr.oop;
 import java.util.Arrays;
 import java.util.List;
 
-public enum Zahlen {
+public enum Zahl {
   Sieben(0),
   Acht(0),
   Neun(0),
@@ -15,7 +15,7 @@ public enum Zahlen {
 
   private int Wert;
 
-  private Zahlen(int neuerWert) {
+  private Zahl(int neuerWert) {
     this.Wert = neuerWert;
   }
 
@@ -23,7 +23,7 @@ public enum Zahlen {
     return Wert;
   }
 
-  public List<Zahlen> getZahlen() {
-    return Arrays.asList(Zahlen.values());
+  public static List<Zahl> getZahlen() {
+    return Arrays.asList(Zahl.values());
   }
 }

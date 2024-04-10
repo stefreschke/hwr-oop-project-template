@@ -3,7 +3,7 @@ package hwr.oop;
 import java.util.Arrays;
 import java.util.List;
 
-public enum Farben {
+public enum Farbe {
   Kreuz(1),
   Herz(2),
   Pik(2),
@@ -11,7 +11,7 @@ public enum Farben {
 
   private int Wert;
 
-  private Farben(int neuerWert) {
+  private Farbe(int neuerWert) {
     this.Wert = neuerWert;
   }
 
@@ -19,7 +19,7 @@ public enum Farben {
     return Wert;
   }
 
-  public List<Zahlen> getZahlen() {
-    return Arrays.asList(Zahlen.values());
+  public static List<Farbe> getFarben() {
+    return Arrays.asList(Farbe.values());
   }
 }
