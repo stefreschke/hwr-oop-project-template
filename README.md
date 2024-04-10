@@ -1,6 +1,4 @@
-# CHESS GAME by Hyejin, Aylin, Jonas and Theo!
-
-[TODO]: # (Change README.md Headline to better fit to your project!)
+# CHESS GAME by Hyejin, Aylin, Vasja, Jonas and Theo!
 
 This repository contains a student project created for an ongoing lecture on object-oriented programming 
 with Java at HWR Berlin (summer term 2024).
