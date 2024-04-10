@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>hwr.oop.students.projects</groupId>
   <!-- TODO Enter project name (no spaces) here! -->
-  <artifactId>TODO_ENTER_YOUR_PROJECT_NAME_HERE</artifactId>
+  <artifactId>project</artifactId>
   <version>0.1.0</version>
   <!-- TODO Enter project name (no spaces) here! -->
   <name>TODO_ENTER_YOUR_PROJECT_NAME_HERE</name>
