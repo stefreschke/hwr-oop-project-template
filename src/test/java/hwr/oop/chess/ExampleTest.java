@@ -5,10 +5,11 @@ import org.junit.jupiter.api.Test;
 
 // TODO Delete this placeholder test.
 class ExampleTest {
-    @Test
-    void get_IsTrue() {
-        Example example = new Example();
-        boolean result = example.get();
-        Assertions.assertThat(result).isTrue();
-    }
+
+  @Test
+  void get_IsTrue() {
+    Example example = new Example();
+    String result = example.get();
+    Assertions.assertThat(result).startsWith("Hello").endsWith("World!");
+  }
 }
