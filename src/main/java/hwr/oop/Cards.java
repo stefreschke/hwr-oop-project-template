@@ -1,4 +1,3 @@
 package hwr.oop;
 
-public class Cards {
-}
+public class Cards {}
