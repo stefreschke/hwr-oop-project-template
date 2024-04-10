@@ -27,14 +27,23 @@ public class Card {
 
     String symbol;
     String colour;
-    int value;
+    int value; //Strenght of the card
+    int worth; //Worth of the Card
     String name;
 
-    public Card(String symbol, String colour, int value) {
+    enum colour {
+        Clubs,
+        Ceart,
+        Spades,
+        Trump
+    }
+
+    public Card(String symbol, String colour, int value, String name, int worth) {
         this.symbol = symbol;
         this.colour = colour;
         this.value = value;
-        this.name = symbol + colour;
+        this.name = name;
+        this.worth = worth;
     }
 
     public String getName() {

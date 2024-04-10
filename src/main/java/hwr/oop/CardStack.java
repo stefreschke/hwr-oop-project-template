@@ -7,9 +7,14 @@ public class CardStack {
     private Card[] cardStack;
 
     public CardStack() {
+        cardStack = this.generateStack();
+    }
 
-        cardStack = Cards.generateCards();
-
+    public Card[] generateStack() {
+        Card[] cardStack = new Card[]{
+                //TODO: Create every card
+        };
+        return cardStack;
     }
 
     public void shuffleStack() {
