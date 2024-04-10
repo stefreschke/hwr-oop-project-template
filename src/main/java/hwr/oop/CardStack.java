@@ -12,6 +12,7 @@ public class CardStack {
 
     public Card[] generateStack() {
         Card[] cardStack = new Card[]{
+                new Card("9", CardColours.Trump, 0, "D9", 0)
                 //TODO: Create every card
         };
         return cardStack;
