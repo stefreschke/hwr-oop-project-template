@@ -15,36 +15,15 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <!-- testing -->
-        <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-        <junit.version>5.9.2</junit.version>
-        <assertj.version>3.24.2</assertj.version>
-        <!-- other -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.2</junit.version>
+        <assertj.version>3.25.3</assertj.version> <!-- used as assertion library -->
+        <archunit.version>1.2.1</archunit.version>  <!-- used to enforce architectural decisions -->
+        <pitest-maven.version>1.15.8</pitest-maven.version> <!-- used to do mutation testing -->
+        <pitest-junit5-plugin.version>1.2.1
+        </pitest-junit5-plugin.version> <!-- used to enable pitest to use junit 5 -->
+        <mockito-core.version>5.11.0</mockito-core.version> <!-- used as mocking library -->
+        <surefire-plugin.version>3.2.5</surefire-plugin.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>central</id>
-            <name>Maven Central</name>
-            <layout>default</layout>
-            <url>https://repo1.maven.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    <pluginRepositories>
-        <pluginRepository>
-            <id>central</id>
-            <name>Maven Central</name>
-            <layout>default</layout>
-            <url>https://repo1.maven.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
     <dependencies>
         <!-- testing -->
         <dependency>
@@ -71,6 +50,24 @@
             <version>${assertj.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit</artifactId>
+            <version>${archunit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito-core.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -80,6 +77,27 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/templates</directory>
+                        <filtering>true</filtering>
+                        <targetPath>${project.build.directory}/classes</targetPath>
+                    </resource>
+                    <resource>
+                        <directory>src/main/docker</directory>
+                        <filtering>true</filtering>
+                        <targetPath>${project.build.directory}</targetPath>
+                    </resource>
+                    <resource>
+                        <directory>target/generated-sources/openapi/src/main/java</directory>
+                        <includes>
+                            <include>**/*.java</include>
+                            <include>**/*.properties</include>
+                            <include>**/*.xml</include>
+                        </includes>
+                    </resource>
+                </resources>
+
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -89,7 +107,7 @@
                     <plugin>
                         <groupId>org.pitest</groupId>
                         <artifactId>pitest-maven</artifactId>
-                        <version>1.11.0</version>
+                        <version>${pitest-maven.version}</version>
                         <configuration>
                             <targetClasses>
                                 <param>hwr.oop*</param>
@@ -102,7 +120,7 @@
                             <dependency>
                                 <groupId>org.pitest</groupId>
                                 <artifactId>pitest-junit5-plugin</artifactId>
-                                <version>1.1.2</version>
+                                <version>${pitest-junit5-plugin.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>
