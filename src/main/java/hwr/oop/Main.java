@@ -1,17 +1,21 @@
 package hwr.oop;
 
+import hwr.oop.pieces.Piece;
+
 public class Main {
   public static void main(String[] args) {
     ChessBoard chessBoard = new ChessBoard();
     printChessBoard(chessBoard.getBoard());
-    Position from = new Position(7, 3);
-    Position to = new Position(5, 3);
-    boolean moveSuccessful = chessBoard.movePiece(from, to);
-    if (moveSuccessful) {
-      System.out.println("Die Figur 'Q' wurde erfolgreich von (7, 3) nach (5, 3) bewegt.");
-    } else {
-      System.out.println("Die Bewegung der Figur 'Q' von (7, 3) nach (5, 3) war ungültig.");
-    }
+
+    // Beispiel-Zug: Bewegung der Figur 'Q' von (7, 3) nach (5, 3)
+    chessBoard.movePiece(new Position(7, 3), new Position(5, 3));
+
+    // Bewege den linken weißen Turm um 4 Felder nach vorne
+    chessBoard.movePiece(new Position(7, 0), new Position(3, 0));
+
+
+
+    System.out.println(); // Leerzeile für bessere Lesbarkeit
     printChessBoard(chessBoard.getBoard());
   }
 
@@ -22,7 +26,7 @@ public class Main {
       System.out.print(8 - i + "| ");
       for (int j = 0; j < 8; j++) {
         if (board[i][j] != null) {
-          System.out.print(board[i][j].getName() + " ");
+          System.out.print(board[i][j].getSymbol() + " ");
         } else {
           System.out.print(". ");
         }
@@ -31,5 +35,4 @@ public class Main {
     }
     System.out.println(" +-----------------+");
   }
-
 }
