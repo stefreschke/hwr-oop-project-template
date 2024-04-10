@@ -5,31 +5,23 @@ public class Card {
         return symbol;
     }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
     public CardColours getColour() {
         return colour;
-    }
-
-    public void setColour(CardColours colour) {
-        this.colour = colour;
     }
 
     public int getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    public String getName() {
+        return name;
     }
 
-    String symbol;
-    CardColours colour;
-    int value; //Strenght of the card
-    int worth; //Worth of the Card
-    String name;
+    final String symbol;
+    final CardColours colour;
+    final int value; //Strenght of the card
+    final int worth; //Worth of the Card
+    final String name;
 
     public Card(String symbol, CardColours colour, int value, String name, int worth) {
         this.symbol = symbol;
@@ -38,16 +30,4 @@ public class Card {
         this.name = name;
         this.worth = worth;
     }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-
-
 }
