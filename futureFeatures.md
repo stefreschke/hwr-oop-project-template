@@ -3,6 +3,7 @@
 - [ ] Figuren Klasse
   - [ ] Zug Methode
   - [ ] Basis für Bauern, Dame etc. (Vererbung, Polymorphismus)
+  - [ ] Bauern schlagen
 - [ ] Spiel
   - [ ] Start/neues Spiel
   - [ ] Sieger/Verlierer/Unentschieden
@@ -18,6 +19,7 @@
 - [ ] Turnier
   - [ ] laden
   - [ ] speichern
+- [ ] isBlocked
 
 ## Maybe:
 - [ ] Entwicklung
