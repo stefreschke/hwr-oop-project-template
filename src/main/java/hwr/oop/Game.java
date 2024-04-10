@@ -11,29 +11,39 @@ public class Game {
     public static void main(String[] args) {
         CardStack stack = new CardStack();
         stack.shuffleStack();
-        String[] cardStack = stack.getCardStack();
+        Card[] cardStack = stack.getCardStack();
 
-        List<String> cardList = new ArrayList<>(List.of(cardStack));
+        List<Card> cardList = new ArrayList<>();
+        for (Card card : cardStack) {
+            cardList.add(card);
+        }
 
-        List<List<String>> players = new ArrayList<>();
+        List<List<Card>> players = new ArrayList<>();
         for (int i = 0; i < NUM_PLAYERS; i++) {
             players.add(new ArrayList<>());
         }
 
         for (int i = 0; i < NUM_CARDS_PER_PLAYER; i++) {
-            for (List<String> player : players) {
+            for (List<Card> player : players) {
                 if (!cardList.isEmpty()) {
                     int randomIndex = (int) (Math.random() * cardList.size());
-                    String card = cardList.remove(randomIndex);
+                    Card card = cardList.remove(randomIndex);
                     player.add(card);
                 }
             }
         }
 
         for (int i = 0; i < NUM_PLAYERS; i++) {
+            List<String> hand = new ArrayList<>();
+            for (Card card : players.get(i)) {
+                hand.add(card.getName());
+            }
+            System.out.println("Player " + (i + 1) + "'s hand: " + hand);
             System.out.println("Player " + (i + 1) + "'s hand: " + players.get(i));
         }
+
     }
 }
+
 
 
