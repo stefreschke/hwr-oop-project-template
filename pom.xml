@@ -4,12 +4,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>hwr.oop.students.projects</groupId>
-  <!-- TODO Enter project name (no spaces) here! -->
+
   <artifactId>Doppelkopf</artifactId>
   <version>0.1.0</version>
-  <!-- TODO Enter project name (no spaces) here! -->
+
   <name>Doppelkopf</name>
-  <!-- TODO Enter a short project description (one sentence, no spaces) here! -->
+
   <description>EIN_KARTENSPIEL_FÜR_VIER_PERSONEN</description>
   <properties>
     <!-- java -->
