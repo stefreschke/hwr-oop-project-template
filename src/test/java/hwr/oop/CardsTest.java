@@ -12,6 +12,7 @@ class CardsTest {
       for (Color type : Color.values()) {
           for (Type value : Type.values()) {
               assertTrue(game.hasCard(type, value), "Karte " + type + " " + value + " fehlt im Spiel.");
+              System.out.println(type + " " + value + " Wert: " + value.getValue());
           }
       }
   }
