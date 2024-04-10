@@ -2,22 +2,23 @@ package hwr.oop;
 
 public class Cards {
 
-
     public static String[] generateCards() {
         String[] symbols = {"9", "10", "J", "Q", "K", "A"};
         String[] colours = {"H", "D", "C", "S"};
 
-        String[] skatCards = new String[symbols.length * colours.length];
+        String[] generatedCards = new String[symbols.length * colours.length * 2];
         int index = 0;
         for (String symbol : symbols) {
             for (String colour : colours) {
                 String cardName = colour + symbol;
-                skatCards[index++] = cardName;
+                generatedCards[index++] = cardName;
+                generatedCards[index++] = cardName;
             }
         }
-        return skatCards;
+        return generatedCards;
     }
 }
+
 
 
 
