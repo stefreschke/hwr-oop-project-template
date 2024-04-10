@@ -5,9 +5,9 @@ import java.util.List;
 
 public enum Farbe {
   Kreuz(1),
-  Herz(2),
+  Herz(3),
   Pik(2),
-  Karo(3);
+  Karo(4);
 
   private int Wert;
 

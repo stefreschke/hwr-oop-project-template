@@ -1,16 +1,18 @@
 package hwr.oop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class KartenStarpel {
     KartenStarpel(List<Spieler> spielers) {
-        List<Karte> karten;
-        List<Zahl> Zahlen = Zahl.getZahlen();
+        //TODO warum Array List ?
+        List<Karte> karten = new ArrayList<>();
+        List<Wert> Werte = Wert.getZahlen();
         List<Farbe> Farben = Farbe.getFarben();
-        for(Zahl zahl : Zahlen) {
+        for(Wert wert : Werte) {
             for(Farbe farbe : Farben) {
-                //Karte adden
-                //karten.add();
+                karten.add(new Karte(farbe,wert));
+
             }
         }
     }
