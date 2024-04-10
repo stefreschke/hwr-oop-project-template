@@ -1,9 +1,15 @@
 package hwr.oop.chess.application.figures;
 
-import hwr.oop.chess.application.figures.Figure;
-
-public class PawnFigure extends Figure {
+public class PawnFigure implements Figure {
+    private final FigureColor color;
     public PawnFigure(FigureColor color) {
-        super(FigureType.PAWN, color);
+        this.color = color;
+    }
+
+    public FigureColor color() {
+        return color;
+    }
+    public FigureType type () {
+        return FigureType.PAWN;
     }
 }

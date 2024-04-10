@@ -5,10 +5,18 @@ import org.junit.jupiter.api.Test;
 
 class FigureTest {
     @Test
-    void createPawn() {
+    void createBlackPawn() {
         PawnFigure pawn = new PawnFigure(FigureColor.BLACK);
 
-        Assertions.assertThat(pawn.getColor()).isEqualTo(FigureColor.BLACK);
-        Assertions.assertThat(pawn.getType()).isEqualTo(FigureType.PAWN);
+        Assertions.assertThat(pawn.color()).isEqualTo(FigureColor.BLACK);
+        Assertions.assertThat(pawn.type()).isEqualTo(FigureType.PAWN);
+    }
+
+    @Test
+    void createWhitePawn() {
+        PawnFigure pawn = new PawnFigure(FigureColor.WHITE);
+
+        Assertions.assertThat(pawn.color()).isEqualTo(FigureColor.WHITE);
+        Assertions.assertThat(pawn.type()).isEqualTo(FigureType.PAWN);
     }
 }
