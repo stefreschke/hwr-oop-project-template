@@ -57,5 +57,19 @@ public class Board {
     }
   }
 
-  public void changePos() {}
+  public void changePos(int oldX, int oldY, int newX, int newY) {
+    if(this.board[oldX][oldY] == null) {
+      //TODO: log an error
+      return;
+    }
+    if(!this.board[oldX][oldY].isValidMove(newX, newY)) {
+      //TODO: log an error
+      return;
+    }
+    if(this.board[newX][newY] != null) {
+      //TODO: log piece captured
+    }
+    this.board[newX][newY] = this.board[oldX][oldY];
+    this.board[oldX][oldY] = null;
+  }
 }
