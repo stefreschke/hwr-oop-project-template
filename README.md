@@ -1,6 +1,4 @@
-# CHESS GAME by Hyejin, Aylin, Jonas and Theo!
-
-[TODO]: # (Change README.md Headline to better fit to your project!)
+# CHESS GAME in CLI
 
 This repository contains a student project created for an ongoing lecture on object-oriented programming 
 with Java at HWR Berlin (summer term 2024).
@@ -51,16 +49,6 @@ just build
 | 1      | /               | /                      | /                    |
 
 ## Instructions
-
-[TODO]: # (Remove these instructions once you finished your fork's setup.)
-
-Use a fork of this repository to do implement your project.
-
-Remember to add this repository as a second remote repository (upstream) and pull from the correct remotes.
-This is necessary, because we might apply changes to this template during the next month.
-
-The following section describes how to add multiple remote repositories to your local repository, 
-which is cloned from the fork.
 
 ### Multiple remote repositories
 

@@ -1,4 +1,4 @@
-package hwr.oop;
+package hwr.oop.chess;
 
 // TODO Delete this placeholder SUT.
 class Example {
