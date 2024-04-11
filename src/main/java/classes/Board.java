@@ -72,57 +72,57 @@ public class Board {
               Piece.PieceType.BAUER.getAbbr());
     }
 
-    this.board[0][8] =
+    this.board[0][7] =
         new Piece(
-            new int[] {0, 8},
+            new int[] {0, 7},
             Piece.PieceType.TURM.getMoves(),
             Piece.Color.BLACK,
             Piece.PieceType.TURM.getAbbr());
-    this.board[1][8] =
+    this.board[1][7] =
         new Piece(
-            new int[] {1, 8},
+            new int[] {1, 7},
             Piece.PieceType.SPRINGER.getMoves(),
             Piece.Color.BLACK,
             Piece.PieceType.SPRINGER.getAbbr());
-    this.board[2][8] =
+    this.board[2][7] =
         new Piece(
-            new int[] {2, 8},
+            new int[] {2, 7},
             Piece.PieceType.LAEUFER.getMoves(),
             Piece.Color.BLACK,
             Piece.PieceType.LAEUFER.getAbbr());
-    this.board[3][8] =
+    this.board[3][7] =
         new Piece(
-            new int[] {3, 8},
+            new int[] {3, 7},
             Piece.PieceType.DAME.getMoves(),
             Piece.Color.BLACK,
             Piece.PieceType.DAME.getAbbr());
-    this.board[4][8] =
+    this.board[4][7] =
         new Piece(
-            new int[] {4, 8},
+            new int[] {4, 7},
             Piece.PieceType.KOENIG.getMoves(),
             Piece.Color.BLACK,
             Piece.PieceType.KOENIG.getAbbr());
-    this.board[5][8] =
+    this.board[5][7] =
         new Piece(
-            new int[] {5, 8},
+            new int[] {5, 7},
             Piece.PieceType.LAEUFER.getMoves(),
             Piece.Color.BLACK,
             Piece.PieceType.LAEUFER.getAbbr());
-    this.board[6][8] =
+    this.board[6][7] =
         new Piece(
-            new int[] {6, 8},
+            new int[] {6, 7},
             Piece.PieceType.SPRINGER.getMoves(),
             Piece.Color.BLACK,
             Piece.PieceType.SPRINGER.getAbbr());
-    this.board[7][8] =
+    this.board[7][7] =
         new Piece(
-            new int[] {7, 8},
+            new int[] {7, 7},
             Piece.PieceType.TURM.getMoves(),
             Piece.Color.BLACK,
             Piece.PieceType.TURM.getAbbr());
 
     for (int i = 0; i < 8; i++) {
-      this.board[i][7] = new Piece(new int[] {i, 7}, new int[][] {{0, 1}}, Piece.Color.BLACK, 'b');
+      this.board[i][6] = new Piece(new int[] {i, 6}, new int[][] {{0, 1}}, Piece.Color.BLACK, 'b');
     }
   }
 
