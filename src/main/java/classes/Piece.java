@@ -6,6 +6,31 @@ public class Piece {
     WHITE
   }
 
+  public enum PieceType {
+    BAUER('b', new int[][] {{0, 1}}),
+    TURM('t', new int[][] {{0, 1}, {1, 0}}),
+    SPRINGER('s', new int[][] {{2, 1}, {2, -1}, {1, 2}, {-1, 2}}),
+    LAEUFER('l', new int[][] {{1, 1}, {-1, 1}}),
+    KOENIG('k', new int[][] {{0, 1}, {1, 0}, {1, 1}, {-1, 1}}),
+    DAME('d', new int[][] {{0, 1}, {1, 0}, {1, 1}, {-1, 1}});
+
+    private final char abbr;
+    private final int[][] moves;
+
+    PieceType(char abbr, int[][] moves) {
+      this.abbr = abbr;
+      this.moves = moves;
+    }
+
+    public char getAbbr() {
+      return abbr;
+    }
+
+    public int[][] getMoves() {
+      return moves;
+    }
+  }
+
   private int[] actPosition;
   private int[][] posMoves;
   private Color color;
