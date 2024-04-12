@@ -1,8 +1,20 @@
 package hwr.oop.chess.application.figures;
 
-interface Figure {
+public abstract class Figure {
+    private final FigureType type;
 
-    FigureColor color();
+    private final FigureColor color;
 
-    FigureType type();
+    Figure(FigureType type, FigureColor color) {
+        this.type = type;
+        this.color = color;
+    }
+
+    public FigureColor getColor() {
+        return color;
+    }
+
+    public FigureType getType() {
+        return type;
+    }
 }
