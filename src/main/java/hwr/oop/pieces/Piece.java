@@ -18,6 +18,12 @@ public abstract class Piece {
     return color;
   }
 
+  public void setColor(Color color) {
+    this.color = color;
+  }
+
+
+
   public Position getPosition() {
     return position;
   }
@@ -28,5 +34,14 @@ public abstract class Piece {
 
   public char getSymbol() {
     return symbol;
+  }
+
+  @Override
+  public String toString() {
+    return "Piece{" +
+            "color=" + color +
+            ", position=" + position +
+            ", symbol=" + symbol +
+            '}';
   }
 }

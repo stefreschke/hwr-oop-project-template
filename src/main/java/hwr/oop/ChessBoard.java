@@ -1,11 +1,12 @@
 package hwr.oop;
 
+import hwr.oop.exceptions.ChessBoardException;
 import hwr.oop.pieces.*;
 
 public class ChessBoard {
-  private Piece[][] board;
+  private final Piece[][] board;
 
-  public ChessBoard(){
+  public ChessBoard() {
     this.board = new Piece[8][8]; // 8x8 chessboard
     setupPieces();
   }
@@ -43,29 +44,32 @@ public class ChessBoard {
   }
 
   public boolean movePiece(Position from, Position to) {
-    Piece piece = board[from.getRow()][from.getColumn()];
-    if (piece == null) {
-      System.out.println("Keine Figur an der angegebenen Position!");
+    try {
+      Piece piece = board[from.row()][from.column()];
+      if (piece == null) {
+        throw new ChessBoardException("No piece at the specified position!");
+      }
+
+      // Check if the destination is outside the board
+      if (to.row() < 0 || to.row() >= 8 || to.column() < 0 || to.column() >= 8) {
+        throw new ChessBoardException("Invalid destination position!");
+      }
+
+      // Check if the move is valid (specific rules need to be implemented here)
+      // Here, just a simple check if the destination is empty or contains an opponent's piece
+      if (board[to.row()][to.column()] != null
+          && board[to.row()][to.column()].getColor() == piece.getColor()) {
+        throw new ChessBoardException("Destination position occupied by own piece!");
+      }
+
+      // Perform the move
+      board[to.row()][to.column()] = piece;
+      board[from.row()][from.column()] = null;
+      piece.setPosition(to);
+      return true;
+    } catch (ChessBoardException e) {
+      System.out.println("Error while executing the move: " + e.getMessage());
       return false;
     }
-
-    // Überprüfen, ob das Ziel außerhalb des Bretts liegt
-    if (to.getRow() < 0 || to.getRow() >= 8 || to.getColumn() < 0 || to.getColumn() >= 8) {
-      System.out.println("Ungültige Zielposition!");
-      return false;
-    }
-
-    // Überprüfen, ob die Bewegung gültig ist (hier müssen die spezifischen Regeln implementiert werden)
-    // Hier nur eine einfache Überprüfung, ob das Ziel leer ist oder eine gegnerische Figur enthält
-    if (board[to.getRow()][to.getColumn()] != null && board[to.getRow()][to.getColumn()].getColor() == piece.getColor()) {
-      System.out.println("Zielposition von eigener Figur besetzt!");
-      return false;
-    }
-
-    // Bewegung durchführen
-    board[to.getRow()][to.getColumn()] = piece;
-    board[from.getRow()][from.getColumn()] = null;
-    piece.setPosition(to);
-    return true;
   }
 }
