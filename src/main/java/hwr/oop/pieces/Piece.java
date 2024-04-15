@@ -6,9 +6,9 @@ import hwr.oop.Position;
 public abstract class Piece {
   private Color color;
   private Position position;
-  private char symbol;
+  private final char symbol;
 
-  public Piece(Color color, Position position, char symbol) {
+  protected Piece(Color color, Position position, char symbol) {
     this.color = color;
     this.position = position;
     this.symbol = symbol;
