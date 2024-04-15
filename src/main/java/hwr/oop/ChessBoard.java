@@ -43,6 +43,39 @@ public class ChessBoard {
     return board;
   }
 
+  public static void printChessBoard(Piece[][] board) {
+    System.out.println("  a b c d e f g h");
+    System.out.println(" +-----------------+");
+    for (int i = 0; i < 8; i++) {
+      System.out.print(8 - i + "| ");
+      for (int j = 0; j < 8; j++) {
+        if (board[i][j] != null) {
+          System.out.print(board[i][j].getSymbol() + " ");
+        } else {
+          System.out.print(". ");
+        }
+      }
+      System.out.println("|");
+    }
+
+    System.out.println(" +-----------------+");
+    System.out.println("  a b c d e f g h");
+  }
+
+  public static Position convertInputToPosition(String input) throws ChessBoardException {
+    if (input.length() != 2 || !Character.isLetter(input.charAt(0)) || !Character.isDigit(input.charAt(1))) {
+      throw new ChessBoardException("Invalid input format. Please provide a valid position (e.g., 'a1').");
+    }
+    int column = input.charAt(0) - 'a';
+    int row = 8 - Character.getNumericValue(input.charAt(1));
+
+    if (column < 0 || column >= 8 || row < 0 || row >= 8) {
+      throw new ChessBoardException("Invalid position. Position must be within the chessboard.");
+    }
+
+    return new Position(row, column);
+  }
+
   public boolean movePiece(Position from, Position to) {
     try {
       Piece piece = board[from.row()][from.column()];
