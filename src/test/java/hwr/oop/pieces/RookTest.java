@@ -8,17 +8,17 @@ class RookTest {
 
   @Test
   void testConstructor() {
-    Position position = new Position(1, 2);
-    Rook rook = new Rook(Color.WHITE, position);
-    assertThat(rook.getColor()).isEqualTo(Color.WHITE);
-    assertThat(rook.getPosition()).isEqualTo(position);
-    assertThat(rook.getSymbol()).isEqualTo('R');
+    Position position = new Position(0, 0);
+    Rook whiteRook = new Rook(Color.WHITE, position);
+    Rook blackRook = new Rook(Color.BLACK, position);
+    assertThat(whiteRook.getColor()).isEqualTo(Color.WHITE);
+    assertThat(whiteRook.getPosition()).isEqualTo(position);
+    assertThat(whiteRook.getSymbol()).isEqualTo('R');
 
-    position = new Position(8, 8);
-    rook = new Rook(Color.BLACK, position);
-    assertThat(rook.getColor()).isEqualTo(Color.BLACK);
-    assertThat(rook.getPosition()).isEqualTo(position);
-    assertThat(rook.getSymbol()).isEqualTo('r');
+
+    assertThat(blackRook.getColor()).isEqualTo(Color.BLACK);
+    assertThat(blackRook.getPosition()).isEqualTo(position);
+    assertThat(blackRook.getSymbol()).isEqualTo('r');
   }
 
   @Test
@@ -47,5 +47,12 @@ class RookTest {
     Position newPosition = new Position(1, 1);
     rook.setPosition(newPosition);
     assertThat(rook.getPosition()).isEqualTo(newPosition);
+  }
+
+  @Test
+  void testRookToString() {
+    Position position = new Position(3, 3);
+    Rook rook = new Rook(Color.WHITE, position);
+    assertThat(rook.toString()).hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=R}");
   }
 }
