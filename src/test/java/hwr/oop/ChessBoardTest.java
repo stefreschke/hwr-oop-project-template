@@ -2,11 +2,14 @@ package hwr.oop;
 
 import hwr.oop.exceptions.ChessBoardException;
 import hwr.oop.pieces.*;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static hwr.oop.Main.convertInputToPosition;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import static hwr.oop.ChessBoard.convertInputToPosition;
+import static hwr.oop.ChessBoard.printChessBoard;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -56,6 +59,59 @@ class ChessBoardTest {
   }
 
   @Test
+  void testPrintChessBoard() {
+    ChessBoard chessBoard = new ChessBoard();
+    printChessBoard(chessBoard.getBoard());
+
+    ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+    System.setOut(new PrintStream(outputStreamCaptor));
+
+    printChessBoard(chessBoard.getBoard());
+
+    String expectedOutput =
+            """
+                      a b c d e f g h\r
+                     +-----------------+\r
+                    8| r n b q k b n r |\r
+                    7| p p p p p p p p |\r
+                    6| . . . . . . . . |\r
+                    5| . . . . . . . . |\r
+                    4| . . . . . . . . |\r
+                    3| . . . . . . . . |\r
+                    2| P P P P P P P P |\r
+                    1| R N B Q K B N R |\r
+                     +-----------------+\r
+                      a b c d e f g h\r
+                    """;
+
+    assertEquals(expectedOutput, outputStreamCaptor.toString());
+  }
+
+  @Test
+  void convertInputToPosition_Valid() throws ChessBoardException {
+    assertEquals(new Position(0, 0), convertInputToPosition("a8"));
+    assertEquals(new Position(7, 7), convertInputToPosition("h1"));
+    assertEquals(new Position(3, 4), convertInputToPosition("e5"));
+  }
+
+  @Test
+  void convertInputToPosition_InvalidFormat() {
+    assertThrows(ChessBoardException.class, () -> convertInputToPosition("a"));
+    assertThrows(ChessBoardException.class, () -> convertInputToPosition("abc"));
+    assertThrows(ChessBoardException.class, () -> convertInputToPosition("a12"));
+    assertThrows(ChessBoardException.class, () -> convertInputToPosition("12"));
+    assertThrows(ChessBoardException.class, () -> convertInputToPosition("abc12"));
+  }
+
+  @Test
+  void testInvalidPosition() {
+    assertThrows(ChessBoardException.class, () -> convertInputToPosition("i1"));
+    assertThrows(ChessBoardException.class, () -> convertInputToPosition("a0"));
+    assertThrows(ChessBoardException.class, () -> convertInputToPosition("a9"));
+    assertThrows(ChessBoardException.class, () -> convertInputToPosition("h9"));
+  }
+
+  @Test
   void movePiece_Successful() throws ChessBoardException {
     Position from = convertInputToPosition("a2");
     Position to = convertInputToPosition("a3");
@@ -66,7 +122,7 @@ class ChessBoardTest {
 
   @Test
   void movePiece_Fail_outsideBoard(){
-    assertFalse(board.movePiece(new Position(6, 0), new Position(-1, 0))); //a2 ->
+    assertFalse(board.movePiece(new Position(6, 0), new Position(-1, 0)));
     assertFalse(board.movePiece(new Position(6, 0), new Position(0, -1)));
     assertFalse(board.movePiece(new Position(6, 0), new Position(8, 0)));
     assertFalse(board.movePiece(new Position(6, 0), new Position(0, 8)));
