@@ -126,6 +126,9 @@ class ChessBoardTest {
     assertThat(board.movePiece(new Position(6, 0), new Position(0, -1))).isFalse();
     assertThat(board.movePiece(new Position(6, 0), new Position(8, 0))).isFalse();
     assertThat(board.movePiece(new Position(6, 0), new Position(0, 8))).isFalse();
+    assertThat(board.movePiece(new Position(6, 0), new Position(9, 9))).isFalse();
+    assertThat(board.movePiece(new Position(6, 0), new Position(0, 9))).isFalse();
+
     assertThat(board.getBoard()[6][0]).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
   }
 
@@ -135,6 +138,13 @@ class ChessBoardTest {
     Position to = new Position(6,0); //a2
     assertThat(board.movePiece(from, to)).isFalse();
 
+  }
+
+  @Test
+  void movePiece_Fail_NoPieceOnFromPosition(){
+    Position from = new Position(3,3); //d5
+    Position to = new Position(4,3); //d4
+    assertThat(board.movePiece(from,to)).isFalse();
   }
 
 
