@@ -1,6 +1,7 @@
 package hwr.oop;
 
 import hwr.oop.exceptions.ChessBoardException;
+import hwr.oop.exceptions.MovePieceException;
 import hwr.oop.pieces.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -112,23 +113,51 @@ class ChessBoardTest {
   }
 
   @Test
-  void movePiece_Successful() throws ChessBoardException {
-    Position from = convertInputToPosition("a2");
-    Position to = convertInputToPosition("a3");
+  void movePiece_Successful() throws MovePieceException {
+    Position from = new Position(6,0);
+    Position to = new Position(5,0);
     assertThat(board.movePiece(from, to)).isTrue();
     assertThat(board.getBoard()[6][0]).isNull();
     assertThat(board.getBoard()[5][0]).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(5,0)));
   }
 
   @Test
-  void movePiece_Fail_outsideBoard(){
-    assertThat(board.movePiece(new Position(6, 0), new Position(-1, 0))).isFalse();
-    assertThat(board.movePiece(new Position(6, 0), new Position(0, -1))).isFalse();
-    assertThat(board.movePiece(new Position(6, 0), new Position(8, 0))).isFalse();
-    assertThat(board.movePiece(new Position(6, 0), new Position(0, 8))).isFalse();
-    assertThat(board.movePiece(new Position(6, 0), new Position(9, 9))).isFalse();
-    assertThat(board.movePiece(new Position(6, 0), new Position(0, 9))).isFalse();
+  void movePiece_Fail_OutsideBoardNegativeColumn(){
+    Position from = new Position(6,0); //a2
+    Position to = new Position(-1,0); //Outside Board
+    MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
+    String expectedMessage = "Invalid destination position!";
+    assertThat(exception.getMessage()).contains(expectedMessage);
+    assertThat(board.getBoard()[6][0]).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
+  }
 
+  @Test
+  void movePiece_Fail_OutsideBoardNegativeRow(){
+    Position from = new Position(6,0); //a2
+    Position to = new Position(0,-1); //Outside Board
+    MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
+    String expectedMessage = "Invalid destination position!";
+    assertThat(exception.getMessage()).contains(expectedMessage);
+    assertThat(board.getBoard()[6][0]).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
+  }
+
+  @Test
+  void movePiece_Fail_ColumnOutOfBounds(){
+    Position from = new Position(6,0); //a2
+    Position to = new Position(0,8); //Outside Board
+    MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
+    String expectedMessage = "Invalid destination position!";
+    assertThat(exception.getMessage()).contains(expectedMessage);
+    assertThat(board.getBoard()[6][0]).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
+  }
+
+  @Test
+  void movePiece_Fail_RowOutOfBounds(){
+    Position from = new Position(6,0); //a2
+    Position to = new Position(8,0); //Outside Board
+    MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
+    String expectedMessage = "Invalid destination position!";
+    assertThat(exception.getMessage()).contains(expectedMessage);
     assertThat(board.getBoard()[6][0]).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
   }
 
@@ -136,77 +165,17 @@ class ChessBoardTest {
   void movePiece_Fail_OccupiedPositionByOwnPiece(){
     Position from = new Position(7,0); //a1
     Position to = new Position(6,0); //a2
-    assertThat(board.movePiece(from, to)).isFalse();
-
+    MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
+    String expectedMessage = "Destination position occupied by own piece!";
+    assertThat(exception.getMessage()).contains(expectedMessage);
   }
 
   @Test
   void movePiece_Fail_NoPieceOnFromPosition(){
     Position from = new Position(3,3); //d5
     Position to = new Position(4,3); //d4
-    assertThat(board.movePiece(from,to)).isFalse();
+    MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
+    String expectedMessage = "No piece at the specified position!";
+    assertThat(exception.getMessage()).contains(expectedMessage);
   }
-
-
-//
-//  @Test
-//  void testInvalidMoveOccupied() {
-//    assertFalse(board.movePiece(new Position(0, 0), new Position(1, 0)));
-//    assertInstanceOf(Rook.class, board.getBoard()[0][0]);
-//    assertInstanceOf(Pawn.class, board.getBoard()[1][0]);
-//    //exception
-//  }
-//
-//  @Test
-//  void testInvalidMoveOutOfBounds() {
-//    assertFalse(board.movePiece(new Position(1, 0), new Position(9, 0)));
-//    assertInstanceOf(Pawn.class, board.getBoard()[1][0]); //Pawn stays on old position
-//    //exception
-//  }
-//
-//  @Test
-//  void testInvalidMoveNoPiece() {
-//    assertFalse(board.movePiece(new Position(2, 0), new Position(3, 0)));
-//    assertNull(board.getBoard()[2][0]);
-//    //exception
-//  }
-//  @Test
-//  void testInvalidMoveNegativeRow() {
-//    // Test for invalid move with negative row
-//    assertThrows(ChessBoardException.class, () -> {
-//      board.movePiece(new Position(-1, 0), new Position(3, 0));
-//    });
-//  }
-//
-//  @Test
-//  void testInvalidMoveNegativeColumn() {
-//    // Test for invalid move with negative column
-//    assertThrows(ChessBoardException.class, () -> {
-//      board.movePiece(new Position(1, -1), new Position(3, 0));
-//    });
-//  }
-//
-//  @Test
-//  void testInvalidMoveRowOutOfBounds() {
-//    // Test for invalid move with row out of bounds
-//    assertThrows(ChessBoardException.class, () -> {
-//      board.movePiece(new Position(8, 0), new Position(3, 0));
-//    });
-//  }
-//
-//  @Test
-//  void testInvalidMoveColumnOutOfBounds() {
-//    // Test for invalid move with column out of bounds
-//    assertThrows(ChessBoardException.class, () -> {
-//      board.movePiece(new Position(1, 8), new Position(3, 0));
-//    });
-//  }
-//
-//  @Test
-//  void testInvalidMoveBothOutOfBounds() {
-//    // Test for invalid move with both row and column out of bounds
-//    assertThrows(ChessBoardException.class, () -> {
-//      board.movePiece(new Position(-1, 8), new Position(3, 0));
-//    });
-//  }
 }
