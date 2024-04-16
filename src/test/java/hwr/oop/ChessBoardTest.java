@@ -84,14 +84,14 @@ class ChessBoardTest {
                       a b c d e f g h\r
                     """;
 
-    assertEquals(expectedOutput, outputStreamCaptor.toString());
+    assertThat(outputStreamCaptor.toString()).hasToString(expectedOutput);
   }
 
   @Test
   void convertInputToPosition_Valid() throws ChessBoardException {
-    assertEquals(new Position(0, 0), convertInputToPosition("a8"));
-    assertEquals(new Position(7, 7), convertInputToPosition("h1"));
-    assertEquals(new Position(3, 4), convertInputToPosition("e5"));
+    assertThat(convertInputToPosition("a8")).isEqualTo(new Position(0, 0));
+    assertThat(convertInputToPosition("h1")).isEqualTo(new Position(7, 7));
+    assertThat(convertInputToPosition("e5")).isEqualTo(new Position(3, 4));
   }
 
   @Test
@@ -115,30 +115,29 @@ class ChessBoardTest {
   void movePiece_Successful() throws ChessBoardException {
     Position from = convertInputToPosition("a2");
     Position to = convertInputToPosition("a3");
-    assertTrue(board.movePiece(from, to));
-    assertNull(board.getBoard()[6][0]);
+    assertThat(board.movePiece(from, to)).isTrue();
+    assertThat(board.getBoard()[6][0]).isNull();
     assertThat(board.getBoard()[5][0]).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(5,0)));
   }
 
   @Test
   void movePiece_Fail_outsideBoard(){
-    assertFalse(board.movePiece(new Position(6, 0), new Position(-1, 0)));
-    assertFalse(board.movePiece(new Position(6, 0), new Position(0, -1)));
-    assertFalse(board.movePiece(new Position(6, 0), new Position(8, 0)));
-    assertFalse(board.movePiece(new Position(6, 0), new Position(0, 8)));
+    assertThat(board.movePiece(new Position(6, 0), new Position(-1, 0))).isFalse();
+    assertThat(board.movePiece(new Position(6, 0), new Position(0, -1))).isFalse();
+    assertThat(board.movePiece(new Position(6, 0), new Position(8, 0))).isFalse();
+    assertThat(board.movePiece(new Position(6, 0), new Position(0, 8))).isFalse();
     assertThat(board.getBoard()[6][0]).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
-
-    //besser, wenn die movePiece-Funktion direkt Exceptions wirft (und zurück gibt) und nicht nur false zurück gibt
   }
 
-//  @Test
-//  void testMovePiece() {
-//    Position from = new Position(1, 0);
-//    Position to = new Position(3, 0);
-//    assertTrue(board.movePiece(from, to));
-//    assertNull(board.getBoard()[1][0]);
-//    assertThat(board.getBoard()[3][0]).usingRecursiveComparison().isEqualTo(new Pawn(Color.BLACK, new Position(3, 0)));
-//  }
+  @Test
+  void movePiece_Fail_OccupiedPositionByOwnPiece(){
+    Position from = new Position(7,0); //a1
+    Position to = new Position(6,0); //a2
+    assertThat(board.movePiece(from, to)).isFalse();
+
+  }
+
+
 //
 //  @Test
 //  void testInvalidMoveOccupied() {
