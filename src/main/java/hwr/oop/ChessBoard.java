@@ -1,6 +1,7 @@
 package hwr.oop;
 
 import hwr.oop.exceptions.ChessBoardException;
+import hwr.oop.exceptions.MovePieceException;
 import hwr.oop.pieces.*;
 
 public class ChessBoard {
@@ -80,19 +81,19 @@ public class ChessBoard {
     try {
       Piece piece = board[from.row()][from.column()];
       if (piece == null) {
-        throw new ChessBoardException("No piece at the specified position!");
+        throw new MovePieceException("No piece at the specified position!");
       }
 
       // Check if the destination is outside the board
       if (to.row() < 0 || to.row() >= 8 || to.column() < 0 || to.column() >= 8) {
-        throw new ChessBoardException("Invalid destination position!");
+        throw new MovePieceException("Invalid destination position!");
       }
 
       // Check if the move is valid (specific rules need to be implemented here)
       // Here, just a simple check if the destination is empty or contains an opponent's piece
       if (board[to.row()][to.column()] != null
           && board[to.row()][to.column()].getColor() == piece.getColor()) {
-        throw new ChessBoardException("Destination position occupied by own piece!");
+        throw new MovePieceException("Destination position occupied by own piece!");
       }
 
       // Perform the move
@@ -100,7 +101,7 @@ public class ChessBoard {
       board[from.row()][from.column()] = null;
       piece.setPosition(to);
       return true;
-    } catch (ChessBoardException e) {
+    } catch (MovePieceException e) {
       System.out.println("Error while executing the move: " + e.getMessage());
       return false;
     }
