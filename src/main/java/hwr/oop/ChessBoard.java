@@ -77,33 +77,25 @@ public class ChessBoard {
     return new Position(row, column);
   }
 
-  public boolean movePiece(Position from, Position to) {
-    try {
+  public boolean movePiece(Position from, Position to) throws MovePieceException {
+
       Piece piece = board[from.row()][from.column()];
       if (piece == null) {
         throw new MovePieceException("No piece at the specified position!");
       }
 
-      // Check if the destination is outside the board
       if (to.row() < 0 || to.row() >= 8 || to.column() < 0 || to.column() >= 8) {
         throw new MovePieceException("Invalid destination position!");
       }
 
-      // Check if the move is valid (specific rules need to be implemented here)
-      // Here, just a simple check if the destination is empty or contains an opponent's piece
       if (board[to.row()][to.column()] != null
           && board[to.row()][to.column()].getColor() == piece.getColor()) {
         throw new MovePieceException("Destination position occupied by own piece!");
       }
 
-      // Perform the move
       board[to.row()][to.column()] = piece;
       board[from.row()][from.column()] = null;
       piece.setPosition(to);
       return true;
-    } catch (MovePieceException e) {
-      System.out.println("Error while executing the move: " + e.getMessage());
-      return false;
-    }
   }
 }
