@@ -149,4 +149,43 @@ public class Board {
   public void printBoard() {
     System.out.println("Printing Board here");
   }
+
+  public boolean isBlocked(Piece piece, int newX, int newY, int oldY, int oldX)
+  {
+    boolean isBlocked = false;
+    int[] oldPos = {oldX, oldY} /*piece.getActPos()*/;
+    int[] vec = {newX - oldPos[0], newY - oldPos[1]};
+    if(vec[0] != 0)
+    {
+      if(vec[0] < 0)
+      {
+        vec[0] = -1;
+      }
+      else
+      {
+        vec[0] = 1;
+      }
+    }
+    if(vec[1] != 0)
+    {
+      if(vec[1] < 0)
+      {
+        vec[1] = -1;
+      }
+      else
+      {
+        vec[1] = 1;
+      }
+    }
+    for(int i = 1; i < ((newX - oldPos[0])*vec[0]) || i < ((newY - oldPos[1])*vec[1]); i++)
+    {
+      if(this.board[oldPos[0]+i*vec[0]][oldPos[1]+i*vec[1]] != null)
+      {
+        return true;
+      }
+    }
+    return false;
+
+
+  }
 }
