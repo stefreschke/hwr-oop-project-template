@@ -13,10 +13,10 @@ class PlayerTest {
         Assertions.assertThat(game.player3.name).isEqualTo("Spieler3");
         Assertions.assertThat(game.player4.name).isEqualTo("Spieler4");
 
-        Assertions.assertThat(game.player1.ownCards).isNull();
-        Assertions.assertThat(game.player2.ownCards).isNull();
-        Assertions.assertThat(game.player3.ownCards).isNull();
-        Assertions.assertThat(game.player4.ownCards).isNull();
+        Assertions.assertThat(game.player1.ownCards).isEmpty();
+        Assertions.assertThat(game.player2.ownCards).isEmpty();
+        Assertions.assertThat(game.player3.ownCards).isEmpty();
+        Assertions.assertThat(game.player4.ownCards).isEmpty();
     }
 
   @Test
@@ -25,16 +25,18 @@ class PlayerTest {
         CreateRandomDeck deck = new CreateRandomDeck();
         game.dealCards(deck.shuffleDeck());
 
+      for (int i = 0; i < game.player1.ownCards.size(); i++) {
+          System.out.println("Spieler 1:" + game.player1.ownCards.get(i));
+          System.out.println("Spieler 2:" + game.player2.ownCards.get(i));
+          System.out.println("Spieler 3:" + game.player3.ownCards.get(i));
+          System.out.println("Spieler 4:" + game.player4.ownCards.get(i));
+      }
+
         Assertions.assertThat(game.player1.ownCards.size()).isEqualTo(12);
         Assertions.assertThat(game.player2.ownCards.size()).isEqualTo(12);
         Assertions.assertThat(game.player3.ownCards.size()).isEqualTo(12);
         Assertions.assertThat(game.player4.ownCards.size()).isEqualTo(12);
 
-        for (int i = 0; i < game.player1.ownCards.size(); i++) {
-            System.out.println(game.player1.ownCards.get(i));
-            System.out.println(game.player2.ownCards.get(i));
-            System.out.println(game.player3.ownCards.get(i));
-            System.out.println(game.player4.ownCards.get(i));
-        }
+
   }
 }
