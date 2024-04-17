@@ -3,7 +3,7 @@
     <module name="TODO_ENTER_YOUR_PROJECT_NAME_HERE" />
     <extension name="coverage">
       <pattern>
-        <option name="PATTERN" value="hwr.oop.*" />
+        <option name="PATTERN" value="hwr.oop.enums.*" />
         <option name="ENABLED" value="true" />
       </pattern>
     </extension>
