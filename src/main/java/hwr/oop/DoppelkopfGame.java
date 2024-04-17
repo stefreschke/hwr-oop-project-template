@@ -35,4 +35,17 @@ public class DoppelkopfGame {
         }
         return false;
     }
+
+    public void dealCards(List<Card> cards) {
+        for (int i = 0; i < 12; i++) {
+            player1.ownCards.add(cards.getFirst());
+            cards.remove(cards.getFirst());
+            player2.ownCards.add(cards.getFirst());
+            cards.remove(cards.getFirst());
+            player3.ownCards.add(cards.getFirst());
+            cards.remove(cards.getFirst());
+            player4.ownCards.add(cards.getFirst());
+            cards.remove(cards.getFirst());
+        }
+    }
 }
