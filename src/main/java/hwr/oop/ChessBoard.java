@@ -60,7 +60,6 @@ public class ChessBoard {
     }
 
     System.out.println(" +-----------------+");
-    System.out.println("  a b c d e f g h");
   }
 
   public static Position convertInputToPosition(String input) throws ChessBoardException {

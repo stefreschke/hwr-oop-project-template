@@ -61,13 +61,13 @@ class ChessBoardTest {
 
   @Test
   void testPrintChessBoard() {
-    ChessBoard chessBoard = new ChessBoard();
-    printChessBoard(chessBoard.getBoard());
+    board = new ChessBoard();
+    printChessBoard(board.getBoard());
 
     ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
     System.setOut(new PrintStream(outputStreamCaptor));
 
-    printChessBoard(chessBoard.getBoard());
+    printChessBoard(board.getBoard());
 
     String expectedOutput =
             """
@@ -82,7 +82,6 @@ class ChessBoardTest {
                     2| P P P P P P P P |\r
                     1| R N B Q K B N R |\r
                      +-----------------+\r
-                      a b c d e f g h\r
                     """;
 
     assertThat(outputStreamCaptor.toString()).hasToString(expectedOutput);
