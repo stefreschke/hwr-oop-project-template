@@ -1,10 +1,10 @@
 package hwr.oop;
-import hwr.oop.CardGenerator;
-import java.util.Random;
+
 import org.junit.jupiter.api.Test;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TestCardGenerator{
+class CardGenerationTests {
     //scenario : Card will be generated
     @Test
     void TestGenerateCardStack(){
