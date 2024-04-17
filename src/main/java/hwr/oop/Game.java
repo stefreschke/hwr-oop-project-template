@@ -12,8 +12,8 @@ public class Game {
         CardStack stack = new CardStack();
 
 
-        List<Card> cardList = new ArrayList<>();
-
+        List<Card> cardList = stack.getCardStack();
+        System.out.println(cardList);
 
         List<List<Card>> players = new ArrayList<>();
         for (int i = 0; i < NUM_PLAYERS; i++) {
