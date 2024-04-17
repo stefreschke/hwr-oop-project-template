@@ -40,6 +40,7 @@ public class Game {
         List<Card> cardList = stack.getCardStack();
         System.out.println(cardList);
 
+        /*
         for (int i = 0; i < NUM_CARDS_PER_PLAYER; i++) {
             for (List<Card> player : players.size()) {
                 if (!cardList.isEmpty()) {
@@ -49,6 +50,7 @@ public class Game {
                 }
             }
         }
+         */
     }
 }
 
