@@ -1,5 +1,7 @@
 package hwr.oop;
 
+import java.util.Arrays;
+
 // TODO Delete this placeholder SUT.
 class Example {
   boolean get() {
@@ -8,6 +10,6 @@ class Example {
 
   @SuppressWarnings("java:S106")
   public static void main(String[] args) {
-    System.out.println("Hi!");
+    System.out.println("Hi! Arguments: " + Arrays.asList(args));
   }
 }
