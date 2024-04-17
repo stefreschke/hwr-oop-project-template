@@ -22,4 +22,30 @@ public class BoardTest {
         Assertions.assertThat(board.isBlocked(board.getBoard()[0][0], 0,6,0,0)).isTrue();
         Assertions.assertThat(board.isBlocked(board.getBoard()[2][0], 4,2,0,2)).isTrue();
     }
+
+    @Test
+    void getInitBoard()
+    {
+        Board board = new Board();
+        board.initBoard();
+        int x = 0;
+        int y = 0;
+        for(Piece[] pieces: board.getBoard())
+        {
+            y = 0;
+            for(Piece piece: pieces)
+            {
+                try
+                {
+                Assertions.assertThat(piece.getActPosition()).isEqualTo(new int[] {x,y});
+                }
+                catch(NullPointerException e)
+                {
+                    Assertions.assertThat(piece).isNull();
+                }
+                y++;
+            }
+            x++;
+        }
+    }
 }
