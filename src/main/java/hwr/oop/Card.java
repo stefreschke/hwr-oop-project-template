@@ -19,7 +19,7 @@ public class Card {
 
     final String symbol;
     final CardColours colour;
-    final int value; //Strenght of the card
+    final int value; //Strength of the card
     final int worth; //Worth of the Card
     final String name;
 
