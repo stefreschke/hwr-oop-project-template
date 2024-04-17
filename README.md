@@ -1,4 +1,4 @@
-# HWR OOP Lecture Project Template
+# OOP-Projekt Gruppe 7 (Schach)
 
 [TODO]: # (Change README.md Headline to better fit to your project!)
 
