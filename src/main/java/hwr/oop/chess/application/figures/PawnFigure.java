@@ -15,6 +15,7 @@ public class PawnFigure implements Figure {
     this.currentPosition = position;
   }
 
+  @Override
   public boolean canMoveTo(Position newPosition) {
     Position oldPosition = this.currentPosition;
     boolean isFieldBlocked = Board.isFigureOnField(newPosition);
@@ -32,7 +33,7 @@ public class PawnFigure implements Figure {
     }
 
     // Moving two fields from the start position if both fields are free
-    boolean isFieldInFrontOfPawnBlocked =
+//    boolean isFieldInFrontOfPawnBlocked =
     if (!isFieldBlocked // field to move to is free
         && !Board.isFigureOnField(new Position(oldPosition.x(), oldPosition.y() + moveDirection)) // field between current and final field
 
@@ -57,23 +58,40 @@ public class PawnFigure implements Figure {
     return false;
   }
 
+  @Override
+  public void moveTo(Position newPosition) {
+   if(canMoveTo(newPosition)) {
+     this.currentPosition = newPosition;
+   }
+  }
+
+  @Override
   public boolean isOnField(Position field) {
     return this.currentPosition == field;
   }
 
+  @Override
   public boolean isCaptured() {
     return this.currentPosition == null;
   }
 
+  @Override
   public Position getPosition() {
     return this.currentPosition;
   }
 
+  @Override
   public void setPosition(Position position) {
     this.currentPosition = position;
   }
 
+  @Override
   public FigureColor getColor() {
     return this.color;
+  }
+
+  @Override
+  public FigureType getType() {
+    return this.type;
   }
 }

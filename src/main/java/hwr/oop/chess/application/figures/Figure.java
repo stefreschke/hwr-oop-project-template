@@ -10,6 +10,8 @@ public interface Figure {
   void setPosition(Position position);
   Position getPosition();
   FigureColor getColor();
+  FigureType getType();
+  void moveTo(Position newPosition);
 
   //  default Figure(FigureType type, FigureColor color, Position startPosition) {
 //    this.type = type;

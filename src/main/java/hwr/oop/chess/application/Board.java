@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Board {
     private static ArrayList<Figure> figures;
-   // private Piece[] board
+   // private Figure[][] board = new Figure[8][8];
     public Board(ArrayList<Figure> figures){
         Board.figures = figures;
     }
@@ -17,7 +17,7 @@ public class Board {
 
     public static Figure getFigureOnField(Position position) {
         for (Figure figure : figures) {
-          if (figure.getPosition() == position) {
+          if (figure.getPosition() == position && !figure.isCaptured()) {
             return figure;
           }
         }
@@ -29,7 +29,7 @@ public class Board {
     }
 
 
-    public static void moveFigure(Position from, Position to) {
+    public static void moveFigure(Position from, Position to) throws Exception {
         Figure figure = Board.getFigureOnField(from);
         if(figure == null) {
             throw new Exception("On this field there is no Figure!");

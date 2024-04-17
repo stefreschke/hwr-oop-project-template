@@ -8,7 +8,7 @@ public class FenNotation {
     private int halfmoveClock;
     private int fullmoveNumber;
 
-    public Fen(String position, String activeColor, String castling, String enPassant,
+    public FenNotation(String position, String activeColor, String castling, String enPassant,
                int halfmoveClock, int fullmoveNumber) {
         this.position = position;
         this.activeColor = activeColor;
@@ -18,7 +18,7 @@ public class FenNotation {
         this.fullmoveNumber = fullmoveNumber;
     }
 
-    // getter와 setter 메소드
+    // getter and setter
     public String getPosition() {
         return this.position;
     }

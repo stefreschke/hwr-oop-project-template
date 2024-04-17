@@ -16,58 +16,97 @@ public class RookFigure implements Figure {
         this.currentPosition = position;
     }
 
+    @Override
     public boolean canMoveTo(Position newPosition) {
+        // #Todo Write Castling
         Position oldPosition = this.currentPosition;
-        boolean isFieldBlocked = Board.isFigureOnField(newPosition);
         Figure otherFigure = Board.getFigureOnField(newPosition);
+        boolean isOtherFigureOnRoad = this.checkOtherFigureOnRoad(oldPosition, newPosition);
 
-        if (this.color == FigureColor.BLACK) {
-            // Move one field straight down
-            if(!isFieldBlocked
-                    && (oldPosition.x() == newPosition.x())
-                    && (oldPosition.y() - 1) == (newPosition.y())){
+        if(!isOtherFigureOnRoad){
+            if(otherFigure == null
+                    && oldPosition.x() == newPosition.x()
+                    && oldPosition.y() == newPosition.y()){
                 return true;
+            } else{
+                return otherFigure.getColor() == this.getColor();
             }
-
-            // Move one field diagonally
-            if (isFieldBlocked // check if a different figure is on the new field
-                    && otherFigure.getColor() == FigureColor.WHITE
-                    && (Math.abs(oldPosition.x() - newPosition.x()) == 1)
-                    && (oldPosition.y() - 1) == newPosition.y()) {
-                return true;
-            }
-
-            // Moving two fields down from the start position
-            return isFieldBlocked // to-do: missing the checking of the first field
-                    && (oldPosition.y() == 7)
-                    && (oldPosition.y() - 2) == newPosition.y()
-                    && (oldPosition.x() == newPosition.x());
-
         } else {
-
-            // Move one field straight up
-            return !isFieldBlocked
-                    && (oldPosition.x() == newPosition.x())
-                    && (oldPosition.y() + 1) == newPosition.y();
-
-            // Move two fields up from the start position
-            return isFieldBlocked // to-do: missing the checking of the first field
-                    && (oldPosition.y() == 2)
-                    && (oldPosition.y() + 2) == newPosition.y()
-                    && (oldPosition.x() == newPosition.x());
+            return false;
         }
     }
 
-    public void moveTo(Position newPosition) {}
+    @Override
+    public void moveTo(Position newPosition) {
+        this.currentPosition = newPosition;
+    }
 
+    @Override
     public boolean isOnField(Position field){
-        return true;
+        return this.currentPosition != null && this.currentPosition.equals(field);
     }
+
+    @Override
     public boolean isCaptured(){
-        return true;
+        return this.currentPosition != null;
     }
-    public void setPosition(Position position){}
+
+    @Override
+    public void setPosition(Position position) {
+        this.currentPosition = position;
+    }
+
+    @Override
+    public Position getPosition() {
+        return this.currentPosition;
+    }
+
+    @Override
     public FigureColor getColor(){
         return this.color;
+    }
+
+    @Override
+    public FigureType getType() {
+        return this.type;
+    }
+
+    private boolean checkOtherFigureOnRoad(Position currentPosition, Position newPosition) {
+        int x = currentPosition.x();
+        int y = currentPosition.y();
+
+        if (x < newPosition.x()){
+            x++;
+            for (; x < newPosition.x(); x++){
+                if(Board.isFigureOnField(new Position(x, y))){
+                    return true;
+                }
+            }
+        } else {
+            x--;
+            for (; x > newPosition.x(); x--){
+                if(Board.isFigureOnField(new Position(x, y))){
+                    return true;
+                }
+            }
+        }
+
+     if (y < newPosition.y()){
+            y++;
+            for (; y < newPosition.y(); y++){
+                if(Board.isFigureOnField(new Position(x, y))){
+                    return true;
+                }
+            }
+        } else {
+            y--;
+            for (; y > newPosition.y(); y--){
+                if(Board.isFigureOnField(new Position(x, y))){
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
