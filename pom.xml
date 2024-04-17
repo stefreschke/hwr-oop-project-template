@@ -4,11 +4,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>hwr.oop.students.projects</groupId>
-  <!-- TODO Enter project name (no spaces) here! -->
-  <artifactId>TODO_ENTER_YOUR_PROJECT_NAME_HERE</artifactId>
+  <artifactId>Schach-Gruppe-7</artifactId>
   <version>0.1.0</version>
-  <!-- TODO Enter project name (no spaces) here! -->
-  <name>TODO_ENTER_YOUR_PROJECT_NAME_HERE</name>
+  <name>Schach-Gruppe-7</name>
   <!-- TODO Enter a short project description (one sentence, no spaces) here! -->
   <description>TODO_ENTER_YOUR_PROJECT_DESCRIPTION_HERE</description>
   <properties>
