@@ -3,11 +3,11 @@ package classTests;
 import classes.Board;
 import classes.Piece;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
+import org.assertj.core.api.Assertions;
 
 public class BoardTest {
     @Test
-    public void testIsValidMoveSuccess() {
+    void testIsValidMoveSuccess() {
         Board board = new Board();
         board.initBoard();
 
@@ -15,5 +15,12 @@ public class BoardTest {
         assertThat(board.isValidMove(piece, 0, 2)).isTrue(); // bauer bewegt sich eins nach vorn
         assertThat(board.isValidMove(piece, 3, 0)).isFalse(); // bauer kann nicht seitlich gehen
     }
-
+  
+    @Test
+    void get_isBlocked(){
+        Board board = new Board();
+        board.initBoard();
+        Assertions.assertThat(board.isBlocked(board.getBoard()[0][0], 0,6,0,0)).isTrue();
+        Assertions.assertThat(board.isBlocked(board.getBoard()[2][0], 4,2,0,2)).isTrue();
+    }
 }
