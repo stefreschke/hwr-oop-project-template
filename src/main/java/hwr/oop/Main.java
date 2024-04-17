@@ -1,9 +1,10 @@
 package hwr.oop;
-
+import java.util.Arrays;
 import hwr.oop.exceptions.MovePieceException;
 
 public class Main {
   public static void main(String[] args) {
+    System.out.println("Hi! Arguments: " + Arrays.asList(args));
     /* ChessBoard board = new ChessBoard();
       ChessBoard.printChessBoard(board.getBoard());
       System.out.println("___________________________________");
