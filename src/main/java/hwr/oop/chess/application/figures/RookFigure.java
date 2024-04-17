@@ -17,9 +17,11 @@ public class RookFigure implements Figure {
     }
 
     public boolean canMoveTo(Position newPosition) {
-        Position oldPosition = getPosition();
+        Position oldPosition = this.currentPosition;
         boolean isFieldBlocked = Board.isFigureOnField(newPosition);
-        if (getColor() == FigureColor.BLACK) {
+        Figure otherFigure = Board.getFigureOnField(newPosition);
+
+        if (this.color == FigureColor.BLACK) {
             // Move one field straight down
             if(!isFieldBlocked
                     && (oldPosition.x() == newPosition.x())
@@ -29,27 +31,43 @@ public class RookFigure implements Figure {
 
             // Move one field diagonally
             if (isFieldBlocked // check if a different figure is on the new field
-                    && Board.getFigureOnField(newPosition).getColor() == FigureColor.WHITE
+                    && otherFigure.getColor() == FigureColor.WHITE
                     && (Math.abs(oldPosition.x() - newPosition.x()) == 1)
                     && (oldPosition.y() - 1) == newPosition.y()) {
                 return true;
             }
 
-            // Moving two fields from the start position
-            return isFieldBlocked
+            // Moving two fields down from the start position
+            return isFieldBlocked // to-do: missing the checking of the first field
                     && (oldPosition.y() == 7)
-                    && (oldPosition.x() - 2) == newPosition.x();
+                    && (oldPosition.y() - 2) == newPosition.y()
+                    && (oldPosition.x() == newPosition.x());
 
         } else {
-            public boolean canMoveTo(Position newPosition) {
-                Position oldPosition = getPosition();
-                if (getColor)
-            }
+
             // Move one field straight up
             return !isFieldBlocked
                     && (oldPosition.x() == newPosition.x())
                     && (oldPosition.y() + 1) == newPosition.y();
+
+            // Move two fields up from the start position
+            return isFieldBlocked // to-do: missing the checking of the first field
+                    && (oldPosition.y() == 2)
+                    && (oldPosition.y() + 2) == newPosition.y()
+                    && (oldPosition.x() == newPosition.x());
         }
     }
 
+    public void moveTo(Position newPosition) {}
+
+    public boolean isOnField(Position field){
+        return true;
+    }
+    public boolean isCaptured(){
+        return true;
+    }
+    public void setPosition(Position position){}
+    public FigureColor getColor(){
+        return this.color;
+    }
 }

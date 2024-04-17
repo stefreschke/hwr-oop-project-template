@@ -24,4 +24,10 @@ public class Position {
   public int y() {
     return y;
   }
+
+
+  public boolean equals(Position pos2) {
+    Position pos1 = this;
+    return (pos1.x() == pos2.x()) && (pos1.y() == pos2.y());
+  }
 }
