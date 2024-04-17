@@ -1,5 +1,8 @@
 package classes;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Piece {
   public enum Color {
     BLACK,
@@ -7,18 +10,37 @@ public class Piece {
   }
 
   public enum PieceType {
-    BAUER('b', new int[][] {{0, 1}}, false),
-    TURM('t', new int[][] {{0, 1}, {1, 0}}, true),
-    SPRINGER('s', new int[][] {{2, 1}, {2, -1}, {1, 2}, {-1, 2}}, false),
-    LAEUFER('l', new int[][] {{1, 1}, {-1, 1}}, true),
-    KOENIG('k', new int[][] {{0, 1}, {1, 0}, {1, 1}, {-1, 1}}, false),
-    DAME('d', new int[][] {{0, 1}, {1, 0}, {1, 1}, {-1, 1}}, true);
+    BAUER('b', Arrays.asList(Arrays.asList(0, 1)), false),
+    TURM('t', Arrays.asList(Arrays.asList(0, 1), Arrays.asList(1, 0)), true),
+    SPRINGER(
+        's',
+        Arrays.asList(
+            Arrays.asList(2, 1),
+            Arrays.asList(2, -1),
+            Arrays.asList(1, 2),
+            Arrays.asList(-1, 2),
+            Arrays.asList(-2, 1),
+            Arrays.asList(-2, -1),
+            Arrays.asList(1, -2),
+            Arrays.asList(-1, -2)),
+        false),
+    LAEUFER('l', Arrays.asList(Arrays.asList(1, 1), Arrays.asList(-1, 1)), true),
+    KOENIG(
+        'k',
+        Arrays.asList(
+            Arrays.asList(0, 1), Arrays.asList(1, 0), Arrays.asList(1, 1), Arrays.asList(-1, 1)),
+        false),
+    DAME(
+        'd',
+        Arrays.asList(
+            Arrays.asList(0, 1), Arrays.asList(1, 0), Arrays.asList(1, 1), Arrays.asList(-1, 1)),
+        true);
 
     private final char abbr;
-    private final int[][] moves;
+    private final List<List<Integer>> moves;
     private final boolean moveRepeatable;
 
-    PieceType(char abbr, int[][] moves, boolean moveRepeatable) {
+    PieceType(char abbr, List<List<Integer>> moves, boolean moveRepeatable) {
       this.abbr = abbr;
       this.moves = moves;
       this.moveRepeatable = moveRepeatable;
@@ -28,7 +50,7 @@ public class Piece {
       return abbr;
     }
 
-    public int[][] getMoves() {
+    public List<List<Integer>> getMoves() {
       return moves;
     }
 
@@ -37,25 +59,21 @@ public class Piece {
     }
   }
 
-  private int[] actPosition;
-  private int[][] posMoves;
+  private List<Integer> actPosition;
+  private List<List<Integer>> posMoves;
   private boolean moveRepeatable;
   private Color color;
   private char abbr;
 
-  public Piece(int[] pos, int[][] moves, Color color, char abbr, boolean moveRepeatable) {
+  public Piece(PieceType pieceType, List<Integer> pos, Color color) {
+    this.posMoves = pieceType.getMoves();
+    this.moveRepeatable = pieceType.isMoveRepeatable();
+    this.abbr = pieceType.getAbbr();
     this.actPosition = pos;
-    this.posMoves = moves;
-    this.moveRepeatable = moveRepeatable;
     this.color = color;
-    this.abbr = abbr;
   }
 
-  public boolean isBlocked() {
-    return false;
-  }
-
-  public void setActPosition(int[] actPosition) {
+  public void setActPosition(List<Integer> actPosition) {
     this.actPosition = actPosition;
   }
 
@@ -67,11 +85,11 @@ public class Piece {
     return this.abbr;
   }
 
-  public int[] getActPosition() {
+  public List<Integer> getActPosition() {
     return this.actPosition;
   }
 
-  public int[][] getPosMoves() {
+  public List<List<Integer>> getPosMoves() {
     return this.posMoves;
   }
 

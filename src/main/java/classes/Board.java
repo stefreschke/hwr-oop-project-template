@@ -1,193 +1,99 @@
 package classes;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Board {
-  private Piece[][] board;
+  private ArrayList<ArrayList<Piece>> board;
 
   public Board() {
-    board = new Piece[8][8];
+    board = new ArrayList<>(8);
+    for (ArrayList<Piece> row : board) {
+      row = new ArrayList<>(8);
+    }
   }
 
   public void initBoard() {
-    for (Piece[] p : board) {
-      for (Piece i : p) {
+    for (ArrayList<Piece> row : board) {
+      for (Piece i : row) {
         i = null;
       }
     }
 
-    this.board[0][0] =
-        new Piece(
-            new int[] {0, 0},
-            Piece.PieceType.TURM.getMoves(),
-            Piece.Color.WHITE,
-            Piece.PieceType.TURM.getAbbr(),
-            Piece.PieceType.TURM.isMoveRepeatable());
-    this.board[1][0] =
-        new Piece(
-            new int[] {1, 0},
-            Piece.PieceType.SPRINGER.getMoves(),
-            Piece.Color.WHITE,
-            Piece.PieceType.SPRINGER.getAbbr(),
-            Piece.PieceType.SPRINGER.isMoveRepeatable());
-    this.board[2][0] =
-        new Piece(
-            new int[] {2, 0},
-            Piece.PieceType.LAEUFER.getMoves(),
-            Piece.Color.WHITE,
-            Piece.PieceType.LAEUFER.getAbbr(),
-            Piece.PieceType.LAEUFER.isMoveRepeatable());
-    this.board[3][0] =
-        new Piece(
-            new int[] {3, 0},
-            Piece.PieceType.DAME.getMoves(),
-            Piece.Color.WHITE,
-            Piece.PieceType.DAME.getAbbr(),
-            Piece.PieceType.DAME.isMoveRepeatable());
-    this.board[4][0] =
-        new Piece(
-            new int[] {4, 0},
-            Piece.PieceType.KOENIG.getMoves(),
-            Piece.Color.WHITE,
-            Piece.PieceType.KOENIG.getAbbr(),
-            Piece.PieceType.KOENIG.isMoveRepeatable());
-    this.board[5][0] =
-        new Piece(
-            new int[] {5, 0},
-            Piece.PieceType.LAEUFER.getMoves(),
-            Piece.Color.WHITE,
-            Piece.PieceType.LAEUFER.getAbbr(),
-            Piece.PieceType.LAEUFER.isMoveRepeatable());
-    this.board[6][0] =
-        new Piece(
-            new int[] {6, 0},
-            Piece.PieceType.SPRINGER.getMoves(),
-            Piece.Color.WHITE,
-            Piece.PieceType.SPRINGER.getAbbr(),
-            Piece.PieceType.SPRINGER.isMoveRepeatable());
-    this.board[7][0] =
-        new Piece(
-            new int[] {7, 0},
-            Piece.PieceType.TURM.getMoves(),
-            Piece.Color.WHITE,
-            Piece.PieceType.TURM.getAbbr(),
-            Piece.PieceType.TURM.isMoveRepeatable());
+    this.board
+        .getFirst()
+        .set(0, new Piece(Piece.PieceType.TURM, Arrays.asList(0, 0), Piece.Color.WHITE));
+    this.board
+        .getFirst()
+        .set(1, new Piece(Piece.PieceType.SPRINGER, Arrays.asList(0, 1), Piece.Color.WHITE));
+    this.board
+        .getFirst()
+        .set(2, new Piece(Piece.PieceType.LAEUFER, Arrays.asList(0, 2), Piece.Color.WHITE));
+    this.board
+        .getFirst()
+        .set(3, new Piece(Piece.PieceType.DAME, Arrays.asList(0, 3), Piece.Color.WHITE));
+    this.board
+        .getFirst()
+        .set(4, new Piece(Piece.PieceType.KOENIG, Arrays.asList(0, 4), Piece.Color.WHITE));
+    this.board
+        .getFirst()
+        .set(5, new Piece(Piece.PieceType.LAEUFER, Arrays.asList(0, 5), Piece.Color.WHITE));
+    this.board
+        .getFirst()
+        .set(6, new Piece(Piece.PieceType.SPRINGER, Arrays.asList(0, 6), Piece.Color.WHITE));
+    this.board
+        .getFirst()
+        .set(7, new Piece(Piece.PieceType.TURM, Arrays.asList(0, 7), Piece.Color.WHITE));
+
     for (int i = 0; i < 8; i++) {
-      this.board[i][1] =
-          new Piece(
-              new int[] {i, 1},
-              Piece.PieceType.BAUER.getMoves(),
-              Piece.Color.WHITE,
-              Piece.PieceType.BAUER.getAbbr(),
-              Piece.PieceType.BAUER.isMoveRepeatable());
+      this.board
+          .get(1)
+          .set(i, new Piece(Piece.PieceType.BAUER, Arrays.asList(1, i), Piece.Color.WHITE));
     }
-    this.board[0][7] =
-        new Piece(
-            new int[] {0, 7},
-            Piece.PieceType.TURM.getMoves(),
-            Piece.Color.BLACK,
-            Piece.PieceType.TURM.getAbbr(),
-            Piece.PieceType.TURM.isMoveRepeatable());
-    this.board[1][7] =
-        new Piece(
-            new int[] {1, 7},
-            Piece.PieceType.SPRINGER.getMoves(),
-            Piece.Color.BLACK,
-            Piece.PieceType.SPRINGER.getAbbr(),
-            Piece.PieceType.SPRINGER.isMoveRepeatable());
-    this.board[2][7] =
-        new Piece(
-            new int[] {2, 7},
-            Piece.PieceType.LAEUFER.getMoves(),
-            Piece.Color.BLACK,
-            Piece.PieceType.LAEUFER.getAbbr(),
-            Piece.PieceType.LAEUFER.isMoveRepeatable());
-    this.board[3][7] =
-        new Piece(
-            new int[] {3, 7},
-            Piece.PieceType.DAME.getMoves(),
-            Piece.Color.BLACK,
-            Piece.PieceType.DAME.getAbbr(),
-            Piece.PieceType.DAME.isMoveRepeatable());
-    this.board[4][7] =
-        new Piece(
-            new int[] {4, 7},
-            Piece.PieceType.KOENIG.getMoves(),
-            Piece.Color.BLACK,
-            Piece.PieceType.KOENIG.getAbbr(),
-            Piece.PieceType.KOENIG.isMoveRepeatable());
-    this.board[5][7] =
-        new Piece(
-            new int[] {5, 7},
-            Piece.PieceType.LAEUFER.getMoves(),
-            Piece.Color.BLACK,
-            Piece.PieceType.LAEUFER.getAbbr(),
-            Piece.PieceType.LAEUFER.isMoveRepeatable());
-    this.board[6][7] =
-        new Piece(
-            new int[] {6, 7},
-            Piece.PieceType.SPRINGER.getMoves(),
-            Piece.Color.BLACK,
-            Piece.PieceType.SPRINGER.getAbbr(),
-            Piece.PieceType.SPRINGER.isMoveRepeatable());
-    this.board[7][7] =
-        new Piece(
-            new int[] {7, 7},
-            Piece.PieceType.TURM.getMoves(),
-            Piece.Color.BLACK,
-            Piece.PieceType.TURM.getAbbr(),
-            Piece.PieceType.TURM.isMoveRepeatable());
+
+    this.board
+        .get(7)
+        .set(0, new Piece(Piece.PieceType.TURM, Arrays.asList(7, 0), Piece.Color.BLACK));
+    this.board
+        .get(7)
+        .set(1, new Piece(Piece.PieceType.SPRINGER, Arrays.asList(7, 1), Piece.Color.BLACK));
+    this.board
+        .get(7)
+        .set(2, new Piece(Piece.PieceType.LAEUFER, Arrays.asList(7, 2), Piece.Color.BLACK));
+    this.board
+        .get(7)
+        .set(3, new Piece(Piece.PieceType.DAME, Arrays.asList(7, 3), Piece.Color.BLACK));
+    this.board
+        .get(7)
+        .set(4, new Piece(Piece.PieceType.KOENIG, Arrays.asList(7, 4), Piece.Color.BLACK));
+    this.board
+        .get(7)
+        .set(5, new Piece(Piece.PieceType.LAEUFER, Arrays.asList(7, 5), Piece.Color.BLACK));
+    this.board
+        .get(7)
+        .set(6, new Piece(Piece.PieceType.SPRINGER, Arrays.asList(7, 6), Piece.Color.BLACK));
+    this.board
+        .get(7)
+        .set(7, new Piece(Piece.PieceType.TURM, Arrays.asList(7, 7), Piece.Color.BLACK));
+
     for (int i = 0; i < 8; i++) {
-      this.board[i][1] =
-          new Piece(
-              new int[] {i, 1},
-              Piece.PieceType.BAUER.getMoves(),
-              Piece.Color.WHITE,
-              Piece.PieceType.BAUER.getAbbr(),
-              Piece.PieceType.BAUER.isMoveRepeatable());
+      this.board
+          .get(7)
+          .set(i, new Piece(Piece.PieceType.BAUER, Arrays.asList(6, i), Piece.Color.BLACK));
     }
   }
 
-  /*public void changePos(int oldX, int oldY, int newX, int newY) {
-    if (this.board[oldX][oldY] == null) {
-      // TODO: log an error
-      return;
-    }
-    if (!isValidMove(this.board[oldX][oldY], newX, newY)) {
-      // TODO: log an error
-      return;
-    }
-    if (this.board[newX][newY] != null) {
-      // TODO: log piece captured
-    }
-    this.board[newX][newY] = this.board[oldX][oldY];
-    this.board[oldX][oldY] = null;
-  }*/
-
-  public boolean isValidMove(Piece piece, int x, int y) {
-    int[] vec = new int[] {x - piece.getActPosition()[0], y - piece.getActPosition()[1]};
-    for (int[] i : piece.getPosMoves()) {
-      if (piece.isMoveRepeatable()) {
-        for (int j = -7; j < 8; j++) {
-          if (j == 0) {
-            continue;
-          }
-          if (i[0] * j == vec[0] && i[1] * j == vec[1]) {
-            return true;
-          }
-        }
-      } else {
-        if (i[0] == vec[0] && i[1] == vec[1]) {
-          return true;
-        }
-      }
-    }
-    return false;
+  public void changePos(int oldX, int oldY, int newX, int newY) {
+    this.board.get(newX).set(newY, board.get(oldX).get(oldY));
+    this.board.get(oldX).set(oldY, null);
   }
 
   public Piece getPieceAt(int x, int y) {
-    return this.board[x][y];
+    return this.board.get(x).get(y);
   }
 
-  public Piece[][] getBoard() {
+  public ArrayList<ArrayList<Piece>> getBoard() {
     return board;
   }
 
@@ -195,26 +101,51 @@ public class Board {
     System.out.println("Printing Board here");
   }
 
-  public boolean isBlocked(Piece piece, int newX, int newY, int oldY, int oldX) {
-    boolean isBlocked = false;
-    int[] oldPos = {oldX, oldY} /*piece.getActPos()*/;
-    int[] vec = {newX - oldPos[0], newY - oldPos[1]};
-    if (vec[0] != 0) {
-      if (vec[0] < 0) {
-        vec[0] = -1;
+  public boolean isValidMove(Piece piece, int x, int y) {
+    int vecX = x - piece.getActPosition().get(0);
+    int vecY = y - piece.getActPosition().get(1);
+    for (List<Integer> i : piece.getPosMoves()) {
+      if (piece.isMoveRepeatable()) {
+        for (int j = -7; j < 8; j++) {
+          if (j == 0) {
+            continue;
+          }
+          if (i.getFirst() * j == vecX && i.get(1) * j == vecY) {
+            return true;
+          }
+        }
       } else {
-        vec[0] = 1;
+        if (i.getFirst() == vecX && i.get(1) == vecY) {
+          return true;
+        }
       }
     }
-    if (vec[1] != 0) {
-      if (vec[1] < 0) {
-        vec[1] = -1;
+    return false;
+  }
+
+  public boolean isBlocked(Piece piece, int newX, int newY) {
+    List<Integer> oldPos = piece.getActPosition();
+    List<Integer> vec = Arrays.asList(newX - oldPos.getFirst(), newY - oldPos.get(1));
+    if (vec.getFirst() != 0) {
+      if (vec.getFirst() < 0) {
+        vec.set(0, -1);
       } else {
-        vec[1] = 1;
+        vec.set(0, 1);
       }
     }
-    for (int i = 1; i < ((newX - oldPos[0]) * vec[0]) || i < ((newY - oldPos[1]) * vec[1]); i++) {
-      if (this.board[oldPos[0] + i * vec[0]][oldPos[1] + i * vec[1]] != null) {
+    if (vec.get(1) != 0) {
+      if (vec.get(1) < 0) {
+        vec.set(1, -1);
+      } else {
+        vec.set(1, 1);
+      }
+    }
+    for (int i = 1;
+        i < ((newX - oldPos.getFirst()) * vec.getFirst())
+            || i < ((newY - oldPos.get(1)) * vec.get(1));
+        i++) {
+      if (this.board.get(oldPos.getFirst() + i * vec.getFirst()).get(oldPos.get(1) + i * vec.get(1))
+          != null) {
         return true;
       }
     }
