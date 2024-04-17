@@ -1,30 +1,30 @@
 package hwr.oop;
-
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DoppelkopfGame {
-    private Map<Color, Map<Type, Boolean>> cards;
-
     public DoppelkopfGame() {
         initializeCards();
     }
 
-    private void initializeCards() {
-        cards = new HashMap<>();
-        for (Color color : Color.values()) {
-            cards.put(color, new HashMap<>());
-            for (Type type : Type.values()) {
-                cards.get(color).put(type, true); // Alle Karten sind zu Beginn vorhanden
+    public List<Card> initializeCards() {
+        List<Card> cards = new ArrayList<>();
+
+        for (int k = 0; k < 2; k++) {
+            for (Color i : Color.values()) {
+                for (Type j : Type.values()) {
+                    Card newCard = new Card(i, j);
+                    cards.add(newCard);
+                }
             }
         }
+        return cards;
     }
 
-    public boolean hasCard(Color color, Type type) {
-        if (cards.containsKey(color)) {
-            Map<Type, Boolean> typeMap = cards.get(color);
-            if (typeMap.containsKey(type)) {
-                return typeMap.get(type); // Gibt true zurück, wenn die Karte vorhanden ist, sonst false
+    public boolean hasCard(List<Card> cards, Color color, Type number) {
+        for(Card i : cards){
+            if (i.color == color && i.number == number) {
+                return true;
             }
         }
         return false;

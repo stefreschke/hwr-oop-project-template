@@ -1,19 +1,29 @@
 package hwr.oop;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class CardsTest {
-  @Test
-  void testAllCardsExist() {
-      DoppelkopfGame game = new DoppelkopfGame();
+    @Test
+    void testAllCards() {
+        DoppelkopfGame game = new DoppelkopfGame();
+        List<Card> cards = game.initializeCards();
+        
+        for (Color color : Color.values()) {
+            for (Type value : Type.values()) {
+                assertTrue(game.hasCard(cards, color, value), "Karte " + color + " " + value + " fehlt im Spiel.");
+            }
+        }
+    }
 
-      for (Color type : Color.values()) {
-          for (Type value : Type.values()) {
-              assertTrue(game.hasCard(type, value), "Karte " + type + " " + value + " fehlt im Spiel.");
-              System.out.println(type + " " + value + " Wert: " + value.getValue());
-          }
-      }
-  }
+    @Test
+    void testCountCards(){
+        DoppelkopfGame game = new DoppelkopfGame();
+        List<Card> cards = game.initializeCards();
+
+        Assertions.assertThat(cards.size()).isEqualTo(48);
+    }
 }
