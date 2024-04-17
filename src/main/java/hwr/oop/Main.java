@@ -4,6 +4,10 @@ import hwr.oop.exceptions.MovePieceException;
 
 public class Main {
   public static void main(String[] args) {
+    System.out.println("Hello World! You started this script with the follwoing arguments: ");
+    for (String arg : args) {
+      System.out.println(arg);
+    }
     /* ChessBoard board = new ChessBoard();
       ChessBoard.printChessBoard(board.getBoard());
       System.out.println("___________________________________");
