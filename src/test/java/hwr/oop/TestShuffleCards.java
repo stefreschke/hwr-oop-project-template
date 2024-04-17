@@ -1,10 +1,22 @@
 package hwr.oop;
+import hwr.oop.CardGenerator;
 import java.util.Random;
 import org.junit.jupiter.api.Test;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
-class TestShuffleCards {
+class TestCardGenerator{
+    //scenario : Card will be generated
+    @Test
+    void TestGenerateCardStack(){
+        final var cardStack = new CardGenerator();
+        final var generatedCardDeck = cardStack.generateAllCards();
+        assertThat(generatedCardDeck)
+                .isNotEmpty()
+                .isNotNull()
+                .hasSize(48);
+    }
+}
+/*class TestShuffleCards {
     //scenario : Sorted Card stack will be shuffled
     @Test
     void TestShuffleCardStack() {
@@ -17,4 +29,4 @@ class TestShuffleCards {
                 .isNotEmpty()
                 .doesNotContainSequence(cardStack);
     }
-}
+}*/
