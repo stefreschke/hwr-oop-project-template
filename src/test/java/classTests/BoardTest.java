@@ -7,7 +7,7 @@ import org.assertj.core.api.Assertions;
 
 public class BoardTest {
     @Test
-    void testIsValidMoveSuccess() {
+    void testIsValidMove() {
         Board board = new Board();
         board.initBoard();
         Piece piece = board.getPieceAt(0, 1); // weisser bauer
