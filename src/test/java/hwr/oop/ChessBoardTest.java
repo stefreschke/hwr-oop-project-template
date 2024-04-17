@@ -97,6 +97,7 @@ class ChessBoardTest {
 
   @Test
   void convertInputToPosition_InvalidFormat() {
+    assertThrows(ChessBoardException.class, () -> convertInputToPosition(""));
     assertThrows(ChessBoardException.class, () -> convertInputToPosition("a"));
     assertThrows(ChessBoardException.class, () -> convertInputToPosition("abc"));
     assertThrows(ChessBoardException.class, () -> convertInputToPosition("a12"));
