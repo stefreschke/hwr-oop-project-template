@@ -1,6 +1,8 @@
 package hwr.oop;
 
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+
 import org.junit.jupiter.api.Test;
 
 
@@ -10,6 +12,11 @@ class ExampleTest {
   void get_IsTrue() {
     Example example = new Example();
     String result = example.get();
-    Assertions.assertThat(result).startsWith("Hello").endsWith("World!");
+    assertThat(result).startsWith("Hello").endsWith("World!");
+  }
+
+  @Test
+  void main_NoException() {
+    assertDoesNotThrow(() -> Example.main(new String[]{}));
   }
 }
