@@ -11,7 +11,12 @@ class CardsTest {
     void testAllCards() {
         DoppelkopfGame game = new DoppelkopfGame();
         List<Card> cards = List.of();
-        Assertions.assertThat(game.hasCard(cards, Color.PIK, Type.ASS)).isEqualTo(false);
+        for (Color color : Color.values()) {
+            for (Type value : Type.values()) {
+                Assertions.assertThat(game.hasCard(cards, color, value)).isEqualTo(false);
+            }
+        }
+
         cards = game.initializeCards();
 
         for (Color color : Color.values()) {
@@ -27,5 +32,16 @@ class CardsTest {
         List<Card> cards = game.initializeCards();
 
         Assertions.assertThat(cards.size()).isEqualTo(48);
+    }
+
+    @Test
+    void testshuffle() {
+        DoppelkopfGame unshuffledCards = new DoppelkopfGame();
+        CreateRandomDeck shuffledCards = new CreateRandomDeck();
+        List<Card> shuffled = shuffledCards.shuffleDeck();
+        List<Card> unshuffled = unshuffledCards.initializeCards();
+
+        Assertions.assertThat(unshuffled).isNotEqualTo(shuffled);
+
     }
 }
