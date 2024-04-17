@@ -3,7 +3,8 @@ package hwr.oop;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class StartPlayer {
+public class StartPlayer{
+
 
     public static String selectRandomPlayer(ArrayList<String> players) {
         Random random = new Random();

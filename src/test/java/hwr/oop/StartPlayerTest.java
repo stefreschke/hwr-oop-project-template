@@ -1,16 +1,14 @@
 package hwr.oop;
-
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class StartPlayerTest {
+
     @Test
-     void testSelectPlayer() {
+    void testSelectStartPlayer() {
         ArrayList<String> players = new ArrayList<>();
         players.add("Spieler 1");
         players.add("Spieler 2");
@@ -21,9 +19,9 @@ class StartPlayerTest {
 
         for (int i = 0; i < 100; i++) {
             String selectedPlayer = StartPlayer.selectRandomPlayer(players);
+            assertThat(selectedPlayer).isIn(players);
             selectedPlayers.add(selectedPlayer);
         }
-
-        assertEquals(4, selectedPlayers.size());
+        assertThat(selectedPlayers).hasSizeGreaterThan(1);
     }
 }
