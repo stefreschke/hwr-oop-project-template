@@ -95,10 +95,10 @@
             <version>${pitest-maven.version}</version>
             <configuration>
               <targetClasses>
-                <param>hwr.oop*</param>
+                <param>classes*</param>
               </targetClasses>
               <targetTests>
-                <param>hwr.oop*</param>
+                <param>classTests*</param>
               </targetTests>
             </configuration>
             <dependencies>
