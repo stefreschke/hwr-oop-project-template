@@ -1,11 +1,10 @@
 package hwr.oop.pieces;
 
-import hwr.oop.Piece;
-import hwr.oop.Square;
-import hwr.oop.enums.Color;
+import hwr.oop.Color;
+import hwr.oop.Position;
 
 public class Bishop extends Piece {
-  public Bishop(Color color, Square position) {
-    super(color, position);
+  public Bishop(Color color, Position position) {
+    super(color, position, (color == Color.WHITE) ? 'B' : 'b');
   }
 }

@@ -1,11 +1,10 @@
 package hwr.oop.pieces;
 
-import hwr.oop.Piece;
-import hwr.oop.Square;
-import hwr.oop.enums.Color;
+import hwr.oop.Color;
+import hwr.oop.Position;
 
 public class King extends Piece {
-  public King(Color color, Square position) {
-    super(color, position);
+  public King(Color color, Position position) {
+    super(color, position, (color == Color.WHITE) ? 'K' : 'k');
   }
 }
