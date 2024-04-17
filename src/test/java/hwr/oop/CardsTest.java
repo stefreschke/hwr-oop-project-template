@@ -10,8 +10,10 @@ class CardsTest {
     @Test
     void testAllCards() {
         DoppelkopfGame game = new DoppelkopfGame();
-        List<Card> cards = game.initializeCards();
-        
+        List<Card> cards = List.of();
+        Assertions.assertThat(game.hasCard(cards, Color.PIK, Type.ASS)).isEqualTo(false);
+        cards = game.initializeCards();
+
         for (Color color : Color.values()) {
             for (Type value : Type.values()) {
                 assertTrue(game.hasCard(cards, color, value), "Karte " + color + " " + value + " fehlt im Spiel.");
