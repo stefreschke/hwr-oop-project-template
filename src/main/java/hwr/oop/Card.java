@@ -1,5 +1,8 @@
 package hwr.oop;
 
+import hwr.oop.enums.CardColours;
+import hwr.oop.enums.CardSymbols;
+
 public class Card {
     public CardSymbols getSymbol() {
         return symbol;

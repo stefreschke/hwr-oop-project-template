@@ -10,13 +10,10 @@ public class Game {
 
     public static void main(String[] args) {
         CardStack stack = new CardStack();
-        stack.shuffleStack();
-        Card[] cardStack = stack.getCardStack();
+
 
         List<Card> cardList = new ArrayList<>();
-        for (Card card : cardStack) {
-            cardList.add(card);
-        }
+
 
         List<List<Card>> players = new ArrayList<>();
         for (int i = 0; i < NUM_PLAYERS; i++) {

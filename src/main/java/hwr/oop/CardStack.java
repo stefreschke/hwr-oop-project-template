@@ -1,35 +1,15 @@
 package hwr.oop;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class CardStack {
 
-    private Card[] cardStack;
+    CardGenerator cardGenerator = new CardGenerator();
+    List<Card> cardStack = cardGenerator.generateAllCards();
 
-    public CardStack() {
-        cardStack = this.generateStack();
-    }
-
-    public Card[] generateStack() {
-        Card[] cardStack = new Card[]{
-                new Card(CardSymbols.NINE, CardColours.Trump, 0, "D9", 0)
-                //TODO: Create every card
-        };
-        return cardStack;
-    }
-
-    public void shuffleStack() {
-        Random random = new Random();
-        for (int i = cardStack.length - 1; i > 0; i--) {
-            int index = random.nextInt(i);
-            Card temp = cardStack[index];
-            cardStack[index] = cardStack[i];
-            cardStack[i] = temp;
-        }
-    }
-
-
-    public Card[] getCardStack() {
+    public List<Card> getCardStack() {
         return cardStack;
     }
 }
