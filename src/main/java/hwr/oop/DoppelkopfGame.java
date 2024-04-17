@@ -3,9 +3,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoppelkopfGame {
+    public final Player player1 = new Player("Spieler1");
+    public final Player player2 = new Player("Spieler2");
+    public final Player player3 = new Player("Spieler3");
+    public final Player player4 = new Player("Spieler4");
+
     public DoppelkopfGame() {
         initializeCards();
     }
+
 
     public List<Card> initializeCards() {
         List<Card> cards = new ArrayList<>();

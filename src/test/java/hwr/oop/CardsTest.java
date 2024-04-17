@@ -11,7 +11,7 @@ class CardsTest {
     void testAllCards() {
         DoppelkopfGame game = new DoppelkopfGame();
         List<Card> cards = List.of();
-        Assertions.assertThat(game.hasCard(cards, Color.PIK, Type.ASS)).isEqualTo(false);
+        Assertions.assertThat(game.hasCard(cards, Color.PIK, Type.ASS)).isFalse();
         cards = game.initializeCards();
 
         for (Color color : Color.values()) {
