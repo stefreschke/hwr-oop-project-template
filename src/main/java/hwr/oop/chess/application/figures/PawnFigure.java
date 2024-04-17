@@ -1,22 +1,62 @@
 package hwr.oop.chess.application.figures;
 
+import hwr.oop.chess.application.Board;
 import hwr.oop.chess.application.Position;
 
-public class PawnFigure extends Figure {
+public class PawnFigure implements Figure {
+  Position startPosition = null;
+  Position currentPosition = null;
+  FigureType type = null;
+  FigureColor color = null;
+
+
   public PawnFigure(FigureColor color, Position position) {
-    super(FigureType.PAWN, color, position);
+    this.type = FigureType.PAWN;
+    this.color = color;
+    this.startPosition = position;
+    this.currentPosition = position;
   }
 
-  @Override
+
   public boolean canMoveTo(Position newPosition) {
-    Position oldPosition = getPosition();
-    if (getColor() == FigureColor.BLACK) {
+    Position oldPosition = this.currentPosition;
+    boolean isFieldBlocked = Board.isFigureOnField(newPosition);
+    if (this.color == FigureColor.BLACK) {
       // Move one field straight down
-      return (oldPosition.x() == newPosition.x()) && oldPosition.y() == (newPosition.y() - 1);
+      if(!isFieldBlocked
+          && (oldPosition.x() == newPosition.x())
+          && (oldPosition.y() - 1) == (newPosition.y())){
+          return true;
+      }
 
-    } else {
-      // Move one field straight up
-      return (oldPosition.x() == newPosition.x()) && oldPosition.y() == (newPosition.y() + 1);
+      // Move one field diagonally
+      if (isFieldBlocked // check if a different figure is on the new field
+             && Board.getFigureOnField(newPosition).color == FigureColor.WHITE
+              && (Math.abs(oldPosition.x() - newPosition.x()) == 1)
+            && (oldPosition.y() - 1) == newPosition.y()) {
+          return true;
+      }
+
+      // Moving two fields from the start position
+        return isFieldBlocked
+                && (oldPosition.y() == 7)
+                && (oldPosition.y() - 2) == newPosition.y()
+                && (oldPosition.x() == newPosition.x());
+
     }
-  }
+    if (this.color == FigureColor.WHITE) {
+      // Move one field straight down
+      if(!isFieldBlocked
+              && (oldPosition.x() == newPosition.x())
+              && (oldPosition.y() +1) == (newPosition.y())){
+        return true;
+        }
+      }
+      // Move one field straight up
+      return !isFieldBlocked
+              && (oldPosition.x() == newPosition.x())
+              && (oldPosition.y() + 1) == newPosition.y();
+    }
+
 }
+
