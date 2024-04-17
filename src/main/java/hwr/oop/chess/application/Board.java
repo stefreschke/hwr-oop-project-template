@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Board {
     private static ArrayList<Figure> figures;
+   // private Piece[] board
     public Board(ArrayList<Figure> figures){
         Board.figures = figures;
     }

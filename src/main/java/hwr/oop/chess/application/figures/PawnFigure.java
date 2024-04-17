@@ -19,60 +19,38 @@ public class PawnFigure implements Figure {
     Position oldPosition = this.currentPosition;
     boolean isFieldBlocked = Board.isFigureOnField(newPosition);
 
-    if (this.color == FigureColor.BLACK) {
-      // Move one field straight down if the way is free
-      if (!isFieldBlocked
-          && (oldPosition.x()      == newPosition.x())
-          && (oldPosition.y() - 1) == newPosition.y()) {
-        return true;
-      }
-
-      // Moving two fields from the start position
-      if (!isFieldBlocked
-          && startPosition == oldPosition
-          && (oldPosition.x()      == newPosition.x())
-          && (oldPosition.y() - 2) == newPosition.y()) {
-        return true;
-      }
-
-      // Move one field diagonally if the opponent is there
-      Figure opponent = Board.getFigureOnField(newPosition);
-      if (isFieldBlocked // check if a different figure is on the new field
-          && opponent != null
-          && (opponent.getColor() == FigureColor.WHITE)
-          && (Math.abs(oldPosition.x() - newPosition.x()) == 1)
-          && (oldPosition.y() - 1) == newPosition.y()) {
-        opponent.setPosition(null); // catch opponent figure
-        return true;
-      }
-
+    int moveDirection = 1;
+    if(this.color == FigureColor.BLACK) {
+      moveDirection = -1;
     }
 
+    // Move one field straight up/down if the way is free
+    if (!isFieldBlocked
+        && (oldPosition.x() == newPosition.x())
+        && (oldPosition.y() + moveDirection) == newPosition.y()) {
+      return true;
+    }
 
-    if (this.color == FigureColor.WHITE) {
-      // Move one field straight up if the way is free
-      if (!isFieldBlocked
-          && (oldPosition.x() == newPosition.x())
-          && (oldPosition.y() + 1) == (newPosition.y())) {
-        return true;
-      }
+    // Moving two fields from the start position if both fields are free
+    boolean isFieldInFrontOfPawnBlocked =
+    if (!isFieldBlocked // field to move to is free
+        && !Board.isFigureOnField(new Position(oldPosition.x(), oldPosition.y() + moveDirection)) // field between current and final field
 
-      // Move one field diagonally if the opponent is there
-      Figure opponent = Board.getFigureOnField(newPosition);
-      if (isFieldBlocked // check if a different figure is on the new field
-              && opponent != null
-              && (opponent.getColor() == FigureColor.BLACK)
-              && (Math.abs(oldPosition.x() - newPosition.x()) == 1)
-              && (oldPosition.y() + 1) == newPosition.y()) {
-        opponent.setPosition(null); // catch opponent figure
-        return true;
-      }
+        && (startPosition == oldPosition)
+        && (oldPosition.x()      == newPosition.x())
+        && (oldPosition.y() + 2 * moveDirection) == newPosition.y()) {
+      return true;
+    }
 
-      // Moving two fields from the start position
-      return !isFieldBlocked
-              && startPosition == oldPosition
-              && (oldPosition.y() + 2) == newPosition.y()
-              && (oldPosition.x() == newPosition.x());
+    // Move one field diagonally if the opponent is there
+    Figure opponent = Board.getFigureOnField(newPosition);
+    if (isFieldBlocked // check if a different figure is on the new field
+        && opponent != null
+        && (opponent.getColor() == FigureColor.WHITE)
+        && (Math.abs(oldPosition.x() - newPosition.x()) == 1)
+        && (oldPosition.y() + moveDirection) == newPosition.y()) {
+      opponent.setPosition(null); // catch opponent figure
+      return true;
     }
 
     // this move is not allowed as it does not obey the rules.
