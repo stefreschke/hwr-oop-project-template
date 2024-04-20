@@ -2,86 +2,46 @@ package classes;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Board {
   private ArrayList<ArrayList<Piece>> board;
 
+  private Map<Character, Piece.PieceType> charToPieceType;
+
+  public void CharToPieceType() {
+    charToPieceType = new HashMap<>();
+    charToPieceType.put('r', Piece.PieceType.TURM);
+    charToPieceType.put('n', Piece.PieceType.SPRINGER);
+    charToPieceType.put('b', Piece.PieceType.LAEUFER);
+    charToPieceType.put('q', Piece.PieceType.DAME);
+    charToPieceType.put('k', Piece.PieceType.KOENIG);
+    charToPieceType.put('p', Piece.PieceType.BAUER);
+  }
+
   public Board() {
+    CharToPieceType();
+    //    board = new ArrayList<>(8);
+    //    for (ArrayList<Piece> row : board) {
+    //      row = new ArrayList<>(8);
+    //    }
     board = new ArrayList<>(8);
+
+    for (int i = 0; i < 8; i++) {
+      board.add(new ArrayList<>(8));
+    }
+
     for (ArrayList<Piece> row : board) {
-      row = new ArrayList<>(8);
+      for (int i = 0; i < 8; i++) {
+        row.add(null);
+      }
     }
   }
 
   public void initBoard() {
-    for (ArrayList<Piece> row : board) {
-      for (Piece i : row) {
-        i = null;
-      }
-    }
-
-    this.board
-        .getFirst()
-        .set(0, new Piece(Piece.PieceType.TURM, Arrays.asList(0, 0), Piece.Color.WHITE));
-    this.board
-        .getFirst()
-        .set(1, new Piece(Piece.PieceType.SPRINGER, Arrays.asList(0, 1), Piece.Color.WHITE));
-    this.board
-        .getFirst()
-        .set(2, new Piece(Piece.PieceType.LAEUFER, Arrays.asList(0, 2), Piece.Color.WHITE));
-    this.board
-        .getFirst()
-        .set(3, new Piece(Piece.PieceType.DAME, Arrays.asList(0, 3), Piece.Color.WHITE));
-    this.board
-        .getFirst()
-        .set(4, new Piece(Piece.PieceType.KOENIG, Arrays.asList(0, 4), Piece.Color.WHITE));
-    this.board
-        .getFirst()
-        .set(5, new Piece(Piece.PieceType.LAEUFER, Arrays.asList(0, 5), Piece.Color.WHITE));
-    this.board
-        .getFirst()
-        .set(6, new Piece(Piece.PieceType.SPRINGER, Arrays.asList(0, 6), Piece.Color.WHITE));
-    this.board
-        .getFirst()
-        .set(7, new Piece(Piece.PieceType.TURM, Arrays.asList(0, 7), Piece.Color.WHITE));
-
-    for (int i = 0; i < 8; i++) {
-      this.board
-          .get(1)
-          .set(i, new Piece(Piece.PieceType.BAUER, Arrays.asList(1, i), Piece.Color.WHITE));
-    }
-
-    this.board
-        .get(7)
-        .set(0, new Piece(Piece.PieceType.TURM, Arrays.asList(7, 0), Piece.Color.BLACK));
-    this.board
-        .get(7)
-        .set(1, new Piece(Piece.PieceType.SPRINGER, Arrays.asList(7, 1), Piece.Color.BLACK));
-    this.board
-        .get(7)
-        .set(2, new Piece(Piece.PieceType.LAEUFER, Arrays.asList(7, 2), Piece.Color.BLACK));
-    this.board
-        .get(7)
-        .set(3, new Piece(Piece.PieceType.DAME, Arrays.asList(7, 3), Piece.Color.BLACK));
-    this.board
-        .get(7)
-        .set(4, new Piece(Piece.PieceType.KOENIG, Arrays.asList(7, 4), Piece.Color.BLACK));
-    this.board
-        .get(7)
-        .set(5, new Piece(Piece.PieceType.LAEUFER, Arrays.asList(7, 5), Piece.Color.BLACK));
-    this.board
-        .get(7)
-        .set(6, new Piece(Piece.PieceType.SPRINGER, Arrays.asList(7, 6), Piece.Color.BLACK));
-    this.board
-        .get(7)
-        .set(7, new Piece(Piece.PieceType.TURM, Arrays.asList(7, 7), Piece.Color.BLACK));
-
-    for (int i = 0; i < 8; i++) {
-      this.board
-          .get(7)
-          .set(i, new Piece(Piece.PieceType.BAUER, Arrays.asList(6, i), Piece.Color.BLACK));
-    }
+    setBoardToFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
   }
 
   public void changePos(int oldX, int oldY, int newX, int newY) {
@@ -89,8 +49,12 @@ public class Board {
     this.board.get(oldX).set(oldY, null);
   }
 
-  public Piece getPieceAt(int x, int y) {
-    return this.board.get(x).get(y);
+  public Piece getPieceAt(int row, int column) {
+    return this.board.get(row).get(column);
+  }
+
+  private void setPieceAt(int row, int column, Piece piece) {
+    this.board.get(row).set(column, piece);
   }
 
   public ArrayList<ArrayList<Piece>> getBoard() {
@@ -101,9 +65,39 @@ public class Board {
     System.out.println("Printing Board here");
   }
 
-  public boolean isValidMove(Piece piece, int x, int y) {
-    int vecX = x - piece.getActPosition().get(0);
-    int vecY = y - piece.getActPosition().get(1);
+  public void setBoardToFen(String fen) {
+
+    int row = 7;
+    int column = 0;
+
+    for (char c : fen.toCharArray()) {
+
+      if (c == '/') {
+        row--;
+        column = 0;
+      } else if (c >= '1' && c <= '8') {
+        for (int i = column; i < column + (c - '0'); i++) {
+          setPieceAt(i, row, null);
+        }
+        column += (c - '0');
+      } else {
+
+        setPieceAt(
+            row,
+            column,
+            new Piece(
+                charToPieceType.get(Character.toLowerCase(c)),
+                Arrays.asList(row, column),
+                c <= 'z' ? Piece.Color.BLACK : Piece.Color.WHITE));
+
+        column++;
+      }
+    }
+  }
+
+  public boolean isValidMove(Piece piece, int column, int row) {
+    int vecX = column - piece.getActPosition().get(1);
+    int vecY = row - piece.getActPosition().get(0);
     for (List<Integer> i : piece.getPosMoves()) {
       if (piece.isMoveRepeatable()) {
         for (int j = -7; j < 8; j++) {
@@ -123,9 +117,9 @@ public class Board {
     return false;
   }
 
-  public boolean isBlocked(Piece piece, int newX, int newY) {
+  public boolean isBlocked(Piece piece, int newColumn, int newRow) {
     List<Integer> oldPos = piece.getActPosition();
-    List<Integer> vec = Arrays.asList(newX - oldPos.getFirst(), newY - oldPos.get(1));
+    List<Integer> vec = Arrays.asList(newColumn - oldPos.getFirst(), newRow - oldPos.get(1));
     if (vec.getFirst() != 0) {
       if (vec.getFirst() < 0) {
         vec.set(0, -1);
@@ -141,8 +135,8 @@ public class Board {
       }
     }
     for (int i = 1;
-        i < ((newX - oldPos.getFirst()) * vec.getFirst())
-            || i < ((newY - oldPos.get(1)) * vec.get(1));
+        i < ((newColumn - oldPos.getFirst()) * vec.getFirst())
+            || i < ((newRow - oldPos.get(1)) * vec.get(1));
         i++) {
       if (this.board.get(oldPos.getFirst() + i * vec.getFirst()).get(oldPos.get(1) + i * vec.get(1))
           != null) {
