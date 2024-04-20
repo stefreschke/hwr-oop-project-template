@@ -88,7 +88,7 @@ public class Board {
             new Piece(
                 charToPieceType.get(Character.toLowerCase(c)),
                 Arrays.asList(row, column),
-                c <= 'z' ? Piece.Color.BLACK : Piece.Color.WHITE));
+                c <= 'Z' ? Piece.Color.WHITE : Piece.Color.BLACK));
 
         column++;
       }

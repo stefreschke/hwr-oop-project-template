@@ -48,6 +48,7 @@ class BoardTest {
 
     Assertions.assertThat(board.getPieceAt(0, 7).getAbbr()).isEqualTo('t');
     Assertions.assertThat(board.getPieceAt(0, 7).getActPosition().get(1)).isEqualTo(7);
+    Assertions.assertThat(board.getPieceAt(0, 7).getColor()).isEqualTo(Piece.Color.WHITE);
 
   }
 
