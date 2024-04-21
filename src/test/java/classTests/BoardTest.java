@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 class BoardTest {
   @Test
-  void testIsValidMove() {
+  void isValidMoveTest() {
     Board board = new Board();
     board.initBoard();
     Piece piece = board.getPieceAt(1, 0); // weisser bauer
@@ -20,7 +20,7 @@ class BoardTest {
   }
 
   @Test
-  void get_isBlocked() {
+  void isBlockedTest() {
     Board board = new Board();
     board.initBoard();
     Assertions.assertThat(board.isBlocked(board.getPieceAt(0, 0), 0, 6)).isTrue();
@@ -28,7 +28,7 @@ class BoardTest {
   }
 
   @Test
-  void testSetBoardToFen() {
+  void setBoardToFenTest() {
     Board board = new Board();
 
     board.setBoardToFen("8/8/8/2kb4/4K3/8/8/1r6");
@@ -42,7 +42,7 @@ class BoardTest {
   }
 
   @Test
-  void testGetPieceAt(){
+  void getPieceAtTest(){
     Board board = new Board();
     board.initBoard();
 
@@ -53,7 +53,7 @@ class BoardTest {
   }
 
   @Test
-  void getInitBoard() {
+  void initBoardTest() {
     Board board = new Board();
     board.initBoard();
     int row = 0;

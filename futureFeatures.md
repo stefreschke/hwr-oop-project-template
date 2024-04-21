@@ -2,7 +2,7 @@
 
 - [ ] Figuren Klasse
   - [ ] Zug Methode
-  - [ ] Basis für Bauern, Dame etc. (Vererbung, Polymorphismus)
+  - [ ] Basis für Bauern, Dame etc. (Polymorphismus)
   - [ ] Bauern schlagen
 - [ ] Spiel
   - [ ] Start/neues Spiel

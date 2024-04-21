@@ -11,22 +11,8 @@ public class Board {
 
   private Map<Character, Piece.PieceType> charToPieceType;
 
-  public void CharToPieceType() {
-    charToPieceType = new HashMap<>();
-    charToPieceType.put('r', Piece.PieceType.TURM);
-    charToPieceType.put('n', Piece.PieceType.SPRINGER);
-    charToPieceType.put('b', Piece.PieceType.LAEUFER);
-    charToPieceType.put('q', Piece.PieceType.DAME);
-    charToPieceType.put('k', Piece.PieceType.KOENIG);
-    charToPieceType.put('p', Piece.PieceType.BAUER);
-  }
-
   public Board() {
-    CharToPieceType();
-    //    board = new ArrayList<>(8);
-    //    for (ArrayList<Piece> row : board) {
-    //      row = new ArrayList<>(8);
-    //    }
+    charToPieceType();
     board = new ArrayList<>(8);
 
     for (int i = 0; i < 8; i++) {
@@ -40,29 +26,16 @@ public class Board {
     }
   }
 
-  public void initBoard() {
-    setBoardToFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
-  }
-
-  public void changePos(int oldX, int oldY, int newX, int newY) {
-    this.board.get(newX).set(newY, board.get(oldX).get(oldY));
-    this.board.get(oldX).set(oldY, null);
-  }
-
   public Piece getPieceAt(int row, int column) {
     return this.board.get(row).get(column);
-  }
-
-  private void setPieceAt(int row, int column, Piece piece) {
-    this.board.get(row).set(column, piece);
   }
 
   public ArrayList<ArrayList<Piece>> getBoard() {
     return board;
   }
 
-  public void printBoard() {
-    System.out.println("Printing Board here");
+  private void setPieceAt(int row, int column, Piece piece) {
+    this.board.get(row).set(column, piece);
   }
 
   public void setBoardToFen(String fen) {
@@ -93,6 +66,29 @@ public class Board {
         column++;
       }
     }
+  }
+
+  public void initBoard() {
+    setBoardToFen("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
+  }
+
+  public void charToPieceType() {
+    charToPieceType = new HashMap<>();
+    charToPieceType.put('r', Piece.PieceType.TURM);
+    charToPieceType.put('n', Piece.PieceType.SPRINGER);
+    charToPieceType.put('b', Piece.PieceType.LAEUFER);
+    charToPieceType.put('q', Piece.PieceType.DAME);
+    charToPieceType.put('k', Piece.PieceType.KOENIG);
+    charToPieceType.put('p', Piece.PieceType.BAUER);
+  }
+
+  public void changePos(int oldX, int oldY, int newX, int newY) {
+    this.board.get(newX).set(newY, board.get(oldX).get(oldY));
+    this.board.get(oldX).set(oldY, null);
+  }
+
+  public void printBoard() {
+    System.out.println("Printing Board here");
   }
 
   public boolean isValidMove(Piece piece, int column, int row) {

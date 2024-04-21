@@ -49,9 +49,24 @@ just build
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature | Tests |
-|--------|---------|-------|
-| 1      | /       | /     |
+| Number | Feature            | Tests               |
+|--------|--------------------|---------------------|
+| 1      | setActPosition()   | /                   |
+| 2      | getColor()         | /                   |
+| 3      | getAbbr()          | /                   |
+| 4      | getActPosition()   | /                   |
+| 5      | getPosMoves()      | /                   |
+| 6      | isMoveRepeatable() | /                   |
+| 7      | charToPieceType()  | /                   |
+| 8      | initBoard()        | initBoardTest()     |
+| 9      | changePos()        | /                   |
+| 10     | getPieceAt()       | getPieceAtTest()    |
+| 11     | getBoard()         | /                   |
+| 12     | setPieceAt()       | /                   |
+| 13     | setBoardToFen()    | setBoardToFenTest() |
+| 14     | printBoard()       | /                   |
+| 15     | isValidMove()      | isValidMoveTest()   |
+| 16     | isBlocked()        | isBlockedTest()     |
 
 ## Additional Dependencies
 
@@ -60,19 +75,6 @@ just build
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
 | 1      | /               | /                      | /                    |
-
-## Instructions
-
-[TODO]: # (Remove these instructions once you finished your fork's setup.)
-
-Use a fork of this repository to do implement your project.
-
-Remember to add this repository as a second remote repository (upstream) and pull from the correct
-remotes.
-This is necessary, because we might apply changes to this template during the next month.
-
-The following section describes how to add multiple remote repositories to your local repository,
-which is cloned from the fork.
 
 ### Multiple remote repositories
 
