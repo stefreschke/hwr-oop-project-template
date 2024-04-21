@@ -5,13 +5,9 @@ import hwr.oop.exceptions.MovePieceException;
 import hwr.oop.pieces.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.util.List;
 
 import static hwr.oop.ChessBoard.convertInputToPosition;
-import static hwr.oop.ChessBoard.printChessBoard;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -62,31 +58,29 @@ class ChessBoardTest {
   }
 
 
- /* TODO: Fix or remove
-  @Test
-  void testPrintChessBoard() {
-    board = new ChessBoard();
-    printChessBoard(board.getBoard());
-    ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
-    System.setOut(new PrintStream(outputStreamCaptor));
-    printChessBoard(board.getBoard());
-    String expectedOutput =
-            """
-                  a b c d e f g h\r
-                +-----------------+\r
-               8| r n b q k b n r |\r
-               7| p p p p p p p p |\r
-               6| . . . . . . . . |\r
-               5| . . . . . . . . |\r
-               4| . . . . . . . . |\r
-               3| . . . . . . . . |\r
-               2| P P P P P P P P |\r
-               1| R N B Q K B N R |\r
-                +-----------------+\r
-                """;
-    assertThat(outputStreamCaptor.toString()).hasToString(expectedOutput);
-  }
-  */
+//  @Test
+//  void testPrintChessBoard() {
+//    board = new ChessBoard();
+//    printChessBoard(board.getBoard());
+//    ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+//    System.setOut(new PrintStream(outputStreamCaptor));
+//    printChessBoard(board.getBoard());
+//    String expectedOutput =
+//            """
+//                  a b c d e f g h\r
+//                +-----------------+\r
+//               8| r n b q k b n r |\r
+//               7| p p p p p p p p |\r
+//               6| . . . . . . . . |\r
+//               5| . . . . . . . . |\r
+//               4| . . . . . . . . |\r
+//               3| . . . . . . . . |\r
+//               2| P P P P P P P P |\r
+//               1| R N B Q K B N R |\r
+//                +-----------------+\r
+//                """;
+//    assertThat(outputStreamCaptor.toString()).hasToString(expectedOutput);
+//  }
 
 
   @Test
@@ -119,8 +113,8 @@ class ChessBoardTest {
     Position from = new Position(6,0);
     Position to = new Position(5,0);
     assertThat(board.movePiece(from, to)).isTrue();
-    assertThat(actualBoard.get(6).get(0)).isNull();
-    assertThat(actualBoard.get(5).get(0)).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(5,0)));
+    assertThat(actualBoard.get(6).getFirst()).isNull();
+    assertThat(actualBoard.get(5).getFirst()).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(5,0)));
   }
 
   @Test
@@ -130,7 +124,7 @@ class ChessBoardTest {
     MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
     String expectedMessage = "Invalid destination position!";
     assertThat(exception.getMessage()).contains(expectedMessage);
-    assertThat(actualBoard.get(6).get(0)).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
+    assertThat(actualBoard.get(6).getFirst()).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
   }
 
   @Test
@@ -140,7 +134,7 @@ class ChessBoardTest {
     MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
     String expectedMessage = "Invalid destination position!";
     assertThat(exception.getMessage()).contains(expectedMessage);
-    assertThat(actualBoard.get(6).get(0)).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
+    assertThat(actualBoard.get(6).getFirst()).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
   }
 
   @Test
@@ -150,7 +144,7 @@ class ChessBoardTest {
     MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
     String expectedMessage = "Invalid destination position!";
     assertThat(exception.getMessage()).contains(expectedMessage);
-    assertThat(actualBoard.get(6).get(0)).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
+    assertThat(actualBoard.get(6).getFirst()).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
   }
 
   @Test
@@ -160,7 +154,7 @@ class ChessBoardTest {
     MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
     String expectedMessage = "Invalid destination position!";
     assertThat(exception.getMessage()).contains(expectedMessage);
-    assertThat(actualBoard.get(6).get(0)).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
+    assertThat(actualBoard.get(6).getFirst()).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(6,0)));
   }
 
   @Test
@@ -180,4 +174,5 @@ class ChessBoardTest {
     String expectedMessage = "No piece at the specified position!";
     assertThat(exception.getMessage()).contains(expectedMessage);
   }
+
 }

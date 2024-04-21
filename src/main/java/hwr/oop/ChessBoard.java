@@ -6,20 +6,20 @@ import hwr.oop.pieces.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ChessBoard {
   private final List<List<Piece>> board = new ArrayList<>();
 
   public ChessBoard() {
-    for (int i = 0; i < 8; i++) {
+    IntStream.range(0, 8).forEach(i -> {
       List<Piece> row = new ArrayList<>();
-      for (int j = 0; j < 8; j++) {
-        row.add(null);
-      }
+      IntStream.range(0, 8).forEach(j -> row.add(null));
       board.add(row);
-    }
+    });
     setupPieces();
   }
+
 
   private void setupPieces() {
     // Place Rooks
@@ -54,23 +54,23 @@ public class ChessBoard {
     return board;
   }
 
-  public static void printChessBoard(List<List<Piece>> board) {
-    System.out.println("   a b c d e f g h");
-    System.out.println(" +-----------------+");
-    for (int i = 0; i < 8; i++) {
-      System.out.print(8 - i + "| ");
-      for (int j = 0; j < 8; j++) {
-        Piece piece = board.get(i).get(j);
-        if (piece != null) {
-          System.out.print(piece.getSymbol() + " ");
-        } else {
-          System.out.print(". ");
-        }
-      }
-      System.out.println("|");
-    }
-    System.out.println(" +-----------------+");
-  }
+//  public static void printChessBoard(List<List<Piece>> board) {
+//    System.out.println("   a b c d e f g h");
+//    System.out.println(" +-----------------+");
+//    for (int i = 0; i < 8; i++) {
+//      System.out.print(8 - i + "| ");
+//      for (int j = 0; j < 8; j++) {
+//        Piece piece = board.get(i).get(j);
+//        if (piece != null) {
+//          System.out.print(piece.getSymbol() + " ");
+//        } else {
+//          System.out.print(". ");
+//        }
+//      }
+//      System.out.println("|");
+//    }
+//    System.out.println(" +-----------------+");
+//  }
 
   public static Position convertInputToPosition(String input) throws ChessBoardException {
     if (input.length() != 2 || !Character.isLetter(input.charAt(0)) || !Character.isDigit(input.charAt(1))) {
