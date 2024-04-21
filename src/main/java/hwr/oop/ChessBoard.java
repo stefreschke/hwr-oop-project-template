@@ -57,10 +57,10 @@ public class ChessBoard {
 //  public static void printChessBoard(List<List<Piece>> board) {
 //    System.out.println("   a b c d e f g h");
 //    System.out.println(" +-----------------+");
-//    for (int i = 0; i < 8; i++) {
-//      System.out.print(8 - i + "| ");
-//      for (int j = 0; j < 8; j++) {
-//        Piece piece = board.get(i).get(j);
+//    int rowNumber = 8;
+//    for (List<Piece> row : board) {
+//      System.out.print(rowNumber + "| ");
+//      for (Piece piece : row) {
 //        if (piece != null) {
 //          System.out.print(piece.getSymbol() + " ");
 //        } else {
@@ -68,6 +68,7 @@ public class ChessBoard {
 //        }
 //      }
 //      System.out.println("|");
+//      rowNumber--;
 //    }
 //    System.out.println(" +-----------------+");
 //  }
