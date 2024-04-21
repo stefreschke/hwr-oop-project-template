@@ -42,7 +42,7 @@ Chess is a game of skill for two players, each of whom moves 16 figures accordin
 of an eight-by-eight pattern of squares. Victory depends on concentration and intuitive vision. It is often called the royal game.
 
 The chessboard is a miniature battlefield, and the opposing armies are called white and black. Each consists of eight 
-so-called pieces—a king, a queen, two bishops, two knights, and two rooks —and eight pawns. \[..\] The object is to make a successful 
+so-called pieces—a king, a queen, two bishops, two knights, and two rooks —and eight pawns. \[...\] The object is to make a successful 
 attack upon the enemy king. The king is not actually captured; it is enough to produce a position in which the king cannot escape. 
 This situation is called a checkmate and ends the game. [^1]
 
