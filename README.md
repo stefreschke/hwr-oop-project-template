@@ -36,9 +36,20 @@ just build
 
 ## Abstract
 
-[TODO]: # (Write a short description of your project.)
-[TODO]: # (State most important features.)
-[TODO]: # (State the most interesting problems you encountered during the project.)
+Objective of this project is to implement the game Chess while learning object-oriented programming with Java/Kotlin.
+
+Chess is a game of skill for two players, each of whom moves 16 figures according to fixed rules across a board consisting 
+of an eight-by-eight pattern of squares. Victory depends on concentration and intuitive vision. It is often called the royal game.
+
+The chessboard is a miniature battlefield, and the opposing armies are called white and black. Each consists of eight 
+so-called pieces—a king, a queen, two bishops, two knights, and two rooks —and eight pawns. \[..\] The object is to make a successful 
+attack upon the enemy king. The king is not actually captured; it is enough to produce a position in which the king cannot escape. 
+This situation is called a checkmate and ends the game. [^1]
+
+MOST IMPORTANT FEATURES
+
+MOST INTERESTING PROBLEMS WEVE STUMBLED UPON
+
 
 ## Feature List
 
@@ -97,3 +108,4 @@ just build
 
 [maven]: https://maven.apache.org/
 [just]: https://github.com/casey/just
+[^1]: https://kids.britannica.com/students/article/chess/273625
