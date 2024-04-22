@@ -5,43 +5,44 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 
 public class Board {
-  private ArrayList<ArrayList<Piece>> board;
-
+  private ArrayList<ArrayList<Piece>> playBoard;
   private Map<Character, Piece.PieceType> charToPieceType;
+  private Logger logger = Logger.getLogger(getClass().getName());
 
   public Board() {
     charToPieceType();
-    board = new ArrayList<>(8);
+    int length = 8;
+    playBoard = new ArrayList<>(length);
 
-    for (int i = 0; i < 8; i++) {
-      board.add(new ArrayList<>(8));
+    for (int i = 0; i < length; i++) {
+      playBoard.add(new ArrayList<>(length));
     }
 
-    for (ArrayList<Piece> row : board) {
-      for (int i = 0; i < 8; i++) {
+    for (ArrayList<Piece> row : playBoard) {
+      for (int i = 0; i < length; i++) {
         row.add(null);
       }
     }
   }
 
-  public Piece getPieceAt(int row, int column) {
-    return this.board.get(row).get(column);
+  public Piece getPieceAt(int column, int row) {
+    return this.playBoard.get(row).get(column);
   }
 
-  public ArrayList<ArrayList<Piece>> getBoard() {
-    return board;
+  public List<ArrayList<Piece>> getPlayBoard() {
+    return playBoard;
   }
 
-  private void setPieceAt(int row, int column, Piece piece) {
-    this.board.get(row).set(column, piece);
+  private void setPieceAt(int column, int row, Piece piece) {
+    this.playBoard.get(row).set(column, piece);
   }
 
   public void setBoardToFen(String fen) {
-
-    int row = 7;
     int column = 0;
+    int row = 7;
 
     for (char c : fen.toCharArray()) {
 
@@ -50,15 +51,14 @@ public class Board {
         column = 0;
       } else if (c >= '1' && c <= '8') {
         for (int i = column; i < column + (c - '0'); i++) {
-          setPieceAt(i, row, null);
+          setPieceAt(row, i, null);
         }
         column += (c - '0');
       } else {
 
         setPieceAt(
-            row,
-            column,
-            new Piece(
+                column, row,
+                new Piece(
                 charToPieceType.get(Character.toLowerCase(c)),
                 Arrays.asList(row, column),
                 Character.isUpperCase(c) ? Piece.Color.WHITE : Piece.Color.BLACK));
@@ -83,12 +83,12 @@ public class Board {
   }
 
   public void changePos(int oldX, int oldY, int newX, int newY) {
-    this.board.get(newX).set(newY, board.get(oldX).get(oldY));
-    this.board.get(oldX).set(oldY, null);
+    this.playBoard.get(newX).set(newY, playBoard.get(oldX).get(oldY));
+    this.playBoard.get(oldX).set(oldY, null);
   }
 
   public void printBoard() {
-    System.out.println("Printing Board here");
+    logger.info("Printing Board here");
   }
 
   public boolean isValidMove(Piece piece, int column, int row) {
@@ -134,7 +134,7 @@ public class Board {
         i < ((newColumn - oldPos.getFirst()) * vec.getFirst())
             || i < ((newRow - oldPos.get(1)) * vec.get(1));
         i++) {
-      if (this.board.get(oldPos.getFirst() + i * vec.getFirst()).get(oldPos.get(1) + i * vec.get(1))
+      if (this.playBoard.get(oldPos.getFirst() + i * vec.getFirst()).get(oldPos.get(1) + i * vec.get(1))
           != null) {
         return true;
       }

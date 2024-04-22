@@ -49,24 +49,24 @@ just build
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature            | Tests               |
-|--------|--------------------|---------------------|
-| 1      | setActPosition()   | /                   |
-| 2      | getColor()         | /                   |
-| 3      | getAbbr()          | /                   |
-| 4      | getActPosition()   | /                   |
-| 5      | getPosMoves()      | /                   |
-| 6      | isMoveRepeatable() | /                   |
-| 7      | charToPieceType()  | /                   |
-| 8      | initBoard()        | initBoardTest()     |
-| 9      | changePos()        | /                   |
-| 10     | getPieceAt()       | getPieceAtTest()    |
-| 11     | getBoard()         | /                   |
-| 12     | setPieceAt()       | /                   |
-| 13     | setBoardToFen()    | setBoardToFenTest() |
-| 14     | printBoard()       | /                   |
-| 15     | isValidMove()      | isValidMoveTest()   |
-| 16     | isBlocked()        | isBlockedTest()     |
+| Number | Feature            | Tests                  |
+|--------|--------------------|------------------------|
+| 1      | setActPosition()   | setActPositionTest()   |
+| 2      | getColor()         | /                      |
+| 3      | getAbbr()          | /                      |
+| 4      | getActPosition()   | getActPositionTest()   |
+| 5      | getPosMoves()      | /                      |
+| 6      | isMoveRepeatable() | isMoveRepeatableTest() |
+| 7      | charToPieceType()  | /                      |
+| 8      | initBoard()        | initBoardTest()        |
+| 9      | changePos()        | changePosTest()        |
+| 10     | getPieceAt()       | getPieceAtTest()       |
+| 11     | getBoard()         | /                      |
+| 12     | setPieceAt()       | /                      |
+| 13     | setBoardToFen()    | setBoardToFenTest()    |
+| 14     | printBoard()       | /                      |
+| 15     | isValidMove()      | isValidMoveTest()      |
+| 16     | isBlocked()        | isBlockedTest()        |
 
 ## Additional Dependencies
 
