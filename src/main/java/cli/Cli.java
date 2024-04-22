@@ -1,4 +1,4 @@
-package hwr.oop.chess;
+package cli;
 
 public class Cli {
   @SuppressWarnings("java:S106")
