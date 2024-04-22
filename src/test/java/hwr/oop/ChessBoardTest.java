@@ -89,7 +89,7 @@ class ChessBoardTest {
 
 
   @Test
-  void convertInputToPosition_Valid() throws ChessBoardException {
+  void convertInputToPosition_Valid() {
     SoftAssertions.assertSoftly(softly -> {
       try {
         softly.assertThat(convertInputToPosition("a8")).isEqualTo(new Position(7, 0));
