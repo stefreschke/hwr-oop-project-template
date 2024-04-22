@@ -1,6 +1,5 @@
 # HWR OOP Lecture Project Template
 
-[TODO]: # (Change README.md Headline to better fit to your project!)
 
 This repository contains a student project created for an ongoing lecture on object-oriented
 programming with Java/Kotlin at HWR Berlin (summer term 2024).
@@ -41,17 +40,21 @@ just build
 
 ## Abstract
 
-[TODO]: # (Write a short description of your project.)
-[TODO]: # (State most important features.)
+This is an application for the game "Doppelkopf". It's a card game for four players. 
+
+At the moment the cards can be created, shuffled and dealt to the four players.
+
+
 [TODO]: # (State the most interesting problems you encountered during the project.)
 
 ## Feature List
 
-[TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature | Tests |
-|--------|---------|-------|
-| 1      | /       | /     |
+| Number | Feature                | Tests |
+|--------|------------------------|-------|
+| 1      | create 48 cards        | /     |
+| 2      | shuffle and deal cards | /     |
+| 3      | create 4 Players       | /     |
 
 ## Additional Dependencies
 
@@ -61,18 +64,6 @@ just build
 |--------|-----------------|------------------------|----------------------|
 | 1      | /               | /                      | /                    |
 
-## Instructions
-
-[TODO]: # (Remove these instructions once you finished your fork's setup.)
-
-Use a fork of this repository to do implement your project.
-
-Remember to add this repository as a second remote repository (upstream) and pull from the correct
-remotes.
-This is necessary, because we might apply changes to this template during the next month.
-
-The following section describes how to add multiple remote repositories to your local repository,
-which is cloned from the fork.
 
 ### Multiple remote repositories
 
