@@ -58,9 +58,7 @@ public class Game {
 public void playRound() {
     for (int i = 0; i < NUM_PLAYERS; i++) {
       System.out.println(activePlayer.getName());
-      System.out.println(activePlayer.getHand().size());
       takeTurn(activePlayer);
-      System.out.println(activePlayer.getHand().size());
       activePlayer = Player.getNextPlayer(activePlayer);
 
   }
@@ -79,7 +77,9 @@ public void gameLoop() {
 }
 
 public Player decideWinner() {
-    System.out.println(discardPile.findHighestValue().getName());
+    System.out.println("Höchste Karte: "+ discardPile.findHighestValue().getName());
+    System.out.println("Sieger: "+ players.get(discardPile.getIdOfWinner()).getName());
+
 
     return null;
 }

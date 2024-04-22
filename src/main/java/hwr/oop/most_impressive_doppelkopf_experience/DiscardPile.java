@@ -4,14 +4,20 @@ import java.util.List;
 
 public class DiscardPile {
   List<Card> discardCards = new ArrayList<>();
-  public Card findHighestValue() {
 
+  public int getIdOfWinner() {
+    return idOfWinner;
+  }
+
+  int idOfWinner;
+  public Card findHighestValue() {
     Card highestTemp = discardCards.getFirst();
     for (int i = 0; i < discardCards.size(); i++) {
       Card currentCard = discardCards.get(i);
       int currentValue = currentCard.getValue();
       if(currentValue > highestTemp.getValue()) {
         highestTemp = currentCard;
+        idOfWinner = i;
       }
     }
     discardCards.clear();
