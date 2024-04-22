@@ -9,6 +9,10 @@ public class Game {
     private static final int NUM_PLAYERS = 4;
     private static final int NUM_CARDS_PER_PLAYER = 12;
 
+    public static List<Player> handOutCards() {
+        return null;
+    }
+
     private List<Player> createPlayers() {
         List<Player> playerList = new ArrayList<>();
         Player player1 = new Player("Colin", 0);
