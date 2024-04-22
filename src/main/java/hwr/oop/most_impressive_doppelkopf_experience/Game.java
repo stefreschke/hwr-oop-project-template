@@ -62,7 +62,9 @@ public void playRound() {
       takeTurn(activePlayer);
       System.out.println(activePlayer.getHand().size());
       activePlayer = Player.getNextPlayer(activePlayer);
+
   }
+  decideWinner();
 }
 
 public void gameLoop() {
@@ -76,6 +78,11 @@ public void gameLoop() {
   }
 }
 
+public Player decideWinner() {
+    System.out.println(discardPile.findHighestValue().getName());
+
+    return null;
+}
   public static void main(String[] args) {
     Game game = new Game();
     game.startNewGame();
