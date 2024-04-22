@@ -24,30 +24,30 @@ public class ChessBoard {
 
   private void setupPieces() {
     // Place Rooks
-    board.get(0).set(0, new Rook(Color.BLACK, new Position(0, 0)));
-    board.get(0).set(7, new Rook(Color.BLACK, new Position(0, 7)));
-    board.get(7).set(0, new Rook(Color.WHITE, new Position(7, 0)));
-    board.get(7).set(7, new Rook(Color.WHITE, new Position(7, 7)));
+    board.get(0).set(0, new Rook(Color.WHITE, new Position(0, 0)));
+    board.get(0).set(7, new Rook(Color.WHITE, new Position(0, 7)));
+    board.get(7).set(0, new Rook(Color.BLACK, new Position(7, 0)));
+    board.get(7).set(7, new Rook(Color.BLACK, new Position(7, 7)));
     // Place Knights
-    board.get(0).set(1, new Knight(Color.BLACK, new Position(0, 1)));
-    board.get(0).set(6, new Knight(Color.BLACK, new Position(0, 6)));
-    board.get(7).set(1, new Knight(Color.WHITE, new Position(7, 1)));
-    board.get(7).set(6, new Knight(Color.WHITE, new Position(7, 6)));
+    board.get(0).set(1, new Knight(Color.WHITE, new Position(0, 1)));
+    board.get(0).set(6, new Knight(Color.WHITE, new Position(0, 6)));
+    board.get(7).set(1, new Knight(Color.BLACK, new Position(7, 1)));
+    board.get(7).set(6, new Knight(Color.BLACK, new Position(7, 6)));
     // Place Bishops
-    board.get(0).set(2, new Bishop(Color.BLACK, new Position(0, 2)));
-    board.get(0).set(5, new Bishop(Color.BLACK, new Position(0, 5)));
-    board.get(7).set(2, new Bishop(Color.WHITE, new Position(7, 2)));
-    board.get(7).set(5, new Bishop(Color.WHITE, new Position(7, 5)));
+    board.get(0).set(2, new Bishop(Color.WHITE, new Position(0, 2)));
+    board.get(0).set(5, new Bishop(Color.WHITE, new Position(0, 5)));
+    board.get(7).set(2, new Bishop(Color.BLACK, new Position(7, 2)));
+    board.get(7).set(5, new Bishop(Color.BLACK, new Position(7, 5)));
     // Place Queens
-    board.get(0).set(3, new Queen(Color.BLACK, new Position(0, 3)));
-    board.get(7).set(3, new Queen(Color.WHITE, new Position(7, 3)));
+    board.get(0).set(3, new Queen(Color.WHITE, new Position(0, 3)));
+    board.get(7).set(3, new Queen(Color.BLACK, new Position(7, 3)));
     // Place Kings
-    board.get(0).set(4, new King(Color.BLACK, new Position(0, 4)));
-    board.get(7).set(4, new King(Color.WHITE, new Position(7, 4)));
+    board.get(0).set(4, new King(Color.WHITE, new Position(0, 4)));
+    board.get(7).set(4, new King(Color.BLACK, new Position(7, 4)));
     // Place Pawns
     for (int i = 0; i < 8; i++) {
-      board.get(1).set(i, new Pawn(Color.BLACK, new Position(1, i)));
-      board.get(6).set(i, new Pawn(Color.WHITE, new Position(6, i)));
+      board.get(1).set(i, new Pawn(Color.WHITE, new Position(1, i)));
+      board.get(6).set(i, new Pawn(Color.BLACK, new Position(6, i)));
     }
   }
 
@@ -82,7 +82,7 @@ public class ChessBoard {
           "Invalid input format. Please provide a valid position (e.g., 'a1').");
     }
     int column = input.charAt(0) - 'a';
-    int row = 8 - Character.getNumericValue(input.charAt(1));
+    int row = Character.getNumericValue(input.charAt(1)) - 1;
 
     if (column < 0 || column >= 8 || row < 0 || row >= 8) {
       throw new ChessBoardException("Invalid position. Position must be within the chessboard.");
