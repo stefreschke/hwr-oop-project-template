@@ -11,9 +11,9 @@ class PlayerTest {
     SoftAssertions.assertSoftly(
         softly -> {
           softly.assertThat(game.player1.getName()).isEqualTo("Spieler1");
-          softly.assertThat(game.player1.getName()).isEqualTo("Spieler2");
-          softly.assertThat(game.player1.getName()).isEqualTo("Spieler3");
-          softly.assertThat(game.player1.getName()).isEqualTo("Spieler4");
+          softly.assertThat(game.player2.getName()).isEqualTo("Spieler2");
+          softly.assertThat(game.player3.getName()).isEqualTo("Spieler3");
+          softly.assertThat(game.player4.getName()).isEqualTo("Spieler4");
 
           softly.assertThat(game.player1.getOwnCards()).isEmpty();
           softly.assertThat(game.player2.getOwnCards()).isEmpty();
