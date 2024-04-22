@@ -2,6 +2,7 @@ package hwr.oop;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Game {
 
@@ -25,14 +26,22 @@ public class Game {
     }
     List<Player> players = this.createPlayers();
 
+    public Player chooseStartPlayer(List<Player> playerList) {
+        Random random = new Random();
+        return playerList.get(random.nextInt(playerList.size()));
+    }
 
     public static void main(String[] args) {
+        Game game = new Game();
         CardStack stack = new CardStack();
 
 
         List<Card> cardList = stack.getCardStack();
 
         List<Card> shuffledStack = stack.ShuffleCardsStack(cardList);
+        Player startPlayer = game.chooseStartPlayer(game.createPlayers());
+        startPlayer.setScore(2);
+        System.out.println(startPlayer.getScore());
     }
 }
 
