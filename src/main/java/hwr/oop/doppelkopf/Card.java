@@ -1,4 +1,4 @@
-package hwr.oop;
+package hwr.oop.doppelkopf;
 
 public class Card {
   public final Color color;

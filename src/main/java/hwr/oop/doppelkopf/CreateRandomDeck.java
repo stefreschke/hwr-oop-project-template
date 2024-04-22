@@ -1,4 +1,4 @@
-package hwr.oop;
+package hwr.oop.doppelkopf;
 
 import java.util.Collections;
 import java.util.List;

@@ -1,6 +1,5 @@
-package hwr.oop;
+package hwr.oop.doppelkopf;
 
-import org.assertj.core.api.Assertions;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 
@@ -11,17 +10,17 @@ class PlayerTest {
 
     SoftAssertions.assertSoftly(
         softly -> {
-          softly.assertThat(game).isNotNull();
-        });
-    Assertions.assertThat(game.player1.getName()).isEqualTo("Spieler1");
-    Assertions.assertThat(game.player2.getName()).isEqualTo("Spieler2");
-    Assertions.assertThat(game.player3.getName()).isEqualTo("Spieler3");
-    Assertions.assertThat(game.player4.getName()).isEqualTo("Spieler4");
+          softly.assertThat(game.player1.getName()).isEqualTo("Spieler1");
+          softly.assertThat(game.player1.getName()).isEqualTo("Spieler2");
+          softly.assertThat(game.player1.getName()).isEqualTo("Spieler3");
+          softly.assertThat(game.player1.getName()).isEqualTo("Spieler4");
 
-    Assertions.assertThat(game.player1.getOwnCards()).isEmpty();
-    Assertions.assertThat(game.player2.getOwnCards()).isEmpty();
-    Assertions.assertThat(game.player3.getOwnCards()).isEmpty();
-    Assertions.assertThat(game.player4.getOwnCards()).isEmpty();
+          softly.assertThat(game.player1.getOwnCards()).isEmpty();
+          softly.assertThat(game.player2.getOwnCards()).isEmpty();
+          softly.assertThat(game.player3.getOwnCards()).isEmpty();
+          softly.assertThat(game.player4.getOwnCards()).isEmpty();
+
+        });
   }
 
   @Test
@@ -30,9 +29,12 @@ class PlayerTest {
     CreateRandomDeck deck = new CreateRandomDeck();
     game.dealCards(deck.shuffleDeck());
 
-    Assertions.assertThat(game.player1.getOwnCards()).hasSize(12);
-    Assertions.assertThat(game.player2.getOwnCards()).hasSize(12);
-    Assertions.assertThat(game.player3.getOwnCards()).hasSize(12);
-    Assertions.assertThat(game.player4.getOwnCards()).hasSize(12);
+    SoftAssertions.assertSoftly(
+            softly -> {
+              softly.assertThat(game.player1.getOwnCards()).hasSize(12);
+              softly.assertThat(game.player2.getOwnCards()).hasSize(12);
+              softly.assertThat(game.player3.getOwnCards()).hasSize(12);
+              softly.assertThat(game.player4.getOwnCards()).hasSize(12);
+            });
   }
 }

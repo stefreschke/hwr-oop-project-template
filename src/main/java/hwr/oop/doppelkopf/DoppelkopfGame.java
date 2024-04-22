@@ -1,6 +1,7 @@
-package hwr.oop;
+package hwr.oop.doppelkopf;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DoppelkopfGame {
@@ -11,6 +12,11 @@ public class DoppelkopfGame {
 
   public DoppelkopfGame() {
     initializeCards();
+  }
+
+  @SuppressWarnings("java:S106")
+  public static void main(String[] args) {
+    System.out.println("Hi! Arguments: " + Arrays.asList(args));
   }
 
   public List<Card> initializeCards() {

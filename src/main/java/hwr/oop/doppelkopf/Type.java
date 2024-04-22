@@ -1,4 +1,4 @@
-package hwr.oop;
+package hwr.oop.doppelkopf;
 
 public enum Type {
   NEUN(0),
