@@ -1,6 +1,5 @@
-package hwr.oop.doppelkopf;
+package hwr.oop.most_impressive_doppelkopf_experience;
 
-import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

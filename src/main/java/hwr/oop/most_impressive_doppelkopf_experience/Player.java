@@ -1,6 +1,6 @@
-package hwr.oop.doppelkopf;
+package hwr.oop.most_impressive_doppelkopf_experience;
 
-import hwr.oop.doppelkopf.enums.TeamNames;
+import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 
 import java.util.ArrayList;
 import java.util.List;

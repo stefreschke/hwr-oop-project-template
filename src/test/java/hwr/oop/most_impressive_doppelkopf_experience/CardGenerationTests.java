@@ -1,4 +1,4 @@
-package hwr.oop.doppelkopf;
+package hwr.oop.most_impressive_doppelkopf_experience;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,6 @@
-package hwr.oop.doppelkopf;
+package hwr.oop.most_impressive_doppelkopf_experience;
 import org.junit.jupiter.api.Test;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class StartPlayerTest {
