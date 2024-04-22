@@ -88,7 +88,7 @@ MOST INTERESTING PROBLEMS WEVE STUMBLED UPON
 | 4      | :x:         | Offer Remi  | :x:   |
 | 5      | :x:         | Accept Remi | :x:   |
 
-### Game Logistics??
+### Persistence
 
 | Number | Implemented | Feature         | Tests |
 |--------|-------------|-----------------|-------|
