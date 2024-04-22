@@ -5,16 +5,13 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class CardGenerationTests {
-    //scenario : Card will be generated
-    @Test
-    void testGenerateCardStack(){
-        final var cardStack = new CardGenerator();
-        final var generatedCardDeck = cardStack.generateAllCards();
-        assertThat(generatedCardDeck)
-                .isNotEmpty()
-                .isNotNull()
-                .hasSize(48);
-    }
+  // scenario : Card will be generated
+  @Test
+  void testGenerateCardStack() {
+    final var cardStack = new CardGenerator();
+    final var generatedCardDeck = cardStack.generateAllCards();
+    assertThat(generatedCardDeck).isNotEmpty().isNotNull().hasSize(48);
+  }
 }
 /*class TestShuffleCards {
     //scenario : Sorted Card stack will be shuffled
