@@ -46,26 +46,36 @@ public class Game {
   }
 
   public void startNewGame() {
-    this.handOutCards();
-    this.takeTurn();
+    handOutCards();
+    gameLoop();
   }
 
-  public void takeTurn() {
-  while(true){
-    if (activePlayer.getHand().isEmpty()) {
-      System.out.println("HAAAAAAAAA");
-      break;
-    } else {
+  public void takeTurn(Player playerOnTurn) {
+    playCard(playerOnTurn.getHand().getFirst());
+  }
+
+
+public void playRound() {
+    for (int i = 0; i < NUM_PLAYERS; i++) {
       System.out.println(activePlayer.getName());
       System.out.println(activePlayer.getHand().size());
-      playCard(activePlayer.getHand().getFirst());
+      takeTurn(activePlayer);
       System.out.println(activePlayer.getHand().size());
       activePlayer = Player.getNextPlayer(activePlayer);
-
   }
+}
 
+public void gameLoop() {
+    while(true) {
+      if (activePlayer.getHand().isEmpty()) {
+      System.out.println("GRRRRRRR");
+      break;
+    } else {
+        playRound();
+      }
+  }
 }
-}
+
   public static void main(String[] args) {
     Game game = new Game();
     game.startNewGame();
