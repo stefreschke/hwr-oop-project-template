@@ -1,12 +1,10 @@
-package hwr.oop.doppelkopf;
-import hwr.oop.most_impressive_doppelkopf_experience.Player;
+package hwr.oop.most_impressive_doppelkopf_experience;
 import org.junit.jupiter.api.Test;
 import java.util.List;
 
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class createPlayersTest {
+public class CreatePlayersTest {
     // Methode, die die Spieler erstellt
     public List<Player> createPlayers() {
         Player player1 = new Player("Colin", 0);
