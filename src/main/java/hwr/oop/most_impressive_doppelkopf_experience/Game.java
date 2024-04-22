@@ -2,6 +2,7 @@ package hwr.oop.most_impressive_doppelkopf_experience;
 
 import java.util.List;
 
+
 public class Game {
 
   private static final int NUM_PLAYERS = 4;
@@ -14,18 +15,20 @@ public class Game {
   Player activePlayer = players.getFirst();
 
   public List<Player> handOutCards() {
-    players.get(0).setHand(shuffledStack.subList(0, 12));
-    players.get(1).setHand(shuffledStack.subList(12, 24));
-    players.get(2).setHand(shuffledStack.subList(24, 36));
-    players.get(3).setHand(shuffledStack.subList(36, 48));
+
+    for(int i = 0; i < 4; i++) {
+      for (int j = 0 + 12 * i; j < 12 + 12 * i  ; j++) {
+        players.get(i).getHand().add(shuffledStack.get(j));
+      }
+    }
     return players;
   }
 
   public static List<Player> createPlayers() {
-    Player player1 = new Player("Colin", 0);
-    Player player2 = new Player("Chrissi", 0);
-    Player player3 = new Player("Mihoshi", 0);
-    Player player4 = new Player("Josh", 0);
+    Player player1 = new Player("Colin", 0, 0);
+    Player player2 = new Player("Chrissi", 0, 1);
+    Player player3 = new Player("Mihoshi", 0, 2);
+    Player player4 = new Player("Josh", 0, 3);
 
     return List.of(player1, player2, player3, player4);
   }
@@ -42,9 +45,33 @@ public class Game {
     return cardToPlay;
   }
 
+  public void startNewGame() {
+    this.handOutCards();
+    this.takeTurn();
+
+
+
+
+  }
+
+  public void takeTurn() {
+  while(true){
+    if (activePlayer.getHand().isEmpty()) {
+      System.out.println("HAAAAAAAAA");
+      break;
+    } else {
+      System.out.println(activePlayer.getName());
+      System.out.println(activePlayer.getHand().size());
+      playCard(activePlayer.getHand().getFirst());
+      System.out.println(activePlayer.getHand().size());
+      activePlayer = Player.getNextPlayer(activePlayer);
+
+  }
+
+}
+}
   public static void main(String[] args) {
     Game game = new Game();
-    game.handOutCards();
-    System.out.println(game.shuffledStack.size());
+    game.startNewGame();
   }
 }
