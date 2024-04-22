@@ -19,7 +19,6 @@ class PlayerTest {
           softly.assertThat(game.player2.getOwnCards()).isEmpty();
           softly.assertThat(game.player3.getOwnCards()).isEmpty();
           softly.assertThat(game.player4.getOwnCards()).isEmpty();
-
         });
   }
 
@@ -30,11 +29,11 @@ class PlayerTest {
     game.dealCards(deck.shuffleDeck());
 
     SoftAssertions.assertSoftly(
-            softly -> {
-              softly.assertThat(game.player1.getOwnCards()).hasSize(12);
-              softly.assertThat(game.player2.getOwnCards()).hasSize(12);
-              softly.assertThat(game.player3.getOwnCards()).hasSize(12);
-              softly.assertThat(game.player4.getOwnCards()).hasSize(12);
-            });
+        softly -> {
+          softly.assertThat(game.player1.getOwnCards()).hasSize(12);
+          softly.assertThat(game.player2.getOwnCards()).hasSize(12);
+          softly.assertThat(game.player3.getOwnCards()).hasSize(12);
+          softly.assertThat(game.player4.getOwnCards()).hasSize(12);
+        });
   }
 }

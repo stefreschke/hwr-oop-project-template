@@ -1,8 +1,8 @@
 package hwr.oop.doppelkopf;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 public class DoppelkopfGame {
   public final Player player1 = new Player("Spieler1");
@@ -16,7 +16,9 @@ public class DoppelkopfGame {
 
   @SuppressWarnings("java:S106")
   public static void main(String[] args) {
-    System.out.println("Hi! Arguments: " + Arrays.asList(args));
+    if (Objects.equals(args[0], "create")) {
+      System.out.println("Doppelkopf create Game: " + args[1]);
+    }
   }
 
   public List<Card> initializeCards() {
