@@ -31,25 +31,41 @@ class BoardTest {
   void setBoardToFenTest() {
     Board board = new Board();
 
-    board.setBoardToFen("8/8/8/2kb4/4K3/8/8/1r6");
+    board.setBoardToFen("r7/8/8/2kb4/4K3/8/8/7r");
 
     Assertions.assertThat(board.getPieceAt(4, 3).getAbbr())
         .isEqualTo(Piece.PieceType.LAEUFER.getAbbr());
+    Assertions.assertThat(board.getPieceAt(4, 3).getColor()).isEqualTo(Piece.Color.BLACK);
+
     Assertions.assertThat(board.getPieceAt(0, 0)).isNull();
 
-    board.setBoardToFen("8/8/8/8/4K3/8/8/1r6");
-    Assertions.assertThat(board.getPieceAt(2, 4)).isNull();
+    board.setBoardToFen("1r6/8/8/8/4K3/8/8/8");
+    Assertions.assertThat(board.getPieceAt(0, 7)).isNull();
+    Assertions.assertThat(board.getPieceAt(7, 0)).isNull();
   }
 
   @Test
-  void getPieceAtTest(){
+  void getPieceAtTest() {
     Board board = new Board();
     board.initBoard();
 
     Assertions.assertThat(board.getPieceAt(0, 7).getAbbr()).isEqualTo('t');
     Assertions.assertThat(board.getPieceAt(0, 7).getActPosition().get(1)).isEqualTo(7);
     Assertions.assertThat(board.getPieceAt(0, 7).getColor()).isEqualTo(Piece.Color.WHITE);
+  }
 
+  @Test
+  void testBoard() {
+    Board board = new Board();
+
+    Assertions.assertThat(board.getBoard().size()).isEqualTo(8);
+
+    for (ArrayList row : board.getBoard()) {
+      Assertions.assertThat(row.size()).isEqualTo(8);
+      for (Object piece : row) {
+        Assertions.assertThat(piece).isNull();
+      }
+    }
   }
 
   @Test
