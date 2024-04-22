@@ -48,10 +48,6 @@ public class Game {
   public void startNewGame() {
     this.handOutCards();
     this.takeTurn();
-
-
-
-
   }
 
   public void takeTurn() {
