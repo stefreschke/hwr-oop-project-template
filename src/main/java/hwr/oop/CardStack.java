@@ -26,7 +26,3 @@ public class CardStack {
         return ShuffledCards;
     }
 }
-
-    public List<Card> HandOutCards()  {
-
-    }
