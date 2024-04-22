@@ -1,4 +1,4 @@
-package cli;
+package hwr.oop.cli;
 
 public class Cli {
   @SuppressWarnings("java:S106")
