@@ -3,26 +3,53 @@ package hwr.oop.pieces;
 import hwr.oop.Color;
 import hwr.oop.Position;
 
-public abstract class Piece {
-  private Color color;
+import java.util.Objects;
+
+public class Piece {
+  private final Color color;
   private Position position;
   private final char symbol;
+  private final PieceType type;
 
-  protected Piece(Color color, Position position, char symbol) {
+  public Piece(PieceType type, Color color, Position position) throws PieceTypeException {
+    this.type = type;
     this.color = color;
     this.position = position;
-    this.symbol = symbol;
+    this.symbol = assignPieceSymbol(type, color);
   }
 
+  private char assignPieceSymbol(PieceType type, Color color) throws PieceTypeException {
+    switch (type) {
+      case KING -> {
+        if (color == Color.WHITE) return 'K';
+        return 'k';
+      }
+      case BISHOP -> {
+        if (color == Color.WHITE) return 'B';
+        return 'b';
+      }
+      case KNIGHT -> {
+        if (color == Color.WHITE) return 'N';
+        return 'n';
+      }
+      case PAWN -> {
+        if (color == Color.WHITE) return 'P';
+        return 'p';
+      }
+      case QUEEN -> {
+        if (color == Color.WHITE) return 'Q';
+        return 'q';
+      }
+      case ROOK -> {
+        if (color == Color.WHITE) return 'R';
+        return 'r';
+      }
+    }
+    throw new PieceTypeException("Can't assign symbol to piece. :(");
+  }
   public Color getColor() {
     return color;
   }
-
-  public void setColor(Color color) {
-    this.color = color;
-  }
-
-
 
   public Position getPosition() {
     return position;
@@ -38,10 +65,21 @@ public abstract class Piece {
 
   @Override
   public String toString() {
-    return "Piece{" +
-            "color=" + color +
-            ", position=" + position +
-            ", symbol=" + symbol +
-            '}';
+    return "Piece{" + "color=" + color + ", position=" + position + ", symbol=" + symbol + '}';
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Piece piece = (Piece) o;
+    return symbol == piece.symbol
+        && color == piece.color
+        && Objects.equals(position, piece.position);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(color, position, symbol);
   }
 }
