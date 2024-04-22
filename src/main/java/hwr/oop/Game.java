@@ -38,7 +38,7 @@ public class Game {
 
         List<Card> cardList = stack.getCardStack();
 
-        List<Card> shuffledStack = stack.ShuffleCardsStack(cardList);
+        List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
         Player startPlayer = game.chooseStartPlayer(game.createPlayers());
         startPlayer.setScore(2);
         System.out.println(startPlayer.getScore());
