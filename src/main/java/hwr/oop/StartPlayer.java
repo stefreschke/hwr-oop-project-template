@@ -11,7 +11,7 @@ public class StartPlayer{
         int randomIndex = random.nextInt(players.size());
         return players.get(randomIndex);
     }
-    public static void choseStartPlayer(String[] args) {
+    public static void choseStartPlayer() {
         ArrayList<String> player = new ArrayList<>();
         player.add("Spieler 1");
         player.add("Spieler 2");

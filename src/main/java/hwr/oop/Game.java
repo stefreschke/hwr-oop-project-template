@@ -1,6 +1,5 @@
 package hwr.oop;
 
-import javax.xml.crypto.dsig.spec.XSLTTransformParameterSpec;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,40 +25,14 @@ public class Game {
     }
     List<Player> players = this.createPlayers();
 
-    private String printPlayerNames(List<Player> playerList) {
-        String playerNames = playerList.get(0).getName() + ", " + playerList.get(1).getName()
-                + ", " + playerList.get(2).getName() + ", " + playerList.get(3).getName();
-        return playerNames;
-    }
-    private String printFirstPlayer(List<Player> playerList) {
-        int startPlayer = StartPlayer.getRandomNumber();
-        String firstPlayer = "Der Startspieler ist: " + playerList.get(startPlayer).getName();
-        return firstPlayer;
-    }
+
     public static void main(String[] args) {
         CardStack stack = new CardStack();
-        Game game = new Game();
-        System.out.println(game.printPlayerNames(game.players));
 
-        System.out.println(game.printFirstPlayer(game.players));
 
         List<Card> cardList = stack.getCardStack();
 
         List<Card> shuffledStack = stack.ShuffleCardsStack(cardList);
-
-
-
-        /*
-        for (int i = 0; i < NUM_CARDS_PER_PLAYER; i++) {
-            for (List<Card> player : players.size()) {
-                if (!cardList.isEmpty()) {
-                    int randomIndex = (int) (Math.random() * cardList.size());
-                    Card card = cardList.remove(randomIndex);
-                    player.add(card);
-                }
-            }
-        }
-         */
     }
 }
 
