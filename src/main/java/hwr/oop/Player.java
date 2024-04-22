@@ -42,7 +42,7 @@ public class Player {
 
     int score;
     TeamNames team;
-    List<Card> hand = new ArrayList<>();
+    public List<Card> hand = new ArrayList<>();
 
     public Player(String name, int score) {
         this.name = name;
