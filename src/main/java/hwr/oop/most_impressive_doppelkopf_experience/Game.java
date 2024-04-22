@@ -1,5 +1,7 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
 
+import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
+
 import java.util.List;
 
 
@@ -47,6 +49,7 @@ public class Game {
 
   public void startNewGame() {
     handOutCards();
+    distributeTeams(players);
     gameLoop();
   }
 
@@ -77,6 +80,11 @@ public void gameLoop() {
       System.out.println(players.get(1).getName() + " score: " + players.get(1).calculateScore());
       System.out.println(players.get(2).getName() + " score: " + players.get(2).calculateScore());
       System.out.println(players.get(3).getName() + " score: " + players.get(3).calculateScore());
+      System.out.println(players.get(0).getName() + " was team: " + players.get(0).getTeam());
+      System.out.println(players.get(1).getName() + " was team: " + players.get(1).getTeam());
+      System.out.println(players.get(2).getName() + " was team: " + players.get(2).getTeam());
+      System.out.println(players.get(3).getName() + " was team: " + players.get(3).getTeam());
+
       break;
     } else {
         playRound();
@@ -96,6 +104,24 @@ public Player decideWinner() {
     discardPile.discardCards.clear();
     return null;
 }
+
+  public List<Player> distributeTeams(List<Player> players) {
+    String old = "CQ";
+    for (int i = 0; i < NUM_PLAYERS; i++) {
+      boolean foundCQ = false;
+      for (int j = 0; j < NUM_CARDS_PER_PLAYER; j++){
+        if (players.get(i).getHand().get(j).getName().equals(old)) {
+          players.get(i).setTeam(TeamNames.RE);
+          foundCQ = true;
+        }
+      }
+      if (!foundCQ) {
+        players.get(i).setTeam(TeamNames.CONTRA);
+      }
+    }
+    return players;
+  }
+
   public static void main(String[] args) {
     Game game = new Game();
     game.startNewGame();

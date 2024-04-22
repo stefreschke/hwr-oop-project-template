@@ -48,4 +48,9 @@ class GameEngineTest {
               softly.assertThat(discardPileSize + 1).isEqualTo(discardPile.discardCards.size());
             });
   }
+  @Test
+    void calculateScoreTest() {
+      final var game = new Game();
+      //Score muss gesamt 240 ergeben!!!
+  }
 }
