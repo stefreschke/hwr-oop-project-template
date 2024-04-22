@@ -16,8 +16,8 @@ public class Game {
 
   public List<Player> handOutCards() {
 
-    for(int i = 0; i < 4; i++) {
-      for (int j = 0 + 12 * i; j < 12 + 12 * i  ; j++) {
+    for(int i = 0; i < NUM_PLAYERS; i++) {
+      for (int j = 0 + NUM_CARDS_PER_PLAYER * i; j < NUM_CARDS_PER_PLAYER + NUM_CARDS_PER_PLAYER * i  ; j++) {
         players.get(i).getHand().add(shuffledStack.get(j));
       }
     }
