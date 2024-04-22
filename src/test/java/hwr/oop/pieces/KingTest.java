@@ -53,7 +53,7 @@ class KingTest {
   void testKingToString() {
     Position position = new Position(3, 3);
     King king = new King(Color.WHITE, position);
-    assertThat(king.toString()).hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=K}");
+    assertThat(king.toString())
+        .hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=K}");
   }
 }
-

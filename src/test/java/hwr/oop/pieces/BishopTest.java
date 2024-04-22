@@ -53,6 +53,7 @@ class BishopTest {
   void testBishopToString() {
     Position position = new Position(3, 3);
     Bishop bishop = new Bishop(Color.WHITE, position);
-    assertThat(bishop.toString()).hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=B}");
+    assertThat(bishop.toString())
+        .hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=B}");
   }
 }

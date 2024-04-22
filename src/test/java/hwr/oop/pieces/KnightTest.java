@@ -53,6 +53,7 @@ class KnightTest {
   void testKnightToString() {
     Position position = new Position(3, 3);
     Knight knight = new Knight(Color.WHITE, position);
-    assertThat(knight.toString()).hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=N}");
+    assertThat(knight.toString())
+        .hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=N}");
   }
 }

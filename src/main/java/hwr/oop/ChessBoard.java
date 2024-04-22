@@ -12,14 +12,15 @@ public class ChessBoard {
   private final List<List<Piece>> board = new ArrayList<>();
 
   public ChessBoard() {
-    IntStream.range(0, 8).forEach(i -> {
-      List<Piece> row = new ArrayList<>();
-      IntStream.range(0, 8).forEach(j -> row.add(null));
-      board.add(row);
-    });
+    IntStream.range(0, 8)
+        .forEach(
+            i -> {
+              List<Piece> row = new ArrayList<>();
+              IntStream.range(0, 8).forEach(j -> row.add(null));
+              board.add(row);
+            });
     setupPieces();
   }
-
 
   private void setupPieces() {
     // Place Rooks
@@ -54,28 +55,31 @@ public class ChessBoard {
     return board;
   }
 
-//  public static void printChessBoard(List<List<Piece>> board) {
-//    System.out.println("   a b c d e f g h");
-//    System.out.println(" +-----------------+");
-//    int rowNumber = 8;
-//    for (List<Piece> row : board) {
-//      System.out.print(rowNumber + "| ");
-//      for (Piece piece : row) {
-//        if (piece != null) {
-//          System.out.print(piece.getSymbol() + " ");
-//        } else {
-//          System.out.print(". ");
-//        }
-//      }
-//      System.out.println("|");
-//      rowNumber--;
-//    }
-//    System.out.println(" +-----------------+");
-//  }
+  //  public static void printChessBoard(List<List<Piece>> board) {
+  //    System.out.println("   a b c d e f g h");
+  //    System.out.println(" +-----------------+");
+  //    int rowNumber = 8;
+  //    for (List<Piece> row : board) {
+  //      System.out.print(rowNumber + "| ");
+  //      for (Piece piece : row) {
+  //        if (piece != null) {
+  //          System.out.print(piece.getSymbol() + " ");
+  //        } else {
+  //          System.out.print(". ");
+  //        }
+  //      }
+  //      System.out.println("|");
+  //      rowNumber--;
+  //    }
+  //    System.out.println(" +-----------------+");
+  //  }
 
   public static Position convertInputToPosition(String input) throws ChessBoardException {
-    if (input.length() != 2 || !Character.isLetter(input.charAt(0)) || !Character.isDigit(input.charAt(1))) {
-      throw new ChessBoardException("Invalid input format. Please provide a valid position (e.g., 'a1').");
+    if (input.length() != 2
+        || !Character.isLetter(input.charAt(0))
+        || !Character.isDigit(input.charAt(1))) {
+      throw new ChessBoardException(
+          "Invalid input format. Please provide a valid position (e.g., 'a1').");
     }
     int column = input.charAt(0) - 'a';
     int row = 8 - Character.getNumericValue(input.charAt(1));
@@ -97,7 +101,8 @@ public class ChessBoard {
       throw new MovePieceException("Invalid destination position!");
     }
 
-    if (board.get(to.row()).get(to.column()) != null && board.get(to.row()).get(to.column()).getColor() == piece.getColor()) {
+    if (board.get(to.row()).get(to.column()) != null
+        && board.get(to.row()).get(to.column()).getColor() == piece.getColor()) {
       throw new MovePieceException("Destination position occupied by own piece!");
     }
 

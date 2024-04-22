@@ -53,6 +53,7 @@ class PawnTest {
   void testPawnToString() {
     Position position = new Position(3, 3);
     Pawn pawn = new Pawn(Color.WHITE, position);
-    assertThat(pawn.toString()).hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=P}");
+    assertThat(pawn.toString())
+        .hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=P}");
   }
 }

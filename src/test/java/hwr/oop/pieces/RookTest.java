@@ -1,4 +1,5 @@
 package hwr.oop.pieces;
+
 import hwr.oop.Color;
 import hwr.oop.Position;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,6 @@ class RookTest {
     assertThat(whiteRook.getColor()).isEqualTo(Color.WHITE);
     assertThat(whiteRook.getPosition()).isEqualTo(position);
     assertThat(whiteRook.getSymbol()).isEqualTo('R');
-
 
     assertThat(blackRook.getColor()).isEqualTo(Color.BLACK);
     assertThat(blackRook.getPosition()).isEqualTo(position);
@@ -53,6 +53,7 @@ class RookTest {
   void testRookToString() {
     Position position = new Position(3, 3);
     Rook rook = new Rook(Color.WHITE, position);
-    assertThat(rook.toString()).hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=R}");
+    assertThat(rook.toString())
+        .hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=R}");
   }
 }

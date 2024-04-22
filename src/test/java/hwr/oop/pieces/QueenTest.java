@@ -53,7 +53,7 @@ class QueenTest {
   void testQueenToString() {
     Position position = new Position(3, 3);
     Queen queen = new Queen(Color.WHITE, position);
-    assertThat(queen.toString()).hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=Q}");
+    assertThat(queen.toString())
+        .hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=Q}");
   }
 }
-
