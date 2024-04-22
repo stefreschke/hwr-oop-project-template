@@ -6,10 +6,6 @@
         <option name="PATTERN" value="hwr.oop.*" />
         <option name="ENABLED" value="true" />
       </pattern>
-      <pattern>
-        <option name="PATTERN" value="classes.*" />
-        <option name="ENABLED" value="true" />
-      </pattern>
     </extension>
     <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
     <option name="ALTERNATIVE_JRE_PATH" value="openjdk-22" />
