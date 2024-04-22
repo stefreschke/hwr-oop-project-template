@@ -36,6 +36,12 @@ public class Game {
         String firstPlayer = "Der Startspieler ist: " + playerList.get(startPlayer).getName();
         return firstPlayer;
     }
+    public List<Card> HandOutCards(List<Card> ShuffleCards){
+        for (int i = 0; i < 4; i++) {
+            List<Card> NewHand = ShuffleCards
+            players.get(i).setHand();
+        }
+    }
     public static void main(String[] args) {
         CardStack stack = new CardStack();
         Game game = new Game();
@@ -45,7 +51,7 @@ public class Game {
 
         List<Card> cardList = stack.getCardStack();
 
-        List<Card> shuffledStack = stack.ShuffleCardsStack(cardList);
+        List<Card> ShuffleCards = stack.ShuffleCardsStack(cardList);
 
 
 

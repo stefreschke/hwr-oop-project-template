@@ -27,3 +27,6 @@ public class CardStack {
     }
 }
 
+    public List<Card> HandOutCards()  {
+
+    }
