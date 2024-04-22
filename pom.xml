@@ -4,9 +4,9 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>hwr.oop.students.projects</groupId>
-  <artifactId>Schach-Gruppe-7</artifactId>
+  <artifactId>Schach_Gruppe_7</artifactId>
   <version>0.1.0</version>
-  <name>Schach-Gruppe-7</name>
+  <name>Schach_Gruppe_7</name>
   <description>Semester_2_OOP_Projekt_Schach_von_Gruppe_7</description>
   <properties>
     <!-- java -->
