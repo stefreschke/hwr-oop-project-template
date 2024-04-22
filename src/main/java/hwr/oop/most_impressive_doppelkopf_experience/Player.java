@@ -51,6 +51,7 @@ public class Player {
         this.id = id;
     }
 
+
     public static Player getNextPlayer(Player player) {
        Player nextPlayer;
         if (player.id != 3) {
