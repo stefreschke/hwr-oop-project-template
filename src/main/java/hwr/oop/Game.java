@@ -38,7 +38,10 @@ public class Game {
 
 
         List<Card> cardList = stack.getCardStack();
-        System.out.println(cardList);
+
+        List<Card> shuffledStack = stack.ShuffleCardsStack(cardList);
+
+
 
         /*
         for (int i = 0; i < NUM_CARDS_PER_PLAYER; i++) {
