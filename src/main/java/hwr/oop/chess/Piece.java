@@ -1,4 +1,4 @@
-package classes;
+package hwr.oop.chess;
 
 import java.util.Arrays;
 import java.util.List;
@@ -10,31 +10,27 @@ public class Piece {
   }
 
   public enum PieceType {
-    BAUER('b', Arrays.asList(Arrays.asList(0, 1)), false),
-    TURM('t', Arrays.asList(Arrays.asList(0, 1), Arrays.asList(1, 0)), true),
+    BAUER('b', List.of((List.of(0, 1))), false),
+    TURM('t', List.of(List.of(0, 1), List.of(1, 0)), true),
     SPRINGER(
         's',
-        Arrays.asList(
-            Arrays.asList(2, 1),
-            Arrays.asList(2, -1),
-            Arrays.asList(1, 2),
-            Arrays.asList(-1, 2),
-            Arrays.asList(-2, 1),
-            Arrays.asList(-2, -1),
-            Arrays.asList(1, -2),
-            Arrays.asList(-1, -2)),
+        List.of(
+            List.of(2, 1),
+            List.of(2, -1),
+            List.of(1, 2),
+            List.of(-1, 2),
+            List.of(-2, 1),
+            List.of(-2, -1),
+            List.of(1, -2),
+            List.of(-1, -2)),
         false),
-    LAEUFER('l', Arrays.asList(Arrays.asList(1, 1), Arrays.asList(-1, 1)), true),
+    LAEUFER('l', List.of(List.of(1, 1), List.of(-1, 1)), true),
     KOENIG(
         'k',
-        Arrays.asList(
-            Arrays.asList(0, 1), Arrays.asList(1, 0), Arrays.asList(1, 1), Arrays.asList(-1, 1)),
+        List.of(
+            List.of(0, 1), List.of(1, 0), List.of(1, 1), List.of(-1, 1)),
         false),
-    DAME(
-        'd',
-        Arrays.asList(
-            Arrays.asList(0, 1), Arrays.asList(1, 0), Arrays.asList(1, 1), Arrays.asList(-1, 1)),
-        true);
+    DAME('d', List.of(List.of(0, 1), List.of(1, 0), List.of(1, 1), List.of(-1, 1)), true);
 
     private final char abbr;
     private final List<List<Integer>> moves;

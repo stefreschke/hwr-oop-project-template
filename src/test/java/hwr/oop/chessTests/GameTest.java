@@ -1,11 +1,11 @@
-package classTests;
+package hwr.oop.chessTests;
 
-import classes.Board;
-import classes.Game;
+import hwr.oop.chess.Board;
+import hwr.oop.chess.Game;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-public class GameTest {
+class GameTest {
   @Test
   void testNewBoard() {
     Game game = new Game();

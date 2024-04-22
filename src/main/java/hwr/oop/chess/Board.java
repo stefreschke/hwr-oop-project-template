@@ -1,4 +1,4 @@
-package classes;
+package hwr.oop.chess;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,31 +8,30 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 public class Board {
-  private ArrayList<ArrayList<Piece>> playBoard;
+  private List<List<Piece>> playBoard;
   private Map<Character, Piece.PieceType> charToPieceType;
   private Logger logger = Logger.getLogger(getClass().getName());
 
   public Board() {
     charToPieceType();
-    int length = 8;
-    playBoard = new ArrayList<>(length);
+    playBoard = new ArrayList<>(8);
 
-    for (int i = 0; i < length; i++) {
-      playBoard.add(new ArrayList<>(length));
+    for (int i = 0; i < 8; i++) {
+      playBoard.add(new ArrayList<>(8));
     }
 
-    for (ArrayList<Piece> row : playBoard) {
-      for (int i = 0; i < length; i++) {
+    for (List<Piece> row : playBoard) {
+      for (int i = 0; i < 8; i++) {
         row.add(null);
       }
     }
   }
 
   public Piece getPieceAt(int column, int row) {
-    return this.playBoard.get(row).get(column);
+    return this.playBoard.get(column).get(row);
   }
 
-  public List<ArrayList<Piece>> getPlayBoard() {
+  public List<List<Piece>> getPlayBoard() {
     return playBoard;
   }
 
@@ -82,9 +81,9 @@ public class Board {
     charToPieceType.put('p', Piece.PieceType.BAUER);
   }
 
-  public void changePos(int oldX, int oldY, int newX, int newY) {
-    this.playBoard.get(newX).set(newY, playBoard.get(oldX).get(oldY));
-    this.playBoard.get(oldX).set(oldY, null);
+  public void changePos(int oldCol, int oldRow, int newCol, int newRow) {
+    this.playBoard.get(newCol).set(newRow, playBoard.get(oldCol).get(oldRow));
+    this.playBoard.get(oldCol).set(oldRow, null);
   }
 
   public void printBoard() {

@@ -1,4 +1,4 @@
-package classes;
+package hwr.oop.chess;
 
 public class Game {
 
