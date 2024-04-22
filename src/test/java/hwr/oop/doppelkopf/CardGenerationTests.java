@@ -1,4 +1,4 @@
-package hwr.oop;
+package hwr.oop.doppelkopf;
 
 import org.junit.jupiter.api.Test;
 

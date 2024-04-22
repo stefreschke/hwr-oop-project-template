@@ -1,6 +1,6 @@
-package hwr.oop;
+package hwr.oop.doppelkopf;
 
-import hwr.oop.enums.TeamNames;
+import hwr.oop.doppelkopf.enums.TeamNames;
 
 import java.util.ArrayList;
 import java.util.List;

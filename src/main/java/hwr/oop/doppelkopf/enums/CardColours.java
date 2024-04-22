@@ -1,4 +1,4 @@
-package hwr.oop.enums;
+package hwr.oop.doppelkopf.enums;
 
 public enum CardColours {
     CLUBS, HEARTS, SPADES, TRUMP

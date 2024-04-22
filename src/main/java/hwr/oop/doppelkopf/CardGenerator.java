@@ -1,7 +1,7 @@
-package hwr.oop;
+package hwr.oop.doppelkopf;
 
-import hwr.oop.enums.CardColours;
-import hwr.oop.enums.CardSymbols;
+import hwr.oop.doppelkopf.enums.CardColours;
+import hwr.oop.doppelkopf.enums.CardSymbols;
 
 import java.util.ArrayList;
 import java.util.List;

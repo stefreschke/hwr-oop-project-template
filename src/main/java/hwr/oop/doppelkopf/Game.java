@@ -1,4 +1,4 @@
-package hwr.oop;
+package hwr.oop.doppelkopf;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,25 +18,13 @@ public class Game {
     }
 
     public List<Player> createPlayers() {
-        List<Player> playerList = new ArrayList<>();
         Player player1 = new Player("Colin", 0);
         Player player2 = new Player("Chrissi", 0);
         Player player3 = new Player("Mihoshi", 0);
         Player player4 = new Player("Josh", 0);
 
-        playerList.add(player1);
-        playerList.add(player2);
-        playerList.add(player3);
-        playerList.add(player4);
-        return playerList;
+        return List.of(player1, player2, player3, player4);
 
-
-    }
-
-
-    public Player chooseStartPlayer(List<Player> playerList) {
-        Random random = new Random();
-        return playerList.get(random.nextInt(playerList.size()));
     }
 
     public static void main(String[] args) {
@@ -48,9 +36,6 @@ public class Game {
         List<Player> players = game.createPlayers();
 
         List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
-        Player startPlayer = game.chooseStartPlayer(game.createPlayers());
-        startPlayer.setScore(2);
-        System.out.println(startPlayer.getScore());
         game.handOutCards(players, shuffledStack);
 
 

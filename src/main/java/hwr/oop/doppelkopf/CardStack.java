@@ -1,6 +1,8 @@
-package hwr.oop;
+package hwr.oop.doppelkopf;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -15,14 +17,8 @@ public class CardStack {
     }
 
     public List<Card> shuffleCardsStack(List<Card> cardStack) {
-        List<Card> shuffledCards = new ArrayList<>();
-
-        for (int i = 47; i >= 0; i--) {
-            int r = (int) (Math.random() * i);
-            Card tempCard = cardStack.remove(r);
-            shuffledCards.add(tempCard);
-        }
-
+        List<Card> shuffledCards = new ArrayList<>(cardStack);
+        Collections.shuffle(shuffledCards);
         return shuffledCards;
+        }
     }
-}
