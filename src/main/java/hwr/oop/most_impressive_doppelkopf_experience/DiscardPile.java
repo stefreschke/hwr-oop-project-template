@@ -3,6 +3,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DiscardPile {
+  public void setDiscardCards(List<Card> discardCards) {
+    this.discardCards = discardCards;
+  }
+
   List<Card> discardCards = new ArrayList<>();
 
   public int getIdOfWinner() {
@@ -20,10 +24,11 @@ public class DiscardPile {
         idOfWinner = i;
       }
     }
-    discardCards.clear();
   return highestTemp;
   }
-
+  public List<Card> getDiscardPile() {
+    return this.discardCards;
+  }
   public void discardCard(Card card) {
     discardCards.add(card);
   }

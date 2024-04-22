@@ -69,6 +69,10 @@ public void gameLoop() {
     while(true) {
       if (activePlayer.getHand().isEmpty()) {
       System.out.println("GRRRRRRR");
+      System.out.println(players.get(0).getName() + " won so many cards: " + players.get(0).getWonTricks().size());
+      System.out.println(players.get(1).getName() + " won so many cards: " + players.get(1).getWonTricks().size());
+      System.out.println(players.get(2).getName() + " won so many cards: " + players.get(2).getWonTricks().size());
+      System.out.println(players.get(3).getName() + " won so many cards: " + players.get(3).getWonTricks().size());
       break;
     } else {
         playRound();
@@ -77,10 +81,15 @@ public void gameLoop() {
 }
 
 public Player decideWinner() {
+    Player winner = players.get(discardPile.getIdOfWinner());
     System.out.println("Höchste Karte: "+ discardPile.findHighestValue().getName());
-    System.out.println("Sieger: "+ players.get(discardPile.getIdOfWinner()).getName());
-
-
+    System.out.println("Sieger: "+ winner.getName());
+    List<Card> winnerTricksSoFar = winner.getWonTricks();
+    for (int i = 0; i < discardPile.getDiscardPile().size(); i++) {
+      winnerTricksSoFar.add(discardPile.getDiscardPile().get(i));
+    }
+    winner.setWonTricks(winnerTricksSoFar);
+    discardPile.discardCards.clear();
     return null;
 }
   public static void main(String[] args) {

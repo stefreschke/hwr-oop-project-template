@@ -45,6 +45,17 @@ public class Player {
     TeamNames team;
     public List<Card> hand = new ArrayList<>();
 
+    public List<Card> getWonTricks() {
+        return wonTricks;
+    }
+
+    public void setWonTricks(List<Card> wonTricks) {
+        this.wonTricks = wonTricks;
+    }
+
+    public List<Card> wonTricks = new ArrayList<>();
+
+
     public Player(String name, int score, int id) {
         this.name = name;
         this.score = score;
