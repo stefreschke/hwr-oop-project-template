@@ -21,39 +21,40 @@ class ChessBoardTest {
     actualBoard = board.getBoard();
   }
 
+
   @Test
   void testInitialBoardSetup() {
 
     // Test for Rooks
-    assertThat(actualBoard.get(0).get(0)).usingRecursiveComparison().isEqualTo(new Rook(Color.WHITE, new Position(0, 0)));
-    assertThat(actualBoard.get(0).get(7)).usingRecursiveComparison().isEqualTo(new Rook(Color.WHITE, new Position(0, 7)));
-    assertThat(actualBoard.get(7).get(0)).usingRecursiveComparison().isEqualTo(new Rook(Color.BLACK, new Position(7, 0)));
-    assertThat(actualBoard.get(7).get(7)).usingRecursiveComparison().isEqualTo(new Rook(Color.BLACK, new Position(7, 7)));
+    assertThat(actualBoard.get(0).get(0)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.ROOK, Color.WHITE, new Position(0, 0)));
+    assertThat(actualBoard.get(0).get(7)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.ROOK, Color.WHITE, new Position(0, 7)));
+    assertThat(actualBoard.get(7).get(0)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.ROOK, Color.BLACK, new Position(7, 0)));
+    assertThat(actualBoard.get(7).get(7)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.ROOK, Color.BLACK, new Position(7, 7)));
 
     // Test for Knights
-    assertThat(actualBoard.get(0).get(1)).usingRecursiveComparison().isEqualTo(new Knight(Color.WHITE, new Position(0, 1)));
-    assertThat(actualBoard.get(0).get(6)).usingRecursiveComparison().isEqualTo(new Knight(Color.WHITE, new Position(0, 6)));
-    assertThat(actualBoard.get(7).get(1)).usingRecursiveComparison().isEqualTo(new Knight(Color.BLACK, new Position(7, 1)));
-    assertThat(actualBoard.get(7).get(6)).usingRecursiveComparison().isEqualTo(new Knight(Color.BLACK, new Position(7, 6)));
+    assertThat(actualBoard.get(0).get(1)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.KNIGHT, Color.WHITE, new Position(0, 1)));
+    assertThat(actualBoard.get(0).get(6)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.KNIGHT, Color.WHITE, new Position(0, 6)));
+    assertThat(actualBoard.get(7).get(1)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.KNIGHT, Color.BLACK, new Position(7, 1)));
+    assertThat(actualBoard.get(7).get(6)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.KNIGHT, Color.BLACK, new Position(7, 6)));
 
     // Test for Bishops
-    assertThat(actualBoard.get(0).get(2)).usingRecursiveComparison().isEqualTo(new Bishop(Color.WHITE, new Position(0, 2)));
-    assertThat(actualBoard.get(0).get(5)).usingRecursiveComparison().isEqualTo(new Bishop(Color.WHITE, new Position(0, 5)));
-    assertThat(actualBoard.get(7).get(2)).usingRecursiveComparison().isEqualTo(new Bishop(Color.BLACK, new Position(7, 2)));
-    assertThat(actualBoard.get(7).get(5)).usingRecursiveComparison().isEqualTo(new Bishop(Color.BLACK, new Position(7, 5)));
+    assertThat(actualBoard.get(0).get(2)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.BISHOP, Color.WHITE, new Position(0, 2)));
+    assertThat(actualBoard.get(0).get(5)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.BISHOP, Color.WHITE, new Position(0, 5)));
+    assertThat(actualBoard.get(7).get(2)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.BISHOP, Color.BLACK, new Position(7, 2)));
+    assertThat(actualBoard.get(7).get(5)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.BISHOP, Color.BLACK, new Position(7, 5)));
 
     // Test for Queens
-    assertThat(actualBoard.get(0).get(3)).usingRecursiveComparison().isEqualTo(new Queen(Color.WHITE, new Position(0, 3)));
-    assertThat(actualBoard.get(7).get(3)).usingRecursiveComparison().isEqualTo(new Queen(Color.BLACK, new Position(7, 3)));
+    assertThat(actualBoard.get(0).get(3)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.QUEEN, Color.WHITE, new Position(0, 3)));
+    assertThat(actualBoard.get(7).get(3)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.QUEEN, Color.BLACK, new Position(7, 3)));
 
     // Test for Kings
-    assertThat(actualBoard.get(0).get(4)).usingRecursiveComparison().isEqualTo(new King(Color.WHITE, new Position(0, 4)));
-    assertThat(actualBoard.get(7).get(4)).usingRecursiveComparison().isEqualTo(new King(Color.BLACK, new Position(7, 4)));
+    assertThat(actualBoard.get(0).get(4)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.KING, Color.WHITE, new Position(0, 4)));
+    assertThat(actualBoard.get(7).get(4)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.KING, Color.BLACK, new Position(7, 4)));
 
     // Test for Pawns
     for (int i = 0; i < 8; i++) {
-      assertThat(actualBoard.get(1).get(i)).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(1, i)));
-      assertThat(actualBoard.get(6).get(i)).usingRecursiveComparison().isEqualTo(new Pawn(Color.BLACK, new Position(6, i)));
+      assertThat(actualBoard.get(1).get(i)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.PAWN, Color.WHITE, new Position(1, i)));
+      assertThat(actualBoard.get(6).get(i)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.PAWN, Color.BLACK, new Position(6, i)));
     }
   }
 
@@ -114,7 +115,7 @@ class ChessBoardTest {
     Position to = new Position(2,0);
     assertThat(board.movePiece(from, to)).isTrue();
     assertThat(actualBoard.get(1).getFirst()).isNull();
-    assertThat(actualBoard.get(2).getFirst()).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(2,0)));
+    assertThat(actualBoard.get(2).getFirst()).usingRecursiveComparison().isEqualTo(new Piece(PieceType.PAWN, Color.WHITE, new Position(2,0)));
   }
 
   @Test
@@ -124,7 +125,7 @@ class ChessBoardTest {
     MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
     String expectedMessage = "Invalid destination position!";
     assertThat(exception.getMessage()).contains(expectedMessage);
-    assertThat(actualBoard.get(1).getFirst()).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(1,0)));
+    assertThat(actualBoard.get(1).getFirst()).usingRecursiveComparison().isEqualTo(new Piece(PieceType.PAWN, Color.WHITE, new Position(1,0)));
   }
 
   @Test
@@ -134,7 +135,7 @@ class ChessBoardTest {
     MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
     String expectedMessage = "Invalid destination position!";
     assertThat(exception.getMessage()).contains(expectedMessage);
-    assertThat(actualBoard.getFirst().getFirst()).usingRecursiveComparison().isEqualTo(new Rook(Color.WHITE, new Position(0,0)));
+    assertThat(actualBoard.getFirst().getFirst()).usingRecursiveComparison().isEqualTo(new Piece(PieceType.ROOK, Color.WHITE, new Position(0,0)));
   }
 
   @Test
@@ -144,7 +145,7 @@ class ChessBoardTest {
     MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
     String expectedMessage = "Invalid destination position!";
     assertThat(exception.getMessage()).contains(expectedMessage);
-    assertThat(actualBoard.get(1).get(7)).usingRecursiveComparison().isEqualTo(new Pawn(Color.WHITE, new Position(1,7)));
+    assertThat(actualBoard.get(1).get(7)).usingRecursiveComparison().isEqualTo(new Piece(PieceType.PAWN, Color.WHITE, new Position(1,7)));
   }
 
   @Test
@@ -154,7 +155,7 @@ class ChessBoardTest {
     MovePieceException exception = assertThrows(MovePieceException.class, () -> board.movePiece(from, to));
     String expectedMessage = "Invalid destination position!";
     assertThat(exception.getMessage()).contains(expectedMessage);
-    assertThat(actualBoard.get(7).getFirst()).usingRecursiveComparison().isEqualTo(new Rook(Color.BLACK, new Position(7,0)));
+    assertThat(actualBoard.get(7).getFirst()).usingRecursiveComparison().isEqualTo(new Piece(PieceType.ROOK, Color.BLACK, new Position(7,0)));
   }
 
   @Test

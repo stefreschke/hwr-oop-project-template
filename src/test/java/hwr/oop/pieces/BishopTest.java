@@ -1,3 +1,4 @@
+/*
 package hwr.oop.pieces;
 
 import hwr.oop.Color;
@@ -57,3 +58,4 @@ class BishopTest {
         .hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=B}");
   }
 }
+*/

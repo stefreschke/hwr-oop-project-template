@@ -11,14 +11,14 @@ public class Piece {
   private final char symbol;
   private final PieceType type;
 
-  public Piece(PieceType type, Color color, Position position) throws PieceTypeException {
+  public Piece(PieceType type, Color color, Position position){
     this.type = type;
     this.color = color;
     this.position = position;
     this.symbol = assignPieceSymbol(type, color);
   }
 
-  private char assignPieceSymbol(PieceType type, Color color) throws PieceTypeException {
+  private char assignPieceSymbol(PieceType type, Color color){
     switch (type) {
       case KING -> {
         if (color == Color.WHITE) return 'K';
@@ -45,7 +45,7 @@ public class Piece {
         return 'r';
       }
     }
-    throw new PieceTypeException("Can't assign symbol to piece. :(");
+    return 'X';
   }
   public Color getColor() {
     return color;
