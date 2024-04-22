@@ -3,12 +3,12 @@ package hwr.oop;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-public class GameEngineTest {
+class GameEngineTest {
 
     @Test
     void handOutCardsTest() {
         final var game = new Game();
-        final var players = Game.handOutCards();
+        final var players = game.handOutCards();
 
         assertThat(players.get(0).hand)
                 .isNotEmpty()
