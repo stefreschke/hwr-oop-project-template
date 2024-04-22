@@ -42,7 +42,9 @@ just build
 ## Abstract
 
 [TODO]: # (Write a short description of your project.)
+
 [TODO]: # (State most important features.)
+
 [TODO]: # (State the most interesting problems you encountered during the project.)
 
 ## Feature List
@@ -114,4 +116,5 @@ git pull upstream main
 ```
 
 [maven]: https://maven.apache.org/
+
 [just]: https://github.com/casey/just

@@ -1,7 +1,7 @@
-package hwr.oop.doppelkopf;
+package hwr.oop.most_impressive_doppelkopf_experience;
 
-import hwr.oop.doppelkopf.enums.CardColours;
-import hwr.oop.doppelkopf.enums.CardSymbols;
+import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
+import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 
 import java.util.ArrayList;
 import java.util.List;
