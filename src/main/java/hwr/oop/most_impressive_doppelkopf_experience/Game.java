@@ -6,13 +6,17 @@ public class Game {
 
     private static final int NUM_PLAYERS = 4;
     private static final int NUM_CARDS_PER_PLAYER = 12;
+    List<Player> players = this.createPlayers();
+    CardStack stack = new CardStack();
+    List<Card> cardList = stack.getCardStack();
+    List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
 
-    public static List<Player> handOutCards(List<Player> playerList, List<Card> cardList) {
-        playerList.get(0).setHand(cardList.subList(0, 12));
-        playerList.get(1).setHand(cardList.subList(12, 24));
-        playerList.get(2).setHand(cardList.subList(24, 36));
-        playerList.get(3).setHand(cardList.subList(36, 48));
-        return playerList;
+    public List<Player> handOutCards() {
+        players.get(0).setHand(cardList.subList(0, 12));
+        players.get(1).setHand(cardList.subList(12, 24));
+        players.get(2).setHand(cardList.subList(24, 36));
+        players.get(3).setHand(cardList.subList(36, 48));
+        return players;
     }
 
     public List<Player> createPlayers() {
@@ -25,16 +29,15 @@ public class Game {
 
     }
 
+    public Card playCard() {
+return null;
+    }
+
+
+
     public static void main(String[] args) {
         Game game = new Game();
-        CardStack stack = new CardStack();
-
-
-        List<Card> cardList = stack.getCardStack();
-        List<Player> players = game.createPlayers();
-
-        List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
-        game.handOutCards(players, shuffledStack);
+        game.handOutCards();
 
 
 
