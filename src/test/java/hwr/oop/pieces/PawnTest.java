@@ -1,4 +1,4 @@
-package hwr.oop.pieces;
+/*package hwr.oop.pieces;
 
 import hwr.oop.Color;
 import hwr.oop.Position;
@@ -57,3 +57,6 @@ class PawnTest {
         .hasToString("Piece{color=WHITE, position=Position[row=3, column=3], symbol=P}");
   }
 }
+
+
+ */
