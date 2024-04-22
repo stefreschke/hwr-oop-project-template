@@ -4,7 +4,6 @@ import hwr.oop.enums.TeamNames;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Player {
     String name;
