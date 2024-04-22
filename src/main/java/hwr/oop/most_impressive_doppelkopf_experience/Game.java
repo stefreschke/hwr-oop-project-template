@@ -60,7 +60,7 @@ public class Game {
 
 public void playRound() {
     for (int i = 0; i < NUM_PLAYERS; i++) {
-      System.out.println(activePlayer.getName());
+     System.out.println(activePlayer.getName());
       takeTurn(activePlayer);
       activePlayer = Player.getNextPlayer(activePlayer);
 
@@ -93,9 +93,10 @@ public void gameLoop() {
 }
 
 public Player decideWinner() {
-    Player winner = players.get(discardPile.getIdOfWinner());
+    discardPile.findHighestValue();
     System.out.println("Höchste Karte: "+ discardPile.findHighestValue().getName());
-    System.out.println("Sieger: "+ winner.getName());
+    System.out.println("Sieger: "+ players.get(discardPile.getIdOfWinner()).getName());
+    Player winner  = players.get(discardPile.getIdOfWinner());
     List<Card> winnerTricksSoFar = winner.getWonTricks();
     for (int i = 0; i < discardPile.getDiscardPile().size(); i++) {
       winnerTricksSoFar.add(discardPile.getDiscardPile().get(i));

@@ -15,6 +15,7 @@ public class DiscardPile {
 
   int idOfWinner;
   public Card findHighestValue() {
+    idOfWinner = 0;
     Card highestTemp = discardCards.getFirst();
     for (int i = 0; i < discardCards.size(); i++) {
       Card currentCard = discardCards.get(i);
@@ -22,6 +23,8 @@ public class DiscardPile {
       if(currentValue > highestTemp.getValue()) {
         highestTemp = currentCard;
         idOfWinner = i;
+
+      } else {
       }
     }
   return highestTemp;
