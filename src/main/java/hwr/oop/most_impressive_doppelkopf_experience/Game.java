@@ -11,6 +11,7 @@ public class Game {
   List<Card> cardList = stack.getCardStack();
   List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
   DiscardPile discardPile = new DiscardPile();
+  Player activePlayer = players.getFirst();
 
   public List<Player> handOutCards() {
     players.get(0).setHand(shuffledStack.subList(0, 12));
@@ -29,7 +30,7 @@ public class Game {
     return List.of(player1, player2, player3, player4);
   }
 
-  public Card playCard(Player activePlayer, Card cardToPlay) {
+  public Card playCard(Card cardToPlay) {
     if (activePlayer.hand.contains(cardToPlay)) {
       activePlayer.hand.remove(cardToPlay);
       discardPile.discardCard(cardToPlay);

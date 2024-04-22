@@ -5,7 +5,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CreatePlayersTest {
-    // Methode, die die Spieler erstellt
+
     public List<Player> createPlayers() {
         Player player1 = new Player("Colin", 0);
         Player player2 = new Player("Chrissi", 0);
@@ -16,7 +16,7 @@ public class CreatePlayersTest {
     @Test
     public void testCreatePlayers() {
         List<Player> players = createPlayers();
-        assertThat(4, players.size());  // Überprüfen der Größe der Spielerliste
+        assertThat(4, players.size());
     }
 
     private void assertThat(int i, int size) {
