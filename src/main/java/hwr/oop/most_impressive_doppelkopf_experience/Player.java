@@ -73,4 +73,11 @@ public class Player {
         return nextPlayer;
     }
 
+    public int calculateScore() {
+        for (int i = 0; i < wonTricks.size(); i++) {
+            score = wonTricks.get(i).getWorth() + score;
+        }
+        return score;
+    }
+
 }
