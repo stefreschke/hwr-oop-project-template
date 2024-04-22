@@ -7,7 +7,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class CardGenerationTests {
     //scenario : Card will be generated
     @Test
-    void TestGenerateCardStack(){
+    void testGenerateCardStack(){
         final var cardStack = new CardGenerator();
         final var generatedCardDeck = cardStack.generateAllCards();
         assertThat(generatedCardDeck)
