@@ -55,4 +55,12 @@ class GameEngineTest {
       final var game = new Game();
       //Score muss gesamt 240 ergeben!!!
   }
+  @Test
+    void distributeTeams(){
+      final var game = new Game();
+      final var player1 = new Player("player1", 0, 0);
+
+
+
+  }
 }
