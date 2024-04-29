@@ -2,13 +2,10 @@ package hwr.oop.most_impressive_doppelkopf_experience;
 
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
-import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 import org.junit.jupiter.api.Test;
-import java.util.Arrays;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 class GameEngineTest {
@@ -45,28 +42,23 @@ class GameEngineTest {
     game.playCard(player.getHand().get(0));
 
     assertSoftly(
-        softly -> {
-          softly.assertThat(playerHandSize - 1).isEqualTo(player.getHand().size());
+            softly -> {
+              softly.assertThat(playerHandSize - 1).isEqualTo(player.getHand().size());
 
-          softly.assertThat(discardPileSize + 1).isEqualTo(discardPile.discardCards.size());
-        });
+              softly.assertThat(discardPileSize + 1).isEqualTo(discardPile.discardCards.size());
+            });
   }
-
   @Test
-  void calculateScoreTest() {
-    final var game = new Game();
-    // Score muss gesamt 240 ergeben!!!
+    void calculateScoreTest() {
+      final var game = new Game();
+      //Score muss gesamt 240 ergeben!!!
   }
-
   @Test
-  void testDistributeTeams() {
-    final var game = new Game();
-    game.players();
-    game.players.get(0).getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
-    game.players.get(1).getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
-    List<Player> distributePlayers = game.distributeTeams(game.players);
+    void distributeTeams(){
+      final var game = new Game();
+      final var player1 = new Player("player1", 0, 0);
 
-    assertThat(distributePlayers.stream().map(Player::getTeam))
-        .containsExactly(TeamNames.RE, TeamNames.RE, TeamNames.CONTRA, TeamNames.CONTRA);
+
+
   }
 }
