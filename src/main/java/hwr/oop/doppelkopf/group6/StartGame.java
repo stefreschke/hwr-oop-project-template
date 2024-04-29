@@ -16,14 +16,14 @@ class StartGame {
     return System.getProperty("os.name");
   }
 
-  private void createGame(String gameID) {
+  public void createGame(String gameID) {
     try {
       File file = new File("/Users/lukaskarsten/Desktop/test.txt");
       FileReader fileReader = new FileReader(file);
       BufferedReader bufferedReader = new BufferedReader(fileReader);
       FileWriter fw = new FileWriter(file, true);
       if (!file.exists()) {
-        if(file.createNewFile()) {
+        if (file.createNewFile()) {
           System.out.println("Die Datei und das Spiel " + gameID + " wird erstellt...");
         } else {
           System.out.println("Beim erstellen der Datei ist ein Fehler aufgetreten.");
@@ -47,7 +47,7 @@ class StartGame {
         fileReader.close();
       }
     } catch (IOException e) {
-      System.out.println("An error occurred. " + e.getMessage());
+      e.printStackTrace();
     }
   }
 }
