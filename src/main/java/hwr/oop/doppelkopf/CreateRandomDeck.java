@@ -1,14 +1,14 @@
 package hwr.oop.doppelkopf;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class CreateRandomDeck {
 
-  public List<Card> shuffleDeck() {
-    DoppelkopfGame cardList = new DoppelkopfGame();
-    List<Card> shuffledCards = cardList.initializeCards();
-    Collections.shuffle(shuffledCards);
+  public List<Card> shuffleDeck(List<Card> cards) {
+    List<Card> shuffledCards = new ArrayList<>(cards);
+    Collections.shuffle(cards);
     return shuffledCards;
   }
 }

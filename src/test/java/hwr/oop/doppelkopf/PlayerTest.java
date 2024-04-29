@@ -26,7 +26,7 @@ class PlayerTest {
   void checkPlayerHands() {
     DoppelkopfGame game = new DoppelkopfGame();
     CreateRandomDeck deck = new CreateRandomDeck();
-    game.dealCards(deck.shuffleDeck());
+    game.dealCards(deck.shuffleDeck(game.initializeCards()));
 
     SoftAssertions.assertSoftly(
         softly -> {
