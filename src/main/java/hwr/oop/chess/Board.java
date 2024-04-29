@@ -42,6 +42,17 @@ public class Board {
     this.playBoard.get(row).set(column, piece);
   }
 
+  public char pieceToFenChar(Piece piece){
+    if(piece.getColor() == Piece.Color.WHITE){
+      return Character.toUpperCase(abbrToFenChar.get(piece.getAbbr()));
+    }
+    else{
+      return abbrToFenChar.get(piece.getAbbr());
+    }
+  }
+
+
+
   public String getFenOfBoard() {
     int spaces = 0;
 
@@ -56,10 +67,7 @@ public class Board {
             fen.append(spaces);
             spaces = 0;
           }
-          fen.append(
-              p.getColor() == Piece.Color.WHITE
-                  ? Character.toUpperCase(abbrToFenChar.get(p.getAbbr()))
-                  : abbrToFenChar.get(p.getAbbr()));
+          fen.append(pieceToFenChar(p));
         }
       }
       if (spaces > 0) {
