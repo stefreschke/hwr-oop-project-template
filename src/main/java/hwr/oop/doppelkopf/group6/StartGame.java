@@ -1,4 +1,5 @@
-package hwr.oop.doppelkopf;
+package hwr.oop.doppelkopf.group6;
+
 
 
 class StartGame {
@@ -9,7 +10,7 @@ class StartGame {
   public static void main(String[] args) {
     if(args[0].equals("print")) {
 
-      System.out.println(game.player1.getOwnCards());
+      System.out.println("");
     }
   }
 }
