@@ -55,7 +55,8 @@ class BoardTest {
     assertSoftly(
         softly -> {
           softly.assertThat(board.isBlocked(board.getPieceAt(0, 0), 0, 6)).isTrue();
-          softly.assertThat(board.isBlocked(board.getPieceAt(4, 1), 4, 2)).isFalse();
+          softly.assertThat(board.isBlocked(board.getPieceAt(2, 0), 4, 2)).isTrue();
+          softly.assertThat(board.isBlocked(board.getPieceAt(4, 0), 4, 2)).isTrue();
         });
   }
 
