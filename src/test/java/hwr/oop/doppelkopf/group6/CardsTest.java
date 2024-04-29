@@ -1,4 +1,4 @@
-package hwr.oop.doppelkopf;
+package hwr.oop.doppelkopf.group6;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;

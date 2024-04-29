@@ -1,4 +1,4 @@
-package hwr.oop.doppelkopf;
+package hwr.oop.doppelkopf.group6;
 
 import java.util.ArrayList;
 import java.util.Collections;
