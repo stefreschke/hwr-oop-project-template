@@ -45,6 +45,17 @@ public class Player {
     TeamNames team;
     public List<Card> hand = new ArrayList<>();
 
+    public List<Card> getWonTricks() {
+        return wonTricks;
+    }
+
+    public void setWonTricks(List<Card> wonTricks) {
+        this.wonTricks = wonTricks;
+    }
+
+    public List<Card> wonTricks = new ArrayList<>();
+
+
     public Player(String name, int score, int id) {
         this.name = name;
         this.score = score;
@@ -60,6 +71,13 @@ public class Player {
             nextPlayer = Game.players.getFirst();
         }
         return nextPlayer;
+    }
+
+    public int calculateScore() {
+        for (int i = 0; i < wonTricks.size(); i++) {
+            score = wonTricks.get(i).getWorth() + score;
+        }
+        return score;
     }
 
 }

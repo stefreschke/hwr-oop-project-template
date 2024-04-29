@@ -23,6 +23,11 @@ public class Card {
   final CardSymbols symbol;
   final CardColours colour;
   final int value; // Strength of the card
+
+  public int getWorth() {
+    return worth;
+  }
+
   final int worth; // Worth of the Card
   final String name;
 

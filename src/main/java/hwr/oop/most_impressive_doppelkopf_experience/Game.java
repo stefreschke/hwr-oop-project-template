@@ -1,5 +1,7 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
 
+import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
+
 import java.util.List;
 
 
@@ -16,8 +18,8 @@ public class Game {
 
   public List<Player> handOutCards() {
 
-    for(int i = 0; i < 4; i++) {
-      for (int j = 0 + 12 * i; j < 12 + 12 * i  ; j++) {
+    for(int i = 0; i < NUM_PLAYERS; i++) {
+      for (int j = NUM_CARDS_PER_PLAYER * i; j < NUM_CARDS_PER_PLAYER + NUM_CARDS_PER_PLAYER * i  ; j++) {
         players.get(i).getHand().add(shuffledStack.get(j));
       }
     }
@@ -47,6 +49,7 @@ public class Game {
 
   public void startNewGame() {
     handOutCards();
+    distributeTeams(players);
     gameLoop();
   }
 
@@ -57,10 +60,8 @@ public class Game {
 
 public void playRound() {
     for (int i = 0; i < NUM_PLAYERS; i++) {
-      System.out.println(activePlayer.getName());
-      System.out.println(activePlayer.getHand().size());
+     System.out.println(activePlayer.getName());
       takeTurn(activePlayer);
-      System.out.println(activePlayer.getHand().size());
       activePlayer = Player.getNextPlayer(activePlayer);
 
   }
@@ -71,6 +72,20 @@ public void gameLoop() {
     while(true) {
       if (activePlayer.getHand().isEmpty()) {
       System.out.println("GRRRRRRR");
+      System.out.println(players.get(0).getName() + " won so many cards: " + players.get(0).getWonTricks().size());
+      System.out.println(players.get(1).getName() + " won so many cards: " + players.get(1).getWonTricks().size());
+      System.out.println(players.get(2).getName() + " won so many cards: " + players.get(2).getWonTricks().size());
+      System.out.println(players.get(3).getName() + " won so many cards: " + players.get(3).getWonTricks().size());
+      System.out.println(players.get(0).getName() + " score: " + players.get(0).calculateScore());
+      System.out.println(players.get(1).getName() + " score: " + players.get(1).calculateScore());
+      System.out.println(players.get(2).getName() + " score: " + players.get(2).calculateScore());
+      System.out.println(players.get(3).getName() + " score: " + players.get(3).calculateScore());
+      System.out.println(players.get(0).getName() + " was team: " + players.get(0).getTeam());
+      System.out.println(players.get(1).getName() + " was team: " + players.get(1).getTeam());
+      System.out.println(players.get(2).getName() + " was team: " + players.get(2).getTeam());
+      System.out.println(players.get(3).getName() + " was team: " + players.get(3).getTeam());
+      System.out.println(findWinningTeam());
+
       break;
     } else {
         playRound();
@@ -79,10 +94,54 @@ public void gameLoop() {
 }
 
 public Player decideWinner() {
-    System.out.println(discardPile.findHighestValue().getName());
-
+    discardPile.findHighestValue();
+    System.out.println("Höchste Karte: "+ discardPile.findHighestValue().getName());
+    System.out.println("Sieger: "+ players.get(discardPile.getIdOfWinner()).getName());
+    Player winner  = players.get(discardPile.getIdOfWinner());
+    List<Card> winnerTricksSoFar = winner.getWonTricks();
+    for (int i = 0; i < discardPile.getDiscardPile().size(); i++) {
+      winnerTricksSoFar.add(discardPile.getDiscardPile().get(i));
+    }
+    winner.setWonTricks(winnerTricksSoFar);
+    discardPile.discardCards.clear();
     return null;
 }
+
+  public List<Player> distributeTeams(List<Player> players) {
+    String old = "CQ";
+    for (int i = 0; i < NUM_PLAYERS; i++) {
+      boolean foundCQ = false;
+      for (int j = 0; j < NUM_CARDS_PER_PLAYER; j++){
+        if (players.get(i).getHand().get(j).getName().equals(old)) {
+          players.get(i).setTeam(TeamNames.RE);
+          foundCQ = true;
+        }
+      }
+      if (!foundCQ) {
+        players.get(i).setTeam(TeamNames.CONTRA);
+      }
+    }
+    return players;
+  }
+
+  public String findWinningTeam() {
+    int reScore = 0;
+    int contraScore = 0;
+    String winnerTeam = "";
+    for (int i = 0; i < players.size(); i++) {
+      if (players.get(i).getTeam().equals("RE")) {
+        reScore = reScore + players.get(i).getScore();
+
+      } else {
+        contraScore = contraScore + players.get(i).getScore();
+      }
+    }
+    if (reScore >= contraScore) {
+      winnerTeam = TeamNames.RE.name();
+    }
+    return winnerTeam;
+  }
+
   public static void main(String[] args) {
     Game game = new Game();
     game.startNewGame();
