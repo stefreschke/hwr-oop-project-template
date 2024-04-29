@@ -16,7 +16,8 @@ class CardsTest {
 
     for (Color color : Color.values()) {
       for (Type value : Type.values()) {
-        assertTrue(game.hasCard(cards, color, value), "Karte " + color + " " + value + " fehlt im Spiel.");
+        assertTrue(
+            game.hasCard(cards, color, value), "Karte " + color + " " + value + " fehlt im Spiel.");
       }
     }
   }
@@ -49,23 +50,25 @@ class CardsTest {
     List<Card> shuffledCards = createRandomDeck.shuffleDeck(unshuffledCards);
 
     assertThat(shuffledCards).isNotEmpty().doesNotContainSequence(unshuffledCards);
-    }
+  }
 
   @Test
   void testColor() {
-    List<Card> cards = Arrays.asList(
-            new Card(Color.HERZ, Type.BUBE),
-            new Card(Color.KREUZ, Type.NEUN),
-            new Card(Color.PIK, Type.ZEHN)
-    );
+    List<Card> cards =
+        Arrays.asList(
+            new Card(Color.HERZ, Type.BUBE, "HB"),
+            new Card(Color.KREUZ, Type.NEUN, "KR9"),
+            new Card(Color.PIK, Type.ZEHN, "P10"));
     boolean result1 = new DoppelkopfGame().hasCard(cards, Color.KARO, Type.KOENIG);
-    boolean result2 = new DoppelkopfGame().hasCard(cards, Color.PIK, Type.ZEHN); // Hier eine nicht vorhandene Karte
+    boolean result2 =
+        new DoppelkopfGame()
+            .hasCard(cards, Color.PIK, Type.ZEHN); // Hier eine nicht vorhandene Karte
 
     SoftAssertions.assertSoftly(
-            softly -> {
-              assertThat(result1).isFalse();
-              assertThat(result2).isTrue();
-            });
+        softly -> {
+          assertThat(result1).isFalse();
+          assertThat(result2).isTrue();
+        });
   }
 }
 
