@@ -12,19 +12,16 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ShuffleCardsStackTest {
-    CardGenerator cardGenerator = new CardGenerator();
-    List<Card> cardStack = cardGenerator.generateAllCards();
 
-    public List<Card> shuffleCardsStack(List<Card> cardStack) {
-        List<Card> shuffledCards = new ArrayList<>(cardStack);
-        Collections.shuffle(shuffledCards);
-        return shuffledCards;
-    }
     @Test
     public void testShuffleCardsStack() {
+        CardGenerator cardGenerator = new CardGenerator();
+        List<Card> cardStack = cardGenerator.generateAllCards();
+
         // Vorbereitung der Kartenliste
+        CardStack cardStackObject = new CardStack();
         List<Card> originalCards = new ArrayList<>(cardStack);
-        List<Card> shuffledCards = shuffleCardsStack(originalCards);
+        List<Card> shuffledCards = cardStackObject.shuffleCardsStack(originalCards);
 
         assertThat(originalCards.size(), shuffledCards.size());
         assertTrue(shuffledCards.containsAll(cardStack));
