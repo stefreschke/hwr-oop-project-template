@@ -38,23 +38,20 @@ public class Board {
     return playBoard;
   }
 
-  private void setPieceAt(int column, int row, Piece piece) {
+  public void setPieceAt(int column, int row, Piece piece) {
     this.playBoard.get(row).set(column, piece);
     if (piece != null) {
       piece.setActPosition(List.of(column, row));
     }
   }
 
-  public char pieceToFenChar(Piece piece){
-    if(piece.getColor() == Piece.Color.WHITE){
+  public char pieceToFenChar(Piece piece) {
+    if (piece.getColor() == Piece.Color.WHITE) {
       return Character.toUpperCase(abbrToFenChar.get(piece.getAbbr()));
-    }
-    else{
+    } else {
       return abbrToFenChar.get(piece.getAbbr());
     }
   }
-
-
 
   public String getFenOfBoard() {
     int spaces = 0;
@@ -103,7 +100,7 @@ public class Board {
             row,
             new Piece(
                 charToPieceType.get(Character.toLowerCase(c)),
-                Arrays.asList(row, column),
+                List.of(column, row),
                 Character.isUpperCase(c) ? Piece.Color.WHITE : Piece.Color.BLACK));
 
         column++;
@@ -136,11 +133,11 @@ public class Board {
   }
 
   public void changePos(int oldCol, int oldRow, int newCol, int newRow) {
-    this.playBoard.get(newCol).set(newRow, playBoard.get(oldCol).get(oldRow));
+    this.playBoard.get(newRow).set(newCol, playBoard.get(oldRow).get(oldCol));
     if (getPieceAt(oldCol, oldRow) != null) {
       getPieceAt(oldCol, oldRow).setActPosition(List.of(newCol, newRow));
     }
-    this.playBoard.get(oldCol).set(oldRow, null);
+    this.playBoard.get(oldRow).set(oldCol, null);
   }
 
   public void printBoard() {
@@ -153,7 +150,7 @@ public class Board {
     if (piece.isMoveRepeatable()) {
       return isValidMoveRepeat(piece, vecX, vecY);
     } else {
-      if (piece.getAbbr() == 'b'){
+      if (piece.getAbbr() == 'b') {
         return isValidMovePawn(piece, vecX, vecY);
       } else {
         return isValidMoveNonRepeat(piece, vecX, vecY);
@@ -163,15 +160,15 @@ public class Board {
 
   private boolean isValidMoveRepeat(Piece piece, int vecX, int vecY) {
     for (List<Integer> move : piece.getPosMoves()) {
-        for (int j = -7; j < 8; j++) {
-          if (j == 0) {
-            continue;
-          }
-          if (move.getFirst() * j == vecX && move.get(1) * j == vecY) {
-            return true;
-          }
+      for (int j = -7; j < 8; j++) {
+        if (j == 0) {
+          continue;
+        }
+        if (move.getFirst() * j == vecX && move.get(1) * j == vecY) {
+          return true;
         }
       }
+    }
     return false;
   }
 
@@ -189,12 +186,12 @@ public class Board {
       if (piece.getActPosition().get(1) == 1 && 0 == vecX && 2 == vecY) {
         return true;
       }
-        return 0 == vecX && 1 == vecY;
+      return 0 == vecX && 1 == vecY;
     } else {
       if (piece.getActPosition().get(1) == 6 && 0 == vecX && -2 == vecY) {
-          return true;
+        return true;
       }
-        return 0 == vecX && -1 == vecY;
+      return 0 == vecX && -1 == vecY;
     }
   }
 

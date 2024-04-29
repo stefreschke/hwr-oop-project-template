@@ -1,12 +1,10 @@
 package hwr.oop.chessTests;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.predicate;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 import hwr.oop.chess.Board;
 import hwr.oop.chess.Piece;
-import java.util.Arrays;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -92,6 +90,20 @@ class BoardTest {
   }
 
   @Test
+  void setPieceAtTest(){
+      Board board = new Board();
+      board.initBoard();
+      Piece piece = board.getPieceAt(0, 0);
+      board.setPieceAt(3, 5, piece);
+
+      assertSoftly(
+              softly -> {
+                  softly.assertThat(board.getPieceAt(3, 5).getActPosition().getFirst()).isEqualTo(3);
+                  softly.assertThat(board.getPieceAt(3, 5).getActPosition().get(1)).isEqualTo(5);
+              });
+  }
+
+  @Test
   void getPieceAtTest() {
     Board board = new Board();
     board.initBoard();
@@ -152,13 +164,15 @@ class BoardTest {
   void changePosTest() {
     Board board = new Board();
     board.initBoard();
-    Piece piece = board.getPieceAt(0, 1);
+    Piece piece = board.getPieceAt(1, 0);
     board.changePos(1, 0, 0, 2);
 
     assertSoftly(
         softly -> {
-          softly.assertThat(board.getPieceAt(0, 1)).isNull();
-          softly.assertThat(piece).isEqualTo(board.getPieceAt(2, 0));
+          softly.assertThat(board.getPieceAt(1, 0)).isNull();
+          softly.assertThat(piece).isEqualTo(board.getPieceAt(0, 2));
+          softly.assertThat(piece.getActPosition().getFirst()).isEqualTo(0);
+          softly.assertThat(piece.getActPosition().get(1)).isEqualTo(2);
         });
   }
 }
