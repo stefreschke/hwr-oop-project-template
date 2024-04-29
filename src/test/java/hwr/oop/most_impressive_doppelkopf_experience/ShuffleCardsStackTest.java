@@ -11,7 +11,7 @@ import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-public class ShuffleCardsStackTest {
+ class ShuffleCardsStackTest {
     CardGenerator cardGenerator = new CardGenerator();
     List<Card> cardStack = cardGenerator.generateAllCards();
 
@@ -21,7 +21,7 @@ public class ShuffleCardsStackTest {
         return shuffledCards;
     }
     @Test
-    public void testShuffleCardsStack() {
+     void testShuffleCardsStack() {
         // Vorbereitung der Kartenliste
         List<Card> originalCards = new ArrayList<>(cardStack);
         List<Card> shuffledCards = shuffleCardsStack(originalCards);

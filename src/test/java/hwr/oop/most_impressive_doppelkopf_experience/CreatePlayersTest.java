@@ -4,7 +4,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class CreatePlayersTest {
+class CreatePlayersTest {
 
     public List<Player> createPlayers() {
         Player player1 = new Player("Colin", 0, 0);
@@ -14,7 +14,7 @@ public class CreatePlayersTest {
         return List.of(player1, player2, player3, player4);
     }
     @Test
-    public void testCreatePlayers() {
+    void testCreatePlayers() {
         List<Player> players = createPlayers();
         assertThat(4, players.size());
     }

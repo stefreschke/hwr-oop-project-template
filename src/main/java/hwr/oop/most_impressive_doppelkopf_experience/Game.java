@@ -1,8 +1,7 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
-
 import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class Game {
@@ -106,22 +105,17 @@ public Player decideWinner() {
     return null;
 }
 
-  public List<Player> distributeTeams(List<Player> players) {
-    String old = "CQ";
-    for (int i = 0; i < NUM_PLAYERS; i++) {
-      boolean foundCQ = false;
-      for (int j = 0; j < NUM_CARDS_PER_PLAYER; j++){
-        if (players.get(i).getHand().get(j).getName().equals(old)) {
-          players.get(i).setTeam(TeamNames.RE);
-          foundCQ = true;
-        }
-      }
-      if (!foundCQ) {
-        players.get(i).setTeam(TeamNames.CONTRA);
-      }
+public List<Player> distributeTeams(List<Player> players) {
+      String old = "CQ";
+      return players.stream()
+              .map(player -> {
+                boolean foundCQ = player.getHand().stream()
+                        .anyMatch(card -> card.getName().equals(old));
+                player.setTeam(foundCQ ? TeamNames.RE : TeamNames.CONTRA);
+                return player;
+              })
+              .collect(Collectors.toList());
     }
-    return players;
-  }
 
   public static void main(String[] args) {
     Game game = new Game();
