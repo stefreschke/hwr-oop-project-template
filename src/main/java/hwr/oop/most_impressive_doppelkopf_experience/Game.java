@@ -83,6 +83,7 @@ public void gameLoop() {
       System.out.println(players.get(1).getName() + " was team: " + players.get(1).getTeam());
       System.out.println(players.get(2).getName() + " was team: " + players.get(2).getTeam());
       System.out.println(players.get(3).getName() + " was team: " + players.get(3).getTeam());
+      System.out.println(findWinningTeam());
 
       break;
     } else {
@@ -116,6 +117,24 @@ public List<Player> distributeTeams(List<Player> players) {
               })
               .collect(Collectors.toList());
     }
+
+  public String findWinningTeam() {
+    int reScore = 0;
+    int contraScore = 0;
+    String winnerTeam = "";
+    for (int i = 0; i < players.size(); i++) {
+      if (players.get(i).getTeam().equals("RE")) {
+        reScore = reScore + players.get(i).getScore();
+
+      } else {
+        contraScore = contraScore + players.get(i).getScore();
+      }
+    }
+    if (reScore >= contraScore) {
+      winnerTeam = TeamNames.RE.name();
+    }
+    return winnerTeam;
+  }
 
   public static void main(String[] args) {
     Game game = new Game();
