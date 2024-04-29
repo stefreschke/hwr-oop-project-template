@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.assertj.core.api.FactoryBasedNavigableListAssert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -23,16 +23,12 @@ public class ShuffleCardsStackTest {
         List<Card> originalCards = new ArrayList<>(cardStack);
         List<Card> shuffledCards = cardStackObject.shuffleCardsStack(originalCards);
 
-        assertThat(originalCards.size(), shuffledCards.size());
+        assertThat(originalCards).hasSameSizeAs(shuffledCards);
+        assertThat(originalCards.size()).isEqualTo(shuffledCards.size());
+        assertThat(shuffledCards).doesNotContainSequence(originalCards);
         assertTrue(shuffledCards.containsAll(cardStack));
-
         assertNotEquals(originalCards, shuffledCards);
     }
 
-    private void assertThat(int size, int size1) {
-    }
-
-    private void assertThat(int size, int size1, String s) {
-    }
 }
 
