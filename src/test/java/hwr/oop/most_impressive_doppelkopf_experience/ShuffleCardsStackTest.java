@@ -10,6 +10,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 public class ShuffleCardsStackTest {
 
@@ -23,11 +24,15 @@ public class ShuffleCardsStackTest {
         List<Card> originalCards = new ArrayList<>(cardStack);
         List<Card> shuffledCards = cardStackObject.shuffleCardsStack(originalCards);
 
-        assertThat(originalCards).hasSameSizeAs(shuffledCards);
-        assertThat(originalCards.size()).isEqualTo(shuffledCards.size());
-        assertThat(shuffledCards).doesNotContainSequence(originalCards);
-        assertTrue(shuffledCards.containsAll(cardStack));
-        assertNotEquals(originalCards, shuffledCards);
+        assertSoftly(
+                softly -> {
+                    assertThat(originalCards).hasSameSizeAs(shuffledCards);
+                    assertThat(originalCards.size()).isEqualTo(shuffledCards.size());
+                    assertThat(shuffledCards).doesNotContainSequence(originalCards);
+                    assertTrue(shuffledCards.containsAll(cardStack));
+                    assertNotEquals(originalCards, shuffledCards);
+                }
+        );
     }
 
 }
