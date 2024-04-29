@@ -32,7 +32,7 @@ class GameEngineTest {
     final var game = new Game();
 
     //Scenario erstellen
-    game.activePlayer = new Player("player1", 0);
+    game.activePlayer = new Player("player1", 0, 0);
     game.discardPile = new DiscardPile();
     List<Card> hand = List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0));
     game.activePlayer.setHand(hand);
