@@ -64,9 +64,9 @@ class BoardTest {
   @Test
   void getFenOfBoardTest(){
     Board board = new Board();
-    board.setBoardToFen("1r6/8/8/8/4K3/8/8/8");
+    board.setBoardToFen("1rr5/8/8/8/4K3/8/8/6rr");
 
-    Assertions.assertThat(board.getFenOfBoard()).isEqualTo("1r6/8/8/8/4K3/8/8/8");
+    Assertions.assertThat(board.getFenOfBoard()).isEqualTo("1rr5/8/8/8/4K3/8/8/6rr");
   }
 
   @Test
