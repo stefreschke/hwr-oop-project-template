@@ -14,6 +14,34 @@ public class DoppelkopfGame {
     initializeCards();
   }
 
+  public int oneRound() {
+    List<Card> roundCards = new ArrayList<>();
+    roundCards.add(player1.showAndChooseCard());
+    roundCards.add(player2.showAndChooseCard());
+    roundCards.add(player3.showAndChooseCard());
+    roundCards.add(player4.showAndChooseCard());
+    Color playedColor = roundCards.getFirst().getColor();
+    int winnerCard = findHighestCard(playedColor, roundCards);
+    System.out.println("Winnercard-Number" + winnerCard);
+    switch (winnerCard) {
+      case 0:
+        player1.addPoints(roundCards);
+        break;
+      case 1:
+        player2.addPoints(roundCards);
+        break;
+      case 2:
+        player3.addPoints(roundCards);
+        break;
+      case 3:
+        player4.addPoints(roundCards);
+        break;
+      default:
+        break;
+    }
+    return winnerCard;
+  }
+
   public List<Card> initializeCards() {
     List<Card> cards = new ArrayList<>();
 
@@ -48,5 +76,21 @@ public class DoppelkopfGame {
       player4.getOwnCards().add(cards.getFirst());
       cards.remove(cards.getFirst());
     }
+  }
+
+  public int findHighestCard(Color playedColor, List<Card> cards) {
+    for (int i = 1; i < 4; i++) {
+      if (cards.get(i).getColor() != playedColor) {
+        cards.remove(cards.get(i));
+      }
+    }
+    int highestCard = 0;
+    for (int i = 1; i < 4; i++) {
+      if (cards.get(i).getNumber().getStrenght()
+          >= cards.get(highestCard).getNumber().getStrenght()) {
+        highestCard = i;
+      }
+    }
+    return highestCard;
   }
 }
