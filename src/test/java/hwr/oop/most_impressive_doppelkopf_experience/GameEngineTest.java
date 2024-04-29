@@ -30,22 +30,24 @@ class GameEngineTest {
   @Test
   void playCardTest() {
     final var game = new Game();
-    final var player = new Player("player1", 0, 0);
-    final var discardPile = new DiscardPile();
 
+    //Scenario erstellen
+    game.activePlayer = new Player("player1", 0, 0);
+    game.discardPile = new DiscardPile();
     List<Card> hand = List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0));
-    player.setHand(hand);
+    game.activePlayer.setHand(hand);
 
-    int playerHandSize = player.getHand().size();
-    int discardPileSize = discardPile.discardCards.size();
+    int playerHandSize = game.activePlayer.getHand().size();
+    int discardPileSize = game.discardPile.discardCards.size();
 
-    game.playCard(player.getHand().get(0));
+    game.playCard(game.activePlayer.getHand().get(0));
+
 
     assertSoftly(
             softly -> {
-              softly.assertThat(playerHandSize - 1).isEqualTo(player.getHand().size());
+              softly.assertThat(game.activePlayer.getHand()).hasSize(playerHandSize - 1);
 
-              softly.assertThat(discardPileSize + 1).isEqualTo(discardPile.discardCards.size());
+              softly.assertThat(game.discardPile.discardCards).hasSize(discardPileSize + 1);
             });
   }
   @Test
