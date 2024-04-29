@@ -29,11 +29,4 @@ public enum Type {
   public int getStrength() {
     return strength;
   }
-  public int getStrenght() {
-    return strength;
-  }
-
-  public int getValue(){
-    return value;
-  }
 }

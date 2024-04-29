@@ -45,7 +45,7 @@ public class Player {
 
   public void addPoints(List<Card> cards){
     for (Card i : cards){
-      this.points = this.points + i.getNumber().getValue();
+      this.points = this.points + i.getNumber().getPoints();
     }
     System.out.println(this.name + "   " + this.points);
   }

@@ -86,8 +86,8 @@ public class DoppelkopfGame {
     }
     int highestCard = 0;
     for (int i = 1; i < 4; i++) {
-      if (cards.get(i).getNumber().getStrenght()
-          >= cards.get(highestCard).getNumber().getStrenght()) {
+      if (cards.get(i).getNumber().getStrength()
+          >= cards.get(highestCard).getNumber().getStrength()) {
         highestCard = i;
       }
     }
