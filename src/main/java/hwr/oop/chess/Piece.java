@@ -27,7 +27,14 @@ public class Piece {
     KOENIG(
         'k',
         List.of(
-            List.of(0, 1), List.of(1, 0), List.of(1, 1), List.of(-1, 1)),
+            List.of(0, 1),
+            List.of(1, 0),
+            List.of(1, 1),
+            List.of(-1, 1),
+            List.of(0, -1),
+            List.of(-1, 0),
+            List.of(-1, -1),
+            List.of(-1, -1)),
         false),
     DAME('d', List.of(List.of(0, 1), List.of(1, 0), List.of(1, 1), List.of(-1, 1)), true);
 

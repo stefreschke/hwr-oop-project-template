@@ -40,6 +40,9 @@ public class Board {
 
   private void setPieceAt(int column, int row, Piece piece) {
     this.playBoard.get(row).set(column, piece);
+    if (piece != null) {
+      piece.setActPosition(List.of(column, row));
+    }
   }
 
   public String getFenOfBoard() {
@@ -126,6 +129,9 @@ public class Board {
 
   public void changePos(int oldCol, int oldRow, int newCol, int newRow) {
     this.playBoard.get(newCol).set(newRow, playBoard.get(oldCol).get(oldRow));
+    if (getPieceAt(oldCol, oldRow) != null) {
+      getPieceAt(oldCol, oldRow).setActPosition(List.of(newCol, newRow));
+    }
     this.playBoard.get(oldCol).set(oldRow, null);
   }
 
@@ -134,25 +140,54 @@ public class Board {
   }
 
   public boolean isValidMove(Piece piece, int column, int row) {
-    int vecX = column - piece.getActPosition().get(1);
-    int vecY = row - piece.getActPosition().get(0);
-    for (List<Integer> i : piece.getPosMoves()) {
-      if (piece.isMoveRepeatable()) {
+    int vecX = column - piece.getActPosition().get(0);
+    int vecY = row - piece.getActPosition().get(1);
+    if (piece.isMoveRepeatable()) {
+      return isValidMoveRepeat(piece, vecX, vecY);
+    } else {
+      if (piece.getAbbr() == 'b'){
+        return isValidMovePawn(piece, vecX, vecY);
+      } else {
+        return isValidMoveNonRepeat(piece, vecX, vecY);
+      }
+    }
+  }
+
+  private boolean isValidMoveRepeat(Piece piece, int vecX, int vecY) {
+    for (List<Integer> move : piece.getPosMoves()) {
         for (int j = -7; j < 8; j++) {
           if (j == 0) {
             continue;
           }
-          if (i.getFirst() * j == vecX && i.get(1) * j == vecY) {
+          if (move.getFirst() * j == vecX && move.get(1) * j == vecY) {
             return true;
           }
         }
-      } else {
-        if (i.getFirst() == vecX && i.get(1) == vecY) {
-          return true;
-        }
+      }
+    return false;
+  }
+
+  private boolean isValidMoveNonRepeat(Piece piece, int vecX, int vecY) {
+    for (List<Integer> move : piece.getPosMoves()) {
+      if (move.getFirst() == vecX && move.get(1) == vecY) {
+        return true;
       }
     }
     return false;
+  }
+
+  private boolean isValidMovePawn(Piece piece, int vecX, int vecY) {
+    if (piece.getColor() == Piece.Color.WHITE) {
+      if (piece.getActPosition().get(1) == 1 && 0 == vecX && 2 == vecY) {
+        return true;
+      }
+        return 0 == vecX && 1 == vecY;
+    } else {
+      if (piece.getActPosition().get(1) == 6 && 0 == vecX && -2 == vecY) {
+          return true;
+      }
+        return 0 == vecX && -1 == vecY;
+    }
   }
 
   public boolean isBlocked(Piece piece, int newColumn, int newRow) {
