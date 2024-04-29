@@ -140,6 +140,35 @@ public class Board {
     logger.info("Printing Board here");
   }
 
+  public Piece getKing(Piece.Color color) {
+    for (List<Piece> l : playBoard.reversed()) {
+      for (Piece p : l) {
+        if (p != null && p.getColor() == color) {
+          return p;
+        }
+      }
+    }
+    return null;
+  }
+
+  public boolean isCheck(Piece.Color color) {
+    Piece king = getKing(color);
+    int kingX = king.getActPosition().getFirst();
+    int kingY = king.getActPosition().get(1);
+
+    for (List<Piece> l : playBoard.reversed()) {
+      for (Piece p : l) {
+        if (p != null
+            && p.getColor() != color
+            && isValidMove(p, kingX, kingY)
+            && !(isBlocked(p, kingX, kingY))) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
   public boolean isValidMove(Piece piece, int column, int row) {
     int vecX = column - piece.getActPosition().get(0);
     int vecY = row - piece.getActPosition().get(1);
@@ -194,26 +223,24 @@ public class Board {
   public boolean isBlocked(Piece piece, int newColumn, int newRow) {
     List<Integer> oldPos = piece.getActPosition();
     List<Integer> vec = Arrays.asList(newColumn - oldPos.getFirst(), newRow - oldPos.get(1));
-    //System.out.println(vec.get(0) + " " + vec.get(1));
-    System.out.println("OldPos" + oldPos.get(0) + " " + oldPos.get(1));
     if (vec.getFirst() < 0) {
       vec.set(0, -1);
     }
-    if(vec.getFirst()>0){
+    if (vec.getFirst() > 0) {
       vec.set(0, 1);
     }
 
     if (vec.get(1) < 0) {
       vec.set(1, -1);
     }
-    if(vec.get(1) > 0){
+    if (vec.get(1) > 0) {
       vec.set(1, 1);
     }
 
     for (int i = 1;
         i < ((newColumn - oldPos.getFirst()) * vec.getFirst())
             || i < ((newRow - oldPos.get(1)) * vec.get(1));
-        i++) { System.out.println("OldPos+Vec"+(oldPos.getFirst() + i * vec.getFirst())+ " "+ (oldPos.get(1) + i * vec.get(1)));
+        i++) {
       if (this.playBoard
               .get(oldPos.get(1) + i * vec.get(1))
               .get(oldPos.getFirst() + i * vec.getFirst())
