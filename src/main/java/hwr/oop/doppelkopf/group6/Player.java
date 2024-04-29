@@ -1,10 +1,11 @@
-package hwr.oop.doppelkopf;
+package hwr.oop.doppelkopf.group6;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
   private final String name;
+  private final List<Card> ownCards;
 
   public List<Card> getOwnCards() {
     return ownCards;
@@ -13,8 +14,6 @@ public class Player {
   public String getName() {
     return name;
   }
-
-  private final List<Card> ownCards;
 
   public Player(String name) {
     this.name = name;
