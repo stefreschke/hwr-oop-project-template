@@ -18,7 +18,6 @@ public class ShuffleCardsStackTest {
         CardGenerator cardGenerator = new CardGenerator();
         List<Card> cardStack = cardGenerator.generateAllCards();
 
-        // Vorbereitung der Kartenliste
         CardStack cardStackObject = new CardStack();
         List<Card> originalCards = new ArrayList<>(cardStack);
         List<Card> shuffledCards = cardStackObject.shuffleCardsStack(originalCards);
