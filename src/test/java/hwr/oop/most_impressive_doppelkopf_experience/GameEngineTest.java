@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
+import static org.assertj.core.api.Assertions.assertThat;
+
 
 class GameEngineTest {
 
@@ -56,8 +58,10 @@ class GameEngineTest {
   @Test
     void distributeTeams(){
       final var game = new Game();
-      final var player1 = new Player("player1", 0, 0);
-
+      game.players.get(0).getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
+      game.players.get(1).getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
+      List<Player> distributePlayers = game.distributeTeams(game.players);
+      assertThat(distributePlayers).git p
 
 
   }
