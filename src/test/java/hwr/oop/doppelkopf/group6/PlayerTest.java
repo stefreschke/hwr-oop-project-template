@@ -19,6 +19,11 @@ class PlayerTest {
           softly.assertThat(game.player2.getOwnCards()).isEmpty();
           softly.assertThat(game.player3.getOwnCards()).isEmpty();
           softly.assertThat(game.player4.getOwnCards()).isEmpty();
+
+          softly.assertThat(game.player1.getOrder()).isEqualTo(1);
+          softly.assertThat(game.player2.getOrder()).isEqualTo(2);
+          softly.assertThat(game.player3.getOrder()).isEqualTo(3);
+          softly.assertThat(game.player4.getOrder()).isEqualTo(4);
         });
   }
 

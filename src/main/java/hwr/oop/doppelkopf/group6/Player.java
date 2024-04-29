@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Player {
   private final String name;
+  private final int order;
   private final List<Card> ownCards;
   private int points;
 
@@ -16,8 +17,13 @@ public class Player {
     return name;
   }
 
-  public Player(String name) {
+  public int getOrder() {
+    return order;
+  }
+
+  public Player(String name, int order) {
     this.name = name;
+    this.order = order;
     this.ownCards = new ArrayList<>();
   }
 
