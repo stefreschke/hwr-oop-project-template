@@ -1,10 +1,6 @@
 package hwr.oop.chess;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Logger;
 
 public class Board {
@@ -198,20 +194,20 @@ public class Board {
   public boolean isBlocked(Piece piece, int newColumn, int newRow) {
     List<Integer> oldPos = piece.getActPosition();
     List<Integer> vec = Arrays.asList(newColumn - oldPos.getFirst(), newRow - oldPos.get(1));
-    if (vec.getFirst() != 0) {
-      if (vec.getFirst() < 0) {
-        vec.set(0, -1);
-      } else {
-        vec.set(0, 1);
-      }
+    if (vec.getFirst() < 0) {
+      vec.set(0, -1);
     }
-    if (vec.get(1) != 0) {
-      if (vec.get(1) < 0) {
-        vec.set(1, -1);
-      } else {
-        vec.set(1, 1);
-      }
+    if(vec.getFirst()>0){
+      vec.set(0, 1);
     }
+
+    if (vec.get(1) < 0) {
+      vec.set(1, -1);
+    }
+    if(vec.get(1) > 0){
+      vec.set(1, 1);
+    }
+
     for (int i = 1;
         i < ((newColumn - oldPos.getFirst()) * vec.getFirst())
             || i < ((newRow - oldPos.get(1)) * vec.get(1));

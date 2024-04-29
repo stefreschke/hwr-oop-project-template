@@ -60,6 +60,98 @@ class BoardTest {
   }
 
   @Test
+  void isBlockedTestFullBoard()
+  {
+    Board board = new Board();
+    board.setBoardToFen("pppppppp/pppppppp/pppqpppp/ppppqppp/pppppppp/pppppppp/pppppppp/pppppppp");
+
+    assertSoftly(
+            softly -> {
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 2)).isTrue();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 6)).isTrue();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 4)).isTrue();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 4)).isTrue();
+
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 6)).isTrue();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 2)).isTrue();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 6)).isTrue();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 2)).isTrue();
+            });
+  }
+
+  @Test
+  void isBlockedTestEmptyBoard()
+  {
+    Board board = new Board();
+    board.setBoardToFen("8/8/8/4q3/8/8/8/8");
+
+    assertSoftly(
+            softly -> {
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 2)).isFalse();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 6)).isFalse();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 4)).isFalse();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 4)).isFalse();
+
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 6)).isFalse();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 2)).isFalse();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 6)).isFalse();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 2)).isFalse();
+            });
+  }
+
+  @Test
+  void isBlockedTestPieceOnEdgeOfMovement()
+  {
+      Board board = new Board();
+      board.setBoardToFen("8/2P1P1P1/8/2P1q1P1/8/2P1P1P1/8/8");
+      assertSoftly(
+              softly -> {
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 2)).isFalse();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 6)).isFalse();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 4)).isFalse();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 4)).isFalse();
+
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 6)).isFalse();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 2)).isFalse();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 6)).isFalse();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 2)).isFalse();
+              });
+  }
+
+  @Test
+  void isBlockedTestHalfFilledBoard()
+  {
+      Board board = new Board();
+      board.setBoardToFen("pppppppp/pppppppp/pppppppp/ppppqppp/8/8/8/8");
+      assertSoftly(
+              softly -> {
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 2)).isFalse();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 2)).isFalse();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 2)).isFalse();
+
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 4)).isTrue();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 4)).isTrue();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 6)).isTrue();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 6)).isTrue();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 6)).isTrue();
+              });
+        /*
+      board.setBoardToFen("4pppp/4pppp/4pppp/4qppp/4pppp/4pppp/4pppp/4pppp");
+      assertSoftly(
+              softly -> {
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 2)).isFalse();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 4)).isFalse();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 6)).isFalse();
+
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 2)).isTrue();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 6)).isTrue();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 2)).isTrue();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 4)).isTrue();
+                  softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 6)).isTrue();
+              });*/
+  }
+
+  @Test
   void setBoardToFenTest() {
     Board board = new Board();
 
