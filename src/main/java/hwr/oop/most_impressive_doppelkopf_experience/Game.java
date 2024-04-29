@@ -140,4 +140,13 @@ public List<Player> distributeTeams(List<Player> players) {
     Game game = new Game();
     game.startNewGame();
   }
+
+    public List<Player> players() {
+        Player player1 = new Player("Colin", 0, 0);
+        Player player2 = new Player("Chrissi", 0, 1);
+        Player player3 = new Player("Mihoshi", 0, 2);
+        Player player4 = new Player("Josh", 0, 3);
+
+        return List.of(player1, player2, player3, player4);
+    }
 }
