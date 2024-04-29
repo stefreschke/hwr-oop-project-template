@@ -31,7 +31,7 @@ public class Board {
   }
 
   public Piece getPieceAt(int column, int row) {
-    return this.playBoard.get(column).get(row);
+    return this.playBoard.get(row).get(column);
   }
 
   public List<List<Piece>> getPlayBoard() {

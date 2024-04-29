@@ -29,8 +29,6 @@ class BoardTest {
         });
   }
 
-
-
   @Test
   void isBlockedTest() {
     Board board = new Board();
@@ -39,7 +37,7 @@ class BoardTest {
     assertSoftly(
         softly -> {
           softly.assertThat(board.isBlocked(board.getPieceAt(0, 0), 0, 6)).isTrue();
-          softly.assertThat(board.isBlocked(board.getPieceAt(0, 2), 4, 2)).isTrue();
+          softly.assertThat(board.isBlocked(board.getPieceAt(4, 1), 4, 2)).isFalse();
         });
   }
 
@@ -50,8 +48,8 @@ class BoardTest {
     board.setBoardToFen("r7/8/8/2kb4/4K3/8/8/7r");
     assertSoftly(
         softly -> {
-          softly.assertThat(board.getPieceAt(4, 3).getAbbr()).isEqualTo(Piece.PieceType.LAEUFER.getAbbr());
-          softly.assertThat(board.getPieceAt(4, 3).getColor()).isEqualTo(Piece.Color.BLACK);
+          softly.assertThat(board.getPieceAt(3, 4).getAbbr()).isEqualTo(Piece.PieceType.LAEUFER.getAbbr());
+          softly.assertThat(board.getPieceAt(3, 4).getColor()).isEqualTo(Piece.Color.BLACK);
           softly.assertThat(board.getPieceAt(0, 0)).isNull();
         });
 
@@ -77,9 +75,9 @@ class BoardTest {
     board.initBoard();
 
     assertSoftly(softly -> {
-      softly.assertThat(board.getPieceAt(0, 7).getAbbr()).isEqualTo('t');
-      softly.assertThat(board.getPieceAt(0, 7).getActPosition().get(1)).isEqualTo(7);
-      softly.assertThat(board.getPieceAt(0, 7).getColor()).isEqualTo(Piece.Color.WHITE);
+      softly.assertThat(board.getPieceAt(7, 0).getAbbr()).isEqualTo('t');
+      softly.assertThat(board.getPieceAt(7, 0).getActPosition().get(1)).isEqualTo(7);
+      softly.assertThat(board.getPieceAt(7, 0).getColor()).isEqualTo(Piece.Color.WHITE);
     });
   }
 
@@ -125,12 +123,12 @@ class BoardTest {
   void changePosTest() {
     Board board = new Board();
     board.initBoard();
-    Piece piece = board.getPieceAt(1, 0);
+    Piece piece = board.getPieceAt(0, 1);
     board.changePos(1, 0, 0, 2);
 
     assertSoftly(softly -> {
-      softly.assertThat(board.getPieceAt(1, 0)).isNull();
-      softly.assertThat(piece).isEqualTo(board.getPieceAt(0, 2));
+      softly.assertThat(board.getPieceAt(0, 1)).isNull();
+      softly.assertThat(piece).isEqualTo(board.getPieceAt(2, 0));
     });
   }
 }
