@@ -10,10 +10,13 @@ import java.util.logging.Logger;
 public class Board {
   private List<List<Piece>> playBoard;
   private Map<Character, Piece.PieceType> charToPieceType;
+
+  private Map<Character, Character> abbrToFenChar;
   private Logger logger = Logger.getLogger(getClass().getName());
 
   public Board() {
     charToPieceType();
+    abbrToFenChar();
     playBoard = new ArrayList<>(8);
 
     for (int i = 0; i < 8; i++) {
@@ -39,6 +42,36 @@ public class Board {
     this.playBoard.get(row).set(column, piece);
   }
 
+  public String getFenOfBoard() {
+    int spaces = 0;
+
+    StringBuilder fen = new StringBuilder();
+
+    for (List<Piece> l : playBoard.reversed()) {
+      for (Piece p : l) {
+        if (p == null) {
+          spaces++;
+        } else {
+          if (spaces > 0) {
+            fen.append(spaces);
+            spaces = 0;
+          }
+          fen.append(
+              p.getColor() == Piece.Color.WHITE
+                  ? Character.toUpperCase(abbrToFenChar.get(p.getAbbr()))
+                  : abbrToFenChar.get(p.getAbbr()));
+        }
+      }
+      if (spaces > 0) {
+        fen.append(spaces);
+        spaces = 0;
+      }
+      fen.append("/");
+    }
+
+    return fen.substring(0, fen.length() - 1);
+  }
+
   public void setBoardToFen(String fen) {
     int column = 0;
     int row = 7;
@@ -50,14 +83,14 @@ public class Board {
         column = 0;
       } else if (c >= '1' && c <= '8') {
         for (int i = column; i < column + (c - '0'); i++) {
-          setPieceAt(row, i, null);
+          setPieceAt(i, row, null);
         }
         column += (c - '0');
-      } else {
-
+      } else if (Character.isAlphabetic(c)) {
         setPieceAt(
-                column, row,
-                new Piece(
+            column,
+            row,
+            new Piece(
                 charToPieceType.get(Character.toLowerCase(c)),
                 Arrays.asList(row, column),
                 Character.isUpperCase(c) ? Piece.Color.WHITE : Piece.Color.BLACK));
@@ -79,6 +112,16 @@ public class Board {
     charToPieceType.put('q', Piece.PieceType.DAME);
     charToPieceType.put('k', Piece.PieceType.KOENIG);
     charToPieceType.put('p', Piece.PieceType.BAUER);
+  }
+
+  public void abbrToFenChar() {
+    abbrToFenChar = new HashMap<>();
+    abbrToFenChar.put('d', 'q');
+    abbrToFenChar.put('s', 'n');
+    abbrToFenChar.put('l', 'b');
+    abbrToFenChar.put('t', 'r');
+    abbrToFenChar.put('k', 'k');
+    abbrToFenChar.put('b', 'p');
   }
 
   public void changePos(int oldCol, int oldRow, int newCol, int newRow) {
@@ -133,7 +176,9 @@ public class Board {
         i < ((newColumn - oldPos.getFirst()) * vec.getFirst())
             || i < ((newRow - oldPos.get(1)) * vec.get(1));
         i++) {
-      if (this.playBoard.get(oldPos.getFirst() + i * vec.getFirst()).get(oldPos.get(1) + i * vec.get(1))
+      if (this.playBoard
+              .get(oldPos.getFirst() + i * vec.getFirst())
+              .get(oldPos.get(1) + i * vec.get(1))
           != null) {
         return true;
       }

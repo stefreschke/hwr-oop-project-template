@@ -1,13 +1,15 @@
 package hwr.oop.chessTests;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.predicate;
+import static org.assertj.core.api.SoftAssertions.assertSoftly;
+
 import hwr.oop.chess.Board;
 import hwr.oop.chess.Piece;
-
 import java.util.Arrays;
 import java.util.List;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 class BoardTest {
   @Test
@@ -26,6 +28,8 @@ class BoardTest {
               .isFalse(); // bauer kann nicht seitlich gehen
         });
   }
+
+
 
   @Test
   void isBlockedTest() {
@@ -60,6 +64,14 @@ class BoardTest {
   }
 
   @Test
+  void getFenOfBoardTest(){
+    Board board = new Board();
+    board.setBoardToFen("1r6/8/8/8/4K3/8/8/8");
+
+    Assertions.assertThat(board.getFenOfBoard()).isEqualTo("1r6/8/8/8/4K3/8/8/8");
+  }
+
+  @Test
   void getPieceAtTest() {
     Board board = new Board();
     board.initBoard();
@@ -90,6 +102,7 @@ class BoardTest {
     //TODO Assertions nur am Ende
     Board board = new Board();
     board.initBoard();
+
     int row = 0;
     int column = 0;
     for (List<Piece> pieces : board.getPlayBoard()) {
