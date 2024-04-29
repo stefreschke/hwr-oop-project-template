@@ -15,4 +15,11 @@ public enum Type {
     this.value = value;
     this.strength = strength;
   }
+  public int getStrenght() {
+    return strength;
+  }
+
+  public int getValue(){
+    return value;
+  }
 }
