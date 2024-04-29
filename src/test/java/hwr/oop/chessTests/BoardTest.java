@@ -42,6 +42,39 @@ class BoardTest {
   }
 
   @Test
+  void isBlockedTestFullBoard()
+  {
+    Board board = new Board();
+    board.setBoardToFen("pppppppp/pppppppp/ppprpppp/ppprpppp/pppppppp/pppppppp/pppppppp/pppppppp");
+
+    assertSoftly(
+            softly -> {
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 2)).isTrue();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 6)).isTrue();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 4)).isTrue();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 4)).isTrue();
+            });
+
+  }
+
+  @Test
+  void isBlockedTestEmptyBoard()
+  {
+    Board board = new Board();
+    board.setBoardToFen("8/8/8/3r4/8/8/8/8");
+
+    assertSoftly(
+            softly -> {
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 2)).isFalse();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 4, 6)).isFalse();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 6, 4)).isFalse();
+              softly.assertThat(board.isBlocked(board.getPieceAt(4, 4), 2, 4)).isFalse();
+            });
+
+  }
+
+
+  @Test
   void setBoardToFenTest() {
     Board board = new Board();
 
