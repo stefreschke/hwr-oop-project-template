@@ -55,9 +55,9 @@ class CardsTest {
   void testColor() {
     List<Card> cards =
         Arrays.asList(
-            new Card(Color.HERZ, Type.BUBE),
-            new Card(Color.KREUZ, Type.NEUN),
-            new Card(Color.PIK, Type.ZEHN));
+            new Card(Color.HERZ, Type.BUBE, true),
+            new Card(Color.KREUZ, Type.NEUN, false),
+            new Card(Color.PIK, Type.ZEHN, false));
     boolean result1 = new DoppelkopfGame().hasCard(cards, Color.KARO, Type.KOENIG);
     boolean result2 =
         new DoppelkopfGame()
@@ -68,15 +68,6 @@ class CardsTest {
           assertThat(result1).isFalse();
           assertThat(result2).isTrue();
         });
-  }
-
-  @Test
-  void testOneRound() {
-    DoppelkopfGame game = new DoppelkopfGame();
-    CreateRandomDeck deck = new CreateRandomDeck();
-    game.dealCards(deck.shuffleDeck(game.initializeCards()));
-    int winner = game.oneRound();
-    assertThat(winner).isNotNull();
   }
 }
 

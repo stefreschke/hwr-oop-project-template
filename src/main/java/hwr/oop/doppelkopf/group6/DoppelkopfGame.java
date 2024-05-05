@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoppelkopfGame {
-  public final Player player1 = new Player("Spieler1");
-  public final Player player2 = new Player("Spieler2");
-  public final Player player3 = new Player("Spieler3");
-  public final Player player4 = new Player("Spieler4");
+  public final Player player1 = new Player("Spieler1", 1);
+  public final Player player2 = new Player("Spieler2", 2);
+  public final Player player3 = new Player("Spieler3", 3);
+  public final Player player4 = new Player("Spieler4",4);
 
   public DoppelkopfGame() {
     initializeCards();
@@ -19,26 +19,7 @@ public class DoppelkopfGame {
     roundCards.add(player2.showAndChooseCard());
     roundCards.add(player3.showAndChooseCard());
     roundCards.add(player4.showAndChooseCard());
-    Color playedColor = roundCards.getFirst().getColor();
-    int winnerCard = findHighestCard(playedColor, roundCards);
-    System.out.println("Winnercard-Number" + winnerCard);
-    switch (winnerCard) {
-      case 0:
-        player1.addPoints(roundCards);
-        break;
-      case 1:
-        player2.addPoints(roundCards);
-        break;
-      case 2:
-        player3.addPoints(roundCards);
-        break;
-      case 3:
-        player4.addPoints(roundCards);
-        break;
-      default:
-        break;
-    }
-    return winnerCard;
+    return findHighestCard(roundCards);
   }
 
   public List<Card> initializeCards() {
@@ -47,8 +28,14 @@ public class DoppelkopfGame {
     for (int k = 0; k < 2; k++) {
       for (Color i : Color.values()) {
         for (Type j : Type.values()) {
-          Card newCard = new Card(i, j);
-          cards.add(newCard);
+            Card newCard;
+            if (i == Color.KARO || j == Type.BUBE || j == Type.DAME || (i == Color.HERZ && j == Type.ZEHN)){
+                newCard = new Card(i, j, true);
+            }else{
+                newCard = new Card(i, j, false);
+            }
+            cards.add(newCard);
+
         }
       }
     }
@@ -77,19 +64,35 @@ public class DoppelkopfGame {
     }
   }
 
-  public int findHighestCard(Color playedColor, List<Card> cards) {
-    for (int i = 1; i < 4; i++) {
-      if (cards.get(i).getColor() != playedColor) {
-        cards.remove(cards.get(i));
+  public int findHighestCard( List<Card> cards) {
+    Card highestCard = cards.getFirst();
+    Card firstCard = highestCard;
+    int winner = 0;
+    cards.removeFirst();
+    for (int i = 0; i < cards.size(); i++){
+      if ((cards.get(i).isTrump()) || (cards.get(i).getColor() == highestCard.getColor() && cards.get(i).getNumber().getStrenght() > highestCard.getNumber().getStrenght())){
+        highestCard = cards.get(i);
+        winner = i+1;
       }
     }
-    int highestCard = 0;
-    for (int i = 1; i < 4; i++) {
-      if (cards.get(i).getNumber().getStrenght()
-          >= cards.get(highestCard).getNumber().getStrenght()) {
-        highestCard = i;
-      }
+    cards.add(firstCard);
+
+    switch (winner) {
+      case 0:
+        player1.addPoints(cards);
+        break;
+      case 1:
+        player2.addPoints(cards);
+        break;
+      case 2:
+        player3.addPoints(cards);
+        break;
+      case 3:
+        player4.addPoints(cards);
+        break;
+      default:
+        break;
     }
-    return highestCard;
+    return winner;
   }
 }
