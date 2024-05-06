@@ -3,6 +3,7 @@ import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 
@@ -125,7 +126,7 @@ public List<Player> distributeTeams(List<Player> players) {
   public String findWinningTeam() {
     int reScore = 0;
     int contraScore = 0;
-    String winnerTeam = "";
+    String winnerTeam = "CONTRA";
     for (int i = 0; i < players.size(); i++) {
       if (players.get(i).getTeam().equals("RE")) {
         reScore = reScore + players.get(i).getScore();
@@ -134,7 +135,7 @@ public List<Player> distributeTeams(List<Player> players) {
         contraScore = contraScore + players.get(i).getScore();
       }
     }
-    if (reScore >= contraScore) {
+    if (reScore > contraScore) {
       winnerTeam = TeamNames.RE.name();
     }
     return winnerTeam;
