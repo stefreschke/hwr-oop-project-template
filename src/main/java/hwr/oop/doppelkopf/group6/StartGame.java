@@ -1,6 +1,7 @@
 package hwr.oop.doppelkopf.group6;
 
 import java.io.*;
+import java.nio.file.Path;
 
 class StartGame {
 
@@ -12,16 +13,13 @@ class StartGame {
     }
   }
 
-  public String getOperatingSystem() {
-    return System.getProperty("os.name");
-  }
-
   public void createGame(String gameID) {
-    try {
-      File file = new File("/Users/lukaskarsten/Desktop/test.txt");
-      FileReader fileReader = new FileReader(file);
-      BufferedReader bufferedReader = new BufferedReader(fileReader);
-      FileWriter fw = new FileWriter(file, true);
+    String fileName = "/Users/lukaskarsten/Desktop/test.txt";
+    File file = new File(fileName);
+    Path path = file.toPath();
+    try(BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+        FileWriter fw = new FileWriter(file, true);) {
+
       if (!file.exists()) {
         if (file.createNewFile()) {
           System.out.println("Die Datei und das Spiel " + gameID + " wird erstellt...");
@@ -41,10 +39,6 @@ class StartGame {
         fw.write(gameID);
         fw.write("\n");
         System.out.println("Spiel " + gameID + " wird erstellt...");
-
-        fw.close();
-        bufferedReader.close();
-        fileReader.close();
       }
     } catch (IOException e) {
       e.printStackTrace();

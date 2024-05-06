@@ -1,11 +1,10 @@
 package hwr.oop.doppelkopf.group6;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.assertj.core.api.SoftAssertions;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.junit.jupiter.api.Test;
 
 class DoppelkopfGameTest {
         @Test
