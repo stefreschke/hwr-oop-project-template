@@ -4,6 +4,7 @@ import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
@@ -45,6 +46,12 @@ public class CardTest {
                     assertEquals("HA", card.getName());
                     assertEquals(11, card.getWorth());
                 });
+    }
+    @Test
+    void testtoString() {
+        Card card = new Card(CardSymbols.ACE, CardColours.HEARTS, 4, "HA", 11);
+        var toString = card.toString();
+        assertThat(toString).contains("ACE","HEARTS");
     }
 
 }
