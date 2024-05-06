@@ -51,7 +51,7 @@ public class DoppelkopfGame {
       player2.getOwnCards().add(cards.getFirst());
       cards.remove(cards.getFirst());
       player3.getOwnCards().add(cards.getFirst());
-      cards.remove(cards.getFirst());
+      cards.remove(cards .getFirst());
       player4.getOwnCards().add(cards.getFirst());
       cards.remove(cards.getFirst());
     }
