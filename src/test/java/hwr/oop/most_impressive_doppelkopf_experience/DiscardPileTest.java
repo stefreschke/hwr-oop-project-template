@@ -28,6 +28,15 @@ public class DiscardPileTest {
   @Test
   void testgetIdOfWinner() {
     var discardPile = new DiscardPile();
-    assertEquals(0, discardPile.getIdOfWinner());
+
+    var d9 = new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0);
+    var h10 = new Card(CardSymbols.TEN, CardColours.TRUMP, 100, "H10", 10);
+    var s9b = new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0);
+    var cab = new Card(CardSymbols.ACE, CardColours.CLUBS, 4, "CA", 11);
+
+    discardPile.setDiscardCards(List.of(d9, h10, s9b, cab));
+    discardPile.findHighestValue();
+
+    assertEquals(1, discardPile.getIdOfWinner());
   }
 }
