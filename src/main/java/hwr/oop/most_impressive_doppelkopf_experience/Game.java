@@ -1,5 +1,7 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,9 +36,11 @@ public class Game {
     return List.of(player1, player2, player3, player4);
   }
 
-  public Card playCard(Card cardToPlay) {
-    if (activePlayer.hand.contains(cardToPlay)) {
-      activePlayer.hand.remove(cardToPlay);
+  public Card playCard(Card cardToPlay, Player playerToPLay) {
+    if (playerToPLay.hand.contains(cardToPlay)) {
+        List<Card> mutableList = new ArrayList<>(playerToPLay.hand);
+        mutableList.remove(cardToPlay);
+        playerToPLay.setHand(mutableList);
       discardPile.discardCard(cardToPlay);
       System.out.println("Karte gespielt: " + cardToPlay.getName());
     } else {
@@ -53,7 +57,7 @@ public class Game {
   }
 
   public void takeTurn(Player playerOnTurn) {
-    playCard(playerOnTurn.getHand().getFirst());
+    playCard(playerOnTurn.getHand().getFirst(), playerOnTurn);
   }
 
 
