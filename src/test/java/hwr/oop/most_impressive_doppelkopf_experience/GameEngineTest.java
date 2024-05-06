@@ -16,7 +16,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 class GameEngineTest {
-
+  @Test
+  void startNewGameTest() {
+    handOutCardsTest();
+    distributeTeamsTest();
+    gameLoopTest();
+  }
   @Test
   void handOutCardsTest() {
     final var game = new Game();
@@ -72,7 +77,7 @@ class GameEngineTest {
       //Score muss gesamt 240 ergeben!!!
   }
   @Test
-    void distributeTeams(){
+    void distributeTeamsTest(){
       final var game = new Game();
       final var player1 = new Player("player1", 0, 0);
       final var player2 = new Player("player2", 0, 1);
