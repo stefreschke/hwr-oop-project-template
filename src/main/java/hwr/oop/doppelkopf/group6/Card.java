@@ -26,4 +26,6 @@ public class Card {
     }
 
     public boolean isTrump() {return this.trump;}
+
+
 }
