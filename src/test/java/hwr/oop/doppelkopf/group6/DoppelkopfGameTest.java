@@ -26,23 +26,23 @@ class DoppelkopfGameTest {
             List<Card> testList3 = new ArrayList<>();
             List<Card> testList4 = new ArrayList<>();
             List<Card> testList5 = new ArrayList<>();
-            testList1.add(new Card (Color.HERZ, Type.ASS, false));
-            testList1.add(new Card (Color.HERZ, Type.BUBE, true));
-            testList1.add(new Card (Color.PIK, Type.ASS, false));
-            testList2.add(new Card (Color.KREUZ, Type.ZEHN, false));
-            testList3.add(new Card (Color.PIK, Type.ZEHN, false));
-            testList3.add(new Card (Color.PIK, Type.ZEHN, false));
-            testList3.add(new Card (Color.PIK, Type.ASS, false));
-            testList3.add(new Card (Color.PIK, Type.NEUN, false));
-            testList4.add(new Card (Color.KREUZ, Type.KOENIG, false));
-            testList4.add(new Card (Color.HERZ, Type.NEUN, false));
-            testList4.add(new Card (Color.PIK, Type.NEUN, false));
-            testList4.add(new Card (Color.KREUZ, Type.ZEHN, false));
-            testList5.add(new Card (Color.KREUZ, Type.BUBE, false));
-            testList5.add(new Card (Color.KREUZ, Type.BUBE, false));
-            testList5.add(new Card (Color.KREUZ, Type.BUBE, false));
-            testList5.add(new Card (Color.KREUZ, Type.BUBE, false));
-            testList5.add(new Card (Color.KREUZ, Type.DAME, false));
+            testList1.add(new Card (Color.HERZ, Type.ASS, false, "HA"));
+            testList1.add(new Card (Color.HERZ, Type.BUBE, true, "HB"));
+            testList1.add(new Card (Color.PIK, Type.ASS, false, "PA"));
+            testList2.add(new Card (Color.KREUZ, Type.ZEHN, false, "Kr10"));
+            testList3.add(new Card (Color.PIK, Type.ZEHN, false, "P10"));
+            testList3.add(new Card (Color.PIK, Type.ZEHN, false, "P10"));
+            testList3.add(new Card (Color.PIK, Type.ASS, false, "PA"));
+            testList3.add(new Card (Color.PIK, Type.NEUN, false, "P9"));
+            testList4.add(new Card (Color.KREUZ, Type.KOENIG, false, "KrK"));
+            testList4.add(new Card (Color.HERZ, Type.NEUN, false, "H9"));
+            testList4.add(new Card (Color.PIK, Type.NEUN, false, "P9"));
+            testList4.add(new Card (Color.KREUZ, Type.ZEHN, false, "Kr10"));
+            testList5.add(new Card (Color.KREUZ, Type.BUBE, false, "KrB"));
+            testList5.add(new Card (Color.KREUZ, Type.BUBE, false, "KrB"));
+            testList5.add(new Card (Color.KREUZ, Type.BUBE, false, "KrB"));
+            testList5.add(new Card (Color.KREUZ, Type.BUBE, false, "KrB"));
+            testList5.add(new Card (Color.KREUZ, Type.DAME, false, "KrD"));
 
             SoftAssertions.assertSoftly(
                     softly -> {

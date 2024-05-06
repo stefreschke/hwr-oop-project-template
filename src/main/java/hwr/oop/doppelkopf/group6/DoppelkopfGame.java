@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DoppelkopfGame {
-  public final Player player1 = new Player("Spieler1", 1);
-  public final Player player2 = new Player("Spieler2", 2);
-  public final Player player3 = new Player("Spieler3", 3);
-  public final Player player4 = new Player("Spieler4",4);
+  public final Player player1 = new Player("Spieler1", 1, 0);
+  public final Player player2 = new Player("Spieler2", 2, 0);
+  public final Player player3 = new Player("Spieler3", 3, 0);
+  public final Player player4 = new Player("Spieler4", 4, 0);
 
   public DoppelkopfGame() {
     initializeCards();
@@ -30,12 +30,11 @@ public class DoppelkopfGame {
         for (Type j : Type.values()) {
             Card newCard;
             if (i == Color.KARO || j == Type.BUBE || j == Type.DAME || (i == Color.HERZ && j == Type.ZEHN)){
-                newCard = new Card(i, j, true);
+                newCard = new Card(i, j, true, i.getShortcut() + j.getShortcut());
             }else{
-                newCard = new Card(i, j, false);
+                newCard = new Card(i, j, false, i.getShortcut() + j.getShortcut());
             }
             cards.add(newCard);
-
         }
       }
     }
@@ -70,7 +69,7 @@ public class DoppelkopfGame {
     int winner = 0;
     cards.removeFirst();
     for (int i = 0; i < cards.size(); i++){
-      if ((cards.get(i).isTrump()) || (cards.get(i).getColor() == highestCard.getColor() && cards.get(i).getNumber().getStrenght() > highestCard.getNumber().getStrenght())){
+      if ((cards.get(i).isTrump()) || (cards.get(i).getColor() == highestCard.getColor() && cards.get(i).getNumber().getStrength() > highestCard.getNumber().getStrength())){
         highestCard = cards.get(i);
         winner = i+1;
       }

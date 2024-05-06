@@ -41,4 +41,20 @@ class PlayerTest {
           softly.assertThat(game.player4.getOwnCards()).hasSize(12);
         });
   }
+
+  @Test
+  void testPoints() {
+      Player player1 = new Player("Spieler1", 1, 0);
+      Player player2 = new Player("Spieler2", 2, 27);
+      Player player3 = new Player("Spieler3", 3, 33);
+      Player player4 = new Player("Spieler4", 4, 12);
+
+    SoftAssertions.assertSoftly(
+        softly -> {
+          softly.assertThat(player1.getPoints()).isEqualTo(0);
+            softly.assertThat(player2.getPoints()).isEqualTo(27);
+            softly.assertThat(player3.getPoints()).isEqualTo(33);
+            softly.assertThat(player4.getPoints()).isEqualTo(12);
+        });
+  }
 }

@@ -25,9 +25,10 @@ public class Player {
     return points;
   }
 
-  public Player(String name, int order) {
+  public Player(String name, int order, int points) {
     this.name = name;
     this.order = order;
+    this.points = points;
     this.ownCards = new ArrayList<>();
   }
 
@@ -37,10 +38,9 @@ public class Player {
     return this.ownCards.get(position);
   }
 
-
-  public void addPoints(List<Card> cards){
-    for (Card i : cards){
-      this.points = this.points + i.getNumber().getValue();
+  public void addPoints(List<Card> cards) {
+    for (Card i : cards) {
+      this.points = this.points + i.getNumber().getPoints();
     }
   }
 }

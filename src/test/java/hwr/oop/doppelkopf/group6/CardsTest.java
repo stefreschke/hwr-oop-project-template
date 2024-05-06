@@ -13,6 +13,7 @@ class CardsTest {
   void testAllCards() {
     DoppelkopfGame game = new DoppelkopfGame();
     List<Card> cards = game.initializeCards();
+
     for (Color color : Color.values()) {
       for (Type value : Type.values()) {
         assertTrue(
@@ -55,9 +56,9 @@ class CardsTest {
   void testColor() {
     List<Card> cards =
         Arrays.asList(
-            new Card(Color.HERZ, Type.BUBE, true),
-            new Card(Color.KREUZ, Type.NEUN, false),
-            new Card(Color.PIK, Type.ZEHN, false));
+            new Card(Color.HERZ, Type.BUBE, true, "HB"),
+            new Card(Color.KREUZ, Type.NEUN, false, "KR9"),
+            new Card(Color.PIK, Type.ZEHN, false, "P10"));
     boolean result1 = new DoppelkopfGame().hasCard(cards, Color.KARO, Type.KOENIG);
     boolean result2 =
         new DoppelkopfGame()
@@ -69,14 +70,73 @@ class CardsTest {
           assertThat(result2).isTrue();
         });
   }
-}
 
-/*
-9 - 0
-König - 1
-10 (außer Herz 10) - 2
-Ass - 3
-Bube - 4
-Dame - 5
-Herz 10 - 6
-*/
+  @Test
+  void testShortcut() {
+    List<Card> cards =
+        Arrays.asList(
+            new Card(Color.HERZ, Type.BUBE, true, "HB"),
+            new Card(Color.KREUZ, Type.NEUN, false, "KR9"),
+            new Card(Color.PIK, Type.ZEHN, false, "P10"));
+    String result = cards.getFirst().getShortcut();
+
+    Color colorHerz = Color.HERZ;
+    Color colorKaro = Color.KARO;
+    Color colorKreuz = Color.KREUZ;
+    Color colorPik = Color.PIK;
+
+    Type typeBube = Type.BUBE;
+    Type typeNeun = Type.NEUN;
+    Type typeZehn = Type.ZEHN;
+    Type typeAss = Type.ASS;
+    Type typeDame = Type.DAME;
+    Type typeKoenig = Type.KOENIG;
+
+    SoftAssertions.assertSoftly(
+        softly -> {
+          //
+          softly.assertThat(result).isEqualTo("HB");
+          // Color shortcut test
+          softly.assertThat(colorHerz.getShortcut()).isEqualTo("H");
+          softly.assertThat(colorKaro.getShortcut()).isEqualTo("Ka");
+          softly.assertThat(colorKreuz.getShortcut()).isEqualTo("Kr");
+          softly.assertThat(colorPik.getShortcut()).isEqualTo("P");
+          // Type shortcut test
+          softly.assertThat(typeBube.getShortcut()).isEqualTo("B");
+          softly.assertThat(typeNeun.getShortcut()).isEqualTo("9");
+          softly.assertThat(typeZehn.getShortcut()).isEqualTo("10");
+          softly.assertThat(typeAss.getShortcut()).isEqualTo("A");
+          softly.assertThat(typeDame.getShortcut()).isEqualTo("D");
+          softly.assertThat(typeKoenig.getShortcut()).isEqualTo("K");
+        });
+  }
+
+  @Test
+  void testCardPointsAndStrength() {
+    Type typeBube = Type.BUBE;
+    Type typeNeun = Type.NEUN;
+    Type typeZehn = Type.ZEHN;
+    Type typeAss = Type.ASS;
+    Type typeDame = Type.DAME;
+    Type typeKoenig = Type.KOENIG;
+
+    SoftAssertions.assertSoftly(
+        softly -> {
+          // Card points
+          softly.assertThat(typeBube.getPoints()).isEqualTo(2);
+          softly.assertThat(typeNeun.getPoints()).isZero();
+          softly.assertThat(typeZehn.getPoints()).isEqualTo(10);
+          softly.assertThat(typeAss.getPoints()).isEqualTo(11);
+          softly.assertThat(typeDame.getPoints()).isEqualTo(3);
+          softly.assertThat(typeKoenig.getPoints()).isEqualTo(4);
+          // Card strength
+          softly.assertThat(typeNeun.getStrength()).isEqualTo(0);
+          softly.assertThat(typeZehn.getStrength()).isEqualTo(2);
+          softly.assertThat(typeKoenig.getStrength()).isEqualTo(1);
+          softly.assertThat(typeAss.getStrength()).isEqualTo(3);
+          softly.assertThat(typeBube.getStrength()).isEqualTo(4);
+          softly.assertThat(typeDame.getStrength()).isEqualTo(5);
+          ;
+        });
+  }
+}

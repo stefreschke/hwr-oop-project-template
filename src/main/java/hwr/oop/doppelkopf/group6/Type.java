@@ -1,25 +1,32 @@
 package hwr.oop.doppelkopf.group6;
 
 public enum Type {
-  NEUN(0, 0),
-  ZEHN(10, 2),
-  BUBE(2, 4),
-  DAME(3, 5),
-  KOENIG(4, 1),
-  ASS(11, 3);
+  NEUN(0, 0, "9"),
+  ZEHN(10, 2, "10"),
+  BUBE(2, 4, "B"),
+  DAME(3, 5, "D"),
+  KOENIG(4, 1, "K"),
+  ASS(11, 3, "A");
 
-  private final int value;
+  private final int points;
   private final int strength;
+  private final String shortcut;
 
-  Type(int value, int strength) {
-    this.value = value;
+  Type(int points, int strength, String shortcut) {
+    this.points = points;
     this.strength = strength;
+    this.shortcut = shortcut;
   }
-  public int getStrenght() {
+
+  public String getShortcut() {
+    return shortcut;
+  }
+
+  public int getPoints() {
+    return points;
+  }
+
+  public int getStrength() {
     return strength;
-  }
-  
-  public int getValue(){
-    return value;
   }
 }
