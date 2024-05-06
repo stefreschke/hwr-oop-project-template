@@ -5,9 +5,7 @@ import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 import static hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames.CONTRA;
 import static hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames.RE;
@@ -18,6 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 class GameEngineTest {
   @Test
   void startNewGameTest() {
+    final Game game = new Game();
+    game.startNewGame();
     handOutCardsTest();
     distributeTeamsTest();
     gameLoopTest();
