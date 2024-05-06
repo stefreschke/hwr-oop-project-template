@@ -51,9 +51,9 @@ just build
 
 [TODO]: # (For each feature implemented, add a row to the table!)
 
-| Number | Feature | Tests |
-|--------|---------|-------|
-| 1      | /       | /     |
+| Number | Feature |   Tests  |
+|--------|---------|----------|
+| 1      | Card    | CardTest |
 
 ## Additional Dependencies
 
