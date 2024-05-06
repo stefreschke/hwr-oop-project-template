@@ -37,7 +37,6 @@ class GameEngineTest {
   void playCardTest() {
     final var game = new Game();
     final var player = new Player("player1", 0, 0);
-    final var discardPile = new DiscardPile();
 
     List<Card> hand = List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0));
     player.setHand(hand);
