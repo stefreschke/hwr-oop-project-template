@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-java -cp target/Doppelkopf-0.1.0.jar hwr.oop.doppelkopf.DoppelkopfGame $@
+java -cp target/Doppelkopf-0.1.0.jar hwr.oop.doppelkopf.group6.StartGame "$@"
