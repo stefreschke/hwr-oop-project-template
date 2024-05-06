@@ -5,6 +5,7 @@ public class Card {
   private final Type number;
   private final String shortcut;
 
+
   public Card(Color color, Type number, String shortcut) {
     this.color = color;
     this.number = number;
