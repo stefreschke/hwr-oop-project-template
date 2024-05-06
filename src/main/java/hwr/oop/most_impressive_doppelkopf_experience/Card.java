@@ -38,4 +38,12 @@ public class Card {
     this.name = name;
     this.worth = worth;
   }
+
+  @Override // aus einem Objekten ein String
+  public String toString() {
+    return "Card{" +
+            "symbol=" + symbol +
+            ", colour=" + colour +
+            '}';
+  }
 }
