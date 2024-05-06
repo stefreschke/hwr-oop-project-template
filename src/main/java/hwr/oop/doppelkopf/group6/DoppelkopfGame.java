@@ -2,6 +2,7 @@ package hwr.oop.doppelkopf.group6;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class DoppelkopfGame {
   public final Player player1 = new Player("Spieler1", 1, 0);
@@ -24,7 +25,6 @@ public class DoppelkopfGame {
 
   public List<Card> initializeCards() {
     List<Card> cards = new ArrayList<>();
-
     for (int k = 0; k < 2; k++) {
       for (Color i : Color.values()) {
         for (Type j : Type.values()) {
@@ -72,9 +72,9 @@ public class DoppelkopfGame {
     int winner = 0;
     cards.removeFirst();
     for (int i = 0; i < cards.size(); i++) {
-      if ((cards.get(i).isTrump())
-          || (cards.get(i).getColor() == highestCard.getColor()
-              && cards.get(i).getNumber().getStrength() > highestCard.getNumber().getStrength())) {
+      if (((cards.get(i).isTrump()) || cards.get(i).getColor() == highestCard.getColor())
+              && (cards.get(i).getNumber().getStrength() > highestCard.getNumber().getStrength())
+          || Objects.equals(cards.get(i).getShortcut(), "H10")) {
         highestCard = cards.get(i);
         winner = i + 1;
       }
@@ -97,6 +97,6 @@ public class DoppelkopfGame {
       default:
         break;
     }
-    return winner;
+    return winner + 1;
   }
 }
