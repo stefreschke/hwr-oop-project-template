@@ -21,7 +21,7 @@ public class Player {
     return order;
   }
 
-  public int getPoints() {
+  public int getPoints(){
     return points;
   }
 
@@ -32,13 +32,8 @@ public class Player {
     this.ownCards = new ArrayList<>();
   }
 
-  public Card showAndChooseCard() {
-    System.out.println(this.name);
-    for (Card i : this.ownCards) {
-      System.out.println(i.getColor() + "   " + i.getNumber());
-    }
-    int position =
-        3; // TODO: hier Logik einfügen, die vom User einliest, welche Karte genommen werden soll
+  public Card showAndChooseCard(){
+    int position = 3; //TODO: hier Logik einfügen, die vom User einliest, welche Karte genommen werden soll
     this.ownCards.remove(position);
     return this.ownCards.get(position);
   }
@@ -47,6 +42,5 @@ public class Player {
     for (Card i : cards) {
       this.points = this.points + i.getNumber().getPoints();
     }
-    System.out.println(this.name + "   " + this.points);
   }
 }

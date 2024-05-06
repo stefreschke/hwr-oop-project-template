@@ -2,10 +2,10 @@ package hwr.oop.doppelkopf.group6;
 
 public enum Type {
   NEUN(0, 0, "9"),
-  ZEHN(10, 1, "10"),
+  ZEHN(10, 2, "10"),
   BUBE(2, 4, "B"),
   DAME(3, 5, "D"),
-  KOENIG(4, 2, "K"),
+  KOENIG(4, 1, "K"),
   ASS(11, 3, "A");
 
   private final int points;
