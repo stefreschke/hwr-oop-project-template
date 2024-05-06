@@ -18,7 +18,7 @@ class StartGame {
 
   public void createGame(String gameID) {
     try {
-      File file = new File("/Users/lukaskarsten/Desktop/test.txt");
+      File file = new File("C:\\User\\siyur\\Desktop\\test.txt");
       FileReader fileReader = new FileReader(file);
       BufferedReader bufferedReader = new BufferedReader(fileReader);
       FileWriter fw = new FileWriter(file, true);
