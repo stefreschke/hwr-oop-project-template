@@ -43,17 +43,16 @@ class GameEngineTest {
     player.setHand(hand);
 
     int playerHandSize = player.getHand().size();
-    int discardPileSize = discardPile.discardCards.size();
+    int discardPileSize = game.discardPile.discardCards.size();//discardPile.discardCards.size();
 
-    game.playCard(player.getHand().get(0));
+    game.playCard(player.getHand().getFirst(), player);
 
     assertSoftly(
             softly -> {
               softly.assertThat(playerHandSize - 1).isEqualTo(player.getHand().size());
-
-              softly.assertThat(discardPileSize + 1).isEqualTo(discardPile.discardCards.size());
+              softly.assertThat(discardPileSize +1).isEqualTo(game.discardPile.discardCards.size());
             });
-  }
+    }
   @Test
     void calculateScoreTest() {
       final var game = new Game();
@@ -74,12 +73,5 @@ class GameEngineTest {
       assertThat(player2.getTeam()).isEqualTo(RE);
       assertThat(player3.getTeam()).isEqualTo(CONTRA);
       assertThat(player4.getTeam()).isEqualTo(CONTRA);
-
-      //final var players = Stream.of();
-      //assertSoftly(softly -> players.forEach(player -> {
-        //softly.assertThat()
-      //}))
-
-
   }
 }
