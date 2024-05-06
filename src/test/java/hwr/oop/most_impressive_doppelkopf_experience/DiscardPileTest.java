@@ -4,6 +4,7 @@ import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collections;
 import java.util.List;
@@ -23,5 +24,10 @@ public class DiscardPileTest {
     var highestCard = discardPile.findHighestValue();
 
     assertThat(highestCard).isEqualTo(h10);
+  }
+  @Test
+  void testgetIdOfWinner() {
+    var discardPile = new DiscardPile();
+    assertEquals(0, discardPile.getIdOfWinner());
   }
 }
