@@ -43,7 +43,7 @@ public class Player {
     int score;
     int id;
     TeamNames team;
-    public List<Card> hand = new ArrayList<>();
+    List<Card> hand = new ArrayList<>();
 
     public List<Card> getWonTricks() {
         return wonTricks;
@@ -53,7 +53,7 @@ public class Player {
         this.wonTricks = wonTricks;
     }
 
-    public List<Card> wonTricks = new ArrayList<>();
+    List<Card> wonTricks = new ArrayList<>();
 
 
     public Player(String name, int score, int id) {
