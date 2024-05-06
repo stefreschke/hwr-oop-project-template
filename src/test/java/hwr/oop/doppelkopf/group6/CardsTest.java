@@ -8,6 +8,7 @@ import java.util.List;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 
+
 class CardsTest {
   @Test
   void testAllCards() {
@@ -25,12 +26,21 @@ class CardsTest {
   @Test
   void testCardForInitilize() {
     DoppelkopfGame game = new DoppelkopfGame();
-    List<Card> cards = List.of();
-    for (Color color : Color.values()) {
-      for (Type value : Type.values()) {
-        assertThat(game.hasCard(cards, color, value)).isFalse();
-      }
-    }
+      List<Card> cards = game.initializeCards();
+      SoftAssertions.assertSoftly(
+              softly -> {
+                  for (Color color : Color.values()) {
+                      for (Type value : Type.values()) {
+                          softly.assertThat(game.hasCard(cards, color, value)).isTrue();
+                      }
+                  }
+
+                  for(Card i : cards){
+                      if(i.getColor() == Color.KARO || i.getNumber() == Type.BUBE || i.getNumber() == Type.DAME || (i.getColor() == Color.HERZ && i.getNumber() == Type.ZEHN)){
+                          softly.assertThat(i.isTrump()).isTrue();
+                      }
+                  }
+              });
   }
 
   @Test
@@ -136,7 +146,6 @@ class CardsTest {
           softly.assertThat(typeAss.getStrength()).isEqualTo(3);
           softly.assertThat(typeBube.getStrength()).isEqualTo(4);
           softly.assertThat(typeDame.getStrength()).isEqualTo(5);
-          ;
         });
   }
 }
