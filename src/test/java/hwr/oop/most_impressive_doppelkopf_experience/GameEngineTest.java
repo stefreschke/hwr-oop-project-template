@@ -5,6 +5,7 @@ import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -52,6 +53,19 @@ class GameEngineTest {
               softly.assertThat(discardPileSize +1).isEqualTo(game.discardPile.discardCards.size());
             });
     }
+  @Test
+    void gameLoopTest() {
+    final var game = new Game();
+    List<Card> hand = List.of(new Card(CardSymbols.TEN, CardColours.TRUMP, 100, "H10", 0));
+    game.players().getFirst().setHand(hand);
+    game.players.get(0).setTeam(RE);
+    game.players.get(1).setTeam(RE);
+    game.players.get(2).setTeam(CONTRA);
+    game.players.get(3).setTeam(CONTRA);
+    game.gameLoop();
+    assertThat(game.players().getFirst().getHand()).isEmpty();
+  }
+
   @Test
     void calculateScoreTest() {
       final var game = new Game();
