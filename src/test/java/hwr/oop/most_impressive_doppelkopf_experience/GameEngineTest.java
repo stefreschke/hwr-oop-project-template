@@ -2,10 +2,14 @@ package hwr.oop.most_impressive_doppelkopf_experience;
 
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
+
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.stream.Stream;
 
+import static hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames.CONTRA;
+import static hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames.RE;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -58,10 +62,23 @@ class GameEngineTest {
   @Test
     void distributeTeams(){
       final var game = new Game();
-      game.players.get(0).getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
-      game.players.get(1).getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
-      List<Player> distributePlayers = game.distributeTeams(game.players);
-      assertThat(distributePlayers).git p
+      final var player1 = new Player("player1", 0, 0);
+      final var player2 = new Player("player2", 0, 1);
+      final var player3 = new Player("player3", 0, 2);
+      final var player4 = new Player("player4", 0, 3);
+      final List<Player> players = List.of(player1, player2, player3, player4);
+      player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
+      player2.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
+      game.distributeTeams(players);
+      assertThat(player1.getTeam()).isEqualTo(RE);
+      assertThat(player2.getTeam()).isEqualTo(RE);
+      assertThat(player3.getTeam()).isEqualTo(CONTRA);
+      assertThat(player4.getTeam()).isEqualTo(CONTRA);
+
+      //final var players = Stream.of();
+      //assertSoftly(softly -> players.forEach(player -> {
+        //softly.assertThat()
+      //}))
 
 
   }
