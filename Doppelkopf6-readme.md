@@ -1,6 +1,5 @@
 # HWR OOP Lecture Project Template
 
-
 This repository contains a student project created for an ongoing lecture on object-oriented
 programming with Java/Kotlin at HWR Berlin (summer term 2024).
 
@@ -40,30 +39,34 @@ just build
 
 ## Abstract
 
-This is an application for the game "Doppelkopf". It's a card game for four players. 
+This is an application for the game "Doppelkopf". It's a card game for four players.
 
-At the moment the cards can be created, shuffled and dealt to the four players.
+At the moment it's possible to create a game with four players. A card deck can be created, shuffled and dealt to the
+four players hands. Then it's possible to compare one card from each players hand and remove these cards from the
+players hand. Every player has a score. After a comparison the points of the four played cards are added at the score of
+the player with the highest card.
 
+At first one problem was testing more test cases in one test. If we can test only one test case per test, we would need
+too many tests. With soft assertion now we have an opportunity to test more test cases in one test.
 
-[TODO]: # (State the most interesting problems you encountered during the project.)
+An other problem was to omit println commands and to find an other possibility to log out informations.
 
 ## Feature List
 
-
-| Number | Feature                | Tests |
-|--------|------------------------|-------|
-| 1      | create 48 cards        | /     |
-| 2      | shuffle and deal cards | /     |
-| 3      | create 4 Players       | /     |
+| Number | Feature                                                                              | Tests                                                              |
+|--------|--------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+| 1      | create 48 cards with a shortcut (four colors, six different values, each card twice) | testAllCards, testAllCardsForInitialize, testCountCards, testColor |
+| 2      | cards have a shortcut, a strenght and a value                                        | testShortcut, testPointsAndStrenght                                | 
+| 3      | shuffle and deal cards                                                               | testShuffle, checkPlayerHands                                      |
+| 4      | create 4 Players (own cards,own score)                                               | testCreatePlayer, checkPlayerHands, testPoints                     |
+| 5      | play one round (every player plays one card and get a winner)                        | testOneRound                                                       | 
+| 6      | compare cards and find the card with the highest strenght                            | testFIndHighestCard                                                |
 
 ## Additional Dependencies
 
-[TODO]: # (For each additional dependency your project requires- Add an additional row to the table!)
-
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
-| 1      | /               | /                      | /                    |
-
+| /      | /               | /                      | /                    |
 
 ### Multiple remote repositories
 
@@ -105,4 +108,5 @@ git pull upstream main
 ```
 
 [maven]: https://maven.apache.org/
+
 [just]: https://github.com/casey/just

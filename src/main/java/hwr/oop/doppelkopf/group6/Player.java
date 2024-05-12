@@ -21,7 +21,7 @@ public class Player {
     return order;
   }
 
-  public int getPoints(){
+  public int getPoints() {
     return points;
   }
 
@@ -32,8 +32,8 @@ public class Player {
     this.ownCards = new ArrayList<>();
   }
 
-  public Card showAndChooseCard(){
-    int position = 3; //TODO: hier Logik einfügen, die vom User einliest, welche Karte genommen werden soll
+  public Card showAndChooseCard() {
+    int position = 3;
     this.ownCards.remove(position);
     return this.ownCards.get(position);
   }

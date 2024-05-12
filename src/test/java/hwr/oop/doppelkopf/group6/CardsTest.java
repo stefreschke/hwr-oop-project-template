@@ -8,7 +8,6 @@ import java.util.List;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 
-
 class CardsTest {
   @Test
   void testAllCards() {
@@ -24,23 +23,26 @@ class CardsTest {
   }
 
   @Test
-  void testCardForInitilize() {
+  void testCardForInitialize() {
     DoppelkopfGame game = new DoppelkopfGame();
-      List<Card> cards = game.initializeCards();
-      SoftAssertions.assertSoftly(
-              softly -> {
-                  for (Color color : Color.values()) {
-                      for (Type value : Type.values()) {
-                          softly.assertThat(game.hasCard(cards, color, value)).isTrue();
-                      }
-                  }
+    List<Card> cards = game.initializeCards();
+    SoftAssertions.assertSoftly(
+        softly -> {
+          for (Color color : Color.values()) {
+            for (Type value : Type.values()) {
+              softly.assertThat(game.hasCard(cards, color, value)).isTrue();
+            }
+          }
 
-                  for(Card i : cards){
-                      if(i.getColor() == Color.KARO || i.getNumber() == Type.BUBE || i.getNumber() == Type.DAME || (i.getColor() == Color.HERZ && i.getNumber() == Type.ZEHN)){
-                          softly.assertThat(i.isTrump()).isTrue();
-                      }
-                  }
-              });
+          for (Card i : cards) {
+            if (i.getColor() == Color.KARO
+                || i.getNumber() == Type.BUBE
+                || i.getNumber() == Type.DAME
+                || (i.getColor() == Color.HERZ && i.getNumber() == Type.ZEHN)) {
+              softly.assertThat(i.isTrump()).isTrue();
+            }
+          }
+        });
   }
 
   @Test
@@ -53,11 +55,10 @@ class CardsTest {
 
   @Test
   void testShuffle() {
-    CreateRandomDeck createRandomDeck = new CreateRandomDeck();
     DoppelkopfGame game = new DoppelkopfGame();
 
     List<Card> unshuffledCards = game.initializeCards();
-    List<Card> shuffledCards = createRandomDeck.shuffleDeck(unshuffledCards);
+    List<Card> shuffledCards = game.shuffleDeck(unshuffledCards);
 
     assertThat(shuffledCards).isNotEmpty().doesNotContainSequence(unshuffledCards);
   }
