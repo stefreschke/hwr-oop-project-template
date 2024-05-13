@@ -55,11 +55,10 @@ class CardsTest {
 
   @Test
   void testShuffle() {
-    CreateRandomDeck createRandomDeck = new CreateRandomDeck();
     DoppelkopfGame game = new DoppelkopfGame();
 
     List<Card> unshuffledCards = game.initializeCards();
-    List<Card> shuffledCards = createRandomDeck.shuffleDeck(unshuffledCards);
+    List<Card> shuffledCards = game.shuffleDeck(unshuffledCards);
 
     assertThat(shuffledCards).isNotEmpty().doesNotContainSequence(unshuffledCards);
   }
