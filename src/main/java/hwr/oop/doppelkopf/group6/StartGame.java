@@ -15,7 +15,7 @@ class StartGame {
   public void createGame(String gameID) {
     String fileName = "/Users/lukaskarsten/Desktop/test.txt";
     File file = new File(fileName);
-    //Path path = file.toPath();
+    // Path path = file.toPath();
     try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
         FileWriter fw = new FileWriter(file, true)) {
 

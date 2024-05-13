@@ -53,6 +53,7 @@ public class DoppelkopfGame {
     return false;
   }
 
+  // TODO: lieber Methode auf Player aufrufen
   public void dealCards(List<Card> cards) {
     for (int i = 0; i < 12; i++) {
       player1.getOwnCards().add(cards.getFirst());
@@ -100,43 +101,41 @@ public class DoppelkopfGame {
     return winner + 1;
   }
 
-
   List<String> TrumpCards = new ArrayList<>();
+
   public List<String> getTrumpCards() {
     return TrumpCards;
   }
 
   List<String> HerzCards = new ArrayList<>();
+
   public List<String> getHerzCards() {
     return HerzCards;
   }
 
   List<String> PikCards = new ArrayList<>();
+
   public List<String> getPikCards() {
     return PikCards;
   }
 
   List<String> KreuzCards = new ArrayList<>();
+
   public List<String> getKreuzCards() {
     return KreuzCards;
   }
 
-
   public void SortCards(List<Card> cards, String player) {
     for (Card i : player1.getOwnCards()) {
-      if (i.isTrump()){
+      if (i.isTrump()) {
         TrumpCards.add(i.getShortcut());
-      }else if(i.getColor() == Color.HERZ){
+      } else if (i.getColor() == Color.HERZ) {
         HerzCards.add(i.getShortcut());
-      }else if(i.getColor() == Color.PIK){
+      } else if (i.getColor() == Color.PIK) {
         PikCards.add(i.getShortcut());
-      }else if(i.getColor() == Color.KREUZ){
+      } else if (i.getColor() == Color.KREUZ) {
         KreuzCards.add(i.getShortcut());
       }
     }
   }
-
-
-
-
 }

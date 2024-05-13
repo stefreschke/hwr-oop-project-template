@@ -28,6 +28,7 @@ class DoppelkopfGameTest {
     DoppelkopfGame game = new DoppelkopfGame();
     CreateRandomDeck deck = new CreateRandomDeck();
     game.dealCards(deck.shuffleDeck(game.initializeCards()));
+    // .ListOf() benutzen
     List<Card> testList1 = new ArrayList<>();
     List<Card> testList2 = new ArrayList<>();
     List<Card> testList3 = new ArrayList<>();
