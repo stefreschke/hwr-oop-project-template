@@ -53,7 +53,12 @@ just build
 
 | Number | Feature |   Tests  |
 |--------|---------|----------|
-| 1      | Card    | CardTest    |
+| 1      | Card    | CardTest |
+| 2      | CardGenerator | CardGeneratorTest |
+| 3      | CardStack | CardStackTest |
+| 4      | DiscardPile | DiscardPileTest |
+| 5      | Game | GameEngineTest |
+| 6      | Player | CreatePlayersTest | 
 
 ## Additional Dependencies
 
