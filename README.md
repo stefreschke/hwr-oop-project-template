@@ -53,7 +53,7 @@ just build
 
 | Number | Feature |   Tests  |
 |--------|---------|----------|
-| 1      | Card    | CardTest |
+| 1      | Card    | CardTest    |
 
 ## Additional Dependencies
 
