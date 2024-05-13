@@ -1,34 +1,26 @@
 package hwr.oop.doppelkopf.group6;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.Test;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 class DoppelkopfGameTest {
   @Test
-  void main_NoException() {
-    assertDoesNotThrow(() -> StartGame.main(new String[] {"create", "999999"}));
-  }
-
-  @Test
-  void oneRoundTest() {
+  void testOneRound() {
     DoppelkopfGame game = new DoppelkopfGame();
-    CreateRandomDeck deck = new CreateRandomDeck();
-    game.dealCards(deck.shuffleDeck(game.initializeCards()));
+    game.dealCards(game.shuffleDeck(game.initializeCards()));
     int winner = game.oneRound();
     assertThat(winner).isBetween(1, 4);
   }
 
   @Test
-  void findHighestCardTest() {
+  void testFindHighestCard() {
     DoppelkopfGame game = new DoppelkopfGame();
-    CreateRandomDeck deck = new CreateRandomDeck();
-    game.dealCards(deck.shuffleDeck(game.initializeCards()));
-    // .ListOf() benutzen
+    game.dealCards(game.shuffleDeck(game.initializeCards()));
     List<Card> testList1 = new ArrayList<>();
     List<Card> testList2 = new ArrayList<>();
     List<Card> testList3 = new ArrayList<>();

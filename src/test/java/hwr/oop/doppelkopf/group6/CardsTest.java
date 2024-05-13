@@ -23,7 +23,7 @@ class CardsTest {
   }
 
   @Test
-  void testCardForInitilize() {
+  void testCardForInitialize() {
     DoppelkopfGame game = new DoppelkopfGame();
     List<Card> cards = game.initializeCards();
     SoftAssertions.assertSoftly(

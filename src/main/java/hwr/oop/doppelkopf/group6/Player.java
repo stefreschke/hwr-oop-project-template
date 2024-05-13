@@ -33,8 +33,7 @@ public class Player {
   }
 
   public Card showAndChooseCard() {
-    int position =
-        3; // TODO: hier Logik einfügen, die vom User einliest, welche Karte genommen werden soll
+    int position = 3;
     this.ownCards.remove(position);
     return this.ownCards.get(position);
   }

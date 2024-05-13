@@ -1,6 +1,7 @@
 package hwr.oop.doppelkopf.group6;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,6 +13,12 @@ public class DoppelkopfGame {
 
   public DoppelkopfGame() {
     initializeCards();
+  }
+
+  public List<Card> shuffleDeck(List<Card> cards) {
+    final var mutableList = new ArrayList<>(cards);
+    Collections.shuffle(mutableList);
+    return mutableList;
   }
 
   public int oneRound() {

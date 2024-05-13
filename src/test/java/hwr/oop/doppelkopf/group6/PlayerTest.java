@@ -30,8 +30,7 @@ class PlayerTest {
   @Test
   void checkPlayerHands() {
     DoppelkopfGame game = new DoppelkopfGame();
-    CreateRandomDeck deck = new CreateRandomDeck();
-    game.dealCards(deck.shuffleDeck(game.initializeCards()));
+    game.dealCards(game.shuffleDeck(game.initializeCards()));
 
     SoftAssertions.assertSoftly(
         softly -> {
