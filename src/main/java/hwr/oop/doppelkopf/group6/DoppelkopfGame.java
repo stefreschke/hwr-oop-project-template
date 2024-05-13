@@ -76,7 +76,7 @@ public class DoppelkopfGame {
     }
     cards.add(firstCard);
 
-    switch (winner) {
+     switch (winner) {
       case 0:
         player1.addPoints(cards);
         break;
@@ -94,6 +94,10 @@ public class DoppelkopfGame {
     }
     return winner+1;
   }
+
+
+
+
 
 
   List<String> TrumpCards = new ArrayList<>();
