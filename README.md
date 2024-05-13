@@ -41,7 +41,7 @@ just build
 
 ## Abstract
 
-[TODO]: # ssfasdfasdf(Write a short description of your project.)
+[TODO]: # (Write a short description of your project.)
 
 [TODO]: # (State most important features.)
 
