@@ -14,6 +14,7 @@ public class DiscardPile {
   }
 
   int idOfWinner;
+
   public Card findHighestValue() {
     idOfWinner = 0;
     Card highestTemp = discardCards.getFirst();
@@ -29,9 +30,11 @@ public class DiscardPile {
     }
   return highestTemp;
   }
+
   public List<Card> getDiscardPile() {
     return this.discardCards;
   }
+
   public void discardCard(Card card) {
     discardCards.add(card);
   }

@@ -1,6 +1,8 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
+import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -38,17 +40,47 @@ public class Game {
   }
 
   public Card playCard(Card cardToPlay, Player playerToPLay) {
-    if (playerToPLay.hand.contains(cardToPlay)) {
+    if (playerToPLay.getHand().contains(cardToPlay)) {//(cardIsValidToBePlayed(cardToPlay, playerToPLay, discardPile)) {
         List<Card> mutableList = new ArrayList<>(playerToPLay.hand);
         mutableList.remove(cardToPlay);
         playerToPLay.setHand(mutableList);
       discardPile.discardCard(cardToPlay);
       System.out.println("Karte gespielt: " + cardToPlay.getName());
     } else {
-      System.out.println("GRRRRR");
+      System.out.println("GRRRRR, Falsche Karte!!!");
       return null;
     }
     return cardToPlay;
+  }
+
+  public boolean cardIsValidToBePlayed(Card cardToPlay, Player playerWhoPlays, DiscardPile discardPile) {
+      if (!playerWhoPlays.hand.contains(cardToPlay)) {
+          return false;
+      }
+
+      if (!cardFollowsSuit(cardToPlay, playerWhoPlays, discardPile)) {
+          return false;
+      }
+
+      return true;
+  }
+
+  //Gibt true zurück wenn die Karte nach Bedienregeln gespielt werden darf
+  public boolean cardFollowsSuit(Card cardToPlay, Player playerWhoPlaysTheCard, DiscardPile discardPile) {
+      if (!discardPile.getDiscardPile().isEmpty())
+      {
+          CardColours firstCardColor = discardPile.getDiscardPile().getFirst().getColour();
+
+          boolean playerCardColourEqualsFirstCardColor = firstCardColor.equals(cardToPlay.getColour());
+          boolean playerHasCardWithFirstCardColor = playerWhoPlaysTheCard.getHand().stream()
+                  .anyMatch(obj -> obj.getColour().equals(firstCardColor));
+
+          if (!playerCardColourEqualsFirstCardColor && playerHasCardWithFirstCardColor) {
+              return false;
+          }
+      }
+
+      return true;
   }
 
   public void startNewGame() {
@@ -58,7 +90,13 @@ public class Game {
   }
 
   public void takeTurn(Player playerOnTurn) {
-    playCard(playerOnTurn.getHand().getFirst(), playerOnTurn);
+      for (int i = 0; i < playerOnTurn.getHand().size(); i++) {
+          Card possibleCard = playerOnTurn.getHand().get(i);
+          if (cardIsValidToBePlayed(possibleCard, playerOnTurn, discardPile)) {
+              playCard(playerOnTurn.getHand().get(i), playerOnTurn);
+              return;
+          }
+      }
   }
 
 
