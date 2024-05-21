@@ -6,8 +6,9 @@ public class UI {
     public void showSortedCards() {
         if (!doppelkopfGame.getTrumpCards().isEmpty()){
 
-                System.out.println("Deck:" +"  "+ doppelkopfGame.getTrumpCards() +" "+ doppelkopfGame.getHerzCards() +" "+ doppelkopfGame.getPikCards() +" "+ doppelkopfGame.getKreuzCards());
+                System.out.println("Deck:" +"  "+ doppelkopfGame.getTrumpCards().get(i) +" "+ doppelkopfGame.getHerzCards() +" "+ doppelkopfGame.getPikCards() +" "+ doppelkopfGame.getKreuzCards());
             }
+
     }
 
 }
