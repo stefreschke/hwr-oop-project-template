@@ -2,10 +2,8 @@ package hwr.oop.most_impressive_doppelkopf_experience;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
 

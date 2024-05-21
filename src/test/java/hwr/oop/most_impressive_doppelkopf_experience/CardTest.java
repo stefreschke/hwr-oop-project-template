@@ -8,7 +8,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
-public class CardTest {
+class CardTest {
     @Test
     void testCardSymbols() {
         Card card = new Card(CardSymbols.TEN, CardColours.TRUMP, 12, "D10", 10);
