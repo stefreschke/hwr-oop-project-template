@@ -40,7 +40,7 @@ public class Game {
   }
 
   public Card playCard(Card cardToPlay, Player playerToPLay) {
-    if (playerToPLay.getHand().contains(cardToPlay)) {//(cardIsValidToBePlayed(cardToPlay, playerToPLay, discardPile)) {
+    if (cardIsValidToBePlayed(cardToPlay, playerToPLay, discardPile)) {
         List<Card> mutableList = new ArrayList<>(playerToPLay.hand);
         mutableList.remove(cardToPlay);
         playerToPLay.setHand(mutableList);
@@ -71,11 +71,11 @@ public class Game {
       {
           CardColours firstCardColor = discardPile.getDiscardPile().getFirst().getColour();
 
-          boolean playerCardColourEqualsFirstCardColor = firstCardColor.equals(cardToPlay.getColour());
-          boolean playerHasCardWithFirstCardColor = playerWhoPlaysTheCard.getHand().stream()
+          boolean playedCardColourEqualsFirstCardColorOfDiscardPile = firstCardColor.equals(cardToPlay.getColour());
+          boolean playerHasCardWithFirstCardColorOfDiscardPile = playerWhoPlaysTheCard.getHand().stream()
                   .anyMatch(obj -> obj.getColour().equals(firstCardColor));
 
-          if (!playerCardColourEqualsFirstCardColor && playerHasCardWithFirstCardColor) {
+          if (!playedCardColourEqualsFirstCardColorOfDiscardPile && playerHasCardWithFirstCardColorOfDiscardPile) {
               return false;
           }
       }
