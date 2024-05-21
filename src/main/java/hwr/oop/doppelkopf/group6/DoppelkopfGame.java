@@ -1,9 +1,6 @@
 package hwr.oop.doppelkopf.group6;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class DoppelkopfGame {
   public final Player player1 = new Player("Spieler1", 1, 0);
@@ -106,4 +103,9 @@ public class DoppelkopfGame {
     }
     return winner + 1;
   }
+
+  public String getTrumpCards(String playerName) {
+
+  }
+
 }
