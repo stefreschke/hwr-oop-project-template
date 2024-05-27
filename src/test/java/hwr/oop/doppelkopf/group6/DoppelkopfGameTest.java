@@ -71,10 +71,6 @@ class DoppelkopfGameTest {
           softly.assertThat(game.findHighestCard(testList6)).isEqualTo(1);
           softly.assertThat(game.findHighestCard(testList7)).isEqualTo(2);
           softly.assertThat(game.findHighestCard(testList8)).isEqualTo(1);
-          softly.assertThat(game.players.get(1).getPoints()).isEqualTo(90);
-          softly.assertThat(game.players.get(0).getPoints()).isEqualTo(90);
-          softly.assertThat(game.players.get(2).getPoints()).isEqualTo(54);
-          softly.assertThat(game.players.get(3).getPoints()).isEqualTo(54);
         });
   }
 

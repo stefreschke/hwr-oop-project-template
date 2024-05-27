@@ -4,7 +4,7 @@ public class UI {
     DoppelkopfGame doppelkopfGame = new DoppelkopfGame();
     int i = 0;
 
-
+/*
     public void showSortedCards(Player player) {
         player.getOwnCards();
 
@@ -14,5 +14,7 @@ public class UI {
             }
 
     }
+    */
+
 
 }
