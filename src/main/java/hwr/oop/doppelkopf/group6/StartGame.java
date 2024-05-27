@@ -14,7 +14,7 @@ public class StartGame {
 
   @SuppressWarnings("java:S106")
   public static void main(String[] args) {
-    if (args.length > 1 && args[0].equals("create")) {
+    if (args[0].equals("create")) {
       StartGame start = new StartGame(IOExceptionBomb.DONT);
       start.createGame(args[1]);
     }
