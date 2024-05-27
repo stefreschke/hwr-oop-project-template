@@ -7,10 +7,10 @@ import java.util.List;
 public class CardStack {
 
   CardGenerator cardGenerator = new CardGenerator();
-  List<Card> cardStack = cardGenerator.generateAllCards();
+  List<Card> gameCardStack = cardGenerator.generateAllCards();
 
   public List<Card> getCardStack() {
-    return cardStack;
+    return gameCardStack;
   }
 
   public List<Card> shuffleCardsStack(List<Card> cardStack) {
