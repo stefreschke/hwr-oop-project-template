@@ -31,10 +31,17 @@ public class DoppelkopfGame {
 
   public int oneRound() {
     List<Card> roundCards = new ArrayList<>();
-    roundCards.add(players.get(0).playCard(0));
-    roundCards.add(players.get(1).playCard(0));
-    roundCards.add(players.get(2).playCard(0));
-    roundCards.add(players.get(3).playCard(0));
+    roundCards.add(players.get(0).playFirstCard(0));
+    if (roundCards.getFirst().isTrump()) {
+      roundCards.add(players.get(1).playCard(0));
+      roundCards.add(players.get(2).playCard(0));
+      roundCards.add(players.get(3).playCard(0));
+    }else{
+      roundCards.add(players.get(1).playCard(0, roundCards.getFirst().getColor()));
+      roundCards.add(players.get(2).playCard(0, roundCards.getFirst().getColor()));
+      roundCards.add(players.get(3).playCard(0, roundCards.getFirst().getColor()));
+    }
+
     return findHighestCard(roundCards);
   }
 
