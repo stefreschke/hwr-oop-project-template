@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Objects;
 
 public class DoppelkopfGame {
-  public final Player player1 = new Player("Spieler1", 1, 0);
-  public final Player player2 = new Player("Spieler2", 2, 0);
-  public final Player player3 = new Player("Spieler3", 3, 0);
-  public final Player player4 = new Player("Spieler4", 4, 0);
+  public final List<Player> players = new ArrayList<>();
 
   public DoppelkopfGame() {
+    initializePlayers();
     initializeCards();
+    for (Player player : players) {
+      player.setGroup();
+    }
   }
 
   public List<Card> shuffleDeck(List<Card> cards) {
@@ -21,12 +22,19 @@ public class DoppelkopfGame {
     return mutableList;
   }
 
+  private void initializePlayers () {
+    players.add(new Player("Spieler1", 1, 0));
+    players.add(new Player("Spieler2", 2, 0));
+    players.add(new Player("Spieler3", 3, 0));
+    players.add(new Player("Spieler4", 4, 0));
+  }
+
   public int oneRound() {
     List<Card> roundCards = new ArrayList<>();
-    roundCards.add(player1.showAndChooseCard());
-    roundCards.add(player2.showAndChooseCard());
-    roundCards.add(player3.showAndChooseCard());
-    roundCards.add(player4.showAndChooseCard());
+    roundCards.add(players.get(0).playCard(0));
+    roundCards.add(players.get(1).playCard(0));
+    roundCards.add(players.get(2).playCard(0));
+    roundCards.add(players.get(3).playCard(0));
     return findHighestCard(roundCards);
   }
 
@@ -63,13 +71,13 @@ public class DoppelkopfGame {
   // TODO: lieber Methode auf Player aufrufen
   public void dealCards(List<Card> cards) {
     for (int i = 0; i < 12; i++) {
-      player1.getOwnCards().add(cards.getFirst());
+      players.get(0).addCard(cards.getFirst());
       cards.remove(cards.getFirst());
-      player2.getOwnCards().add(cards.getFirst());
+      players.get(1).addCard(cards.getFirst());
       cards.remove(cards.getFirst());
-      player3.getOwnCards().add(cards.getFirst());
+      players.get(2).addCard(cards.getFirst());
       cards.remove(cards.getFirst());
-      player4.getOwnCards().add(cards.getFirst());
+      players.get(3).addCard(cards.getFirst());
       cards.remove(cards.getFirst());
     }
   }
@@ -77,34 +85,28 @@ public class DoppelkopfGame {
   public int findHighestCard(List<Card> cards) {
     Card highestCard = cards.getFirst();
     Card firstCard = highestCard;
-    int winner = 0;
+    int winnerNumber = 0;
+    Player winner;
+    String winnergroup;
     cards.removeFirst();
     for (int i = 0; i < cards.size(); i++) {
       if (((cards.get(i).isTrump()) || cards.get(i).getColor() == highestCard.getColor())
               && (cards.get(i).getNumber().getStrength() > highestCard.getNumber().getStrength())
           || Objects.equals(cards.get(i).getShortcut(), "H10")) {
         highestCard = cards.get(i);
-        winner = i + 1;
+        winnerNumber = i+1;
       }
     }
     cards.add(firstCard);
 
-    switch (winner) {
-      case 0:
-        player1.addPoints(cards);
-        break;
-      case 1:
-        player2.addPoints(cards);
-        break;
-      case 2:
-        player3.addPoints(cards);
-        break;
-      case 3:
-        player4.addPoints(cards);
-        break;
-      default:
-        break;
+    winner = players.get(winnerNumber);
+    winnergroup = winner.getGroup();
+
+    for (Player i : players){
+      if (i.getGroup().equals(winnergroup)) {
+        i.addPoints(cards);
+      }
     }
-    return winner + 1;
+    return winnerNumber + 1;
   }
 }

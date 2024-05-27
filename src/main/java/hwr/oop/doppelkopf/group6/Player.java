@@ -8,6 +8,7 @@ public class Player {
   private final int order;
   private final List<Card> ownCards;
   private int points;
+  private String group;
 
   public List<Card> getOwnCards() {
     return ownCards;
@@ -25,6 +26,10 @@ public class Player {
     return points;
   }
 
+  public String getGroup() {
+    return group;
+  }
+
   public Player(String name, int order, int points) {
     this.name = name;
     this.order = order;
@@ -32,15 +37,29 @@ public class Player {
     this.ownCards = new ArrayList<>();
   }
 
-  public Card showAndChooseCard() {
-    int position = 3;
+  public Card playCard(int position) {
+    Card chosenCard = this.ownCards.get(position);
     this.ownCards.remove(position);
-    return this.ownCards.get(position);
+    return chosenCard;
   }
 
   public void addPoints(List<Card> cards) {
     for (Card i : cards) {
       this.points = this.points + i.getNumber().getPoints();
     }
+  }
+
+  public void addCard(Card card) {
+    this.ownCards.add(card);
+  }
+
+  public void setGroup(){
+    for (Card card : this.ownCards) {
+      if (card.getShortcut().equals("KrD")){
+        this.group = "Re";
+        return;
+      }
+    }
+    this.group = "Kontra";
   }
 }
