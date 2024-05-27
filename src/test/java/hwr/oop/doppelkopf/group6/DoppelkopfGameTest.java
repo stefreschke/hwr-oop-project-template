@@ -138,12 +138,4 @@ class DoppelkopfGameTest {
           softly.assertThat(game.players.get(0).getPoints()).isNotNull();
         });
   }
-  @Test
-    void testCardList() {
-      DoppelkopfGame game = new DoppelkopfGame();
-      List<String> TrumpCards = new ArrayList<>();
-      List<String> HerzCards = new ArrayList<>();
-      List<String> PikCards = new ArrayList<>();
-      List<String> KreuzCards = new ArrayList<>();
-  }
 }

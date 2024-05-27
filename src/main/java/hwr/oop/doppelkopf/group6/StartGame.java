@@ -1,7 +1,7 @@
 package hwr.oop.doppelkopf.group6;
 
 import java.io.*;
-
+@SuppressWarnings("java:S106")
 public class StartGame {
 
   private final IOExceptionBomb ioExceptionBomb;
@@ -10,7 +10,6 @@ public class StartGame {
     this.ioExceptionBomb = ioExceptionBomb;
   }
 
-  @SuppressWarnings("java:S106")
   public static void main(String[] args) {
     if (args[0].equals("create")) {
       StartGame start = new StartGame(IOExceptionBomb.DONT);
