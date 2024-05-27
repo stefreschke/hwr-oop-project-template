@@ -61,6 +61,10 @@ An other problem was to omit println commands and to find an other possibility t
 | 4      | create 4 Players (own cards,own score)                                               | testCreatePlayer, checkPlayerHands, testPoints                     |
 | 5      | play one round (every player plays one card and get a winner)                        | testOneRound                                                       | 
 | 6      | compare cards and find the card with the highest strenght                            | testFIndHighestCard                                                |
+| 7      | create game thru CLI-Command "create [gameID]"                                       | testCreateGameWithNewID, testCreateGameWithFileNotExisting         |  
+| 8      | File is saved to current working directory                                           | testCreateGameWhenGameAlreadyExists                                | 
+| 9      | Re and Contra Parties                                                                | testSetGroupWithCards, testSetGroup                                |
+| 10     | check if played card is even allowed to play                                         | testCheckCard                                                      |
 
 ## Additional Dependencies
 
