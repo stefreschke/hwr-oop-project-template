@@ -30,6 +30,10 @@ public class Player {
     return group;
   }
 
+  public void removeCard (Card card) {
+    ownCards.remove(card);
+  }
+
   public Player(String name, int order, int points) {
     this.name = name;
     this.order = order;
@@ -37,9 +41,23 @@ public class Player {
     this.ownCards = new ArrayList<>();
   }
 
+  public Card playFirstCard(int position) {
+    Card chosenCard = this.ownCards.get(position);
+    this.ownCards.remove(position);
+    return chosenCard;
+  }
+
+  public Card playCard(int position, Color firstPlayedColor) {
+    Card chosenCard = this.ownCards.get(position);
+    this.ownCards.remove(position);
+    checkCard(firstPlayedColor, chosenCard);
+    return chosenCard;
+  }
+
   public Card playCard(int position) {
     Card chosenCard = this.ownCards.get(position);
     this.ownCards.remove(position);
+    checkCard(chosenCard);
     return chosenCard;
   }
 
@@ -61,5 +79,31 @@ public class Player {
       }
     }
     this.group = "Kontra";
+  }
+
+  public boolean checkCard (Color firstPlayedColor, Card playedCard){
+    if (playedCard.getColor() == firstPlayedColor) {
+      return true;
+    }else{
+      for (Card i : this.ownCards) {
+        if (i.getColor() == firstPlayedColor) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+
+  public boolean checkCard (Card playedCard){
+    if (playedCard.isTrump()) {
+      return true;
+    } else {
+      for (Card i : this.ownCards) {
+        if (i.isTrump()) {
+          return false;
+        }
+      }
+    }
+    return true;
   }
 }
