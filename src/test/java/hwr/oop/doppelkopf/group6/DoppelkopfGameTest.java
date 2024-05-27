@@ -61,6 +61,7 @@ class DoppelkopfGameTest {
     testList8.add(new Card(Color.KREUZ, Type.NEUN, false, "Kr9"));
     testList8.add(new Card(Color.KREUZ, Type.KOENIG, false, "KrK"));
 
+
     SoftAssertions.assertSoftly(
         softly -> {
           softly.assertThat(game.findHighestCard(testList1)).isEqualTo(2);
@@ -89,5 +90,13 @@ class DoppelkopfGameTest {
           softly.assertThat(game.players.get(3).getOwnCards()).isEmpty();
           softly.assertThat(game.players.get(0).getPoints()).isNotNull();
         });
+  }
+  @Test
+    void testCardList() {
+      DoppelkopfGame game = new DoppelkopfGame();
+      List<String> TrumpCards = new ArrayList<>();
+      List<String> HerzCards = new ArrayList<>();
+      List<String> PikCards = new ArrayList<>();
+      List<String> KreuzCards = new ArrayList<>();
   }
 }

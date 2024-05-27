@@ -71,9 +71,7 @@ class CardsTest {
             new Card(Color.KREUZ, Type.NEUN, false, "KR9"),
             new Card(Color.PIK, Type.ZEHN, false, "P10"));
     boolean result1 = new DoppelkopfGame().hasCard(cards, Color.KARO, Type.KOENIG);
-    boolean result2 =
-        new DoppelkopfGame()
-            .hasCard(cards, Color.PIK, Type.ZEHN); // Hier eine nicht vorhandene Karte
+    boolean result2 = new DoppelkopfGame().hasCard(cards, Color.PIK, Type.ZEHN);
 
     SoftAssertions.assertSoftly(
         softly -> {
