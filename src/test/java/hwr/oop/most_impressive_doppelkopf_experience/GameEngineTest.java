@@ -72,7 +72,7 @@ class GameEngineTest {
   }
 
   @Test
-    void calculateScoreTest() {
+     void calculateScoreTest() {
       final var game = new Game();
       //Score muss gesamt 240 ergeben!!!
   }

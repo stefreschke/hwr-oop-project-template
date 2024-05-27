@@ -1,9 +1,7 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
 import org.junit.jupiter.api.Test;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.assertj.core.api.Assertions.assertThat;
 class CreatePlayersTest {
 
     public List<Player> createPlayers() {
@@ -16,9 +14,5 @@ class CreatePlayersTest {
     @Test
     void testCreatePlayers() {
         List<Player> players = createPlayers();
-        assertThat(4, players.size());
-    }
-
-    private void assertThat(int i, int size) {
-    }
-}
+        assertThat(players).hasSameSizeAs(4);
+    }}

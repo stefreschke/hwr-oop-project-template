@@ -9,7 +9,6 @@ import java.util.List;
 class DiscardPileTest {
   @Test
   void getPositionOfHighestCardTest() {
-    var game = new Game();
     var discardPile = new DiscardPile();
 
     var d9 = new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0);
@@ -21,11 +20,11 @@ class DiscardPileTest {
 
     var highestCard = discardPile.getPositionOfHighestCardInDiscardPile();
 
-    assertThat(highestCard).isEqualTo(0);
+    assertThat(highestCard).isZero();
   }
 
   @Test
-  void testgetDiscardPile() {
+  void testGetDiscardPile() {
     var discardPile = new DiscardPile();
 
     var d9 = new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0);
@@ -34,8 +33,8 @@ class DiscardPileTest {
     var cab = new Card(CardSymbols.ACE, CardColours.CLUBS, 4, "CA", 5);
 
     discardPile.setDiscardCards(List.of(d9, h10, s9b, cab));
-    discardPile.getDiscardPile();
+    List<Card> discardPile1 = discardPile.getDiscardPile();
 
-    assertThat(discardPile.getDiscardPile()).hasSize(4);
+    assertThat(discardPile1).hasSize(4);
   }
 }
