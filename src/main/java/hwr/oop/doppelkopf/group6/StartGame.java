@@ -1,20 +1,30 @@
 package hwr.oop.doppelkopf.group6;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
-class StartGame {
+public class StartGame {
+
+  private final IOExceptionBomb ioExceptionBomb;
+
+  public StartGame(IOExceptionBomb ioExceptionBomb) {
+    this.ioExceptionBomb = ioExceptionBomb;
+  }
 
   @SuppressWarnings("java:S106")
   public static void main(String[] args) {
-    if (args[0].equals("create")) {
-      StartGame start = new StartGame();
+    if (args.length > 1 && args[0].equals("create")) {
+      StartGame start = new StartGame(IOExceptionBomb.DONT);
       start.createGame(args[1]);
     }
   }
 
   public void createGame(String gameID) {
-    String fileName = "/Users/lukaskarsten/Desktop/test.txt";
-    File file = new File(fileName);
+    String fileName = "doppelkopf.txt";
+    Path currentRelativePath = Paths.get("");
+    String currentDir = currentRelativePath.toAbsolutePath().toString();
+    File file = new File(currentDir + File.separator + fileName);
 
     try {
       if (!file.exists()) {
@@ -23,12 +33,13 @@ class StartGame {
         }
       } else {
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-             FileWriter fw = new FileWriter(file, true)) {
+            FileWriter fw = new FileWriter(file, true)) {
           String zeile;
           while ((zeile = bufferedReader.readLine()) != null) {
             String[] woerter = zeile.split("\\s+");
             if (woerter.length > 0 && woerter[0].equals(gameID)) {
-              System.out.println("Das Spiel existiert bereits, wähle eine andere ID für das Spiel!");
+              System.out.println(
+                  "Das Spiel existiert bereits, wähle eine andere ID für das Spiel!");
               return;
             }
           }

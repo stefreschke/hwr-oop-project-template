@@ -5,6 +5,7 @@ public class UI {
     int i = 0;
 
     public void currentTurn(int playerIndex){
+
         doppelkopfGame.sortCards(playerIndex);
     }
 

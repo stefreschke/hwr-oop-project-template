@@ -58,25 +58,41 @@ class PlayerTest {
   }
 
   @Test
-    void testCheckCard(){
-      DoppelkopfGame game = new DoppelkopfGame();
-      game.dealCards(game.shuffleDeck(game.initializeCards()));
+  void testCheckCard() {
+    DoppelkopfGame game = new DoppelkopfGame();
+    game.dealCards(game.shuffleDeck(game.initializeCards()));
     game.players.get(1).addCard(new Card(Color.HERZ, Type.ASS, false, "HA"));
-      game.players.get(2).addCard(new Card(Color.HERZ, Type.BUBE, true, "HB"));
-      Player player1 = new Player ("player1", 1, 0);
-      Player player2 = new Player ("player2", 2, 27);
+    game.players.get(2).addCard(new Card(Color.HERZ, Type.BUBE, true, "HB"));
+    Player player1 = new Player("player1", 1, 0);
+    Player player2 = new Player("player2", 2, 27);
     player1.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
-      player2.addCard(new Card(Color.HERZ, Type.ASS, false, "HD"));
+    player2.addCard(new Card(Color.HERZ, Type.ASS, false, "HD"));
 
-
-      SoftAssertions.assertSoftly(
-              softly -> {
-                  softly.assertThat(game.players.getFirst().checkCard(Color.PIK, new Card(Color.PIK, Type.NEUN, false, "P9"))).isTrue();
-                  softly.assertThat(game.players.get(1).checkCard(Color.HERZ, new Card(Color.PIK, Type.NEUN, false, "P9"))).isFalse();
-                  softly.assertThat(game.players.get(2).checkCard(new Card(Color.PIK, Type.NEUN, false, "P9"))).isFalse();
-                  softly.assertThat(game.players.get(2).checkCard(new Card(Color.PIK, Type.DAME, true, "P9"))).isTrue();
-                  softly.assertThat(player1.checkCard(new Card(Color.PIK, Type.DAME, true, "P9"))).isTrue();
-                  softly.assertThat(player2.checkCard(new Card(Color.PIK, Type.ZEHN, false, "P9"))).isTrue();
-              });
+    SoftAssertions.assertSoftly(
+        softly -> {
+          softly
+              .assertThat(
+                  game.players
+                      .getFirst()
+                      .checkCard(Color.PIK, new Card(Color.PIK, Type.NEUN, false, "P9")))
+              .isTrue();
+          softly
+              .assertThat(
+                  game.players
+                      .get(1)
+                      .checkCard(Color.HERZ, new Card(Color.PIK, Type.NEUN, false, "P9")))
+              .isFalse();
+          softly
+              .assertThat(
+                  game.players.get(2).checkCard(new Card(Color.PIK, Type.NEUN, false, "P9")))
+              .isFalse();
+          softly
+              .assertThat(game.players.get(2).checkCard(new Card(Color.PIK, Type.DAME, true, "P9")))
+              .isTrue();
+          softly.assertThat(player1.checkCard(new Card(Color.PIK, Type.DAME, true, "P9"))).isTrue();
+          softly
+              .assertThat(player2.checkCard(new Card(Color.PIK, Type.ZEHN, false, "P9")))
+              .isTrue();
+        });
   }
 }
