@@ -106,6 +106,8 @@ public void playRound() {
     }
 
     activePlayer = decideWinner();
+    activePlayer.playerHasWonStich(discardPile.discardCards);
+
     discardPile.discardCards.clear();
 }
 
@@ -113,14 +115,14 @@ public void gameLoop() {
     while(true) {
       if (activePlayer.getHand().isEmpty()) {
       System.out.println("GRRRRRRR");
-      System.out.println(players.get(0).getName() + " won so many cards: " + players.get(0).getWonTricks().size());
-      System.out.println(players.get(1).getName() + " won so many cards: " + players.get(1).getWonTricks().size());
-      System.out.println(players.get(2).getName() + " won so many cards: " + players.get(2).getWonTricks().size());
-      System.out.println(players.get(3).getName() + " won so many cards: " + players.get(3).getWonTricks().size());
-      System.out.println(players.get(0).getName() + " score: " + players.get(0).calculateScore());
-      System.out.println(players.get(1).getName() + " score: " + players.get(1).calculateScore());
-      System.out.println(players.get(2).getName() + " score: " + players.get(2).calculateScore());
-      System.out.println(players.get(3).getName() + " score: " + players.get(3).calculateScore());
+      System.out.println(players.get(0).getName() + " won so many cards: " + players.get(0).getCardsWon().size());
+      System.out.println(players.get(1).getName() + " won so many cards: " + players.get(1).getCardsWon().size());
+      System.out.println(players.get(2).getName() + " won so many cards: " + players.get(2).getCardsWon().size());
+      System.out.println(players.get(3).getName() + " won so many cards: " + players.get(3).getCardsWon().size());
+      System.out.println(players.get(0).getName() + " score: " + players.get(0).getScore());
+      System.out.println(players.get(1).getName() + " score: " + players.get(1).getScore());
+      System.out.println(players.get(2).getName() + " score: " + players.get(2).getScore());
+      System.out.println(players.get(3).getName() + " score: " + players.get(3).getScore());
       System.out.println(players.get(0).getName() + " was team: " + players.get(0).getTeam());
       System.out.println(players.get(1).getName() + " was team: " + players.get(1).getTeam());
       System.out.println(players.get(2).getName() + " was team: " + players.get(2).getTeam());
