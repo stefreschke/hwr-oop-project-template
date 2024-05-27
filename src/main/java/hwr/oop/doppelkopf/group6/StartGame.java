@@ -4,15 +4,12 @@ import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+@SuppressWarnings("java:S106")
 public class StartGame {
 
-  private final IOExceptionBomb ioExceptionBomb;
+    public StartGame(IOExceptionBomb ioExceptionBomb) {
+    }
 
-  public StartGame(IOExceptionBomb ioExceptionBomb) {
-    this.ioExceptionBomb = ioExceptionBomb;
-  }
-
-  @SuppressWarnings("java:S106")
   public static void main(String[] args) {
     if (args[0].equals("create")) {
       StartGame start = new StartGame(IOExceptionBomb.DONT);

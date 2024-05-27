@@ -30,10 +30,6 @@ public class Player {
     return group;
   }
 
-  public void removeCard (Card card) {
-    ownCards.remove(card);
-  }
-
   public Player(String name, int order, int points) {
     this.name = name;
     this.order = order;
@@ -44,20 +40,25 @@ public class Player {
   public Card playFirstCard(int position) {
     Card chosenCard = this.ownCards.get(position);
     this.ownCards.remove(position);
+    checkCard(chosenCard);
     return chosenCard;
   }
 
   public Card playCard(int position, Color firstPlayedColor) {
+    while (!checkCard(firstPlayedColor, this.ownCards.get(position))) {
+      position++;
+    }
     Card chosenCard = this.ownCards.get(position);
     this.ownCards.remove(position);
-    checkCard(firstPlayedColor, chosenCard);
     return chosenCard;
   }
 
   public Card playCard(int position) {
+    while (!checkCard(this.ownCards.get(position))) {
+      position++;
+    }
     Card chosenCard = this.ownCards.get(position);
     this.ownCards.remove(position);
-    checkCard(chosenCard);
     return chosenCard;
   }
 
@@ -79,6 +80,10 @@ public class Player {
       }
     }
     this.group = "Kontra";
+  }
+
+  public void setGroup(String group) {
+    this.group = group;
   }
 
   public boolean checkCard(Color firstPlayedColor, Card playedCard) {

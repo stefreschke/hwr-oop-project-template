@@ -91,8 +91,56 @@ class PlayerTest {
               .isTrue();
           softly.assertThat(player1.checkCard(new Card(Color.PIK, Type.DAME, true, "P9"))).isTrue();
           softly
+              .assertThat(player1.checkCard(new Card(Color.PIK, Type.NEUN, false, "P9")))
+              .isFalse();
+          softly
               .assertThat(player2.checkCard(new Card(Color.PIK, Type.ZEHN, false, "P9")))
               .isTrue();
+          softly
+              .assertThat(player2.checkCard(Color.PIK, new Card(Color.PIK, Type.ZEHN, false, "P9")))
+              .isTrue();
+          softly
+              .assertThat(
+                  player2.checkCard(Color.PIK, new Card(Color.KREUZ, Type.ZEHN, false, "P9")))
+              .isTrue();
+        });
+  }
+
+  @Test
+  void testSetGroup() {
+    Player player1 = new Player("player1", 1, 0);
+    Player player2 = new Player("player2", 1, 0);
+    player1.setGroup("Re");
+    player2.setGroup("Kontra");
+
+    SoftAssertions.assertSoftly(
+        softly -> {
+          softly.assertThat(player1.getGroup()).isEqualTo("Re");
+          softly.assertThat(player2.getGroup()).isEqualTo("Kontra");
+        });
+  }
+
+  @Test
+  void testSetGroupWithCards() {
+    DoppelkopfGame game = new DoppelkopfGame();
+    game.dealCards(game.shuffleDeck(game.initializeCards()));
+    int countRe = 0;
+    int coutKontra = 0;
+    for (Player player : game.players) {
+      player.setGroup();
+      if (player.getGroup().equals("Re")) {
+        countRe++;
+      } else {
+        coutKontra++;
+      }
+    }
+
+    int finalCountRe = countRe;
+    int finalCoutKontra = coutKontra;
+    SoftAssertions.assertSoftly(
+        softly -> {
+          softly.assertThat(finalCountRe).isBetween(1, 2);
+          softly.assertThat(finalCoutKontra).isBetween(2, 3);
         });
   }
 }
