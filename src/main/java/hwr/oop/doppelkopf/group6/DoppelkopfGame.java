@@ -108,4 +108,52 @@ public class DoppelkopfGame {
     }
     return winnerNumber + 1;
   }
+
+  List<String> TrumpCards = new ArrayList<>();
+  public List<String> getTrumpCards() {
+    return TrumpCards;
+  }
+
+  List<String> HerzCards = new ArrayList<>();
+  public List<String> getHerzCards() {
+    return HerzCards;
+  }
+
+  List<String> PikCards = new ArrayList<>();
+  public List<String> getPikCards() {
+    return PikCards;
+  }
+
+  List<String> KreuzCards = new ArrayList<>();
+  public List<String> getKreuzCards() {
+    return KreuzCards;
+  }
+
+
+  public void SortCards(String playerName) {
+    Player player = null;
+    for (Player p : players) {
+      if (p.getName().equals(playerName)) {
+        player = p;
+        break;
+      }
+    }
+    if (player == null) {
+      throw new IllegalArgumentException("Player not found");
+    }
+
+    for (Card i : player.getOwnCards()) {
+      if (i.isTrump()) {
+        TrumpCards.add(i.getShortcut());
+      } else if (i.getColor() == Color.HERZ) {
+        HerzCards.add(i.getShortcut());
+      } else if (i.getColor() == Color.PIK) {
+        PikCards.add(i.getShortcut());
+      } else if (i.getColor() == Color.KREUZ) {
+        KreuzCards.add(i.getShortcut());
+      }
+    }
+  }
+
 }
+
