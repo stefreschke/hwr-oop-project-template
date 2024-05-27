@@ -34,20 +34,20 @@ class DoppelkopfGameTest {
           softly
               .assertThat(
                   game.players
-                      .get(0)
-                      .checkCard(Color.HERZ, game.players.get(0).getOwnCards().get(1)))
+                      .getFirst()
+                      .checkCard(Color.HERZ, game.players.getFirst().getOwnCards().get(1)))
               .isFalse();
           softly
               .assertThat(
                   game.players
-                      .get(0)
-                      .checkCard(Color.HERZ, game.players.get(0).getOwnCards().get(0)))
+                      .getFirst()
+                      .checkCard(Color.HERZ, game.players.getFirst().getOwnCards().getFirst()))
               .isTrue();
           softly
-              .assertThat(game.players.get(0).checkCard(game.players.get(0).getOwnCards().get(1)))
+              .assertThat(game.players.getFirst().checkCard(game.players.getFirst().getOwnCards().get(1)))
               .isTrue();
           softly
-              .assertThat(game.players.get(0).checkCard(game.players.get(0).getOwnCards().get(0)))
+              .assertThat(game.players.getFirst().checkCard(game.players.getFirst().getOwnCards().getFirst()))
               .isFalse();
           assertThat(game.oneRound()).isEqualTo(3);
           assertThat(game.oneRound()).isEqualTo(4);
