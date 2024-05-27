@@ -100,12 +100,13 @@ public class Game {
 
 public void playRound() {
     for (int i = 0; i < NUM_PLAYERS; i++) {
-     System.out.println(activePlayer.getName());
+      System.out.println(activePlayer.getName());
       takeTurn(activePlayer);
       activePlayer = Player.getNextPlayer(activePlayer);
+    }
 
-  }
-  decideWinner();
+    activePlayer = decideWinner();
+    discardPile.discardCards.clear();
 }
 
 public void gameLoop() {
@@ -134,17 +135,18 @@ public void gameLoop() {
 }
 
 public Player decideWinner() {
-    discardPile.findHighestValue();
-    System.out.println("Höchste Karte: "+ discardPile.findHighestValue().getName());
-    System.out.println("Sieger: "+ players.get(discardPile.getIdOfWinner()).getName());
-    Player winner  = players.get(discardPile.getIdOfWinner());
-    List<Card> winnerTricksSoFar = winner.getWonTricks();
-    for (int i = 0; i < discardPile.getDiscardPile().size(); i++) {
-      winnerTricksSoFar.add(discardPile.getDiscardPile().get(i));
-    }
-    winner.setWonTricks(winnerTricksSoFar);
-    discardPile.discardCards.clear();
-    return null;
+  int PositionOfHighestCardInDiscardPile = discardPile.getPositionOfHighestCardInDiscardPile();
+
+  Player Winner = activePlayer;
+  for (int i = 0; i < PositionOfHighestCardInDiscardPile; i++) {
+    Winner = Player.getNextPlayer(Winner);
+  }
+
+  Card HighestCard = discardPile.getDiscardPile().get(PositionOfHighestCardInDiscardPile);
+  System.out.println("Höchste Karte: " + HighestCard.getName() + "; Position der Karte: " + PositionOfHighestCardInDiscardPile);
+  System.out.println("Sieger: " + Winner.getName());
+
+  return Winner;
 }
 
 public List<Player> distributeTeams(List<Player> players) {

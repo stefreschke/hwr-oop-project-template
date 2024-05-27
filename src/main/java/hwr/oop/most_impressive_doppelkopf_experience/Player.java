@@ -65,7 +65,7 @@ public class Player {
 
     public static Player getNextPlayer(Player player) {
        Player nextPlayer;
-        if (player.id != 3) {
+        if (player.id < 3) {
             nextPlayer = Game.players.get(player.id + 1);
         } else {
             nextPlayer = Game.players.getFirst();
