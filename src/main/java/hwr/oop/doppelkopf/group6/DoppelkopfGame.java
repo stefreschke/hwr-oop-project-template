@@ -117,6 +117,8 @@ public class DoppelkopfGame {
     return winnerNumber + 1;
   }
 
+
+
   List<String> TrumpCards = new ArrayList<>();
   public List<String> getTrumpCards() {
     return TrumpCards;
@@ -138,10 +140,10 @@ public class DoppelkopfGame {
   }
 
 
-  public void SortCards(String playerName) {
-    Player player = null;
+  public void SortCards(int playerIndex) {
+    Player player = players.get(playerIndex);
     for (Player p : players) {
-      if (p.getName().equals(playerName)) {
+      if (p.getName().equals(playerIndex)) {
         player = p;
         break;
       }
@@ -162,6 +164,7 @@ public class DoppelkopfGame {
       }
     }
   }
+
 
 }
 
