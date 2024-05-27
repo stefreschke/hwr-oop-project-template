@@ -18,20 +18,20 @@ public class Stich {
   }
 
   public int getPositionOfHighestCardInDiscardPile() {
-    Card HighestTemp = discardCards.getFirst();
-    int TempValue = HighestTemp.getValue();
-    int PositionOfHighestCard = 0;
+    Card highestTemp = discardCards.getFirst();
+    int tempValue = highestTemp.getValue();
+    int positionOfHighestCard = 0;
 
     for (int i = 0; i < discardCards.size(); i++) {
 
-      if (discardCards.get(i).getValue() > TempValue) {
-        HighestTemp = discardCards.get(i);
-        TempValue = HighestTemp.getValue();
-        PositionOfHighestCard = i;
+      if (discardCards.get(i).getValue() > tempValue) {
+        highestTemp = discardCards.get(i);
+        tempValue = highestTemp.getValue();
+        positionOfHighestCard = i;
       }
     }
 
-    return PositionOfHighestCard;
+    return positionOfHighestCard;
   }
 }
 

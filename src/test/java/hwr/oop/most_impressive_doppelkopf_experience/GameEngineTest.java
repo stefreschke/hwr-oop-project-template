@@ -72,11 +72,6 @@ class GameEngineTest {
   }
 
   @Test
-     void calculateScoreTest() {
-      final var game = new Game();
-      //Score muss gesamt 240 ergeben!!!
-  }
-  @Test
     void distributeTeamsTest(){
       final var game = new Game();
       final var player1 = new Player("player1", 0, 0);
@@ -111,9 +106,6 @@ class GameEngineTest {
     final var game = new Game();
     final var player1 = new Player("player1", 0, 0);
     final var player2 = new Player("player2", 0, 1);
-    final var player3 = new Player("player3", 0, 2);
-    final var player4 = new Player("player4", 0, 3);
-    final List<Player> players = List.of(player1, player2, player3, player4);
     player1.getHand().add(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0));
     player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
     player2.getHand().add(new Card(CardSymbols.ACE, CardColours.CLUBS, 11, "CA", 11));

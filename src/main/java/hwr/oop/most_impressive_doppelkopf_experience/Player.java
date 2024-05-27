@@ -1,6 +1,5 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
 
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 
 import java.util.ArrayList;
@@ -41,18 +40,20 @@ public class Player {
         this.hand = hand;
     }
 
-    public void setCardsWon(List<Card> cardsWon) {this.cardsWon = cardsWon;}
-    public List<Card> getCardsWon() {return cardsWon;}
-
-    void addCardsWon(List<Card> cardsWon) {
-    this.cardsWon.addAll(cardsWon);
-    }
-
     int score;
-  List<Card> cardsWon = new ArrayList<>();
     int id;
     TeamNames team;
     List<Card> hand = new ArrayList<>();
+
+    public List<Card> getWonTricks() {
+        return wonTricks;
+    }
+
+    public void setWonTricks(List<Card> wonTricks) {
+        this.wonTricks = wonTricks;
+    }
+
+    List<Card> wonTricks = new ArrayList<>();
 
 
     public Player(String name, int score, int id) {
@@ -72,16 +73,11 @@ public class Player {
         return nextPlayer;
     }
 
-    public int calculateScore(List<Card> Stich) {
-        int score = 0;
-        for (int i = 0; i < Stich.size(); i++) {
-            score += Stich.get(i).getWorth();
+    public int calculateScore() {
+        for (int i = 0; i < wonTricks.size(); i++) {
+            score = wonTricks.get(i).getWorth() + score;
         }
         return score;
     }
 
-    void playerHasWonStich(List<Card> Stich) {
-        score += calculateScore(Stich);
-        addCardsWon(Stich);
-    }
 }
