@@ -48,7 +48,7 @@ class CardTest {
                 });
     }
     @Test
-    void testtoString() {
+    void testToString() {
         Card card = new Card(CardSymbols.ACE, CardColours.HEARTS, 4, "HA", 11);
         var toString = card.toString();
         assertThat(toString).contains("ACE","HEARTS");

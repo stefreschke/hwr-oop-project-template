@@ -166,7 +166,7 @@ public List<Player> distributeTeams(List<Player> players) {
     int contraScore = 0;
     String winnerTeam = "CONTRA";
     for (int i = 0; i < players.size(); i++) {
-      if (players.get(i).getTeam().equals("RE")) {
+      if (players.get(i).getTeam().equals(TeamNames.RE)) {
         reScore = reScore + players.get(i).getScore();
 
       } else {
