@@ -6,14 +6,18 @@ import java.io.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class FileTest {
   StartGame startGame;
-  String filePath = "/Users/lukaskarsten/Desktop/test.txt";
-  File file = new File(filePath);
+  String fileName = "doppelkopf.txt";
+  Path currentRelativePath = Paths.get("");
+  String currentDir = currentRelativePath.toAbsolutePath().toString();
+  File file = new File(currentDir + File.separator + fileName);
   Path path = file.toPath();
 
   @BeforeEach
@@ -84,28 +88,23 @@ class FileTest {
     String newGameID = "2";
     String[] args = {"create", newGameID};
 
-    // Create the file and write the existing gameID into it
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
       writer.write(existingGameID);
       writer.newLine();
     }
 
-    // Capture the output
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
     StartGame.main(args);
 
-    // Verify the file was updated with the new gameID
     assertThat(Files.exists(path)).isTrue();
 
-    // Verify the correct message was printed
     String expectedMessage = "Spiel " + newGameID + " wird erstellt...";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
 
-    // Verify that both game IDs exist in the file
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
       assertThat(reader.lines()).contains(existingGameID, newGameID);
     }
