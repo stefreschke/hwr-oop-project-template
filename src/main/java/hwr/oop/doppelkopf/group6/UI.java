@@ -4,7 +4,10 @@ public class UI {
     DoppelkopfGame doppelkopfGame = new DoppelkopfGame();
     int i = 0;
 
-    public void showSortedCards() {
+
+    public void showSortedCards(Player player) {
+        player.getOwnCards();
+
         if (!doppelkopfGame.getTrumpCards().isEmpty()){
 
                 System.out.println("Deck:" +"  "+ doppelkopfGame.getTrumpCards().get(i) +" "+ doppelkopfGame.getHerzCards() +" "+ doppelkopfGame.getPikCards() +" "+ doppelkopfGame.getKreuzCards());
