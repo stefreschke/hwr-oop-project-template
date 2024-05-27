@@ -22,7 +22,7 @@ public class DoppelkopfGame {
     return mutableList;
   }
 
-  private void initializePlayers () {
+  private void initializePlayers() {
     players.add(new Player("Spieler1", 1, 0));
     players.add(new Player("Spieler2", 2, 0));
     players.add(new Player("Spieler3", 3, 0));
@@ -36,7 +36,7 @@ public class DoppelkopfGame {
       roundCards.add(players.get(1).playCard(0));
       roundCards.add(players.get(2).playCard(0));
       roundCards.add(players.get(3).playCard(0));
-    }else{
+    } else {
       roundCards.add(players.get(1).playCard(0, roundCards.getFirst().getColor()));
       roundCards.add(players.get(2).playCard(0, roundCards.getFirst().getColor()));
       roundCards.add(players.get(3).playCard(0, roundCards.getFirst().getColor()));
@@ -101,7 +101,7 @@ public class DoppelkopfGame {
               && (cards.get(i).getNumber().getStrength() > highestCard.getNumber().getStrength())
           || Objects.equals(cards.get(i).getShortcut(), "H10")) {
         highestCard = cards.get(i);
-        winnerNumber = i+1;
+        winnerNumber = i + 1;
       }
     }
     cards.add(firstCard);
@@ -109,7 +109,7 @@ public class DoppelkopfGame {
     winner = players.get(winnerNumber);
     winnergroup = winner.getGroup();
 
-    for (Player i : players){
+    for (Player i : players) {
       if (i.getGroup().equals(winnergroup)) {
         i.addPoints(cards);
       }

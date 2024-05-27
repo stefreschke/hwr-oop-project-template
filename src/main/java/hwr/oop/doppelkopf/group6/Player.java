@@ -71,9 +71,9 @@ public class Player {
     this.ownCards.add(card);
   }
 
-  public void setGroup(){
+  public void setGroup() {
     for (Card card : this.ownCards) {
-      if (card.getShortcut().equals("KrD")){
+      if (card.getShortcut().equals("KrD")) {
         this.group = "Re";
         return;
       }
@@ -81,10 +81,10 @@ public class Player {
     this.group = "Kontra";
   }
 
-  public boolean checkCard (Color firstPlayedColor, Card playedCard){
+  public boolean checkCard(Color firstPlayedColor, Card playedCard) {
     if (playedCard.getColor() == firstPlayedColor) {
       return true;
-    }else{
+    } else {
       for (Card i : this.ownCards) {
         if (i.getColor() == firstPlayedColor) {
           return false;
@@ -94,7 +94,7 @@ public class Player {
     return true;
   }
 
-  public boolean checkCard (Card playedCard){
+  public boolean checkCard(Card playedCard) {
     if (playedCard.isTrump()) {
       return true;
     } else {
