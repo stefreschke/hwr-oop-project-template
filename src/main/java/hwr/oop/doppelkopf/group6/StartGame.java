@@ -1,7 +1,9 @@
 package hwr.oop.doppelkopf.group6;
 
 import java.io.*;
-@SuppressWarnings("java:S106")
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 public class StartGame {
 
   private final IOExceptionBomb ioExceptionBomb;
@@ -10,16 +12,19 @@ public class StartGame {
     this.ioExceptionBomb = ioExceptionBomb;
   }
 
+  @SuppressWarnings("java:S106")
   public static void main(String[] args) {
-    if (args[0].equals("create")) {
+    if (args.length > 1 && args[0].equals("create")) {
       StartGame start = new StartGame(IOExceptionBomb.DONT);
       start.createGame(args[1]);
     }
   }
 
   public void createGame(String gameID) {
-    String fileName = "/Users/lukaskarsten/Desktop/test.txt";
-    File file = new File(fileName);
+    String fileName = "doppelkopf.txt";
+    Path currentRelativePath = Paths.get("");
+    String currentDir = currentRelativePath.toAbsolutePath().toString();
+    File file = new File(currentDir + File.separator + fileName);
 
     try {
       if (!file.exists()) {
