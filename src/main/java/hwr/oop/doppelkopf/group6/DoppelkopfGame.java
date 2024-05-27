@@ -139,32 +139,29 @@ public class DoppelkopfGame {
     return KreuzCards;
   }
 
+  public void sortCards(int playerIndex) {
+  TrumpCards.clear();
+  HerzCards.clear();
+  PikCards.clear();
+  KreuzCards.clear();
 
-  public void SortCards(int playerIndex) {
     Player player = players.get(playerIndex);
-    for (Player p : players) {
-      if (p.getName().equals(playerIndex)) {
-        player = p;
-        break;
-      }
-    }
+
     if (player == null) {
       throw new IllegalArgumentException("Player not found");
-    }
+    } else {
 
-    for (Card i : player.getOwnCards()) {
-      if (i.isTrump()) {
-        TrumpCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.HERZ) {
-        HerzCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.PIK) {
-        PikCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.KREUZ) {
-        KreuzCards.add(i.getShortcut());
+      for (Card i : player.getOwnCards()) {
+        if (i.isTrump()) {
+          TrumpCards.add(i.getShortcut());
+        } else if (i.getColor() == Color.HERZ) {
+          HerzCards.add(i.getShortcut());
+        } else if (i.getColor() == Color.PIK) {
+          PikCards.add(i.getShortcut());
+        } else if (i.getColor() == Color.KREUZ) {
+          KreuzCards.add(i.getShortcut());
+        }
       }
     }
   }
-
-
 }
-

@@ -4,9 +4,8 @@ public class UI {
     DoppelkopfGame doppelkopfGame = new DoppelkopfGame();
     int i = 0;
 
-
     public void currentTurn(int playerIndex){
-
+        doppelkopfGame.sortCards(playerIndex);
     }
 
 
@@ -14,7 +13,7 @@ public class UI {
 
         if (!doppelkopfGame.getTrumpCards().isEmpty()){
 
-            System.out.println("Deck:" +"  "+ doppelkopfGame.getTrumpCards().get(i) +" "+ doppelkopfGame.getHerzCards() +" "+ doppelkopfGame.getPikCards() +" "+ doppelkopfGame.getKreuzCards());
+            System.out.println("Deck:" +"  "+ doppelkopfGame.getTrumpCards() +" "+ doppelkopfGame.getHerzCards() +" "+ doppelkopfGame.getPikCards() +" "+ doppelkopfGame.getKreuzCards());
         }
     }
 
