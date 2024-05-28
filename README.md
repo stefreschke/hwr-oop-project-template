@@ -49,7 +49,7 @@ just build
 
 ## Feature List
 
-[TODO]: # (For each feature implemented, add a row to the table!)
+[TODO]: Change DiscardPile to Stich
 
 | Number | Feature |   Tests  |
 |--------|---------|----------|
