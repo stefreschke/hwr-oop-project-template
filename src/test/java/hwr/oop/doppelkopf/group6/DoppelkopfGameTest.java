@@ -43,10 +43,14 @@ class DoppelkopfGameTest {
                       .checkCard(Color.HERZ, game.players.getFirst().getOwnCards().getFirst()))
               .isTrue();
           softly
-              .assertThat(game.players.getFirst().checkCard(game.players.getFirst().getOwnCards().get(1)))
+              .assertThat(
+                  game.players.getFirst().checkCard(game.players.getFirst().getOwnCards().get(1)))
               .isTrue();
           softly
-              .assertThat(game.players.getFirst().checkCard(game.players.getFirst().getOwnCards().getFirst()))
+              .assertThat(
+                  game.players
+                      .getFirst()
+                      .checkCard(game.players.getFirst().getOwnCards().getFirst()))
               .isFalse();
           assertThat(game.oneRound()).isEqualTo(3);
           assertThat(game.oneRound()).isEqualTo(4);
@@ -139,37 +143,37 @@ class DoppelkopfGameTest {
         });
   }
 
-    @Test
-    void testCardList() {
-        DoppelkopfGame game = new DoppelkopfGame();
+  @Test
+  void testCardList() {
+    DoppelkopfGame game = new DoppelkopfGame();
 
-        SoftAssertions.assertSoftly(softly -> {
-            softly.assertThat(game.getTrumpCards()).isEmpty();
-            softly.assertThat(game.getHerzCards()).isEmpty();
-            softly.assertThat(game.getPikCards()).isEmpty();
-            softly.assertThat(game.getKreuzCards()).isEmpty();
+    SoftAssertions.assertSoftly(
+        softly -> {
+          softly.assertThat(game.getTrumpCards()).isEmpty();
+          softly.assertThat(game.getHerzCards()).isEmpty();
+          softly.assertThat(game.getPikCards()).isEmpty();
+          softly.assertThat(game.getKreuzCards()).isEmpty();
         });
-    }
+  }
 
-    @Test
-    void testCardListModification() {
-        DoppelkopfGame game = new DoppelkopfGame();
+  @Test
+  void testCardListModification() {
+    DoppelkopfGame game = new DoppelkopfGame();
 
-        List<String> trumpCards = game.getTrumpCards();
-        List<String> herzCards = game.getHerzCards();
-        List<String> pikCards = game.getPikCards();
-        List<String> kreuzCards = game.getKreuzCards();
+    List<String> trumpCards = game.getTrumpCards();
+    List<String> herzCards = game.getHerzCards();
+    List<String> pikCards = game.getPikCards();
+    List<String> kreuzCards = game.getKreuzCards();
 
-        trumpCards.add("Trump Card");
-        herzCards.add("Herz Card");
-        pikCards.add("Pik Card");
-        kreuzCards.add("Kreuz Card");
+    trumpCards.add("Trump Card");
+    herzCards.add("Herz Card");
+    pikCards.add("Pik Card");
+    kreuzCards.add("Kreuz Card");
 
-        // Ensure the original lists in the game are still empty
-        assertThat(game.getTrumpCards()).isEmpty();
-        assertThat(game.getHerzCards()).isEmpty();
-        assertThat(game.getPikCards()).isEmpty();
-        assertThat(game.getKreuzCards()).isEmpty();
-    }
+    // Ensure the original lists in the game are still empty
+    assertThat(game.getTrumpCards()).isEmpty();
+    assertThat(game.getHerzCards()).isEmpty();
+    assertThat(game.getPikCards()).isEmpty();
+    assertThat(game.getKreuzCards()).isEmpty();
+  }
 }
-

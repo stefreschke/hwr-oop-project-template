@@ -6,7 +6,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -40,17 +39,13 @@ class FileTest {
   void testCreateGameWithFileNotExisting() {
     String gameID = "1";
     String[] args = {"create", gameID};
-
-
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
-
     StartGame.main(args);
 
 
     assertThat(Files.exists(path)).isTrue();
-
 
     String expectedMessage = "Die Datei und das Spiel " + gameID + " wird erstellt...";
     String output = outputStream.toString().trim();
@@ -62,6 +57,7 @@ class FileTest {
     String gameID = "1";
     String[] args = {"create", gameID};
 
+    // write in file to ensure game already exists
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
       writer.write(gameID);
       writer.newLine();
@@ -70,8 +66,8 @@ class FileTest {
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
-
     StartGame.main(args);
+
 
     String expectedMessage = "Das Spiel existiert bereits, wähle eine andere ID für das Spiel!";
     String output = outputStream.toString().trim();

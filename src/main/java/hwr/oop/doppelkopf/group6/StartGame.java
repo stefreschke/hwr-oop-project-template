@@ -28,20 +28,20 @@ public class StartGame {
 
     try {
       if (!file.exists()) {
-        ioExceptionBomb.fire(); // Trigger IOException if configured
+        ioExceptionBomb.fire();
         if (file.createNewFile()) {
           System.out.println("Die Datei und das Spiel " + gameID + " wird erstellt...");
         }
       } else {
-        ioExceptionBomb.fire(); // Trigger IOException if configured
+        ioExceptionBomb.fire();
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-             FileWriter fw = new FileWriter(file, true)) {
+            FileWriter fw = new FileWriter(file, true)) {
           String zeile;
           while ((zeile = bufferedReader.readLine()) != null) {
             String[] woerter = zeile.split("\\s+");
             if (woerter.length > 0 && woerter[0].equals(gameID)) {
               System.out.println(
-                      "Das Spiel existiert bereits, wähle eine andere ID für das Spiel!");
+                  "Das Spiel existiert bereits, wähle eine andere ID für das Spiel!");
               return;
             }
           }

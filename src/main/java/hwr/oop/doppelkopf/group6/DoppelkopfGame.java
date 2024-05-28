@@ -116,26 +116,29 @@ public class DoppelkopfGame {
     return winnerNumber + 1;
   }
 
-  private List<String> trumpCards = new ArrayList<>();
+  private final List<String> trumpCards = new ArrayList<>();
+
   public List<String> getTrumpCards() {
     return new ArrayList<>(trumpCards);
   }
 
-  private List<String> herzCards = new ArrayList<>();
+  private final List<String> herzCards = new ArrayList<>();
+
   public List<String> getHerzCards() {
     return new ArrayList<>(herzCards);
   }
 
-  private List<String> pikCards = new ArrayList<>();
+  private final List<String> pikCards = new ArrayList<>();
+
   public List<String> getPikCards() {
     return new ArrayList<>(pikCards);
   }
 
-  private List<String> kreuzCards = new ArrayList<>();
+  private final List<String> kreuzCards = new ArrayList<>();
+
   public List<String> getKreuzCards() {
     return new ArrayList<>(kreuzCards);
   }
-
 
   public void sortCards(String playerName) {
     Player player = null;
@@ -161,6 +164,4 @@ public class DoppelkopfGame {
       }
     }
   }
-
 }
-
