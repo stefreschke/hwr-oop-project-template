@@ -7,8 +7,11 @@ import java.nio.file.Paths;
 @SuppressWarnings("java:S106")
 public class StartGame {
 
-    public StartGame(IOExceptionBomb ioExceptionBomb) {
-    }
+  private final IOExceptionBomb ioExceptionBomb;
+
+  public StartGame(IOExceptionBomb ioExceptionBomb) {
+    this.ioExceptionBomb = ioExceptionBomb;
+  }
 
   public static void main(String[] args) {
     if (args[0].equals("create")) {
@@ -25,18 +28,20 @@ public class StartGame {
 
     try {
       if (!file.exists()) {
+        ioExceptionBomb.fire(); // Trigger IOException if configured
         if (file.createNewFile()) {
           System.out.println("Die Datei und das Spiel " + gameID + " wird erstellt...");
         }
       } else {
+        ioExceptionBomb.fire(); // Trigger IOException if configured
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
-            FileWriter fw = new FileWriter(file, true)) {
+             FileWriter fw = new FileWriter(file, true)) {
           String zeile;
           while ((zeile = bufferedReader.readLine()) != null) {
             String[] woerter = zeile.split("\\s+");
             if (woerter.length > 0 && woerter[0].equals(gameID)) {
               System.out.println(
-                  "Das Spiel existiert bereits, wähle eine andere ID für das Spiel!");
+                      "Das Spiel existiert bereits, wähle eine andere ID für das Spiel!");
               return;
             }
           }
@@ -46,7 +51,7 @@ public class StartGame {
         }
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      System.err.println("IOException aufgetreten: " + e.getMessage());
     }
   }
 }

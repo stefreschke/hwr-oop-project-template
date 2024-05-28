@@ -22,7 +22,7 @@ class FileTest {
   @BeforeEach
   void setUp() throws IOException {
     startGame = new StartGame(IOExceptionBomb.DONT);
-    // Ensure the file does not exist before each test
+
     if (Files.exists(path)) {
       Files.delete(path);
     }
@@ -30,7 +30,7 @@ class FileTest {
 
   @AfterEach
   void tearDown() throws IOException {
-    // Clean up by deleting the file after each test
+
     if (Files.exists(path)) {
       Files.delete(path);
     }
@@ -41,17 +41,17 @@ class FileTest {
     String gameID = "1";
     String[] args = {"create", gameID};
 
-    // Capture the output
+
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
     StartGame.main(args);
 
-    // Verify the file was created
+
     assertThat(Files.exists(path)).isTrue();
 
-    // Verify the correct message was printed
+
     String expectedMessage = "Die Datei und das Spiel " + gameID + " wird erstellt...";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
@@ -62,20 +62,17 @@ class FileTest {
     String gameID = "1";
     String[] args = {"create", gameID};
 
-    // Create the file and write the gameID into it
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
       writer.write(gameID);
       writer.newLine();
     }
 
-    // Capture the output
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
     StartGame.main(args);
 
-    // Verify the correct message was printed
     String expectedMessage = "Das Spiel existiert bereits, wähle eine andere ID für das Spiel!";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
@@ -114,24 +111,22 @@ class FileTest {
     String gameID = "1";
     String[] args = {"create", gameID};
 
-    // Create the file and write an empty line into it
+
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-      writer.newLine();  // Write an empty line
+      writer.newLine();
     }
 
-    // Capture the output
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
     StartGame.main(args);
 
-    // Verify the correct message was printed
     String expectedMessage = "Spiel " + gameID + " wird erstellt...";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
 
-    // Verify the file contents
+
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
       assertThat(reader.lines()).contains(gameID);
     }
@@ -142,27 +137,67 @@ class FileTest {
     String gameID = "1";
     String[] args = {"create", gameID};
 
-    // Create the file and write a line with no words into it
+
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
       writer.write("   ");  // Write a line with only spaces
       writer.newLine();
     }
 
-    // Capture the output
+
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
     StartGame.main(args);
 
-    // Verify the correct message was printed
+
     String expectedMessage = "Spiel " + gameID + " wird erstellt...";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
 
-    // Verify the file contents
+
     try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
       assertThat(reader.lines()).contains(gameID);
     }
+  }
+
+  @Test
+  void testIOException() {
+    startGame = new StartGame(IOExceptionBomb.DO);
+    String gameID = "1";
+
+
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(outputStream);
+    System.setErr(printStream);
+
+    startGame.createGame(gameID);
+
+
+    String expectedMessage = "IOException aufgetreten: Here goes everything exploding...";
+    String output = outputStream.toString().trim();
+    assertThat(output).contains(expectedMessage);
+  }
+
+  @Test
+  void testIOExceptionWhenFileExists() throws IOException {
+    startGame = new StartGame(IOExceptionBomb.DO);
+    String gameID = "1";
+
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+      writer.write(gameID);
+      writer.newLine();
+    }
+
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(outputStream);
+    System.setErr(printStream);
+
+    startGame.createGame(gameID);
+
+    String expectedMessage = "IOException aufgetreten: Here goes everything exploding...";
+    String output = outputStream.toString().trim();
+    assertThat(output).contains(expectedMessage);
   }
 }
