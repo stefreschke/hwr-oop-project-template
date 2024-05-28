@@ -3,7 +3,6 @@ package hwr.oop.doppelkopf.group6;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.*;
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -110,4 +109,60 @@ class FileTest {
     }
   }
 
+  @Test
+  void testCreateGameWithEmptyLine() throws IOException {
+    String gameID = "1";
+    String[] args = {"create", gameID};
+
+    // Create the file and write an empty line into it
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+      writer.newLine();  // Write an empty line
+    }
+
+    // Capture the output
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(outputStream);
+    System.setOut(printStream);
+
+    StartGame.main(args);
+
+    // Verify the correct message was printed
+    String expectedMessage = "Spiel " + gameID + " wird erstellt...";
+    String output = outputStream.toString().trim();
+    assertThat(output).contains(expectedMessage);
+
+    // Verify the file contents
+    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+      assertThat(reader.lines()).contains(gameID);
+    }
+  }
+
+  @Test
+  void testCreateGameWithNoWords() throws IOException {
+    String gameID = "1";
+    String[] args = {"create", gameID};
+
+    // Create the file and write a line with no words into it
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+      writer.write("   ");  // Write a line with only spaces
+      writer.newLine();
+    }
+
+    // Capture the output
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(outputStream);
+    System.setOut(printStream);
+
+    StartGame.main(args);
+
+    // Verify the correct message was printed
+    String expectedMessage = "Spiel " + gameID + " wird erstellt...";
+    String output = outputStream.toString().trim();
+    assertThat(output).contains(expectedMessage);
+
+    // Verify the file contents
+    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+      assertThat(reader.lines()).contains(gameID);
+    }
+  }
 }
