@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
- class ShuffleCardsStackTest {
+class ShuffleCardsStackTest {
 
     @Test
     void testShuffleCardsStack() {
@@ -25,7 +25,7 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
         assertSoftly(
                 softly -> {
                     assertThat(originalCards).hasSameSizeAs(shuffledCards);
-                    assertThat(originalCards).hasSameSizeAs(shuffledCards.size());
+                    assertThat(originalCards).hasSameSizeAs(shuffledCards);
                     assertThat(shuffledCards).doesNotContainSequence(originalCards);
                     assertTrue(shuffledCards.containsAll(cardStack));
                     assertNotEquals(originalCards, shuffledCards);
