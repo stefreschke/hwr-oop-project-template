@@ -42,8 +42,7 @@ just build
 This is an application for the game "Doppelkopf". It's a card game for four players.
 
 At the moment it's possible to create a game with four players. A card deck can be created, shuffled and dealt to the
-four players hands. Then it's possible to compare one card from each players hand and remove these cards from the
-players hand. Every player has a score. After a comparison the points of the four played cards are added at the score of
+four players hands. Then every player can choose a card to play and it will be checked, if it's allowed to play this card. After that all played cards can be compared. Every player has a score. After a comparison the points of the four played cards are added at the score of
 the player with the highest card.
 
 At first one problem was testing more test cases in one test. If we can test only one test case per test, we would need

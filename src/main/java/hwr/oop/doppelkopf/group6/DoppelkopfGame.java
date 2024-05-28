@@ -75,7 +75,6 @@ public class DoppelkopfGame {
     return false;
   }
 
-  // TODO: lieber Methode auf Player aufrufen
   public void dealCards(List<Card> cards) {
     for (int i = 0; i < 12; i++) {
       players.get(0).addCard(cards.getFirst());
@@ -119,31 +118,31 @@ public class DoppelkopfGame {
 
 
 
-  List<String> TrumpCards = new ArrayList<>();
+  List<String> trumpCards = new ArrayList<>();
   public List<String> getTrumpCards() {
-    return TrumpCards;
+    return trumpCards;
   }
 
-  List<String> HerzCards = new ArrayList<>();
+  List<String> herzCards = new ArrayList<>();
   public List<String> getHerzCards() {
-    return HerzCards;
+    return herzCards;
   }
 
-  List<String> PikCards = new ArrayList<>();
+  List<String> pikCards = new ArrayList<>();
   public List<String> getPikCards() {
-    return PikCards;
+    return pikCards;
   }
 
-  List<String> KreuzCards = new ArrayList<>();
+  List<String> kreuzCards = new ArrayList<>();
   public List<String> getKreuzCards() {
-    return KreuzCards;
+    return kreuzCards;
   }
 
   public void sortCards(int playerIndex) {
-  TrumpCards.clear();
-  HerzCards.clear();
-  PikCards.clear();
-  KreuzCards.clear();
+  trumpCards.clear();
+  herzCards.clear();
+  pikCards.clear();
+  kreuzCards.clear();
 
     Player player = players.get(playerIndex);
 
@@ -153,13 +152,13 @@ public class DoppelkopfGame {
 
       for (Card i : player.getOwnCards()) {
         if (i.isTrump()) {
-          TrumpCards.add(i.getShortcut());
+          trumpCards.add(i.getShortcut());
         } else if (i.getColor() == Color.HERZ) {
-          HerzCards.add(i.getShortcut());
+          herzCards.add(i.getShortcut());
         } else if (i.getColor() == Color.PIK) {
-          PikCards.add(i.getShortcut());
+          pikCards.add(i.getShortcut());
         } else if (i.getColor() == Color.KREUZ) {
-          KreuzCards.add(i.getShortcut());
+          kreuzCards.add(i.getShortcut());
         }
       }
     }
