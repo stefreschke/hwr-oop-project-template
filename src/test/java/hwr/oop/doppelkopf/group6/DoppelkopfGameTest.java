@@ -138,4 +138,38 @@ class DoppelkopfGameTest {
           softly.assertThat(game.players.get(0).getPoints()).isNotNull();
         });
   }
+
+    @Test
+    void testCardList() {
+        DoppelkopfGame game = new DoppelkopfGame();
+
+        SoftAssertions.assertSoftly(softly -> {
+            softly.assertThat(game.getTrumpCards()).isEmpty();
+            softly.assertThat(game.getHerzCards()).isEmpty();
+            softly.assertThat(game.getPikCards()).isEmpty();
+            softly.assertThat(game.getKreuzCards()).isEmpty();
+        });
+    }
+
+    @Test
+    void testCardListModification() {
+        DoppelkopfGame game = new DoppelkopfGame();
+
+        List<String> trumpCards = game.getTrumpCards();
+        List<String> herzCards = game.getHerzCards();
+        List<String> pikCards = game.getPikCards();
+        List<String> kreuzCards = game.getKreuzCards();
+
+        trumpCards.add("Trump Card");
+        herzCards.add("Herz Card");
+        pikCards.add("Pik Card");
+        kreuzCards.add("Kreuz Card");
+
+        // Ensure the original lists in the game are still empty
+        assertThat(game.getTrumpCards()).isEmpty();
+        assertThat(game.getHerzCards()).isEmpty();
+        assertThat(game.getPikCards()).isEmpty();
+        assertThat(game.getKreuzCards()).isEmpty();
+    }
 }
+
