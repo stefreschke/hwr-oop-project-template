@@ -3,6 +3,7 @@ package hwr.oop.most_impressive_doppelkopf_experience;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 
+import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -72,6 +73,29 @@ class GameEngineTest {
   }
 
   @Test
+     void calculateScoreTest() {
+      final var game = new Game();
+      //Score muss gesamt 240 ergeben!!!
+  }
+
+  @Test
+  void FindWinningTeamTest() {
+    final var game = new Game();
+    final var player1 = new Player("player1", 30, 0);
+    final var player2 = new Player("player2", 60, 1);
+    final var player3 = new Player("player3", 60, 2);
+    final var player4 = new Player("player4", 90, 3);
+    player1.setTeam(TeamNames.RE);
+    player2.setTeam(TeamNames.RE);
+    player3.setTeam(TeamNames.CONTRA);
+    player4.setTeam(TeamNames.CONTRA);
+
+    List<Player> players = List.of(player1, player2, player3, player4);
+
+    assertThat(game.findWinningTeam(players)).isEqualTo(CONTRA);
+  }
+
+  @Test
     void distributeTeamsTest(){
       final var game = new Game();
       final var player1 = new Player("player1", 0, 0);
@@ -106,6 +130,9 @@ class GameEngineTest {
     final var game = new Game();
     final var player1 = new Player("player1", 0, 0);
     final var player2 = new Player("player2", 0, 1);
+    final var player3 = new Player("player3", 0, 2);
+    final var player4 = new Player("player4", 0, 3);
+    final List<Player> players = List.of(player1, player2, player3, player4);
     player1.getHand().add(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0));
     player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
     player2.getHand().add(new Card(CardSymbols.ACE, CardColours.CLUBS, 11, "CA", 11));
