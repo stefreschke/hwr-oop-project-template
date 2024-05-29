@@ -14,5 +14,5 @@ class CreatePlayersTest {
     @Test
     void testCreatePlayers() {
         List<Player> players = createPlayers();
-        assertThat(players).hasSameSizeAs(4);
+        assertThat(players).hasSize(4);
     }}
