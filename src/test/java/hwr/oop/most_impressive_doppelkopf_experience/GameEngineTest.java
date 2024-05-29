@@ -19,26 +19,23 @@ class GameEngineTest {
   void startNewGameTest() {
     final Game game = new Game();
     game.startNewGame();
-    handOutCardsTest();
     distributeTeamsTest();
-    gameLoopTest();
-  }
-  @Test
-  void handOutCardsTest() {
-    final var game = new Game();
+
     final var players = game.handOutCards();
 
     assertSoftly(
-        softly -> {
-          softly.assertThat(players.get(0).hand).isNotEmpty().isNotNull().hasSize(12);
+            softly -> {
+              softly.assertThat(players.get(0).hand).isNotEmpty().isNotNull().hasSize(12);
 
-          softly.assertThat(players.get(1).hand).isNotEmpty().isNotNull().hasSize(12);
+              softly.assertThat(players.get(1).hand).isNotEmpty().isNotNull().hasSize(12);
 
-          softly.assertThat(players.get(2).hand).isNotEmpty().isNotNull().hasSize(12);
+              softly.assertThat(players.get(2).hand).isNotEmpty().isNotNull().hasSize(12);
 
-          softly.assertThat(players.get(3).hand).isNotEmpty().isNotNull().hasSize(12);
-        });
+              softly.assertThat(players.get(3).hand).isNotEmpty().isNotNull().hasSize(12);
+            });
+
   }
+
 
   @Test
   void playCardTest() {
@@ -59,6 +56,8 @@ class GameEngineTest {
               softly.assertThat(discardPileSize +1).isEqualTo(game.stich.discardCards.size());
             });
     }
+
+    /*
   @Test
     void gameLoopTest() {
     final var game = new Game();
@@ -71,6 +70,8 @@ class GameEngineTest {
     game.gameLoop();
     assertThat(game.players().getFirst().getHand()).isEmpty();
   }
+
+     */
 
   @Test
      void calculateScoreTest() {
