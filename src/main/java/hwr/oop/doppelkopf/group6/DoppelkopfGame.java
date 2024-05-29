@@ -158,8 +158,6 @@ public class DoppelkopfGame {
           kreuzCards.add(i.getShortcut());
         }
       }
-
-
   }
 
   public void switchPlayerCardsDuringPoverty(
