@@ -49,7 +49,7 @@ just build
 
 ## Feature List
 
-[TODO]: Change DiscardPile to Stich ✅
+[TODO]: Datenbank erstellen
 
 [TODO]: Spiel über die CLI
 
