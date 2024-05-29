@@ -49,7 +49,7 @@ just build
 
 ## Feature List
 
-[TODO]: Change DiscardPile to Stich
+[TODO]: Change DiscardPile to Stich ✅
 
 | Number | Feature |   Tests  |
 |--------|---------|----------|
