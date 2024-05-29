@@ -37,18 +37,14 @@ public class Game {
     return List.of(player1, player2, player3, player4);
   }
 
-  public Card playCard(Card cardToPlay, Player playerToPLay) {
+  public void playCard(Card cardToPlay, Player playerToPLay) {
     if (cardIsValidToBePlayed(cardToPlay, playerToPLay, stich)) {
         List<Card> mutableList = new ArrayList<>(playerToPLay.hand);
         mutableList.remove(cardToPlay);
         playerToPLay.setHand(mutableList);
       stich.discardCard(cardToPlay);
       System.out.println("Karte gespielt: " + cardToPlay.getName());
-    } else {
-      System.out.println("GRRRRR, Falsche Karte!!!");
-      return null;
     }
-    return cardToPlay;
   }
 
   public boolean cardIsValidToBePlayed(Card cardToPlay, Player playerWhoPlays, Stich stich) {
