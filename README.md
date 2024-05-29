@@ -49,7 +49,9 @@ just build
 
 ## Feature List
 
-[TODO]: Change DiscardPile to Stich
+[TODO]: Change DiscardPile to Stich ✅
+
+[TODO]: Spiel über die CLI
 
 | Number | Feature |   Tests  |
 |--------|---------|----------|
