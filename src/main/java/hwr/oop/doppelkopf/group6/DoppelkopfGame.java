@@ -115,53 +115,53 @@ public class DoppelkopfGame {
     }
     return winnerNumber + 1;
   }
-
-  private final List<String> trumpCards = new ArrayList<>();
-
+  private  List<String> trumpCards = new ArrayList<>();
   public List<String> getTrumpCards() {
     return new ArrayList<>(trumpCards);
   }
 
-  private final List<String> herzCards = new ArrayList<>();
-
+  private  List<String> herzCards = new ArrayList<>();
   public List<String> getHerzCards() {
     return new ArrayList<>(herzCards);
   }
 
-  private final List<String> pikCards = new ArrayList<>();
-
+  private List<String> pikCards = new ArrayList<>();
   public List<String> getPikCards() {
-    return new ArrayList<>(pikCards);
+    return new ArrayList<>(kreuzCards);
   }
 
-  private final List<String> kreuzCards = new ArrayList<>();
 
+  private  List<String> kreuzCards = new ArrayList<>();
   public List<String> getKreuzCards() {
     return new ArrayList<>(kreuzCards);
   }
 
+
   public void sortCards(int playerIndex) {
-    trumpCards.clear();
-    herzCards.clear();
-    pikCards.clear();
-    kreuzCards.clear();
+    trumpCards = new ArrayList<>();
+    herzCards = new ArrayList<>();
+    pikCards = new ArrayList<>();
+    kreuzCards = new ArrayList<>();
 
     Player player = players.get(playerIndex);
 
-    if (player == null) {
-      throw new IllegalArgumentException("Player not found");
-    }else{
 
-    for (Card i : player.getOwnCards()) {
-      if (i.isTrump()) {
-        trumpCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.HERZ) {
-        herzCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.PIK) {
-        pikCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.KREUZ) {
-        kreuzCards.add(i.getShortcut());
+
+      for (Card i : player.getOwnCards()) {
+        if (i.isTrump()) {
+          trumpCards.add(i.getShortcut());
+        } else if (i.getColor() == Color.HERZ) {
+          herzCards.add(i.getShortcut());
+        } else if (i.getColor() == Color.PIK) {
+          pikCards.add(i.getShortcut());
+        } else if (i.getColor() == Color.KREUZ) {
+          kreuzCards.add(i.getShortcut());
+        }
+
+
       }
-    }}
+
+
   }
 }
+
