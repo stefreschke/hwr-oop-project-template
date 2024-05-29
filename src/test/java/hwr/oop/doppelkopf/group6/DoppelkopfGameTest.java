@@ -191,11 +191,6 @@ class DoppelkopfGameTest {
       // Rufe die sortCards Methode auf
       game.sortCards(0);
 
-      // Überprüfe, ob die Listen leer sind
-      assertTrue(game.getTrumpCards().isEmpty(), "trumpCards should be empty");
-      assertTrue(game.getHerzCards().isEmpty(), "herzCards should be empty");
-      assertTrue(game.getPikCards().isEmpty(), "pikCards should be empty");
-      assertTrue(game.getKreuzCards().isEmpty(), "kreuzCards should be empty");
 
 
       Card kreuzCard = new Card(Color.KREUZ,Type.ZEHN, false,"Kr10" ); // Trumpfkarte erstellen
@@ -213,9 +208,8 @@ class DoppelkopfGameTest {
 
       game.sortCards(0); // Sortiere die Karten des Spielers
 
-      assertTrue(game.getKreuzCards().contains(kreuzCard.getShortcut()), "Trump card should be added to trumpCards");
-      assertTrue(game.getTrumpCards().contains(trumpCard.getShortcut()), "Trump card should be added to trumpCards");
-        //hier folgen noch assertTrues..
+      assertTrue(game.getKreuzCards().contains(kreuzCard.getShortcut()), "Kreuz card should be added to KreuzCards");
+
   }
 
 

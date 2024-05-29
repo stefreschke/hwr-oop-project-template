@@ -157,8 +157,6 @@ public class DoppelkopfGame {
         } else if (i.getColor() == Color.KREUZ) {
           kreuzCards.add(i.getShortcut());
         }
-
-
       }
 
 
