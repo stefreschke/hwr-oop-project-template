@@ -140,22 +140,17 @@ public class DoppelkopfGame {
     return new ArrayList<>(kreuzCards);
   }
 
-  public void sortCards(String playerName) {
+  public void sortCards(int playerIndex) {
     trumpCards.clear();
     herzCards.clear();
     pikCards.clear();
     kreuzCards.clear();
 
-    Player player = null;
-    for (Player p : players) {
-      if (p.getName().equals(playerName)) {
-        player = p;
-        break;
-      }
-    }
+    Player player = players.get(playerIndex);
+
     if (player == null) {
       throw new IllegalArgumentException("Player not found");
-    }
+    }else{
 
     for (Card i : player.getOwnCards()) {
       if (i.isTrump()) {
@@ -167,6 +162,6 @@ public class DoppelkopfGame {
       } else if (i.getColor() == Color.KREUZ) {
         kreuzCards.add(i.getShortcut());
       }
-    }
+    }}
   }
 }
