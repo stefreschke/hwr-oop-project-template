@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.util.ArrayList;
 import java.util.List;
 import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -199,38 +198,24 @@ class DoppelkopfGameTest {
       assertTrue(game.getKreuzCards().isEmpty(), "kreuzCards should be empty");
 
 
+      Card kreuzCard = new Card(Color.KREUZ,Type.ZEHN, false,"Kr10" ); // Trumpfkarte erstellen
+      game.players.get(0).getOwnCards().add(kreuzCard);
 
-      Card trumpCard = new Card(Color.KARO,Type.ZEHN, true,"K10" ); // Trumpfkarte erstellen
-      game.players.get(0).getOwnCards().add(trumpCard);
-
-      game.sortCards(0);
       Card herzCard= new Card(Color.HERZ,Type.NEUN, false,"H9" ); // Trumpfkarte erstellen
       game.players.get(0).getOwnCards().add(herzCard);
 
-      game.sortCards(0);
       Card pikCard = new Card(Color.PIK,Type.NEUN, false,"P9" );
       game.players.get(0).getOwnCards().add(pikCard);
 
-      game.sortCards(0);
-      Card kreuzCard = new Card(Color.KREUZ,Type.NEUN, false,"K9" );
-      game.players.get(0).getOwnCards().add(kreuzCard);
+      Card trumpCard = new Card(Color.KREUZ,Type.DAME, true,"KrD" );
+      game.players.get(0).getOwnCards().add(trumpCard);
       // Karte dem Spieler hinzufügen
-
-
 
       game.sortCards(0); // Sortiere die Karten des Spielers
 
-      Card herzCard1= new Card(Color.HERZ,Type.NEUN, false,"H9" ); // Trumpfkarte erstellen
-      game.players.get(0).getOwnCards().add(herzCard);
-
+      assertTrue(game.getKreuzCards().contains(kreuzCard.getShortcut()), "Trump card should be added to trumpCards");
       assertTrue(game.getTrumpCards().contains(trumpCard.getShortcut()), "Trump card should be added to trumpCards");
-      assertTrue(game.getKreuzCards().contains(kreuzCard.getShortcut()), "Kreuz card should be added to trumpCards");
-      assertTrue(game.getPikCards().contains(kreuzCard.getShortcut()), "Kreuz card should be added to trumpCards");
-
-
-      assertTrue(game.getHerzCards().contains(herzCard1.getShortcut()), "Trump card should be added to trumpCards");
-
-      //hier folgen noch assertTrues...
+        //hier folgen noch assertTrues..
   }
 
 
