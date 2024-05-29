@@ -57,55 +57,17 @@ public class CardGenerator {
   Card cab = new Card(CardSymbols.ACE, CardColours.CLUBS, 4, "CA", 11);
 
   public List<Card> generateAllCards() {
-    List<Card> cardStack = new ArrayList<>();
-    cardStack.add(d9);
-    cardStack.add(d10);
-    cardStack.add(dj);
-    cardStack.add(dq);
-    cardStack.add(dk);
-    cardStack.add(da);
-    cardStack.add(h9);
-    cardStack.add(h10);
-    cardStack.add(hj);
-    cardStack.add(hq);
-    cardStack.add(hk);
-    cardStack.add(ha);
-    cardStack.add(s9);
-    cardStack.add(s10);
-    cardStack.add(sj);
-    cardStack.add(sq);
-    cardStack.add(sk);
-    cardStack.add(sa);
-    cardStack.add(c9);
-    cardStack.add(c10);
-    cardStack.add(cj);
-    cardStack.add(cq);
-    cardStack.add(ck);
-    cardStack.add(ca);
-    cardStack.add(d9b);
-    cardStack.add(d10b);
-    cardStack.add(djb);
-    cardStack.add(dqb);
-    cardStack.add(dkb);
-    cardStack.add(dab);
-    cardStack.add(h9b);
-    cardStack.add(h10b);
-    cardStack.add(hjb);
-    cardStack.add(hqb);
-    cardStack.add(hkb);
-    cardStack.add(hab);
-    cardStack.add(s9b);
-    cardStack.add(s10b);
-    cardStack.add(sjb);
-    cardStack.add(sqb);
-    cardStack.add(skb);
-    cardStack.add(sab);
-    cardStack.add(c9b);
-    cardStack.add(c10b);
-    cardStack.add(cjb);
-    cardStack.add(cqb);
-    cardStack.add(ckb);
-    cardStack.add(cab);
+
+    List<Card> cardStack = List.of(
+            d9, d10, dj, dq, dk, da,
+            h9, h10, hj, hq, hk, ha,
+            s9, s10, sj, sq, sk, sa,
+            c9, c10, cj, cq, ck, ca,
+            d9b, d10b, djb, dqb, dkb, dab,
+            h9b, h10b, hjb, hqb, hkb, hab,
+            s9b, s10b, sjb, sqb, skb, sab,
+            c9b, c10b, cjb, cqb, ckb, cab
+            );
     return cardStack;
   }
 }

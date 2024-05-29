@@ -24,7 +24,21 @@ public class Game {
         players.get(i).getHand().add(shuffledStack.get(j));
       }
     }
+
+    if (!handOutCardsAreValid(players)) {
+      handOutCards();
+    }
+
     return players;
+  }
+
+  public boolean handOutCardsAreValid(List<Player> players) {
+    for (int i = 0; i < players.size(); i++) {
+      List<Card> Deck = players.get(i).hand;
+
+      
+    }
+    return true;
   }
 
   public static List<Player> createPlayers() {
@@ -186,12 +200,12 @@ public List<Player> distributeTeams(List<Player> players) {
     game.startNewGame();
   }
 
-    public List<Player> players() {
-        Player player1 = new Player("Colin", 0, 0);
-        Player player2 = new Player("Chrissi", 0, 1);
-        Player player3 = new Player("Mihoshi", 0, 2);
-        Player player4 = new Player("Josh", 0, 3);
+  public List<Player> players() {
+      Player player1 = new Player("Colin", 0, 0);
+      Player player2 = new Player("Chrissi", 0, 1);
+      Player player3 = new Player("Mihoshi", 0, 2);
+      Player player4 = new Player("Josh", 0, 3);
 
-        return List.of(player1, player2, player3, player4);
-    }
+      return List.of(player1, player2, player3, player4);
+  }
 }

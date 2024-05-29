@@ -8,6 +8,12 @@ import java.util.List;
 
 public class Player {
     String name;
+    int totalPoints;
+    int score;
+    List<Card> cardsWon = new ArrayList<>();
+    int id;
+    TeamNames team;
+    List<Card> hand = new ArrayList<>();
 
     public String getName() {
         return name;
@@ -15,6 +21,14 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getPoints() {
+        return totalPoints;
+    }
+
+    public void setPoint(int totalPoints) {
+        this.totalPoints = totalPoints;
     }
 
     public int getScore() {
@@ -48,11 +62,6 @@ public class Player {
         this.cardsWon.addAll(cardsWon);
     }
 
-    int score;
-    List<Card> cardsWon = new ArrayList<>();
-    int id;
-    TeamNames team;
-    List<Card> hand = new ArrayList<>();
 
 
     public Player(String name, int score, int id) {
@@ -72,10 +81,10 @@ public class Player {
         return nextPlayer;
     }
 
-    public int calculateScore(List<Card> Stich) {
+    public int calculateScore(List<Card> Cards) {
         int score = 0;
-        for (int i = 0; i < Stich.size(); i++) {
-            score += Stich.get(i).getWorth();
+        for (int i = 0; i < Cards.size(); i++) {
+            score += Cards.get(i).getWorth();
         }
         return score;
     }
