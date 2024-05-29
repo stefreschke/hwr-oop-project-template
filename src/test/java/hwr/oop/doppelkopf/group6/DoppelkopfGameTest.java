@@ -215,7 +215,7 @@ class DoppelkopfGameTest {
 
       assertTrue(game.getKreuzCards().contains(kreuzCard.getShortcut()), "Trump card should be added to trumpCards");
       assertTrue(game.getTrumpCards().contains(trumpCard.getShortcut()), "Trump card should be added to trumpCards");
-        //hier folgen noch assertTrues...
+        //hier folgen noch assertTrues..
   }
 
 
