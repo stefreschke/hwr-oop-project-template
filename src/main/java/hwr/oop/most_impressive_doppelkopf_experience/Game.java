@@ -15,7 +15,7 @@ public class Game {
   CardStack stack = new CardStack();
   List<Card> cardList = stack.getCardStack();
   List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
-  DiscardPile discardPile = new DiscardPile();
+  Stich stich = new Stich();
   Player activePlayer = players.getFirst();
 
   public List<Player> handOutCards() {
@@ -38,11 +38,11 @@ public class Game {
   }
 
   public Card playCard(Card cardToPlay, Player playerToPLay) {
-    if (cardIsValidToBePlayed(cardToPlay, playerToPLay, discardPile)) {
+    if (cardIsValidToBePlayed(cardToPlay, playerToPLay, stich)) {
         List<Card> mutableList = new ArrayList<>(playerToPLay.hand);
         mutableList.remove(cardToPlay);
         playerToPLay.setHand(mutableList);
-      discardPile.discardCard(cardToPlay);
+      stich.discardCard(cardToPlay);
       System.out.println("Karte gespielt: " + cardToPlay.getName());
     } else {
       System.out.println("GRRRRR, Falsche Karte!!!");
@@ -51,12 +51,12 @@ public class Game {
     return cardToPlay;
   }
 
-  public boolean cardIsValidToBePlayed(Card cardToPlay, Player playerWhoPlays, DiscardPile discardPile) {
+  public boolean cardIsValidToBePlayed(Card cardToPlay, Player playerWhoPlays, Stich stich) {
       if (!playerWhoPlays.hand.contains(cardToPlay)) {
           return false;
       }
 
-      if (!cardFollowsSuit(cardToPlay, playerWhoPlays, discardPile)) {
+      if (!cardFollowsSuit(cardToPlay, playerWhoPlays, stich)) {
           return false;
       }
 
@@ -64,10 +64,10 @@ public class Game {
   }
 
   //Gibt true zurück wenn die Karte nach Bedienregeln gespielt werden darf
-  public boolean cardFollowsSuit(Card cardToPlay, Player playerWhoPlaysTheCard, DiscardPile discardPile) {
-      if (!discardPile.getDiscardPile().isEmpty())
+  public boolean cardFollowsSuit(Card cardToPlay, Player playerWhoPlaysTheCard, Stich stich) {
+      if (!stich.getDiscardPile().isEmpty())
       {
-          CardColours firstCardColor = discardPile.getDiscardPile().getFirst().getColour();
+          CardColours firstCardColor = stich.getDiscardPile().getFirst().getColour();
 
           boolean playedCardColourEqualsFirstCardColorOfDiscardPile = firstCardColor.equals(cardToPlay.getColour());
           boolean playerHasCardWithFirstCardColorOfDiscardPile = playerWhoPlaysTheCard.getHand().stream()
@@ -90,7 +90,7 @@ public class Game {
   public void takeTurn(Player playerOnTurn) {
       for (int i = 0; i < playerOnTurn.getHand().size(); i++) {
           Card possibleCard = playerOnTurn.getHand().get(i);
-          if (cardIsValidToBePlayed(possibleCard, playerOnTurn, discardPile)) {
+          if (cardIsValidToBePlayed(possibleCard, playerOnTurn, stich)) {
               playCard(playerOnTurn.getHand().get(i), playerOnTurn);
               return;
           }
@@ -106,9 +106,9 @@ public void playRound() {
     }
 
     activePlayer = decideWinner();
-    activePlayer.playerHasWonStich(discardPile.discardCards);
+    activePlayer.playerHasWonStich(stich.discardCards);
 
-    discardPile.discardCards.clear();
+    stich.discardCards.clear();
 }
 
 public void gameLoop() {
@@ -137,14 +137,14 @@ public void gameLoop() {
 }
 
 public Player decideWinner() {
-  int PositionOfHighestCardInDiscardPile = discardPile.getPositionOfHighestCardInDiscardPile();
+  int PositionOfHighestCardInDiscardPile = stich.getPositionOfHighestCardInDiscardPile();
 
   Player Winner = activePlayer;
   for (int i = 0; i < PositionOfHighestCardInDiscardPile; i++) {
     Winner = Player.getNextPlayer(Winner);
   }
 
-  Card HighestCard = discardPile.getDiscardPile().get(PositionOfHighestCardInDiscardPile);
+  Card HighestCard = stich.getDiscardPile().get(PositionOfHighestCardInDiscardPile);
   System.out.println("Höchste Karte: " + HighestCard.getName() + "; Position der Karte: " + PositionOfHighestCardInDiscardPile);
   System.out.println("Sieger: " + Winner.getName());
 

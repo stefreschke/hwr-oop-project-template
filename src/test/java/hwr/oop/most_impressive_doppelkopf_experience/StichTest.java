@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;
 
-class DiscardPileTest {
+class StichTest {
   @Test
   void getPositionOfHighestCardTest() {
-    var discardPile = new DiscardPile();
+    var discardPile = new Stich();
 
     var d9 = new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0);
     var h10 = new Card(CardSymbols.TEN, CardColours.TRUMP, 100, "H10", 10);
@@ -25,7 +25,7 @@ class DiscardPileTest {
 
   @Test
   void testGetDiscardPile() {
-    var discardPile = new DiscardPile();
+    var discardPile = new Stich();
 
     var d9 = new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0);
     var h10 = new Card(CardSymbols.TEN, CardColours.TRUMP, 100, "H10", 10);

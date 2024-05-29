@@ -2,7 +2,7 @@ package hwr.oop.most_impressive_doppelkopf_experience;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DiscardPile {
+public class Stich {
   public void setDiscardCards(List<Card> discardCards) {
     this.discardCards = discardCards;
   }

@@ -48,14 +48,14 @@ class GameEngineTest {
     player.setHand(hand);
 
     int playerHandSize = player.getHand().size();
-    int discardPileSize = game.discardPile.discardCards.size();//discardPile.discardCards.size();
+    int discardPileSize = game.stich.discardCards.size();//discardPile.discardCards.size();
 
     game.playCard(player.getHand().getFirst(), player);
 
     assertSoftly(
             softly -> {
               softly.assertThat(playerHandSize - 1).isEqualTo(player.getHand().size());
-              softly.assertThat(discardPileSize +1).isEqualTo(game.discardPile.discardCards.size());
+              softly.assertThat(discardPileSize +1).isEqualTo(game.stich.discardCards.size());
             });
     }
   @Test
@@ -101,7 +101,7 @@ class GameEngineTest {
     final var player4 = new Player("player4", 0, 3);
     final List<Player> players = List.of(player1, player2, player3, player4);
     player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
-    final var fixDiscardPile = game.discardPile;
+    final var fixDiscardPile = game.stich;
     fixDiscardPile.discardCard(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0));
     assertThat(game.cardIsValidToBePlayed(player1.getHand().getFirst(),player1,fixDiscardPile)).isTrue();
 
@@ -117,7 +117,7 @@ class GameEngineTest {
     player1.getHand().add(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0));
     player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
     player2.getHand().add(new Card(CardSymbols.ACE, CardColours.CLUBS, 11, "CA", 11));
-    final var fixDiscardPile = game.discardPile;
+    final var fixDiscardPile = game.stich;
     fixDiscardPile.discardCard(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0));
     assertThat(game.cardIsValidToBePlayed(player1.getHand().getFirst(),player1,fixDiscardPile)).isFalse();
     assertThat(game.cardIsValidToBePlayed(player1.getHand().getFirst(),player2,fixDiscardPile)).isFalse();
