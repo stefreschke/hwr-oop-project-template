@@ -116,6 +116,7 @@ public class DoppelkopfGame {
     return winnerNumber + 1;
   }
 
+  // Karten sortieren nach Stärke
   private final List<String> trumpCards = new ArrayList<>();
 
   public List<String> getTrumpCards() {
@@ -167,6 +168,22 @@ public class DoppelkopfGame {
       } else if (i.getColor() == Color.KREUZ) {
         kreuzCards.add(i.getShortcut());
       }
+    }
+  }
+
+  public void switchPlayerCardsDuringPoverty(
+      List<Card> poorPlayerCards,
+      int poorPlayerIndex,
+      List<Card> richPlayerCards,
+      int richPlayerIndex) {
+    for (Card i : poorPlayerCards) {
+      players.get(poorPlayerIndex).getOwnCards().removeIf(i::equals);
+      players.get(richPlayerIndex).getOwnCards().add(i);
+    }
+
+    for (Card i : richPlayerCards) {
+      players.get(richPlayerIndex).getOwnCards().removeIf(i::equals);
+      players.get(poorPlayerIndex).getOwnCards().add(i);
     }
   }
 }

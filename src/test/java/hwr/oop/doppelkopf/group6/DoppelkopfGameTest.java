@@ -130,6 +130,7 @@ class DoppelkopfGameTest {
   void testOneGameRound() {
     DoppelkopfGame game = new DoppelkopfGame();
     game.dealCards(game.shuffleDeck(game.initializeCards()));
+
     for (int i = 0; i < 12; i++) {
       game.oneRound();
     }

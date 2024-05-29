@@ -111,4 +111,10 @@ public class Player {
     }
     return true;
   }
+
+  public int countPlayersTrumpCards() {
+    List<Card> playersTrumpCards = this.ownCards.stream().filter(Card::isTrump).toList();
+
+    return playersTrumpCards.size();
+  }
 }

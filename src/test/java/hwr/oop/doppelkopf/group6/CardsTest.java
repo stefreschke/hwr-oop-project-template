@@ -3,6 +3,7 @@ package hwr.oop.doppelkopf.group6;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.assertj.core.api.SoftAssertions;
@@ -146,5 +147,45 @@ class CardsTest {
           softly.assertThat(typeBube.getStrength()).isEqualTo(4);
           softly.assertThat(typeDame.getStrength()).isEqualTo(5);
         });
+  }
+
+  @Test
+  void testSwitchCardsPoverty() {
+    List<Player> players = new ArrayList<>();
+    players.add(new Player("richPlayer", 1, 0));
+    players.add(new Player("poorPlayer", 2, 0));
+
+    players.getFirst().addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
+    players.getFirst().addCard(new Card(Color.PIK, Type.NEUN, false, "P9"));
+    players.getFirst().addCard(new Card(Color.PIK, Type.BUBE, true, "PB"));
+    players.getFirst().addCard(new Card(Color.HERZ, Type.KOENIG, false, "HK"));
+    players.getFirst().addCard(new Card(Color.KREUZ, Type.ZEHN, false, "Kr10"));
+
+    players.get(1).addCard(new Card(Color.KREUZ, Type.KOENIG, false, "KrK"));
+    players.get(1).addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
+    players.get(1).addCard(new Card(Color.HERZ, Type.BUBE, true, "HB"));
+    players.get(1).addCard(new Card(Color.KARO, Type.KOENIG, false, "KaK"));
+    players.get(1).addCard(new Card(Color.PIK, Type.ZEHN, false, "P10"));
+
+    List<Card> richCards = new ArrayList<>();
+    richCards.add(new Card(Color.HERZ, Type.DAME, true, "HD"));
+    richCards.add(new Card(Color.PIK, Type.NEUN, false, "P9"));
+    richCards.add(new Card(Color.PIK, Type.BUBE, true, "PB"));
+
+    List<Card> poorCards = new ArrayList<>();
+      poorCards.add(new Card(Color.KREUZ, Type.KOENIG, false, "KrK"));
+      poorCards.add(new Card(Color.HERZ, Type.BUBE, true, "HB"));
+      poorCards.add(new Card(Color.PIK, Type.ZEHN, false, "P10"));
+
+    DoppelkopfGame game = new DoppelkopfGame();
+    game.switchPlayerCardsDuringPoverty(poorCards, 1, richCards, 0);
+
+    assertThat(players.getFirst().getOwnCards()).doesNotContain(richCards.getFirst());
+
+    //assertThat(players.get(1).getOwnCards()).contains(richCards.getFirst());
+
+    assertThat(players.get(1).getOwnCards()).doesNotContain(poorCards.getFirst());
+
+    // assertThat(players.get(0).getOwnCards()).contains(poorCards.getFirst());
   }
 }
