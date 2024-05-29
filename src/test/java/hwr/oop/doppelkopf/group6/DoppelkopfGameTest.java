@@ -199,5 +199,22 @@ class DoppelkopfGameTest {
       assertTrue(game.getKreuzCards().isEmpty(), "kreuzCards should be empty");
 
 
+
+      Card trumpCard = new Card(Color.KARO,Type.ZEHN, true,"K10" ); // Trumpfkarte erstellen
+      game.players.get(0).getOwnCards().add(trumpCard);
+
+
+
+
+      // Karte dem Spieler hinzufügen
+
+      game.sortCards(0); // Sortiere die Karten des Spielers
+
+      assertTrue(game.getTrumpCards().contains(trumpCard.getShortcut()), "Trump card should be added to trumpCards");
+
   }
+
+
+
 }
+
