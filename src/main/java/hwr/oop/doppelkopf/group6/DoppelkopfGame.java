@@ -115,60 +115,51 @@ public class DoppelkopfGame {
     }
     return winnerNumber + 1;
   }
-
-  // Karten sortieren nach Stärke
-  private final List<String> trumpCards = new ArrayList<>();
-
+  private  List<String> trumpCards = new ArrayList<>();
   public List<String> getTrumpCards() {
     return new ArrayList<>(trumpCards);
   }
 
-  private final List<String> herzCards = new ArrayList<>();
-
+  private  List<String> herzCards = new ArrayList<>();
   public List<String> getHerzCards() {
     return new ArrayList<>(herzCards);
   }
 
-  private final List<String> pikCards = new ArrayList<>();
-
+  private List<String> pikCards = new ArrayList<>();
   public List<String> getPikCards() {
-    return new ArrayList<>(pikCards);
+    return new ArrayList<>(kreuzCards);
   }
 
-  private final List<String> kreuzCards = new ArrayList<>();
 
+  private  List<String> kreuzCards = new ArrayList<>();
   public List<String> getKreuzCards() {
     return new ArrayList<>(kreuzCards);
   }
 
-  public void sortCards(String playerName) {
-    trumpCards.clear();
-    herzCards.clear();
-    pikCards.clear();
-    kreuzCards.clear();
 
-    Player player = null;
-    for (Player p : players) {
-      if (p.getName().equals(playerName)) {
-        player = p;
-        break;
-      }
-    }
-    if (player == null) {
-      throw new IllegalArgumentException("Player not found");
-    }
+  public void sortCards(int playerIndex) {
+    trumpCards = new ArrayList<>();
+    herzCards = new ArrayList<>();
+    pikCards = new ArrayList<>();
+    kreuzCards = new ArrayList<>();
 
-    for (Card i : player.getOwnCards()) {
-      if (i.isTrump()) {
-        trumpCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.HERZ) {
-        herzCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.PIK) {
-        pikCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.KREUZ) {
-        kreuzCards.add(i.getShortcut());
+    Player player = players.get(playerIndex);
+
+
+
+      for (Card i : player.getOwnCards()) {
+        if (i.isTrump()) {
+          trumpCards.add(i.getShortcut());
+        } else if (i.getColor() == Color.HERZ) {
+          herzCards.add(i.getShortcut());
+        } else if (i.getColor() == Color.PIK) {
+          pikCards.add(i.getShortcut());
+        } else if (i.getColor() == Color.KREUZ) {
+          kreuzCards.add(i.getShortcut());
+        }
       }
-    }
+
+
   }
 
   public void switchPlayerCardsDuringPoverty(

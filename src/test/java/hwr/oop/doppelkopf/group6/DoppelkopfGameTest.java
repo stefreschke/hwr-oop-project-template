@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DoppelkopfGameTest {
   @Test
@@ -177,4 +178,42 @@ class DoppelkopfGameTest {
     assertThat(game.getPikCards()).isEmpty();
     assertThat(game.getKreuzCards()).isEmpty();
   }
+
+
+
+  @Test
+    void testSortCards(){
+      DoppelkopfGame game = new DoppelkopfGame();
+      game.getTrumpCards().add("K10");
+      game.getHerzCards().add("H10");
+      game.getPikCards().add("P10");
+      game.getKreuzCards().add("K10");
+
+      // Rufe die sortCards Methode auf
+      game.sortCards(0);
+
+
+
+      Card kreuzCard = new Card(Color.KREUZ,Type.ZEHN, false,"Kr10" ); // Trumpfkarte erstellen
+      game.players.get(0).getOwnCards().add(kreuzCard);
+
+      Card herzCard= new Card(Color.HERZ,Type.NEUN, false,"H9" ); // Trumpfkarte erstellen
+      game.players.get(0).getOwnCards().add(herzCard);
+
+      Card pikCard = new Card(Color.PIK,Type.NEUN, false,"P9" );
+      game.players.get(0).getOwnCards().add(pikCard);
+
+      Card trumpCard = new Card(Color.KREUZ,Type.DAME, true,"KrD" );
+      game.players.get(0).getOwnCards().add(trumpCard);
+      // Karte dem Spieler hinzufügen
+
+      game.sortCards(0); // Sortiere die Karten des Spielers
+
+      assertTrue(game.getKreuzCards().contains(kreuzCard.getShortcut()), "Kreuz card should be added to KreuzCards");
+
+  }
+
+
+
 }
+
