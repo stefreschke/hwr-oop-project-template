@@ -204,13 +204,13 @@ class DoppelkopfGameTest {
       game.players.get(0).getOwnCards().add(trumpCard);
 
       Card herzCard= new Card(Color.HERZ,Type.NEUN, false,"H9" ); // Trumpfkarte erstellen
-      game.players.get(1).getOwnCards().add(herzCard);
+      game.players.get(0).getOwnCards().add(herzCard);
 
       Card pikCard = new Card(Color.PIK,Type.NEUN, false,"P9" );
       game.players.get(0).getOwnCards().add(pikCard);
 
       Card kreuzCard = new Card(Color.KREUZ,Type.NEUN, false,"K9" );
-      game.players.get(1).getOwnCards().add(kreuzCard);
+      game.players.get(0).getOwnCards().add(kreuzCard);
       // Karte dem Spieler hinzufügen
 
       game.sortCards(0); // Sortiere die Karten des Spielers
