@@ -141,6 +141,11 @@ public class DoppelkopfGame {
   }
 
   public void sortCards(String playerName) {
+    trumpCards.clear();
+    herzCards.clear();
+    pikCards.clear();
+    kreuzCards.clear();
+
     Player player = null;
     for (Player p : players) {
       if (p.getName().equals(playerName)) {
