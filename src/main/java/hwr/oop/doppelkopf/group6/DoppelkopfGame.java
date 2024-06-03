@@ -1,10 +1,8 @@
 package hwr.oop.doppelkopf.group6;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
+@SuppressWarnings("java:S106")
 public class DoppelkopfGame {
   public final List<Player> players = new ArrayList<>();
 
@@ -115,27 +113,30 @@ public class DoppelkopfGame {
     }
     return winnerNumber + 1;
   }
-  private  List<String> trumpCards = new ArrayList<>();
+
+  private List<String> trumpCards = new ArrayList<>();
+
   public List<String> getTrumpCards() {
     return new ArrayList<>(trumpCards);
   }
 
-  private  List<String> herzCards = new ArrayList<>();
+  private List<String> herzCards = new ArrayList<>();
+
   public List<String> getHerzCards() {
     return new ArrayList<>(herzCards);
   }
 
   private List<String> pikCards = new ArrayList<>();
+
   public List<String> getPikCards() {
     return new ArrayList<>(kreuzCards);
   }
 
+  private List<String> kreuzCards = new ArrayList<>();
 
-  private  List<String> kreuzCards = new ArrayList<>();
   public List<String> getKreuzCards() {
     return new ArrayList<>(kreuzCards);
   }
-
 
   public void sortCards(int playerIndex) {
     trumpCards = new ArrayList<>();
@@ -145,19 +146,17 @@ public class DoppelkopfGame {
 
     Player player = players.get(playerIndex);
 
-
-
-      for (Card i : player.getOwnCards()) {
-        if (i.isTrump()) {
-          trumpCards.add(i.getShortcut());
-        } else if (i.getColor() == Color.HERZ) {
-          herzCards.add(i.getShortcut());
-        } else if (i.getColor() == Color.PIK) {
-          pikCards.add(i.getShortcut());
-        } else if (i.getColor() == Color.KREUZ) {
-          kreuzCards.add(i.getShortcut());
-        }
+    for (Card i : player.getOwnCards()) {
+      if (i.isTrump()) {
+        trumpCards.add(i.getShortcut());
+      } else if (i.getColor() == Color.HERZ) {
+        herzCards.add(i.getShortcut());
+      } else if (i.getColor() == Color.PIK) {
+        pikCards.add(i.getShortcut());
+      } else if (i.getColor() == Color.KREUZ) {
+        kreuzCards.add(i.getShortcut());
       }
+    }
   }
 
   public void switchPlayerCardsDuringPoverty(
@@ -174,5 +173,14 @@ public class DoppelkopfGame {
       players.get(richPlayerIndex).getOwnCards().removeIf(i::equals);
       players.get(poorPlayerIndex).getOwnCards().add(i);
     }
+  }
+
+  public boolean checkForPoverty(List<Player> player) {
+    for (Player i : player) {
+      if (i.countPlayersTrumpCards() <= 3) {
+        return true;
+      }
+    }
+    return false;
   }
 }
