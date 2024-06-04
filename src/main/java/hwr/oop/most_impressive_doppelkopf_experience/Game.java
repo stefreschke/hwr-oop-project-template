@@ -1,5 +1,6 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
+import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 
 import java.util.ArrayList;
@@ -25,19 +26,46 @@ public class Game {
       }
     }
 
-    if (!handOutCardsAreValid(players)) {
-      handOutCards();
-    }
-
     return players;
   }
 
-  public boolean handOutCardsAreValid(List<Player> players) {
-    for (int i = 0; i < players.size(); i++) {
-      List<Card> Deck = players.get(i).hand;
-
-      
+  public void schmeissen(Player player) {
+    if (!handOutCardsAreValid(player)) {
+      handOutCards();
     }
+  }
+
+  public boolean handOutCardsAreValid(Player player) {
+    //fünf oder mehr 9er Karten
+    long nineCards = player.hand.stream().filter(card -> card.getSymbol() == CardSymbols.NINE).count();
+    if (nineCards >= 5) {return false;}
+
+    //vier oder mehr 9er und vier oder mehr Könige
+    long kingCards = player.hand.stream().filter(card -> card.getSymbol() == CardSymbols.KING).count();
+    if (nineCards >= 4 && kingCards >= 4) {return false;}
+
+    //vier Neunen aller Farben
+    List<Card> ninesAllColours = new ArrayList<>();
+    for (Card playerCard : player.hand) {
+      if (ninesAllColours.stream().noneMatch(card -> card.getColour() == playerCard.getColour())) {
+        ninesAllColours.add(playerCard);
+      }
+    }
+    if (ninesAllColours.size() >= 4) {return false;}
+
+
+    //weniger oder gleuch 2 Trümpfe
+    long TrumpCards = player.hand.stream().filter(card -> card.getColour() == CardColours.TRUMP).count();
+    if (TrumpCards <= 2){return false;}
+
+    //sieben oder mehr volle Karten (vollen Garten -> Zehnen oder Asse)
+    long volleCards = player.hand.stream().filter(card -> card.getWorth() >= 10).count();
+    if (volleCards >= 7) {return false;}
+
+    //keine Trümpfe höher als der Karo Bube
+    long trumpCardsHigherKing = player.hand.stream().filter(card -> card.getColour() == CardColours.TRUMP && card.getWorth() > 2).count();
+    if (trumpCardsHigherKing == 0) {return false;}
+
     return true;
   }
 
