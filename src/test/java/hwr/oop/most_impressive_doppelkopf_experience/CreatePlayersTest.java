@@ -5,6 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static hwr.oop.most_impressive_doppelkopf_experience.Game.players;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,30 +25,30 @@ class CreatePlayersTest {
         assertThat(players).hasSize(4);
     }
     @Test
-    void setName() {
+    void testsetName() {
         Player player = new Player("John", 0, 1);
         player.setName("Jane");
         assertEquals("Jane", player.getName());
     }
     @Test
-    void getPoints() {
+    void testgetPoints() {
         Player player = new Player("John", 0, 1);
         assertEquals(0, player.getPoints());
     }
     @Test
-    void setPoint() {
+    void testsetPoint() {
         Player player = new Player("John", 0, 1);
         player.setPoint(100);
         assertEquals(100, player.getPoints());
     }
     @Test
-    void setScore() {
+    void testsetScore() {
         Player player = new Player("John", 0, 1);
         player.setScore(50);
         assertEquals(50, player.getScore());
     }
     @Test
-    void setCardsWon() {
+    void testsetCardsWon() {
         Player player = new Player("John", 0, 1);
         List<Card> cardsWon = new ArrayList<>();
         cardsWon.add(new Card(CardSymbols.TEN, CardColours.TRUMP, 100, "H10", 10));
@@ -54,7 +56,7 @@ class CreatePlayersTest {
         assertEquals(cardsWon, player.getCardsWon());
     }
     @Test
-    void calculateScore() {
+    void testcalculateScore() {
         Player player = new Player("John", 0, 1);
         List<Card> cards = new ArrayList<>();
         cards.add(new Card(CardSymbols.TEN, CardColours.TRUMP, 100, "H10", 10));
@@ -62,7 +64,7 @@ class CreatePlayersTest {
         assertEquals(13, player.calculateScore(cards));
     }
     @Test
-    void playerHasWonStich() {
+    void testplayerHasWonStich() {
         Player player = new Player("John", 0, 1);
         List<Card> stich = new ArrayList<>();
         stich.add(new Card(CardSymbols.TEN, CardColours.TRUMP, 100, "H10", 10));
@@ -70,5 +72,27 @@ class CreatePlayersTest {
         player.playerHasWonStich(stich);
         assertEquals(13, player.getScore());
         assertEquals(stich, player.getCardsWon());
+    }
+    @Test
+    void testgetNextPlayer() {
+        // Test for player1
+        Player player1 = players.get(0);
+        Player expectedNextPlayer1 = players.get(1);
+        assertEquals(expectedNextPlayer1, Player.getNextPlayer(player1));
+
+        // Test for player2
+        Player player2 = players.get(1);
+        Player expectedNextPlayer2 = players.get(2);
+        assertEquals(expectedNextPlayer2, Player.getNextPlayer(player2));
+
+        // Test for player3
+        Player player3 = players.get(2);
+        Player expectedNextPlayer3 = players.get(3);
+        assertEquals(expectedNextPlayer3, Player.getNextPlayer(player3));
+
+        // Test for player4
+        Player player4 = players.get(3);
+        Player expectedNextPlayer4 = players.get(0);
+        assertEquals(expectedNextPlayer4, Player.getNextPlayer(player4));
     }
 }
