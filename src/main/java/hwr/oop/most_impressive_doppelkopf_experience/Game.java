@@ -118,60 +118,10 @@ public class Game {
       return true;
   }
 
-  public void startNewGame() {
-    handOutCards();
-    distributeTeams(players);
-    gameLoop();
-  }
-
-  public void takeTurn(Player playerOnTurn) {
-      for (int i = 0; i < playerOnTurn.getHand().size(); i++) {
-          Card possibleCard = playerOnTurn.getHand().get(i);
-          if (cardIsValidToBePlayed(possibleCard, playerOnTurn, stich)) {
-              playCard(playerOnTurn.getHand().get(i), playerOnTurn);
-              return;
-          }
-      }
-  }
-
-
-public void playRound() {
-    for (int i = 0; i < NUM_PLAYERS; i++) {
-      System.out.println(activePlayer.getName());
-      takeTurn(activePlayer);
-      activePlayer = Player.getNextPlayer(activePlayer);
+    public void startNewGame() {
+        handOutCards();
+        distributeTeams(players);
     }
-
-    activePlayer = decideWinner();
-    activePlayer.playerHasWonStich(stich.discardCards);
-
-    stich.discardCards.clear();
-}
-
-public void gameLoop() {
-    while(true) {
-      if (activePlayer.getHand().isEmpty()) {
-      System.out.println("GRRRRRRR");
-      System.out.println(players.get(0).getName() + " won so many cards: " + players.get(0).getCardsWon().size());
-      System.out.println(players.get(1).getName() + " won so many cards: " + players.get(1).getCardsWon().size());
-      System.out.println(players.get(2).getName() + " won so many cards: " + players.get(2).getCardsWon().size());
-      System.out.println(players.get(3).getName() + " won so many cards: " + players.get(3).getCardsWon().size());
-      System.out.println(players.get(0).getName() + " score: " + players.get(0).getScore());
-      System.out.println(players.get(1).getName() + " score: " + players.get(1).getScore());
-      System.out.println(players.get(2).getName() + " score: " + players.get(2).getScore());
-      System.out.println(players.get(3).getName() + " score: " + players.get(3).getScore());
-      System.out.println(players.get(0).getName() + " was team: " + players.get(0).getTeam());
-      System.out.println(players.get(1).getName() + " was team: " + players.get(1).getTeam());
-      System.out.println(players.get(2).getName() + " was team: " + players.get(2).getTeam());
-      System.out.println(players.get(3).getName() + " was team: " + players.get(3).getTeam());
-      System.out.println(findWinningTeam(players).toString());
-
-      break;
-    } else {
-        playRound();
-      }
-  }
-}
 
 public Player decideWinner() {
   int PositionOfHighestCardInDiscardPile = stich.getPositionOfHighestCardInDiscardPile();
@@ -223,17 +173,5 @@ public List<Player> distributeTeams(List<Player> players) {
     return winnerTeam;
   }
 
-  public static void main(String[] args) {
-    Game game = new Game();
-    game.startNewGame();
-  }
-
-  public List<Player> players() {
-      Player player1 = new Player("Colin", 0, 0);
-      Player player2 = new Player("Chrissi", 0, 1);
-      Player player3 = new Player("Mihoshi", 0, 2);
-      Player player4 = new Player("Josh", 0, 3);
-
-      return List.of(player1, player2, player3, player4);
-  }
+  public static void main() {}
 }
