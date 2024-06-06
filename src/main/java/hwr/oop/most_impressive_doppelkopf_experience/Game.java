@@ -11,12 +11,23 @@ public class Game {
 
   private static final int NUM_PLAYERS = 4;
   private static final int NUM_CARDS_PER_PLAYER = 12;
-  static List<Player> players = createPlayers();
+  List<Player> players = new ArrayList<>();
   CardStack stack = new CardStack();
   List<Card> cardList = stack.getCardStack();
   List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
   Stich stich = new Stich();
-  Player activePlayer = players.getFirst();
+
+  Player activePlayer;
+
+  public void addPlayer(String name) {
+    if (players.size() < 4) {
+      players.add(new Player(name, 0, players.size()));
+    }
+  }
+
+  public void setStartPlayer(Player startPlayer) {
+    activePlayer = startPlayer;
+  }
 
   public List<Player> handOutCards() {
 
@@ -26,13 +37,16 @@ public class Game {
       }
     }
 
-    return players;
+    return distributeTeams(players);
   }
 
-  public void schmeissen(Player player) {
+  public boolean schmeissen(Player player) {
     if (!handOutCardsAreValid(player)) {
       handOutCards();
+      return true;
     }
+
+    return false;
   }
 
   public boolean handOutCardsAreValid(Player player) {
@@ -69,22 +83,15 @@ public class Game {
     return true;
   }
 
-  public static List<Player> createPlayers() {
-    Player player1 = new Player("Colin", 0, 0);
-    Player player2 = new Player("Chrissi", 0, 1);
-    Player player3 = new Player("Mihoshi", 0, 2);
-    Player player4 = new Player("Josh", 0, 3);
+  public void playCard(Card cardToPlay) {
 
-    return List.of(player1, player2, player3, player4);
-  }
-
-  public void playCard(Card cardToPlay, Player playerToPLay) {
-    if (cardIsValidToBePlayed(cardToPlay, playerToPLay, stich)) {
-        List<Card> mutableList = new ArrayList<>(playerToPLay.hand);
-        mutableList.remove(cardToPlay);
-        playerToPLay.setHand(mutableList);
+    if (cardIsValidToBePlayed(cardToPlay, activePlayer, stich)) {
+      List<Card> mutableList = new ArrayList<>(activePlayer.hand);
+      mutableList.remove(cardToPlay);
+      activePlayer.setHand(mutableList);
       stich.discardCard(cardToPlay);
-      System.out.println("Karte gespielt: " + cardToPlay.getName());
+
+      setNextPlayer();
     }
   }
 
@@ -118,24 +125,56 @@ public class Game {
       return true;
   }
 
-    public void startNewGame() {
-        handOutCards();
-        distributeTeams(players);
+  public void setNextPlayer() {
+    int nextPlayerIndex = players.indexOf(activePlayer) + 1;
+
+    if (nextPlayerIndex >= players.size()) {
+      nextPlayerIndex = 0;
     }
 
-public Player decideWinner() {
-  int PositionOfHighestCardInDiscardPile = stich.getPositionOfHighestCardInDiscardPile();
-
-  Player Winner = activePlayer;
-  for (int i = 0; i < PositionOfHighestCardInDiscardPile; i++) {
-    Winner = Player.getNextPlayer(Winner);
+    activePlayer = players.get(nextPlayerIndex);
   }
 
-  Card HighestCard = stich.getDiscardPile().get(PositionOfHighestCardInDiscardPile);
-  System.out.println("Höchste Karte: " + HighestCard.getName() + "; Position der Karte: " + PositionOfHighestCardInDiscardPile);
-  System.out.println("Sieger: " + Winner.getName());
+  public void evaluateRound() {
+    Player winner = decideWinner();
+    winner.playerHasWonStich(stich.discardCards);
+    stich.discardCards.clear();
 
-  return Winner;
+    activePlayer = winner;
+  }
+
+  public TeamNames evaluateGame() {
+    //TODO: Methode um das Spiel auszuwerten; Gewinnende ermitteln und Punkte verteilen
+    return findWinningTeam();
+  }
+
+public Player decideWinner() {
+  List<Card> thisStich = stich.getDiscardPile();
+  CardColours SuitColour = thisStich.getFirst().getColour();
+
+  Card winnerCard = thisStich.getFirst();
+
+  for (int i = 0; i < thisStich.size(); i++) {
+    if (thisStich.get(i).colour == CardColours.TRUMP) {
+      SuitColour = CardColours.TRUMP;
+      winnerCard = thisStich.get(i);
+    }
+
+    boolean cardHasRightColour = thisStich.get(i).colour == SuitColour;
+    if (cardHasRightColour && thisStich.get(i).value > winnerCard.getValue()) {
+      winnerCard = thisStich.get(i);
+    }
+  }
+
+  int IndexOfWinner = players.indexOf(activePlayer);
+  for (int i = 0; i < thisStich.indexOf(winnerCard); i++) {
+    IndexOfWinner += 1;
+    if (IndexOfWinner >= players.size()) {
+      IndexOfWinner = 0;
+    }
+  }
+
+  return players.get(IndexOfWinner);
 }
 
 public List<Player> distributeTeams(List<Player> players) {
@@ -150,15 +189,14 @@ public List<Player> distributeTeams(List<Player> players) {
               .collect(Collectors.toList());
     }
 
-  public TeamNames findWinningTeam(List<Player> players) {
+  public TeamNames findWinningTeam() {
     int reScore = 0;
     int contraScore = 0;
     TeamNames winnerTeam = null;
 
     for (int i = 0; i < players.size(); i++) {
-      if (players.get(i).getTeam().equals(TeamNames.RE)) {
+      if (players.get(i).getTeam() == TeamNames.RE) {
         reScore += players.get(i).getScore();
-
       } else {
         contraScore += players.get(i).getScore();
       }

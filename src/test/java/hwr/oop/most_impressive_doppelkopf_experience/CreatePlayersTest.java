@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static hwr.oop.most_impressive_doppelkopf_experience.Game.players;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -72,27 +71,5 @@ class CreatePlayersTest {
         player.playerHasWonStich(stich);
         assertEquals(13, player.getScore());
         assertEquals(stich, player.getCardsWon());
-    }
-    @Test
-    void testgetNextPlayer() {
-        // Test for player1
-        Player player1 = players.get(0);
-        Player expectedNextPlayer1 = players.get(1);
-        assertEquals(expectedNextPlayer1, Player.getNextPlayer(player1));
-
-        // Test for player2
-        Player player2 = players.get(1);
-        Player expectedNextPlayer2 = players.get(2);
-        assertEquals(expectedNextPlayer2, Player.getNextPlayer(player2));
-
-        // Test for player3
-        Player player3 = players.get(2);
-        Player expectedNextPlayer3 = players.get(3);
-        assertEquals(expectedNextPlayer3, Player.getNextPlayer(player3));
-
-        // Test for player4
-        Player player4 = players.get(3);
-        Player expectedNextPlayer4 = players.get(0);
-        assertEquals(expectedNextPlayer4, Player.getNextPlayer(player4));
     }
 }

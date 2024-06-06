@@ -13,51 +13,67 @@ import static hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames.RE;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.assertj.core.api.Assertions.assertThat;
 
-
 class GameEngineTest {
   @Test
   void startNewGameTest() {
     final Game game = new Game();
-    game.startNewGame();
+    game.addPlayer("Colin");
+    game.addPlayer("Mihoshi");
+    game.addPlayer("Joshi");
+    game.addPlayer("Chris");
+
     distributeTeamsTest();
 
     final var players = game.handOutCards();
 
     assertSoftly(
-            softly -> {
-              softly.assertThat(players.get(0).hand).isNotEmpty().isNotNull().hasSize(12);
+        softly -> {
+          softly.assertThat(players.get(0).hand).isNotEmpty().isNotNull().hasSize(12);
 
-              softly.assertThat(players.get(1).hand).isNotEmpty().isNotNull().hasSize(12);
+          softly.assertThat(players.get(1).hand).isNotEmpty().isNotNull().hasSize(12);
 
-              softly.assertThat(players.get(2).hand).isNotEmpty().isNotNull().hasSize(12);
+          softly.assertThat(players.get(2).hand).isNotEmpty().isNotNull().hasSize(12);
 
-              softly.assertThat(players.get(3).hand).isNotEmpty().isNotNull().hasSize(12);
-            });
-
+          softly.assertThat(players.get(3).hand).isNotEmpty().isNotNull().hasSize(12);
+        });
   }
-
 
   @Test
   void playCardTest() {
     final var game = new Game();
-    final var player = new Player("player1", 0, 0);
+    game.addPlayer("Mihoshi");
+    game.setStartPlayer(game.players.getFirst());
 
-    List<Card> hand = List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0));
-    player.setHand(hand);
+    game.players
+        .getFirst()
+        .setHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0)));
 
-    int playerHandSize = player.getHand().size();
-    int discardPileSize = game.stich.discardCards.size();//discardPile.discardCards.size();
+    int playerHandSize = game.players.getFirst().getHand().size();
+    int discardPileSize = game.stich.discardCards.size(); // discardPile.discardCards.size();
 
-    game.playCard(player.getHand().getFirst(), player);
+    game.playCard(game.players.getFirst().getHand().getFirst());
 
     assertSoftly(
-            softly -> {
-              softly.assertThat(playerHandSize - 1).isEqualTo(player.getHand().size());
-              softly.assertThat(discardPileSize +1).isEqualTo(game.stich.discardCards.size());
-            });
-    }
+        softly -> {
+          softly.assertThat(playerHandSize - 1).isEqualTo(game.players.getFirst().getHand().size());
+          softly.assertThat(discardPileSize + 1).isEqualTo(game.stich.discardCards.size());
+        });
+  }
 
-    /*
+  @Test
+  void setNextPlayerTest() {
+    var game = new Game();
+    game.addPlayer("Stefan");
+    game.addPlayer("Colin");
+
+    game.setStartPlayer(game.players.getFirst());
+
+    game.setNextPlayer();
+
+    assertThat(game.activePlayer).isEqualTo(game.players.get(1));
+  }
+
+  /*
   @Test
     void gameLoopTest() {
     final var game = new Game();
@@ -74,9 +90,9 @@ class GameEngineTest {
      */
 
   @Test
-     void calculateScoreTest() {
-      final var game = new Game();
-      //Score muss gesamt 240 ergeben!!!
+  void calculateScoreTest() {
+    final var game = new Game();
+    // Score muss gesamt 240 ergeben!!!
   }
 
   @Test
@@ -91,29 +107,30 @@ class GameEngineTest {
     player3.setTeam(TeamNames.CONTRA);
     player4.setTeam(TeamNames.CONTRA);
 
-    List<Player> players = List.of(player1, player2, player3, player4);
+    game.players = List.of(player1, player2, player3, player4);
 
-    assertThat(game.findWinningTeam(players)).isEqualTo(CONTRA);
+    assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
   }
 
   @Test
-    void distributeTeamsTest(){
-      final var game = new Game();
-      final var player1 = new Player("player1", 0, 0);
-      final var player2 = new Player("player2", 0, 1);
-      final var player3 = new Player("player3", 0, 2);
-      final var player4 = new Player("player4", 0, 3);
-      final List<Player> players = List.of(player1, player2, player3, player4);
-      player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
-      player2.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
-      game.distributeTeams(players);
-      assertThat(player1.getTeam()).isEqualTo(RE);
-      assertThat(player2.getTeam()).isEqualTo(RE);
-      assertThat(player3.getTeam()).isEqualTo(CONTRA);
-      assertThat(player4.getTeam()).isEqualTo(CONTRA);
+  void distributeTeamsTest() {
+    final var game = new Game();
+    final var player1 = new Player("player1", 0, 0);
+    final var player2 = new Player("player2", 0, 1);
+    final var player3 = new Player("player3", 0, 2);
+    final var player4 = new Player("player4", 0, 3);
+    final List<Player> players = List.of(player1, player2, player3, player4);
+    player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
+    player2.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
+    game.distributeTeams(players);
+    assertThat(player1.getTeam()).isEqualTo(RE);
+    assertThat(player2.getTeam()).isEqualTo(RE);
+    assertThat(player3.getTeam()).isEqualTo(CONTRA);
+    assertThat(player4.getTeam()).isEqualTo(CONTRA);
   }
+
   @Test
-    void CardIsValidToPlayTest(){
+  void CardIsValidToPlayTest() {
     final var game = new Game();
     final var player1 = new Player("player1", 0, 0);
     final var player2 = new Player("player2", 0, 1);
@@ -123,11 +140,12 @@ class GameEngineTest {
     player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
     final var fixDiscardPile = game.stich;
     fixDiscardPile.discardCard(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0));
-    assertThat(game.cardIsValidToBePlayed(player1.getHand().getFirst(),player1,fixDiscardPile)).isTrue();
-
+    assertThat(game.cardIsValidToBePlayed(player1.getHand().getFirst(), player1, fixDiscardPile))
+        .isTrue();
   }
+
   @Test
-  void CardIsNotValidToPlayTest(){
+  void CardIsNotValidToPlayTest() {
     final var game = new Game();
     final var player1 = new Player("player1", 0, 0);
     final var player2 = new Player("player2", 0, 1);
@@ -139,9 +157,63 @@ class GameEngineTest {
     player2.getHand().add(new Card(CardSymbols.ACE, CardColours.CLUBS, 11, "CA", 11));
     final var fixDiscardPile = game.stich;
     fixDiscardPile.discardCard(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0));
-    assertThat(game.cardIsValidToBePlayed(player1.getHand().getFirst(),player1,fixDiscardPile)).isFalse();
-    assertThat(game.cardIsValidToBePlayed(player1.getHand().getFirst(),player2,fixDiscardPile)).isFalse();
+    assertThat(game.cardIsValidToBePlayed(player1.getHand().getFirst(), player1, fixDiscardPile))
+        .isFalse();
+    assertThat(game.cardIsValidToBePlayed(player1.getHand().getFirst(), player2, fixDiscardPile))
+        .isFalse();
   }
 
-}
+  @Test
+  void GameTest() {
+    var game = new Game();
+    game.addPlayer("Mugtaba");
+    game.addPlayer("Simon");
+    game.addPlayer("Galatea");
+    game.addPlayer("Hajer");
 
+    game.setStartPlayer(game.players.getFirst());
+
+    game.players
+        .get(0)
+        .addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
+    game.players
+        .get(0)
+        .addToHand(List.of(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 0, "CQ", 3)));
+    game.players
+        .get(1)
+        .addToHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 0, "D9", 0)));
+    game.players
+        .get(1)
+        .addToHand(List.of(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 0, "CQ", 3)));
+    game.players
+        .get(2)
+        .addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
+    game.players
+        .get(2)
+        .addToHand(List.of(new Card(CardSymbols.TEN, CardColours.CLUBS, 0, "C10", 10)));
+    game.players
+        .get(3)
+        .addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
+    game.players
+        .get(3)
+        .addToHand(List.of(new Card(CardSymbols.KING, CardColours.SPADES, 0, "SK", 4)));
+
+    game.playCard(game.players.get(0).getHand().get(0));
+    game.playCard(game.players.get(1).getHand().get(1));
+    game.playCard(game.players.get(2).getHand().get(0));
+    game.playCard(game.players.get(3).getHand().get(0));
+
+    game.evaluateRound();
+
+    game.playCard(game.players.get(0).getHand().get(0));
+    game.playCard(game.players.get(1).getHand().get(0));
+    game.playCard(game.players.get(2).getHand().get(0));
+    game.playCard(game.players.get(3).getHand().get(0));
+
+    game.evaluateRound();
+
+    game.evaluateGame();
+
+    assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
+  }
+}

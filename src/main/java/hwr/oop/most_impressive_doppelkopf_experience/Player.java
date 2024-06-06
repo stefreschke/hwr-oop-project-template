@@ -47,12 +47,14 @@ public class Player {
         this.team = team;
     }
 
+
     public List<Card> getHand() {
         return hand;
     }
 
-    public void setHand(List<Card> hand) {
-        this.hand = hand;
+    public void setHand(List<Card> hand) {this.hand = hand;}
+    public void addToHand(List<Card> hand) {
+        this.hand.addAll(hand);
     }
 
     public void setCardsWon(List<Card> cardsWon) {this.cardsWon = cardsWon;}
@@ -70,21 +72,10 @@ public class Player {
         this.id = id;
     }
 
-
-    public static Player getNextPlayer(Player player) {
-        Player nextPlayer;
-        if (player.id < 3) {
-            nextPlayer = Game.players.get(player.id + 1);
-        } else {
-            nextPlayer = Game.players.getFirst();
-        }
-        return nextPlayer;
-    }
-
-    public int calculateScore(List<Card> Cards) {
+    public int calculateScore(List<Card> cards) {
         int score = 0;
-        for (int i = 0; i < Cards.size(); i++) {
-            score += Cards.get(i).getWorth();
+        for (int i = 0; i < cards.size(); i++) {
+            score += cards.get(i).getWorth();
         }
         return score;
     }
