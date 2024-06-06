@@ -4,9 +4,11 @@ import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
     @Test
@@ -20,6 +22,13 @@ class CardTest {
                     assertEquals("D10", card.getName());
                     assertEquals(10, card.getWorth());
                 });
+    }
+    @Test
+    void testGetCardStack() {
+        CardStack cardStack = new CardStack();
+        List<Card> cards = cardStack.getCardStack();
+        assertNotNull(cards);
+        assertFalse(cards.isEmpty());
     }
 
     @Test
