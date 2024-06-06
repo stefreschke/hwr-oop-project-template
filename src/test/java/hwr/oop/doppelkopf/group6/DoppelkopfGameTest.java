@@ -179,41 +179,34 @@ class DoppelkopfGameTest {
     assertThat(game.getKreuzCards()).isEmpty();
   }
 
-
-
   @Test
-    void testSortCards(){
-      DoppelkopfGame game = new DoppelkopfGame();
-      game.getTrumpCards().add("K10");
-      game.getHerzCards().add("H10");
-      game.getPikCards().add("P10");
-      game.getKreuzCards().add("K10");
+  void testSortCards() {
+    DoppelkopfGame game = new DoppelkopfGame();
+    game.getTrumpCards().add("K10");
+    game.getHerzCards().add("H10");
+    game.getPikCards().add("P10");
+    game.getKreuzCards().add("K10");
 
-      // Rufe die sortCards Methode auf
-      game.sortCards(0);
+    // Rufe die sortCards Methode auf
+    game.sortCards(0);
 
+    Card kreuzCard = new Card(Color.KREUZ, Type.ZEHN, false, "Kr10"); // Trumpfkarte erstellen
+    game.players.get(0).getOwnCards().add(kreuzCard);
 
+    Card herzCard = new Card(Color.HERZ, Type.NEUN, false, "H9"); // Trumpfkarte erstellen
+    game.players.get(0).getOwnCards().add(herzCard);
 
-      Card kreuzCard = new Card(Color.KREUZ,Type.ZEHN, false,"Kr10" ); // Trumpfkarte erstellen
-      game.players.get(0).getOwnCards().add(kreuzCard);
+    Card pikCard = new Card(Color.PIK, Type.NEUN, false, "P9");
+    game.players.get(0).getOwnCards().add(pikCard);
 
-      Card herzCard= new Card(Color.HERZ,Type.NEUN, false,"H9" ); // Trumpfkarte erstellen
-      game.players.get(0).getOwnCards().add(herzCard);
+    Card trumpCard = new Card(Color.KREUZ, Type.DAME, true, "KrD");
+    game.players.get(0).getOwnCards().add(trumpCard);
+    // Karte dem Spieler hinzufügen
 
-      Card pikCard = new Card(Color.PIK,Type.NEUN, false,"P9" );
-      game.players.get(0).getOwnCards().add(pikCard);
+    game.sortCards(0); // Sortiere die Karten des Spielers
 
-      Card trumpCard = new Card(Color.KREUZ,Type.DAME, true,"KrD" );
-      game.players.get(0).getOwnCards().add(trumpCard);
-      // Karte dem Spieler hinzufügen
-
-      game.sortCards(0); // Sortiere die Karten des Spielers
-
-      assertTrue(game.getKreuzCards().contains(kreuzCard.getShortcut()), "Kreuz card should be added to KreuzCards");
-
+    assertTrue(
+        game.getKreuzCards().contains(kreuzCard.getShortcut()),
+        "Kreuz card should be added to KreuzCards");
   }
-
-
-
 }
-

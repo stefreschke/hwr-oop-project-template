@@ -1,4 +1,4 @@
-package hwr.oop.doppelkopf.group6;
+package hwr.oop.doppelkopf.group6.cli;
 
 import java.io.IOException;
 

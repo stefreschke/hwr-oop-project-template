@@ -173,55 +173,54 @@ class CardsTest {
     richCards.add(new Card(Color.PIK, Type.BUBE, true, "PB"));
 
     List<Card> poorCards = new ArrayList<>();
-      poorCards.add(new Card(Color.KREUZ, Type.KOENIG, false, "KrK"));
-      poorCards.add(new Card(Color.HERZ, Type.BUBE, true, "HB"));
-      poorCards.add(new Card(Color.PIK, Type.ZEHN, false, "P10"));
+    poorCards.add(new Card(Color.KREUZ, Type.KOENIG, false, "KrK"));
+    poorCards.add(new Card(Color.HERZ, Type.BUBE, true, "HB"));
+    poorCards.add(new Card(Color.PIK, Type.ZEHN, false, "P10"));
 
     DoppelkopfGame game = new DoppelkopfGame();
     game.switchPlayerCardsDuringPoverty(poorCards, 1, richCards, 0);
 
     assertThat(players.getFirst().getOwnCards()).doesNotContain(richCards.getFirst());
     assertThat(players.get(1).getOwnCards()).doesNotContain(poorCards.getFirst());
-
   }
 
   @Test
   void testCheckPoverty() {
-      Player poorPlayer = new Player("poorPlayer", 1, 0);
-      List<Player> poorPlayers = new ArrayList<>();
-      poorPlayers.add(poorPlayer);
-      poorPlayer.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
-      poorPlayer.addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
-      poorPlayer.addCard(new Card(Color.HERZ, Type.KOENIG, false, "HK"));
-      poorPlayer.addCard(new Card(Color.KREUZ, Type.ZEHN, false, "Kr10"));
+    Player poorPlayer = new Player("poorPlayer", 1, 0);
+    List<Player> poorPlayers = new ArrayList<>();
+    poorPlayers.add(poorPlayer);
+    poorPlayer.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
+    poorPlayer.addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
+    poorPlayer.addCard(new Card(Color.HERZ, Type.KOENIG, false, "HK"));
+    poorPlayer.addCard(new Card(Color.KREUZ, Type.ZEHN, false, "Kr10"));
 
-      DoppelkopfGame game = new DoppelkopfGame();
-      boolean resultPoor = game.checkForPoverty(poorPlayers);
+    DoppelkopfGame game = new DoppelkopfGame();
+    boolean resultPoor = game.checkForPoverty(poorPlayers);
 
-      Player richPlayer = new Player("richPlayer", 1, 0);
-      List<Player> richPlayers = new ArrayList<>();
-      richPlayers.add(richPlayer);
-      richPlayer.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
-      richPlayer.addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
-      richPlayer.addCard(new Card(Color.HERZ, Type.BUBE, true, "HB"));
-      richPlayer.addCard(new Card(Color.KREUZ, Type.BUBE, true, "KrB"));
+    Player richPlayer = new Player("richPlayer", 1, 0);
+    List<Player> richPlayers = new ArrayList<>();
+    richPlayers.add(richPlayer);
+    richPlayer.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
+    richPlayer.addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
+    richPlayer.addCard(new Card(Color.HERZ, Type.BUBE, true, "HB"));
+    richPlayer.addCard(new Card(Color.KREUZ, Type.BUBE, true, "KrB"));
 
-      boolean resultRich = game.checkForPoverty(richPlayers);
+    boolean resultRich = game.checkForPoverty(richPlayers);
 
-      Player playerExact = new Player("exactThreeTrumpPlayer", 1, 0);
-      List<Player> exactPlayers = new ArrayList<>();
-      exactPlayers.add(playerExact);
-      playerExact.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
-      playerExact.addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
-      playerExact.addCard(new Card(Color.HERZ, Type.BUBE, true, "HB"));
+    Player playerExact = new Player("exactThreeTrumpPlayer", 1, 0);
+    List<Player> exactPlayers = new ArrayList<>();
+    exactPlayers.add(playerExact);
+    playerExact.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
+    playerExact.addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
+    playerExact.addCard(new Card(Color.HERZ, Type.BUBE, true, "HB"));
 
-      boolean resultExact = game.checkForPoverty(exactPlayers);
+    boolean resultExact = game.checkForPoverty(exactPlayers);
 
-      SoftAssertions.assertSoftly(
-              softly -> {
-                  softly.assertThat(resultPoor).isTrue();
-                  softly.assertThat(resultRich).isFalse();
-                  softly.assertThat(resultExact).isTrue();
-              });
+    SoftAssertions.assertSoftly(
+        softly -> {
+          softly.assertThat(resultPoor).isTrue();
+          softly.assertThat(resultRich).isFalse();
+          softly.assertThat(resultExact).isTrue();
+        });
   }
 }
