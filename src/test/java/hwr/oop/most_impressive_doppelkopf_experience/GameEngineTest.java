@@ -173,30 +173,14 @@ class GameEngineTest {
 
     game.setStartPlayer(game.players.getFirst());
 
-    game.players
-        .get(0)
-        .addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
-    game.players
-        .get(0)
-        .addToHand(List.of(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 0, "CQ", 3)));
-    game.players
-        .get(1)
-        .addToHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 0, "D9", 0)));
-    game.players
-        .get(1)
-        .addToHand(List.of(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 0, "CQ", 3)));
-    game.players
-        .get(2)
-        .addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
-    game.players
-        .get(2)
-        .addToHand(List.of(new Card(CardSymbols.TEN, CardColours.CLUBS, 0, "C10", 10)));
-    game.players
-        .get(3)
-        .addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
-    game.players
-        .get(3)
-        .addToHand(List.of(new Card(CardSymbols.KING, CardColours.SPADES, 0, "SK", 4)));
+    game.players.get(0).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
+    game.players.get(0).addToHand(List.of(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 0, "CQ", 3)));
+    game.players.get(1).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 0, "D9", 0)));
+    game.players.get(1).addToHand(List.of(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 0, "CQ", 3)));
+    game.players.get(2).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
+    game.players.get(2).addToHand(List.of(new Card(CardSymbols.TEN, CardColours.CLUBS, 0, "C10", 10)));
+    game.players.get(3).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
+    game.players.get(3).addToHand(List.of(new Card(CardSymbols.KING, CardColours.SPADES, 0, "SK", 4)));
 
     game.playCard(game.players.get(0).getHand().get(0));
     game.playCard(game.players.get(1).getHand().get(1));
