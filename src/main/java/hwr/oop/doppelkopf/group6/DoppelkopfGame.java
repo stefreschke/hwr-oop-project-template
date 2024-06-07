@@ -2,6 +2,7 @@ package hwr.oop.doppelkopf.group6;
 
 import java.util.*;
 
+@SuppressWarnings("java:S106")
 public class DoppelkopfGame {
   public final List<Player> players = new ArrayList<>();
 
@@ -135,41 +136,37 @@ public class DoppelkopfGame {
     return winnerNumber + 1;
   }
 
-  private final List<String> trumpCards = new ArrayList<>();
+  private List<String> trumpCards = new ArrayList<>();
 
   public List<String> getTrumpCards() {
     return new ArrayList<>(trumpCards);
   }
 
-  private final List<String> herzCards = new ArrayList<>();
+  private List<String> herzCards = new ArrayList<>();
 
   public List<String> getHerzCards() {
     return new ArrayList<>(herzCards);
   }
 
-  private final List<String> pikCards = new ArrayList<>();
+  private List<String> pikCards = new ArrayList<>();
 
   public List<String> getPikCards() {
-    return new ArrayList<>(pikCards);
+    return new ArrayList<>(kreuzCards);
   }
 
-  private final List<String> kreuzCards = new ArrayList<>();
+  private List<String> kreuzCards = new ArrayList<>();
 
   public List<String> getKreuzCards() {
     return new ArrayList<>(kreuzCards);
   }
 
-  public void sortCards(String playerName) {
-    Player player = null;
-    for (Player p : players) {
-      if (p.getName().equals(playerName)) {
-        player = p;
-        break;
-      }
-    }
-    if (player == null) {
-      throw new IllegalArgumentException("Player not found");
-    }
+  public void sortCards(int playerIndex) {
+    trumpCards = new ArrayList<>();
+    herzCards = new ArrayList<>();
+    pikCards = new ArrayList<>();
+    kreuzCards = new ArrayList<>();
+
+    Player player = players.get(playerIndex);
 
     for (Card i : player.getOwnCards()) {
       if (i.isTrump()) {
@@ -182,5 +179,30 @@ public class DoppelkopfGame {
         kreuzCards.add(i.getShortcut());
       }
     }
+  }
+
+  public void switchPlayerCardsDuringPoverty(
+      List<Card> poorPlayerCards,
+      int poorPlayerIndex,
+      List<Card> richPlayerCards,
+      int richPlayerIndex) {
+    for (Card i : poorPlayerCards) {
+      players.get(poorPlayerIndex).getOwnCards().removeIf(i::equals);
+      players.get(richPlayerIndex).getOwnCards().add(i);
+    }
+
+    for (Card i : richPlayerCards) {
+      players.get(richPlayerIndex).getOwnCards().removeIf(i::equals);
+      players.get(poorPlayerIndex).getOwnCards().add(i);
+    }
+  }
+
+  public boolean checkForPoverty(List<Player> player) {
+    for (Player i : player) {
+      if (i.countPlayersTrumpCards() <= 3) {
+        return true;
+      }
+    }
+    return false;
   }
 }

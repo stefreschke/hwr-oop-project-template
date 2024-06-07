@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 
-
 class PlayerTest {
   @Test
   void testCreatePlayer() {
@@ -190,5 +189,18 @@ class PlayerTest {
       game.players.getFirst().removeCard(0);
 
     assertThat(game.players.getFirst().getOwnCards()).hasSize(11);
+  }
+
+  @Test
+  void testCountPlayersTrumpCards() {
+    Player player1 = new Player("player1", 1, 0);
+
+    player1.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
+    player1.addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
+    player1.addCard(new Card(Color.PIK, Type.BUBE, true, "PB"));
+    player1.addCard(new Card(Color.HERZ, Type.KOENIG, false, "HK"));
+    player1.addCard(new Card(Color.KREUZ, Type.ZEHN, false, "Kr10"));
+
+    assertThat(player1.countPlayersTrumpCards()).isEqualTo(3);
   }
 }
