@@ -30,6 +30,14 @@ public class Player {
     return group;
   }
 
+  public void resetScore(){
+    this.points = 0;
+  }
+
+  public void removeCard (int i){
+    this.ownCards.remove(i);
+  }
+
   public Player(String name, int order, int points) {
     this.name = name;
     this.order = order;
@@ -62,9 +70,9 @@ public class Player {
     return chosenCard;
   }
 
-  public void addPoints(List<Card> cards) {
-    for (Card i : cards) {
-      this.points = this.points + i.getNumber().getPoints();
+  public void addPoints(List<Card> cards){
+    for (Card card : cards) {
+      this.points = this.points + card.getNumber().getPoints();
     }
   }
 
@@ -72,14 +80,30 @@ public class Player {
     this.ownCards.add(card);
   }
 
+  public void addCards(List<Card> cards) {
+    for (Card card : cards) {
+      this.ownCards.add(card);
+    }
+  }
+
   public void setGroup() {
+    int countKrD = 0;
     for (Card card : this.ownCards) {
       if (card.getShortcut().equals("KrD")) {
-        this.group = "Re";
-        return;
-      }
+        countKrD ++ ;
+        }
     }
-    this.group = "Kontra";
+    switch (countKrD) {
+      case 1:
+        this.group = "Re";
+        break;
+        case 2:
+          this.group = "Hochzeit";
+          break;
+      default:
+        this.group = "Kontra";
+        break;
+    }
   }
 
   public void setGroup(String group) {

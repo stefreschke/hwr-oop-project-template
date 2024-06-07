@@ -3,6 +3,7 @@ package hwr.oop.doppelkopf.group6;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
@@ -66,6 +67,10 @@ class DoppelkopfGameTest {
     game.players.get(2).setGroup("Kontra");
     game.players.get(3).setGroup("Kontra");
 
+    for (Player player : game.players) {
+      player.resetScore();
+    }
+
     List<Card> testList1 =
         List.of(
             new Card(Color.HERZ, Type.ASS, false, "HA"),
@@ -119,10 +124,14 @@ class DoppelkopfGameTest {
           softly.assertThat(game.findHighestCard(new ArrayList<>(testList6))).isEqualTo(1);
           softly.assertThat(game.findHighestCard(new ArrayList<>(testList7))).isEqualTo(2);
           softly.assertThat(game.findHighestCard(new ArrayList<>(testList8))).isEqualTo(1);
-          softly.assertThat(game.players.get(1).getPoints()).isEqualTo(90);
           softly.assertThat(game.players.get(0).getPoints()).isEqualTo(90);
+          softly.assertThat(game.players.get(1).getPoints()).isEqualTo(90);
           softly.assertThat(game.players.get(2).getPoints()).isEqualTo(54);
           softly.assertThat(game.players.get(3).getPoints()).isEqualTo(54);
+          softly.assertThat(game.players.getFirst().getGroup()).isEqualTo("Re");
+          softly.assertThat(game.players.get(1).getGroup()).isEqualTo("Re");
+          softly.assertThat(game.players.get(2).getGroup()).isEqualTo("Kontra");
+          softly.assertThat(game.players.get(3).getGroup()).isEqualTo("Kontra");
         });
   }
 
@@ -175,5 +184,94 @@ class DoppelkopfGameTest {
     assertThat(game.getHerzCards()).isEmpty();
     assertThat(game.getPikCards()).isEmpty();
     assertThat(game.getKreuzCards()).isEmpty();
+  }
+
+  @Test
+  void testHochzeit() {
+    DoppelkopfGame game = new DoppelkopfGame();
+    game.dealCards(game.shuffleDeck(game.initializeCards()));
+    game.players.getFirst().setGroup();
+
+      for (Player i : game.players) {
+          for (int j = 0; j<i.getOwnCards().size(); j++) {
+              if (i.getOwnCards().get(j).getShortcut().equals("KrD")) {
+                  i.removeCard(j);
+                  i.addCard(new Card (Color.HERZ, Type.NEUN, false, "H9"));
+              }
+          }
+      }
+      game.players.getFirst().addCards(
+              List.of(
+                      new Card(Color.KREUZ, Type.DAME, true, "KrD"),
+                      new Card(Color.KREUZ, Type.DAME, true, "KrD")));
+    game.players.getFirst().setGroup();
+    game.oneGame();
+    SoftAssertions.assertSoftly(
+        softly -> {
+          softly.assertThat(game.players.getFirst().getGroup()).isEqualTo("Re");
+          softly.assertThat(game.players.stream().filter(i->i.getGroup().equals("Kontra"))).hasSize(2);
+            softly.assertThat(game.players.stream().filter(i->i.getGroup().equals("Re"))).hasSize(2);
+
+        });
+  }
+
+  @Test
+  void testHochzeit2() {
+    DoppelkopfGame game = new DoppelkopfGame();
+    for (Player i : game.players) {
+      for (Card j : i.getOwnCards()) {
+        i.removeCard(0);
+      }
+    }
+
+    game.players
+        .getFirst()
+        .addCards(
+            List.of(
+                new Card(Color.KREUZ, Type.ASS, false, "KrA"),
+                new Card(Color.PIK, Type.ZEHN, false, "P10")));
+
+    game.players
+        .get(1)
+        .addCards(
+            List.of(
+                new Card(Color.KREUZ, Type.ZEHN, false, "Kr10"),
+                new Card(Color.PIK, Type.NEUN, false, "P9")));
+
+    game.players
+        .get(2)
+        .addCards(
+            List.of(
+                new Card(Color.KREUZ, Type.NEUN, false, "Kr9"),
+                new Card(Color.PIK, Type.ASS, false, "PA")));
+
+    game.players
+        .get(3)
+        .addCards(
+            List.of(
+                new Card(Color.KREUZ, Type.KOENIG, false, "KrK"),
+                new Card(Color.PIK, Type.NEUN, false, "P9")));
+
+    game.dealCards(game.shuffleDeck(game.initializeCards()));
+    for (Player i : game.players) {
+        for (int j = 0; j<i.getOwnCards().size(); j++) {
+            if (i.getOwnCards().get(j).getShortcut().equals("KrD")) {
+                i.removeCard(j);
+            }
+        }
+    }
+    game.players.getFirst().addCards(
+            List.of(
+                    new Card(Color.KREUZ, Type.DAME, true, "KrD"),
+                    new Card(Color.KREUZ, Type.DAME, true, "KrD")));
+    game.oneGame();
+
+    SoftAssertions.assertSoftly(
+        softly -> {
+          softly.assertThat(game.players.getFirst().getGroup()).isEqualTo("Re");
+          softly.assertThat(game.players.get(1).getGroup()).isEqualTo("Kontra");
+          softly.assertThat(game.players.get(2).getGroup()).isEqualTo("Re");
+          softly.assertThat(game.players.get(3).getGroup()).isEqualTo("Kontra");
+        });
   }
 }

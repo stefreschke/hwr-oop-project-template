@@ -1,7 +1,10 @@
 package hwr.oop.doppelkopf.group6;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
+
 
 class PlayerTest {
   @Test
@@ -110,13 +113,16 @@ class PlayerTest {
   void testSetGroup() {
     Player player1 = new Player("player1", 1, 0);
     Player player2 = new Player("player2", 1, 0);
+      Player player3 = new Player("player3", 1, 0);
     player1.setGroup("Re");
     player2.setGroup("Kontra");
+    player3.setGroup("Hochzeit");
 
     SoftAssertions.assertSoftly(
         softly -> {
           softly.assertThat(player1.getGroup()).isEqualTo("Re");
           softly.assertThat(player2.getGroup()).isEqualTo("Kontra");
+            softly.assertThat(player3.getGroup()).isEqualTo("Hochzeit");
         });
   }
 
@@ -125,22 +131,64 @@ class PlayerTest {
     DoppelkopfGame game = new DoppelkopfGame();
     game.dealCards(game.shuffleDeck(game.initializeCards()));
     int countRe = 0;
-    int coutKontra = 0;
+    int countKontra = 0;
+    int countHochzeit = 0;
     for (Player player : game.players) {
       player.setGroup();
-      if (player.getGroup().equals("Re")) {
-        countRe++;
-      } else {
-        coutKontra++;
+
+      switch (player.getGroup()) {
+        case "Re":
+          countRe++;
+          break;
+        case "Kontra":
+          countKontra++;
+          break;
+        case "Hochzeit":
+          countHochzeit++;
+          break;
       }
     }
-
     int finalCountRe = countRe;
-    int finalCoutKontra = coutKontra;
+    int finalCountKontra = countKontra;
+    int finalCountHochzeit = countHochzeit;
     SoftAssertions.assertSoftly(
         softly -> {
-          softly.assertThat(finalCountRe).isBetween(1, 2);
-          softly.assertThat(finalCoutKontra).isBetween(2, 3);
+          softly.assertThat(finalCountHochzeit).isBetween(0, 1);
+          softly.assertThat(finalCountRe).isBetween(0, 2);
+          softly.assertThat(finalCountKontra).isBetween(2, 3);
         });
+  }
+
+  @Test
+  void testSetGroupWithLessCards(){
+      DoppelkopfGame game = new DoppelkopfGame();
+      for (Card i : game.players.getFirst().getOwnCards()){
+          for (Player player : game.players) {
+              player.removeCard(0);
+          }
+      }
+      game.players.get(1).addCard(new Card(Color.KREUZ, Type.DAME, true, "KrD"));
+      game.players.get(2).addCard(new Card(Color.KREUZ, Type.DAME, true, "KrD"));
+      game.players.get(2).addCard(new Card(Color.KREUZ, Type.DAME, true, "KrD"));
+      for (Player player : game.players) {
+          player.setGroup();
+      }
+
+      SoftAssertions.assertSoftly(
+              softly -> {
+                  softly.assertThat(game.players.getFirst().getGroup()).isEqualTo("Kontra");
+                  softly.assertThat(game.players.get(1).getGroup()).isEqualTo("Re");
+                  softly.assertThat(game.players.get(2).getGroup()).isEqualTo("Hochzeit");
+                  softly.assertThat(game.players.get(3).getGroup()).isEqualTo("Kontra");
+              });
+  }
+
+  @Test
+  void testRemoveCard(){
+      DoppelkopfGame game = new DoppelkopfGame();
+      game.dealCards(game.shuffleDeck(game.initializeCards()));
+      game.players.getFirst().removeCard(0);
+
+    assertThat(game.players.getFirst().getOwnCards()).hasSize(11);
   }
 }

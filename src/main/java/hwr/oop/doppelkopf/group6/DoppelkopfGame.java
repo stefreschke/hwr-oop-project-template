@@ -1,18 +1,39 @@
 package hwr.oop.doppelkopf.group6;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class DoppelkopfGame {
   public final List<Player> players = new ArrayList<>();
 
   public DoppelkopfGame() {
     initializePlayers();
-    initializeCards();
+    dealCards(initializeCards());
+    oneGame();
+  }
+
+  public void oneGame(){
+    boolean hochzeit = false;
+    int playerWithHochzeit = 0;
     for (Player player : players) {
       player.setGroup();
+      if (player.getGroup().equals("Hochzeit")) {
+        hochzeit = true;
+        playerWithHochzeit = player.getOrder() - 1;
+      }
+    }
+    for (int i = 0; i < 12; i++) {
+      int winner = oneRound() - 1;
+      if ((hochzeit) && (winner != playerWithHochzeit)) {
+        for (Player player : players) {
+          if (player.getGroup().equals("Hochzeit")) {
+            player.setGroup("Re");
+          } else {
+            player.setGroup("Kontra");
+          }
+        }
+        players.get(winner).setGroup("Re");
+        hochzeit = false;
+      }
     }
   }
 
@@ -22,7 +43,7 @@ public class DoppelkopfGame {
     return mutableList;
   }
 
-  private void initializePlayers() {
+  public void initializePlayers() {
     players.add(new Player("Spieler1", 1, 0));
     players.add(new Player("Spieler2", 2, 0));
     players.add(new Player("Spieler3", 3, 0));
@@ -41,8 +62,16 @@ public class DoppelkopfGame {
       roundCards.add(players.get(2).playCard(0, roundCards.getFirst().getColor()));
       roundCards.add(players.get(3).playCard(0, roundCards.getFirst().getColor()));
     }
-
     return findHighestCard(roundCards);
+  }
+
+  public void addRoundPoints(List<Card> roundCards, int winner){
+    for (Player player : players) {
+      if (Objects.equals(
+              player.getGroup(), players.get(winner).getGroup())) {
+        player.addPoints(roundCards);
+      }
+    }
   }
 
   public List<Card> initializeCards() {
@@ -92,8 +121,6 @@ public class DoppelkopfGame {
     Card highestCard = cards.getFirst();
     Card firstCard = highestCard;
     int winnerNumber = 0;
-    Player winner;
-    String winnergroup;
     cards.removeFirst();
     for (int i = 0; i < cards.size(); i++) {
       if (((cards.get(i).isTrump()) || cards.get(i).getColor() == highestCard.getColor())
@@ -104,15 +131,7 @@ public class DoppelkopfGame {
       }
     }
     cards.add(firstCard);
-
-    winner = players.get(winnerNumber);
-    winnergroup = winner.getGroup();
-
-    for (Player i : players) {
-      if (i.getGroup().equals(winnergroup)) {
-        i.addPoints(cards);
-      }
-    }
+    addRoundPoints(cards, winnerNumber);
     return winnerNumber + 1;
   }
 
