@@ -3,13 +3,13 @@ package hwr.oop.doppelkopf.group6;
 public class Card {
   private final Color color;
   private final Type number;
-  private final boolean trump;
+  private final Group group;
   private final String shortcut;
 
-  public Card(Color color, Type number, boolean trump, String shortcut) {
+  public Card(Color color, Type number, Group group, String shortcut) {
     this.color = color;
     this.number = number;
-    this.trump = trump;
+    this.group = group;
     this.shortcut = shortcut;
   }
 
@@ -25,7 +25,7 @@ public class Card {
     return this.number;
   }
 
-  public boolean isTrump() {
-    return this.trump;
+  public Group getGroup() {
+    return this.group;
   }
 }

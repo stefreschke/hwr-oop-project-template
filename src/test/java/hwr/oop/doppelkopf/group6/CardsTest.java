@@ -12,35 +12,35 @@ import org.junit.jupiter.api.Test;
 class CardsTest {
   @Test
   void testAllCards() {
-    DoppelkopfGame game = new DoppelkopfGame();
-    List<Card> cards = game.initializeCards();
+    Deck deck = new Deck();
+    deck.initializeCards();
 
     for (Color color : Color.values()) {
       for (Type value : Type.values()) {
         assertTrue(
-            game.hasCard(cards, color, value), "Karte " + color + " " + value + " fehlt im Spiel.");
+            deck.hasCard(color, value), "Karte " + color + " " + value + " fehlt im Spiel.");
       }
     }
   }
 
   @Test
   void testCardForInitialize() {
-    DoppelkopfGame game = new DoppelkopfGame();
-    List<Card> cards = game.initializeCards();
+      Deck deck = new Deck();
+      deck.initializeCards();
     SoftAssertions.assertSoftly(
         softly -> {
           for (Color color : Color.values()) {
             for (Type value : Type.values()) {
-              softly.assertThat(game.hasCard(cards, color, value)).isTrue();
+              softly.assertThat(deck.hasCard(color, value)).isTrue();
             }
           }
 
-          for (Card i : cards) {
+          for (Card i : deck.getCards()) {
             if (i.getColor() == Color.KARO
                 || i.getNumber() == Type.BUBE
                 || i.getNumber() == Type.DAME
                 || (i.getColor() == Color.HERZ && i.getNumber() == Type.ZEHN)) {
-              softly.assertThat(i.isTrump()).isTrue();
+              softly.assertThat(i.getGroup().equals(Group.TRUMPF)).isTrue();
             }
           }
         });
@@ -48,46 +48,29 @@ class CardsTest {
 
   @Test
   void testCountCards() {
-    DoppelkopfGame game = new DoppelkopfGame();
-    List<Card> cards = game.initializeCards();
+      Deck deck = new Deck();
+      deck.initializeCards();
 
-    assertThat(cards).hasSize(48);
+    assertThat(deck.getCards()).hasSize(48);
   }
 
   @Test
   void testShuffle() {
-    DoppelkopfGame game = new DoppelkopfGame();
+      Deck deck = new Deck();
+      deck.initializeCards();
+      Deck oldDeck = deck;
+      deck.shuffleDeck();
 
-    List<Card> unshuffledCards = game.initializeCards();
-    List<Card> shuffledCards = game.shuffleDeck(unshuffledCards);
-
-    assertThat(shuffledCards).isNotEmpty().doesNotContainSequence(unshuffledCards);
-  }
-
-  @Test
-  void testColor() {
-    List<Card> cards =
-        Arrays.asList(
-            new Card(Color.HERZ, Type.BUBE, true, "HB"),
-            new Card(Color.KREUZ, Type.NEUN, false, "KR9"),
-            new Card(Color.PIK, Type.ZEHN, false, "P10"));
-    boolean result1 = new DoppelkopfGame().hasCard(cards, Color.KARO, Type.KOENIG);
-    boolean result2 = new DoppelkopfGame().hasCard(cards, Color.PIK, Type.ZEHN);
-
-    SoftAssertions.assertSoftly(
-        softly -> {
-          assertThat(result1).isFalse();
-          assertThat(result2).isTrue();
-        });
+    assertThat(deck.getCards()).isNotEmpty().doesNotContainSequence(oldDeck.getCards());
   }
 
   @Test
   void testShortcut() {
     List<Card> cards =
         Arrays.asList(
-            new Card(Color.HERZ, Type.BUBE, true, "HB"),
-            new Card(Color.KREUZ, Type.NEUN, false, "KR9"),
-            new Card(Color.PIK, Type.ZEHN, false, "P10"));
+            new Card(Color.HERZ, Type.BUBE, Group.TRUMPF, "HB"),
+            new Card(Color.KREUZ, Type.NEUN, Group.KREUZ, "KR9"),
+            new Card(Color.PIK, Type.ZEHN, Group.PIK, "P10"));
     String result = cards.getFirst().getShortcut();
 
     Color colorHerz = Color.HERZ;
@@ -155,27 +138,27 @@ class CardsTest {
     players.add(new Player("richPlayer", 1, 0));
     players.add(new Player("poorPlayer", 2, 0));
 
-    players.getFirst().addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
-    players.getFirst().addCard(new Card(Color.PIK, Type.NEUN, false, "P9"));
-    players.getFirst().addCard(new Card(Color.PIK, Type.BUBE, true, "PB"));
-    players.getFirst().addCard(new Card(Color.HERZ, Type.KOENIG, false, "HK"));
-    players.getFirst().addCard(new Card(Color.KREUZ, Type.ZEHN, false, "Kr10"));
+    players.getFirst().addCard(new Card(Color.HERZ, Type.DAME, Group.TRUMPF, "HD"));
+    players.getFirst().addCard(new Card(Color.PIK, Type.NEUN, Group.PIK, "P9"));
+    players.getFirst().addCard(new Card(Color.PIK, Type.BUBE, Group.TRUMPF, "PB"));
+    players.getFirst().addCard(new Card(Color.HERZ, Type.KOENIG, Group.HERZ, "HK"));
+    players.getFirst().addCard(new Card(Color.KREUZ, Type.ZEHN, Group.KREUZ, "Kr10"));
 
-    players.get(1).addCard(new Card(Color.KREUZ, Type.KOENIG, false, "KrK"));
-    players.get(1).addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
-    players.get(1).addCard(new Card(Color.HERZ, Type.BUBE, true, "HB"));
-    players.get(1).addCard(new Card(Color.KARO, Type.KOENIG, false, "KaK"));
-    players.get(1).addCard(new Card(Color.PIK, Type.ZEHN, false, "P10"));
+    players.get(1).addCard(new Card(Color.KREUZ, Type.KOENIG, Group.KREUZ, "KrK"));
+    players.get(1).addCard(new Card(Color.KARO, Type.NEUN, Group.TRUMPF, "Ka9"));
+    players.get(1).addCard(new Card(Color.HERZ, Type.BUBE, Group.TRUMPF, "HB"));
+    players.get(1).addCard(new Card(Color.KARO, Type.KOENIG, Group.TRUMPF, "KaK"));
+    players.get(1).addCard(new Card(Color.PIK, Type.ZEHN, Group.PIK, "P10"));
 
     List<Card> richCards = new ArrayList<>();
-    richCards.add(new Card(Color.HERZ, Type.DAME, true, "HD"));
-    richCards.add(new Card(Color.PIK, Type.NEUN, false, "P9"));
-    richCards.add(new Card(Color.PIK, Type.BUBE, true, "PB"));
+    richCards.add(new Card(Color.HERZ, Type.DAME, Group.TRUMPF, "HD"));
+    richCards.add(new Card(Color.PIK, Type.NEUN, Group.PIK, "P9"));
+    richCards.add(new Card(Color.PIK, Type.BUBE, Group.TRUMPF, "PB"));
 
     List<Card> poorCards = new ArrayList<>();
-    poorCards.add(new Card(Color.KREUZ, Type.KOENIG, false, "KrK"));
-    poorCards.add(new Card(Color.HERZ, Type.BUBE, true, "HB"));
-    poorCards.add(new Card(Color.PIK, Type.ZEHN, false, "P10"));
+    poorCards.add(new Card(Color.KREUZ, Type.KOENIG, Group.KREUZ, "KrK"));
+    poorCards.add(new Card(Color.HERZ, Type.BUBE, Group.TRUMPF, "HB"));
+    poorCards.add(new Card(Color.PIK, Type.ZEHN, Group.PIK, "P10"));
 
     DoppelkopfGame game = new DoppelkopfGame();
     game.switchPlayerCardsDuringPoverty(poorCards, 1, richCards, 0);
@@ -189,10 +172,10 @@ class CardsTest {
     Player poorPlayer = new Player("poorPlayer", 1, 0);
     List<Player> poorPlayers = new ArrayList<>();
     poorPlayers.add(poorPlayer);
-    poorPlayer.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
-    poorPlayer.addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
-    poorPlayer.addCard(new Card(Color.HERZ, Type.KOENIG, false, "HK"));
-    poorPlayer.addCard(new Card(Color.KREUZ, Type.ZEHN, false, "Kr10"));
+    poorPlayer.addCard(new Card(Color.HERZ, Type.DAME, Group.TRUMPF, "HD"));
+    poorPlayer.addCard(new Card(Color.KARO, Type.NEUN, Group.TRUMPF, "Ka9"));
+    poorPlayer.addCard(new Card(Color.HERZ, Type.KOENIG, Group.HERZ, "HK"));
+    poorPlayer.addCard(new Card(Color.KREUZ, Type.ZEHN, Group.KREUZ, "Kr10"));
 
     DoppelkopfGame game = new DoppelkopfGame();
     boolean resultPoor = game.checkForPoverty(poorPlayers);
@@ -200,19 +183,19 @@ class CardsTest {
     Player richPlayer = new Player("richPlayer", 1, 0);
     List<Player> richPlayers = new ArrayList<>();
     richPlayers.add(richPlayer);
-    richPlayer.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
-    richPlayer.addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
-    richPlayer.addCard(new Card(Color.HERZ, Type.BUBE, true, "HB"));
-    richPlayer.addCard(new Card(Color.KREUZ, Type.BUBE, true, "KrB"));
+    richPlayer.addCard(new Card(Color.HERZ, Type.DAME, Group.TRUMPF, "HD"));
+    richPlayer.addCard(new Card(Color.KARO, Type.NEUN, Group.TRUMPF, "Ka9"));
+    richPlayer.addCard(new Card(Color.HERZ, Type.BUBE, Group.TRUMPF, "HB"));
+    richPlayer.addCard(new Card(Color.KREUZ, Type.BUBE, Group.TRUMPF, "KrB"));
 
     boolean resultRich = game.checkForPoverty(richPlayers);
 
     Player playerExact = new Player("exactThreeTrumpPlayer", 1, 0);
     List<Player> exactPlayers = new ArrayList<>();
     exactPlayers.add(playerExact);
-    playerExact.addCard(new Card(Color.HERZ, Type.DAME, true, "HD"));
-    playerExact.addCard(new Card(Color.KARO, Type.NEUN, true, "Ka9"));
-    playerExact.addCard(new Card(Color.HERZ, Type.BUBE, true, "HB"));
+    playerExact.addCard(new Card(Color.HERZ, Type.DAME, Group.TRUMPF, "HD"));
+    playerExact.addCard(new Card(Color.KARO, Type.NEUN, Group.TRUMPF, "Ka9"));
+    playerExact.addCard(new Card(Color.HERZ, Type.BUBE, Group.TRUMPF, "HB"));
 
     boolean resultExact = game.checkForPoverty(exactPlayers);
 

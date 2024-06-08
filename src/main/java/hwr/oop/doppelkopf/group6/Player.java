@@ -1,6 +1,7 @@
 package hwr.oop.doppelkopf.group6;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Player {
@@ -10,8 +11,11 @@ public class Player {
   private int points;
   private String group;
 
-  public List<Card> getOwnCards() {
-    return ownCards;
+  public Player(String name, int order, int points) {
+    this.name = name;
+    this.order = order;
+    this.points = points;
+    this.ownCards = new ArrayList<>();
   }
 
   public String getName() {
@@ -22,6 +26,10 @@ public class Player {
     return order;
   }
 
+  public List<Card> getOwnCards() {
+    return ownCards;
+  }
+
   public int getPoints() {
     return points;
   }
@@ -30,78 +38,22 @@ public class Player {
     return group;
   }
 
-  public void resetScore(){
-    this.points = 0;
-  }
-
-  public void removeCard (int i){
-    this.ownCards.remove(i);
-  }
-
-  public Player(String name, int order, int points) {
-    this.name = name;
-    this.order = order;
-    this.points = points;
-    this.ownCards = new ArrayList<>();
-  }
-
-  public Card playFirstCard(int position) {
-    Card chosenCard = this.ownCards.get(position);
-    this.ownCards.remove(position);
-    checkCard(chosenCard);
-    return chosenCard;
-  }
-
-  public Card playCard(int position, Color firstPlayedColor) {
-    while (!checkCard(firstPlayedColor, this.ownCards.get(position))) {
-      position++;
-    }
-    Card chosenCard = this.ownCards.get(position);
-    this.ownCards.remove(position);
-    return chosenCard;
-  }
-
-  public Card playCard(int position) {
-    while (!checkCard(this.ownCards.get(position))) {
-      position++;
-    }
-    Card chosenCard = this.ownCards.get(position);
-    this.ownCards.remove(position);
-    return chosenCard;
-  }
-
-  public void addPoints(List<Card> cards){
-    for (Card card : cards) {
-      this.points = this.points + card.getNumber().getPoints();
-    }
-  }
-
-  public void addCard(Card card) {
-    this.ownCards.add(card);
-  }
-
-  public void addCards(List<Card> cards) {
-    for (Card card : cards) {
-      this.ownCards.add(card);
-    }
-  }
-
   public void setGroup() {
     int countKrD = 0;
     for (Card card : this.ownCards) {
       if (card.getShortcut().equals("KrD")) {
         countKrD ++ ;
-        }
+      }
     }
     switch (countKrD) {
       case 1:
         this.group = "Re";
         break;
-        case 2:
-          this.group = "Hochzeit";
-          break;
-      default:
+      case 0:
         this.group = "Kontra";
+        break;
+      default:
+        this.group = "Hochzeit";
         break;
     }
   }
@@ -110,34 +62,38 @@ public class Player {
     this.group = group;
   }
 
-  public boolean checkCard(Color firstPlayedColor, Card playedCard) {
-    if (playedCard.getColor() == firstPlayedColor) {
-      return true;
-    } else {
-      for (Card i : this.ownCards) {
-        if (i.getColor() == firstPlayedColor) {
-          return false;
-        }
-      }
-    }
-    return true;
+  public void removeCard (int i){
+    this.ownCards.remove(i);
   }
 
-  public boolean checkCard(Card playedCard) {
-    if (playedCard.isTrump()) {
-      return true;
-    } else {
-      for (Card i : this.ownCards) {
-        if (i.isTrump()) {
-          return false;
-        }
-      }
+  public void playFirstCard(int position, Stich stich) {
+    stich.addCard(this.ownCards.get(position));
+    this.ownCards.remove(position);
+  }
+
+  public void playCard(int position, Stich stich) {
+    while (!stich.checkCard(this.ownCards,this.ownCards.get(position))) {
+      position++;
     }
-    return true;
+    stich.addCard(this.ownCards.get(position));
+    this.ownCards.remove(position);
+  }
+
+  public void addCard(Card... cardsToAdd) {
+    List<Card> cards = Arrays.asList(cardsToAdd);
+    this.ownCards.addAll(cards);
+  }
+
+  public void addPoints(int points) {
+    this.points += points;
+  }
+
+  public void resetPoints(){
+    this.points = 0;
   }
 
   public int countPlayersTrumpCards() {
-    List<Card> playersTrumpCards = this.ownCards.stream().filter(Card::isTrump).toList();
+    List<Card> playersTrumpCards = this.ownCards.stream().filter(card -> card.getGroup().equals(Group.TRUMPF)).toList();
 
     return playersTrumpCards.size();
   }
