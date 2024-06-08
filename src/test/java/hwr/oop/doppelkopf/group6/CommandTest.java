@@ -8,6 +8,7 @@ import hwr.oop.doppelkopf.group6.cli.CreateCommand;
 import hwr.oop.doppelkopf.group6.cli.IOExceptionBomb;
 import hwr.oop.doppelkopf.group6.cli.ParseCommand;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,7 +52,7 @@ class CommandTest {
   // weiß nicht, ob wir "Mockito" benutzen dürfen. Ist zum überprüfen ob Funktionen executed wurden.
     @Test
     void testParseCommandExecutesCreateCommand() {
-        String[] args = {"game", "create", "1"};
+        String[] args = {"game", "1", "create"};
         ParseCommand parseCommand = new ParseCommand();
 
         Command createCommandMock = mock(CreateCommand.class);
@@ -59,7 +60,26 @@ class CommandTest {
 
         parseCommand.parse(args);
 
-        List<String> expectedArguments = Arrays.asList("create", "1");
+        List<String> expectedArguments = Arrays.asList("game", "1", "create");
         verify(createCommandMock).execute(expectedArguments);
     }
+
+  @Test
+  void testParsePlayer() throws IOException {
+      List<String> players = new ArrayList<>();
+      List<String> args = new ArrayList<>();
+      args.add("game");
+      args.add("1");
+      args.add("create");
+      args.add("susi");
+      args.add("rainer");
+      args.add("brigitte");
+      args.add("joachim");
+
+      CreateCommand command = new CreateCommand(IOExceptionBomb.DONT);
+
+      players = command.parsePlayer(args);
+
+      assertThat(players).containsExactly("susi", "rainer", "brigitte", "joachim");
+  }
 }
