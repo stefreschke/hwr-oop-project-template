@@ -45,6 +45,10 @@ class FileTest {
     args.add("game");
     args.add("1");
     args.add("create");
+    args.add("josef");
+    args.add("anna");
+    args.add("jannis");
+    args.add("lena");
 
     String gameID = command.parseGameID(args);
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -55,7 +59,27 @@ class FileTest {
 
     assertThat(Files.exists(path)).isTrue();
 
-    String expectedMessage = "Die Datei und das Spiel " + gameID + " wird erstellt...";
+    String expectedMessage = "Spiel " + gameID + " wird erstellt...";
+    String output = outputStream.toString().trim();
+    assertThat(output).contains(expectedMessage);
+  }
+
+  @Test
+  void testCreateGameWithFileExisting() {
+    List<String> args = new ArrayList<>();
+    args.add("game");
+    args.add("1");
+    args.add("create");
+
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(outputStream);
+    System.setOut(printStream);
+
+    command.execute(args);
+
+    assertThat(Files.exists(path)).isTrue();
+
+    String expectedMessage = "Die Datei wird erstellt...";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
   }
@@ -66,10 +90,15 @@ class FileTest {
     args.add("game");
     args.add("1");
     args.add("create");
+    args.add("josef");
+    args.add("anna");
+    args.add("jannis");
+    args.add("lena");
 
     String gameID = command.parseGameID(args);
-    // write in file to ensure game already exists
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+      writer.write("2,maria,cards: ,hans,cards: ,fritz,cards: ,lisa,cards: ");
+      writer.newLine();
       writer.write(gameID);
       writer.newLine();
     }
@@ -85,36 +114,6 @@ class FileTest {
     assertThat(output).contains(expectedMessage);
   }
 
-  @Test
-  void testCreateGameWithNewID() throws IOException {
-    String existingGameID = "1";
-    String newGameID = "2";
-    List<String> args = new ArrayList<>();
-    args.add("game");
-    args.add(newGameID);
-    args.add("create");
-
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-      writer.write(existingGameID);
-      writer.newLine();
-    }
-
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    PrintStream printStream = new PrintStream(outputStream);
-    System.setOut(printStream);
-
-    command.execute(args);
-
-    assertThat(Files.exists(path)).isTrue();
-
-    String expectedMessage = "Spiel " + newGameID + " wird erstellt...";
-    String output = outputStream.toString().trim();
-    assertThat(output).contains(expectedMessage);
-
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-      assertThat(reader.lines()).contains(existingGameID, newGameID);
-    }
-  }
 
   @Test
   void testCreateGameWithNoWords() {

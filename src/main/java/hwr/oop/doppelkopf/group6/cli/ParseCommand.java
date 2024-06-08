@@ -24,10 +24,10 @@ public class ParseCommand {
     // command format:
     //   0   1      2         ...
     // game [ID] [create/usw.]...
-    String commandKey = args[1];
+    String commandKey = args[2];
     Command command = commands.get(commandKey);
 
-    List<String> arguments = Arrays.asList(args).subList(1, args.length);
+    List<String> arguments = Arrays.asList(args);
     command.execute(arguments);
   }
 }
