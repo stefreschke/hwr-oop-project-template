@@ -22,7 +22,7 @@ public class DoppelkopfGame {
     int playerWithHochzeit = 0;
     for (Player player : players) {
       player.setGroup();
-      if (player.getGroup().equals("Hochzeit")) {
+      if (player.getGroup().equals(PlayerGroup.HOCHZEIT)) {
         hochzeit = true;
         playerWithHochzeit = player.getOrder() - 1;
       }
@@ -31,11 +31,11 @@ public class DoppelkopfGame {
       int winner = oneRound() - 1;
       if ((hochzeit) && (winner != playerWithHochzeit)) {
         for (Player player : players) {
-          if (player.getGroup().equals("Hochzeit")) {
-            player.setGroup("Re");
+          if (player.getGroup().equals(PlayerGroup.HOCHZEIT)) {
+            player.setGroup(PlayerGroup.RE);
           }
         }
-        players.get(winner).setGroup("Re");
+        players.get(winner).setGroup(PlayerGroup.RE);
         hochzeit = false;
       }
     }
@@ -50,65 +50,20 @@ public class DoppelkopfGame {
 
   public int oneRound() {
     Stich stich = new Stich();
-    players.get(0).playFirstCard(0, stich);
-    players.get(1).playCard(0, stich);
-    players.get(2).playCard(0, stich);
-    players.get(3).playCard(0, stich);
+    players.get(0).getHand().playFirstCard(0, stich);
+    players.get(1).getHand().playCard(0, stich);
+    players.get(2).getHand().playCard(0, stich);
+    players.get(3).getHand().playCard(0, stich);
     int winner = stich.findHighestCard();
     addRoundPoints(stich);
     return winner;
   }
 
   public void addRoundPoints(Stich stich) {
-    String winnerTeam = players.get(stich.getWinnerPos()).getGroup();
+    PlayerGroup winnerTeam = players.get(stich.getWinnerPos()).getGroup();
     for (Player player : players) {
       if (player.getGroup().equals(winnerTeam)) {
         player.addPoints(stich.getPoints());
-      }
-    }
-  }
-
-  private List<String> trumpCards = new ArrayList<>();
-
-  public List<String> getTrumpCards() {
-    return new ArrayList<>(trumpCards);
-  }
-
-  private List<String> herzCards = new ArrayList<>();
-
-  public List<String> getHerzCards() {
-    return new ArrayList<>(herzCards);
-  }
-
-  private List<String> pikCards = new ArrayList<>();
-
-  public List<String> getPikCards() {
-    return new ArrayList<>(kreuzCards);
-  }
-
-  private List<String> kreuzCards = new ArrayList<>();
-
-  public List<String> getKreuzCards() {
-    return new ArrayList<>(kreuzCards);
-  }
-
-  public void sortCards(int playerIndex) {
-    trumpCards = new ArrayList<>();
-    herzCards = new ArrayList<>();
-    pikCards = new ArrayList<>();
-    kreuzCards = new ArrayList<>();
-
-    Player player = players.get(playerIndex);
-
-    for (Card i : player.getOwnCards()) {
-      if (i.getGroup().equals(Group.TRUMPF)) {
-        trumpCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.HERZ) {
-        herzCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.PIK) {
-        pikCards.add(i.getShortcut());
-      } else if (i.getColor() == Color.KREUZ) {
-        kreuzCards.add(i.getShortcut());
       }
     }
   }
@@ -131,7 +86,7 @@ public class DoppelkopfGame {
 
   public boolean checkForPoverty(List<Player> player) {
     for (Player i : player) {
-      if (i.countPlayersTrumpCards() <= 3) {
+      if (i.getHand().countPlayersTrumpCards() <= 3) {
         return true;
       }
     }

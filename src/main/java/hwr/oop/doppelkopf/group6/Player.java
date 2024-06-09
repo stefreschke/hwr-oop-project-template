@@ -1,21 +1,19 @@
 package hwr.oop.doppelkopf.group6;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Player {
   private final String name;
   private final int order;
-  private final List<Card> ownCards;
+  private final Hand ownCards;
   private int points;
-  private String group;
+  private PlayerGroup group;
 
   public Player(String name, int order, int points) {
     this.name = name;
     this.order = order;
     this.points = points;
-    this.ownCards = new ArrayList<>();
+    this.ownCards = new Hand();
   }
 
   public String getName() {
@@ -26,62 +24,44 @@ public class Player {
     return order;
   }
 
-  public List<Card> getOwnCards() {
+  public Hand getHand(){
     return ownCards;
+  }
+
+  public List<Card> getOwnCards() {
+    return ownCards.getAllCards();
   }
 
   public int getPoints() {
     return points;
   }
 
-  public String getGroup() {
+  public PlayerGroup getGroup() {
     return group;
   }
 
   public void setGroup() {
     int countKrD = 0;
-    for (Card card : this.ownCards) {
+    for (Card card : this.getOwnCards()) {
       if (card.getShortcut().equals("KrD")) {
         countKrD ++ ;
       }
     }
     switch (countKrD) {
       case 1:
-        this.group = "Re";
+        this.group = PlayerGroup.RE;
         break;
       case 0:
-        this.group = "Kontra";
+        this.group = PlayerGroup.KONTRA;
         break;
       default:
-        this.group = "Hochzeit";
+        this.group = PlayerGroup.HOCHZEIT;
         break;
     }
   }
 
-  public void setGroup(String group) {
+  public void setGroup(PlayerGroup group) {
     this.group = group;
-  }
-
-  public void removeCard (int i){
-    this.ownCards.remove(i);
-  }
-
-  public void playFirstCard(int position, Stich stich) {
-    stich.addCard(this.ownCards.get(position));
-    this.ownCards.remove(position);
-  }
-
-  public void playCard(int position, Stich stich) {
-    while (!stich.checkCard(this.ownCards,this.ownCards.get(position))) {
-      position++;
-    }
-    stich.addCard(this.ownCards.get(position));
-    this.ownCards.remove(position);
-  }
-
-  public void addCard(Card... cardsToAdd) {
-    List<Card> cards = Arrays.asList(cardsToAdd);
-    this.ownCards.addAll(cards);
   }
 
   public void addPoints(int points) {
@@ -90,11 +70,5 @@ public class Player {
 
   public void resetPoints(){
     this.points = 0;
-  }
-
-  public int countPlayersTrumpCards() {
-    List<Card> playersTrumpCards = this.ownCards.stream().filter(card -> card.getGroup().equals(Group.TRUMPF)).toList();
-
-    return playersTrumpCards.size();
   }
 }

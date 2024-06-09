@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Stich {
-  private List<Card> cards;
+  private final List<Card> cards;
   private int points;
   private int winnerPos;
 

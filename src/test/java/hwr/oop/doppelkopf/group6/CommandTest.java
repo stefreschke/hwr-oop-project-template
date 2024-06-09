@@ -66,7 +66,7 @@ class CommandTest {
 
   @Test
   void testParsePlayer() throws IOException {
-      List<String> players = new ArrayList<>();
+      List<String> players;
       List<String> args = new ArrayList<>();
       args.add("game");
       args.add("1");

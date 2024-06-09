@@ -32,10 +32,10 @@ class PlayerTest {
   @Test
   void checkPlayerHands() {
     DoppelkopfGame game = new DoppelkopfGame();
-      Deck deck = new Deck();
-      deck.initializeCards();
-      deck.shuffleDeck();
-      deck.dealCards(game.players);
+    Deck deck = new Deck();
+    deck.initializeCards();
+    deck.shuffleDeck();
+    deck.dealCards(game.players);
 
     SoftAssertions.assertSoftly(
         softly -> {
@@ -65,53 +65,72 @@ class PlayerTest {
   @Test
   void testCheckCard() {
     DoppelkopfGame game = new DoppelkopfGame();
-      Deck deck = new Deck();
-      deck.initializeCards();
-      deck.shuffleDeck();
-    game.players.get(1).addCard(new Card(Color.HERZ, Type.ASS, Group.HERZ, "HA"));
-    game.players.get(2).addCard(new Card(Color.HERZ, Type.BUBE, Group.TRUMPF, "HB"));
+    Deck deck = new Deck();
+    deck.initializeCards();
+    deck.shuffleDeck();
+    game.players.get(1).getHand().addCard(new Card(Color.HERZ, Type.ASS, Group.HERZ, "HA"));
+    game.players.get(2).getHand().addCard(new Card(Color.HERZ, Type.BUBE, Group.TRUMPF, "HB"));
     Player player1 = new Player("player1", 1, 0);
     Player player2 = new Player("player2", 2, 27);
-    player1.addCard(new Card(Color.HERZ, Type.DAME, Group.TRUMPF, "HD"));
-    player2.addCard(new Card(Color.HERZ, Type.ASS, Group.HERZ, "HD"));
+    player1.getHand().addCard(new Card(Color.HERZ, Type.DAME, Group.TRUMPF, "HD"));
+    player2.getHand().addCard(new Card(Color.HERZ, Type.ASS, Group.HERZ, "HD"));
     Stich stich1 = new Stich();
     stich1.addCard(new Card(Color.PIK, Type.NEUN, Group.PIK, "P9"));
-      Stich stich2 = new Stich();
-      stich2.addCard(new Card(Color.HERZ, Type.NEUN, Group.HERZ, "H9"));
-      Stich stich3 = new Stich();
-      stich3.addCard(new Card(Color.PIK, Type.BUBE, Group.TRUMPF, "PB"));
+    Stich stich2 = new Stich();
+    stich2.addCard(new Card(Color.HERZ, Type.NEUN, Group.HERZ, "H9"));
+    Stich stich3 = new Stich();
+    stich3.addCard(new Card(Color.PIK, Type.BUBE, Group.TRUMPF, "PB"));
 
     SoftAssertions.assertSoftly(
         softly -> {
           softly
               .assertThat(
-                  stich1
-                      .checkCard(game.players.get(0).getOwnCards(), new Card(Color.PIK, Type.NEUN, Group.PIK, "P9")))
+                  stich1.checkCard(
+                      game.players.get(0).getOwnCards(),
+                      new Card(Color.PIK, Type.NEUN, Group.PIK, "P9")))
               .isTrue();
           softly
               .assertThat(
-                  stich2
-                      .checkCard(game.players.get(1).getOwnCards(), new Card(Color.PIK, Type.NEUN, Group.PIK, "P9")))
+                  stich2.checkCard(
+                      game.players.get(1).getOwnCards(),
+                      new Card(Color.PIK, Type.NEUN, Group.PIK, "P9")))
               .isFalse();
           softly
               .assertThat(
-                  stich3.checkCard(game.players.get(2).getOwnCards(), new Card(Color.PIK, Type.NEUN, Group.PIK, "P9")))
+                  stich3.checkCard(
+                      game.players.get(2).getOwnCards(),
+                      new Card(Color.PIK, Type.NEUN, Group.PIK, "P9")))
               .isFalse();
           softly
-              .assertThat(stich3.checkCard(game.players.get(2).getOwnCards(), new Card(Color.PIK, Type.DAME, Group.TRUMPF, "P9")))
-              .isTrue();
-          softly.assertThat(stich3.checkCard(player1.getOwnCards(), new Card(Color.PIK, Type.DAME, Group.TRUMPF, "P9"))).isTrue();
-          softly
-              .assertThat(stich3.checkCard(player1.getOwnCards(), new Card(Color.PIK, Type.NEUN, Group.PIK, "P9"))).isFalse();
-          softly
-              .assertThat(stich1.checkCard(player2.getOwnCards(), new Card(Color.PIK, Type.ZEHN, Group.PIK, "P9")))
-              .isTrue();
-          softly
-              .assertThat(stich1.checkCard(player2.getOwnCards(), new Card(Color.PIK, Type.ZEHN, Group.PIK, "P9")))
+              .assertThat(
+                  stich3.checkCard(
+                      game.players.get(2).getOwnCards(),
+                      new Card(Color.PIK, Type.DAME, Group.TRUMPF, "P9")))
               .isTrue();
           softly
               .assertThat(
-                  stich1.checkCard(player2.getOwnCards(), new Card(Color.KREUZ, Type.ZEHN, Group.PIK, "P9")))
+                  stich3.checkCard(
+                      player1.getOwnCards(), new Card(Color.PIK, Type.DAME, Group.TRUMPF, "P9")))
+              .isTrue();
+          softly
+              .assertThat(
+                  stich3.checkCard(
+                      player1.getOwnCards(), new Card(Color.PIK, Type.NEUN, Group.PIK, "P9")))
+              .isFalse();
+          softly
+              .assertThat(
+                  stich1.checkCard(
+                      player2.getOwnCards(), new Card(Color.PIK, Type.ZEHN, Group.PIK, "P9")))
+              .isTrue();
+          softly
+              .assertThat(
+                  stich1.checkCard(
+                      player2.getOwnCards(), new Card(Color.PIK, Type.ZEHN, Group.PIK, "P9")))
+              .isTrue();
+          softly
+              .assertThat(
+                  stich1.checkCard(
+                      player2.getOwnCards(), new Card(Color.KREUZ, Type.ZEHN, Group.PIK, "P9")))
               .isTrue();
         });
   }
@@ -120,26 +139,26 @@ class PlayerTest {
   void testSetGroup() {
     Player player1 = new Player("player1", 1, 0);
     Player player2 = new Player("player2", 1, 0);
-      Player player3 = new Player("player3", 1, 0);
-    player1.setGroup("Re");
-    player2.setGroup("Kontra");
-    player3.setGroup("Hochzeit");
+    Player player3 = new Player("player3", 1, 0);
+    player1.setGroup(PlayerGroup.RE);
+    player2.setGroup(PlayerGroup.KONTRA);
+    player3.setGroup(PlayerGroup.HOCHZEIT);
 
     SoftAssertions.assertSoftly(
         softly -> {
-          softly.assertThat(player1.getGroup()).isEqualTo("Re");
-          softly.assertThat(player2.getGroup()).isEqualTo("Kontra");
-            softly.assertThat(player3.getGroup()).isEqualTo("Hochzeit");
+          softly.assertThat(player1.getGroup()).isEqualTo(PlayerGroup.RE);
+          softly.assertThat(player2.getGroup()).isEqualTo(PlayerGroup.KONTRA);
+          softly.assertThat(player3.getGroup()).isEqualTo(PlayerGroup.HOCHZEIT);
         });
   }
 
   @Test
   void testSetGroupWithCards() {
     DoppelkopfGame game = new DoppelkopfGame();
-      Deck deck = new Deck();
-      deck.initializeCards();
-      deck.shuffleDeck();
-      deck.dealCards(game.players);
+    Deck deck = new Deck();
+    deck.initializeCards();
+    deck.shuffleDeck();
+    deck.dealCards(game.players);
     int countRe = 0;
     int countKontra = 0;
     int countHochzeit = 0;
@@ -147,13 +166,13 @@ class PlayerTest {
       player.setGroup();
 
       switch (player.getGroup()) {
-        case "Re":
+        case PlayerGroup.RE:
           countRe++;
           break;
-        case "Kontra":
+        case PlayerGroup.KONTRA:
           countKontra++;
           break;
-        case "Hochzeit":
+        case PlayerGroup.HOCHZEIT:
           countHochzeit++;
           break;
       }
@@ -170,32 +189,32 @@ class PlayerTest {
   }
 
   @Test
-  void testSetGroupWithLessCards(){
-      DoppelkopfGame game = new DoppelkopfGame();
-      game.players.get(1).addCard(new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
-      game.players.get(2).addCard(new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
-      game.players.get(2).addCard(new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
-      for (Player player : game.players) {
-          player.setGroup();
-      }
+  void testSetGroupWithLessCards() {
+    DoppelkopfGame game = new DoppelkopfGame();
+    game.players.get(1).getHand().addCard(new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
+    game.players.get(2).getHand().addCard(new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
+    game.players.get(2).getHand().addCard(new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
+    for (Player player : game.players) {
+      player.setGroup();
+    }
 
-      SoftAssertions.assertSoftly(
-              softly -> {
-                  softly.assertThat(game.players.getFirst().getGroup()).isEqualTo("Kontra");
-                  softly.assertThat(game.players.get(1).getGroup()).isEqualTo("Re");
-                  softly.assertThat(game.players.get(2).getGroup()).isEqualTo("Hochzeit");
-                  softly.assertThat(game.players.get(3).getGroup()).isEqualTo("Kontra");
-              });
+    SoftAssertions.assertSoftly(
+        softly -> {
+          softly.assertThat(game.players.getFirst().getGroup()).isEqualTo(PlayerGroup.KONTRA);
+          softly.assertThat(game.players.get(1).getGroup()).isEqualTo(PlayerGroup.RE);
+          softly.assertThat(game.players.get(2).getGroup()).isEqualTo(PlayerGroup.HOCHZEIT);
+          softly.assertThat(game.players.get(3).getGroup()).isEqualTo(PlayerGroup.KONTRA);
+        });
   }
 
   @Test
-  void testRemoveCard(){
-      DoppelkopfGame game = new DoppelkopfGame();
-      Deck deck = new Deck();
-      deck.initializeCards();
-      deck.shuffleDeck();
-      deck.dealCards(game.players);
-      game.players.getFirst().removeCard(0);
+  void testRemoveCard() {
+    DoppelkopfGame game = new DoppelkopfGame();
+    Deck deck = new Deck();
+    deck.initializeCards();
+    deck.shuffleDeck();
+    deck.dealCards(game.players);
+    game.players.getFirst().getHand().removeCard(0);
 
     assertThat(game.players.getFirst().getOwnCards()).hasSize(11);
   }
@@ -204,12 +223,12 @@ class PlayerTest {
   void testCountPlayersTrumpCards() {
     Player player1 = new Player("player1", 1, 0);
 
-    player1.addCard(new Card(Color.HERZ, Type.DAME, Group.TRUMPF, "HD"));
-    player1.addCard(new Card(Color.KARO, Type.NEUN, Group.TRUMPF, "Ka9"));
-    player1.addCard(new Card(Color.PIK, Type.BUBE, Group.TRUMPF, "PB"));
-    player1.addCard(new Card(Color.HERZ, Type.KOENIG, Group.HERZ, "HK"));
-    player1.addCard(new Card(Color.KREUZ, Type.ZEHN, Group.KREUZ, "Kr10"));
+    player1.getHand().addCard(new Card(Color.HERZ, Type.DAME, Group.TRUMPF, "HD"));
+    player1.getHand().addCard(new Card(Color.KARO, Type.NEUN, Group.TRUMPF, "Ka9"));
+    player1.getHand().addCard(new Card(Color.PIK, Type.BUBE, Group.TRUMPF, "PB"));
+    player1.getHand().addCard(new Card(Color.HERZ, Type.KOENIG, Group.HERZ, "HK"));
+    player1.getHand().addCard(new Card(Color.KREUZ, Type.ZEHN, Group.KREUZ, "Kr10"));
 
-    assertThat(player1.countPlayersTrumpCards()).isEqualTo(3);
+    assertThat(player1.getHand().countPlayersTrumpCards()).isEqualTo(3);
   }
 }

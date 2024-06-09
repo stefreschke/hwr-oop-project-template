@@ -6,6 +6,7 @@ import java.util.List;
 
 public class Deck {
   private List<Card> cards;
+  private boolean shuffled;
 
   public Deck() {
     this.cards = new ArrayList<>();
@@ -15,6 +16,10 @@ public class Deck {
     return cards;
   }
 
+  public boolean getShuffled(){
+    return this.shuffled;
+  }
+
   public boolean hasCard(Color color, Type number) {
     for (Card i : this.cards) {
       if (i.getColor() == color && i.getNumber() == number) {
@@ -22,6 +27,10 @@ public class Deck {
       }
     }
     return false;
+  }
+
+  public void addCard(Card card) {
+    this.cards.add(card);
   }
 
   public void initializeCards() {
@@ -45,19 +54,21 @@ public class Deck {
         }
       }
     }
+    this.shuffled = false;
   }
 
   public void shuffleDeck() {
-    List<Card> mutableList = cards;
-    Collections.shuffle(mutableList);
-    cards = mutableList;
+    var shuffleCards = this.getCards();
+    Collections.shuffle(shuffleCards);
+    this.cards = shuffleCards;
+    this.shuffled = true;
   }
 
 
   public void dealCards(List<Player> players) {
     for (Player player : players) {
       for (int i = 0; i < 12; i++){
-        player.addCard(this.cards.get(0));
+        player.getHand().addCard(this.cards.getFirst());
         this.cards.removeFirst();
       }
     }
