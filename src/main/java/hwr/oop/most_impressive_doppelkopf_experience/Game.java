@@ -5,6 +5,7 @@ import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Game {
@@ -19,10 +20,13 @@ public class Game {
 
   Player activePlayer;
 
-  public void addPlayer(String name) {
+  public boolean addPlayer(String name) {
     if (players.size() < 4) {
       players.add(new Player(name, 0, players.size()));
+      return true;
     }
+
+    return false;
   }
 
   public void setStartPlayer(Player startPlayer) {
@@ -32,6 +36,7 @@ public class Game {
   public List<Player> handOutCards() {
 
     for(int i = 0; i < NUM_PLAYERS; i++) {
+      players.get(i).getHand().clear();
       for (int j = NUM_CARDS_PER_PLAYER * i; j < NUM_CARDS_PER_PLAYER + NUM_CARDS_PER_PLAYER * i  ; j++) {
         players.get(i).getHand().add(shuffledStack.get(j));
       }
@@ -61,14 +66,14 @@ public class Game {
     //vier Neunen aller Farben
     List<Card> ninesAllColours = new ArrayList<>();
     for (Card playerCard : player.hand) {
-      if (ninesAllColours.stream().noneMatch(card -> card.getColour() == playerCard.getColour())) {
+      if (playerCard.getSymbol() == CardSymbols.NINE && ninesAllColours.stream().noneMatch(card -> card.getColour() == playerCard.getColour())) {
         ninesAllColours.add(playerCard);
       }
     }
+
     if (ninesAllColours.size() >= 4) {return false;}
 
-
-    //weniger oder gleuch 2 Trümpfe
+    //weniger oder gleich 2 Trümpfe
     long TrumpCards = player.hand.stream().filter(card -> card.getColour() == CardColours.TRUMP).count();
     if (TrumpCards <= 2){return false;}
 
