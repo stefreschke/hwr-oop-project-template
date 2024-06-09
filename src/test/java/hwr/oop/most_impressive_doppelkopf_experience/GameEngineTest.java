@@ -24,7 +24,8 @@ class GameEngineTest {
 
     distributeTeamsTest();
 
-    game.handOutCards();
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
+
     final List<Player> players = game.handOutCards();
 
     assertSoftly(
@@ -49,7 +50,7 @@ class GameEngineTest {
     assertSoftly(
       softAssertions -> {
         softAssertions.assertThat(game.addPlayer("Chris")).isTrue();
-        softAssertions.assertThat(game.addPlayer("Chris")).isFalse();
+        softAssertions.assertThat(game.addPlayer("Stefan")).isFalse();
       });
   }
 
@@ -195,13 +196,23 @@ class GameEngineTest {
 
     game.setStartPlayer(game.players.getFirst());
 
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.ACE, CardColours.TRUMP, 0, "S9", 11)));
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.TEN, CardColours.TRUMP, 0, "S9", 10)));
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.KING, CardColours.TRUMP, 0, "S9", 4)));
+
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
-    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
 
-    assertThat(game.handOutCardsAreValid(game.players.getFirst())).isFalse();
+    assertSoftly(
+            softly -> {
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isTrue();
+
+              game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
+
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isFalse();
+            });
   }
 
   @Test
@@ -211,12 +222,22 @@ class GameEngineTest {
 
     game.setStartPlayer(game.players.getFirst());
 
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.ACE, CardColours.TRUMP, 0, "S9", 11)));
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.TEN, CardColours.TRUMP, 0, "S9", 10)));
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.KING, CardColours.TRUMP, 0, "S9", 4)));
+
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 0, "C9", 0)));
-    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
 
-    assertThat(game.handOutCardsAreValid(game.players.getFirst())).isFalse();
+    assertSoftly(
+            softly -> {
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isTrue();
+
+              game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
+
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isFalse();
+            });
   }
 
   @Test
@@ -226,17 +247,37 @@ class GameEngineTest {
 
     game.setStartPlayer(game.players.getFirst());
 
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.ACE, CardColours.TRUMP, 0, "S9", 11)));
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.TEN, CardColours.TRUMP, 0, "S9", 10)));
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.TEN, CardColours.TRUMP, 0, "S9", 10)));
+
+
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
-    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
 
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.KING, CardColours.HEARTS, 0, "H9", 0)));
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.KING, CardColours.CLUBS, 0, "C9", 0)));
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.KING, CardColours.CLUBS, 0, "C9", 0)));
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.KING, CardColours.SPADES, 0, "S9", 0)));
 
-    assertThat(game.handOutCardsAreValid(game.players.getFirst())).isFalse();
+    assertSoftly(
+            softly -> {
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isTrue();
+
+              game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isFalse();
+
+              game.players.getFirst().getHand().removeLast();
+              game.players.getFirst().getHand().removeLast();
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isTrue();
+
+              game.players.getFirst().addToHand(List.of(new Card(CardSymbols.KING, CardColours.SPADES, 0, "S9", 0)));
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isTrue();
+
+              game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isFalse();
+            });
   }
 
   @Test
@@ -247,9 +288,16 @@ class GameEngineTest {
     game.setStartPlayer(game.players.getFirst());
 
     game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 0, "H9", 0)));
-    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 0, "C9", 0)));
+    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.KING, CardColours.TRUMP, 0, "C9", 4)));
 
-    assertThat(game.handOutCardsAreValid(game.players.getFirst())).isFalse();
+    assertSoftly(
+            softly -> {
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isFalse();
+
+              game.players.getFirst().addToHand(List.of(new Card(CardSymbols.TEN, CardColours.TRUMP, 0, "S9", 10)));
+
+              assertThat(game.handOutCardsAreValid(game.players.getFirst())).isTrue();
+            });
   }
 
   @Test

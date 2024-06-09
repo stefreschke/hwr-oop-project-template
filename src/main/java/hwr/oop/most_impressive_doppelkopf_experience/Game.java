@@ -73,7 +73,7 @@ public class Game {
 
     if (ninesAllColours.size() >= 4) {return false;}
 
-    //weniger oder gleuch 2 Trümpfe
+    //weniger oder gleich 2 Trümpfe
     long TrumpCards = player.hand.stream().filter(card -> card.getColour() == CardColours.TRUMP).count();
     if (TrumpCards <= 2){return false;}
 
