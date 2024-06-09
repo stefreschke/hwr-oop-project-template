@@ -24,7 +24,8 @@ class GameEngineTest {
 
     distributeTeamsTest();
 
-    final var players = game.handOutCards();
+    game.handOutCards();
+    final List<Player> players = game.handOutCards();
 
     assertSoftly(
         softly -> {
