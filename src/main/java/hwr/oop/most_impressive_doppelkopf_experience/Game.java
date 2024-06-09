@@ -82,8 +82,8 @@ public class Game {
     if (volleCards >= 7) {return false;}
 
     //keine Trümpfe höher als der Karo Bube
-    long trumpCardsHigherKing = player.hand.stream().filter(card -> card.getColour() == CardColours.TRUMP && card.getWorth() > 2).count();
-    if (trumpCardsHigherKing == 0) {return false;}
+    long trumpCardsHigherJack = player.hand.stream().filter(card -> card.getColour() == CardColours.TRUMP && card.getWorth() > 2).count();
+    if (trumpCardsHigherJack == 0) {return false;}
 
     return true;
   }
