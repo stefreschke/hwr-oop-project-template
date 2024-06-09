@@ -12,6 +12,7 @@ import static hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames.CONT
 import static hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames.RE;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GameEngineTest {
   @Test
@@ -36,6 +37,16 @@ class GameEngineTest {
 
           softly.assertThat(players.get(3).hand).isNotEmpty().isNotNull().hasSize(12);
         });
+  }
+  @Test
+  void testAdd5Player() {
+    final var game = new Game();
+    game.addPlayer("player1");
+    game.addPlayer("player2");
+    game.addPlayer("player3");
+    game.addPlayer("player4");
+    game.addPlayer("player5");
+    assertEquals(4, game.players.size());
   }
 
   @Test
