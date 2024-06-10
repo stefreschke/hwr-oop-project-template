@@ -230,7 +230,7 @@ public void distributeTeams() {
     }
 
     if (teamName == TeamNames.CONTRA && calculateTeamScore(TeamNames.RE) <= 120) {
-      points += 1;
+      points += 2;
     }
     else if (teamName == TeamNames.RE && calculateTeamScore(TeamNames.CONTRA) < 120) {
       points += 1;
@@ -263,9 +263,4 @@ public void distributeTeams() {
     }
     return Factor;
   }
-
-  public static void main(String[] args) {
-//Nicht benutzt
-  }
-
 }
