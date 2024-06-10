@@ -1,14 +1,12 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
-import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Game {
+public class Game implements Serializable {
+  private static final long serialVersionUID = 1L;
 
   private static final int NUM_PLAYERS = 4;
   private static final int NUM_CARDS_PER_PLAYER = 12;
@@ -195,26 +193,90 @@ public List<Player> distributeTeams(List<Player> players) {
     }
 
   public TeamNames findWinningTeam() {
-    int reScore = 0;
-    int contraScore = 0;
-    TeamNames winnerTeam = null;
-
-    for (int i = 0; i < players.size(); i++) {
-      if (players.get(i).getTeam() == TeamNames.RE) {
-        reScore += players.get(i).getScore();
-      } else {
-        contraScore += players.get(i).getScore();
-      }
+    if (calculateTeamScore(TeamNames.RE) > calculateTeamScore(TeamNames.CONTRA)) {
+      return TeamNames.RE;
     }
-
-    if (reScore > contraScore) {
-      winnerTeam = TeamNames.RE;
-    }
-    else if (contraScore > reScore){
-      winnerTeam = TeamNames.CONTRA;
-    }
-    return winnerTeam;
+    return TeamNames.CONTRA;
   }
 
-  public static void main() {}
+  int calculateTeamScore(TeamNames teamName) {
+    int score = 0;
+    for (Player player : players) {
+        if (player.getTeam() == teamName) {
+          score += player.getHand().stream()
+                  .mapToInt(Card::getWorth)
+                  .sum();
+        }
+    }
+
+    return score;
+  }
+
+  void calculatePoints() {
+    int scoreRe = 0;
+    int scoreContra = 0;
+
+    if (calculateTeamScore(TeamNames.RE) < 120) {
+      scoreContra += 1;
+    }
+    if (calculateTeamScore(TeamNames.RE) < 90) {
+      scoreContra += 1;
+    }
+    if (calculateTeamScore(TeamNames.RE) < 60) {
+      scoreContra += 1;
+    }
+    if (calculateTeamScore(TeamNames.RE) < 30) {
+      scoreContra += 1;
+    }
+
+    if (calculateTeamScore(TeamNames.CONTRA) < 120) {
+      scoreRe += 1;
+    }
+    if (calculateTeamScore(TeamNames.CONTRA) < 90) {
+      scoreRe += 1;
+    }
+    if (calculateTeamScore(TeamNames.CONTRA) < 60) {
+      scoreRe += 1;
+    }
+    if (calculateTeamScore(TeamNames.CONTRA) < 30) {
+      scoreRe += 1;
+    }
+
+    for (Player player : players) {
+        if (player.getTeam() == TeamNames.RE) {
+          player.setPoint(player.getPoints() + scoreRe);
+        }
+        else {
+          player.setPoint(player.getPoints() + scoreContra);
+        }
+    }
+  }
+
+
+
+
+
+  public static void main(String[] args) {
+
+    //Der Bums muss in einen Test!!!!!!!!!!!!!
+    Game game = new Game();
+    GamePersistence gamePersistence = new GamePersistence();
+    game.addPlayer("Josh");
+    game.addPlayer("Josh2");
+    game.addPlayer("Josh3");
+    game.addPlayer("Josh4");
+    game.setStartPlayer(game.players.getFirst());
+    game.handOutCards();
+    System.out.println(game.players.getFirst().getHand());
+    game.playCard(game.players.getFirst().getHand().getFirst());
+
+    gamePersistence.saveGame(game,"savedGame.ser");
+
+    Game loadedGame = gamePersistence.loadGame("savedGame.ser");
+    if (loadedGame != null) {
+      loadedGame.players.getFirst().getHand().getFirst();
+      System.out.println(game.players.getFirst().getHand());
+    }
+  }
+
 }

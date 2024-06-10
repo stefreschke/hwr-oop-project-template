@@ -1,7 +1,5 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
 
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.assertThat;
 import java.util.List;

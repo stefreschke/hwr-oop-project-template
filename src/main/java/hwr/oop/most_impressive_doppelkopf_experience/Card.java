@@ -1,9 +1,9 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
 
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
+import java.io.Serializable;
 
-public class Card {
+public class Card implements Serializable {
+  private static final long serialVersionUID = 1L;
   public CardSymbols getSymbol() {
     return symbol;
   }
