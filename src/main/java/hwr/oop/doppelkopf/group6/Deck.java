@@ -37,24 +37,28 @@ public class Deck {
     for (int k = 0; k < 2; k++) {
       for (Color i : Color.values()) {
         for (Type j : Type.values()) {
-          Card newCard;
-          if (i == Color.KARO
-              || j == Type.BUBE
-              || j == Type.DAME
-              || ((i.getShortcut() + j.getShortcut()).equals("H10"))) {
-            newCard = new Card(i, j, Group.TRUMPF, i.getShortcut() + j.getShortcut());
-          } else {
-            switch (i) {
-              case HERZ -> newCard = new Card(i, j, Group.HERZ, i.getShortcut() + j.getShortcut());
-              case PIK -> newCard = new Card(i, j, Group.PIK, i.getShortcut() + j.getShortcut());
-              default -> newCard = new Card(i, j, Group.KREUZ, i.getShortcut() + j.getShortcut());
-            }
-          }
-          this.cards.add(newCard);
+          createCard(i,j);
         }
       }
     }
     this.shuffled = false;
+  }
+
+  private void createCard(Color color, Type number){
+    Card newCard;
+    if (color == Color.KARO
+            || number == Type.BUBE
+            || number == Type.DAME
+            || ((color.getShortcut() + number.getShortcut()).equals("H10"))) {
+      newCard = new Card(color, number, Group.TRUMPF, color.getShortcut() + number.getShortcut());
+    } else {
+      switch (color) {
+        case HERZ -> newCard = new Card(color, number, Group.HERZ, color.getShortcut() + number.getShortcut());
+        case PIK -> newCard = new Card(color, number, Group.PIK, color.getShortcut() + number.getShortcut());
+        default -> newCard = new Card(color, number, Group.KREUZ, color.getShortcut() + number.getShortcut());
+      }
+    }
+    this.cards.add(newCard);
   }
 
   public void shuffleDeck() {
