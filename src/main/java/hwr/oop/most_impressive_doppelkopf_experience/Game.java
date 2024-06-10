@@ -151,9 +151,9 @@ public class Game implements Serializable {
     activePlayer = winner;
   }
 
-  public TeamNames evaluateGame() {
+  public void evaluateGame() {
     setPlayerPoints();
-    return findWinningTeam();
+    findWinningTeam();
   }
 
 public Player decideWinner() {
