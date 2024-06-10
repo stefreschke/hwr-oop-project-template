@@ -1,14 +1,12 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
-import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Game {
+public class Game implements Serializable {
+  private static final long serialVersionUID = 1L;
 
   private static final int NUM_PLAYERS = 4;
   private static final int NUM_CARDS_PER_PLAYER = 12;
@@ -216,5 +214,31 @@ public List<Player> distributeTeams(List<Player> players) {
     return winnerTeam;
   }
 
-  public static void main() {}
+
+
+
+
+  public static void main(String[] args) {
+
+    //Der Bums muss in einen Test!!!!!!!!!!!!!
+    Game game = new Game();
+    GamePersistence gamePersistence = new GamePersistence();
+    game.addPlayer("Josh");
+    game.addPlayer("Josh2");
+    game.addPlayer("Josh3");
+    game.addPlayer("Josh4");
+    game.setStartPlayer(game.players.getFirst());
+    game.handOutCards();
+    System.out.println(game.players.getFirst().getHand());
+    game.playCard(game.players.getFirst().getHand().getFirst());
+
+    gamePersistence.saveGame(game,"savedGame.ser");
+
+    Game loadedGame = gamePersistence.loadGame("savedGame.ser");
+    if (loadedGame != null) {
+      loadedGame.players.getFirst().getHand().getFirst();
+      System.out.println(game.players.getFirst().getHand());
+    }
+  }
+
 }

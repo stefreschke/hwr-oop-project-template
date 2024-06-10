@@ -1,15 +1,11 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
 
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
-import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
-
-import hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames.CONTRA;
-import static hwr.oop.most_impressive_doppelkopf_experience.enums.TeamNames.RE;
+import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.CONTRA;
+import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.RE;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
