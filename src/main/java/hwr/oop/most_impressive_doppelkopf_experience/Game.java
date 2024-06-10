@@ -32,7 +32,7 @@ public class Game implements Serializable {
     activePlayer = startPlayer;
   }
 
-  public List<Player> handOutCards() {
+  public void handOutCards() {
 
     for(int i = 0; i < NUM_PLAYERS; i++) {
       players.get(i).getHand().clear();
@@ -40,8 +40,6 @@ public class Game implements Serializable {
         players.get(i).getHand().add(shuffledStack.get(j));
       }
     }
-
-    return distributeTeams(players);
   }
 
   public boolean schmeissen(Player player) {
@@ -108,7 +106,11 @@ public class Game implements Serializable {
           return false;
       }
 
-      return cardFollowsSuit(cardToPlay, playerWhoPlays, stich);
+      if (!cardFollowsSuit(cardToPlay, playerWhoPlays, stich)) {
+          return false;
+      }
+
+      return true;
   }
 
   //Gibt true zurück, wenn die Karte nach Bedienregeln gespielt werden darf
@@ -121,7 +123,9 @@ public class Game implements Serializable {
           boolean playerHasCardWithFirstCardColorOfDiscardPile = playerWhoPlaysTheCard.getHand().stream()
                   .anyMatch(obj -> obj.getColour().equals(firstCardColor));
 
-          return playedCardColourEqualsFirstCardColorOfDiscardPile || !playerHasCardWithFirstCardColorOfDiscardPile;
+          if (!playedCardColourEqualsFirstCardColorOfDiscardPile && playerHasCardWithFirstCardColorOfDiscardPile) {
+              return false;
+          }
       }
 
       return true;
@@ -147,25 +151,24 @@ public class Game implements Serializable {
 
   public void evaluateGame() {
     setPlayerPoints();
-    findWinningTeam();
   }
 
 public Player decideWinner() {
   List<Card> thisStich = stich.getDiscardPile();
-  CardColours suitColour = thisStich.getFirst().getColour();
+  CardColours mainColour = thisStich.getFirst().getColour();
 
   Card winnerCard = thisStich.getFirst();
 
-    for (Card card : thisStich) {
-        if (card.colour == CardColours.TRUMP) {
-            suitColour = CardColours.TRUMP;
-        }
-
-        boolean cardHasRightColour = card.colour == suitColour;
-        if (cardHasRightColour && card.value > winnerCard.getValue()) {
-            winnerCard = card;
-        }
+  for (int i = 0; i < thisStich.size(); i++) {
+    if (thisStich.get(i).colour == CardColours.TRUMP) {
+      mainColour = CardColours.TRUMP;
     }
+
+    boolean cardHasRightColour = thisStich.get(i).colour == mainColour;
+    if (cardHasRightColour && thisStich.get(i).value > winnerCard.getValue()) {
+      winnerCard = thisStich.get(i);
+    }
+  }
 
   int indexOfWinner = players.indexOf(activePlayer);
   for (int i = 0; i < thisStich.indexOf(winnerCard); i++) {
@@ -178,9 +181,9 @@ public Player decideWinner() {
   return players.get(indexOfWinner);
 }
 
-public List<Player> distributeTeams(List<Player> players) {
+public void distributeTeams() {
       String old = "CQ";
-      return players.stream()
+      getPlayers().stream()
               .map(player -> {
                 boolean foundCQ = player.getHand().stream()
                         .anyMatch(card -> card.getName().equals(old));
@@ -227,7 +230,7 @@ public List<Player> distributeTeams(List<Player> players) {
     }
 
     if (teamName == TeamNames.CONTRA && calculateTeamScore(TeamNames.RE) <= 120) {
-      points += 1;
+      points += 2;
     }
     else if (teamName == TeamNames.RE && calculateTeamScore(TeamNames.CONTRA) < 120) {
       points += 1;
@@ -246,8 +249,7 @@ public List<Player> distributeTeams(List<Player> players) {
       points += 1;
     }
 
-    points *= getTeamPointsFactor(otherTeam);
-
+    points *= getTeamPointsFactor(teamName);
 
     return points;
   }
@@ -261,9 +263,4 @@ public List<Player> distributeTeams(List<Player> players) {
     }
     return Factor;
   }
-
-  public static void main(String[] args) {
-//Nicht benutzt
-  }
-
 }
