@@ -233,10 +233,10 @@ public List<Player> distributeTeams(List<Player> players) {
       otherTeam = TeamNames.RE;
     }
 
-    if (teamName == TeamNames.RE && calculateTeamScore(TeamNames.CONTRA) <= 120) {
+    if (teamName == TeamNames.CONTRA && calculateTeamScore(TeamNames.RE) <= 120) {
       points += 1;
     }
-    else if (calculateTeamScore(TeamNames.RE) < 120) {
+    else if (calculateTeamScore(TeamNames.CONTRA) < 120) {
       points += 1;
     }
 
