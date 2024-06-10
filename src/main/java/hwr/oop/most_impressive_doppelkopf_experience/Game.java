@@ -193,25 +193,63 @@ public List<Player> distributeTeams(List<Player> players) {
     }
 
   public TeamNames findWinningTeam() {
-    int reScore = 0;
-    int contraScore = 0;
-    TeamNames winnerTeam = null;
+    if (calculateTeamScore(TeamNames.RE) > calculateTeamScore(TeamNames.CONTRA)) {
+      return TeamNames.RE;
+    }
+    return TeamNames.CONTRA;
+  }
 
-    for (int i = 0; i < players.size(); i++) {
-      if (players.get(i).getTeam() == TeamNames.RE) {
-        reScore += players.get(i).getScore();
-      } else {
-        contraScore += players.get(i).getScore();
-      }
+  int calculateTeamScore(TeamNames teamName) {
+    int score = 0;
+    for (Player player : players) {
+        if (player.getTeam() == teamName) {
+          score += player.getHand().stream()
+                  .mapToInt(Card::getWorth)
+                  .sum();
+        }
     }
 
-    if (reScore > contraScore) {
-      winnerTeam = TeamNames.RE;
+    return score;
+  }
+
+  void calculatePoints() {
+    int scoreRe = 0;
+    int scoreContra = 0;
+
+    if (calculateTeamScore(TeamNames.RE) < 120) {
+      scoreContra += 1;
     }
-    else if (contraScore > reScore){
-      winnerTeam = TeamNames.CONTRA;
+    if (calculateTeamScore(TeamNames.RE) < 90) {
+      scoreContra += 1;
     }
-    return winnerTeam;
+    if (calculateTeamScore(TeamNames.RE) < 60) {
+      scoreContra += 1;
+    }
+    if (calculateTeamScore(TeamNames.RE) < 30) {
+      scoreContra += 1;
+    }
+
+    if (calculateTeamScore(TeamNames.CONTRA) < 120) {
+      scoreRe += 1;
+    }
+    if (calculateTeamScore(TeamNames.CONTRA) < 90) {
+      scoreRe += 1;
+    }
+    if (calculateTeamScore(TeamNames.CONTRA) < 60) {
+      scoreRe += 1;
+    }
+    if (calculateTeamScore(TeamNames.CONTRA) < 30) {
+      scoreRe += 1;
+    }
+
+    for (Player player : players) {
+        if (player.getTeam() == TeamNames.RE) {
+          player.setPoint(player.getPoints() + scoreRe);
+        }
+        else {
+          player.setPoint(player.getPoints() + scoreContra);
+        }
+    }
   }
 
 
