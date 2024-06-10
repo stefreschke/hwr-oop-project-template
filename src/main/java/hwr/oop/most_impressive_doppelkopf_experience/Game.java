@@ -224,26 +224,33 @@ public List<Player> distributeTeams(List<Player> players) {
   int calculateTeamPoints(TeamNames teamName) {
     int points = 0;
 
-    TeamNames otherTeam = (teamName == TeamNames.CONTRA) ? TeamNames.RE : teamName;
-    otherTeam = (teamName == TeamNames.RE) ? TeamNames.CONTRA : teamName;
+    TeamNames otherTeam = null;
 
-    if (calculateTeamScore(TeamNames.RE) <= 120) {
-      points += 1;
+    if (teamName == TeamNames.RE) {
+      otherTeam = TeamNames.CONTRA;
     }
-    if (calculateTeamScore(TeamNames.CONTRA) < 120) {
-      points += 1;
-    }
-    if (calculateTeamScore(teamName) < 90) {
-      points += 1;
-    }
-    if (calculateTeamScore(teamName) < 60) {
-      points += 1;
-    }
-    if (calculateTeamScore(teamName) < 30) {
-      points += 1;
+    else {
+      otherTeam = TeamNames.RE;
     }
 
-    points *= getTeamPointsFactor(teamName);
+
+    if (teamName == TeamNames.RE && calculateTeamScore(TeamNames.RE) <= 120) {
+      points += 1;
+    }
+    else if (calculateTeamScore(TeamNames.CONTRA) < 120) {
+      points += 1;
+    }
+    if (calculateTeamScore(otherTeam) < 90) {
+      points += 1;
+    }
+    if (calculateTeamScore(otherTeam) < 60) {
+      points += 1;
+    }
+    if (calculateTeamScore(otherTeam) < 30) {
+      points += 1;
+    }
+
+    points *= getTeamPointsFactor(otherTeam);
 
 
     return points;
@@ -252,7 +259,7 @@ public List<Player> distributeTeams(List<Player> players) {
   int getTeamPointsFactor(TeamNames teamName) {
     int Factor = 1;
     for (Player player : players) {
-      if (player.getTeam() == teamName) {
+      if (player.getTeam() == teamName && player.getAngesagt()) {
         Factor *= 2;
       }
     }
