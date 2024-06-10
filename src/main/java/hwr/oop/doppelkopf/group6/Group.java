@@ -5,5 +5,4 @@ public enum Group {
   HERZ,
   PIK,
   KREUZ;
-
 }

@@ -148,7 +148,8 @@ class DoppelkopfGameTest {
     }
     game.players
         .getFirst()
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"),
             new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
     game.players.getFirst().setGroup();
@@ -171,25 +172,29 @@ class DoppelkopfGameTest {
     DoppelkopfGame game = new DoppelkopfGame();
     game.players
         .getFirst()
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.ASS, Group.KREUZ, "KrA"),
             new Card(Color.PIK, Type.ZEHN, Group.PIK, "P10"));
 
     game.players
         .get(1)
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.ZEHN, Group.KREUZ, "Kr10"),
             new Card(Color.PIK, Type.NEUN, Group.PIK, "P9"));
 
     game.players
         .get(2)
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.NEUN, Group.KREUZ, "Kr9"),
             new Card(Color.PIK, Type.NEUN, Group.PIK, "P9"));
 
     game.players
         .get(3)
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.KOENIG, Group.KREUZ, "KrK"),
             new Card(Color.PIK, Type.ASS, Group.PIK, "PA"));
 
@@ -207,7 +212,8 @@ class DoppelkopfGameTest {
     }
     game.players
         .getFirst()
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"),
             new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
     for (Player i : game.players) {

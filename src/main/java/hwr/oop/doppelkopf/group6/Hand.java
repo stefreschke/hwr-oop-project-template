@@ -11,7 +11,7 @@ public class Hand {
   private final List<String> pikCards = new ArrayList<>();
   private final List<String> kreuzCards = new ArrayList<>();
 
-  public Hand(){
+  public Hand() {
     this.allCards = new ArrayList<>();
   }
 
@@ -35,7 +35,7 @@ public class Hand {
     return new ArrayList<>(kreuzCards);
   }
 
-  public void removeCard (int i){
+  public void removeCard(int i) {
     this.allCards.remove(i);
   }
 
@@ -45,7 +45,8 @@ public class Hand {
   }
 
   public int countPlayersTrumpCards() {
-    List<Card> playersTrumpCards = this.allCards.stream().filter(card -> card.getGroup().equals(Group.TRUMPF)).toList();
+    List<Card> playersTrumpCards =
+        this.allCards.stream().filter(card -> card.getGroup().equals(Group.TRUMPF)).toList();
 
     return playersTrumpCards.size();
   }
@@ -70,7 +71,7 @@ public class Hand {
   }
 
   public void playCard(int position, Stich stich) {
-    while (!stich.checkCard(this.allCards,this.allCards.get(position))) {
+    while (!stich.checkCard(this.allCards, this.allCards.get(position))) {
       position++;
     }
     stich.addCard(this.allCards.get(position));

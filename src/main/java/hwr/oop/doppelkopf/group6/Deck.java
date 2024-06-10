@@ -16,7 +16,7 @@ public class Deck {
     return cards;
   }
 
-  public boolean getShuffled(){
+  public boolean getShuffled() {
     return this.shuffled;
   }
 
@@ -64,10 +64,9 @@ public class Deck {
     this.shuffled = true;
   }
 
-
   public void dealCards(List<Player> players) {
     for (Player player : players) {
-      for (int i = 0; i < 12; i++){
+      for (int i = 0; i < 12; i++) {
         player.getHand().addCard(this.cards.getFirst());
         this.cards.removeFirst();
       }

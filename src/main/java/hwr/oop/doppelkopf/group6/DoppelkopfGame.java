@@ -2,7 +2,6 @@ package hwr.oop.doppelkopf.group6;
 
 import java.util.*;
 
-@SuppressWarnings("java:S106")
 public class DoppelkopfGame {
   public final List<Player> players = new ArrayList<>();
   public final Deck deck = new Deck();
@@ -11,14 +10,14 @@ public class DoppelkopfGame {
     initializePlayers();
   }
 
-  public void createDeck(){
+  public void createDeck() {
     deck.initializeCards();
     deck.shuffleDeck();
     deck.dealCards(players);
   }
 
   public void oneGame() {
-        boolean hochzeit = false;
+    boolean hochzeit = false;
     int playerWithHochzeit = 0;
     for (Player player : players) {
       player.setGroup();
