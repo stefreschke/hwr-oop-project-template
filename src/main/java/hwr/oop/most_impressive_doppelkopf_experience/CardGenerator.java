@@ -3,7 +3,6 @@ package hwr.oop.most_impressive_doppelkopf_experience;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardColours;
 import hwr.oop.most_impressive_doppelkopf_experience.enums.CardSymbols;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CardGenerator {
@@ -58,7 +57,7 @@ public class CardGenerator {
 
   public List<Card> generateAllCards() {
 
-    List<Card> cardStack = List.of(
+    return List.of(
             d9, d10, dj, dq, dk, da,
             h9, h10, hj, hq, hk, ha,
             s9, s10, sj, sq, sk, sa,
@@ -68,6 +67,5 @@ public class CardGenerator {
             s9b, s10b, sjb, sqb, skb, sab,
             c9b, c10b, cjb, cqb, ckb, cab
             );
-    return cardStack;
-  }
+    }
 }
