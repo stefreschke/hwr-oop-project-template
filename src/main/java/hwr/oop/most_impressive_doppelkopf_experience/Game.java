@@ -40,6 +40,19 @@ public class Game implements Serializable {
         players.get(i).getHand().add(shuffledStack.get(j));
       }
     }
+
+    revaluePlayerWithTwoHeartAces();
+  }
+
+  public void revaluePlayerWithTwoHeartAces() {
+    for (Player player : players) {
+      List<Card> HeartAces = player.getHand().stream().
+              filter(card -> card.getColour() == CardColours.HEARTS && card.getSymbol() == CardSymbols.ACE).toList();
+
+      if (HeartAces.size() == 2) {
+        HeartAces.forEach(card -> card.setValue(101));
+      }
+    }
   }
 
   public boolean schmeissen(Player player) {
@@ -165,7 +178,7 @@ public Player decideWinner() {
     }
 
     boolean cardHasRightColour = thisStich.get(i).colour == mainColour;
-    if (cardHasRightColour && thisStich.get(i).value > winnerCard.getValue()) {
+    if (cardHasRightColour && thisStich.get(i).getValue() > winnerCard.getValue()) {
       winnerCard = thisStich.get(i);
     }
   }

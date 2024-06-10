@@ -24,11 +24,13 @@ public class Card implements Serializable {
 
   final CardSymbols symbol;
   final CardColours colour;
-  final int value; // Strength of the card
+  private int value; // Strength of the card
 
   public int getWorth() {
     return worth;
   }
+
+  public void setValue(int value) {this.value = value;}
 
   final int worth; // Worth of the Card
   final String name;

@@ -6,6 +6,7 @@ import java.util.List;
 
 import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.CONTRA;
 import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.RE;
+import static org.assertj.core.api.Assertions.as;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -175,9 +176,11 @@ class GameEngineTest {
     game.addPlayer("Galatea");
     game.addPlayer("Mugtaba");
 
-    assertThat(game.schmeissen(game.getPlayers().getFirst())).isTrue();
+    assertSoftly(softAssertions -> {
+      assertThat(game.schmeissen(game.getPlayers().getFirst())).isTrue();
+      assertThat(game.getPlayers().getFirst().getHand()).hasSize(12);
+    });
   }
-
 
   @Test
   void schmeissenTestFalse() {
@@ -191,6 +194,37 @@ class GameEngineTest {
     game.getPlayers().getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 0, "C9", 0)));
 
     assertThat(game.schmeissen(game.getPlayers().getFirst())).isFalse();
+  }
+
+  @Test
+  void revaluePlayerWithTwoHeartAcesTest() {
+    var game = new Game();
+    game.addPlayer("ILoveCoconuts");
+    game.addPlayer("Simon");
+
+    game.getPlayers().getFirst().setHand(List.of(
+            new Card(CardSymbols.ACE, CardColours.HEARTS, 4, "HA", 11),
+            new Card(CardSymbols.KING, CardColours.HEARTS, 10, "HK", 4),
+            new Card(CardSymbols.ACE, CardColours.SPADES, 4, "SA", 11)));
+    game.revaluePlayerWithTwoHeartAces();
+
+    assertSoftly(
+            softly -> {
+            assertThat(game.getPlayers().getFirst().getHand().getFirst().getValue()).isEqualTo(4);
+
+              game.getPlayers().getFirst().setHand(List.of(
+                      new Card(CardSymbols.ACE, CardColours.HEARTS, 4, "HA", 11),
+                      new Card(CardSymbols.ACE, CardColours.HEARTS, 4, "HA", 11),
+                      new Card(CardSymbols.KING, CardColours.HEARTS, 10, "HK", 4),
+                      new Card(CardSymbols.ACE, CardColours.SPADES, 4, "SA", 11)));
+
+            game.revaluePlayerWithTwoHeartAces();
+            assertThat(game.getPlayers().getFirst().getHand().getFirst().getValue()).isEqualTo(101);
+            assertThat(game.getPlayers().getFirst().getHand().get(1).getValue()).isEqualTo(101);
+            assertThat(game.getPlayers().getFirst().getHand().get(2).getValue()).isEqualTo(10);
+            assertThat(game.getPlayers().getFirst().getHand().get(3).getValue()).isEqualTo(4);
+
+    });
   }
 
   @Test
