@@ -148,9 +148,6 @@ public class Game implements Serializable {
     winner.playerHasWonStich(stich.getDiscardCards());
     stich.getDiscardCards().clear();
 
-    System.out.println(winner.getName());
-    System.out.println(winner.getCardsWon());
-
     activePlayer = winner;
   }
 
