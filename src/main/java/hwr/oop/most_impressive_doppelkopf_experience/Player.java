@@ -14,7 +14,7 @@ public class Player implements Serializable {
     TeamNames team;
     private List<Card> hand = new ArrayList<>();
 
-    boolean angesagt;
+    boolean angesagt = false;
 
     public boolean getAngesagt() {return angesagt;}
 
