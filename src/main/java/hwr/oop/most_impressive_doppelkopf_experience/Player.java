@@ -9,10 +9,10 @@ public class Player implements Serializable {
     String name;
     int totalPoints;
     int score;
-    List<Card> cardsWon = new ArrayList<>();
+    private List<Card> cardsWon = new ArrayList<>();
     int id;
     TeamNames team;
-    List<Card> hand = new ArrayList<>();
+    private List<Card> hand = new ArrayList<>();
 
     boolean angesagt;
 
@@ -77,15 +77,15 @@ public class Player implements Serializable {
     }
 
     public int calculateScore(List<Card> cards) {
-        int score = 0;
+        int tempScore = 0;
         for (int i = 0; i < cards.size(); i++) {
-            score += cards.get(i).getWorth();
+            tempScore += cards.get(i).getWorth();
         }
-        return score;
+        return tempScore;
     }
 
-    void playerHasWonStich(List<Card> Stich) {
-        score += calculateScore(Stich);
-        addCardsWon(Stich);
+    void playerHasWonStich(List<Card> stich) {
+        score += calculateScore(stich);
+        addCardsWon(stich);
     }
 }

@@ -6,7 +6,7 @@ import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class GamePersistanceTest {
+class GamePersistanceTest {
   @Test
   void persistanceTest() {
     //Der Bums muss in einen Test!!!!!!!!!!!!!
@@ -25,6 +25,6 @@ public class GamePersistanceTest {
 
     Game loadedGame = gamePersistence.loadGame("savedGame.ser");
 
-    assertThat(loadedGame.players.size()).isEqualTo(game.players.size());
+    assertThat(loadedGame.players).hasSameSizeAs(game.players);
   }
 }

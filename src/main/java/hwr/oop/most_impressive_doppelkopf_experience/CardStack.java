@@ -9,7 +9,7 @@ public class CardStack implements Serializable {
   private static final long serialVersionUID = 1L;
 
   CardGenerator cardGenerator = new CardGenerator();
-  List<Card> gameCardStack = cardGenerator.generateAllCards();
+  private List<Card> gameCardStack = cardGenerator.generateAllCards();
 
   public List<Card> getCardStack() {
     return gameCardStack;

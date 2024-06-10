@@ -59,16 +59,16 @@ public class Game implements Serializable {
 
   public boolean handOutCardsAreValid(Player player) {
     //fünf oder mehr 9er Karten
-    long nineCards = player.hand.stream().filter(card -> card.getSymbol() == CardSymbols.NINE).count();
+    long nineCards = player.getHand().stream().filter(card -> card.getSymbol() == CardSymbols.NINE).count();
     if (nineCards >= 5) {return false;}
 
     //vier oder mehr 9er und vier oder mehr Könige
-    long kingCards = player.hand.stream().filter(card -> card.getSymbol() == CardSymbols.KING).count();
+    long kingCards = player.getHand().stream().filter(card -> card.getSymbol() == CardSymbols.KING).count();
     if (nineCards >= 4 && kingCards >= 4) {return false;}
 
     //vier Neunen aller Farben
     List<Card> ninesAllColours = new ArrayList<>();
-    for (Card playerCard : player.hand) {
+    for (Card playerCard : player.getHand()) {
       if (playerCard.getSymbol() == CardSymbols.NINE && ninesAllColours.stream().noneMatch(card -> card.getColour() == playerCard.getColour())) {
         ninesAllColours.add(playerCard);
       }
@@ -77,15 +77,15 @@ public class Game implements Serializable {
     if (ninesAllColours.size() >= 4) {return false;}
 
     //weniger oder gleich 2 Trümpfe
-    long TrumpCards = player.hand.stream().filter(card -> card.getColour() == CardColours.TRUMP).count();
-    if (TrumpCards <= 2){return false;}
+    long trumpCards = player.getHand().stream().filter(card -> card.getColour() == CardColours.TRUMP).count();
+    if (trumpCards <= 2){return false;}
 
     //sieben oder mehr volle Karten (vollen Garten -> Zehnen oder Asse)
-    long volleCards = player.hand.stream().filter(card -> card.getWorth() >= 10).count();
+    long volleCards = player.getHand().stream().filter(card -> card.getWorth() >= 10).count();
     if (volleCards >= 7) {return false;}
 
     //keine Trümpfe höher als der Karo Bube
-    long trumpCardsHigherJack = player.hand.stream().filter(card -> card.getColour() == CardColours.TRUMP && card.getWorth() > 2).count();
+    long trumpCardsHigherJack = player.getHand().stream().filter(card -> card.getColour() == CardColours.TRUMP && card.getWorth() > 2).count();
     if (trumpCardsHigherJack == 0) {return false;}
 
     return true;
@@ -94,7 +94,7 @@ public class Game implements Serializable {
   public void playCard(Card cardToPlay) {
 
     if (cardIsValidToBePlayed(cardToPlay, activePlayer, stich)) {
-      List<Card> mutableList = new ArrayList<>(activePlayer.hand);
+      List<Card> mutableList = new ArrayList<>(activePlayer.getHand());
       mutableList.remove(cardToPlay);
       activePlayer.setHand(mutableList);
       stich.discardCard(cardToPlay);
@@ -104,7 +104,7 @@ public class Game implements Serializable {
   }
 
   public boolean cardIsValidToBePlayed(Card cardToPlay, Player playerWhoPlays, Stich stich) {
-      if (!playerWhoPlays.hand.contains(cardToPlay)) {
+      if (!playerWhoPlays.getHand().contains(cardToPlay)) {
           return false;
       }
 
@@ -145,8 +145,8 @@ public class Game implements Serializable {
 
   public void evaluateRound() {
     Player winner = decideWinner();
-    winner.playerHasWonStich(stich.discardCards);
-    stich.discardCards.clear();
+    winner.playerHasWonStich(stich.getDiscardCards());
+    stich.getDiscardCards().clear();
 
     activePlayer = winner;
   }
@@ -158,31 +158,31 @@ public class Game implements Serializable {
 
 public Player decideWinner() {
   List<Card> thisStich = stich.getDiscardPile();
-  CardColours SuitColour = thisStich.getFirst().getColour();
+  CardColours suitColour = thisStich.getFirst().getColour();
 
   Card winnerCard = thisStich.getFirst();
 
   for (int i = 0; i < thisStich.size(); i++) {
     if (thisStich.get(i).colour == CardColours.TRUMP) {
-      SuitColour = CardColours.TRUMP;
+      suitColour = CardColours.TRUMP;
       winnerCard = thisStich.get(i);
     }
 
-    boolean cardHasRightColour = thisStich.get(i).colour == SuitColour;
+    boolean cardHasRightColour = thisStich.get(i).colour == suitColour;
     if (cardHasRightColour && thisStich.get(i).value > winnerCard.getValue()) {
       winnerCard = thisStich.get(i);
     }
   }
 
-  int IndexOfWinner = players.indexOf(activePlayer);
-  for (int i = 0; i < thisStich.indexOf(winnerCard); i++) {
-    IndexOfWinner += 1;
-    if (IndexOfWinner >= players.size()) {
-      IndexOfWinner = 0;
+  int indexOfWinner = players.indexOf(activePlayer);
+  for (int i = 1; i < thisStich.indexOf(winnerCard); i++) {
+    indexOfWinner += 1;
+    if (indexOfWinner >= players.size()) {
+      indexOfWinner = 0;
     }
   }
 
-  return players.get(IndexOfWinner);
+  return players.get(indexOfWinner);
 }
 
 public List<Player> distributeTeams(List<Player> players) {
@@ -260,26 +260,7 @@ public List<Player> distributeTeams(List<Player> players) {
   }
 
   public static void main(String[] args) {
-
-    //Der Bums muss in einen Test!!!!!!!!!!!!!
-    Game game = new Game();
-    GamePersistence gamePersistence = new GamePersistence();
-    game.addPlayer("Josh");
-    game.addPlayer("Josh2");
-    game.addPlayer("Josh3");
-    game.addPlayer("Josh4");
-    game.setStartPlayer(game.players.getFirst());
-    game.handOutCards();
-    System.out.println(game.players.getFirst().getHand());
-    game.playCard(game.players.getFirst().getHand().getFirst());
-
-    gamePersistence.saveGame(game,"savedGame.ser");
-
-    Game loadedGame = gamePersistence.loadGame("savedGame.ser");
-    if (loadedGame != null) {
-      loadedGame.players.getFirst().getHand().getFirst();
-      System.out.println(game.players.getFirst().getHand());
-    }
+//Nicht benutzt
   }
 
 }
