@@ -101,12 +101,6 @@ class GameEngineTest {
   }
 
   @Test
-  void calculateScoreTest() {
-    final var game = new Game();
-    // Score muss gesamt 240 ergeben!!!
-  }
-
-  @Test
   void FindWinningTeamTest() {
     final var game = new Game();
     final var player1 = new Player("player1", 30, 0);
@@ -144,10 +138,6 @@ class GameEngineTest {
   void CardIsValidToPlayTest() {
     final var game = new Game();
     final var player1 = new Player("player1", 0, 0);
-    final var player2 = new Player("player2", 0, 1);
-    final var player3 = new Player("player3", 0, 2);
-    final var player4 = new Player("player4", 0, 3);
-    final List<Player> players = List.of(player1, player2, player3, player4);
     player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
     final var fixDiscardPile = game.stich;
     fixDiscardPile.discardCard(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0));
@@ -160,9 +150,6 @@ class GameEngineTest {
     final var game = new Game();
     final var player1 = new Player("player1", 0, 0);
     final var player2 = new Player("player2", 0, 1);
-    final var player3 = new Player("player3", 0, 2);
-    final var player4 = new Player("player4", 0, 3);
-    final List<Player> players = List.of(player1, player2, player3, player4);
     player1.getHand().add(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0));
     player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
     player2.getHand().add(new Card(CardSymbols.ACE, CardColours.CLUBS, 11, "CA", 11));
@@ -220,18 +207,18 @@ class GameEngineTest {
     game.players.get(2).addToHand(List.of(new Card(CardSymbols.KING, CardColours.CLUBS, 3, "H10", 4)));
     game.players.get(3).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
 
-    game.playCard(game.players.get(0).getHand().get(0));
-    game.playCard(game.players.get(1).getHand().get(0));
-    game.playCard(game.players.get(2).getHand().get(0));
-    game.playCard(game.players.get(3).getHand().get(0));
+    game.playCard(game.players.get(0).getHand().getFirst());
+    game.playCard(game.players.get(1).getHand().getFirst());
+    game.playCard(game.players.get(2).getHand().getFirst());
+    game.playCard(game.players.get(3).getHand().getFirst());
 
     game.evaluateRound();
     //Galatea (Re) gewinnt 3 Punkte
 
-    game.playCard(game.players.get(2).getHand().get(0));
-    game.playCard(game.players.get(3).getHand().get(0));
-    game.playCard(game.players.get(0).getHand().get(0));
-    game.playCard(game.players.get(1).getHand().get(0));
+    game.playCard(game.players.get(2).getHand().getFirst());
+    game.playCard(game.players.get(3).getHand().getFirst());
+    game.playCard(game.players.get(0).getHand().getFirst());
+    game.playCard(game.players.get(1).getHand().getFirst());
 
     game.evaluateRound();
     //Mugataba (Contra) gewinnt 14 Punkte
@@ -239,18 +226,18 @@ class GameEngineTest {
     game.evaluateGame();
 
     assertSoftly(softAssertions -> {
-      assertThat(game.players.get(0).getScore()).isEqualTo(14);
+      assertThat(game.players.getFirst().getScore()).isEqualTo(14);
       assertThat(game.players.get(0).getCardsWon()).hasSize(4);
-      assertThat(game.players.get(0).getHand()).hasSize(0);
-      assertThat(game.players.get(1).getScore()).isEqualTo(0);
-      assertThat(game.players.get(1).getCardsWon()).hasSize(0);
-      assertThat(game.players.get(1).getHand()).hasSize(0);
+    assertThat(game.players.get(0).getHand()).isEmpty();
+      assertThat(game.players.get(1).getScore()).isZero();
+      assertThat(game.players.get(1).getCardsWon()).isEmpty();
+      assertThat(game.players.get(1).getHand()).isEmpty();
       assertThat(game.players.get(2).getScore()).isEqualTo(3);
       assertThat(game.players.get(2).getCardsWon()).hasSize(4);
-      assertThat(game.players.get(2).getHand()).hasSize(0);
-      assertThat(game.players.get(3).getScore()).isEqualTo(0);
-      assertThat(game.players.get(3).getCardsWon()).hasSize(0);
-      assertThat(game.players.get(3).getHand()).hasSize(0);
+      assertThat(game.players.get(2).getHand()).isEmpty();
+      assertThat(game.players.get(3).getScore()).isZero();
+      assertThat(game.players.get(3).getCardsWon()).isEmpty();
+      assertThat(game.players.get(3).getHand()).isEmpty();
 
       assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
     });
