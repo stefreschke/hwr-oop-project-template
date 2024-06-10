@@ -9,7 +9,7 @@ import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.RE;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import hwr.oop.most_impressive_doppelkopf_experience.Game;
+
 class GameEngineTest {
   @Test
   void startNewGameTest() {
@@ -74,8 +74,7 @@ class GameEngineTest {
         .setHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0)));
 
     int playerHandSize = game.players.getFirst().getHand().size();
-    int discardPileSize = game.stich.getDiscardCards().size(); // discardPile.discardCards.size();
-
+    int discardPileSize = game.stich.getDiscardCards().size();
     Player currentPlayer = game.activePlayer;
 
     game.playCard(game.players.getFirst().getHand().getFirst());
