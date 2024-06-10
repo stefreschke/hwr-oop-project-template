@@ -258,5 +258,25 @@ public List<Player> distributeTeams(List<Player> players) {
 
   public static void main(String[] args) {
 
+    //Der Bums muss in einen Test!!!!!!!!!!!!!
+    Game game = new Game();
+    GamePersistence gamePersistence = new GamePersistence();
+    game.addPlayer("Josh");
+    game.addPlayer("Josh2");
+    game.addPlayer("Josh3");
+    game.addPlayer("Josh4");
+    game.setStartPlayer(game.players.getFirst());
+    game.handOutCards();
+    System.out.println(game.players.getFirst().getHand());
+    game.playCard(game.players.getFirst().getHand().getFirst());
+
+    gamePersistence.saveGame(game,"savedGame.ser");
+
+    Game loadedGame = gamePersistence.loadGame("savedGame.ser");
+    if (loadedGame != null) {
+      loadedGame.players.getFirst().getHand().getFirst();
+      System.out.println(game.players.getFirst().getHand());
+    }
   }
+
 }

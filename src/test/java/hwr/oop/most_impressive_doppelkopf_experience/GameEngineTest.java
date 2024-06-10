@@ -14,6 +14,7 @@ class GameEngineTest {
   @Test
   void startNewGameTest() {
     final Game game = new Game();
+
     game.addPlayer("Colin");
     game.addPlayer("Mihoshi");
     game.addPlayer("Joshi");

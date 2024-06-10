@@ -1,7 +1,9 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
+import java.io.Serializable;
 import java.util.List;
 
-public class CardGenerator {
+public class CardGenerator implements Serializable {
+  private static final long serialVersionUID = 1L;
   Card d9 = new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0);
   Card d10 = new Card(CardSymbols.TEN, CardColours.TRUMP, 12, "D10", 10);
   Card dj = new Card(CardSymbols.JACK, CardColours.TRUMP, 14, "DJ", 2);
