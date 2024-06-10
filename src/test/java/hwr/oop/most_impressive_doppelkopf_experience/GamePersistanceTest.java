@@ -2,12 +2,14 @@ package hwr.oop.most_impressive_doppelkopf_experience;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 class GamePersistanceTest {
   @Test
-  void persistanceTest() {
-    //Der Bums muss in einen Test!!!!!!!!!!!!!
+  void persistanceTest() throws IOException {
+
     Game game = new Game();
     GamePersistence gamePersistence = new GamePersistence();
 
@@ -21,8 +23,9 @@ class GamePersistanceTest {
 
     gamePersistence.saveGame(game,"savedGame.ser");
 
-    Game loadedGame = gamePersistence.loadGame("savedGame.ser");
+    Game loadedGame = GamePersistence.loadGame("savedGame.ser");
 
     assertThat(loadedGame.getPlayers()).hasSameSizeAs(game.getPlayers());
   }
+
 }
