@@ -1,10 +1,12 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     String name;
     int totalPoints;

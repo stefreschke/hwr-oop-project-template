@@ -251,6 +251,9 @@ public List<Player> distributeTeams(List<Player> players) {
     if (calculateTeamScore(otherTeam) < 30) {
       points += 1;
     }
+    if (calculateTeamScore(otherTeam) == 0) {
+      points += 1;
+    }
 
     points *= getTeamPointsFactor(otherTeam);
 
