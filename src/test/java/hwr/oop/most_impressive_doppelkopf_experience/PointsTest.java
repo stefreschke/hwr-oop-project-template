@@ -24,14 +24,10 @@ import static org.assertj.core.api.Assertions.assertThat;
         game.players.get(3).setScore(90);
         game.players.get(3).setTeam(CONTRA);
 
-        game.calculateTeamScore(RE);
-        game.calculateTeamScore(CONTRA);
-        game.calculatePoints();
-        assertThat(game.players.getFirst().getPoints()).isZero();
-        assertThat(game.players.get(3).getPoints()).isEqualTo(4);
+        assertThat(game.calculateTeamScore(RE)).isEqualTo(120);
+        assertThat(game.calculateTeamScore(CONTRA)).isEqualTo(120);
+        assertThat(game.calculateTeamPoints(RE)).isZero();
+        assertThat(game.calculateTeamPoints(CONTRA)).isEqualTo(1);
         assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
-
-
-
     }
 }
