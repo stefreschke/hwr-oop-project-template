@@ -18,13 +18,13 @@ class GamePersistanceTest {
     game.addPlayer("Josh3");
     game.addPlayer("Josh4");
 
-    game.setStartPlayer(game.players.getFirst());
+    game.setStartPlayer(game.getPlayers().getFirst());
     game.handOutCards();
 
     gamePersistence.saveGame(game,"savedGame.ser");
 
     Game loadedGame = gamePersistence.loadGame("savedGame.ser");
 
-    assertThat(loadedGame.players).hasSameSizeAs(game.players);
+    assertThat(loadedGame.getPlayers()).hasSameSizeAs(game.getPlayers());
   }
 }

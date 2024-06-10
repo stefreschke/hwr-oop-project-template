@@ -22,19 +22,19 @@ class GameEngineTest {
 
     distributeTeamsTest();
 
-    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
+    game.getPlayers().getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "H9", 0)));
 
-    final List<Player> players = game.handOutCards();
+    game.handOutCards();
 
     assertSoftly(
         softly -> {
-          softly.assertThat(players.get(0).getHand()).isNotEmpty().isNotNull().hasSize(12);
+          softly.assertThat(game.getPlayers().get(0).getHand()).isNotEmpty().isNotNull().hasSize(12);
 
-          softly.assertThat(players.get(1).getHand()).isNotEmpty().isNotNull().hasSize(12);
+          softly.assertThat(game.getPlayers().get(1).getHand()).isNotEmpty().isNotNull().hasSize(12);
 
-          softly.assertThat(players.get(2).getHand()).isNotEmpty().isNotNull().hasSize(12);
+          softly.assertThat(game.getPlayers().get(2).getHand()).isNotEmpty().isNotNull().hasSize(12);
 
-          softly.assertThat(players.get(3).getHand()).isNotEmpty().isNotNull().hasSize(12);
+          softly.assertThat(game.getPlayers().get(3).getHand()).isNotEmpty().isNotNull().hasSize(12);
         });
   }
   @Test
@@ -45,7 +45,7 @@ class GameEngineTest {
     game.addPlayer("player3");
     game.addPlayer("player4");
     game.addPlayer("player5");
-    assertEquals(4, game.players.size());
+    assertEquals(4, game.getPlayers().size());
   }
 
   @Test
@@ -67,22 +67,22 @@ class GameEngineTest {
     final var game = new Game();
     game.addPlayer("Mihoshi");
     game.addPlayer("Colin");
-    game.setStartPlayer(game.players.getFirst());
+    game.setStartPlayer(game.getPlayers().getFirst());
 
-    game.players
+    game.getPlayers()
         .getFirst()
         .setHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0)));
 
-    int playerHandSize = game.players.getFirst().getHand().size();
+    int playerHandSize = game.getPlayers().getFirst().getHand().size();
     int discardPileSize = game.stich.getDiscardCards().size(); // discardPile.discardCards.size();
 
     Player currentPlayer = game.activePlayer;
 
-    game.playCard(game.players.getFirst().getHand().getFirst());
+    game.playCard(game.getPlayers().getFirst().getHand().getFirst());
 
     assertSoftly(
         softly -> {
-          softly.assertThat(playerHandSize - 1).isEqualTo(game.players.getFirst().getHand().size());
+          softly.assertThat(playerHandSize - 1).isEqualTo(game.getPlayers().getFirst().getHand().size());
           softly.assertThat(discardPileSize + 1).isEqualTo(game.stich.getDiscardCards().size());
           softly.assertThat(currentPlayer).isNotEqualTo(game.activePlayer);
         });
@@ -94,26 +94,29 @@ class GameEngineTest {
     game.addPlayer("Stefan");
     game.addPlayer("Colin");
 
-    game.setStartPlayer(game.players.getFirst());
+    game.setStartPlayer(game.getPlayers().getFirst());
 
     game.setNextPlayer();
 
-    assertThat(game.activePlayer).isEqualTo(game.players.get(1));
+    assertThat(game.activePlayer).isEqualTo(game.getPlayers().get(1));
   }
 
   @Test
   void FindWinningTeamTest() {
     final var game = new Game();
-    final var player1 = new Player("player1", 30, 0);
-    final var player2 = new Player("player2", 60, 1);
-    final var player3 = new Player("player3", 60, 2);
-    final var player4 = new Player("player4", 90, 3);
-    player1.setTeam(TeamNames.RE);
-    player2.setTeam(TeamNames.RE);
-    player3.setTeam(TeamNames.CONTRA);
-    player4.setTeam(TeamNames.CONTRA);
+    game.addPlayer("1");
+    game.addPlayer("2");
+    game.addPlayer("3");
+    game.addPlayer("0");
 
-    game.players = List.of(player1, player2, player3, player4);
+    game.getPlayers().getFirst().setTeam(TeamNames.RE);
+    game.getPlayers().getFirst().setScore(30);
+    game.getPlayers().get(1).setTeam(TeamNames.RE);
+    game.getPlayers().get(1).setScore(30);
+    game.getPlayers().get(2).setTeam(TeamNames.CONTRA);
+    game.getPlayers().get(2).setScore(30);
+    game.getPlayers().get(3).setTeam(TeamNames.CONTRA);
+    game.getPlayers().get(3).setScore(30);
 
     assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
   }
@@ -170,7 +173,7 @@ class GameEngineTest {
     game.addPlayer("Galatea");
     game.addPlayer("Mugtaba");
 
-    assertThat(game.schmeissen(game.players.getFirst())).isTrue();
+    assertThat(game.schmeissen(game.getPlayers().getFirst())).isTrue();
   }
 
 
@@ -179,13 +182,13 @@ class GameEngineTest {
     var game = new Game();
     game.addPlayer("Mugtaba");
 
-    game.setStartPlayer(game.players.getFirst());
+    game.setStartPlayer(game.getPlayers().getFirst());
 
-    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.KING, CardColours.TRUMP, 0, "H9", 5)));
-    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.ACE, CardColours.TRUMP, 0, "C9", 11)));
-    game.players.getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 0, "C9", 0)));
+    game.getPlayers().getFirst().addToHand(List.of(new Card(CardSymbols.KING, CardColours.TRUMP, 0, "H9", 5)));
+    game.getPlayers().getFirst().addToHand(List.of(new Card(CardSymbols.ACE, CardColours.TRUMP, 0, "C9", 11)));
+    game.getPlayers().getFirst().addToHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 0, "C9", 0)));
 
-    assertThat(game.schmeissen(game.players.getFirst())).isFalse();
+    assertThat(game.schmeissen(game.getPlayers().getFirst())).isFalse();
   }
 
   @Test
