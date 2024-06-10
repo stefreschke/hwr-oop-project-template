@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 
 public class Game implements Serializable {
   private static final long serialVersionUID = 1L;
-
   private static final int NUM_PLAYERS = 4;
   private static final int NUM_CARDS_PER_PLAYER = 12;
   List<Player> players = new ArrayList<>();
@@ -17,6 +16,8 @@ public class Game implements Serializable {
   Stich stich = new Stich();
 
   Player activePlayer;
+
+  public List<Player> getPlayers() {return players;}
 
   public boolean addPlayer(String name) {
     if (players.size() < 4) {
@@ -50,6 +51,10 @@ public class Game implements Serializable {
     }
 
     return false;
+  }
+
+  public void ansagen(Player player) {
+    player.setAngesagt(true);
   }
 
   public boolean handOutCardsAreValid(Player player) {
@@ -110,7 +115,7 @@ public class Game implements Serializable {
       return true;
   }
 
-  //Gibt true zurück wenn die Karte nach Bedienregeln gespielt werden darf
+  //Gibt true zurück, wenn die Karte nach Bedienregeln gespielt werden darf
   public boolean cardFollowsSuit(Card cardToPlay, Player playerWhoPlaysTheCard, Stich stich) {
       if (!stich.getDiscardPile().isEmpty())
       {
@@ -147,7 +152,7 @@ public class Game implements Serializable {
   }
 
   public TeamNames evaluateGame() {
-    //TODO: Methode um das Spiel auszuwerten; Gewinnende ermitteln und Punkte verteilen
+    setPlayerPoints();
     return findWinningTeam();
   }
 
@@ -203,58 +208,56 @@ public List<Player> distributeTeams(List<Player> players) {
     int score = 0;
     for (Player player : players) {
         if (player.getTeam() == teamName) {
-          score += player.getHand().stream()
-                  .mapToInt(Card::getWorth)
-                  .sum();
+          score += player.score;
         }
     }
 
     return score;
   }
 
-  void calculatePoints() {
-    int scoreRe = 0;
-    int scoreContra = 0;
-
-    if (calculateTeamScore(TeamNames.RE) < 120) {
-      scoreContra += 1;
-    }
-    if (calculateTeamScore(TeamNames.RE) < 90) {
-      scoreContra += 1;
-    }
-    if (calculateTeamScore(TeamNames.RE) < 60) {
-      scoreContra += 1;
-    }
-    if (calculateTeamScore(TeamNames.RE) < 30) {
-      scoreContra += 1;
-    }
-
-    if (calculateTeamScore(TeamNames.CONTRA) < 120) {
-      scoreRe += 1;
-    }
-    if (calculateTeamScore(TeamNames.CONTRA) < 90) {
-      scoreRe += 1;
-    }
-    if (calculateTeamScore(TeamNames.CONTRA) < 60) {
-      scoreRe += 1;
-    }
-    if (calculateTeamScore(TeamNames.CONTRA) < 30) {
-      scoreRe += 1;
-    }
-
+  void setPlayerPoints() {
     for (Player player : players) {
-        if (player.getTeam() == TeamNames.RE) {
-          player.setPoint(player.getPoints() + scoreRe);
-        }
-        else {
-          player.setPoint(player.getPoints() + scoreContra);
-        }
+      player.setPoint(player.getPoints() + calculateTeamPoints(player.getTeam()));
     }
   }
 
+  int calculateTeamPoints(TeamNames teamName) {
+    int points = 0;
+
+    TeamNames otherTeam = (teamName == TeamNames.CONTRA) ? TeamNames.RE : teamName;
+    otherTeam = (teamName == TeamNames.RE) ? TeamNames.CONTRA : teamName;
+
+    if (calculateTeamScore(TeamNames.RE) <= 120) {
+      points += 1;
+    }
+    if (calculateTeamScore(TeamNames.CONTRA) < 120) {
+      points += 1;
+    }
+    if (calculateTeamScore(teamName) < 90) {
+      points += 1;
+    }
+    if (calculateTeamScore(teamName) < 60) {
+      points += 1;
+    }
+    if (calculateTeamScore(teamName) < 30) {
+      points += 1;
+    }
+
+    points *= getTeamPointsFactor(teamName);
 
 
+    return points;
+  }
 
+  int getTeamPointsFactor(TeamNames teamName) {
+    int Factor = 1;
+    for (Player player : players) {
+      if (player.getTeam() == teamName) {
+        Factor *= 2;
+      }
+    }
+    return Factor;
+  }
 
   public static void main(String[] args) {
 

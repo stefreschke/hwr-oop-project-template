@@ -196,30 +196,30 @@ class GameEngineTest {
     game.addPlayer("Galatea");
     game.addPlayer("Hajer");
 
-    game.setStartPlayer(game.players.getFirst());
+    game.setStartPlayer(game.getPlayers().getFirst());
 
-    game.players.get(0).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "C9", 0)));
-    game.players.get(1).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "CQ", 0)));
-    game.players.get(2).addToHand(List.of(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "H9", 3)));
-    game.players.get(3).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
+    game.getPlayers().get(0).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "C9", 0)));
+    game.getPlayers().get(1).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "CQ", 0)));
+    game.getPlayers().get(2).addToHand(List.of(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "H9", 3)));
+    game.getPlayers().get(3).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
 
-    game.players.get(0).addToHand(List.of(new Card(CardSymbols.TEN, CardColours.TRUMP, 100, "H10", 10)));
-    game.players.get(1).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
-    game.players.get(2).addToHand(List.of(new Card(CardSymbols.KING, CardColours.CLUBS, 3, "H10", 4)));
-    game.players.get(3).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
+    game.getPlayers().get(0).addToHand(List.of(new Card(CardSymbols.TEN, CardColours.TRUMP, 100, "H10", 10)));
+    game.getPlayers().get(1).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.CLUBS, 0, "C9", 0)));
+    game.getPlayers().get(2).addToHand(List.of(new Card(CardSymbols.KING, CardColours.CLUBS, 3, "H10", 4)));
+    game.getPlayers().get(3).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.SPADES, 0, "S9", 0)));
 
-    game.playCard(game.players.get(0).getHand().getFirst());
-    game.playCard(game.players.get(1).getHand().getFirst());
-    game.playCard(game.players.get(2).getHand().getFirst());
-    game.playCard(game.players.get(3).getHand().getFirst());
+    game.playCard(game.getPlayers().get(0).getHand().getFirst());
+    game.playCard(game.getPlayers().get(1).getHand().getFirst());
+    game.playCard(game.getPlayers().get(2).getHand().getFirst());
+    game.playCard(game.getPlayers().get(3).getHand().getFirst());
 
     game.evaluateRound();
     //Galatea (Re) gewinnt 3 Punkte
 
-    game.playCard(game.players.get(2).getHand().getFirst());
-    game.playCard(game.players.get(3).getHand().getFirst());
-    game.playCard(game.players.get(0).getHand().getFirst());
-    game.playCard(game.players.get(1).getHand().getFirst());
+    game.playCard(game.getPlayers().get(2).getHand().getFirst());
+    game.playCard(game.getPlayers().get(3).getHand().getFirst());
+    game.playCard(game.getPlayers().get(0).getHand().getFirst());
+    game.playCard(game.getPlayers().get(1).getHand().getFirst());
 
     game.evaluateRound();
     //Mugataba (Contra) gewinnt 14 Punkte
@@ -227,18 +227,18 @@ class GameEngineTest {
     game.evaluateGame();
 
     assertSoftly(softAssertions -> {
-      assertThat(game.players.getFirst().getScore()).isEqualTo(14);
-      assertThat(game.players.get(0).getCardsWon()).hasSize(4);
-    assertThat(game.players.get(0).getHand()).isEmpty();
-      assertThat(game.players.get(1).getScore()).isZero();
-      assertThat(game.players.get(1).getCardsWon()).isEmpty();
-      assertThat(game.players.get(1).getHand()).isEmpty();
-      assertThat(game.players.get(2).getScore()).isEqualTo(3);
-      assertThat(game.players.get(2).getCardsWon()).hasSize(4);
-      assertThat(game.players.get(2).getHand()).isEmpty();
-      assertThat(game.players.get(3).getScore()).isZero();
-      assertThat(game.players.get(3).getCardsWon()).isEmpty();
-      assertThat(game.players.get(3).getHand()).isEmpty();
+      assertThat(game.getPlayers().getFirst().getScore()).isEqualTo(14);
+      assertThat(game.getPlayers().get(0).getCardsWon()).hasSize(4);
+      assertThat(game.getPlayers().get(0).getHand()).isEmpty();
+      assertThat(game.getPlayers().get(1).getScore()).isZero();
+      assertThat(game.getPlayers().get(1).getCardsWon()).isEmpty();
+      assertThat(game.getPlayers().get(1).getHand()).isEmpty();
+      assertThat(game.getPlayers().get(2).getScore()).isEqualTo(3);
+      assertThat(game.getPlayers().get(2).getCardsWon()).hasSize(4);
+      assertThat(game.getPlayers().get(2).getHand()).isEmpty();
+      assertThat(game.getPlayers().get(3).getScore()).isZero();
+      assertThat(game.getPlayers().get(3).getCardsWon()).isEmpty();
+      assertThat(game.getPlayers().get(3).getHand()).isEmpty();
 
       assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
     });

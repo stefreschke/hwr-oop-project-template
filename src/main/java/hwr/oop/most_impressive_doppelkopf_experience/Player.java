@@ -14,6 +14,12 @@ public class Player implements Serializable {
     TeamNames team;
     List<Card> hand = new ArrayList<>();
 
+    boolean angesagt;
+
+    public boolean getAngesagt() {return angesagt;}
+
+    public void setAngesagt(boolean angesagt) {this.angesagt = angesagt;}
+
     public String getName() {
         return name;
     }
@@ -62,7 +68,6 @@ public class Player implements Serializable {
     void addCardsWon(List<Card> cardsWon) {
         this.cardsWon.addAll(cardsWon);
     }
-
 
 
     public Player(String name, int score, int id) {
