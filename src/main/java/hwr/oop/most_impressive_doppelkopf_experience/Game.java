@@ -108,11 +108,7 @@ public class Game implements Serializable {
           return false;
       }
 
-      if (!cardFollowsSuit(cardToPlay, playerWhoPlays, stich)) {
-          return false;
-      }
-
-      return true;
+      return cardFollowsSuit(cardToPlay, playerWhoPlays, stich);
   }
 
   //Gibt true zurück, wenn die Karte nach Bedienregeln gespielt werden darf
@@ -125,9 +121,7 @@ public class Game implements Serializable {
           boolean playerHasCardWithFirstCardColorOfDiscardPile = playerWhoPlaysTheCard.getHand().stream()
                   .anyMatch(obj -> obj.getColour().equals(firstCardColor));
 
-          if (!playedCardColourEqualsFirstCardColorOfDiscardPile && playerHasCardWithFirstCardColorOfDiscardPile) {
-              return false;
-          }
+          return playedCardColourEqualsFirstCardColorOfDiscardPile || !playerHasCardWithFirstCardColorOfDiscardPile;
       }
 
       return true;
@@ -162,16 +156,16 @@ public Player decideWinner() {
 
   Card winnerCard = thisStich.getFirst();
 
-  for (int i = 0; i < thisStich.size(); i++) {
-    if (thisStich.get(i).colour == CardColours.TRUMP) {
-      suitColour = CardColours.TRUMP;
-    }
+    for (Card card : thisStich) {
+        if (card.colour == CardColours.TRUMP) {
+            suitColour = CardColours.TRUMP;
+        }
 
-    boolean cardHasRightColour = thisStich.get(i).colour == suitColour;
-    if (cardHasRightColour && thisStich.get(i).value > winnerCard.getValue()) {
-      winnerCard = thisStich.get(i);
+        boolean cardHasRightColour = card.colour == suitColour;
+        if (cardHasRightColour && card.value > winnerCard.getValue()) {
+            winnerCard = card;
+        }
     }
-  }
 
   int indexOfWinner = players.indexOf(activePlayer);
   for (int i = 0; i < thisStich.indexOf(winnerCard); i++) {
