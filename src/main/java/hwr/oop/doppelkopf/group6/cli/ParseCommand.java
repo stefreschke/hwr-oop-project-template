@@ -1,33 +1,34 @@
 package hwr.oop.doppelkopf.group6.cli;
 
-import java.util.Arrays;
-import java.util.HashMap;
+import hwr.oop.doppelkopf.group6.Player;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-@SuppressWarnings("java:S106")
 public class ParseCommand {
-  public final Map<String, Command> commands = new HashMap<>();
-  String gameID;
+  public List<Player> players(List<String> args) throws IOException {
+    String regularExpression = "[a-zA-Z]+";
+    if (args.size() != 7
+        || (args.get(3).isBlank() || !args.get(3).matches(regularExpression))
+        || (args.get(4).isBlank() || !args.get(4).matches(regularExpression))
+        || (args.get(5).isBlank() || !args.get(5).matches(regularExpression))
+        || (args.get(6).isBlank() || !args.get(6).matches(regularExpression))) {
+      throw new IOException("Something went wrong regarding the Players.");
+    }
+    List<Player> playerList = new ArrayList<>();
+    playerList.add(new Player(args.get(3), 1, 0));
+    playerList.add(new Player(args.get(4), 2, 0));
+    playerList.add(new Player(args.get(5), 3, 0));
+    playerList.add(new Player(args.get(6), 4, 0));
 
-  public ParseCommand() {
-    commands.put("create", new CreateCommand(IOExceptionBomb.DONT));
-    // weitere Commands
+    return playerList;
   }
 
-  public void parse(String[] args) {
-    if (args.length == 0) {
-      System.out.println("Keine Argumente übergeben. Nutzung: ./doppelkopf <Befehl>");
-      return;
+  public String gameID(List<String> args) throws IOException {
+    if (args.get(1) == null || args.get(1).isBlank() || !args.get(1).matches("\\d+")) {
+      throw new IOException(
+          "Game ID: " + "\"" + args.get(1) + "\"" + " is not a valid game ID. Please use numbers!");
     }
-
-    // command format:
-    //   0   1      2         ...
-    // game [ID] [create/usw.]...
-    String commandKey = args[2];
-    Command command = commands.get(commandKey);
-
-    List<String> arguments = Arrays.asList(args);
-    command.execute(arguments);
+    return args.get(1);
   }
 }
