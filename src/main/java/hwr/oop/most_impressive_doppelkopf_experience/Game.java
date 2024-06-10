@@ -32,7 +32,7 @@ public class Game implements Serializable {
     activePlayer = startPlayer;
   }
 
-  public List<Player> handOutCards() {
+  public void handOutCards() {
 
     for(int i = 0; i < NUM_PLAYERS; i++) {
       players.get(i).getHand().clear();
@@ -40,8 +40,6 @@ public class Game implements Serializable {
         players.get(i).getHand().add(shuffledStack.get(j));
       }
     }
-
-    return distributeTeams(players);
   }
 
   public boolean schmeissen(Player player) {
@@ -153,21 +151,20 @@ public class Game implements Serializable {
 
   public void evaluateGame() {
     setPlayerPoints();
-    findWinningTeam();
   }
 
 public Player decideWinner() {
   List<Card> thisStich = stich.getDiscardPile();
-  CardColours suitColour = thisStich.getFirst().getColour();
+  CardColours mainColour = thisStich.getFirst().getColour();
 
   Card winnerCard = thisStich.getFirst();
 
   for (int i = 0; i < thisStich.size(); i++) {
     if (thisStich.get(i).colour == CardColours.TRUMP) {
-      suitColour = CardColours.TRUMP;
+      mainColour = CardColours.TRUMP;
     }
 
-    boolean cardHasRightColour = thisStich.get(i).colour == suitColour;
+    boolean cardHasRightColour = thisStich.get(i).colour == mainColour;
     if (cardHasRightColour && thisStich.get(i).value > winnerCard.getValue()) {
       winnerCard = thisStich.get(i);
     }
@@ -252,7 +249,7 @@ public List<Player> distributeTeams(List<Player> players) {
       points += 1;
     }
 
-    points *= getTeamPointsFactor(otherTeam);
+    points *= getTeamPointsFactor(teamName);
 
 
     return points;

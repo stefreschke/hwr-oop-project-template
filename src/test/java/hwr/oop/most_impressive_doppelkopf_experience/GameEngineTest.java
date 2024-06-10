@@ -118,6 +118,7 @@ class GameEngineTest {
     game.getPlayers().get(3).setTeam(TeamNames.CONTRA);
     game.getPlayers().get(3).setScore(30);
 
+
     assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
   }
 
@@ -201,6 +202,8 @@ class GameEngineTest {
 
     game.setStartPlayer(game.getPlayers().getFirst());
 
+    game.ansagen(game.getPlayers().getFirst());
+
     game.getPlayers().get(0).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "C9", 0)));
     game.getPlayers().get(1).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "CQ", 0)));
     game.getPlayers().get(2).addToHand(List.of(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "H9", 3)));
@@ -231,17 +234,26 @@ class GameEngineTest {
 
     assertSoftly(softAssertions -> {
       assertThat(game.getPlayers().getFirst().getScore()).isEqualTo(14);
-      assertThat(game.getPlayers().get(0).getCardsWon()).hasSize(4);
-      assertThat(game.getPlayers().get(0).getHand()).isEmpty();
+      assertThat(game.getPlayers().getFirst().getCardsWon()).hasSize(4);
+      assertThat(game.getPlayers().getFirst().getHand()).isEmpty();
+      assertThat(game.getPlayers().getFirst().getPoints()).isEqualTo(8);
+
       assertThat(game.getPlayers().get(1).getScore()).isZero();
       assertThat(game.getPlayers().get(1).getCardsWon()).isEmpty();
       assertThat(game.getPlayers().get(1).getHand()).isEmpty();
+      assertThat(game.getPlayers().get(1).getPoints()).isEqualTo(8);
+
       assertThat(game.getPlayers().get(2).getScore()).isEqualTo(3);
       assertThat(game.getPlayers().get(2).getCardsWon()).hasSize(4);
       assertThat(game.getPlayers().get(2).getHand()).isEmpty();
+      assertThat(game.getPlayers().get(2).getPoints()).isEqualTo(4);
+
       assertThat(game.getPlayers().get(3).getScore()).isZero();
       assertThat(game.getPlayers().get(3).getCardsWon()).isEmpty();
       assertThat(game.getPlayers().get(3).getHand()).isEmpty();
+      assertThat(game.getPlayers().get(3).getPoints()).isEqualTo(4);
+
+
 
       assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
     });
