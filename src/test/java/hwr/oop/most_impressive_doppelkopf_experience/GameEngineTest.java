@@ -125,18 +125,19 @@ class GameEngineTest {
   @Test
   void distributeTeamsTest() {
     final var game = new Game();
-    final var player1 = new Player("player1", 0, 0);
-    final var player2 = new Player("player2", 0, 1);
-    final var player3 = new Player("player3", 0, 2);
-    final var player4 = new Player("player4", 0, 3);
-    final List<Player> players = List.of(player1, player2, player3, player4);
-    player1.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
-    player2.getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
-    game.distributeTeams(players);
-    assertThat(player1.getTeam()).isEqualTo(RE);
-    assertThat(player2.getTeam()).isEqualTo(RE);
-    assertThat(player3.getTeam()).isEqualTo(CONTRA);
-    assertThat(player4.getTeam()).isEqualTo(CONTRA);
+    game.addPlayer("Simon");
+    game.addPlayer("Stefan");
+    game.addPlayer("Laura");
+    game.addPlayer("Leo");
+
+    game.getPlayers().getFirst().getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
+    game.getPlayers().get(1).getHand().add(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "CQ", 3));
+    game.distributeTeams();
+
+    assertThat(game.getPlayers().getFirst().getTeam()).isEqualTo(RE);
+    assertThat(game.getPlayers().get(1).getTeam()).isEqualTo(RE);
+    assertThat(game.getPlayers().get(2).getTeam()).isEqualTo(CONTRA);
+    assertThat(game.getPlayers().get(3).getTeam()).isEqualTo(CONTRA);
   }
 
   @Test
@@ -204,6 +205,11 @@ class GameEngineTest {
 
     game.ansagen(game.getPlayers().getFirst());
 
+    game.getPlayers().getFirst().setTeam(RE);
+    game.getPlayers().get(1).setTeam(RE);
+    game.getPlayers().get(2).setTeam(CONTRA);
+    game.getPlayers().get(3).setTeam(CONTRA);
+
     game.getPlayers().get(0).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "C9", 0)));
     game.getPlayers().get(1).addToHand(List.of(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "CQ", 0)));
     game.getPlayers().get(2).addToHand(List.of(new Card(CardSymbols.QUEEN, CardColours.TRUMP, 21, "H9", 3)));
@@ -253,9 +259,7 @@ class GameEngineTest {
       assertThat(game.getPlayers().get(3).getHand()).isEmpty();
       assertThat(game.getPlayers().get(3).getPoints()).isEqualTo(4);
 
-
-
-      assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
+      assertThat(game.findWinningTeam()).isEqualTo(RE);
     });
   }
 }

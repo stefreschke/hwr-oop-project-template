@@ -181,9 +181,9 @@ public Player decideWinner() {
   return players.get(indexOfWinner);
 }
 
-public List<Player> distributeTeams(List<Player> players) {
+public void distributeTeams() {
       String old = "CQ";
-      return players.stream()
+      getPlayers().stream()
               .map(player -> {
                 boolean foundCQ = player.getHand().stream()
                         .anyMatch(card -> card.getName().equals(old));
@@ -250,7 +250,6 @@ public List<Player> distributeTeams(List<Player> players) {
     }
 
     points *= getTeamPointsFactor(teamName);
-
 
     return points;
   }
