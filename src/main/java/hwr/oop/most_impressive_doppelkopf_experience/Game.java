@@ -259,7 +259,7 @@ public List<Player> distributeTeams(List<Player> players) {
   int getTeamPointsFactor(TeamNames teamName) {
     int Factor = 1;
     for (Player player : players) {
-      if (player.getTeam() == teamName) {
+      if (player.getTeam() == teamName && player.getAngesagt()) {
         Factor *= 2;
       }
     }
