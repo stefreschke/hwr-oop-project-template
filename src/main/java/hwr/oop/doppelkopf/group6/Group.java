@@ -4,5 +4,5 @@ public enum Group {
   TRUMPF,
   HERZ,
   PIK,
-  KREUZ;
+  KREUZ
 }
