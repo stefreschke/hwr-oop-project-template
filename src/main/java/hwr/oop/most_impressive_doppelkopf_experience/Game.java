@@ -230,7 +230,7 @@ public List<Player> distributeTeams(List<Player> players) {
       otherTeam = TeamNames.CONTRA;
     }
     else {
-      otherTeam = teamName.RE;
+      otherTeam = TeamNames.RE;
     }
 
 
