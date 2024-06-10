@@ -252,12 +252,12 @@ class GameEngineTest {
       assertThat(game.getPlayers().get(2).getScore()).isEqualTo(3);
       assertThat(game.getPlayers().get(2).getCardsWon()).hasSize(4);
       assertThat(game.getPlayers().get(2).getHand()).isEmpty();
-      assertThat(game.getPlayers().get(2).getPoints()).isEqualTo(4);
+      assertThat(game.getPlayers().get(2).getPoints()).isEqualTo(5);
 
       assertThat(game.getPlayers().get(3).getScore()).isZero();
       assertThat(game.getPlayers().get(3).getCardsWon()).isEmpty();
       assertThat(game.getPlayers().get(3).getHand()).isEmpty();
-      assertThat(game.getPlayers().get(3).getPoints()).isEqualTo(4);
+      assertThat(game.getPlayers().get(3).getPoints()).isEqualTo(5);
 
       assertThat(game.findWinningTeam()).isEqualTo(RE);
     });
