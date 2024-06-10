@@ -35,6 +35,12 @@ public class Stich {
     }
   }
 
+  public void resetStich() {
+    this.cards.clear();
+    this.points = 0;
+    this.winnerPos = 0;
+  }
+
   public int findHighestCard() {
     Card highestCard = this.cards.getFirst();
     Card firstCard = highestCard;
@@ -45,15 +51,23 @@ public class Stich {
                   || this.cards.get(i).getColor() == highestCard.getColor())
               && (this.cards.get(i).getNumber().getStrength()
                   > highestCard.getNumber().getStrength())
+          || highestCard.getGroup().equals(Group.TRUMPF)
+              && this.cards.get(i).getGroup().equals(Group.TRUMPF)
+              && this.cards.get(i).getColor().getStrenght() > highestCard.getColor().getStrenght()
           || Objects.equals(this.cards.get(i).getShortcut(), "H10")) {
         highestCard = this.cards.get(i);
         winnerNumber = i + 1;
       }
     }
+
     this.cards.add(firstCard);
     this.winnerPos = winnerNumber;
     setPoints();
     return this.winnerPos + 1;
+  }
+
+  public void updateWinnerPos(int startPlayer) {
+    this.winnerPos = (this.winnerPos + startPlayer) % 4;
   }
 
   public List<Card> getCards() {
@@ -61,6 +75,9 @@ public class Stich {
   }
 
   public boolean checkCard(List<Card> playersCards, Card playedCard) {
+    if (this.cards.isEmpty()) {
+      return true;
+    }
     if (playedCard.getGroup().equals(this.cards.getFirst().getGroup())) {
       return true;
     } else {

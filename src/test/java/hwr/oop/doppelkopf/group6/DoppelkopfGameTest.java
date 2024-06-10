@@ -217,9 +217,7 @@ class DoppelkopfGameTest {
         .addCard(
             new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"),
             new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
-    for (Player i : game.players) {
-      i.setGroup();
-    }
+    game.setPlayerGroups();
 
     for (int i = 0; i < game.players.getFirst().getOwnCards().size(); i++) {
       game.oneGame();
@@ -235,7 +233,7 @@ class DoppelkopfGameTest {
   }
 
   @Test
-  void testcreateDeck(){
+  void testcreateDeck() {
     DoppelkopfGame game = new DoppelkopfGame();
     game.createDeck();
 

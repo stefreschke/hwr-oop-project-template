@@ -6,6 +6,7 @@ import java.util.*;
 public class DoppelkopfGame {
   public final List<Player> players = new ArrayList<>();
   public final Deck deck = new Deck();
+  public final Stich currentStich = new Stich();
 
   public DoppelkopfGame() {
     initializePlayers();
@@ -48,13 +49,13 @@ public class DoppelkopfGame {
   }
 
   public int oneRound() {
-    Stich stich = new Stich();
-    players.get(0).getHand().playFirstCard(0, stich);
-    players.get(1).getHand().playCard(0, stich);
-    players.get(2).getHand().playCard(0, stich);
-    players.get(3).getHand().playCard(0, stich);
-    int winner = stich.findHighestCard();
-    addRoundPoints(stich);
+    players.get(0).getHand().playCard(0, currentStich);
+    players.get(1).getHand().playCard(0, currentStich);
+    players.get(2).getHand().playCard(0, currentStich);
+    players.get(3).getHand().playCard(0, currentStich);
+    int winner = currentStich.findHighestCard();
+    addRoundPoints(currentStich);
+    currentStich.resetStich();
     return winner;
   }
 
@@ -90,5 +91,16 @@ public class DoppelkopfGame {
       }
     }
     return false;
+  }
+
+  public DoppelkopfGame playCard(Player player, String shortcut){
+    player.getHand().playCard(shortcut, currentStich);
+    if (currentStich.getCards().size() == 4){
+      currentStich.findHighestCard();
+        currentStich.updateWinnerPos((player.getOrder())%4);
+      addRoundPoints(currentStich);
+      currentStich.resetStich();
+    }
+    return this;
   }
 }

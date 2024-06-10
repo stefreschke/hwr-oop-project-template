@@ -28,6 +28,10 @@ class StichTest {
     Stich stich6 = new Stich();
     Stich stich7 = new Stich();
     Stich stich8 = new Stich();
+    Stich stich9 = new Stich();
+    Stich stich10 = new Stich();
+      Stich stich11 = new Stich();
+
 
     stich1.addCard(
         new Card(Color.HERZ, Type.ASS, Group.HERZ, "HA"),
@@ -63,6 +67,15 @@ class StichTest {
         new Card(Color.PIK, Type.ZEHN, Group.PIK, "P10"),
         new Card(Color.KREUZ, Type.NEUN, Group.KREUZ, "Kr9"),
         new Card(Color.KREUZ, Type.KOENIG, Group.KREUZ, "KrK"));
+    stich9.addCard(
+        new Card(Color.PIK, Type.DAME, Group.TRUMPF, "PD"),
+        new Card(Color.KARO, Type.DAME, Group.TRUMPF, "KaD"));
+    stich10.addCard(
+        new Card(Color.PIK, Type.DAME, Group.TRUMPF, "PD"),
+        new Card(Color.PIK, Type.DAME, Group.TRUMPF, "PD"));
+      stich11.addCard(
+              new Card(Color.PIK, Type.DAME, Group.TRUMPF, "PD"),
+              new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
     stich1.findHighestCard();
     stich2.findHighestCard();
     stich3.findHighestCard();
@@ -71,6 +84,9 @@ class StichTest {
     stich6.findHighestCard();
     stich7.findHighestCard();
     stich8.findHighestCard();
+    stich9.findHighestCard();
+    stich10.findHighestCard();
+    stich11.findHighestCard();
     game.addRoundPoints(stich1);
     game.addRoundPoints(stich2);
     game.addRoundPoints(stich3);
@@ -90,6 +106,9 @@ class StichTest {
           softly.assertThat(stich6.getWinnerPos()).isEqualTo(0);
           softly.assertThat(stich7.getWinnerPos()).isEqualTo(1);
           softly.assertThat(stich8.getWinnerPos()).isEqualTo(0);
+          softly.assertThat(stich9.getWinnerPos()).isEqualTo(0);
+          softly.assertThat(stich10.getWinnerPos()).isEqualTo(0);
+            softly.assertThat(stich11.getWinnerPos()).isEqualTo(1);
           softly.assertThat(game.players.get(0).getPoints()).isEqualTo(90);
           softly.assertThat(game.players.get(1).getPoints()).isEqualTo(90);
           softly.assertThat(game.players.get(2).getPoints()).isEqualTo(54);

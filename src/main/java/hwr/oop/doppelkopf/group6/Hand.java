@@ -74,11 +74,6 @@ public class Hand {
     }
   }
 
-  public void playFirstCard(int position, Stich stich) {
-    stich.addCard(this.allCards.get(position));
-    removeCard(position);
-  }
-
   public void playFirstCard(String shortcut, Stich stich) {
     for (Card card : this.getAllCards()) {
       if (card.getShortcut().equals(shortcut)) {
@@ -97,7 +92,7 @@ public class Hand {
     removeCard(position);
   }
 
-  public void playCard(String shortcut, Stich stich) {
+  public void playCard( String shortcut, Stich stich) {
     for (Card card : this.allCards) {
       if (card.getShortcut().equals(shortcut) && stich.checkCard(this.allCards, card)) {
         stich.addCard(card);
