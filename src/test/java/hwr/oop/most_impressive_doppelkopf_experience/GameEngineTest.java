@@ -9,7 +9,7 @@ import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.RE;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import hwr.oop.most_impressive_doppelkopf_experience.Game;
 class GameEngineTest {
   @Test
   void startNewGameTest() {
@@ -28,13 +28,13 @@ class GameEngineTest {
 
     assertSoftly(
         softly -> {
-          softly.assertThat(players.get(0).hand).isNotEmpty().isNotNull().hasSize(12);
+          softly.assertThat(players.get(0).getHand()).isNotEmpty().isNotNull().hasSize(12);
 
-          softly.assertThat(players.get(1).hand).isNotEmpty().isNotNull().hasSize(12);
+          softly.assertThat(players.get(1).getHand()).isNotEmpty().isNotNull().hasSize(12);
 
-          softly.assertThat(players.get(2).hand).isNotEmpty().isNotNull().hasSize(12);
+          softly.assertThat(players.get(2).getHand()).isNotEmpty().isNotNull().hasSize(12);
 
-          softly.assertThat(players.get(3).hand).isNotEmpty().isNotNull().hasSize(12);
+          softly.assertThat(players.get(3).getHand()).isNotEmpty().isNotNull().hasSize(12);
         });
   }
   @Test
@@ -74,7 +74,7 @@ class GameEngineTest {
         .setHand(List.of(new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0)));
 
     int playerHandSize = game.players.getFirst().getHand().size();
-    int discardPileSize = game.stich.discardCards.size(); // discardPile.discardCards.size();
+    int discardPileSize = game.stich.getDiscardCards().size(); // discardPile.discardCards.size();
 
     Player currentPlayer = game.activePlayer;
 
@@ -83,7 +83,7 @@ class GameEngineTest {
     assertSoftly(
         softly -> {
           softly.assertThat(playerHandSize - 1).isEqualTo(game.players.getFirst().getHand().size());
-          softly.assertThat(discardPileSize + 1).isEqualTo(game.stich.discardCards.size());
+          softly.assertThat(discardPileSize + 1).isEqualTo(game.stich.getDiscardCards().size());
           softly.assertThat(currentPlayer).isNotEqualTo(game.activePlayer);
         });
   }

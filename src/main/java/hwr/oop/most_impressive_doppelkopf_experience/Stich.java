@@ -9,7 +9,11 @@ public class Stich implements Serializable {
     this.discardCards = discardCards;
   }
 
-  List<Card> discardCards = new ArrayList<>();
+  public List<Card> getDiscardCards() {
+    return discardCards;
+  }
+
+  private List<Card> discardCards = new ArrayList<>();
 
   public List<Card> getDiscardPile() {
     return this.discardCards;
