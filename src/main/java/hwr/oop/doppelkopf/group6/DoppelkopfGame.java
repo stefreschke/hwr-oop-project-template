@@ -11,33 +11,32 @@ public class DoppelkopfGame {
     initializePlayers();
   }
 
-  public void createDeck(){
+  public void createDeck() {
     deck.initializeCards();
     deck.shuffleDeck();
     deck.dealCards(players);
   }
 
-  public void oneGame() {
-        boolean hochzeit = false;
-    int playerWithHochzeit = 0;
+  public void setPlayerGroups() {
     for (Player player : players) {
       player.setGroup();
-      if (player.getGroup().equals(PlayerGroup.HOCHZEIT)) {
-        hochzeit = true;
-        playerWithHochzeit = player.getOrder() - 1;
-      }
     }
-    for (int i = 0; i < 12; i++) {
-      int winner = oneRound() - 1;
-      if ((hochzeit) && (winner != playerWithHochzeit)) {
-        for (Player player : players) {
-          if (player.getGroup().equals(PlayerGroup.HOCHZEIT)) {
-            player.setGroup(PlayerGroup.RE);
-          }
+  }
+
+  public void oneGame() {
+    int winner = oneRound() - 1;
+    boolean hochzeit =
+        !(players.stream()
+            .filter(player -> player.getGroup().equals(PlayerGroup.HOCHZEIT))
+            .toList()
+            .isEmpty());
+    if (hochzeit && (players.get(winner).getGroup() != PlayerGroup.HOCHZEIT)) {
+      for (Player player : players) {
+        if (player.getGroup().equals(PlayerGroup.HOCHZEIT)) {
+          player.setGroup(PlayerGroup.RE);
         }
-        players.get(winner).setGroup(PlayerGroup.RE);
-        hochzeit = false;
       }
+      players.get(winner).setGroup(PlayerGroup.RE);
     }
   }
 

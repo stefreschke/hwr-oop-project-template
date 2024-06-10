@@ -19,67 +19,65 @@ class CommandTest {
   CreateCommand command = new CreateCommand(IOExceptionBomb.DONT);
   ParseCommand cmd = new ParseCommand();
 
-
   @Test
   void testParseID() {
-      List<String> args = new ArrayList<>();
-      args.add("game");
-      args.add("1");
-      args.add("create");
+    List<String> args = new ArrayList<>();
+    args.add("game");
+    args.add("1");
+    args.add("create");
 
-      String gameID = command.parseGameID(args);
+    String gameID = command.parseGameID(args);
 
-      assertThat(gameID).isEqualTo(args.get(1));
+    assertThat(gameID).isEqualTo(args.get(1));
   }
 
   @Test
   void testParseCommandWithNoArgs() {
-      String[] args = new String[0];
+    String[] args = new String[0];
 
-      ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-      PrintStream printStream = new PrintStream(outputStream);
-      System.setOut(printStream);
+    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+    PrintStream printStream = new PrintStream(outputStream);
+    System.setOut(printStream);
 
-      cmd.parse(args);
+    cmd.parse(args);
 
-      System.setOut(System.out);
-      String expectedMessage = "Keine Argumente übergeben. Nutzung: ./doppelkopf <Befehl>";
-      String output = outputStream.toString().trim();
-      assertThat(output).contains(expectedMessage);
+    System.setOut(System.out);
+    String expectedMessage = "Keine Argumente übergeben. Nutzung: ./doppelkopf <Befehl>";
+    String output = outputStream.toString().trim();
+    assertThat(output).contains(expectedMessage);
   }
 
-
   // weiß nicht, ob wir "Mockito" benutzen dürfen. Ist zum überprüfen ob Funktionen executed wurden.
-    @Test
-    void testParseCommandExecutesCreateCommand() {
-        String[] args = {"game", "1", "create"};
-        ParseCommand parseCommand = new ParseCommand();
+  @Test
+  void testParseCommandExecutesCreateCommand() {
+    String[] args = {"game", "1", "create"};
+    ParseCommand parseCommand = new ParseCommand();
 
-        Command createCommandMock = mock(CreateCommand.class);
-        parseCommand.commands.put("create", createCommandMock);
+    Command createCommandMock = mock(CreateCommand.class);
+    parseCommand.commands.put("create", createCommandMock);
 
-        parseCommand.parse(args);
+    parseCommand.parse(args);
 
-        List<String> expectedArguments = Arrays.asList("game", "1", "create");
-        verify(createCommandMock).execute(expectedArguments);
-    }
+    List<String> expectedArguments = Arrays.asList("game", "1", "create");
+    verify(createCommandMock).execute(expectedArguments);
+  }
 
   @Test
   void testParsePlayer() throws IOException {
-      List<String> players;
-      List<String> args = new ArrayList<>();
-      args.add("game");
-      args.add("1");
-      args.add("create");
-      args.add("susi");
-      args.add("rainer");
-      args.add("brigitte");
-      args.add("joachim");
+    List<String> players;
+    List<String> args = new ArrayList<>();
+    args.add("game");
+    args.add("1");
+    args.add("create");
+    args.add("susi");
+    args.add("rainer");
+    args.add("brigitte");
+    args.add("joachim");
 
-      CreateCommand command = new CreateCommand(IOExceptionBomb.DONT);
+    CreateCommand command = new CreateCommand(IOExceptionBomb.DONT);
 
-      players = command.parsePlayer(args);
+    players = command.parsePlayer(args);
 
-      assertThat(players).containsExactly("susi", "rainer", "brigitte", "joachim");
+    assertThat(players).containsExactly("susi", "rainer", "brigitte", "joachim");
   }
 }

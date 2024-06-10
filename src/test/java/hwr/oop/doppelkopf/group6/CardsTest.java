@@ -16,15 +16,14 @@ class CardsTest {
     deck.initializeCards();
 
     SoftAssertions.assertSoftly(
-            softly -> {
-                for (Color color : Color.values()) {
-                    for (Type value : Type.values()) {
-                        softly.assertThat(deck.hasCard(color, value)).isTrue();
-                        softly.assertThat(deck2.hasCard(color, value)).isFalse();
-                    }
-                }
+        softly -> {
+          for (Color color : Color.values()) {
+            for (Type value : Type.values()) {
+              softly.assertThat(deck.hasCard(color, value)).isTrue();
+              softly.assertThat(deck2.hasCard(color, value)).isFalse();
             }
-    );
+          }
+        });
   }
 
   @Test
@@ -51,17 +50,16 @@ class CardsTest {
   }
 
   @Test
-  void testAddCardAndTestColor(){
-      Deck deck = new Deck();
-      deck.addCard(new Card(Color.KREUZ, Type.NEUN, Group.KREUZ, "Kr9"));
+  void testAddCardAndTestColor() {
+    Deck deck = new Deck();
+    deck.addCard(new Card(Color.KREUZ, Type.NEUN, Group.KREUZ, "Kr9"));
 
-      SoftAssertions.assertSoftly(
-              softly -> {
-                  softly.assertThat(deck.hasCard(Color.KREUZ, Type.NEUN)).isTrue();
-                  softly.assertThat(deck.hasCard(Color.KARO, Type.NEUN)).isFalse();
-                  softly.assertThat(deck.hasCard(Color.KREUZ, Type.ZEHN)).isFalse();
-
-              });
+    SoftAssertions.assertSoftly(
+        softly -> {
+          softly.assertThat(deck.hasCard(Color.KREUZ, Type.NEUN)).isTrue();
+          softly.assertThat(deck.hasCard(Color.KARO, Type.NEUN)).isFalse();
+          softly.assertThat(deck.hasCard(Color.KREUZ, Type.ZEHN)).isFalse();
+        });
   }
 
   @Test

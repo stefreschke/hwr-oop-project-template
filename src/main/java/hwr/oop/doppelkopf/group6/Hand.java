@@ -11,7 +11,7 @@ public class Hand {
   private final List<String> pikCards = new ArrayList<>();
   private final List<String> kreuzCards = new ArrayList<>();
 
-  public Hand(){
+  public Hand() {
     this.allCards = new ArrayList<>();
   }
 
@@ -35,8 +35,17 @@ public class Hand {
     return new ArrayList<>(kreuzCards);
   }
 
-  public void removeCard (int i){
+  public void removeCard(int i) {
     this.allCards.remove(i);
+  }
+
+  public void removeCard(String i) {
+    for (Card card : allCards) {
+      if (card.getShortcut().equals(i)) {
+        this.allCards.remove(card);
+        break;
+      }
+    }
   }
 
   public void addCard(Card... cardsToAdd) {
@@ -45,7 +54,8 @@ public class Hand {
   }
 
   public int countPlayersTrumpCards() {
-    List<Card> playersTrumpCards = this.allCards.stream().filter(card -> card.getGroup().equals(Group.TRUMPF)).toList();
+    List<Card> playersTrumpCards =
+        this.allCards.stream().filter(card -> card.getGroup().equals(Group.TRUMPF)).toList();
 
     return playersTrumpCards.size();
   }
@@ -69,11 +79,31 @@ public class Hand {
     removeCard(position);
   }
 
+  public void playFirstCard(String shortcut, Stich stich) {
+    for (Card card : this.getAllCards()) {
+      if (card.getShortcut().equals(shortcut)) {
+        stich.addCard(card);
+        removeCard(shortcut);
+        break;
+      }
+    }
+  }
+
   public void playCard(int position, Stich stich) {
-    while (!stich.checkCard(this.allCards,this.allCards.get(position))) {
+    while (!stich.checkCard(this.allCards, this.allCards.get(position))) {
       position++;
     }
     stich.addCard(this.allCards.get(position));
     removeCard(position);
+  }
+
+  public void playCard(String shortcut, Stich stich) {
+    for (Card card : this.allCards) {
+      if (card.getShortcut().equals(shortcut) && stich.checkCard(this.allCards, card)) {
+        stich.addCard(card);
+        removeCard(card.getShortcut());
+        break;
+      }
+    }
   }
 }

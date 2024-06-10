@@ -8,20 +8,20 @@ import static org.mockito.Mockito.*;
 
 class StartGameTest {
 
-    private ParseCommand mockParseCommand;
+  private ParseCommand mockParseCommand;
 
-    @BeforeEach
-    void setUp() {
-        mockParseCommand = mock(ParseCommand.class);
-        StartGame.setParseCommand(mockParseCommand);
-    }
+  @BeforeEach
+  void setUp() {
+    mockParseCommand = mock(ParseCommand.class);
+    StartGame.setParseCommand(mockParseCommand);
+  }
 
-    @Test
-    void testMainMethodCallsParseCommand() {
-        String[] args = {"argument1", "argument2"};
+  @Test
+  void testMainMethodCallsParseCommand() {
+    String[] args = {"argument1", "argument2"};
 
-        StartGame.main(args);
+    StartGame.main(args);
 
-        verify(mockParseCommand).parse(args);
-    }
+    verify(mockParseCommand).parse(args);
+  }
 }

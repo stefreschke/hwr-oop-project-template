@@ -136,7 +136,6 @@ class DoppelkopfGameTest {
     deck.initializeCards();
     deck.shuffleDeck();
     deck.dealCards(game.players);
-    game.players.getFirst().setGroup();
 
     for (Player i : game.players) {
       for (int j = 0; j < i.getOwnCards().size(); j++) {
@@ -148,11 +147,14 @@ class DoppelkopfGameTest {
     }
     game.players
         .getFirst()
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"),
             new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
-    game.players.getFirst().setGroup();
-    game.oneGame();
+    game.setPlayerGroups();
+    for (int i = 0; i < 12; i++) {
+      game.oneGame();
+    }
     SoftAssertions.assertSoftly(
         softly -> {
           softly.assertThat(game.players.getFirst().getGroup()).isEqualTo(PlayerGroup.RE);
@@ -171,25 +173,29 @@ class DoppelkopfGameTest {
     DoppelkopfGame game = new DoppelkopfGame();
     game.players
         .getFirst()
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.ASS, Group.KREUZ, "KrA"),
             new Card(Color.PIK, Type.ZEHN, Group.PIK, "P10"));
 
     game.players
         .get(1)
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.ZEHN, Group.KREUZ, "Kr10"),
             new Card(Color.PIK, Type.NEUN, Group.PIK, "P9"));
 
     game.players
         .get(2)
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.NEUN, Group.KREUZ, "Kr9"),
             new Card(Color.PIK, Type.NEUN, Group.PIK, "P9"));
 
     game.players
         .get(3)
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.KOENIG, Group.KREUZ, "KrK"),
             new Card(Color.PIK, Type.ASS, Group.PIK, "PA"));
 
@@ -207,13 +213,17 @@ class DoppelkopfGameTest {
     }
     game.players
         .getFirst()
-        .getHand().addCard(
+        .getHand()
+        .addCard(
             new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"),
             new Card(Color.KREUZ, Type.DAME, Group.TRUMPF, "KrD"));
     for (Player i : game.players) {
       i.setGroup();
     }
-    game.oneGame();
+
+    for (int i = 0; i < game.players.getFirst().getOwnCards().size(); i++) {
+      game.oneGame();
+    }
 
     SoftAssertions.assertSoftly(
         softly -> {
@@ -222,5 +232,13 @@ class DoppelkopfGameTest {
           softly.assertThat(game.players.get(2).getGroup()).isEqualTo(PlayerGroup.KONTRA);
           softly.assertThat(game.players.get(3).getGroup()).isEqualTo(PlayerGroup.RE);
         });
+  }
+
+  @Test
+  void testcreateDeck(){
+    DoppelkopfGame game = new DoppelkopfGame();
+    game.createDeck();
+
+    assertThat(game.deck.getCards()).isEmpty();
   }
 }

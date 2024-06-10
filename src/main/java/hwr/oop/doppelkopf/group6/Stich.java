@@ -41,7 +41,8 @@ public class Stich {
     int winnerNumber = 0;
     this.cards.removeFirst();
     for (int i = 0; i < this.cards.size(); i++) {
-      if (((this.cards.get(i).getGroup().equals(Group.TRUMPF)) || this.cards.get(i).getColor() == highestCard.getColor())
+      if (((this.cards.get(i).getGroup().equals(Group.TRUMPF))
+                  || this.cards.get(i).getColor() == highestCard.getColor())
               && (this.cards.get(i).getNumber().getStrength()
                   > highestCard.getNumber().getStrength())
           || Objects.equals(this.cards.get(i).getShortcut(), "H10")) {
@@ -55,16 +56,20 @@ public class Stich {
     return this.winnerPos + 1;
   }
 
+  public List<Card> getCards() {
+    return this.cards;
+  }
+
   public boolean checkCard(List<Card> playersCards, Card playedCard) {
-      if (playedCard.getGroup().equals(this.cards.getFirst().getGroup())) {
-        return true;
-      } else {
-        for (Card i : playersCards) {
-          if (i.getGroup().equals(this.cards.getFirst().getGroup())) {
-            return false;
-          }
+    if (playedCard.getGroup().equals(this.cards.getFirst().getGroup())) {
+      return true;
+    } else {
+      for (Card i : playersCards) {
+        if (i.getGroup().equals(this.cards.getFirst().getGroup())) {
+          return false;
         }
       }
+    }
     return true;
   }
 }

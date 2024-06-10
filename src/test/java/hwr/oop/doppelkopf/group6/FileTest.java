@@ -114,7 +114,6 @@ class FileTest {
     assertThat(output).contains(expectedMessage);
   }
 
-
   @Test
   void testCreateGameWithNoWords() {
     List<String> args = new ArrayList<>();
@@ -129,7 +128,8 @@ class FileTest {
     command.execute(args);
     String result = command.parseGameID(args);
 
-    String expectedMessage = "Game ID: " + "\"" + args.get(1) + "\"" + " is not a valid game ID. Please use numbers!";
+    String expectedMessage =
+        "Game ID: " + "\"" + args.get(1) + "\"" + " is not a valid game ID. Please use numbers!";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
     assertThat(result).isNull();

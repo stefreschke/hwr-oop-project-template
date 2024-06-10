@@ -24,7 +24,7 @@ public class Player {
     return order;
   }
 
-  public Hand getHand(){
+  public Hand getHand() {
     return ownCards;
   }
 
@@ -44,7 +44,7 @@ public class Player {
     int countKrD = 0;
     for (Card card : this.getOwnCards()) {
       if (card.getShortcut().equals("KrD")) {
-        countKrD ++ ;
+        countKrD++;
       }
     }
     switch (countKrD) {
@@ -68,7 +68,7 @@ public class Player {
     this.points += points;
   }
 
-  public void resetPoints(){
+  public void resetPoints() {
     this.points = 0;
   }
 }

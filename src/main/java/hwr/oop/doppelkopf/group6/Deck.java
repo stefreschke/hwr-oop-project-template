@@ -16,7 +16,7 @@ public class Deck {
     return cards;
   }
 
-  public boolean getShuffled(){
+  public boolean getShuffled() {
     return this.shuffled;
   }
 
@@ -37,25 +37,31 @@ public class Deck {
     for (int k = 0; k < 2; k++) {
       for (Color i : Color.values()) {
         for (Type j : Type.values()) {
-          createCard(i,j);
+          createCard(i, j);
         }
       }
     }
     this.shuffled = false;
   }
 
-  private void createCard(Color color, Type number){
+  private void createCard(Color color, Type number) {
     Card newCard;
     if (color == Color.KARO
-            || number == Type.BUBE
-            || number == Type.DAME
-            || ((color.getShortcut() + number.getShortcut()).equals("H10"))) {
+        || number == Type.BUBE
+        || number == Type.DAME
+        || ((color.getShortcut() + number.getShortcut()).equals("H10"))) {
       newCard = new Card(color, number, Group.TRUMPF, color.getShortcut() + number.getShortcut());
     } else {
       switch (color) {
-        case HERZ -> newCard = new Card(color, number, Group.HERZ, color.getShortcut() + number.getShortcut());
-        case PIK -> newCard = new Card(color, number, Group.PIK, color.getShortcut() + number.getShortcut());
-        default -> newCard = new Card(color, number, Group.KREUZ, color.getShortcut() + number.getShortcut());
+        case HERZ ->
+            newCard =
+                new Card(color, number, Group.HERZ, color.getShortcut() + number.getShortcut());
+        case PIK ->
+            newCard =
+                new Card(color, number, Group.PIK, color.getShortcut() + number.getShortcut());
+        default ->
+            newCard =
+                new Card(color, number, Group.KREUZ, color.getShortcut() + number.getShortcut());
       }
     }
     this.cards.add(newCard);
@@ -68,10 +74,9 @@ public class Deck {
     this.shuffled = true;
   }
 
-
   public void dealCards(List<Player> players) {
     for (Player player : players) {
-      for (int i = 0; i < 12; i++){
+      for (int i = 0; i < 12; i++) {
         player.getHand().addCard(this.cards.getFirst());
         this.cards.removeFirst();
       }
