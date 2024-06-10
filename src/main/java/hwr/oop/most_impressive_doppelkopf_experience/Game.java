@@ -224,8 +224,7 @@ public List<Player> distributeTeams(List<Player> players) {
   int calculateTeamPoints(TeamNames teamName) {
     int points = 0;
 
-    TeamNames otherTeam = (teamName == TeamNames.CONTRA) ? TeamNames.RE : teamName;
-    otherTeam = null;
+    TeamNames otherTeam = null;
 
     if (teamName == TeamNames.RE) {
       otherTeam = TeamNames.CONTRA;
