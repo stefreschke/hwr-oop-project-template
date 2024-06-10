@@ -222,4 +222,27 @@ class PointsTest {
     assertThat(game.calculateTeamPoints(CONTRA)).isEqualTo(2);
     assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
   }
+  @Test
+  void setPLayerPointsTest(){
+    var game = new Game();
+    game.addPlayer("Mugtaba");
+    game.addPlayer("Simon");
+    game.addPlayer("Galatea");
+    game.addPlayer("Hajer");
+
+    game.getPlayers().getFirst().setScore(131);
+    game.getPlayers().getFirst().setTeam(RE);
+    game.getPlayers().get(1).setScore(50);
+    game.getPlayers().get(1).setTeam(RE);
+    game.getPlayers().get(2).setScore(0);
+    game.getPlayers().get(2).setTeam(CONTRA);
+    game.getPlayers().get(3).setScore(59);
+    game.getPlayers().get(3).setTeam(CONTRA);
+
+    game.getPlayers().getFirst().setPoint(5);
+
+    game.evaluateGame();
+
+    assertThat(game.getPlayers().getFirst().getPoints()).isEqualTo(8);
+  }
 }
