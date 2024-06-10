@@ -9,7 +9,7 @@ public class Game implements Serializable {
   private static final long serialVersionUID = 1L;
   private static final int NUM_PLAYERS = 4;
   private static final int NUM_CARDS_PER_PLAYER = 12;
-  List<Player> players = new ArrayList<>();
+  private List<Player> players = new ArrayList<>();
   CardStack stack = new CardStack();
   List<Card> cardList = stack.getCardStack();
   List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
@@ -165,7 +165,6 @@ public Player decideWinner() {
   for (int i = 0; i < thisStich.size(); i++) {
     if (thisStich.get(i).colour == CardColours.TRUMP) {
       suitColour = CardColours.TRUMP;
-      winnerCard = thisStich.get(i);
     }
 
     boolean cardHasRightColour = thisStich.get(i).colour == suitColour;
@@ -175,7 +174,7 @@ public Player decideWinner() {
   }
 
   int indexOfWinner = players.indexOf(activePlayer);
-  for (int i = 1; i < thisStich.indexOf(winnerCard); i++) {
+  for (int i = 0; i < thisStich.indexOf(winnerCard); i++) {
     indexOfWinner += 1;
     if (indexOfWinner >= players.size()) {
       indexOfWinner = 0;
