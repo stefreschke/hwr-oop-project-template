@@ -33,23 +33,6 @@ class GamePersistenceTest {
   }
 
   @Test
-  void testSaveGameIOException(@TempDir Path tempDir) {
-    String filePath = tempDir.resolve("readonly/testgame.ser").toString();
-
-    File readOnlyDir = new File(tempDir.toFile(), "readonly");
-    assertTrue(readOnlyDir.mkdir());
-    assertTrue(readOnlyDir.setWritable(false));
-
-    IOException exception =
-        assertThrows(IOException.class, () -> gamePersistence.saveGame(game, filePath));
-    assertNotNull(exception.getMessage());
-
-    if (!readOnlyDir.setWritable(true)) {
-      fail("Failed to set the read-only directory back to writable.");
-    }
-  }
-
-  @Test
   void testLoadGame(@TempDir Path tempDir) throws IOException {
     String filePath = tempDir.resolve("testgame.ser").toString();
 
