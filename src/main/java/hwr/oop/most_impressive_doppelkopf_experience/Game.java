@@ -40,19 +40,13 @@ public class Game implements Serializable {
       for (int j = NUM_CARDS_PER_PLAYER * i; j < NUM_CARDS_PER_PLAYER + NUM_CARDS_PER_PLAYER * i  ; j++) {
         players.get(i).getHand().add(shuffledStack.get(j));
       }
-    }
+      for (Player player : players) {
+        List<Card> diamondAces = player.getHand().stream().
+                filter(card -> card.getColour() == CardColours.TRUMP && card.getSymbol() == CardSymbols.ACE).toList();
 
-    //Ich weiß nicht wie diese Line getestet werden soll, da sie auf der zufälligen Anordnung des Kartenstapels beruht...
-    revaluePlayerWithTwoDiamondAces();
-  }
-
-  public void revaluePlayerWithTwoDiamondAces() {
-    for (Player player : players) {
-      List<Card> diamondAces = player.getHand().stream().
-              filter(card -> card.getColour() == CardColours.TRUMP && card.getSymbol() == CardSymbols.ACE).toList();
-
-      if (diamondAces.size() == 2) {
-        diamondAces.forEach(card -> card.setValue(101));
+        if (diamondAces.size() == 2) {
+          diamondAces.forEach(card -> card.setValue(101));
+        }
       }
     }
   }
