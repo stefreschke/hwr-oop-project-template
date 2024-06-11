@@ -196,7 +196,7 @@ class GameEngineTest {
   }
 
   @Test
-  void revaluePlayerWithTwoHeartAcesTest() {
+  void revaluePlayerWithTwoDiamondAcesTest() {
     var game = new Game();
 
     game.addPlayer("ILoveCoconuts");
@@ -210,7 +210,7 @@ class GameEngineTest {
 
     assertSoftly(
             softly -> {
-            assertThat(game.getPlayers().getFirst().getHand().getFirst().getValue()).isEqualTo(4);
+            assertThat(game.getPlayers().getFirst().getHand().getFirst().getValue()).isEqualTo(11);
 
               game.getPlayers().getFirst().setHand(List.of(
                       new Card(CardSymbols.ACE, CardColours.TRUMP, 4, "HA", 11),
