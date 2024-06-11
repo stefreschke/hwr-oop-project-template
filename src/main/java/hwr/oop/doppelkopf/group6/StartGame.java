@@ -5,8 +5,9 @@ import java.util.Arrays;
 
 public class StartGame {
 
+  @SuppressWarnings("java:S106")
   public static void main(String[] args) {
-    CommandHandler command = new CommandHandler();
+    CommandHandler command = new CommandHandler(System.out);
     command.parse(Arrays.asList(args));
   }
 }

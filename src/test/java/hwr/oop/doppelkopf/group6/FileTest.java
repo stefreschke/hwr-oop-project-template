@@ -14,8 +14,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class FileTest {
+  private OutputStream outputStream;
   CreateCommand command;
-  ParseCommand parse = new ParseCommand();
+  ParseCommand parse;
   String fileName = "doppelkopf.csv";
   Path currentRelativePath = Paths.get("");
   String currentDir = currentRelativePath.toAbsolutePath().toString();
@@ -24,7 +25,9 @@ class FileTest {
 
   @BeforeEach
   void setUp() throws IOException {
-    command = new CreateCommand(IOExceptionBomb.DONT);
+    this.outputStream = new ByteArrayOutputStream();
+    this.parse = new ParseCommand(outputStream);
+    command = new CreateCommand(outputStream, IOExceptionBomb.DONT);
 
     if (Files.exists(path)) {
       Files.delete(path);
@@ -55,7 +58,6 @@ class FileTest {
     args.add("jannis");
     args.add("lena");
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
@@ -67,7 +69,7 @@ class FileTest {
   }
 
   @Test
-  void testCreateGameWithFileNotExisting() throws IOException {
+  void testCreateGameWithFileNotExisting(){
     List<String> args = new ArrayList<>();
     args.add("game");
     args.add("1");
@@ -78,7 +80,6 @@ class FileTest {
     args.add("lena");
 
     String gameID = parse.gameID(args);
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
@@ -102,14 +103,13 @@ class FileTest {
     args.add("jannis");
     args.add("lena");
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setErr(printStream);
 
     command.execute(args);
 
     String expectedMessage =
-        "Game ID: " + "\"" + args.get(1) + "\"" + " is not a valid game ID. Please use numbers!";
+            "Game ID: " + "\"" + args.get(1) + "\"" + " is not a valid game ID. Please use numbers!";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
   }
@@ -121,7 +121,6 @@ class FileTest {
     args.add("1");
     args.add("create");
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
@@ -136,7 +135,7 @@ class FileTest {
 
   @Test
   void testCreateGameWhenGameAlreadyExistsIOException() throws IOException {
-    PlayCommand play = new PlayCommand(IOExceptionBomb.DO, new Deck());
+    PlayCommand play = new PlayCommand(new Deck(),outputStream, IOExceptionBomb.DO);
     List<String> args = new ArrayList<>();
     args.add("game");
     args.add("1");
@@ -154,7 +153,6 @@ class FileTest {
       writer.newLine();
     }
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
@@ -167,13 +165,12 @@ class FileTest {
 
   @Test
   void testIOException() {
-    command = new CreateCommand(IOExceptionBomb.DO);
+    command = new CreateCommand(outputStream, IOExceptionBomb.DO);
     List<String> args = new ArrayList<>();
     args.add("game");
     args.add("1");
     args.add("create");
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setErr(printStream);
 
@@ -187,7 +184,7 @@ class FileTest {
   @Test
   void testIOExceptionWhenFileExists() throws IOException {
     String gameID = "12";
-    command = new CreateCommand(IOExceptionBomb.DO);
+    command = new CreateCommand(outputStream, IOExceptionBomb.DO);
     List<String> args = new ArrayList<>();
     args.add("game");
     args.add("1");
@@ -198,7 +195,6 @@ class FileTest {
       writer.newLine();
     }
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setErr(printStream);
 
@@ -211,7 +207,7 @@ class FileTest {
 
   @Test
   void testCreateGameWhenGameAlreadyExists() throws IOException {
-    CreateCommand create = new CreateCommand(IOExceptionBomb.DONT);
+    CreateCommand create = new CreateCommand(outputStream, IOExceptionBomb.DONT);
     List<String> args = new ArrayList<>();
     args.add("game");
     args.add("1");
@@ -226,21 +222,20 @@ class FileTest {
       writer.newLine();
     }
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setErr(printStream);
 
     create.execute(args);
 
     String expectedMessage =
-        "IOException aufgetreten: Das Spiel existiert bereits! Probiere eine andere Spiel ID.";
+            "IOException aufgetreten: Das Spiel existiert bereits! Probiere eine andere Spiel ID.";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
   }
 
   @Test
   void testSavePlayersToFile() throws IOException {
-    CreateCommand create = new CreateCommand(IOExceptionBomb.DONT);
+    CreateCommand create = new CreateCommand(outputStream, IOExceptionBomb.DONT);
     List<String> args = List.of("game", "2", "create", "josef", "anna", "jannis", "lena");
 
     create.execute(args);
@@ -250,9 +245,9 @@ class FileTest {
       boolean gameIDFound = false;
       while ((line = reader.readLine()) != null) {
         if (line.contains("2,josef,cards: ")
-            && line.contains("anna,cards: ")
-            && line.contains("jannis,cards: ")
-            && line.contains("lena,cards: ")) {
+                && line.contains("anna,cards: ")
+                && line.contains("jannis,cards: ")
+                && line.contains("lena,cards: ")) {
           gameIDFound = true;
           break;
         }

@@ -9,16 +9,19 @@ import java.nio.file.Paths;
 import java.util.List;
 
 public class CreateCommand implements Command {
+  private final PrintStream out;
   private final IOExceptionBomb ioExceptionBomb;
-  public final ParseCommand parse = new ParseCommand();
   private String gameID;
+  public final ParseCommand parse;
   String fileName = "doppelkopf.csv";
   Path currentRelativePath = Paths.get("");
   String currentDir = currentRelativePath.toAbsolutePath().toString();
   File file = new File(currentDir + File.separator + fileName);
 
-  public CreateCommand(IOExceptionBomb ioExceptionBomb) {
+  public CreateCommand(OutputStream out, IOExceptionBomb ioExceptionBomb) {
+    this.out = new PrintStream(out);
     this.ioExceptionBomb = ioExceptionBomb;
+    this.parse = new ParseCommand(out);
   }
 
   @Override
@@ -35,13 +38,13 @@ public class CreateCommand implements Command {
         createGame(args);
       }
     } catch (IOException e) {
-      System.err.println("IOException aufgetreten: " + e.getMessage());
+      out.println("IOException aufgetreten: " + e.getMessage());
     }
   }
 
   private void createFile() throws IOException {
     if (file.createNewFile()) {
-      System.out.println("Die Datei wird erstellt...");
+      out.println("Die Datei wird erstellt...");
     }
   }
 
@@ -60,8 +63,8 @@ public class CreateCommand implements Command {
       SaveToFile save = new SaveToFile();
       save.players(players, this.gameID);
 
-      System.out.println("Spiel " + this.gameID + " wird erstellt...");
-      PlayCommand play = new PlayCommand(IOExceptionBomb.DONT, new Deck());
+      out.println("Spiel " + this.gameID + " wird erstellt...");
+      PlayCommand play = new PlayCommand(new Deck(), out, IOExceptionBomb.DONT);
       play.execute(args);
     }
   }
