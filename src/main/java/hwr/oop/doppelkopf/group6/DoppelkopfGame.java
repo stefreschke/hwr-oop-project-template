@@ -93,11 +93,11 @@ public class DoppelkopfGame {
     return false;
   }
 
-  public DoppelkopfGame playCard(Player player, String shortcut){
+  public DoppelkopfGame playCard(Player player, String shortcut) {
     player.getHand().playCard(shortcut, currentStich);
-    if (currentStich.getCards().size() == 4){
+    if (currentStich.getCards().size() == 4) {
       currentStich.findHighestCard();
-        currentStich.updateWinnerPos((player.getOrder())%4);
+      currentStich.updateWinnerPos((player.getOrder()) % 4);
       addRoundPoints(currentStich);
       currentStich.resetStich();
     }

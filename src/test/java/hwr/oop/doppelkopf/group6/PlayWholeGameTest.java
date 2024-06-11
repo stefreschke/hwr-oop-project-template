@@ -85,57 +85,46 @@ class PlayWholeGameTest {
         .playCard(player2, "Kr9")
         .playCard(player3, "KrK")
         .playCard(player4, "KrK")
-
         .playCard(player1, "HA")
         .playCard(player2, "H9")
         .playCard(player3, "HK")
         .playCard(player4, "HK")
-
         .playCard(player1, "PK")
         .playCard(player2, "P10")
         .playCard(player3, "PA")
         .playCard(player4, "P9")
-
         .playCard(player3, "Kr10")
         .playCard(player4, "Kr10")
         .playCard(player1, "Kr9")
         .playCard(player2, "KrA")
-
         .playCard(player2, "PK")
         .playCard(player3, "P9")
         .playCard(player4, "PA")
         .playCard(player1, "P10")
-
         .playCard(player4, "PB")
         .playCard(player1, "KrB")
         .playCard(player2, "KaK")
         .playCard(player3, "KaD")
-
         .playCard(player3, "KaB")
         .playCard(player4, "Ka9")
         .playCard(player1, "HB")
         .playCard(player2, "KrB")
-
         .playCard(player2, "HA")
         .playCard(player3, "PD")
         .playCard(player4, "KaB")
         .playCard(player1, "H9")
-
         .playCard(player3, "PB")
         .playCard(player4, "H10")
         .playCard(player1, "KaK")
         .playCard(player2, "HD")
-
         .playCard(player4, "Ka10")
         .playCard(player1, "KrD")
         .playCard(player2, "HB")
         .playCard(player3, "H10")
-
         .playCard(player3, "Ka9")
         .playCard(player4, "PD")
         .playCard(player1, "KaA")
         .playCard(player2, "KrD")
-
         .playCard(player2, "KaA")
         .playCard(player3, "Ka10")
         .playCard(player4, "KaD")

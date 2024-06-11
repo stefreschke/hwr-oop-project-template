@@ -3,17 +3,21 @@ package hwr.oop.doppelkopf.group6.cli;
 import hwr.oop.doppelkopf.group6.Deck;
 import hwr.oop.doppelkopf.group6.DoppelkopfGame;
 import hwr.oop.doppelkopf.group6.Player;
+import hwr.oop.doppelkopf.group6.persistenz.SaveToFile;
 import java.util.List;
 
 public class PlayCommand implements Command {
   private final IOExceptionBomb ioExceptionBomb;
-  public ParseCommand parse = new ParseCommand();
+  ParseCommand parse;
   DoppelkopfGame game = new DoppelkopfGame();
+  private final SaveToFile save;
   private final Deck deck;
 
-  public PlayCommand(IOExceptionBomb ioExceptionBomb, Deck deck) {
+  public PlayCommand(IOExceptionBomb ioExceptionBomb, Deck deck, SaveToFile save, ParseCommand parse) {
     this.ioExceptionBomb = ioExceptionBomb;
     this.deck = deck;
+    this.save = save;
+    this.parse = parse;
   }
 
   @Override
@@ -27,6 +31,7 @@ public class PlayCommand implements Command {
       deck.dealCards(currentPlayers);
       game.checkForPoverty(currentPlayers);
       System.out.println("Starting the game with game ID " + gameID);
+      save.cards(currentPlayers, gameID);
     } catch (Exception e) {
       System.out.println("Caught an IOException: " + e.getMessage());
     }

@@ -3,6 +3,7 @@ package hwr.oop.doppelkopf.group6;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import hwr.oop.doppelkopf.group6.cli.*;
+import hwr.oop.doppelkopf.group6.persistenz.SaveToFile;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -41,9 +42,8 @@ class FileTest {
 
   @Test
   void testCreateGameWithEmptyLineInFile() throws IOException {
-    // Setup an existing file with an empty line
     try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-      writer.newLine(); // Write an empty line
+      writer.newLine();
     }
 
     List<String> args = new ArrayList<>();
@@ -136,7 +136,8 @@ class FileTest {
 
   @Test
   void testCreateGameWhenGameAlreadyExistsIOException() throws IOException {
-    PlayCommand play = new PlayCommand(IOExceptionBomb.DO, new Deck());
+    PlayCommand play =
+        new PlayCommand(IOExceptionBomb.DO, new Deck(), new SaveToFile(), new ParseCommand());
     List<String> args = new ArrayList<>();
     args.add("game");
     args.add("1");
@@ -236,28 +237,5 @@ class FileTest {
         "IOException aufgetreten: Das Spiel existiert bereits! Probiere eine andere Spiel ID.";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
-  }
-
-  @Test
-  void testSavePlayersToFile() throws IOException {
-    CreateCommand create = new CreateCommand(IOExceptionBomb.DONT);
-    List<String> args = List.of("game", "2", "create", "josef", "anna", "jannis", "lena");
-
-    create.execute(args);
-
-    try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-      String line;
-      boolean gameIDFound = false;
-      while ((line = reader.readLine()) != null) {
-        if (line.contains("2,josef,cards: ")
-            && line.contains("anna,cards: ")
-            && line.contains("jannis,cards: ")
-            && line.contains("lena,cards: ")) {
-          gameIDFound = true;
-          break;
-        }
-      }
-      assertThat(gameIDFound).isTrue();
-    }
   }
 }

@@ -1,6 +1,7 @@
 package hwr.oop.doppelkopf.group6.cli;
 
 import hwr.oop.doppelkopf.group6.Deck;
+import hwr.oop.doppelkopf.group6.persistenz.SaveToFile;
 import java.util.*;
 
 public class CommandHandler {
@@ -8,7 +9,7 @@ public class CommandHandler {
 
   public CommandHandler() {
     commands.put("create", new CreateCommand(IOExceptionBomb.DONT));
-    commands.put("play", new PlayCommand(IOExceptionBomb.DONT, new Deck()));
+    commands.put("play", new PlayCommand(IOExceptionBomb.DONT, new Deck(), new SaveToFile(), new ParseCommand()));
     // weitere Commands
   }
 

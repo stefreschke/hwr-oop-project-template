@@ -1,6 +1,5 @@
 package hwr.oop.doppelkopf.group6.cli;
 
-import hwr.oop.doppelkopf.group6.Deck;
 import hwr.oop.doppelkopf.group6.Player;
 import hwr.oop.doppelkopf.group6.persistenz.SaveToFile;
 import java.io.*;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class CreateCommand implements Command {
   private final IOExceptionBomb ioExceptionBomb;
-  public ParseCommand parse = new ParseCommand();
+  ParseCommand parse = new ParseCommand();
   private String gameID;
   String fileName = "doppelkopf.csv";
   Path currentRelativePath = Paths.get("");
@@ -51,8 +50,8 @@ public class CreateCommand implements Command {
 
       String line;
       while ((line = bufferedReader.readLine()) != null) {
-        String[] columns = line.split(",");
-        if (columns.length > 0 && columns[0].equals(this.gameID)) {
+        List<String> columns = List.of(line.split(","));
+        if (!columns.isEmpty() && columns.getFirst().equals(this.gameID)) {
           throw new IOException("Das Spiel existiert bereits! Probiere eine andere Spiel ID.");
         }
       }
@@ -61,8 +60,6 @@ public class CreateCommand implements Command {
       save.players(players, this.gameID);
 
       System.out.println("Spiel " + this.gameID + " wird erstellt...");
-      PlayCommand play = new PlayCommand(IOExceptionBomb.DONT, new Deck());
-      play.execute(args);
     }
   }
 }

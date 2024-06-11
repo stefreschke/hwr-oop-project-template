@@ -4,9 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import hwr.oop.doppelkopf.group6.cli.*;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
+import hwr.oop.doppelkopf.group6.persistenz.SaveToFile;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -80,7 +79,7 @@ class CommandTest {
 
   @Test
   void testPlayCommand_initCards() throws IOException {
-    PlayCommand play = new PlayCommand(IOExceptionBomb.DONT, new Deck());
+    PlayCommand play = new PlayCommand(IOExceptionBomb.DONT, new Deck(), new SaveToFile(), new ParseCommand());
     List<String> args = List.of("game", "1", "create", "susi", "rainer", "brigitte", "joachim");
 
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -97,7 +96,8 @@ class CommandTest {
   @Test
   void testShuffleDeckIsCalled() {
     Deck deckMock = mock(Deck.class);
-    PlayCommand playCommand = new PlayCommand(IOExceptionBomb.DONT, deckMock);
+    SaveToFile saveToFileMock = mock(SaveToFile.class);
+    PlayCommand playCommand = new PlayCommand(IOExceptionBomb.DONT, deckMock, saveToFileMock, new ParseCommand());
     List<String> args = List.of("game", "1", "create", "susi", "rainer", "brigitte", "joachim");
 
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -112,23 +112,23 @@ class CommandTest {
   @Test
   void testDealCardsIsCalled() throws Exception {
     Deck deckMock = mock(Deck.class);
-    PlayCommand playCommand = new PlayCommand(IOExceptionBomb.DONT, deckMock);
-    List<String> args = List.of("game", "1", "create", "susi", "rainer", "brigitte", "joachim");
+    ParseCommand parseCommandMock = mock(ParseCommand.class);
+    SaveToFile saveMock = mock(SaveToFile.class);
+    PlayCommand playCommand = new PlayCommand(IOExceptionBomb.DONT, deckMock, saveMock, parseCommandMock);
 
-    List<Player> players =
-        List.of(
+    List<String> args = List.of("game", "1", "create", "susi", "rainer", "brigitte", "joachim");
+    List<Player> players = List.of(
             new Player("susi", 1, 0),
             new Player("rainer", 2, 0),
             new Player("brigitte", 3, 0),
-            new Player("joachim", 4, 0));
+            new Player("joachim", 4, 0)
+    );
+
+    when(parseCommandMock.players(args)).thenReturn(players);
 
     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
-
-    ParseCommand parseCommandMock = mock(ParseCommand.class);
-    when(parseCommandMock.players(args)).thenReturn(players);
-    playCommand.parse = parseCommandMock;
 
     playCommand.execute(args);
 
