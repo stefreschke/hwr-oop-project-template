@@ -7,7 +7,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 class HandOutCardsTest {
-
+  @Test
+  void handOutCardsTest(){
+      var game = new Game();
+      game.addPlayer("Mugtaba");
+      game.addPlayer("Simon");
+      game.addPlayer("Galatea");
+      game.addPlayer("Hajer");
+      game.handOutCards();
+  assertThat(game.stack.cardGenerator.da.getValue()).isBetween(11,101);
+  assertThat(game.stack.cardGenerator.dab.getValue()).isBetween(11,101);
+  }
   @Test
   void handOutCardsAreValidTestFiveNines() {
     var game = new Game();

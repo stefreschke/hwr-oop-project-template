@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 public class Game implements Serializable {
   @Serial
   private static final long serialVersionUID = 1L;
@@ -41,6 +42,10 @@ public class Game implements Serializable {
         players.get(i).getHand().add(shuffledStack.get(j));
       }
     }
+    Card diamondAce1 = stack.cardGenerator.da;
+    Card diamondAce2 = stack.cardGenerator.dab;
+    diamondAce1.setValue(0);
+    diamondAce2.setValue(0);
     revaluePlayerWithTwoDiamondAces();
   }
   public void revaluePlayerWithTwoDiamondAces(){
@@ -50,6 +55,8 @@ public class Game implements Serializable {
 
       if (diamondAces.size() == 2) {
         diamondAces.forEach(card -> card.setValue(101));
+      }else{
+        diamondAces.forEach(card -> card.setValue(11));
       }
     }
   }
