@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Game implements Serializable {
+  @Serial
   private static final long serialVersionUID = 1L;
   private static final int NUM_PLAYERS = 4;
   private static final int NUM_CARDS_PER_PLAYER = 12;
-  private List<Player> players = new ArrayList<>();
+  private final List<Player> players = new ArrayList<>();
   CardStack stack = new CardStack();
-  List<Card> cardList = stack.getCardStack();
-  List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
+  private final List<Card> cardList = stack.getCardStack();
+  private final List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
   Stich stich = new Stich();
 
   Player activePlayer;
@@ -47,11 +48,11 @@ public class Game implements Serializable {
 
   public void revaluePlayerWithTwoDiamondAces() {
     for (Player player : players) {
-      List<Card> DiamondAces = player.getHand().stream().
+      List<Card> diamondAces = player.getHand().stream().
               filter(card -> card.getColour() == CardColours.TRUMP && card.getSymbol() == CardSymbols.ACE).toList();
 
-      if (DiamondAces.size() == 2) {
-        DiamondAces.forEach(card -> card.setValue(101));
+      if (diamondAces.size() == 2) {
+        diamondAces.forEach(card -> card.setValue(101));
       }
     }
   }
@@ -98,9 +99,7 @@ public class Game implements Serializable {
 
     //keine Trümpfe höher als der Karo Bube
     long trumpCardsHigherJack = player.getHand().stream().filter(card -> card.getColour() == CardColours.TRUMP && card.getWorth() > 2).count();
-    if (trumpCardsHigherJack == 0) {return false;}
-
-    return true;
+      return trumpCardsHigherJack != 0;
   }
 
   public void playCard(Card cardToPlay) {
@@ -120,11 +119,7 @@ public class Game implements Serializable {
           return false;
       }
 
-      if (!cardFollowsSuit(cardToPlay, playerWhoPlays, stich)) {
-          return false;
-      }
-
-      return true;
+      return cardFollowsSuit(cardToPlay, playerWhoPlays, stich);
   }
 
   //Gibt true zurück, wenn die Karte nach Bedienregeln gespielt werden darf
@@ -137,12 +132,9 @@ public class Game implements Serializable {
           boolean playerHasCardWithFirstCardColorOfDiscardPile = playerWhoPlaysTheCard.getHand().stream()
                   .anyMatch(obj -> obj.getColour().equals(firstCardColor));
 
-          if (!playedCardColourEqualsFirstCardColorOfDiscardPile && playerHasCardWithFirstCardColorOfDiscardPile) {
-              return false;
-          }
+          return playedCardColourEqualsFirstCardColorOfDiscardPile || !playerHasCardWithFirstCardColorOfDiscardPile;
       }
-
-      return true;
+    return true;
   }
 
   public void setNextPlayer() {
@@ -185,7 +177,7 @@ public Player decideWinner() {
   }
 
   int indexOfWinner = players.indexOf(activePlayer);
-  for (int i = 0; i < thisStich.indexOf(winnerCard); i++) {
+  for (int i = 0; i <= thisStich.indexOf(winnerCard); i++) {
     indexOfWinner += 1;
     if (indexOfWinner >= players.size()) {
       indexOfWinner = 0;
@@ -269,12 +261,12 @@ public void distributeTeams() {
   }
 
   int getTeamPointsFactor(TeamNames teamName) {
-    int Factor = 1;
+    int factor = 1;
     for (Player player : players) {
       if (player.getTeam() == teamName && player.getAngesagt()) {
-        Factor *= 2;
+        factor *= 2;
       }
     }
-    return Factor;
+    return factor;
   }
 }

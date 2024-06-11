@@ -80,8 +80,8 @@ public class Player implements Serializable {
 
     public int calculateScore(List<Card> cards) {
         int tempScore = 0;
-        for (int i = 0; i < cards.size(); i++) {
-            tempScore += cards.get(i).getWorth();
+        for (Card card : cards) {
+            tempScore += card.getWorth();
         }
         return tempScore;
     }

@@ -8,13 +8,12 @@ import java.io.*;
 
 public class GamePersistence {
 
-    public void saveGame(Game game, String filePath) throws IOException {
+    public void saveGame(Game game, String filePath){
         try (FileOutputStream fileOut = new FileOutputStream(filePath);
              ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
             out.writeObject(game);
         } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
+            LOGGER.log(Level.SEVERE, e, () -> "IOException occurred while loading the game from " + filePath);
         }
     }
     private static final Logger LOGGER = Logger.getLogger(GamePersistence.class.getName());
