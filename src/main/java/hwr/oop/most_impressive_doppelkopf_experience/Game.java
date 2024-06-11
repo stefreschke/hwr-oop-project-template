@@ -41,16 +41,17 @@ public class Game implements Serializable {
       }
     }
 
-    revaluePlayerWithTwoHeartAces();
+    //Ich weiß nicht wie diese Line getestet werden soll, da sie auf der zufälligen Anordnung des Kartenstapels beruht...
+    revaluePlayerWithTwoDiamondAces();
   }
 
-  public void revaluePlayerWithTwoHeartAces() {
+  public void revaluePlayerWithTwoDiamondAces() {
     for (Player player : players) {
-      List<Card> HeartAces = player.getHand().stream().
-              filter(card -> card.getColour() == CardColours.HEARTS && card.getSymbol() == CardSymbols.ACE).toList();
+      List<Card> DiamondAces = player.getHand().stream().
+              filter(card -> card.getColour() == CardColours.TRUMP && card.getSymbol() == CardSymbols.ACE).toList();
 
-      if (HeartAces.size() == 2) {
-        HeartAces.forEach(card -> card.setValue(101));
+      if (DiamondAces.size() == 2) {
+        DiamondAces.forEach(card -> card.setValue(101));
       }
     }
   }
@@ -173,11 +174,11 @@ public Player decideWinner() {
   Card winnerCard = thisStich.getFirst();
 
   for (int i = 0; i < thisStich.size(); i++) {
-    if (thisStich.get(i).colour == CardColours.TRUMP) {
+    if (thisStich.get(i).getColour() == CardColours.TRUMP) {
       mainColour = CardColours.TRUMP;
     }
 
-    boolean cardHasRightColour = thisStich.get(i).colour == mainColour;
+    boolean cardHasRightColour = thisStich.get(i).getColour() == mainColour;
     if (cardHasRightColour && thisStich.get(i).getValue() > winnerCard.getValue()) {
       winnerCard = thisStich.get(i);
     }
@@ -196,7 +197,7 @@ public Player decideWinner() {
 
 public void distributeTeams() {
       String old = "CQ";
-      getPlayers().stream()
+      players.stream()
               .map(player -> {
                 boolean foundCQ = player.getHand().stream()
                         .anyMatch(card -> card.getName().equals(old));

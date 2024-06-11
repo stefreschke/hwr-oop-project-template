@@ -23,7 +23,7 @@ public class Card implements Serializable {
   }
 
   final CardSymbols symbol;
-  final CardColours colour;
+  private CardColours colour;
   private int value; // Strength of the card
 
   public int getWorth() {
@@ -31,6 +31,7 @@ public class Card implements Serializable {
   }
 
   public void setValue(int value) {this.value = value;}
+  public void setColour(CardColours colour) {this.colour = colour;}
 
   final int worth; // Worth of the Card
   final String name;
