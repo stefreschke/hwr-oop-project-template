@@ -53,7 +53,7 @@ public class Stich {
                   > highestCard.getNumber().getStrength())
           || highestCard.getGroup().equals(Group.TRUMPF)
               && this.cards.get(i).getGroup().equals(Group.TRUMPF)
-              && this.cards.get(i).getColor().getStrenght() > highestCard.getColor().getStrenght()
+              && this.cards.get(i).getColor().getStrength() > highestCard.getColor().getStrength()
           || Objects.equals(this.cards.get(i).getShortcut(), "H10")) {
         highestCard = this.cards.get(i);
         winnerNumber = i + 1;

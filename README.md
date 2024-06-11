@@ -42,13 +42,14 @@ just build
 This is an application for the game "Doppelkopf". It's a card game for four players.
 
 At the moment it's possible to create a game with four players. A card deck can be created, shuffled and dealt to the
-four players hands. Then every player can choose a card to play and it will be checked, if it's allowed to play this card. After that all played cards can be compared. Every player has a score. After a comparison the points of the four played cards are added at the score of
-the player with the highest card.
+four players hands. Then every player can choose a card to play, and it will be checked, if it's allowed to play this
+card. After that all played cards can be compared. Every player has a score. After a comparison the points of the four
+played cards are added at the score of the player with the highest card and his team partner.
 
 At first one problem was testing more test cases in one test. If we can test only one test case per test, we would need
 too many tests. With soft assertion now we have an opportunity to test more test cases in one test.
 
-An other problem was to omit println commands and to find an other possibility to log out informations.
+Another problem was to write enough tests and find test cases to kill all mutations.
 
 ## Feature List
 
@@ -64,12 +65,14 @@ An other problem was to omit println commands and to find an other possibility t
 | 8      | File is saved to current working directory                                           | testCreateGameWhenGameAlreadyExists                                | 
 | 9      | Re and Contra Parties                                                                | testSetGroupWithCards, testSetGroup                                |
 | 10     | check if played card is even allowed to play                                         | testCheckCard                                                      |
+| 11     | check if one player has "Hochzeit" and set the parites after the first trick         | testHochzeit, testHochzeit2                                        |
+| 12     | add points to the winner players team                                                | testFindHighestCard                                                |
 
 ## Additional Dependencies
 
-| Number | Dependency Name | Dependency Description | Why is it necessary? |
-|--------|-----------------|------------------------|----------------------|
-| /      | /               | /                      | /                    |
+| Number | Dependency Name | Dependency Description | Why is it necessary?             |
+|--------|-----------------|------------------------|----------------------------------|
+| 1      | Mockito         | a testing tool to mock | for better testing the card deck |
 
 ### Multiple remote repositories
 

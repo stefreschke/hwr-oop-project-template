@@ -2,7 +2,7 @@ package hwr.oop.doppelkopf.group6.cli;
 
 import hwr.oop.doppelkopf.group6.Deck;
 import hwr.oop.doppelkopf.group6.Player;
-import hwr.oop.doppelkopf.group6.persistenz.SaveToFile;
+import hwr.oop.doppelkopf.group6.persistence.SaveToFile;
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CreateCommand implements Command {
   private final IOExceptionBomb ioExceptionBomb;
-  public ParseCommand parse = new ParseCommand();
+  public final ParseCommand parse = new ParseCommand();
   private String gameID;
   String fileName = "doppelkopf.csv";
   Path currentRelativePath = Paths.get("");

@@ -1,4 +1,4 @@
-package hwr.oop.doppelkopf.group6.persistenz;
+package hwr.oop.doppelkopf.group6.persistence;
 
 import hwr.oop.doppelkopf.group6.Player;
 import java.io.File;

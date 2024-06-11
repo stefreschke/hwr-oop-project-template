@@ -2,7 +2,6 @@ package hwr.oop.doppelkopf.group6;
 
 import java.util.*;
 
-@SuppressWarnings("java:S106")
 public class DoppelkopfGame {
   public final List<Player> players = new ArrayList<>();
   public final Deck deck = new Deck();
@@ -93,11 +92,11 @@ public class DoppelkopfGame {
     return false;
   }
 
-  public DoppelkopfGame playCard(Player player, String shortcut){
+  public DoppelkopfGame playCard(Player player, String shortcut) {
     player.getHand().playCard(shortcut, currentStich);
-    if (currentStich.getCards().size() == 4){
+    if (currentStich.getCards().size() == 4) {
       currentStich.findHighestCard();
-        currentStich.updateWinnerPos((player.getOrder())%4);
+      currentStich.updateWinnerPos((player.getOrder()) % 4);
       addRoundPoints(currentStich);
       currentStich.resetStich();
     }
