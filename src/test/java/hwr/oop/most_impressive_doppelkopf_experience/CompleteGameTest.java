@@ -41,19 +41,13 @@ public class CompleteGameTest {
     game.playCard(game.getPlayers().get(1).getHand().getFirst());
     game.playCard(game.getPlayers().get(2).getHand().getFirst());
     game.playCard(game.getPlayers().get(3).getHand().getFirst());
-
-    game.evaluateRound();
     //Galatea (Re) gewinnt 3 Punkte
 
     game.playCard(game.getPlayers().get(2).getHand().getFirst());
     game.playCard(game.getPlayers().get(3).getHand().getFirst());
     game.playCard(game.getPlayers().get(0).getHand().getFirst());
     game.playCard(game.getPlayers().get(1).getHand().getFirst());
-
-    game.evaluateRound();
     //Mugataba (Contra) gewinnt 14 Punkte
-
-    game.evaluateGame();
 
     assertSoftly(softAssertions -> {
       assertThat(game.getPlayers().getFirst().getScore()).isEqualTo(14);
@@ -123,27 +117,19 @@ public class CompleteGameTest {
     game.playCard(game.getPlayers().get(1).getHand().getFirst());
     game.playCard(game.getPlayers().get(2).getHand().getFirst());
     game.playCard(game.getPlayers().get(3).getHand().getFirst());
-
-    game.evaluateRound();
     //0 gewinnt mit 17 Punkten
 
     game.playCard(game.getPlayers().get(0).getHand().getFirst());
     game.playCard(game.getPlayers().get(1).getHand().getFirst());
     game.playCard(game.getPlayers().get(2).getHand().getFirst());
     game.playCard(game.getPlayers().get(3).getHand().getFirst());
-
-    game.evaluateRound();
     //2 gewinnt mit 10 Punkten
 
     game.playCard(game.getPlayers().get(2).getHand().getFirst());
     game.playCard(game.getPlayers().get(3).getHand().getFirst());
     game.playCard(game.getPlayers().get(0).getHand().getFirst());
     game.playCard(game.getPlayers().get(1).getHand().getFirst());
-
-    game.evaluateRound();
     //0 gewinnt mit 27 Punkten
-
-    game.evaluateGame();
 
     assertSoftly(softAssertions -> {
       assertThat(game.getPlayers().getFirst().getScore()).isEqualTo(44);

@@ -10,10 +10,10 @@ public class Game implements Serializable {
   private static final long serialVersionUID = 1L;
   private static final int NUM_PLAYERS = 4;
   private static final int NUM_CARDS_PER_PLAYER = 12;
-  private final List<Player> players = new ArrayList<>();
+  private List<Player> players = new ArrayList<>();
   CardStack stack = new CardStack();
-  private final List<Card> cardList = stack.getCardStack();
-  private final List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
+  List<Card> cardList = stack.getCardStack();
+  List<Card> shuffledStack = stack.shuffleCardsStack(cardList);
   Stich stich = new Stich();
 
   Player activePlayer;
@@ -48,11 +48,11 @@ public class Game implements Serializable {
 
   public void revaluePlayerWithTwoDiamondAces() {
     for (Player player : players) {
-      List<Card> diamondAces = player.getHand().stream().
+      List<Card> DiamondAces = player.getHand().stream().
               filter(card -> card.getColour() == CardColours.TRUMP && card.getSymbol() == CardSymbols.ACE).toList();
 
-      if (diamondAces.size() == 2) {
-        diamondAces.forEach(card -> card.setValue(101));
+      if (DiamondAces.size() == 2) {
+        DiamondAces.forEach(card -> card.setValue(101));
       }
     }
   }
@@ -99,7 +99,9 @@ public class Game implements Serializable {
 
     //keine Trümpfe höher als der Karo Bube
     long trumpCardsHigherJack = player.getHand().stream().filter(card -> card.getColour() == CardColours.TRUMP && card.getWorth() > 2).count();
-      return trumpCardsHigherJack != 0;
+    if (trumpCardsHigherJack == 0) {return false;}
+
+    return true;
   }
 
   public void playCard(Card cardToPlay) {
@@ -111,6 +113,10 @@ public class Game implements Serializable {
       stich.discardCard(cardToPlay);
 
       setNextPlayer();
+
+      if (stich.getDiscardCards().size() == 4) {
+        evaluateRound();
+      }
     }
   }
 
@@ -119,22 +125,29 @@ public class Game implements Serializable {
           return false;
       }
 
-      return cardFollowsSuit(cardToPlay, playerWhoPlays, stich);
+      if (!cardFollowsSuit(cardToPlay, playerWhoPlays, stich)) {
+          return false;
+      }
+
+      return true;
   }
 
   //Gibt true zurück, wenn die Karte nach Bedienregeln gespielt werden darf
   public boolean cardFollowsSuit(Card cardToPlay, Player playerWhoPlaysTheCard, Stich stich) {
-      if (!stich.getDiscardPile().isEmpty())
+      if (!stich.getDiscardCards().isEmpty())
       {
-          CardColours firstCardColor = stich.getDiscardPile().getFirst().getColour();
+          CardColours firstCardColor = stich.getDiscardCards().getFirst().getColour();
 
           boolean playedCardColourEqualsFirstCardColorOfDiscardPile = firstCardColor.equals(cardToPlay.getColour());
           boolean playerHasCardWithFirstCardColorOfDiscardPile = playerWhoPlaysTheCard.getHand().stream()
                   .anyMatch(obj -> obj.getColour().equals(firstCardColor));
 
-          return playedCardColourEqualsFirstCardColorOfDiscardPile || !playerHasCardWithFirstCardColorOfDiscardPile;
+          if (!playedCardColourEqualsFirstCardColorOfDiscardPile && playerHasCardWithFirstCardColorOfDiscardPile) {
+              return false;
+          }
       }
-    return true;
+
+      return true;
   }
 
   public void setNextPlayer() {
@@ -153,6 +166,10 @@ public class Game implements Serializable {
     stich.getDiscardCards().clear();
 
     activePlayer = winner;
+
+    if (activePlayer.getHand().isEmpty()) {
+      evaluateGame();
+    }
   }
 
   public void evaluateGame() {
@@ -160,7 +177,7 @@ public class Game implements Serializable {
   }
 
 public Player decideWinner() {
-  List<Card> thisStich = stich.getDiscardPile();
+  List<Card> thisStich = stich.getDiscardCards();
   CardColours mainColour = thisStich.getFirst().getColour();
 
   Card winnerCard = thisStich.getFirst();
@@ -177,7 +194,7 @@ public Player decideWinner() {
   }
 
   int indexOfWinner = players.indexOf(activePlayer);
-  for (int i = 0; i <= thisStich.indexOf(winnerCard); i++) {
+  for (int i = 0; i < thisStich.indexOf(winnerCard); i++) {
     indexOfWinner += 1;
     if (indexOfWinner >= players.size()) {
       indexOfWinner = 0;
@@ -261,12 +278,12 @@ public void distributeTeams() {
   }
 
   int getTeamPointsFactor(TeamNames teamName) {
-    int factor = 1;
+    int Factor = 1;
     for (Player player : players) {
       if (player.getTeam() == teamName && player.getAngesagt()) {
-        factor *= 2;
+        Factor *= 2;
       }
     }
-    return factor;
+    return Factor;
   }
 }

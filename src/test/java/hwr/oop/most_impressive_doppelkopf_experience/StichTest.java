@@ -16,7 +16,7 @@ class StichTest {
     var cab = new Card(CardSymbols.ACE, CardColours.CLUBS, 4, "CA", 5);
 
     discardPile.setDiscardCards(List.of(h10, d9, s9b, cab));
-    List<Card> discardPile1 = discardPile.getDiscardPile();
+    List<Card> discardPile1 = discardPile.getDiscardCards();
 
     assertThat(discardPile1).hasSize(4);
   }

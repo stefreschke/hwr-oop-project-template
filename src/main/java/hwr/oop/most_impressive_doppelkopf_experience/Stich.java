@@ -17,9 +17,6 @@ public class Stich implements Serializable {
 
   private List<Card> discardCards = new ArrayList<>();
 
-  public List<Card> getDiscardPile() {
-    return this.discardCards;
-  }
 
   public void discardCard(Card card) {
     discardCards.add(card);
