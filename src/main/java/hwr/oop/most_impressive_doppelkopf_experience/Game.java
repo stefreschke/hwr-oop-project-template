@@ -74,7 +74,7 @@ public class Game implements Serializable {
   }
 
   public boolean handOutCardsAreValid(Player player) {
-    //fünf oder mehr 9er Karten
+    //fünf oder mehr 9er-Karten
     long nineCards = player.getHand().stream().filter(card -> card.getSymbol() == CardSymbols.NINE).count();
     if (nineCards >= 5) {return false;}
 
@@ -96,11 +96,11 @@ public class Game implements Serializable {
     long trumpCards = player.getHand().stream().filter(card -> card.getColour() == CardColours.TRUMP).count();
     if (trumpCards <= 2){return false;}
 
-    //sieben oder mehr volle Karten (vollen Garten -> Zehnen oder Asse)
+    //sieben oder mehr volle Karten (vollen Garten → Zehn oder Asse)
     long volleCards = player.getHand().stream().filter(card -> card.getWorth() >= 10).count();
     if (volleCards >= 7) {return false;}
 
-    //keine Trümpfe höher als der Karo Bube
+    //keine Trümpfe höher als der Karo-Bube
     long trumpCardsHigherJack = player.getHand().stream().filter(card -> card.getColour() == CardColours.TRUMP && card.getWorth() > 2).count();
       return trumpCardsHigherJack != 0;
   }
