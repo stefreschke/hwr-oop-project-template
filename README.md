@@ -70,10 +70,10 @@ Another problem was to write enough tests and find test cases to kill all mutati
 
 ## CLI-Commands
 
-| Number | Command                                                      | Feature                                                                           |
-|--------|--------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| 1      | game 'gameID' create 'player1' `player2` `player3` `player4` | create a new game                                                                 |
-| 2      | game `gameID` init `player1` `player2` `player3` `player4`   | initialize, shuffles, deal the cards and also save each players cards in the file |
+| Number | Command                                                     | Feature                                                                           |
+|--------|-------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| 1      | game `gameID` create `player1` `player2` `player3` `player4` | create a new game                                                                 |
+| 2      | game `gameID` init `player1` `player2` `player3` `player4`  | initialize, shuffles, deal the cards and also save each players cards in the file |
 
 ## Additional Dependencies
 
