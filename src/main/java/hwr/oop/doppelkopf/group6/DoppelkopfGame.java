@@ -2,7 +2,6 @@ package hwr.oop.doppelkopf.group6;
 
 import java.util.*;
 
-@SuppressWarnings("java:S106")
 public class DoppelkopfGame {
   public final List<Player> players = new ArrayList<>();
   public final Deck deck = new Deck();

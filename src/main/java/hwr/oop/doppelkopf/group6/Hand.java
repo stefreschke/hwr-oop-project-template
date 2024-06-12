@@ -28,7 +28,7 @@ public class Hand {
   }
 
   public List<String> getPikCards() {
-    return new ArrayList<>(kreuzCards);
+    return new ArrayList<>(pikCards);
   }
 
   public List<String> getKreuzCards() {

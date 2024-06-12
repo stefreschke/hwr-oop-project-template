@@ -3,19 +3,24 @@ package hwr.oop.doppelkopf.group6.cli;
 import hwr.oop.doppelkopf.group6.Deck;
 import hwr.oop.doppelkopf.group6.DoppelkopfGame;
 import hwr.oop.doppelkopf.group6.Player;
-import hwr.oop.doppelkopf.group6.persistenz.SaveToFile;
+
+import java.io.OutputStream;
+import java.io.PrintStream;
+import hwr.oop.doppelkopf.group6.persistence.SaveToFile;
 import java.util.List;
 
-public class PlayCommand implements Command {
+public class InitCommand implements Command {
   private final IOExceptionBomb ioExceptionBomb;
-  ParseCommand parse;
+  public final ParseCommand parse;
   DoppelkopfGame game = new DoppelkopfGame();
   private final SaveToFile save;
   private final Deck deck;
+  private final PrintStream out;
 
-  public PlayCommand(IOExceptionBomb ioExceptionBomb, Deck deck, SaveToFile save, ParseCommand parse) {
+  public InitCommand(IOExceptionBomb ioExceptionBomb, OutputStream out, Deck deck, SaveToFile save, ParseCommand parse) {
     this.ioExceptionBomb = ioExceptionBomb;
     this.deck = deck;
+    this.out = new PrintStream(out);
     this.save = save;
     this.parse = parse;
   }
@@ -30,10 +35,10 @@ public class PlayCommand implements Command {
       deck.shuffleDeck();
       deck.dealCards(currentPlayers);
       game.checkForPoverty(currentPlayers);
-      System.out.println("Starting the game with game ID " + gameID);
+      out.println("Starting the game with game ID " + gameID);
       save.cards(currentPlayers, gameID);
     } catch (Exception e) {
-      System.out.println("Caught an IOException: " + e.getMessage());
+      out.println("Caught an IOException: " + e.getMessage());
     }
   }
 }

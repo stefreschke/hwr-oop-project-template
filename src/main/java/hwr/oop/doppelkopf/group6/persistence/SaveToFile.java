@@ -1,4 +1,4 @@
-package hwr.oop.doppelkopf.group6.persistenz;
+package hwr.oop.doppelkopf.group6.persistence;
 
 import hwr.oop.doppelkopf.group6.Player;
 import java.io.*;
@@ -37,7 +37,7 @@ public class SaveToFile {
     writeFile(updatedContent);
   }
 
-  private List<String> readFile() throws IOException {
+  public List<String> readFile() throws IOException {
     List<String> fileContent = new ArrayList<>();
     try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
       String line;

@@ -4,19 +4,30 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import hwr.oop.doppelkopf.group6.cli.*;
-import hwr.oop.doppelkopf.group6.persistenz.SaveToFile;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import hwr.oop.doppelkopf.group6.persistence.SaveToFile;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class CommandTest {
-  ParseCommand parse = new ParseCommand();
-  CommandHandler cmd = new CommandHandler();
+  private OutputStream outputStream;
+  ParseCommand parse;
+  CommandHandler cmd;
+
+  @BeforeEach
+  void setUp() {
+    this.outputStream = new ByteArrayOutputStream();
+    this.parse = new ParseCommand(outputStream);
+    this.cmd = new CommandHandler(outputStream);
+  }
 
   @Test
-  void testParseID() throws IOException {
+  void testParseID() {
     List<String> args = new ArrayList<>();
     args.add("game");
     args.add("1");
@@ -28,10 +39,21 @@ class CommandTest {
   }
 
   @Test
+  void testParseIdReturnsNull() {
+    List<String> args = new ArrayList<>();
+    args.add("game");
+    args.add("");
+    args.add("create");
+
+    String gameID = parse.gameID(args);
+
+    assertThat(gameID).isNull();
+  }
+
+  @Test
   void testParseCommandWithNoArgs() {
     List<String> args = new ArrayList<>();
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
@@ -49,7 +71,7 @@ class CommandTest {
     args.add("game");
     args.add("1");
     args.add("create");
-    CommandHandler parseCommand = new CommandHandler();
+    CommandHandler parseCommand = new CommandHandler(System.out);
 
     Command createCommandMock = mock(CreateCommand.class);
     parseCommand.commands.put("create", createCommandMock);
@@ -79,10 +101,9 @@ class CommandTest {
 
   @Test
   void testPlayCommand_initCards() throws IOException {
-    PlayCommand play = new PlayCommand(IOExceptionBomb.DONT, new Deck(), new SaveToFile(), new ParseCommand());
+    InitCommand play = new InitCommand(IOExceptionBomb.DONT, outputStream, new Deck(), new SaveToFile(), new ParseCommand(outputStream));
     List<String> args = List.of("game", "1", "create", "susi", "rainer", "brigitte", "joachim");
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
@@ -97,10 +118,9 @@ class CommandTest {
   void testShuffleDeckIsCalled() {
     Deck deckMock = mock(Deck.class);
     SaveToFile saveToFileMock = mock(SaveToFile.class);
-    PlayCommand playCommand = new PlayCommand(IOExceptionBomb.DONT, deckMock, saveToFileMock, new ParseCommand());
+    InitCommand playCommand = new InitCommand(IOExceptionBomb.DONT, outputStream, deckMock, saveToFileMock, new ParseCommand(outputStream));
     List<String> args = List.of("game", "1", "create", "susi", "rainer", "brigitte", "joachim");
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
 
@@ -114,7 +134,7 @@ class CommandTest {
     Deck deckMock = mock(Deck.class);
     ParseCommand parseCommandMock = mock(ParseCommand.class);
     SaveToFile saveMock = mock(SaveToFile.class);
-    PlayCommand playCommand = new PlayCommand(IOExceptionBomb.DONT, deckMock, saveMock, parseCommandMock);
+    InitCommand playCommand = new InitCommand(IOExceptionBomb.DONT, outputStream, deckMock, saveMock, parseCommandMock);
 
     List<String> args = List.of("game", "1", "create", "susi", "rainer", "brigitte", "joachim");
     List<Player> players = List.of(
@@ -126,9 +146,12 @@ class CommandTest {
 
     when(parseCommandMock.players(args)).thenReturn(players);
 
-    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
     PrintStream printStream = new PrintStream(outputStream);
     System.setOut(printStream);
+
+    /*ParseCommand parseCommandMock = mock(ParseCommand.class);
+    when(parseCommandMock.players(args)).thenReturn(players);
+    PlayCommand playCommand = new PlayCommand(deckMock, System.out, IOExceptionBomb.DONT, parseCommandMock);*/
 
     playCommand.execute(args);
 

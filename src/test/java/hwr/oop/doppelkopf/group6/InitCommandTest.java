@@ -1,27 +1,37 @@
 package hwr.oop.doppelkopf.group6;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 import hwr.oop.doppelkopf.group6.cli.IOExceptionBomb;
 import hwr.oop.doppelkopf.group6.cli.ParseCommand;
-import hwr.oop.doppelkopf.group6.cli.PlayCommand;
-import hwr.oop.doppelkopf.group6.persistenz.SaveToFile;
+import hwr.oop.doppelkopf.group6.cli.InitCommand;
+import hwr.oop.doppelkopf.group6.cli.CreateCommand;
+import hwr.oop.doppelkopf.group6.persistence.SaveToFile;
+
+import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
-class PlayCommandTest {
+class InitCommandTest {
     private SaveToFile save;
-    private PlayCommand playCommand;
+    private InitCommand playCommand;
+    private CreateCommand createCommand;
     private ParseCommand parse;
+    private Deck deck;
+    private OutputStream outputStream;
 
     @BeforeEach
     void setUp() {
-        Deck deck = mock(Deck.class);
+        outputStream = new ByteArrayOutputStream();
+        deck = mock(Deck.class);
         save = mock(SaveToFile.class);
         parse = mock(ParseCommand.class);
-        playCommand = new PlayCommand(IOExceptionBomb.DONT, deck, save, parse);
+        playCommand = new InitCommand(IOExceptionBomb.DONT, outputStream, deck, save, parse);
+        createCommand = new CreateCommand(outputStream, IOExceptionBomb.DONT);
     }
 
     @Test
@@ -43,4 +53,3 @@ class PlayCommandTest {
         assertEquals("123", gameIDCaptor.getValue());
     }
 }
-

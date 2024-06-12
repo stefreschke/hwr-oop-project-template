@@ -7,7 +7,9 @@ import static org.mockito.Mockito.when;
 
 import hwr.oop.doppelkopf.group6.cli.CreateCommand;
 import hwr.oop.doppelkopf.group6.cli.IOExceptionBomb;
-import hwr.oop.doppelkopf.group6.persistenz.SaveToFile;
+import hwr.oop.doppelkopf.group6.cli.InitCommand;
+import hwr.oop.doppelkopf.group6.cli.ParseCommand;
+import hwr.oop.doppelkopf.group6.persistence.SaveToFile;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -20,6 +22,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class SaveToFileTest {
+    private OutputStream outputStream;
     CreateCommand command;
     String fileName = "doppelkopf.csv";
     Path currentRelativePath = Paths.get("");
@@ -29,7 +32,8 @@ class SaveToFileTest {
 
     @BeforeEach
     void setUp() throws IOException {
-        command = new CreateCommand(IOExceptionBomb.DONT);
+        outputStream = new ByteArrayOutputStream();
+        command = new CreateCommand(outputStream, IOExceptionBomb.DONT);
 
         if (Files.exists(path)) {
             Files.delete(path);
@@ -46,7 +50,7 @@ class SaveToFileTest {
     //Save to File Klasse Tests
     @Test
     void testSavePlayersToFile() throws IOException {
-        CreateCommand create = new CreateCommand(IOExceptionBomb.DONT);
+        CreateCommand create = new CreateCommand(outputStream, IOExceptionBomb.DONT);
         List<String> args = List.of("game", "2", "create", "josef", "anna", "jannis", "lena");
 
         create.execute(args);
@@ -93,7 +97,7 @@ class SaveToFileTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
 
-        when(player1.getName()).thenReturn("Alice");
+        when(player1.getName()).thenReturn("Lisa");
         when(player2.getName()).thenReturn("Bob");
 
         List<Card> cardsPlayer1 = Arrays.asList(
@@ -109,11 +113,11 @@ class SaveToFileTest {
         when(player2.getOwnCards()).thenReturn(cardsPlayer2);
 
         List<Player> players = Arrays.asList(player1, player2);
-        String line = "1,Alice,Bob";
+        String line = "1,Lisa,Bob";
 
         String updatedLine = saveToFile.updateLine(line, players);
 
-        assertThat(updatedLine).contains("1,"+"Alice,"+cardsPlayer1.getFirst()+", "+cardsPlayer1.get(1)+","+"Bob,"+cardsPlayer2.getFirst()+", "+cardsPlayer2.get(1));
+        assertThat(updatedLine).contains("1,"+"Lisa,"+cardsPlayer1.getFirst()+", "+cardsPlayer1.get(1)+","+"Bob,"+cardsPlayer2.getFirst()+", "+cardsPlayer2.get(1));
     }
 
     @Test
@@ -122,7 +126,7 @@ class SaveToFileTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
 
-        when(player1.getName()).thenReturn("Alice");
+        when(player1.getName()).thenReturn("Lisa");
         when(player2.getName()).thenReturn("Bob");
 
         List<Card> cardsPlayer1 = Arrays.asList(
@@ -144,7 +148,7 @@ class SaveToFileTest {
 
         SoftAssertions.assertSoftly(
                 softly -> {
-                    softly.assertThat(updatedLine).doesNotContain("Alice");
+                    softly.assertThat(updatedLine).doesNotContain("Lisa");
                     softly.assertThat(updatedLine).doesNotContain("Bob");
                     softly.assertThat(updatedLine).isEqualTo(line);
                 });
@@ -165,7 +169,7 @@ class SaveToFileTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
 
-        when(player1.getName()).thenReturn("Alice");
+        when(player1.getName()).thenReturn("Lisa");
         when(player2.getName()).thenReturn("Bob");
         when(player1.getOwnCards()).thenReturn(cardsPlayer1);
         when(player2.getOwnCards()).thenReturn(cardsPlayer2);
@@ -174,13 +178,13 @@ class SaveToFileTest {
         String gameID = "123";
 
         List<String> fileContent = Arrays.asList(
-                "123,Alice",
+                "123,Lisa",
                 "456,Bob"
         );
 
         List<String> updatedContent = saveToFile.updateFileContent(fileContent, players, gameID);
 
-        assertThat(updatedContent.getFirst()).contains("123,Alice,"+cardsPlayer1.getFirst()+", "+cardsPlayer1.get(1));
+        assertThat(updatedContent.getFirst()).contains("123,Lisa,"+cardsPlayer1.getFirst()+", "+cardsPlayer1.get(1));
         assertThat(updatedContent.getFirst()).contains("123");
 
         assertThat(updatedContent.get(1)).isEqualTo("456,Bob");
@@ -192,20 +196,20 @@ class SaveToFileTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
 
-        when(player1.getName()).thenReturn("Alice");
+        when(player1.getName()).thenReturn("Lisa");
         when(player2.getName()).thenReturn("Bob");
 
         List<Player> players = Arrays.asList(player1, player2);
         String gameID = "789";
 
         List<String> fileContent = Arrays.asList(
-                "123,Alice",
+                "123,Lisa",
                 "456,Bob"
         );
 
         List<String> updatedContent = saveToFile.updateFileContent(fileContent, players, gameID);
 
-        assertThat(updatedContent.get(0)).isEqualTo("123,Alice");
+        assertThat(updatedContent.get(0)).isEqualTo("123,Lisa");
         assertThat(updatedContent.get(1)).isEqualTo("456,Bob");
     }
 
@@ -223,7 +227,7 @@ class SaveToFileTest {
         Player player1 = mock(Player.class);
         Player player2 = mock(Player.class);
 
-        when(player1.getName()).thenReturn("Alice");
+        when(player1.getName()).thenReturn("Lisa");
         when(player2.getName()).thenReturn("Bob");
         when(player1.getOwnCards()).thenReturn(cardsPlayer1);
         when(player2.getOwnCards()).thenReturn(cardsPlayer2);
@@ -232,7 +236,7 @@ class SaveToFileTest {
         String gameID = "123";
 
         try (BufferedWriter writer = Files.newBufferedWriter(path)) {
-            writer.write("123,Alice");
+            writer.write("123,Lisa");
             writer.newLine();
             writer.write("456,Bob");
             writer.newLine();
@@ -243,7 +247,7 @@ class SaveToFileTest {
         List<String> lines = Files.readAllLines(path);
 
         assertThat(lines).hasSize(2);
-        assertThat(lines.get(0)).contains("123,Alice,"+cardsPlayer1.getFirst()+", "+cardsPlayer1.get(1));
+        assertThat(lines.get(0)).contains("123,Lisa,"+cardsPlayer1.getFirst()+", "+cardsPlayer1.get(1));
         assertThat(lines.get(0)).contains("123");
         assertThat(lines.get(1)).isEqualTo("456,Bob");
     }
