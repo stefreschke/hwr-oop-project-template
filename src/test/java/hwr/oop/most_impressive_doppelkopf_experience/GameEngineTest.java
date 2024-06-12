@@ -6,7 +6,6 @@ import java.util.List;
 
 import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.CONTRA;
 import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.RE;
-import static org.assertj.core.api.InstanceOfAssertFactories.predicate;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
