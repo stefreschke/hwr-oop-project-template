@@ -189,7 +189,7 @@ public Player decideWinner() {
     }
 
   int indexOfWinner = players.indexOf(activePlayer);
-  for (int i = 0; i <= thisStich.indexOf(winnerCard) - 1; i++) {
+  for (int i = 0; i < thisStich.indexOf(winnerCard); i++) {
     indexOfWinner += 1;
     if (indexOfWinner >= players.size()) {
       indexOfWinner = 0;
