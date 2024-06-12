@@ -1,4 +1,4 @@
-# HWR OOP Lecture Project Template
+# HWR OOP Doppelkopf Gruppe 6
 
 This repository contains a student project created for an ongoing lecture on object-oriented
 programming with Java/Kotlin at HWR Berlin (summer term 2024).

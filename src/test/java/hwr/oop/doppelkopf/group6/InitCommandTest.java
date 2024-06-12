@@ -40,7 +40,7 @@ class InitCommandTest {
 
     playCommand.execute(args);
 
-    ArgumentCaptor<List<Player>> playersCaptor = ArgumentCaptor.forClass((Class) List.class);
+    ArgumentCaptor<List<Player>> playersCaptor = ArgumentCaptor.forClass(List.class);
     ArgumentCaptor<String> gameIDCaptor = ArgumentCaptor.forClass(String.class);
 
     verify(save).cards(playersCaptor.capture(), gameIDCaptor.capture());
