@@ -236,14 +236,10 @@ class GameEngineTest {
     game.getPlayers().add(game.getPlayers().getFirst());
     game.getPlayers().add(game.getPlayers().getFirst());
 
-    System.out.println(game.getPlayers().getFirst().getHand());
-
     game.handOutCards();
 
     List<Card> diamondAces = game.getPlayers().getFirst().getHand().stream().
             filter(card -> card.getColour() == CardColours.TRUMP && card.getSymbol() == CardSymbols.ACE).toList();
-
-    System.out.println(diamondAces);
 
     assertThat(diamondAces.getFirst().getValue()).isEqualTo(101);
   }
