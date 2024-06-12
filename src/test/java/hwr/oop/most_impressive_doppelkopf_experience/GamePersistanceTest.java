@@ -6,6 +6,7 @@ import org.junit.jupiter.api.io.TempDir;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -35,6 +36,8 @@ class GamePersistenceTest {
   @Test
   void testLoadGame(@TempDir Path tempDir) throws IOException {
     String filePath = tempDir.resolve("testgame.ser").toString();
+    System.out.println(filePath);
+
 
     try (FileOutputStream fileOut = new FileOutputStream(filePath);
         ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
@@ -84,7 +87,15 @@ class GamePersistenceTest {
   }
 
   @Test
-  void loadGameClassNotFoundExceptionTest() {
+  public void testLoadGameClassNotFoundException() {
+    // Assumes the dummy.dat file has been created and the TestDummy class is not present in the project
+    String filePath = "dummy.ser";
 
+    // Act
+    GamePersistence persistence = new GamePersistence();
+    Game loadedGame = persistence.loadGame(filePath);
+
+    // Assert
+    assertNull(loadedGame, "Game should be null when ClassNotFoundException occurs.");
   }
 }
