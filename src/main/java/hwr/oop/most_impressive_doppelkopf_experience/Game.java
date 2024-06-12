@@ -3,8 +3,6 @@ package hwr.oop.most_impressive_doppelkopf_experience;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.stream.Collectors;
 
 
 public class Game implements Serializable {
@@ -189,7 +187,7 @@ public Player decideWinner() {
     }
 
   int indexOfWinner = players.indexOf(activePlayer);
-  for (int i = 0; i < thisStich.indexOf(winnerCard); i++) {
+  for (int i = 0; i <= thisStich.indexOf(winnerCard)-1; i++) {
     indexOfWinner += 1;
     if (indexOfWinner >= players.size()) {
       indexOfWinner = 0;
@@ -199,17 +197,16 @@ public Player decideWinner() {
   return players.get(indexOfWinner);
 }
 
-public void distributeTeams() {
-      String old = "CQ";
-      players.stream()
-              .map(player -> {
-                boolean foundCQ = player.getHand().stream()
-                        .anyMatch(card -> card.getName().equals(old));
-                player.setTeam(foundCQ ? TeamNames.RE : TeamNames.CONTRA);
-                return null;
-              })
-              .collect(Collectors.toList());
-    }
+  public void distributeTeams() {
+    String old = "CQ";
+    players
+            .forEach(player -> {
+              boolean foundCQ = player.getHand().stream()
+                      .anyMatch(card -> card.getName().equals(old));
+              player.setTeam(foundCQ ? TeamNames.RE : TeamNames.CONTRA);
+            });
+  }
+
 
   public TeamNames findWinningTeam() {
     if (calculateTeamScore(TeamNames.RE) > calculateTeamScore(TeamNames.CONTRA)) {
