@@ -9,7 +9,7 @@ import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.RE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
-public class CompleteGameTest {
+class CompleteGameTest {
   @Test
   void FirstGameTest() {
     var game = new Game();

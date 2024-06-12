@@ -23,7 +23,7 @@ public class Card implements Serializable {
   }
 
   final CardSymbols symbol;
-  private CardColours colour;
+  private final CardColours colour;
   private int value; // Strength of the card
 
   public int getWorth() {
@@ -43,7 +43,7 @@ public class Card implements Serializable {
     this.worth = worth;
   }
 
-  @Override // aus einem Objekten ein String
+  @Override
   public String toString() {
     return "Card{" +
             "symbol=" + symbol +

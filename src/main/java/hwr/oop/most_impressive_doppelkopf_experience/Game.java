@@ -3,7 +3,6 @@ package hwr.oop.most_impressive_doppelkopf_experience;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 
