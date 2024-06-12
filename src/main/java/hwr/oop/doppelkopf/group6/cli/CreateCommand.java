@@ -58,7 +58,6 @@ public class CreateCommand implements Command {
           throw new IOException("Das Spiel existiert bereits! Probiere eine andere Spiel ID.");
         }
       }
-
       SaveToFile save = new SaveToFile();
       save.players(players, this.gameID);
 
