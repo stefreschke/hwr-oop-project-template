@@ -4,13 +4,13 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>hwr.oop.students.projects</groupId>
-  <!-- TODO Enter project name (no spaces) here! -->
-  <artifactId>TODO_ENTER_YOUR_PROJECT_NAME_HERE</artifactId>
+
+  <artifactId>Doppelkopf</artifactId>
   <version>0.1.0</version>
-  <!-- TODO Enter project name (no spaces) here! -->
-  <name>TODO_ENTER_YOUR_PROJECT_NAME_HERE</name>
-  <!-- TODO Enter a short project description (one sentence, no spaces) here! -->
-  <description>TODO_ENTER_YOUR_PROJECT_DESCRIPTION_HERE</description>
+
+  <name>Doppelkopf</name>
+
+  <description>EIN_KARTENSPIEL_FÜR_VIER_PERSONEN</description>
   <properties>
     <!-- java -->
     <java.version>21</java.version>
@@ -74,6 +74,12 @@
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <version>${assertj.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <version>4.2.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>

@@ -1,6 +1,4 @@
-# HWR OOP Lecture Project Template
-
-[TODO]: # (Change README.md Headline to better fit to your project!)
+# HWR OOP Doppelkopf Gruppe 6
 
 This repository contains a student project created for an ongoing lecture on object-oriented
 programming with Java/Kotlin at HWR Berlin (summer term 2024).
@@ -41,38 +39,47 @@ just build
 
 ## Abstract
 
-[TODO]: # (Write a short description of your project.)
-[TODO]: # (State most important features.)
-[TODO]: # (State the most interesting problems you encountered during the project.)
+This is an application for the game "Doppelkopf". It's a card game for four players.
+
+At the moment it's possible to create a game with four players. A card deck can be created, shuffled and dealt to the
+four players hands. Then every player can choose a card to play, and it will be checked, if it's allowed to play this
+card. After that all played cards can be compared. Every player has a score. After a comparison the points of the four
+played cards are added at the score of the player with the highest card and his team partner.
+
+At first one problem was testing more test cases in one test. If we can test only one test case per test, we would need
+too many tests. With soft assertion now we have an opportunity to test more test cases in one test.
+
+Another problem was to write enough tests and find test cases to kill all mutations.
 
 ## Feature List
 
-[TODO]: # (For each feature implemented, add a row to the table!)
+| Number | Feature                                                                                           | Tests                                                                                                                                                                                                                        |
+|--------|---------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1      | create 48 cards with a shortcut (four colors, six different values, each card twice)              | testAllCards, testAllCardsForInitialize, testCountCards, testColor                                                                                                                                                           |
+| 2      | cards have a shortcut, a strenght and a value                                                     | testShortcut, testPointsAndStrenght                                                                                                                                                                                          | 
+| 3      | shuffle and deal cards                                                                            | testShuffle, checkPlayerHands                                                                                                                                                                                                |
+| 4      | create 4 Players (own cards,own score)                                                            | testCreatePlayer, checkPlayerHands, testPoints                                                                                                                                                                               |
+| 5      | play one round (every player plays one card and get a winner)                                     | testOneRound                                                                                                                                                                                                                 | 
+| 6      | compare cards and find the card with the highest strength                                         | testFIndHighestCard                                                                                                                                                                                                          |
+| 7      | File is saved to current working directory                                                        | testCreateGameWhenGameAlreadyExists                                                                                                                                                                                          | 
+| 8      | Re and Contra Parties                                                                             | testSetGroupWithCards, testSetGroup                                                                                                                                                                                          |
+| 9      | check if played card is even allowed to play                                                      | testCheckCard                                                                                                                                                                                                                |
+| 10     | current players of a game are saved also in the doppelkopf.csv file along with all cards they own | testSavePlayersToFile, testFormatPlayerCardsReturn, testUpdateLine_ContainsPlayerName, testUpdateLine_DoesNotContainPlayerName, testUpdateFileContent_GameIDMatches, testUpdateFileContent_GameIDDoesNotMatch, testWriteFile |
+| 11     | check if one player has "Hochzeit" and set the parites after the first trick                      | testHochzeit, testHochzeit2                                                                                                                                                                                                  |
+| 12     | add points to the winner players team                                                             | testFindHighestCard                                                                                                                                                                                                          |
 
-| Number | Feature | Tests |
-|--------|---------|-------|
-| 1      | /       | /     |
+## CLI-Commands
+
+| Number | Command                                                     | Feature                                                                           |
+|--------|-------------------------------------------------------------|-----------------------------------------------------------------------------------|
+| 1      | game `gameID` create `player1` `player2` `player3` `player4` | create a new game                                                                 |
+| 2      | game `gameID` init `player1` `player2` `player3` `player4`  | initialize, shuffles, deal the cards and also save each players cards in the file |
 
 ## Additional Dependencies
 
-[TODO]: # (For each additional dependency your project requires- Add an additional row to the table!)
-
-| Number | Dependency Name | Dependency Description | Why is it necessary? |
-|--------|-----------------|------------------------|----------------------|
-| 1      | /               | /                      | /                    |
-
-## Instructions
-
-[TODO]: # (Remove these instructions once you finished your fork's setup.)
-
-Use a fork of this repository to do implement your project.
-
-Remember to add this repository as a second remote repository (upstream) and pull from the correct
-remotes.
-This is necessary, because we might apply changes to this template during the next month.
-
-The following section describes how to add multiple remote repositories to your local repository,
-which is cloned from the fork.
+| Number | Dependency Name | Dependency Description | Why is it necessary?             |
+|--------|-----------------|------------------------|----------------------------------|
+| 1      | Mockito         | a testing tool to mock | for better testing the card deck |
 
 ### Multiple remote repositories
 
@@ -114,4 +121,5 @@ git pull upstream main
 ```
 
 [maven]: https://maven.apache.org/
+
 [just]: https://github.com/casey/just
