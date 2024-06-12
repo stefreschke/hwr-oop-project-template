@@ -6,6 +6,7 @@ import java.util.List;
 
 import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.CONTRA;
 import static hwr.oop.most_impressive_doppelkopf_experience.TeamNames.RE;
+import static org.assertj.core.api.InstanceOfAssertFactories.predicate;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -210,7 +211,7 @@ class GameEngineTest {
 
     assertSoftly(
             softly -> {
-            assertThat(game.getPlayers().getFirst().getHand().getFirst().getValue()).isEqualTo(11);
+            assertThat(game.getPlayers().getFirst().getHand().getFirst().getValue()).isEqualTo(4);
 
               game.getPlayers().getFirst().setHand(List.of(
                       new Card(CardSymbols.ACE, CardColours.TRUMP, 4, "HA", 11),
@@ -225,5 +226,43 @@ class GameEngineTest {
             assertThat(game.getPlayers().getFirst().getHand().get(3).getValue()).isEqualTo(4);
 
     });
+  }
+
+  @Test
+  void handOutCardsTest() {
+    var game = new Game();
+    game.getPlayers().add(new Player("MioMate", 0, 0));
+    game.getPlayers().add(game.getPlayers().getFirst());
+    game.getPlayers().add(game.getPlayers().getFirst());
+    game.getPlayers().add(game.getPlayers().getFirst());
+
+    System.out.println(game.getPlayers().getFirst().getHand());
+
+    game.handOutCards();
+
+    List<Card> diamondAces = game.getPlayers().getFirst().getHand().stream().
+            filter(card -> card.getColour() == CardColours.TRUMP && card.getSymbol() == CardSymbols.ACE).toList();
+
+    System.out.println(diamondAces);
+
+    assertThat(diamondAces.getFirst().getValue()).isEqualTo(101);
+  }
+
+  @Test
+  void decideWinnerTest() {
+    var game = new Game();
+
+    game.addPlayer("ClubMate");
+    game.addPlayer("MioMate");
+    game.addPlayer("MateMate");
+    game.addPlayer("MateTee");
+    game.setStartPlayer(game.getPlayers().getFirst());
+
+    game.getStich().getDiscardCards().add(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "", 0));
+    game.getStich().getDiscardCards().add(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "", 0));
+    game.getStich().getDiscardCards().add(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "", 0));
+    game.getStich().getDiscardCards().add(new Card(CardSymbols.NINE, CardColours.HEARTS, 0, "", 0));
+
+    assertThat(game.decideWinner()).isEqualTo(game.getPlayers().getFirst());
   }
 }

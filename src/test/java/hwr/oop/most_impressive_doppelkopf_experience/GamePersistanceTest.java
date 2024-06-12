@@ -82,4 +82,9 @@ class GamePersistenceTest {
 
     logger.setLevel(originalLevel);
   }
+
+  @Test
+  void loadGameClassNotFoundExceptionTest() {
+
+  }
 }

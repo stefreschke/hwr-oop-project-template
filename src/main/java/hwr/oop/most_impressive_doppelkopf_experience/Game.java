@@ -19,6 +19,8 @@ public class Game implements Serializable {
 
   Player activePlayer;
 
+  public Stich getStich() {return stich;}
+
   public List<Player> getPlayers() {return players;}
 
   public boolean addPlayer(String name) {
@@ -36,16 +38,15 @@ public class Game implements Serializable {
 
   public void handOutCards() {
 
+    for (Player player : players) {
+      player.getHand().clear();
+    }
+
     for(int i = 0; i < NUM_PLAYERS; i++) {
-      players.get(i).getHand().clear();
       for (int j = NUM_CARDS_PER_PLAYER * i; j < NUM_CARDS_PER_PLAYER + NUM_CARDS_PER_PLAYER * i  ; j++) {
         players.get(i).getHand().add(shuffledStack.get(j));
       }
     }
-    Card diamondAce1 = stack.cardGenerator.da;
-    Card diamondAce2 = stack.cardGenerator.dab;
-    diamondAce1.setValue(0);
-    diamondAce2.setValue(0);
     revaluePlayerWithTwoDiamondAces();
   }
   public void revaluePlayerWithTwoDiamondAces(){
@@ -53,10 +54,8 @@ public class Game implements Serializable {
       List<Card> diamondAces = player.getHand().stream().
               filter(card -> card.getColour() == CardColours.TRUMP && card.getSymbol() == CardSymbols.ACE).toList();
 
-      if (diamondAces.size() == 2) {
+      if (diamondAces.size() >= 2) {
         diamondAces.forEach(card -> card.setValue(101));
-      }else{
-        diamondAces.forEach(card -> card.setValue(11));
       }
     }
   }
@@ -206,7 +205,7 @@ public void distributeTeams() {
                 boolean foundCQ = player.getHand().stream()
                         .anyMatch(card -> card.getName().equals(old));
                 player.setTeam(foundCQ ? TeamNames.RE : TeamNames.CONTRA);
-                return player;
+                return null;
               })
               .collect(Collectors.toList());
     }
