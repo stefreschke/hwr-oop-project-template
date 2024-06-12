@@ -21,5 +21,3 @@ class StichTest {
     assertThat(discardPile1).hasSize(4);
   }
 }
-
-

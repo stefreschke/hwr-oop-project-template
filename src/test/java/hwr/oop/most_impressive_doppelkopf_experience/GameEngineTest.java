@@ -228,22 +228,6 @@ class GameEngineTest {
   }
 
   @Test
-  void handOutCardsTest() {
-    var game = new Game();
-    game.getPlayers().add(new Player("MioMate", 0, 0));
-    game.getPlayers().add(game.getPlayers().getFirst());
-    game.getPlayers().add(game.getPlayers().getFirst());
-    game.getPlayers().add(game.getPlayers().getFirst());
-
-    game.handOutCards();
-
-    List<Card> diamondAces = game.getPlayers().getFirst().getHand().stream().
-            filter(card -> card.getColour() == CardColours.TRUMP && card.getSymbol() == CardSymbols.ACE).toList();
-
-    assertThat(diamondAces.getFirst().getValue()).isEqualTo(101);
-  }
-
-  @Test
   void decideWinnerTest() {
     var game = new Game();
 

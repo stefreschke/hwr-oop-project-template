@@ -222,8 +222,9 @@ class PointsTest {
     assertThat(game.calculateTeamPoints(CONTRA)).isEqualTo(3);
     assertThat(game.findWinningTeam()).isEqualTo(CONTRA);
   }
+
   @Test
-  void setPLayerPointsTest(){
+  void setPLayerPointsTest() {
     var game = new Game();
     game.addPlayer("Mugtaba");
     game.addPlayer("Simon");

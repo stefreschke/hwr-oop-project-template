@@ -1,11 +1,11 @@
 package hwr.oop.most_impressive_doppelkopf_experience;
+
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
 public class CardGenerator implements Serializable {
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
   Card d9 = new Card(CardSymbols.NINE, CardColours.TRUMP, 10, "D9", 0);
   Card d10 = new Card(CardSymbols.TEN, CardColours.TRUMP, 12, "D10", 10);
   Card dj = new Card(CardSymbols.JACK, CardColours.TRUMP, 14, "DJ", 2);
@@ -58,14 +58,8 @@ public class CardGenerator implements Serializable {
   public List<Card> generateAllCards() {
 
     return List.of(
-            d9, d10, dj, dq, dk, da,
-            h9, h10, hj, hq, hk, ha,
-            s9, s10, sj, sq, sk, sa,
-            c9, c10, cj, cq, ck, ca,
-            d9b, d10b, djb, dqb, dkb, dab,
-            h9b, h10b, hjb, hqb, hkb, hab,
-            s9b, s10b, sjb, sqb, skb, sab,
-            c9b, c10b, cjb, cqb, ckb, cab
-            );
-    }
+        d9, d10, dj, dq, dk, da, h9, h10, hj, hq, hk, ha, s9, s10, sj, sq, sk, sa, c9, c10, cj, cq,
+        ck, ca, d9b, d10b, djb, dqb, dkb, dab, h9b, h10b, hjb, hqb, hkb, hab, s9b, s10b, sjb, sqb,
+        skb, sab, c9b, c10b, cjb, cqb, ckb, cab);
+  }
 }

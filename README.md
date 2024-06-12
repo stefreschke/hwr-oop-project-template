@@ -1,6 +1,4 @@
-# HWR OOP Lecture Project Template
-
-[TODO]: # (Change README.md Headline to better fit to your project!)
+# Most impressive Doppelkopf Experience!!! <3
 
 This repository contains a student project created for an ongoing lecture on object-oriented
 programming with Java/Kotlin at HWR Berlin (summer term 2024).
@@ -41,87 +39,39 @@ just build
 
 ## Abstract
 
-[TODO]: # (Write a short description of your project.)
+We developed the famous german Card Game Doppelkopf in a Team of 4. 
+Now we are grateful to present you the final Result. 
+We hope you love it, cause we do. 
+Enjoy the Game and have Fun. 
 
-[TODO]: # (State most important features.)
+Game is playable.
+Extra roles: 
+-Zwangshochzeit
+-Schweinchen
+-Schmeissen
+-Herz Ass (highest Value)
 
-[TODO]: # (State the most interesting problems you encountered during the project.)
+Getting to 100% Line Coverage and 99% Mutation Coverage was tough.
+We had some major issues getting away from the original GameLoop method. 
+Furthermore, we encountered some Problem testing the Persistence Methods. 
+But after all we finished with an overall great Pitest Result.  
 
 ## Feature List
 
-[TODO]: Datenbank erstellen
+| Number | Feature         | Tests                                                             |
+|--------|-----------------|-------------------------------------------------------------------|
+| 1      | Card            | CardTest                                                          |
+| 2      | CardGenerator   | CardGenerationTest                                                |
+| 3      | CardStack       | ShuffleCardStackTest                                              |
+| 4      | Game            | GameEngineTest / CompleteGameTest / HandOutCardsTest / PointsTest |
+| 5      | GamePersistence | GamePersistenceTest                                               |
+| 6      | Player          | CreatePlayersTest                                                 | 
+| 7      | Stich           | StichTest                                                         |
 
-[TODO]: Spiel über die CLI
-
-| Number | Feature |   Tests  |
-|--------|---------|----------|
-| 1      | Card    | CardTest |
-| 2      | CardGenerator | CardGeneratorTest |
-| 3      | CardStack | CardStackTest |
-| 4      | DiscardPile | DiscardPileTest |
-| 5      | Game | GameEngineTest |
-| 6      | Player | CreatePlayersTest | 
+ 
 
 ## Additional Dependencies
-
-[TODO]: # (For each additional dependency your project requires- Add an additional row to the table!)
 
 | Number | Dependency Name | Dependency Description | Why is it necessary? |
 |--------|-----------------|------------------------|----------------------|
 | 1      | /               | /                      | /                    |
-
-## Instructions
-
-[TODO]: # (Remove these instructions once you finished your fork's setup.)
-
-Use a fork of this repository to do implement your project.
-
-Remember to add this repository as a second remote repository (upstream) and pull from the correct
-remotes.
-This is necessary, because we might apply changes to this template during the next month.
-
-The following section describes how to add multiple remote repositories to your local repository,
-which is cloned from the fork.
-
-### Multiple remote repositories
-
-Your local repository should have a reference to both the fork (your own remote repository)
-and the original remote repository.
-To configure your git remote repositories, use the `git remote` command set.
-
-1. Clone your fork and go enter the repository.
-
-```
-git clone <fork-url>
-cd <created-folder>
-```
-
-2. Now your fork is configured as primary remote repository (origin).
-   Next to origin, you should add the original repository as a second remote repository (upstream).
-
-```
-git remote add upstream <repository-url>
-```
-
-3. Verify that both remotes are configured correctly.
-   The following command should list both remotes: origin and upstream.
-
-```
-git remote -v
-```
-
-4. To fetch changes from all remote repositories, use:
-
-```
-git fetch --all
-```
-
-5. If there are interesting changes (in e.g. the `main` branch) to merge into your branch, use:
-
-```
-git pull upstream main
-```
-
-[maven]: https://maven.apache.org/
-
-[just]: https://github.com/casey/just

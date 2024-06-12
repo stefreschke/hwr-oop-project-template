@@ -7,8 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class CardStack implements Serializable {
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
 
   CardGenerator cardGenerator = new CardGenerator();
   private final List<Card> gameCardStack = cardGenerator.generateAllCards();

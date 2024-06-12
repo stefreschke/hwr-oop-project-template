@@ -4,8 +4,8 @@ import java.io.Serial;
 import java.io.Serializable;
 
 public class Card implements Serializable {
-  @Serial
-  private static final long serialVersionUID = 1L;
+  @Serial private static final long serialVersionUID = 1L;
+
   public CardSymbols getSymbol() {
     return symbol;
   }
@@ -30,7 +30,9 @@ public class Card implements Serializable {
     return worth;
   }
 
-  public void setValue(int value) {this.value = value;}
+  public void setValue(int value) {
+    this.value = value;
+  }
 
   final int worth; // Worth of the Card
   final String name;
@@ -45,9 +47,6 @@ public class Card implements Serializable {
 
   @Override
   public String toString() {
-    return "Card{" +
-            "symbol=" + symbol +
-            ", colour=" + colour +
-            '}';
+    return "Card{" + "symbol=" + symbol + ", colour=" + colour + '}';
   }
 }

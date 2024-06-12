@@ -26,6 +26,9 @@ class GamePersistenceTest {
   void testSaveGameIOException() {
     String filePath = "";
     assertDoesNotThrow(() -> gamePersistence.saveGame(game, filePath));
+
+    File file = new File(filePath);
+    assertFalse(file.exists());
   }
 
   @Test
