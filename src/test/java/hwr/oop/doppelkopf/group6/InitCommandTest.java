@@ -19,7 +19,6 @@ import org.mockito.ArgumentCaptor;
 class InitCommandTest {
   private SaveToFile save;
   private InitCommand playCommand;
-  private CreateCommand createCommand;
   private ParseCommand parse;
   private Deck deck;
   private OutputStream outputStream;
@@ -31,7 +30,6 @@ class InitCommandTest {
     save = mock(SaveToFile.class);
     parse = mock(ParseCommand.class);
     playCommand = new InitCommand(IOExceptionBomb.DONT, outputStream, deck, save, parse);
-    createCommand = new CreateCommand(outputStream, IOExceptionBomb.DONT);
   }
 
   @Test
