@@ -69,7 +69,7 @@ class FileTest {
   }
 
   @Test
-  void testCreateGameWithFileNotExisting(){
+  void testCreateGameWithFileNotExisting() {
     List<String> args = new ArrayList<>();
     args.add("game");
     args.add("1");
@@ -136,7 +136,12 @@ class FileTest {
   @Test
   void testCreateGameWhenGameAlreadyExistsIOException() throws IOException {
     InitCommand play =
-        new InitCommand(IOExceptionBomb.DO, outputStream, new Deck(), new SaveToFile(), new ParseCommand(outputStream));
+        new InitCommand(
+            IOExceptionBomb.DO,
+            outputStream,
+            new Deck(),
+            new SaveToFile(),
+            new ParseCommand(outputStream));
     List<String> args = new ArrayList<>();
     args.add("game");
     args.add("1");
@@ -229,7 +234,7 @@ class FileTest {
     create.execute(args);
 
     String expectedMessage =
-            "IOException aufgetreten: Das Spiel existiert bereits! Probiere eine andere Spiel ID.";
+        "IOException aufgetreten: Das Spiel existiert bereits! Probiere eine andere Spiel ID.";
     String output = outputStream.toString().trim();
     assertThat(output).contains(expectedMessage);
   }

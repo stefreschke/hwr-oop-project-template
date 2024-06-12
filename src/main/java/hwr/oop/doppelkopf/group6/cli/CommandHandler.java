@@ -12,9 +12,16 @@ public class CommandHandler {
   private final PrintStream out;
 
   public CommandHandler(OutputStream outputStream) {
-      this.out = new PrintStream(outputStream);
-    commands.put("create", new CreateCommand(outputStream,IOExceptionBomb.DONT));
-    commands.put("init", new InitCommand(IOExceptionBomb.DONT, outputStream, new Deck(), new SaveToFile(), new ParseCommand(outputStream)));
+    this.out = new PrintStream(outputStream);
+    commands.put("create", new CreateCommand(outputStream, IOExceptionBomb.DONT));
+    commands.put(
+        "init",
+        new InitCommand(
+            IOExceptionBomb.DONT,
+            outputStream,
+            new Deck(),
+            new SaveToFile(),
+            new ParseCommand(outputStream)));
     // weitere Commands
   }
 

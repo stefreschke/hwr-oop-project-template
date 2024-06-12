@@ -34,9 +34,9 @@ class StartGameTest {
 
   @Test
   void testMainCanBeCalledWithNoArguments() {
-    StartGame.main(new String[]{});
+    StartGame.main(new String[] {});
     assertSoftly(
-            softly ->
-                    softly.assertThat(outContent.toString()).contains("Kein Command wurde übergeben!"));
+        softly ->
+            softly.assertThat(outContent.toString()).contains("Kein Command wurde übergeben!"));
   }
 }

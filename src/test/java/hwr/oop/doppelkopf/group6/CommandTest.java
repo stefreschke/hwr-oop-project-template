@@ -101,7 +101,13 @@ class CommandTest {
 
   @Test
   void testPlayCommand_initCards() throws IOException {
-    InitCommand play = new InitCommand(IOExceptionBomb.DONT, outputStream, new Deck(), new SaveToFile(), new ParseCommand(outputStream));
+    InitCommand play =
+        new InitCommand(
+            IOExceptionBomb.DONT,
+            outputStream,
+            new Deck(),
+            new SaveToFile(),
+            new ParseCommand(outputStream));
     List<String> args = List.of("game", "1", "create", "susi", "rainer", "brigitte", "joachim");
 
     PrintStream printStream = new PrintStream(outputStream);
@@ -118,7 +124,13 @@ class CommandTest {
   void testShuffleDeckIsCalled() {
     Deck deckMock = mock(Deck.class);
     SaveToFile saveToFileMock = mock(SaveToFile.class);
-    InitCommand playCommand = new InitCommand(IOExceptionBomb.DONT, outputStream, deckMock, saveToFileMock, new ParseCommand(outputStream));
+    InitCommand playCommand =
+        new InitCommand(
+            IOExceptionBomb.DONT,
+            outputStream,
+            deckMock,
+            saveToFileMock,
+            new ParseCommand(outputStream));
     List<String> args = List.of("game", "1", "create", "susi", "rainer", "brigitte", "joachim");
 
     PrintStream printStream = new PrintStream(outputStream);
@@ -134,15 +146,16 @@ class CommandTest {
     Deck deckMock = mock(Deck.class);
     ParseCommand parseCommandMock = mock(ParseCommand.class);
     SaveToFile saveMock = mock(SaveToFile.class);
-    InitCommand playCommand = new InitCommand(IOExceptionBomb.DONT, outputStream, deckMock, saveMock, parseCommandMock);
+    InitCommand playCommand =
+        new InitCommand(IOExceptionBomb.DONT, outputStream, deckMock, saveMock, parseCommandMock);
 
     List<String> args = List.of("game", "1", "create", "susi", "rainer", "brigitte", "joachim");
-    List<Player> players = List.of(
+    List<Player> players =
+        List.of(
             new Player("susi", 1, 0),
             new Player("rainer", 2, 0),
             new Player("brigitte", 3, 0),
-            new Player("joachim", 4, 0)
-    );
+            new Player("joachim", 4, 0));
 
     when(parseCommandMock.players(args)).thenReturn(players);
 

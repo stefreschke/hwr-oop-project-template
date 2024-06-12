@@ -28,7 +28,6 @@ public class SaveToFile {
     }
   }
 
-
   public void cards(List<Player> players, String gameID) throws IOException {
     List<String> fileContent = readFile();
 
@@ -48,7 +47,8 @@ public class SaveToFile {
     return fileContent;
   }
 
-  public List<String> updateFileContent(List<String> fileContent, List<Player> players, String gameID) {
+  public List<String> updateFileContent(
+      List<String> fileContent, List<Player> players, String gameID) {
     List<String> updatedContent = new ArrayList<>();
     for (String line : fileContent) {
       List<String> columns = Arrays.asList(line.split(","));
@@ -60,7 +60,6 @@ public class SaveToFile {
     }
     return updatedContent;
   }
-
 
   public String updateLine(String line, List<Player> players) {
     for (Player player : players) {

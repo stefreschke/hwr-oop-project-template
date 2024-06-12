@@ -17,7 +17,12 @@ public class InitCommand implements Command {
   private final Deck deck;
   private final PrintStream out;
 
-  public InitCommand(IOExceptionBomb ioExceptionBomb, OutputStream out, Deck deck, SaveToFile save, ParseCommand parse) {
+  public InitCommand(
+      IOExceptionBomb ioExceptionBomb,
+      OutputStream out,
+      Deck deck,
+      SaveToFile save,
+      ParseCommand parse) {
     this.ioExceptionBomb = ioExceptionBomb;
     this.deck = deck;
     this.out = new PrintStream(out);

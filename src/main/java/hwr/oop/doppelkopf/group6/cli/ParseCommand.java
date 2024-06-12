@@ -17,10 +17,10 @@ public class ParseCommand {
   public List<Player> players(List<String> args) throws IOException {
     String regularExpression = "[a-zA-Z]+";
     if (args.size() != 7
-            || (args.get(3).isBlank() || !args.get(3).matches(regularExpression))
-            || (args.get(4).isBlank() || !args.get(4).matches(regularExpression))
-            || (args.get(5).isBlank() || !args.get(5).matches(regularExpression))
-            || (args.get(6).isBlank() || !args.get(6).matches(regularExpression))) {
+        || (args.get(3).isBlank() || !args.get(3).matches(regularExpression))
+        || (args.get(4).isBlank() || !args.get(4).matches(regularExpression))
+        || (args.get(5).isBlank() || !args.get(5).matches(regularExpression))
+        || (args.get(6).isBlank() || !args.get(6).matches(regularExpression))) {
       throw new IOException("Something went wrong regarding the Players.");
     }
     List<Player> playerList = new ArrayList<>();
@@ -34,7 +34,8 @@ public class ParseCommand {
 
   public String gameID(List<String> args) {
     if (args.get(1) == null || args.get(1).isBlank() || !args.get(1).matches("\\d+")) {
-      out.println("Game ID: " + "\"" + args.get(1) + "\"" + " is not a valid game ID. Please use numbers!");
+      out.println(
+          "Game ID: " + "\"" + args.get(1) + "\"" + " is not a valid game ID. Please use numbers!");
       return null;
     }
     return args.get(1);
