@@ -6,7 +6,6 @@ import static org.mockito.Mockito.*;
 import hwr.oop.doppelkopf.group6.cli.IOExceptionBomb;
 import hwr.oop.doppelkopf.group6.cli.ParseCommand;
 import hwr.oop.doppelkopf.group6.cli.InitCommand;
-import hwr.oop.doppelkopf.group6.cli.CreateCommand;
 import hwr.oop.doppelkopf.group6.persistence.SaveToFile;
 
 import java.io.ByteArrayOutputStream;
@@ -20,13 +19,11 @@ class InitCommandTest {
   private SaveToFile save;
   private InitCommand playCommand;
   private ParseCommand parse;
-  private Deck deck;
-  private OutputStream outputStream;
 
-  @BeforeEach
+    @BeforeEach
   void setUp() {
-    outputStream = new ByteArrayOutputStream();
-    deck = mock(Deck.class);
+        OutputStream outputStream = new ByteArrayOutputStream();
+      Deck deck = mock(Deck.class);
     save = mock(SaveToFile.class);
     parse = mock(ParseCommand.class);
     playCommand = new InitCommand(IOExceptionBomb.DONT, outputStream, deck, save, parse);

@@ -100,7 +100,7 @@ class CommandTest {
   }
 
   @Test
-  void testPlayCommand_initCards() throws IOException {
+  void testPlayCommand_initCards() {
     InitCommand play =
         new InitCommand(
             IOExceptionBomb.DONT,
