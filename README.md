@@ -1,3 +1,6 @@
+![Lint/Fmt](https://github.com/dev-laky/PeakPoker/actions/workflows/lint_and_format.yaml/badge.svg)
+![Testing](https://github.com/dev-laky/PeakPoker/actions/workflows/test.yaml/badge.svg)
+
 ![image info](/assets/img/peakpoker2.jpeg)
 
 # Peak Poker - Up to Everest!
