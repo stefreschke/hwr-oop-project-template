@@ -1,0 +1,45 @@
+name: Lint and Format Kotlin Code
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  lint_and_format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Install ktlint
+        run: |
+          curl -sSLO https://github.com/pinterest/ktlint/releases/download/0.45.2/ktlint && chmod a+x ktlint
+
+      - name: Run ktlint format
+        run: ./ktlint -F "src/**/*.kt"
+
+      - name: Check for changed files
+        run: git diff --exit-code --name-only
+        continue-on-error: true
+        id: diff
+
+      - name: Commit changes
+        if: steps.diff.outcome == 'failure'
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git add .
+          git commit -m "Auto-format Kotlin code"
+
+      - name: Push changes
+        if: steps.diff.outcome == 'failure'
+        run: git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
