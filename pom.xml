@@ -6,14 +6,12 @@
 
   <groupId>hwr.oop.projects</groupId>
 
-  <!-- TODO Change name and description according to your project -->
-  <artifactId>project</artifactId>
+  <artifactId>peakpoker</artifactId>
   <packaging>jar</packaging>
   <version>0.1.0-SNAPSHOT</version>
 
-  <!-- TODO Change name and description according to your project -->
-  <name>project</name>
-  <description>project-description</description>
+  <name>PeakPoker</name>
+  <description>Have you ever wanted to reach the peak of poker? This project aims to create a poker game that allows players to experience the thrill of climbing to the top of the poker world - up to the poker everest! You can play virtual poker games via the CLI against other players or a computer opponent. Start with free 10$ and try to climb up the wealth ladder.</description>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
