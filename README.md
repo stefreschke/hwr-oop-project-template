@@ -1,4 +1,4 @@
-# HWR OOP Lecture Project Template
+# Peak Poker - Up to Everest!
 
 [TODO]: # (Change README.md Headline to better fit to your project!)
 
@@ -7,12 +7,12 @@ programming with Kotlin at HWR Berlin (summer term 2025).
 
 > :warning: This code is for educational purposes only. Do not rely on it!
 
-## Prerequisites
+## Development Prerequisites
 
 Installed:
 
 1. IDE of your choice (e.g. IntelliJ IDEA)
-2. JDK of choice installed (e.g. through IntelliJ IDEA)
+2. JDK of choice installed (JDK 21 GraalVM recommended)
 3. Maven installed (e.g. through IntelliJ IDEA)
 4. Git installed
 
@@ -44,6 +44,26 @@ just build
 [TODO]: # (Write a short description of your project.)
 [TODO]: # (State most important features.)
 [TODO]: # (State the most interesting problems you encountered during the project.)
+
+### Project Description
+
+Have you ever wanted to reach the peak of poker? 
+This project aims to create a poker game that allows players to experience the thrill of climbing to the top of the poker world - up to the poker everest!
+You can play virtual poker games via the *CLI* against other players or a computer opponent.
+Start with free 10$ and try to climb up the wealth ladder.
+
+### Challenges
+
+tbd
+
+### Features
+
+- Customize amount of computer players
+- Customize amount of human players
+- Customize difficulty of computer players
+- Customize starting money
+- Customize number of rounds
+- Customize amount of chips
 
 ## Feature List
 
