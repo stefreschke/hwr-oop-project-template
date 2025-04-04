@@ -6,12 +6,10 @@ class KotlinExample {
   }
 }
 
-class Example {
-  companion object {
+object Example {
     @JvmStatic
     fun main(args: Array<String>) {
       val example = KotlinExample()
       println(example.sayHello())
     }
-  }
 }
