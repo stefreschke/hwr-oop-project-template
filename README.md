@@ -1,4 +1,4 @@
-![Lint/Fmt](https://github.com/dev-laky/PeakPoker/actions/workflows/lint_and_format.yaml/badge.svg?branch=main)
+![Lint/Fmt](https://github.com/dev-laky/PeakPoker/actions/workflows/check_lint_and_format.yaml/badge.svg?branch=main)
 ![Testing](https://github.com/dev-laky/PeakPoker/actions/workflows/test.yaml/badge.svg?branch=main)
 
 ![image info](/assets/img/peakpoker2.jpeg)
