@@ -20,11 +20,15 @@ jobs:
           sudo apt-get install -y curl
           curl --proto '=https' --tlsv1.2 -sSf https://just.systems/install.sh | bash -s -- --to /usr/local/bin
 
-      - name: Set up JDK
-        uses: actions/setup-java@v2
+      - name: Set up GraalVM
+        uses: graalvm/setup-graalvm@v1
         with:
-          java-version: '17'
-          distribution: 'temurin'
+          java-version: '21'
+          distribution: 'graalvm'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify Java version
+        run: java -version
 
       - name: Cache Maven repository
         uses: actions/cache@v3
