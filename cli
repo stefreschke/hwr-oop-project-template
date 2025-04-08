@@ -2,4 +2,4 @@
 
 # TODO Rename your .jar-File according to your project's name and version in pom.xml
 # TODO Rename this `cli` file to your project's domain, i. e. 'chess', 'pokemon', or 'poker'
-java -jar target/project-0.1.0-SNAPSHOT.jar $@
+java -jar target/project-0.1.0-SNAPSHOT-jar-with-dependencies.jar "$@"
